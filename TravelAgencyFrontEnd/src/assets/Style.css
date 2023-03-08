@@ -1,0 +1,38 @@
+@import url(https://use.fontawesome.com/releases/v5.5.0/css/all.css);
+
+#test2{
+    border-radius: 30px;
+    background-color: rgba(98, 255, 0, 0.5);
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 40px;
+    margin-top: 20px;
+    color:white;
+}
+
+
+.p-inputnumber-button{
+    background: #53c16e !important;
+    border:#14a04d !important;
+  }
+
+.p-inputnumber-button:enabled:active {
+    background: #53c16e !important;
+    border:#14a04d !important;
+}
+
+.p-inputnumber-button:enabled:hover{
+  background: #53c16e !important;
+  border:#14a04d !important;
+}
+
+
+.p-buttonset .p-button.p-highlight {
+    background:#53c16e !important;
+    border-color:#1bc541 !important;
+  }
+
+  .p-buttonset .p-button.p-highlight:hover{
+    background:#53c16e !important;
+    border-color:#1bc541 !important;
+  }

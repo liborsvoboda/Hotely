@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace HolidayMakerBackEnd.DBModel
+{
+    public partial class Review
+    {
+        public int Id { get; set; }
+        public double Rating { get; set; }
+        public string Description { get; set; }
+        public int HotelId { get; set; }
+        public int GuestId { get; set; }
+        public DateTime? CreationDate { get; set; }
+
+        public virtual Guest Guest { get; set; }
+        public virtual Hotel Hotel { get; set; }
+    }
+}

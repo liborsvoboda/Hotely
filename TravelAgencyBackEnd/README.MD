@@ -1,0 +1,12 @@
+﻿
+Full Database model to project model
+	Scaffold-DbContext "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBModel
+
+Initite Migrations files to DOTNET migration management for Upload/Manage Database Migrations
+Add-Migration Initial -Context Company.WebApplication1.Data.ApplicationDbContext
+
+Upload migrations to DATABASE
+	dotnet ef database update
+
+Export Database model to SQL script
+dotnet ef dbcontext script --output Migrations/BasicDBModel.sql
