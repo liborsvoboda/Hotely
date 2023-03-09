@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Company.WebApplication1.Data.Migrations
+namespace TravelAgency.Admin.Data.Migrations
 {
     public partial class Initial : Migration
     {

@@ -1,10 +1,10 @@
-﻿using HolidayMakerBackEnd.Services;
+﻿using TABackend.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolidayMakerBackEnd.Models.ViewModels
+namespace TABackend.Models.ViewModels
 {
     public class ReservationViewModel
     {

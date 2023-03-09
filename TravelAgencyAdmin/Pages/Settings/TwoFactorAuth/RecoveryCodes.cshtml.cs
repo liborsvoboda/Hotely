@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Company.WebApplication1.Data;
-using Company.WebApplication1.Services.Mail;
+using TravelAgency.Admin.Data;
+using TravelAgency.Admin.Services.Mail;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Company.WebApplication1.Pages.Settings.TwoFactorAuth
+namespace TravelAgency.Admin.Pages.Settings.TwoFactorAuth
 {
     public class RecoveryCodesModel : PageModel
     {

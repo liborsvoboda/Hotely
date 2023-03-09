@@ -1,14 +1,14 @@
-﻿using HolidayMakerBackEnd.Models.ViewModels;
+﻿using TABackend.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using HolidayMakerBackEnd.Services;
-using HolidayMakerBackEnd.DBModel;
+using TABackend.Services;
+using TABackend.DBModel;
 
-namespace HolidayMakerBackEnd.Services
+namespace TABackend.Services
 {
     public class GuestService
     {

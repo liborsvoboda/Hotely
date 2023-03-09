@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Stripe;
 using Newtonsoft.Json;
 
-namespace HolidayMakerBackEnd.Controllers
+namespace TABackend.Controllers
 {
     [Route("api/create-payment-intent")]
     [ApiController]

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace HolidayMakerBackEnd.DBModel
+namespace TABackend.DBModel
 {
     public partial class hotelsContext : DbContext
     {

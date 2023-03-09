@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Company.WebApplication1.Data;
+using TravelAgency.Admin.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Company.WebApplication1.Controllers
+namespace TravelAgency.Admin.Controllers
 {
     public class ProfileController : Controller
     {

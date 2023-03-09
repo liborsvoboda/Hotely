@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Stripe;
 
-namespace HolidayMakerBackEnd
+namespace TABackend
 {
     public class Startup
     {
@@ -37,7 +37,7 @@ namespace HolidayMakerBackEnd
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HolidayMakerBackEnd", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TABackend", Version = "v1" });
             });
 
             services.AddCors();
@@ -53,10 +53,10 @@ namespace HolidayMakerBackEnd
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HolidayMakerBackEnd v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TABackend v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

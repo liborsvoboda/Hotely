@@ -9,15 +9,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Company.WebApplication1.Data;
-using Company.WebApplication1.Services;
-using Company.WebApplication1.Services.Mail;
+using TravelAgency.Admin.Data;
+using TravelAgency.Admin.Services;
+using TravelAgency.Admin.Services.Mail;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.CookiePolicy;
+using System.Diagnostics;
 
-namespace Company.WebApplication1
+namespace TravelAgency.Admin
 {
     public class Startup
     {
@@ -44,7 +45,7 @@ namespace Company.WebApplication1
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer("Server=95.183.52.33,1433;Database=TADemo;User ID=sa;Password=Hotel2023+;MultipleActiveResultSets=true"));
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
@@ -75,9 +76,12 @@ namespace Company.WebApplication1
                     });
             }
 
-            services.AddMvc()
+            services.AddMvc(setup => {
+                setup.EnableEndpointRouting = false;
+            })
                 .AddRazorPagesOptions(options =>
                 {
+                    //options.RootDirectory = "/Pages";
                     options.Conventions.AuthorizeFolder("/");
 
                     options.Conventions.AllowAnonymousToPage("/Error");
@@ -113,32 +117,38 @@ namespace Company.WebApplication1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePages();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
             {
+                app.UseHttpLogging();
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseRouting();
+            //app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+                routes.Build();
             });
+
+            app.UseRequestLocalization();
 
         }
     }

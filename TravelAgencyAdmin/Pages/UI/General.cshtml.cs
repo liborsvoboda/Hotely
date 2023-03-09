@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Company.WebApplication1.Pages.UI
+namespace TravelAgency.Admin.Pages.UI
 {
     public class GeneralModel : PageModel
     {

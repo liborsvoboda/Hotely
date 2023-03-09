@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Company.WebApplication1.Data;
+using TravelAgency.Admin.Data;
 
-namespace Company.WebApplication1.Controllers
+namespace TravelAgency.Admin.Controllers
 {
     [Route("[controller]/[action]")]
     public class AccountController : Controller

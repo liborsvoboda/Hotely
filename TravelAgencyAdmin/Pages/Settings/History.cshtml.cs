@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Company.WebApplication1.Data;
-using Company.WebApplication1.Services.Mail;
+using TravelAgency.Admin.Data;
+using TravelAgency.Admin.Services.Mail;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Company.WebApplication1.Pages.Settings
+namespace TravelAgency.Admin.Pages.Settings
 {
     public class HistoryModel : PageModel
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Company.WebApplication1.Data
+namespace TravelAgency.Admin.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

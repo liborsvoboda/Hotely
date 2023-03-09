@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HolidayMakerBackEnd
+namespace TABackend
 {
     public class Program
     {
@@ -21,7 +21,7 @@ namespace HolidayMakerBackEnd
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://*:5000");
+                    webBuilder.UseUrls(new string[] { "http://*:5000", "https://*:5001" });
                 });
     }
 }

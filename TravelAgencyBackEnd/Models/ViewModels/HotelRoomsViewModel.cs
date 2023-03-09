@@ -1,4 +1,4 @@
-﻿namespace HolidayMakerBackEnd.Services
+﻿namespace TABackend.Services
 {
     public class HotelRoomsViewModel
     {

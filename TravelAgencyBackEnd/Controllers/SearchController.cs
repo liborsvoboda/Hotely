@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HolidayMakerBackEnd.Services;
-using HolidayMakerBackEnd.Models.ViewModels;
-using HolidayMakerBackEnd.DBModel;
+using TABackend.Services;
+using TABackend.Models.ViewModels;
+using TABackend.DBModel;
 
-namespace HolidayMakerBackEnd.Controllers
+namespace TABackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

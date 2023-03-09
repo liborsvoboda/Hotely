@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HolidayMakerBackEnd.Models.ViewModels
+namespace TABackend.Models.ViewModels
 {
     public class UpdateGuestViewModel
     {

@@ -1,4 +1,4 @@
-﻿using HolidayMakerBackEnd.DBModel;
+﻿using TABackend.DBModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace HolidayMakerBackEnd.Services
+namespace TABackend.Services
 {
 
     public class HotelService

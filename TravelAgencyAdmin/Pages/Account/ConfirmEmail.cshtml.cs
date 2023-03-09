@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Company.WebApplication1.Data;
+using TravelAgency.Admin.Data;
 
-namespace Company.WebApplication1.Pages.Account
+namespace TravelAgency.Admin.Pages.Account
 {
     public class ConfirmEmailModel : PageModel
     {

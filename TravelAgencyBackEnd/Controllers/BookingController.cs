@@ -1,13 +1,13 @@
-﻿using HolidayMakerBackEnd.DBModel;
-using HolidayMakerBackEnd.Models.ViewModels;
-using HolidayMakerBackEnd.Services;
+﻿using TABackend.DBModel;
+using TABackend.Models.ViewModels;
+using TABackend.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 
-namespace HolidayMakerBackEnd.Controllers
+namespace TABackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

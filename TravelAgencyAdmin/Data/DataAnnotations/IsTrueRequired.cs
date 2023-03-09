@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 
-namespace Company.WebApplication1.Data.DataAnnotations
+namespace TravelAgency.Admin.Data.DataAnnotations
 {
     public class IsTrueRequired : ValidationAttribute
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace HolidayMakerBackEnd.DBModel
+namespace TABackend.DBModel
 {
     public partial class Reservation
     {

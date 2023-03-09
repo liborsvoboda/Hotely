@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Company.WebApplication1.Services.Mail;
+using TravelAgency.Admin.Services.Mail;
 
 namespace Microsoft.AspNetCore.Mvc
 {

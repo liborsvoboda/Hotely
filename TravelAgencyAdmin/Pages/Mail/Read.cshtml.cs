@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Company.WebApplication1.Pages.Mail
+namespace TravelAgency.Admin.Pages.Mail
 {
     public class ReadModel : PageModel
     {

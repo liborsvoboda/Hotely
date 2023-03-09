@@ -1,4 +1,4 @@
-﻿using Company.WebApplication1.Data;
+﻿using TravelAgency.Admin.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Company.WebApplication1.Services.Profile
+namespace TravelAgency.Admin.Services.Profile
 {
     public class ProfileManager
     {

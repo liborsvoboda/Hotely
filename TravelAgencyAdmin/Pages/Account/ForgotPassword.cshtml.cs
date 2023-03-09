@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Company.WebApplication1.Data;
-using Company.WebApplication1.Services;
-using Company.WebApplication1.Services.Mail;
+using TravelAgency.Admin.Data;
+using TravelAgency.Admin.Services;
+using TravelAgency.Admin.Services.Mail;
 
-namespace Company.WebApplication1.Pages.Account
+namespace TravelAgency.Admin.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {
