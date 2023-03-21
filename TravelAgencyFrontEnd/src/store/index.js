@@ -49,8 +49,8 @@ const store = createStore({
     },
 
     reservation: {
-      fullName: 'sadas',
-      hotelName: 'sds',
+      fullName: '',
+      hotelName: '',
       startDate: '',
       endDate: '',
       adults: '',
