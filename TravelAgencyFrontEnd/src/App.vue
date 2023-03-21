@@ -10,15 +10,15 @@
               </div>
             </div>
         </div>
-<!--        <figure>
+        <figure>
             <figcaption></figcaption>
-            <audio
-                controls
-                src="/src/assets/Media/Toto.mp3">
-                    Your browser does not support the
-                    <code>audio</code> element.
-            </audio>
-        </figure> -->
+                <audio
+                    controls
+                    src="/src/assets/Media/Toto.mp3">
+                        Your browser does not support the
+                        <code>audio</code> element.
+                </audio>
+            </figure> 
     </div>
         <Body v-if="showBody"/>
     <Footer/>

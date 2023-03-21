@@ -7,14 +7,14 @@
           <div class="col-lg-6 col-sm-6 col- header-top-right">
             <div class="nav-menu">
               <div v-if="!loggedIn">
-                <a href=""><router-link to="/login">Log in</router-link></a>
+                <a href=""><router-link to="/login">{{ $t('user.login') }}</router-link></a>
                 <a href="#"
-                  ><router-link to="/registration">Register</router-link></a
+                  ><router-link to="/registration">{{ $t('user.register') }}</router-link></a
                 >
               </div>
               <div v-if="loggedIn">
-                <a href="" @click="logout()">Log out</a>
-                <a href=""><router-link to="/Profile">Profile</router-link></a>
+                <a href="" @click="logout()">{{ $t('user.logout') }}</a>
+                <a href=""><router-link to="/Profile">{{ $t('user.profile') }}</router-link></a>
               </div>
             </div>
             <div id="user" v-if="loggedIn">
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="main-menu">
-      <div class="row align-items-center justify-content-between d-flex">
+<!--      <div class="row align-items-center justify-content-between d-flex">
         <div id="logo">
           <router-link to="/"
             ><img
@@ -39,12 +39,12 @@
               height="80"
           /></router-link>
         </div>
-      </div>
+      </div>-->
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><router-link to="/News">News</router-link></li>
-          <li><router-link to="/Tourism">Tourist Attractions</router-link></li>
-          <li><router-link to="/Contact">Contact Us</router-link></li>
+          <li><router-link to="/News">{{ $t('labels.news') }}</router-link></li>
+          <li><router-link to="/Tourism">{{ $t('labels.touristAtractions') }}</router-link></li>
+          <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
         </ul>
       </nav>
       <!-- #nav-menu-container -->
@@ -54,6 +54,9 @@
 </template>
 
 <script>
+
+
+
 export default {
   components: {},
   data() {

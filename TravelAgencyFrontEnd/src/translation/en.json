@@ -1,0 +1,17 @@
+{
+  "labels": {
+    "news": "Novinky",
+    "touristAtractions": "Turistické atrakce",
+    "contactus": "Kontakt",
+    "locationObject": "Lokace / Objekt",
+    "dates": "Období",
+    "guestRooms": "Osoby a místnosti",
+    "search": "Vyhledat"
+  },
+  "user": {
+    "login": "Přihlásit",
+    "logout": "Odhlásit",
+    "register": "Registrovat",
+    "profile": "Profil"
+  }
+}

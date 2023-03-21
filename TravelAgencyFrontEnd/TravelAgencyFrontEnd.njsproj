@@ -162,6 +162,10 @@
     <Content Include="src\main.js" />
     <Content Include="src\router\index.js" />
     <Content Include="src\store\index.js" />
+    <Content Include="src\translation\cz.json">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\translation\en.json" />
     <Content Include="vite.config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +197,7 @@
     <Folder Include="src\components\pages\MainPage\" />
     <Folder Include="src\components\pages\SearchComponent\" />
     <Folder Include="src\components\pages\SearchResultComponents\" />
+    <Folder Include="src\translation\" />
     <Folder Include="src\router\" />
     <Folder Include="src\store\" />
   </ItemGroup>

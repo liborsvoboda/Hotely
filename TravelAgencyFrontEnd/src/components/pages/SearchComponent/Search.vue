@@ -3,22 +3,22 @@
    <template #content>
     <div class="p-grid">
       <div class="p-col-12 p-md-6 p-lg-4">
-        <label for="searchInput" id="searchField">Location/Hotel name </label>
+        <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label>
         <Searchfield @input-changed="setSearchText"/>
       </div>
       <div class="p-col-12 p-md-6 p-lg-4">
-        <label for="range" id="range">Dates</label>
+        <label for="range" id="range">{{ $t('labels.dates') }}</label>
 
         <div class="p-fluid" id="calendar">
           <Calendar />
         </div>
       </div>
       <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
-        <label for="guest">Guests & rooms </label>
+        <label for="guest">{{ $t('labels.guestRooms') }}</label>
         <SearchDropdown />
       </div>
       <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
-          <Button  class="" label="Search" @click="Search" :loading="isLoading"/>
+          <Button  class="" :label="$t('labels.search')" @click="Search" :loading="isLoading"/>
       </div>
     </div>
    </template>

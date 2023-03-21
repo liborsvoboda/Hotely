@@ -2,15 +2,16 @@ import { createStore } from 'vuex'
 import router from '../router/index'
 
 const store = createStore({
-  state: {
-    searchButtonLoading: false,
-    guestId: 33, // hard coded
-    home: { title: 'store name' },
-    name: 'Vue',
-    addReview: {
-      name: '',
-      email: '',
-      message: '',
+    state: {
+        language: 'cz',
+        searchButtonLoading: false,
+        guestId: 33, // hard coded
+        home: { title: 'store name' },
+        name: 'Vue',
+        addReview: {
+          name: '',
+          email: '',
+          message: '',
     },
     getReviews: [],
     hotels: [],
@@ -49,8 +50,8 @@ const store = createStore({
     },
 
     reservation: {
-      fullName: '',
-      hotelName: '',
+      fullName: 'sadas',
+      hotelName: 'sds',
       startDate: '',
       endDate: '',
       adults: '',
