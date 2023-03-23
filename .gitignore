@@ -1,0 +1,22 @@
+﻿################################################################################
+# Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Debug
+/obj
+/Release
+/AdvancedProjects
+/packages
+/TOOLS/EASYTools.Calendar/bin/Debug
+/out/debug/SqlConnectionDialog
+/TOOLS/EASYTools.Calendar/bin/Release
+/TOOLS/EASYTools.Calendar/obj
+/TOOLS/EASYTools.CrashReporter/.vs/CrashReporterWPF.Net
+/TOOLS/EASYTools.CrashReporter/bin
+/TOOLS/EASYTools.CrashReporter/obj
+/TOOLS/EASYTools.SqlConnectionDialog/obj
+/TOOLS/EASYTools.TouchKeyboard/bin
+/TOOLS/EASYTools.TouchKeyboard/obj
+/TOOLS/FutureAddOn
+/TOOLS/packages
