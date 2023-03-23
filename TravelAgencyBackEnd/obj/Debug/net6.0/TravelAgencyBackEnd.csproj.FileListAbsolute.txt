@@ -71,3 +71,4 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\refint\TravelAgencyBackE
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.pdb
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.genruntimeconfig.cache
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\ref\TravelAgencyBackEnd.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

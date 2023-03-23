@@ -1,0 +1,38 @@
+﻿using System;
+
+namespace EASYBUILDER.Classes
+{
+    public enum DBResult
+    {
+        success,
+        error
+    }
+
+    public class DBResultMessage
+    {
+        public int insertedId { get; set; } = 0;
+        public string status { get; set; }
+        public int recordCount { get; set; }
+        public string ErrorMessage { get; set; }
+    }
+
+    public class AuthenticateResponse
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Token { get; set; }
+        public bool SystemAdmin { get; set; }
+    }
+
+    public class IdFilter
+    {
+        public int Id { get; set; }
+    }
+
+    public class NameFilter
+    {
+        public string Name { get; set; }
+    }
+
+}

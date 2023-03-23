@@ -4,18 +4,78 @@
     "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj": {}
   },
   "projects": {
+    "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj",
+        "projectName": "EASYTools.Calendar",
+        "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
+    "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj",
+        "projectName": "EASYTools.CrashReporter",
+        "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
+    "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj",
+        "projectName": "EASYTools.SqlConnectionDialog",
+        "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
+    "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj",
+        "projectName": "EASYTools.TouchKeyboard",
+        "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
     "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj": {
-      "version": "1.0.0",
+      "version": "1.2023.108.1730",
       "restore": {
         "projectUniqueName": "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj",
-        "projectName": "TravelAgency.Admin",
+        "projectName": "TravelAgencyAdmin",
         "projectPath": "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj",
         "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
         "outputPath": "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\obj\\",
         "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -23,134 +83,234 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net452"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {}
+          "net452": {
+            "projectReferences": {
+              "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj": {
+                "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj"
+              },
+              "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj": {
+                "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj"
+              },
+              "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj": {
+                "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj"
+              },
+              "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj": {
+                "projectPath": "E:\\Projekty\\Hotely\\TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj"
+              }
+            }
           }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net452": {
           "dependencies": {
-            "BuildBundlerMinifier": {
-              "target": "Package",
-              "version": "[3.2.449, )"
-            },
-            "Microsoft.AspNetCore.Authentication.Facebook": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Authentication.Google": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Identity.UI": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Razor.Extensions": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.AspNetCore.Razor.Language": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.CodeAnalysis.Razor": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.14, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
+            "Costura.Fody": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.14, )"
+              "version": "[5.7.0, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "Dragablz": {
               "target": "Package",
-              "version": "[6.0.14, )"
+              "version": "[0.0.3.234, )"
             },
-            "Microsoft.EntityFrameworkCore.Tools": {
+            "Extended.Wpf.Toolkit": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "Fody": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.14, )"
+              "version": "[6.6.4, )"
             },
-            "Microsoft.Extensions.Identity.Core": {
+            "MahApps.Metro": {
               "target": "Package",
-              "version": "[6.0.14, )"
+              "version": "[1.6.5, )"
             },
-            "Microsoft.Extensions.Identity.Stores": {
+            "MahApps.Metro.IconPacks": {
               "target": "Package",
-              "version": "[6.0.14, )"
+              "version": "[4.11.0, )"
             },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Templating": {
+            "MahApps.Metro.SimpleChildWindow": {
               "target": "Package",
-              "version": "[6.0.12, )"
+              "version": "[2.2.1, )"
             },
-            "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
+            "Microsoft.Bcl.Build": {
               "target": "Package",
-              "version": "[6.0.12, )"
+              "version": "[1.0.21, )"
             },
-            "Sendgrid": {
+            "Microsoft.NETCore.Platforms": {
               "target": "Package",
-              "version": "[9.28.1, )"
+              "version": "[6.0.6, )"
+            },
+            "Microsoft.Xaml.Behaviors.Wpf": {
+              "target": "Package",
+              "version": "[1.1.39, )"
+            },
+            "NETStandard.Library": {
+              "target": "Package",
+              "version": "[2.0.3, )"
+            },
+            "NHotkey.Wpf": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "System.Collections": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Collections.Concurrent": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Diagnostics.Debug": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Diagnostics.Tools": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Diagnostics.Tracing": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Globalization": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.IO": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.IO.Compression": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Linq": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Linq.Expressions": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            },
+            "System.Net.Primitives": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "System.ObjectModel": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Reflection": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Reflection.Extensions": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Reflection.Primitives": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Resources.ResourceManager": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Runtime": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "System.Runtime.Extensions": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "System.Runtime.InteropServices": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Runtime.Numerics": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Text.Encoding": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Text.Encoding.Extensions": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Text.RegularExpressions": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "System.Threading": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Threading.Tasks": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Threading.Timer": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Xml.ReaderWriter": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "System.Xml.XDocument": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "WPFLocalizeExtension": {
+              "target": "Package",
+              "version": "[3.9.4, )"
+            },
+            "Wpf.Controls.PanAndZoom": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "itextsharp.4.1.6.0": {
+              "target": "Package",
+              "version": "[4.1.6, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.15, )"
             }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
         }
       }
     }
