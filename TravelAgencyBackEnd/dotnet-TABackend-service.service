@@ -2,18 +2,18 @@
 Description=Dotnet Core Travel Agency Backend service  
   
 [Service]  
-ExecStart=dotnet /root/TABackend/TravelAgencyBackEnd.dll  
-WorkingDirectory=/root/TABackend/
+ExecStart=dotnet /root/TravelAgencyBackEnd/TravelAgencyBackEnd.dll  
+WorkingDirectory=/root/TravelAgencyBackEnd/
 User=root  
 Group=root  
 Restart=always
 RestartSec=5   
-SyslogIdentifier=dotnet-TABackend-service  
+SyslogIdentifier=dotnet-TravelAgencyBackEnd-service  
 PrivateTemp=true  
 Environment=ASPNETCORE_ENVIRONMENT=Development
 KillSignal=SIGINT
-StandardOutput=file:/root/TABackend/AAALogs/standardOutput.log
-StandardError=file:/root/TABackend/AAALogs/standardError.log
+StandardOutput=file:/root/TravelAgencyBackEnd/AAALogs/standardOutput.log
+StandardError=file:/root/TravelAgencyBackEnd/AAALogs/standardError.log
 
 [Install]  
 WantedBy=multi-user.target  

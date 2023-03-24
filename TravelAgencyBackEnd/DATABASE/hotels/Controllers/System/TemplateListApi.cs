@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using EASYBUILDER.DBModel;
+using TravelAgencyBackEnd.DBModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("EASYBUILDERTemplateList")]
-    public class EASYBUILDERTemplateListApi : ControllerBase
+    [Route("TemplateList")]
+    public class TemplateListApi : ControllerBase
     {
-        [HttpGet("/EASYBUILDERTemplateList")]
+        [HttpGet("/TemplateList")]
         public async Task<string> GetTemplateList()
         {
             List<TemplateList> data;
@@ -26,13 +26,13 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().TemplateLists.ToList();
+                data = new hotelsContext().TemplateLists.ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/EASYBUILDERTemplateList/Filter/{Filter}")]
+        [HttpGet("/TemplateList/Filter/{Filter}")]
         public async Task<string> GetTemplateListByFilter(string filter)
         {
             List<TemplateList> data;
@@ -41,13 +41,13 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().TemplateLists.FromSqlRaw("SELECT * FROM TemplateList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().TemplateLists.FromSqlRaw("SELECT * FROM TemplateList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/EASYBUILDERTemplateList/{Id}")]
+        [HttpGet("/TemplateList/{Id}")]
         public async Task<string> GetTemplateListKey(int id)
         {
             TemplateList data;
@@ -56,20 +56,20 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new EASYBUILDERContext().TemplateLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().TemplateLists.Where(a => a.Id == id).First();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/EASYBUILDERTemplateList")]
+        [HttpPut("/TemplateList")]
         [Consumes("application/json")]
         public async Task<string> InsertTemplateList([FromBody] TemplateList record)
         {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new EASYBUILDERContext().TemplateLists.Add(record);
+                var data = new hotelsContext().TemplateLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -80,13 +80,13 @@ namespace EASYBUILDER.Controllers
             }
         }
 
-        [HttpPost("/EASYBUILDERTemplateList")]
+        [HttpPost("/TemplateList")]
         [Consumes("application/json")]
         public async Task<string> UpdateTemplateList([FromBody] TemplateList record)
         {
             try
             {
-                var data = new EASYBUILDERContext().TemplateLists.Update(record);
+                var data = new hotelsContext().TemplateLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -95,7 +95,7 @@ namespace EASYBUILDER.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/EASYBUILDERTemplateList/{Id}")]
+        [HttpDelete("/TemplateList/{Id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteTemplateList(string Id)
         {
@@ -105,7 +105,7 @@ namespace EASYBUILDER.Controllers
 
                 TemplateList record = new() { Id = int.Parse(Id) };
 
-                var data = new EASYBUILDERContext().TemplateLists.Remove(record);
+                var data = new hotelsContext().TemplateLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

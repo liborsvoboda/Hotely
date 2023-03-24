@@ -29,7 +29,7 @@ namespace TravelAgencyAdmin.Pages
                 var lines = File.ReadLines(MottoListPath);
                 foreach (string line in lines) { if (!string.IsNullOrWhiteSpace(line)) { MottoList.Add(new MottoList() { Name = line }); } }
 
-                MottoList = await ApiCommunication.GetApiRequest<List<MottoList>>(ApiUrls.TravelAgencyAdminMottoList, null, null);
+                MottoList = await ApiCommunication.GetApiRequest<List<MottoList>>(ApiUrls.MottoList, null, null);
             }
             catch { }
 

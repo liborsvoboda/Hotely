@@ -1,13 +1,13 @@
-﻿using TABackend.DBModel;
-using TABackend.Models.ViewModels;
-using TABackend.Services;
+﻿using TravelAgencyBackEnd.DBModel;
+using TravelAgencyBackEnd.Models.ViewModels;
+using TravelAgencyBackEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 
-namespace TABackend.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -24,7 +24,7 @@ namespace TABackend.Controllers
             _guestService = new GuestService();
             _hotelService = new HotelService();
         }
-
+        /*
         [HttpPost("AddBooking")]
         public ActionResult AddBooking(SearchViewModel model)
         {
@@ -160,5 +160,7 @@ namespace TABackend.Controllers
             }
             return 0;
         }
+
+        */
     }
 }

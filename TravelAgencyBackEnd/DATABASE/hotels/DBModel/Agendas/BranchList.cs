@@ -3,26 +3,38 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace EASYBUILDER.DBModel
+namespace TravelAgencyBackEnd.DBModel
 {
     public partial class BranchList
     {
+        public BranchList()
+        {
+            DocumentAdviceLists = new HashSet<DocumentAdviceList>();
+        }
+
         public int Id { get; set; }
-        public string CompanyName { get; set; } = null!;
-        public string? ContactName { get; set; }
-        public string Street { get; set; } = null!;
-        public string City { get; set; } = null!;
-        public string PostCode { get; set; } = null!;
-        public string Phone { get; set; } = null!;
-        public string? Email { get; set; }
-        public string? BankAccount { get; set; }
-        public string? Ico { get; set; }
-        public string? Dic { get; set; }
+        public string CompanyName { get; set; }
+        public string ContactName { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string PostCode { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string BankAccount { get; set; }
+        public string Ico { get; set; }
+        public string Dic { get; set; }
         public int UserId { get; set; }
+        public int OwnerId { get; set; }
         public bool Active { get; set; }
+        public string AccessRole { get; set; }
         public DateTime TimeStamp { get; set; }
+
         [JsonIgnore]
         [ValidateNever]
-        public virtual UserList User { get; set; } = null!;
+        public virtual UserList Owner { get; set; }
+        [JsonIgnore]
+        [ValidateNever]
+        public virtual UserList User { get; set; }
+        public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
     }
 }

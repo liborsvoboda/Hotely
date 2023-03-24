@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TABackend.Services;
-using TABackend.Models.ViewModels;
-using TABackend.DBModel;
+using TravelAgencyBackEnd.Services;
+using TravelAgencyBackEnd.Models.ViewModels;
+using TravelAgencyBackEnd.DBModel;
 
-namespace TABackend.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,7 +21,7 @@ namespace TABackend.Controllers
         {
             _searchService = new SearchService();
         }
-
+/*
         [HttpGet("GetAllHotels")]
         public IEnumerable<Hotel> GetAllHotel()
         {
@@ -116,6 +116,6 @@ namespace TABackend.Controllers
         {
             return _searchService.GetSearchAutoComplete();
         }
-
+*/
     }
 }

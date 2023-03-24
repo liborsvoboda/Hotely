@@ -3,63 +3,84 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace EASYBUILDER.DBModel
+namespace TravelAgencyBackEnd.DBModel
 {
     public partial class UserList
     {
         public UserList()
         {
-            AddressLists = new HashSet<AddressList>();
-            AttachmentLists = new HashSet<AttachmentList>();
-            BranchLists = new HashSet<BranchList>();
+            AddressListOwners = new HashSet<AddressList>();
+            AddressListUsers = new HashSet<AddressList>();
+            BranchListOwners = new HashSet<BranchList>();
+            BranchListUsers = new HashSet<BranchList>();
             Calendars = new HashSet<Calendar>();
+            CityLists = new HashSet<CityList>();
+            CountryLists = new HashSet<CountryList>();
             CurrencyLists = new HashSet<CurrencyList>();
-            DocumentAdviceLists = new HashSet<DocumentAdviceList>();
-            ExchangeRateLists = new HashSet<ExchangeRateList>();
-            ItemLists = new HashSet<ItemList>();
-            NotesLists = new HashSet<NotesList>();
-            OfferItemLists = new HashSet<OfferItemList>();
-            OfferLists = new HashSet<OfferList>();
+            DocumentAdviceListOwners = new HashSet<DocumentAdviceList>();
+            DocumentAdviceListUsers = new HashSet<DocumentAdviceList>();
+            DocumentTypeLists = new HashSet<DocumentTypeList>();
+            HotelAccommodationActionListOwners = new HashSet<HotelAccommodationActionList>();
+            HotelAccommodationActionListUsers = new HashSet<HotelAccommodationActionList>();
+            HotelActionTypeLists = new HashSet<HotelActionTypeList>();
+            HotelListOwners = new HashSet<HotelList>();
+            HotelListUsers = new HashSet<HotelList>();
+            HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
+            HotelReservationReviewLists = new HashSet<HotelReservationReviewList>();
+            HotelReservationStatusLists = new HashSet<HotelReservationStatusList>();
+            HotelReservedRoomLists = new HashSet<HotelReservedRoomList>();
+            HotelRoomLists = new HashSet<HotelRoomList>();
+            LanguageLists = new HashSet<LanguageList>();
             ParameterLists = new HashSet<ParameterList>();
             ReportLists = new HashSet<ReportList>();
+            ReportQueueLists = new HashSet<ReportQueueList>();
             TemplateLists = new HashSet<TemplateList>();
-            UnitLists = new HashSet<UnitList>();
-            VatLists = new HashSet<VatList>();
+            UserRoleLists = new HashSet<UserRoleList>();
         }
 
         public int Id { get; set; }
         public int RoleId { get; set; }
-        public string UserName { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string Name { get; set; } = null!;
-        public string SurName { get; set; } = null!;
-        public string? Description { get; set; }
-        public bool Active { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string SurName { get; set; }
+        public string Description { get; set; }
+        public byte[] Photo { get; set; }
+        public string PhotoPath { get; set; }
+        public bool? Active { get; set; }
+        public string ApiToken { get; set; }
+        public string AccessRole { get; set; }
         public DateTime Timestamp { get; set; }
-        public string? Token { get; set; }
-        public DateTime? Expiration { get; set; }
-        public byte[]? Photo { get; set; }
-        public string? MimeType { get; set; }
-        public string? PhotoPath { get; set; }
-        public bool SystemAdmin { get; set; }
+
         [JsonIgnore]
         [ValidateNever]
-        public virtual UserRoleList Role { get; set; } = null!;
-        public virtual ICollection<AddressList> AddressLists { get; set; }
-        public virtual ICollection<AttachmentList> AttachmentLists { get; set; }
-        public virtual ICollection<BranchList> BranchLists { get; set; }
+        public virtual UserRoleList Role { get; set; }
+        public virtual ICollection<AddressList> AddressListOwners { get; set; }
+        public virtual ICollection<AddressList> AddressListUsers { get; set; }
+        public virtual ICollection<BranchList> BranchListOwners { get; set; }
+        public virtual ICollection<BranchList> BranchListUsers { get; set; }
         public virtual ICollection<Calendar> Calendars { get; set; }
+        public virtual ICollection<CityList> CityLists { get; set; }
+        public virtual ICollection<CountryList> CountryLists { get; set; }
         public virtual ICollection<CurrencyList> CurrencyLists { get; set; }
-        public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
-        public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
-        public virtual ICollection<ItemList> ItemLists { get; set; }
-        public virtual ICollection<NotesList> NotesLists { get; set; }
-        public virtual ICollection<OfferItemList> OfferItemLists { get; set; }
-        public virtual ICollection<OfferList> OfferLists { get; set; }
+        public virtual ICollection<DocumentAdviceList> DocumentAdviceListOwners { get; set; }
+        public virtual ICollection<DocumentAdviceList> DocumentAdviceListUsers { get; set; }
+        public virtual ICollection<DocumentTypeList> DocumentTypeLists { get; set; }
+        public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionListOwners { get; set; }
+        public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionListUsers { get; set; }
+        public virtual ICollection<HotelActionTypeList> HotelActionTypeLists { get; set; }
+        public virtual ICollection<HotelList> HotelListOwners { get; set; }
+        public virtual ICollection<HotelList> HotelListUsers { get; set; }
+        public virtual ICollection<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
+        public virtual ICollection<HotelReservationReviewList> HotelReservationReviewLists { get; set; }
+        public virtual ICollection<HotelReservationStatusList> HotelReservationStatusLists { get; set; }
+        public virtual ICollection<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
+        public virtual ICollection<HotelRoomList> HotelRoomLists { get; set; }
+        public virtual ICollection<LanguageList> LanguageLists { get; set; }
         public virtual ICollection<ParameterList> ParameterLists { get; set; }
         public virtual ICollection<ReportList> ReportLists { get; set; }
+        public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
         public virtual ICollection<TemplateList> TemplateLists { get; set; }
-        public virtual ICollection<UnitList> UnitLists { get; set; }
-        public virtual ICollection<VatList> VatLists { get; set; }
+        public virtual ICollection<UserRoleList> UserRoleLists { get; set; }
     }
 }

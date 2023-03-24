@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Stripe;
 using Newtonsoft.Json;
 
-namespace TABackend.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Route("api/create-payment-intent")]
     [ApiController]

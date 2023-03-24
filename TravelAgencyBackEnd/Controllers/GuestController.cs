@@ -1,6 +1,6 @@
-﻿using TABackend.DBModel;
-using TABackend.Models.ViewModels;
-using TABackend.Services;
+﻿using TravelAgencyBackEnd.DBModel;
+using TravelAgencyBackEnd.Models.ViewModels;
+using TravelAgencyBackEnd.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TABackend.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,7 +25,7 @@ namespace TABackend.Controllers
         }
 
         [HttpGet("GetGuestById/{id}")]
-        public IEnumerable<Guest> GetGuestById(int id)
+        public IEnumerable<GuestList> GetGuestById(int id)
         {
             
             var result = _guestService.GetGuestById(id);
@@ -39,9 +39,9 @@ namespace TABackend.Controllers
             return result;
         }
         [HttpPost("addGuest")]
-        public async Task<Guest> AddGuest(AddGuestViewModel model)
+        public async Task<GuestList> AddGuest(AddGuestViewModel model)
         {
-            var newGuest = new Guest()
+            var newGuest = new GuestList()
             {
                 FullName = model.FullName,
                 Street = model.Street,
@@ -53,7 +53,7 @@ namespace TABackend.Controllers
                 Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
             };
 
-            _db.Guests.Add(newGuest);
+            _db.GuestLists.Add(newGuest);
             await _db.SaveChangesAsync();
 
             return newGuest;
@@ -108,7 +108,7 @@ namespace TABackend.Controllers
             if (model.Id != 0)
             {
 
-                var guest = _db.Guests.FirstOrDefault(x => x.Id == model.Id);
+                var guest = _db.GuestLists.FirstOrDefault(x => x.Id == model.Id);
                 if (model.FullName != "")
                 {
                     guest.FullName = model.FullName;

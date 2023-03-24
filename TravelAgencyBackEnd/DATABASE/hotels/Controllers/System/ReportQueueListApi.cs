@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using EASYBUILDER.DBModel;
+using TravelAgencyBackEnd.DBModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using TravelAgencyBackEnd.Classes;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("EASYBUILDERReportQueueList")]
-    public class EASYBUILDERReportQueueListApi : ControllerBase
+    [Route("ReportQueueList")]
+    public class ReportQueueListApi : ControllerBase
     {
-        [HttpGet("/EASYBUILDERReportQueueList")]
+        [HttpGet("/ReportQueueList")]
         public async Task<string> GetReportQueueList()
         {
             List<ReportQueueList> data;
@@ -26,13 +27,13 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().ReportQueueLists.ToList();
+                data = new hotelsContext().ReportQueueLists.ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/EASYBUILDERReportQueueList/Filter/{Filter}")]
+        [HttpGet("/ReportQueueList/Filter/{Filter}")]
         public async Task<string> GetReportQueueListByFilter(string filter)
         {
             List<ReportQueueList> data;
@@ -41,13 +42,13 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().ReportQueueLists.FromSqlRaw("SELECT * FROM ReportQueueList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().ReportQueueLists.FromSqlRaw("SELECT * FROM ReportQueueList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/EASYBUILDERReportQueueList/{Id}")]
+        [HttpGet("/ReportQueueList/{Id}")]
         public async Task<string> GetReportQueueListKey(int id)
         {
             ReportQueueList data;
@@ -56,19 +57,19 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new EASYBUILDERContext().ReportQueueLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().ReportQueueLists.Where(a => a.Id == id).First();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/EASYBUILDERReportQueueList")]
+        [HttpPut("/ReportQueueList")]
         [Consumes("application/json")]
         public async Task<string> InsertReportQueueList([FromBody] ReportQueueList record)
         {
             try
             {
-                var data = new EASYBUILDERContext().ReportQueueLists.Add(record);
+                var data = new hotelsContext().ReportQueueLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -79,18 +80,18 @@ namespace EASYBUILDER.Controllers
             }
         }
 
-        [HttpPost("/EASYBUILDERReportQueueList/WriteFilter")]
+        [HttpPost("/ReportQueueList/WriteFilter")]
         [Consumes("application/json")]
-        public async Task<string> UpdateReportQueueListWriteFilter([FromBody] SetReportFilter record)
+        public async Task<string> UpdateReportQueueListWriteFilter([FromBody] ReportExtension.SetReportFilter record)
         {
             try
             {
                 List<ReportQueueList> dbData;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-                { dbData = new EASYBUILDERContext().ReportQueueLists.Where(a => a.TableName == record.TableName).ToList(); }
+                { dbData = new hotelsContext().ReportQueueLists.Where(a => a.TableName == record.TableName).ToList(); }
                 dbData.ForEach(rec => { rec.Filter = record.Filter; rec.Search = record.Search; rec.RecId = record.RecId; });
 
-                var data = new EASYBUILDERContext();
+                var data = new hotelsContext();
                 data.ReportQueueLists.UpdateRange(dbData);
                 int result = await data.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = 0, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -100,13 +101,13 @@ namespace EASYBUILDER.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpPost("/EASYBUILDERReportQueueList")]
+        [HttpPost("/ReportQueueList")]
         [Consumes("application/json")]
         public async Task<string> UpdateReportQueueList([FromBody] ReportQueueList record)
         {
             try
             {
-                var data = new EASYBUILDERContext().ReportQueueLists.Update(record);
+                var data = new hotelsContext().ReportQueueLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -115,7 +116,7 @@ namespace EASYBUILDER.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/EASYBUILDERReportQueueList/{Id}")]
+        [HttpDelete("/ReportQueueList/{Id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteReportQueueList(string Id)
         {
@@ -125,7 +126,7 @@ namespace EASYBUILDER.Controllers
 
                 ReportQueueList record = new() { Id = int.Parse(Id) };
 
-                var data = new EASYBUILDERContext().ReportQueueLists.Remove(record);
+                var data = new hotelsContext().ReportQueueLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

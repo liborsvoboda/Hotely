@@ -70,7 +70,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try
             {
-                if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportQueueList>>(ApiUrls.TravelAgencyAdminReportQueueList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportQueueList>>(ApiUrls.ReportQueueList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 foreach (ApiUrls apiUrl in (ApiUrls[])Enum.GetValues(typeof(ApiUrls)))
                 {
@@ -157,7 +157,7 @@ namespace TravelAgencyAdmin.Pages
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative)
             {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.TravelAgencyAdminReportQueueList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.ReportQueueList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
@@ -205,9 +205,9 @@ namespace TravelAgencyAdmin.Pages
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
                 {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.TravelAgencyAdminReportQueueList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.ReportQueueList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.TravelAgencyAdminReportQueueList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.ReportQueueList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.recordCount > 0)
                 {

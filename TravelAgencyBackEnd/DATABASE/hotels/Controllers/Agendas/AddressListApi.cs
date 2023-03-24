@@ -2,15 +2,15 @@
 using System.Text.Json;
 using System.Transactions;
 using Microsoft.AspNetCore.Authorization;
-using EASYBUILDER.DBModel;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.DBModel;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
@@ -26,7 +26,7 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().AddressLists.ToList();
+                data = new hotelsContext().AddressLists.ToList();
             }
 
             return JsonSerializer.Serialize(data);
@@ -41,7 +41,7 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().AddressLists.FromSqlRaw("SELECT * FROM AddressList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().AddressLists.FromSqlRaw("SELECT * FROM AddressList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data);
@@ -56,7 +56,7 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new EASYBUILDERContext().AddressLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().AddressLists.Where(a => a.Id == id).First();
             }
 
             return JsonSerializer.Serialize(data);
@@ -69,7 +69,7 @@ namespace EASYBUILDER.Controllers
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new EASYBUILDERContext().AddressLists.Add(record);
+                var data = new hotelsContext().AddressLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -86,7 +86,7 @@ namespace EASYBUILDER.Controllers
         {
             try
             {
-                var data = new EASYBUILDERContext().AddressLists.Update(record);
+                var data = new hotelsContext().AddressLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -105,7 +105,7 @@ namespace EASYBUILDER.Controllers
 
                 AddressList record = new() { Id = int.Parse(Id) };
 
-                var data = new EASYBUILDERContext().AddressLists.Remove(record);
+                var data = new hotelsContext().AddressLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

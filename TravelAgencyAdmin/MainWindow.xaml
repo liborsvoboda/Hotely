@@ -203,19 +203,7 @@
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_attachments"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
                             x:Name="tm_calendar"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_itemList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -227,42 +215,6 @@
                         Margin="0"
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
-                        <TreeViewItem
-                            x:Name="tm_currencyList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_documentAdviceList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_unitList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_vatList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_exchangeRateList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_notesList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
                         x:Name="tv_crm"
@@ -281,34 +233,6 @@
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_offerList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                    </TreeViewItem>
-                    <TreeViewItem
-                        x:Name="tv_templates"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
-                        <TreeViewItem
-                            x:Name="tm_stlExample"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_documentViewer"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_videoExample"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
@@ -339,12 +263,6 @@
                             x:Name="tm_clientSettings"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_serverSetting"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem

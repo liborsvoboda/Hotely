@@ -75,7 +75,7 @@ namespace TravelAgencyAdmin.Pages
         public async Task<bool> LoadDataList()
         {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.TravelAgencyAdminReportList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
+            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
             catch { }
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -149,7 +149,7 @@ namespace TravelAgencyAdmin.Pages
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative)
             {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.TravelAgencyAdminReportList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.ReportList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
@@ -192,8 +192,8 @@ namespace TravelAgencyAdmin.Pages
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
-                { dBResult = await ApiCommunication.PutApiRequest(ApiUrls.TravelAgencyAdminReportList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.TravelAgencyAdminReportList, httpContent, null, App.UserData.Authentification.Token); }
+                { dBResult = await ApiCommunication.PutApiRequest(ApiUrls.ReportList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.ReportList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.recordCount > 0)
                 {

@@ -3,31 +3,29 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace EASYBUILDER.DBModel
+namespace TravelAgencyBackEnd.DBModel
 {
     public partial class CurrencyList
     {
         public CurrencyList()
         {
-            ExchangeRateLists = new HashSet<ExchangeRateList>();
-            ItemLists = new HashSet<ItemList>();
-            OfferLists = new HashSet<OfferList>();
+            HotelLists = new HashSet<HotelList>();
         }
 
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
         public decimal ExchangeRate { get; set; }
         public bool Fixed { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
         public int UserId { get; set; }
         public bool Active { get; set; }
-        public DateTime TimeStamp { get; set; }
         public bool Default { get; set; }
+        public string AccessRole { get; set; }
+        public DateTime TimeStamp { get; set; }
+
         [JsonIgnore]
         [ValidateNever]
-        public virtual UserList User { get; set; } = null!;
-        public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
-        public virtual ICollection<ItemList> ItemLists { get; set; }
-        public virtual ICollection<OfferList> OfferLists { get; set; }
+        public virtual UserList User { get; set; }
+        public virtual ICollection<HotelList> HotelLists { get; set; }
     }
 }

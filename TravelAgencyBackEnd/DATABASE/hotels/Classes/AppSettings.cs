@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EASYBUILDER.Classes
+namespace TravelAgencyBackEnd.Classes
 {
     public enum DBResult
     {

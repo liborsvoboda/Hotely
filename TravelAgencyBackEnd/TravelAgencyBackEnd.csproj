@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="DATABASE\hotels\Controllers\Services\" />
     <Folder Include="DATABASE\hotels\Controllers\Support\" />
+    <Folder Include="DATABASE\hotels\DBModel\Support\" />
     <Folder Include="GLOBALClasses\" />
   </ItemGroup>
 

@@ -1,8 +1,8 @@
-﻿using EASYBUILDER.DBModel;
+﻿using TravelAgencyBackEnd.DBModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("EASYBUILDERLoginHistoryList")]
-    public class EASYBUILDERLoginHistoryListApi : ControllerBase
+    [Route("LoginHistoryList")]
+    public class LoginHistoryListApi : ControllerBase
     {
-        [HttpGet("/EASYBUILDERLoginHistoryList")]
+        [HttpGet("/LoginHistoryList")]
         public async Task<string> GetLoginHistory()
         {
             List<LoginHistoryList> data;
@@ -25,11 +25,11 @@ namespace EASYBUILDER.Controllers
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
-            { data = new EASYBUILDERContext().LoginHistoryLists.ToList(); }
+            { data = new hotelsContext().LoginHistoryLists.ToList(); }
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/EASYBUILDERLoginHistoryList/Filter/{Filter}")]
+        [HttpGet("/LoginHistoryList/Filter/{Filter}")]
         public async Task<string> GetLoginHistoryListByFilter(string filter)
         {
             List<LoginHistoryList> data;
@@ -38,13 +38,13 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().LoginHistoryLists.FromSqlRaw("SELECT * FROM LoginHistoryList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().LoginHistoryLists.FromSqlRaw("SELECT * FROM LoginHistoryList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPost("/EASYBUILDERLoginHistoryList")]
+        [HttpPost("/LoginHistoryList")]
         [Consumes("application/json")] // ([FromBody] int Id) Body is only 17 ([FromBody] IdFilter Id) Body is {"Id":17}
         public async Task<string> GetLoginHistoryListId([FromBody] IdFilter Id)
         {
@@ -53,12 +53,12 @@ namespace EASYBUILDER.Controllers
             LoginHistoryList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            { data = new EASYBUILDERContext().LoginHistoryLists.Where(a => a.Id == Id.Id).First(); }
+            { data = new hotelsContext().LoginHistoryLists.Where(a => a.Id == Id.Id).First(); }
             return JsonSerializer.Serialize(data);
         }
 
         /*
-            [HttpPost("/EASYBUILDERLoginHistory/Name")]
+            [HttpPost("/LoginHistory/Name")]
             [Consumes("application/json")]//([FromBody] string Name) Body is only "tester" ([FromBody] NameFilter Name) Body is {"Name":"tester"}
             public async Task<string> GetLoginHistoryName([FromBody] NameFilter Name)
             {
@@ -67,7 +67,7 @@ namespace EASYBUILDER.Controllers
                 List<LoginHistory> data;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
                 { IsolationLevel = IsolationLevel.ReadUncommitted }))
-                { data = new EASYBUILDERContext().LoginHistories.Where(a => a.UserName == Name.Name.ToString()).ToList(); }
+                { data = new Context().LoginHistories.Where(a => a.UserName == Name.Name.ToString()).ToList(); }
                 return JsonSerializer.Serialize(data);
             }
         */

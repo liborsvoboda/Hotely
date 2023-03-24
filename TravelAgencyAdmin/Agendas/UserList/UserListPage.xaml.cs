@@ -63,8 +63,8 @@ namespace TravelAgencyAdmin.Pages
 
             try
             {
-                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.TravelAgencyAdminUserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                cb_roleId.ItemsSource = UserRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.TravelAgencyAdminUserRoleList, null, App.UserData.Authentification.Token);
+                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                cb_roleId.ItemsSource = UserRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
             }
             catch { }
@@ -141,7 +141,7 @@ namespace TravelAgencyAdmin.Pages
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative)
             {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.TravelAgencyAdminUserList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.UserList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
@@ -189,9 +189,9 @@ namespace TravelAgencyAdmin.Pages
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
                 {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.TravelAgencyAdminUserList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.UserList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.TravelAgencyAdminUserList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.UserList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.recordCount > 0)
                 {

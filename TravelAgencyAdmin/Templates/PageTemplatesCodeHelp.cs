@@ -66,16 +66,16 @@ namespace TravelAgencyAdmin.Templates
             StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             ///API for load/Select Data
-            await ApiCommunication.GetApiRequest<List<TemplateClassList>>(ApiUrls.TravelAgencyAdminTemplateClassList, null, App.UserData.Authentification.Token);
+            await ApiCommunication.GetApiRequest<List<TemplateClassList>>(ApiUrls.TemplateClassList, null, App.UserData.Authentification.Token);
 
             ///API for Data Insert
-            dBResult = await ApiCommunication.PutApiRequest(ApiUrls.TravelAgencyAdminTemplateClassList, httpContent, null, App.UserData.Authentification.Token);
+            dBResult = await ApiCommunication.PutApiRequest(ApiUrls.TemplateClassList, httpContent, null, App.UserData.Authentification.Token);
 
             ///API for Data Update
-            dBResult = await ApiCommunication.PostApiRequest(ApiUrls.TravelAgencyAdminTemplateClassList, httpContent, null, App.UserData.Authentification.Token);
+            dBResult = await ApiCommunication.PostApiRequest(ApiUrls.TemplateClassList, httpContent, null, App.UserData.Authentification.Token);
 
             ///API for Delete Data
-            dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.TravelAgencyAdminTemplateClassList, "someId", App.UserData.Authentification.Token);
+            dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.TemplateClassList, "someId", App.UserData.Authentification.Token);
 
         }
 

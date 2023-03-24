@@ -61,7 +61,7 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             List<Classes.Calendar> Data = new List<Classes.Calendar>();
-            try { if (MainWindow.serviceRunning) Data = await ApiCommunication.GetApiRequest<List<Classes.Calendar>>(ApiUrls.TravelAgencyAdminCalendar, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token); }
+            try { if (MainWindow.serviceRunning) Data = await ApiCommunication.GetApiRequest<List<Classes.Calendar>>(ApiUrls.Calendar, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token); }
             catch { }
 
             foreach (Classes.Calendar record in Data)
@@ -103,7 +103,7 @@ namespace TravelAgencyAdmin.Pages
             string json = JsonConvert.SerializeObject(selectedRecord);
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.TravelAgencyAdminCalendar, httpContent, null, App.UserData.Authentification.Token);
+            DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.Calendar, httpContent, null, App.UserData.Authentification.Token);
             if (dBResult.recordCount == 0)
             {
                await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);

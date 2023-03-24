@@ -7,32 +7,20 @@ namespace TravelAgencyAdmin.Api
     /// </summary>
     public enum ApiUrls
     {
-        TravelAgencyAdminAttachmentList,
-        TravelAgencyAdminAddressList,
+        AddressList,
         Authentication,
         BackendCheck,
-        TravelAgencyAdminBranchList,
-        TravelAgencyAdminCurrencyList,
-        TravelAgencyAdminDocumentAdviceList,
-        TravelAgencyAdminExchangeRateList,
-        TravelAgencyAdminCalendar,
-        TravelAgencyAdminItemList,
-        TravelAgencyAdminLoginHistoryList,
-        TravelAgencyAdminMottoList,
-        TravelAgencyAdminNotesList,
-        TravelAgencyAdminOfferList,
-        TravelAgencyAdminOfferItemList,
-        TravelAgencyAdminParameterList,
-        TravelAgencyAdminReportList,
-        TravelAgencyAdminReportQueueList,
-        TravelAgencyAdminServerSetting,
-        TravelAgencyAdminUnitList,
-        TravelAgencyAdminUserList,
-        TravelAgencyAdminUserRoleList,
-        TravelAgencyAdminVatList,
-        TravelAgencyAdminVisitorList,
+        BranchList,
+        Calendar,
+        LoginHistoryList,
+        MottoList,
+        ParameterList,
+        ReportList,
+        ReportQueueList,
+        UserList,
+        UserRoleList,
 
-        TravelAgencyAdminTemplateClassList
+        TemplateClassList
     }
 
 

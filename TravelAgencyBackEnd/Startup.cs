@@ -19,7 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Net.Http;
 using System.Text;
 
-namespace TABackend
+namespace TravelAgencyBackEnd
 {
     public class Startup
     {
@@ -42,7 +42,7 @@ namespace TABackend
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TABackend", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TravelAgencyBackEnd", Version = "v1" });
             });
 
             services.AddCors();
@@ -87,7 +87,7 @@ namespace TABackend
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TABackend v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TravelAgencyBackEnd v1"));
             }
 
             //app.UseHttpsRedirection();

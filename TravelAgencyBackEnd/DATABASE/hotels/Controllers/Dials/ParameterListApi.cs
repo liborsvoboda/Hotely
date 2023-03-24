@@ -1,32 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using EASYBUILDER.DBModel;
+using TravelAgencyBackEnd.DBModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [ApiController]
-    [Route("EASYBUILDERParameterList")]
-    public class EASYBUILDERParameterListApi : ControllerBase
+    [Route("ParameterList")]
+    public class ParameterListApi : ControllerBase
     {
-        [HttpGet("/EASYBUILDERParameterList")]
+        [HttpGet("/ParameterList")]
         public async Task<string> GetParameterList()
         {
             List<ParameterList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new EASYBUILDERContext().ParameterLists.Where(a => a.UserId == null).ToList();
+                data = new hotelsContext().ParameterLists.Where(a => a.UserId == null).ToList();
             }
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/EASYBUILDERParameterList/Filter/{Filter}")]
+        [HttpGet("/ParameterList/Filter/{Filter}")]
         public async Task<string> GetParameterListByFilter(string filter)
         {
             List<ParameterList> data;
@@ -35,33 +35,33 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().ParameterLists.FromSqlRaw("SELECT * FROM ParameterList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().ParameterLists.FromSqlRaw("SELECT * FROM ParameterList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
         [Authorize]
-        [HttpGet("/EASYBUILDERParameterList/{UserId}")]
+        [HttpGet("/ParameterList/{UserId}")]
         public async Task<string> GetParameterListKey(int userId)
         {
             List<ParameterList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new EASYBUILDERContext().ParameterLists.Where(a => a.UserId == userId).ToList();
+                data = new hotelsContext().ParameterLists.Where(a => a.UserId == userId).ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
         [Authorize]
-        [HttpPut("/EASYBUILDERParameterList")]
+        [HttpPut("/ParameterList")]
         [Consumes("application/json")]
         public async Task<string> InsertParameterList([FromBody] ParameterList record)
         {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new EASYBUILDERContext().ParameterLists.Add(record);
+                var data = new hotelsContext().ParameterLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -73,13 +73,13 @@ namespace EASYBUILDER.Controllers
         }
 
         [Authorize]
-        [HttpPost("/EASYBUILDERParameterList")]
+        [HttpPost("/ParameterList")]
         [Consumes("application/json")]
         public async Task<string> UpdateParameterList([FromBody] ParameterList record)
         {
             try
             {
-                var data = new EASYBUILDERContext().ParameterLists.Update(record);
+                var data = new hotelsContext().ParameterLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -89,7 +89,7 @@ namespace EASYBUILDER.Controllers
         }
 
         [Authorize]
-        [HttpDelete("/EASYBUILDERParameterList/{Id}")]
+        [HttpDelete("/ParameterList/{Id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteParameterList(string Id)
         {
@@ -99,7 +99,7 @@ namespace EASYBUILDER.Controllers
 
                 ParameterList record = new() { Id = int.Parse(Id) };
 
-                var data = new EASYBUILDERContext().ParameterLists.Remove(record);
+                var data = new hotelsContext().ParameterLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

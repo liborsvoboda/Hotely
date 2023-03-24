@@ -40,7 +40,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 if (MainWindow.serviceRunning) {
-                    DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<LoginHistoryList>>(ApiUrls.TravelAgencyAdminLoginHistoryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                    DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<LoginHistoryList>>(ApiUrls.LoginHistoryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 }
             }
             catch { }

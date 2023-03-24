@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using EASYBUILDER.DBModel;
+using TravelAgencyBackEnd.DBModel;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Threading.Tasks;
@@ -12,14 +12,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("EASYBUILDERCalendar")]
-    public class EASYBUILDERCalendarApi : ControllerBase
+    [Route("Calendar")]
+    public class CalendarApi : ControllerBase
     {
-        [HttpGet("/EASYBUILDERCalendar/{UserId}")]
+        [HttpGet("/Calendar/{UserId}")]
         public async Task<string> GetCalendarById(int userId)
         {
             List<DBModel.Calendar> data;
@@ -28,20 +28,20 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().Calendars.Where(a => a.UserId == userId).ToList();
+                data = new hotelsContext().Calendars.Where(a => a.UserId == userId).ToList();
             }
 
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPost("/EASYBUILDERCalendar")]
+        [HttpPost("/Calendar")]
         [Consumes("application/json")]
         public async Task<string> InsertOrUpdateCalendar([FromBody] DBModel.Calendar record)
         {
             try
             {
                 int result = 0;
-                using (var db = new EASYBUILDERContext())
+                using (var db = new hotelsContext())
                 {
                     db.Entry(record).State = !db.Calendars.Any(a => a.UserId == record.UserId && a.Date == record.Date) ? EntityState.Added : EntityState.Modified;
                     result = await db.SaveChangesAsync();

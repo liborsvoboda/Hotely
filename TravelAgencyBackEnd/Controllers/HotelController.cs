@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TABackend.Services;
-using TABackend.Models.ViewModels;
-using TABackend.DBModel;
+using TravelAgencyBackEnd.Services;
+using TravelAgencyBackEnd.Models.ViewModels;
+using TravelAgencyBackEnd.DBModel;
 
-namespace TABackend.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace TABackend.Controllers
         {
             _hotelService = new HotelService();
         }
-
+/*
         [HttpGet("GetAvailableRooms/{id}")]
         public HotelRoomsViewModel GetAvailableRooms(int id, DateTime date1, DateTime date2)
         {
@@ -61,14 +61,14 @@ namespace TABackend.Controllers
         }
 
         [HttpGet("GetById/{id}")]
-        public Hotel GetById(int id)
+        public HotelList GetById(int id)
         {
             var result = _hotelService.GetById(id);
             return result;
         }
         
         [HttpGet("GetAllHotels")]
-        public IEnumerable<Hotel> GetAllHotels()
+        public IEnumerable<HotelList> GetAllHotels()
         {
             return _hotelService.GetAllHotels();
         }
@@ -80,7 +80,7 @@ namespace TABackend.Controllers
         }
 
         [HttpGet("GetHotelsByRandom")]
-        public IEnumerable<Hotel> GetHotelsByRandom()
+        public IEnumerable<HotelList> GetHotelsByRandom()
         {
             var result = _hotelService.GetHotelsByRandom();
             return result;
@@ -92,6 +92,6 @@ namespace TABackend.Controllers
             var result = _hotelService.GetAccomodationFee(id, type);
             return result;
         }
-
+*/
     }
 }

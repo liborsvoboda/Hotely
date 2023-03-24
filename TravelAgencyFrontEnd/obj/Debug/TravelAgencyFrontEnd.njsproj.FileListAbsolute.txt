@@ -1,0 +1,2 @@
+E:\Projekty\Hotely\TravelAgencyFrontEnd\obj\Debug\TravelAgencyFrontEnd.njsproj.AssemblyReference.cache
+E:\Projekty\Hotely\TravelAgencyFrontEnd\obj\Debug\TravelAgencyFrontEnd.njsproj.CoreCompileInputs.cache

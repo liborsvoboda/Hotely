@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EASYBUILDER.DBModel
+namespace TravelAgencyBackEnd.DBModel
 {
     public partial class LoginHistoryList
     {
         public int Id { get; set; }
-        public string IpAddress { get; set; } = null!;
-        public string UserName { get; set; } = null!;
-        public string TerminalName { get; set; } = null!;
-        public string? Description { get; set; }
+        public string IpAddress { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string AccessRole { get; set; }
         public DateTime Timestamp { get; set; }
     }
 }

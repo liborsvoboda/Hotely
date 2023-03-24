@@ -45,7 +45,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\Documentation\EASYBuilder.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -226,10 +227,6 @@
       <DependentUpon>ReportQueueListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="APICommunication\ApiFunctions.cs" />
-    <Compile Include="Agendas\AttachmentList\AttachmentList.cs" />
-    <Compile Include="Agendas\AttachmentList\AttachmentListPage.xaml.cs">
-      <DependentUpon>AttachmentListPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Agendas\BranchList\BranchList.cs" />
     <Compile Include="Agendas\BranchList\BranchListPage.xaml.cs">
       <DependentUpon>BranchListPage.xaml</DependentUpon>
@@ -240,44 +237,12 @@
     <Compile Include="Agendas\Calendar\Calendar.cs" />
     <Compile Include="Agendas\ClientSetting\ClientClasses.cs" />
     <Compile Include="APICommunication\APIClasses.cs" />
-    <Compile Include="Agendas\CurrencyList\CurrencyList.cs" />
-    <Compile Include="Agendas\CurrencyList\CurrencyListPage.xaml.cs">
-      <DependentUpon>CurrencyListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\DocumentAdviceList\DocumentAdviceList.cs" />
-    <Compile Include="Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml.cs">
-      <DependentUpon>DocumentAdviceListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\ExchangeRateList\ExchangeRateList.cs" />
-    <Compile Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml.cs">
-      <DependentUpon>ExchangeRateListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\ItemList\ItemList.cs" />
-    <Compile Include="Agendas\ItemList\ItemListPage.xaml.cs">
-      <DependentUpon>ItemListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\NotesList\NotesList.cs" />
-    <Compile Include="Agendas\NotesList\NotesListPage.xaml.cs">
-      <DependentUpon>NotesListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\OfferList\OfferList.cs" />
-    <Compile Include="Agendas\OfferList\OfferListPage.xaml.cs">
-      <DependentUpon>OfferListPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Agendas\ParameterList\ParameterList.cs" />
     <Compile Include="Agendas\ParameterList\ParameterListPage.xaml.cs">
       <DependentUpon>ParameterListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Support\SupportPage.xaml.cs">
       <DependentUpon>SupportPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\UnitList\UnitList.cs" />
-    <Compile Include="Agendas\UnitList\UnitListPage.xaml.cs">
-      <DependentUpon>UnitListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Agendas\VatList\VatList.cs" />
-    <Compile Include="Agendas\VatList\VatListPage.xaml.cs">
-      <DependentUpon>VatListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\WelcomePage\MottoList.cs" />
     <Compile Include="Agendas\WelcomePage\WelcomePage.xaml.cs">
@@ -322,34 +287,15 @@
     <Compile Include="Templates\CustomTemplates\TemplateSettingsPage.xaml.cs">
       <DependentUpon>TemplateSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Templates\MultiMediaTemplates\TemplateSTLPage.xaml.cs">
-      <DependentUpon>TemplateSTLPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\MultiMediaTemplates\TemplateVideoPage.xaml.cs">
-      <DependentUpon>TemplateVideoPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\MultiMediaTemplates\TemplateDocumentViewPage.xaml.cs">
-      <DependentUpon>TemplateDocumentViewPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Templates\PageTemplatesCodeHelp.cs" />
     <Compile Include="Templates\SystemTemplates\TemplateListPage.xaml.cs">
       <DependentUpon>TemplateListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\SystemTemplates\TemplateListPageWithSubPage.xaml.cs">
-      <DependentUpon>TemplateListPageWithSubPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\SystemTemplates\TemplateListPageWithSubViewPage.xaml.cs">
-      <DependentUpon>TemplateListPageWithSubViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\SystemTemplates\TemplateListViewPage.xaml.cs">
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
     <Page Include="Agendas\AddressList\AddressListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\AttachmentList\AttachmentListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -365,31 +311,7 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Agendas\CurrencyList\CurrencyListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\ItemList\ItemListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Agendas\LoginHistoryList\LoginHistoryListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\NotesList\NotesListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\OfferList\OfferListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -406,10 +328,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Support\SupportPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\UnitList\UnitListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -432,10 +350,6 @@
     <Compile Include="TabsAndSystem\Extensions\SubjectName.cs" />
     <Compile Include="TabsAndSystem\Helper\Help.cs" />
     <Compile Include="TabsAndSystem\Extensions\IconMaker.cs" />
-    <Page Include="Agendas\VatList\VatListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Agendas\WelcomePage\WelcomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -460,27 +374,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Templates\MultiMediaTemplates\TemplateSTLPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Templates\MultiMediaTemplates\TemplateVideoPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Templates\MultiMediaTemplates\TemplateDocumentViewPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Templates\SystemTemplates\TemplateListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Templates\SystemTemplates\TemplateListPageWithSubPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Templates\SystemTemplates\TemplateListPageWithSubViewPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -739,12 +633,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>move /Y $(ProjectDir)bin\$(ConfigurationName)\*.xml $(ProjectDir)bin\$(ConfigurationName)\Documentation\
-if $(ConfigurationName) == Release del E:\Projekty\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\EASYBuilder\AdvancedProjects\Prerequsities\EASYBuilderProject.exe
-if $(ConfigurationName) == Release del E:\Projekty\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\EASYBuilder\AdvancedProjects\Prerequsities\EASYBuilderTools.exe
-if $(ConfigurationName) == Release "C:\Program Files\7-Zip\7z" -sfx a E:\Projekty\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\EASYBuilder\AdvancedProjects\Prerequsities\EASYBuilderProject.exe $(ProjectDir) -xr!bin -xr!obj -xr!packages
-if $(ConfigurationName) == Release "C:\Program Files\7-Zip\7z" -sfx a E:\Projekty\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\EASYBuilder\AdvancedProjects\Prerequsities\EASYToolsProjects.exe E:\Projekty\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\E* -xr!bin -xr!obj -xr!packages
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

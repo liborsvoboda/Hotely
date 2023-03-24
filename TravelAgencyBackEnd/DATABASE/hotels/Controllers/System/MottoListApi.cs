@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using EASYBUILDER.Classes;
+using TravelAgencyBackEnd.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using EASYBUILDER.DBModel;
+using TravelAgencyBackEnd.DBModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace EASYBUILDER.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [ApiController]
-    [Route("EASYBUILDERMottoList")]
-    public class EASYBUILDERMottoListApi : ControllerBase
+    [Route("MottoList")]
+    public class MottoListApi : ControllerBase
     {
 
-        [HttpGet("/EASYBUILDERMottoList")]
+        [HttpGet("/MottoList")]
         public async Task<string> GetMottoList()
         {
             List<MottoList> data;
@@ -26,7 +26,7 @@ namespace EASYBUILDER.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new EASYBUILDERContext().MottoLists.ToList();
+                data = new hotelsContext().MottoLists.ToList();
             }
 
             return JsonSerializer.Serialize(data);
