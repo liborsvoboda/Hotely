@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -19,7 +19,7 @@ namespace TravelAgencyBackEnd.Controllers
     [Route("Calendar")]
     public class CalendarApi : ControllerBase
     {
-        [HttpGet("/Calendar/{UserId}")]
+        [HttpGet("/Calendar/{userId}")]
         public async Task<string> GetCalendarById(int userId)
         {
             List<DBModel.Calendar> data;

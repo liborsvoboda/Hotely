@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -32,7 +32,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UserRoleList/Filter/{Filter}")]
+        [HttpGet("/UserRoleList/Filter/{filter}")]
         public async Task<string> GetUserRoleListByFilter(string filter)
         {
             List<UserRoleList> data;
@@ -47,8 +47,8 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UserRoleList/{Id}")]
-        public async Task<string> GetUserRoleListId(int Id)
+        [HttpGet("/UserRoleList/{id}")]
+        public async Task<string> GetUserRoleListId(int id)
         {
             UserRoleList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -56,7 +56,7 @@ namespace TravelAgencyBackEnd.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted 
             }))
             {
-                data = new hotelsContext().UserRoleLists.Where(a => a.Id == Id).First();
+                data = new hotelsContext().UserRoleLists.Where(a => a.Id == id).First();
             }
 
             return JsonSerializer.Serialize(data);
@@ -97,15 +97,15 @@ namespace TravelAgencyBackEnd.Controllers
             }
         }
 
-        [HttpDelete("/UserRoleList/{Id}")]
+        [HttpDelete("/UserRoleList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteUserRoleList(string Id)
+        public async Task<string> DeleteUserRoleList(string id)
         {
             try
             {
-                if (!int.TryParse(Id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                UserRoleList record = new() { Id = int.Parse(Id) };
+                UserRoleList record = new() { Id = int.Parse(id) };
 
                 var data = new hotelsContext().UserRoleLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();

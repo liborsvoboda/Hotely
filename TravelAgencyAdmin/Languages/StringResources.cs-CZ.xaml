@@ -227,12 +227,12 @@
     <system:String x:Key="price">Cena</system:String>
     <system:String x:Key="currency">Měna</system:String>
 
-    <system:String x:Key="dials">Šablony Číselníky</system:String>
-    <system:String x:Key="documents">Šablony Doklady</system:String>
+    <system:String x:Key="dials">Číselníky</system:String>
+    <system:String x:Key="documents">Doklady</system:String>
     <system:String x:Key="settings">Nastavení</system:String>
-    <system:String x:Key="templates">Šablony Multimedia</system:String>
+    <system:String x:Key="templates">Šablony</system:String>
     <system:String x:Key="itemsAndDocs">Položky &amp; Doklady</system:String>
-    <system:String x:Key="agendas">Šablony Agendy</system:String>
+    <system:String x:Key="agendas">Agendy</system:String>
     <system:String x:Key="copy">Kopie</system:String>
     <system:String x:Key="item">Položka</system:String>
     <system:String x:Key="license">License</system:String>
@@ -333,14 +333,16 @@
     <system:String x:Key="customerOrderNumber">Číslo zak. objednávky</system:String>
     <system:String x:Key="createCreditNote">Vytvořit Dobropis</system:String>
     <system:String x:Key="creditNoteList">Dobropisy</system:String>
-    <system:String x:Key="crm">Šablony Doklady</system:String>
+    <system:String x:Key="crm">CRM</system:String>
     <system:String x:Key="orders">Objednávky</system:String>
     <system:String x:Key="invoices">Faktury</system:String>
     <system:String x:Key="warehouses">Sklady</system:String>
     <system:String x:Key="system">Systém</system:String>
     <system:String x:Key="invoiceNumber">Číslo faktury</system:String>
     <system:String x:Key="showCreditNote">Zobrazit Dobropis</system:String>
+    <system:String x:Key="autoReceiptStatus">Automatický status pro Účtenku</system:String>
     <system:String x:Key="autoCreditNoteStatus">Automatický status pro Dobropis</system:String>
+    <system:String x:Key="receipted">Generovaná účtenka</system:String>
     <system:String x:Key="credited">Dobropisováno</system:String>
     <system:String x:Key="receiptList">Pokladní doklady</system:String>
     <system:String x:Key="receipt">Účtenka</system:String>
@@ -353,11 +355,6 @@
     <system:String x:Key="connectionStringIsNotValid">Connection string není validní. Opravte jej v nastavení.</system:String>
     <system:String x:Key="reportBuilder">Report Builder</system:String>
     <system:String x:Key="run">Spustit</system:String>
-
-    <system:String x:Key="touchPanelMenu">Dotykové menu pro výrobní terminály</system:String>
-    <system:String x:Key="hiddenTouchPcMenu">Dotykové menu terminály, kiosky</system:String>
-    <system:String x:Key="standardAppMenu">Standardní aplikační menu</system:String>
-    <system:String x:Key="menuType">Typ menu</system:String>
     <system:String x:Key="showApiDescription">Zobrazit API rozhraní</system:String>
     <system:String x:Key="showApi">Ukázat Api</system:String>
     <system:String x:Key="attachmentList">Přílohy</system:String>
@@ -368,6 +365,11 @@
     <system:String x:Key="tableName">Název tabulky</system:String>
     <system:String x:Key="sequence">Sekvence</system:String>
     <system:String x:Key="searchColumnList">Seznam sloupcu k hledani</system:String>
-    <system:String x:Key="globeExample">Globus</system:String>
 
+    <system:String x:Key="createReceipt">Vytvořit účtenku</system:String>
+    <system:String x:Key="showReceipt">Zobrazit účtenku</system:String>
+
+    <system:String x:Key="accommodations">Ubytování</system:String>
+    <system:String x:Key="owner">Vlastník</system:String>
+    
 </ResourceDictionary>

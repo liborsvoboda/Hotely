@@ -36,8 +36,7 @@ namespace TravelAgencyAdmin.GlobalClasses
         public string Name { get; set; } = string.Empty;
         public string SurName { get; set; } = string.Empty;
         public string Token { get; set; }
-        public bool SystemAdmin { get; set; } = false;
-        public DateTime? Expiration { get; set; }
+        public string Role { get; set; } = string.Empty;
     }
 
     /// <summary>

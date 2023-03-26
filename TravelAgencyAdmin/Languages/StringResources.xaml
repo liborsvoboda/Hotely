@@ -226,12 +226,12 @@
     <system:String x:Key="price">Price</system:String>
     <system:String x:Key="currency">Currency</system:String>
 
-    <system:String x:Key="dials">Template Dials</system:String>
+    <system:String x:Key="dials">Dials</system:String>
     <system:String x:Key="documents">Documents</system:String>
-    <system:String x:Key="settings">Template Settings</system:String>
-    <system:String x:Key="templates">Templates MultiMedia</system:String>
+    <system:String x:Key="settings">Settings</system:String>
+    <system:String x:Key="templates">Templates</system:String>
     <system:String x:Key="itemsAndDocs">Items &amp; Docs</system:String>
-    <system:String x:Key="agendas">Template Agendas</system:String>
+    <system:String x:Key="agendas">Agendas</system:String>
     <system:String x:Key="copy">Copy</system:String>
     <system:String x:Key="item">Item</system:String>
     <system:String x:Key="license">License</system:String>
@@ -332,14 +332,16 @@
     <system:String x:Key="customerOrderNumber">Customer order nr.</system:String>
     <system:String x:Key="createCreditNote">Create Credit note</system:String>
     <system:String x:Key="creditNoteList">Credit note list</system:String>
-    <system:String x:Key="crm">Template Documents</system:String>
+    <system:String x:Key="crm">CRM</system:String>
     <system:String x:Key="orders">Orders</system:String>
     <system:String x:Key="invoices">Invoices</system:String>
     <system:String x:Key="warehouses">Warehouses</system:String>
     <system:String x:Key="system">System</system:String>
     <system:String x:Key="invoiceNumber">Invoice number</system:String>
     <system:String x:Key="showCreditNote">Show credit note</system:String>
+    <system:String x:Key="autoReceiptStatus">Automatic status for Receipt</system:String>
     <system:String x:Key="autoCreditNoteStatus">Automatic status for Credit note</system:String>
+    <system:String x:Key="receipted">Generated receipt</system:String>
     <system:String x:Key="credited">Credited</system:String>
     <system:String x:Key="receiptList">Receipt list</system:String>
     <system:String x:Key="receipt">Receipt</system:String>
@@ -352,11 +354,6 @@
     <system:String x:Key="connectionStringIsNotValid">Connection string is not Valid. Repair it in settings.</system:String>
     <system:String x:Key="reportBuilder">Report Builder</system:String>
     <system:String x:Key="run">Run</system:String>
-
-    <system:String x:Key="touchPanelMenu">Touch menu for production terminals</system:String>
-    <system:String x:Key="hiddenTouchPcMenu">Touch menu terminals, kiosks</system:String>
-    <system:String x:Key="standardAppMenu">Standard application menu</system:String>
-    <system:String x:Key="menuType">Menu type</system:String>
     <system:String x:Key="showApiDescription">Show Api Description</system:String>
     <system:String x:Key="showApi">Show Api</system:String>
     <system:String x:Key="attachmentList">Attachments</system:String>
@@ -367,6 +364,10 @@
     <system:String x:Key="tableName">Table name</system:String>
     <system:String x:Key="sequence">Sequence</system:String>
     <system:String x:Key="searchColumnList">Column List for searching</system:String>
-    <system:String x:Key="globeExample">Globe</system:String>
 
+    <system:String x:Key="createReceipt">Create Receipt</system:String>
+    <system:String x:Key="showReceipt">Show Receipt</system:String>
+
+    <system:String x:Key="accommodations">Accommodations</system:String>
+    <system:String x:Key="owner">Owner</system:String>
 </ResourceDictionary>

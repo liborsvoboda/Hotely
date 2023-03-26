@@ -22,7 +22,7 @@ namespace TravelAgencyAdmin.Api
                     HttpResponseMessage json = await httpClient.PostAsync(App.Setting.ApiAddress + "/" + apiUrl, test);
                     return JsonConvert.DeserializeObject<Authentification>(await json.Content.ReadAsStringAsync());
                 }
-                catch { return new Authentification() { Token = null, Expiration = null }; }
+                catch { return new Authentification() { Token = null, Role = null }; }
             }
         }
 

@@ -21,7 +21,7 @@ namespace TravelAgencyBackEnd.DBModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
+            { 
                 optionsBuilder.EnableServiceProviderCaching(false);
                 optionsBuilder.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;",
                 //optionsBuilder.UseSqlServer(Program.ServerSettings.DbConnectionString,
@@ -42,6 +42,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
         public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
+        public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
@@ -390,6 +391,33 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentTypeList_UserList");
+            });
+
+            modelBuilder.Entity<ExchangeRateList>(entity =>
+            {
+                entity.ToTable("ExchangeRateList");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.ValidFrom).HasColumnType("date");
+
+                entity.Property(e => e.ValidTo).HasColumnType("date");
+
+                entity.Property(e => e.Value).HasColumnType("decimal(10, 2)");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.ExchangeRateLists)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ExchangeRateList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ExchangeRateLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ExchangeRateList_UserList");
             });
 
             modelBuilder.Entity<GuestList>(entity =>

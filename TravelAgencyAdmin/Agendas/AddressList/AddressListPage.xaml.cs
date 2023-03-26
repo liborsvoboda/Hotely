@@ -26,16 +26,13 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static AddressList selectedRecord = new AddressList();
 
+        
+        private List<UserList> userList = new List<UserList>();
+
         public AddressListPage()
         {
             InitializeComponent();
             _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
-
-            ObservableCollection<UpdateVariant> addressType = new ObservableCollection<UpdateVariant>() {
-                                                               new UpdateVariant() { Name = Resources["all"].ToString(), Value = "all" },
-                                                               new UpdateVariant() { Name = Resources["customer"].ToString(), Value = "customer" },
-                                                               new UpdateVariant() { Name = Resources["supplier"].ToString(), Value = "supplier" },
-                                                             };
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -50,12 +47,10 @@ namespace TravelAgencyAdmin.Pages
             lbl_addressType.Content = Resources["addressType"].ToString();
             lbl_ico.Content = Resources["ico"].ToString();
             lbl_dic.Content = Resources["dic"].ToString();
-            lbl_active.Content = Resources["active"].ToString();
+            lbl_owner.Content = Resources["owner"].ToString();
 
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
-
-            cb_addressType.ItemsSource = addressType;
 
             _ = LoadDataList();
             SetRecord(false);
@@ -68,6 +63,13 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<AddressList>>(ApiUrls.AddressList, (dataViewSupport.AdvancedFilter == null) ? null: "Filter/" + dataViewSupport.AdvancedFilter.Replace("[!]","").Replace("{!}",""), App.UserData.Authentification.Token);
+
+                //Only for Admin: Owner Selection
+                if (App.UserData.Authentification.Role == "Admin"){
+                    cb_owner.ItemsSource = userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null , App.UserData.Authentification.Token);
+                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
+                } else { selectedRecord.OwnerId = App.UserData.Authentification.Id; }
+
             } catch { }
 
             MainWindow.ProgressRing = Visibility.Hidden;return true;
@@ -89,17 +91,12 @@ namespace TravelAgencyAdmin.Pages
                 else if (headername == "BankAccount") e.Header = Resources["bankAccount"].ToString();
                 else if (headername == "Ico") e.Header = Resources["ico"].ToString();
                 else if (headername == "Dic") e.Header = Resources["dic"].ToString();
-                else if (headername == "Default") { e.Header = Resources["defaultAddress"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 6; }
-                else if (headername == "UnlockCode") { e.Header = Resources["unlockCode"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 5; }
-                else if (headername == "UnlockActivationHit") { e.Header = Resources["unlockActivationHit"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 4; }
-                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
                 else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 else if (headername == "AddressType") e.Visibility = Visibility.Hidden;
-
-                else if (headername == "LicenseId") e.DisplayIndex = 0;
+                else if (headername == "OwnerId") e.Visibility = Visibility.Hidden;
             });
         }
 
@@ -191,12 +188,15 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.Phone = txt_phone.Text;
                 selectedRecord.Email = txt_email.Text;
                 selectedRecord.BankAccount = txt_bankAccount.Text;
-                selectedRecord.AddressType = ((UpdateVariant)cb_addressType.SelectedItem).Value;
                 selectedRecord.Ico = txt_ico.Text;
                 selectedRecord.Dic = txt_dic.Text;
-                selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
+
+                //Only for Admin: Owner Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedRecord.UserId = selectedRecord.OwnerId = ((UserList)cb_owner.SelectedItem).Id;
+
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -233,15 +233,16 @@ namespace TravelAgencyAdmin.Pages
             txt_phone.Text = selectedRecord.Phone;
             txt_email.Text = selectedRecord.Email;
             txt_bankAccount.Text = selectedRecord.BankAccount;
-            cb_addressType.Text = (selectedRecord.AddressType != null) ? Resources[selectedRecord.AddressType].ToString(): null;
             txt_ico.Text = selectedRecord.Ico;
             txt_dic.Text = selectedRecord.Dic;
 
-            chb_active.IsChecked = selectedRecord.Active;
+            //Only for Admin: Owner Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner.Text = userList.Where(a => a.Id == selectedRecord.OwnerId).Select(a => a.Username).FirstOrDefault();
 
             if (showForm)
             {
-                MainWindow.DataGridSelected = MainWindow.DataGridSelectedIdListIndicator = false; MainWindow.dataGridSelectedId = 0; MainWindow.DgRefresh = false;
+                MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
                 ListView.Visibility = Visibility.Hidden; ListForm.Visibility = Visibility.Visible; dataViewSupport.FormShown = true; 
             } else {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;

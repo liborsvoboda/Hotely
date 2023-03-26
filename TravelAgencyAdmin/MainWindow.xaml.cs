@@ -199,13 +199,14 @@ namespace TravelAgencyAdmin
                 //Vertical main menu
                 tv_dials.Header = Resources["dials"].ToString(); tv_crm.Header = Resources["crm"].ToString(); tv_agendas.Header = Resources["agendas"].ToString(); 
                 tv_settings.Header = Resources["settings"].ToString(); tv_system.Header = Resources["system"].ToString();
+                tv_accommodations.Header = Resources["accommodations"].ToString();
 
                 //Standard Application menu
                 tm_reportList.Header = Resources["reportList"].ToString(); tm_calendar.Header = Resources["calendar"].ToString();
                 tm_userList.Header = Resources["userList"].ToString(); tm_userRoleList.Header = Resources["userRoleList"].ToString();
-                tm_clientSettings.Header = Resources["clientSettings"].ToString();
-                tm_loginHistoryList.Header = Resources["loginHistoryList"].ToString(); tm_support.Header = Resources["support"].ToString();
-                
+                tm_clientSettings.Header = Resources["clientSettings"].ToString(); tm_loginHistoryList.Header = Resources["loginHistoryList"].ToString();
+                tm_support.Header = Resources["support"].ToString(); tm_documentAdviceList.Header = Resources["documentAdviceList"].ToString();
+                tm_currencyList.Header = Resources["currencyList"].ToString();tm_exchangeRateList.Header = Resources["exchangeRateList"].ToString();
 
                 tm_addressList.Header = Resources["addressList"].ToString(); tm_parameterList.Header = Resources["parameterList"].ToString();
                 tm_branchList.Header = Resources["branchList"].ToString(); tm_reportQueueList.Header = Resources["reportQueueList"].ToString();
@@ -379,13 +380,9 @@ namespace TravelAgencyAdmin
                     Authentification dBResult = await ApiCommunication.Authentification(ApiUrls.Authentication, result.Username, result.Password);
                     if (dBResult == null || dBResult.Token == null)
                     {
-                        //uncomment these 2 lines for activate login check 
                         if (!UserLogged) { MessageDialogResult messageResult = await this.ShowMessageAsync(Resources["login"].ToString(), Resources["loginServiceError"].ToString() + "\n" + App.Setting.ApiAddress + "/" + ApiUrls.Authentication + " " + Resources["loginServiceError1"].ToString()); ShowLoginDialog(); }
                         else { MessageDialogResult messageResult = await this.ShowMessageAsync(Resources["login"].ToString(), Resources["loginError"].ToString()); ShowLoginDialog(); }
 
-                        //remove these 2 lines 
-                        //MessageDialogResult messageResult = await this.ShowMessageAsync(Resources["login"].ToString(), Resources["exceptionLogin"].ToString() + Environment.NewLine + Resources["exceptionHelp"].ToString());
-                        //si_loggedIn.Content = "tester";
                     } else {
                         App.UserData.Authentification = dBResult;
                         List<Parameters> parameters = await ApiCommunication.GetApiRequest<List<Parameters>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
@@ -717,7 +714,6 @@ namespace TravelAgencyAdmin
                 } else if (!name.StartsWith("tv_")) {
                     switch (name)
                     {
-                        case "cb_addressList":
                         case "tm_addressList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AddressListPage()); }
@@ -725,7 +721,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/AddressList", App.UserData.Authentification.Token);
                             break;
-                        case "cb_branchList":
                         case "tm_branchList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new BranchListPage()); }
@@ -733,7 +728,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/BranchList", App.UserData.Authentification.Token);
                             break;
-                        case "cb_calendar":
                         case "tm_calendar":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CalendarPage()); }
@@ -741,7 +735,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = null;
                             break;
-                        case "cb_clientSettings":
                         case "tm_clientSettings":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ClientSettingsPage()); }
@@ -749,7 +742,27 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = null;
                             break;
-                        case "cb_loginHistoryList": 
+                        case "tm_currencyList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CurrencyListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CurrencyList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_documentAdviceList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new DocumentAdviceListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentAdviceList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_exchangeRateList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ExchangeRateListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ExchangeRateList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_loginHistoryList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new LoginHistoryListPage()); }
@@ -764,7 +777,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ParameterList", App.UserData.Authentification.Token);
                             break;
-                        case "cb_reportList":
                         case "tm_reportList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ReportListPage()); }
@@ -772,7 +784,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ReportList", App.UserData.Authentification.Token);
                             break;
-                        case "cb_reportQueueList":
                         case "tm_reportQueueList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ReportQueueListPage()); }
@@ -780,7 +791,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ReportQueueList", App.UserData.Authentification.Token);
                             break;
-                        case "cb_support": 
                         case "tm_support":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources["support"].ToString(), new SupportPage()); }
@@ -788,7 +798,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = null;
                             break;
-                        case "cb_userList": 
                         case "tm_userList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new UserListPage()); }
@@ -796,7 +805,6 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/UserList", App.UserData.Authentification.Token);
                             break;
-                        case "cb_userRoleList":
                         case "tm_userRoleList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new UserRoleListPage()); }

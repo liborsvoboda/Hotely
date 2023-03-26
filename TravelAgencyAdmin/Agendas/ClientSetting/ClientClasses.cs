@@ -7,7 +7,7 @@ namespace TravelAgencyAdmin.Classes
     /// </summary>
     public class Config
     {
-        public string ApiAddress { get; set; } = "http://192.168.1.141:5000";
+        public string ApiAddress { get; set; } = "http://95.183.52.33:5000";
         public bool WriteToLog { get; set; } = true;
         public Double ServerCheckIntervalSec { get; set; } = 5000;
         public bool TopMost { get; set; } = false;
@@ -19,7 +19,7 @@ namespace TravelAgencyAdmin.Classes
         public string UpdateUrl { get; set; } = "https://groupware-solution.eu/FTP/TravelAgencyAdminProject/Update";
         public string AutomaticUpdate { get; set; } = "never";
         public bool HideStartVideo { get; set; } = false;
-        public string ReportConnectionString { get; set; } = "Server=groupware-solution.eu,1433;Database=DATAPUB;User ID=datapub;Password=datapub;";
+        public string ReportConnectionString { get; set; } = "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;";
         public string ReportBuilderPath { get; set; } = "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe";
     }
 

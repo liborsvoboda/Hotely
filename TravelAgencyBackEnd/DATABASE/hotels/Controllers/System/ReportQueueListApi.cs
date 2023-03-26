@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using TravelAgencyBackEnd.Classes;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -33,7 +32,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/ReportQueueList/Filter/{Filter}")]
+        [HttpGet("/ReportQueueList/Filter/{filter}")]
         public async Task<string> GetReportQueueListByFilter(string filter)
         {
             List<ReportQueueList> data;
@@ -48,7 +47,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/ReportQueueList/{Id}")]
+        [HttpGet("/ReportQueueList/{id}")]
         public async Task<string> GetReportQueueListKey(int id)
         {
             ReportQueueList data;
@@ -116,15 +115,15 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/ReportQueueList/{Id}")]
+        [HttpDelete("/ReportQueueList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteReportQueueList(string Id)
+        public async Task<string> DeleteReportQueueList(string id)
         {
             try
             {
-                if (!int.TryParse(Id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                ReportQueueList record = new() { Id = int.Parse(Id) };
+                ReportQueueList record = new() { Id = int.Parse(id) };
 
                 var data = new hotelsContext().ReportQueueLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();

@@ -42,12 +42,6 @@ namespace TravelAgencyAdmin.Pages
                                                                 new UpdateVariant() { Name = Resources["automaticInstall"].ToString(), Value = "automaticInstall"}
                                                              };
 
-            ObservableCollection<UpdateVariant> MenuTypes = new ObservableCollection<UpdateVariant>() {
-                                                                new UpdateVariant() { Name = Resources["touchPanelMenu"].ToString(), Value = "touchPanelMenu" },
-                                                                new UpdateVariant() { Name = Resources["hiddenTouchPcMenu"].ToString(), Value = "hiddenTouchPcMenu"},
-                                                                new UpdateVariant() { Name = Resources["standardAppMenu"].ToString(), Value = "standardAppMenu"},
-                                                             };
-
             lbl_apiAddress.Content = Resources["apiAddress"].ToString();
             lbl_writeToLog.Content = Resources["logging"].ToString();
             lbl_serverCheckIntervalSec.Content = Resources["serverCheckIntervalSec"].ToString();

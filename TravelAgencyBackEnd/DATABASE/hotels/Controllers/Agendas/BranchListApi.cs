@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -32,7 +32,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/BranchList/Filter/{Filter}")]
+        [HttpGet("/BranchList/Filter/{filter}")]
         public async Task<string> GetBranchListByFilter(string filter)
         {
             List<BranchList> data;
@@ -56,7 +56,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/BranchList/{Id}")]
+        [HttpGet("/BranchList/{id}")]
         public async Task<string> GetBranchListKey(int id)
         {
             BranchList data;
@@ -98,15 +98,15 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/BranchList/{Id}")]
+        [HttpDelete("/BranchList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteBranchList(string Id)
+        public async Task<string> DeleteBranchList(string id)
         {
             try
             {
-                if (!int.TryParse(Id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                BranchList record = new() { Id = int.Parse(Id) };
+                BranchList record = new() { Id = int.Parse(id) };
 
                 var data = new hotelsContext().BranchLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();

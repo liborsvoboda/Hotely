@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
 using Swashbuckle.AspNetCore.Filters;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd
 {
@@ -47,9 +48,12 @@ namespace TravelAgencyBackEnd
             services.AddDbContext<hotelsContext>(opt => opt.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;"));
             services.AddControllersWithViews(
                 options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true
-            ).AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            );
+            ).AddNewtonsoftJson(
+                options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            ).AddJsonOptions(x => {
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                x.JsonSerializerOptions.WriteIndented = true;
+            });
 
             services.AddRouting();
 
@@ -72,7 +76,7 @@ namespace TravelAgencyBackEnd
                     c.SchemaGeneratorOptions = new SchemaGeneratorOptions { SchemaIdSelector = type => type.FullName };
                     c.SwaggerDoc("v1", new OpenApiInfo
                     {
-                        Title = "BACKENDCORE Server API",
+                        Title = "Travel Agency BackEnd Server API",
                         Version = "v1",
                         Description = Program.BackendServiceName,
                         Contact = new OpenApiContact { Name = "Libor Svoboda", Email = "Libor.Svoboda@GroupWare-Solution.Eu", Url = new Uri("https://groupware-solution.eu/contactus") },

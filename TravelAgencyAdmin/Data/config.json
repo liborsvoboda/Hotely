@@ -1,18 +1,17 @@
 {
-  "ApiAddress": "http://127.0.0.1:5000",
+  "ApiAddress": "http://95.183.52.33:5000",
   "WriteToLog": true,
   "ServerCheckInterval": 5000,
   "CloseFormAfterSave": true,
   "TopMost": false,
   "ActiveNewInputDefault": true,
   "DefaultLanguage": "{\"Name\":\"System\",\"Value\":\"system\"}",
-  "MenuType": "standardAppMenu",
   "ThemeName": "Base Light",
   "AccentName": "Green",
   "ReportingPath": "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlReader.exe",
   "UpdateUrl": "https://groupware-solution.eu/FTP/TravelAgencyAdminProject/Update",
   "AutomaticUpdate": "showInfo",
   "HideStartVideo": false,
-  "ReportConnectionString": "Server=192.168.1.141,1433;Database=TravelAgencyAdmin;User ID=TravelAgencyAdmin;Password=TravelAgencyAdmin;",
+  "ReportConnectionString": "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;",
   "ReportBuilderPath": "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe"
 }

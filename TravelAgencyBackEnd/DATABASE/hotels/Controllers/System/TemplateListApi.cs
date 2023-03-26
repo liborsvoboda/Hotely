@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -29,10 +30,10 @@ namespace TravelAgencyBackEnd.Controllers
                 data = new hotelsContext().TemplateLists.ToList();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/TemplateList/Filter/{Filter}")]
+        [HttpGet("/TemplateList/Filter/{filter}")]
         public async Task<string> GetTemplateListByFilter(string filter)
         {
             List<TemplateList> data;
@@ -44,10 +45,10 @@ namespace TravelAgencyBackEnd.Controllers
                 data = new hotelsContext().TemplateLists.FromSqlRaw("SELECT * FROM TemplateList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/TemplateList/{Id}")]
+        [HttpGet("/TemplateList/{id}")]
         public async Task<string> GetTemplateListKey(int id)
         {
             TemplateList data;
@@ -59,7 +60,7 @@ namespace TravelAgencyBackEnd.Controllers
                 data = new hotelsContext().TemplateLists.Where(a => a.Id == id).First();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpPut("/TemplateList")]
@@ -95,15 +96,15 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/TemplateList/{Id}")]
+        [HttpDelete("/TemplateList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteTemplateList(string Id)
+        public async Task<string> DeleteTemplateList(string id)
         {
             try
             {
-                if (!int.TryParse(Id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                TemplateList record = new() { Id = int.Parse(Id) };
+                TemplateList record = new() { Id = int.Parse(id) };
 
                 var data = new hotelsContext().TemplateLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();

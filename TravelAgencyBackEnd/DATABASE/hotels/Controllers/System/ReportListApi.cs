@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -32,7 +32,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/ReportList/Filter/{Filter}")]
+        [HttpGet("/ReportList/Filter/{filter}")]
         public async Task<string> GetReportListByFilter(string filter)
         {
             List<ReportList> data;
@@ -47,7 +47,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/ReportList/{Id}/{Name}")]
+        [HttpGet("/ReportList/{id}/{name}")]
         public async Task<string> GetReportListView(double id, string name)
         {
             List<ReportList> data;
@@ -92,15 +92,15 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/ReportList/{Id}")]
+        [HttpDelete("/ReportList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteReportList(string Id)
+        public async Task<string> DeleteReportList(string id)
         {
             try
             {
-                if (!int.TryParse(Id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                ReportList record = new() { Id = int.Parse(Id) };
+                ReportList record = new() { Id = int.Parse(id) };
 
                 var data = new hotelsContext().ReportLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();

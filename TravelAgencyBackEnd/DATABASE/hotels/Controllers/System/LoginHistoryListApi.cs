@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using BACKENDCORE.CoreClasses;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -29,7 +30,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/LoginHistoryList/Filter/{Filter}")]
+        [HttpGet("/LoginHistoryList/Filter/{filter}")]
         public async Task<string> GetLoginHistoryListByFilter(string filter)
         {
             List<LoginHistoryList> data;
@@ -45,15 +46,15 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpPost("/LoginHistoryList")]
-        [Consumes("application/json")] // ([FromBody] int Id) Body is only 17 ([FromBody] IdFilter Id) Body is {"Id":17}
-        public async Task<string> GetLoginHistoryListId([FromBody] IdFilter Id)
+        [Consumes("application/json")] // ([FromBody] int Id) Body is only 17 ([FromBody] IdFilter id) Body is {"Id":17}
+        public async Task<string> GetLoginHistoryListId([FromBody] IdFilter id)
         {
-            if (!int.TryParse(Id.Id.ToString(), out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+            if (!int.TryParse(id.Id.ToString(), out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
             LoginHistoryList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            { data = new hotelsContext().LoginHistoryLists.Where(a => a.Id == Id.Id).First(); }
+            { data = new hotelsContext().LoginHistoryLists.Where(a => a.Id == id.Id).First(); }
             return JsonSerializer.Serialize(data);
         }
 

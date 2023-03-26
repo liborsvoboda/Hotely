@@ -1,9 +1,9 @@
-﻿using BACKENDCORE.Services;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using BACKENDCORE.Services;
 using System.Linq;
-using System.Text.Json;
+using System;
 
 namespace BACKENDCORE.Controllers
 {
@@ -17,20 +17,20 @@ namespace BACKENDCORE.Controllers
         [HttpPost("/Authentication")]
         public IActionResult Authenticate([FromHeader] string Authorization)
         {
-
+  
             (string username, string password) = GetUsernameAndPasswordFromAuthorizeHeader(Authorization);
+
+            var user = UserService.Authenticate(username, password);
 
             try
             {
                 if (HttpContext.Connection.RemoteIpAddress != null)
                 {
                     string clientIPAddr = System.Net.Dns.GetHostEntry(HttpContext.Connection.RemoteIpAddress).AddressList.First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
-                    if (!string.IsNullOrWhiteSpace(clientIPAddr)) { LoginHistoryService.WriteVisit(clientIPAddr, username); }
+                    if (!string.IsNullOrWhiteSpace(clientIPAddr)) { LoginHistoryService.WriteVisit(clientIPAddr, user.Id, username); }
                 }
             }
             catch { }
-
-            var user = UserService.Authenticate(username, password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });

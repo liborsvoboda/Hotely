@@ -16,6 +16,7 @@ namespace TravelAgencyBackEnd.DBModel
             CurrencyLists = new HashSet<CurrencyList>();
             DocumentAdviceLists = new HashSet<DocumentAdviceList>();
             DocumentTypeLists = new HashSet<DocumentTypeList>();
+            ExchangeRateLists = new HashSet<ExchangeRateList>();
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
             HotelActionTypeLists = new HashSet<HotelActionTypeList>();
             HotelLists = new HashSet<HotelList>();
@@ -56,6 +57,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<CurrencyList> CurrencyLists { get; set; }
         public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
         public virtual ICollection<DocumentTypeList> DocumentTypeLists { get; set; }
+        public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual ICollection<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual ICollection<HotelList> HotelLists { get; set; }

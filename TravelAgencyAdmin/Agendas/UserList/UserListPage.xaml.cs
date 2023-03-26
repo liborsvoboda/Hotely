@@ -170,7 +170,7 @@ namespace TravelAgencyAdmin.Pages
             {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.RoleId = ((UserRoleListSelection)cb_roleId.SelectedItem).Id;
+                selectedRecord.RoleId = ((UserRoleList)cb_roleId.SelectedItem).Id;
                 selectedRecord.Username = txt_userName.Text;
                 selectedRecord.Password = pb_password.Password;
                 selectedRecord.Name = txt_name.Text;
@@ -181,9 +181,12 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.Token = txt_token.Text;
                 selectedRecord.Expiration = dp_expiration.Value;
 
+                if (selectedRecord.PhotoPath != txt_photoPath.Text)
+                {
+                    selectedRecord.MimeType = MimeMapping.GetMimeMapping(txt_photoPath.Text);
+                    selectedRecord.Photo = File.ReadAllBytes(txt_photoPath.Text);
+                }
                 selectedRecord.PhotoPath = txt_photoPath.Text;
-                selectedRecord.MimeType = MimeMapping.GetMimeMapping(txt_photoPath.Text);
-                selectedRecord.Photo = File.ReadAllBytes(txt_photoPath.Text);
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -231,7 +234,7 @@ namespace TravelAgencyAdmin.Pages
 
             if (showForm)
             {
-                MainWindow.DataGridSelected = MainWindow.DataGridSelectedIdListIndicator = false; MainWindow.dataGridSelectedId = 0; MainWindow.DgRefresh = false;
+                MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
                 ListView.Visibility = Visibility.Hidden; ListForm.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
             }
             else

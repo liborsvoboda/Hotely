@@ -186,8 +186,7 @@
                 Width="120"
                 Height="40"
                 Margin="0"
-                HorizontalAlignment="Left"
-                Visibility="Visible">
+                HorizontalAlignment="Left">
                 <ToolBar
                     x:Name="tb_verticalMenu"
                     Width="120"
@@ -215,7 +214,25 @@
                         Margin="0"
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_currencyList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_exchangeRateList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
+                    <TreeViewItem
+                        x:Name="tv_accommodations"
+                        Width="200"
+                        Margin="0"
+                        FontSize="20"
+                        PreviewMouseDown="Cb_verticalMenuSelected" />
                     <TreeViewItem
                         x:Name="tv_crm"
                         Width="200"
@@ -241,6 +258,12 @@
                         Margin="0"
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_documentAdviceList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
                             x:Name="tm_parameterList"
                             HorizontalAlignment="Stretch"
@@ -300,11 +323,10 @@
 
             <DockPanel
                 x:Name="gridMenu"
-                Width="0"
+                Width="620"
                 Height="40"
-                Margin="0"
-                HorizontalAlignment="Left"
-                Visibility="Hidden">
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
                 <MenuItem
                     x:Name="mi_reload"
                     Width="130"

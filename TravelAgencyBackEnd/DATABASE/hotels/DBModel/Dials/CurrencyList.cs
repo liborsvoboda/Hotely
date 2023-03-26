@@ -7,6 +7,7 @@ namespace TravelAgencyBackEnd.DBModel
     {
         public CurrencyList()
         {
+            ExchangeRateLists = new HashSet<ExchangeRateList>();
             HotelLists = new HashSet<HotelList>();
         }
 
@@ -21,6 +22,7 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime TimeStamp { get; set; }
 
         public virtual UserList User { get; set; }
+        public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual ICollection<HotelList> HotelLists { get; set; }
     }
 }

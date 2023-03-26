@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.Classes
+﻿namespace BACKENDCORE.CoreClasses
 {
     public class ReportExtension
     {

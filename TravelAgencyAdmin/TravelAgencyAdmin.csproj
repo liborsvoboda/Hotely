@@ -222,6 +222,18 @@
     <Compile Include="Agendas\AddressList\AddressListPage.xaml.cs">
       <DependentUpon>AddressListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\CurrencyList\CurrencyList.cs" />
+    <Compile Include="Agendas\CurrencyList\CurrencyListPage.xaml.cs">
+      <DependentUpon>CurrencyListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\DocumentAdviceList\DocumentAdviceList.cs" />
+    <Compile Include="Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml.cs">
+      <DependentUpon>DocumentAdviceListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\ExchangeRateList\ExchangeRateList.cs" />
+    <Compile Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml.cs">
+      <DependentUpon>ExchangeRateListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\ReportQueueList\ReportQueueList.cs" />
     <Compile Include="Agendas\ReportQueueList\ReportQueueListPage.xaml.cs">
       <DependentUpon>ReportQueueListPage.xaml</DependentUpon>
@@ -310,6 +322,18 @@
     <Page Include="Agendas\ClientSetting\ClientSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Agendas\CurrencyList\CurrencyListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\LoginHistoryList\LoginHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>

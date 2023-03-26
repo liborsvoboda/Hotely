@@ -11,9 +11,4 @@ namespace TravelAgencyAdmin.Classes
         public DateTime? Timestamp { get; set; } = null;
     }
 
-    public class UserRoleListSelection
-    {
-        public int Id { get; set; } = 0;
-        public string Role { get; set; } = null;
-    }
 }

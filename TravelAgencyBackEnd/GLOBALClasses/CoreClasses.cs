@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TravelAgencyBackEnd.Classes
+﻿namespace BACKENDCORE.CoreClasses
 {
     public enum DBResult
     {
@@ -22,6 +20,7 @@ namespace TravelAgencyBackEnd.Classes
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Token { get; set; }
+        public string Role { get; set; }
     }
 
     public class IdFilter

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using TravelAgencyBackEnd.Classes;
+using BACKENDCORE.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -26,7 +26,7 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/ParameterList/Filter/{Filter}")]
+        [HttpGet("/ParameterList/Filter/{filter}")]
         public async Task<string> GetParameterListByFilter(string filter)
         {
             List<ParameterList> data;
@@ -42,7 +42,7 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [Authorize]
-        [HttpGet("/ParameterList/{UserId}")]
+        [HttpGet("/ParameterList/{userId}")]
         public async Task<string> GetParameterListKey(int userId)
         {
             List<ParameterList> data;
@@ -89,15 +89,15 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [Authorize]
-        [HttpDelete("/ParameterList/{Id}")]
+        [HttpDelete("/ParameterList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteParameterList(string Id)
+        public async Task<string> DeleteParameterList(string id)
         {
             try
             {
-                if (!int.TryParse(Id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
+                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                ParameterList record = new() { Id = int.Parse(Id) };
+                ParameterList record = new() { Id = int.Parse(id) };
 
                 var data = new hotelsContext().ParameterLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
