@@ -21,7 +21,6 @@ namespace TravelAgencyBackEnd.DBModel
         public string DescriptionEn { get; set; }
         public bool Top { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
 
         public virtual HotelList Hotel { get; set; }

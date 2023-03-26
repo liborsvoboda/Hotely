@@ -24,6 +24,7 @@ using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.WebSockets;
 
 namespace TravelAgencyBackEnd
 {
@@ -46,11 +47,11 @@ namespace TravelAgencyBackEnd
 
             services.AddEndpointsApiExplorer();
             services.AddDbContext<hotelsContext>(opt => opt.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;"));
-            services.AddControllersWithViews(
-                options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true
-            ).AddNewtonsoftJson(
-                options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            ).AddJsonOptions(x => {
+            services.AddControllersWithViews(options => {
+                options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+            }).AddNewtonsoftJson(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }).AddJsonOptions(x => {
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 x.JsonSerializerOptions.WriteIndented = true;
             });
@@ -92,7 +93,7 @@ namespace TravelAgencyBackEnd
                     c.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
                     c.UseInlineDefinitionsForEnums();
                     c.SupportNonNullableReferenceTypes();
-                    c.UseAllOfToExtendReferenceSchemas();
+                    ////c.UseAllOfToExtendReferenceSchemas();
                     c.DocInclusionPredicate((docName, description) => true);
                     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 });
@@ -162,7 +163,7 @@ namespace TravelAgencyBackEnd
                     c.EnableValidator();
                     c.ShowCommonExtensions();
                     c.ShowExtensions();
-                    c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Head, SubmitMethod.Trace, SubmitMethod.Post, SubmitMethod.Delete, SubmitMethod.Put);
+                    c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Head);
                     c.UseRequestInterceptor("(request) => { return request; }");
                     c.UseResponseInterceptor("(response) => { return response; }");
                 });
@@ -217,13 +218,13 @@ namespace TravelAgencyBackEnd
                 .AllowAnyHeader()
             );
             //app.UseHttpsRedirection();
+            app.UseWebSockets();
             app.UseRouting();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

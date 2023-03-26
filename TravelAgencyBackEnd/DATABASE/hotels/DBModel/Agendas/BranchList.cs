@@ -22,7 +22,6 @@ namespace TravelAgencyBackEnd.DBModel
         public string Ico { get; set; }
         public string Dic { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public bool Active { get; set; }
         public DateTime TimeStamp { get; set; }
 

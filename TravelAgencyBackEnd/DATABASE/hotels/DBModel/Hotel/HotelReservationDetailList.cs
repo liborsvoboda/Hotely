@@ -20,7 +20,6 @@ namespace TravelAgencyBackEnd.DBModel
         public string Message { get; set; }
         public bool GuestSender { get; set; }
         public bool Shown { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
 
         public virtual GuestList Guest { get; set; }

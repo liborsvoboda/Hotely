@@ -31,7 +31,6 @@ namespace TravelAgencyBackEnd.DBModel
             ReportLists = new HashSet<ReportList>();
             ReportQueueLists = new HashSet<ReportQueueList>();
             TemplateLists = new HashSet<TemplateList>();
-            UserRoleLists = new HashSet<UserRoleList>();
         }
 
         public int Id { get; set; }
@@ -72,6 +71,5 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<ReportList> ReportLists { get; set; }
         public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
         public virtual ICollection<TemplateList> TemplateLists { get; set; }
-        public virtual ICollection<UserRoleList> UserRoleLists { get; set; }
     }
 }

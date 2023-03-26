@@ -31,7 +31,6 @@ namespace TravelAgencyBackEnd.DBModel
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Status { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
         public string SearchedText { get; set; }
 

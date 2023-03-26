@@ -16,7 +16,6 @@ namespace TravelAgencyBackEnd.DBModel
         public int? UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public virtual UserList User { get; set; }
         public virtual ICollection<UserList> UserLists { get; set; }
     }
 }

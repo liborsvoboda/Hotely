@@ -18,7 +18,6 @@ namespace TravelAgencyBackEnd.DBModel
         public bool ExtraBed { get; set; }
         public int RoomsCount { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
 
         public virtual HotelList Hotel { get; set; }

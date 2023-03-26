@@ -64,11 +64,11 @@ namespace TravelAgencyAdmin.Pages
             {
                 DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<AddressList>>(ApiUrls.AddressList, (dataViewSupport.AdvancedFilter == null) ? null: "Filter/" + dataViewSupport.AdvancedFilter.Replace("[!]","").Replace("{!}",""), App.UserData.Authentification.Token);
 
-                //Only for Admin: Owner Selection
+                //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin"){
                     cb_owner.ItemsSource = userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null , App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
-                } else { selectedRecord.OwnerId = App.UserData.Authentification.Id; }
+                }
 
             } catch { }
 
@@ -193,7 +193,7 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
-                //Only for Admin: Owner Selection
+                //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
                     selectedRecord.UserId = selectedRecord.OwnerId = ((UserList)cb_owner.SelectedItem).Id;
 
@@ -236,9 +236,9 @@ namespace TravelAgencyAdmin.Pages
             txt_ico.Text = selectedRecord.Ico;
             txt_dic.Text = selectedRecord.Dic;
 
-            //Only for Admin: Owner Selection
+            //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")
-                cb_owner.Text = userList.Where(a => a.Id == selectedRecord.OwnerId).Select(a => a.Username).FirstOrDefault();
+                cb_owner.Text = userList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.Username).FirstOrDefault();
 
             if (showForm)
             {

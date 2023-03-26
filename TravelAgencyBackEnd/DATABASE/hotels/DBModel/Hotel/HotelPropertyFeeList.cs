@@ -10,7 +10,6 @@ namespace TravelAgencyBackEnd.DBModel
         public int PropertyId { get; set; }
         public double? Fee { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
 
         public virtual UserList User { get; set; }

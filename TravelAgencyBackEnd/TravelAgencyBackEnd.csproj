@@ -31,6 +31,7 @@
     <Folder Include="DATABASE\hotels\Controllers\Support\" />
     <Folder Include="DATABASE\hotels\DBModel\Support\" />
     <Folder Include="DATABASE\hotels\DBModel\WebPages\" />
+    <Folder Include="DBModel\" />
   </ItemGroup>
 
 </Project>

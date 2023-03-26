@@ -21,7 +21,7 @@ namespace TravelAgencyBackEnd.DBModel
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            { 
+            {
                 optionsBuilder.EnableServiceProviderCaching(false);
                 optionsBuilder.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;",
                 //optionsBuilder.UseSqlServer(Program.ServerSettings.DbConnectionString,
@@ -104,13 +104,12 @@ namespace TravelAgencyBackEnd.DBModel
             {
                 entity.ToTable("AddressList");
 
-                entity.HasIndex(e => new { e.CompanyName, e.OwnerId }, "IX_AddressList")
+                entity.HasIndex(e => new { e.CompanyName, e.UserId }, "IX_AddressList")
                     .IsUnique();
 
-                entity.HasIndex(e => new { e.Email, e.OwnerId }, "IX_AddressList_1");
+                entity.HasIndex(e => new { e.Email, e.UserId }, "IX_AddressList_1");
 
                 entity.Property(e => e.AddressType)
-                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
@@ -143,8 +142,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.Ico)
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
-                entity.Property(e => e.OwnerId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
@@ -174,7 +171,7 @@ namespace TravelAgencyBackEnd.DBModel
             {
                 entity.ToTable("BranchList");
 
-                entity.HasIndex(e => new { e.CompanyName, e.OwnerId }, "IX_BranchList")
+                entity.HasIndex(e => new { e.CompanyName, e.UserId }, "IX_BranchList")
                     .IsUnique();
 
                 entity.Property(e => e.BankAccount)
@@ -206,8 +203,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.Ico)
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
-                entity.Property(e => e.OwnerId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
@@ -548,8 +543,6 @@ namespace TravelAgencyBackEnd.DBModel
                     .IsRequired()
                     .HasMaxLength(250)
                     .IsUnicode(false);
-
-                entity.Property(e => e.OwnerId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
@@ -1176,11 +1169,6 @@ namespace TravelAgencyBackEnd.DBModel
                     .IsUnicode(false);
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserRoleLists)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_UserRoleList_UserList");
             });
 
             OnModelCreatingPartial(modelBuilder);

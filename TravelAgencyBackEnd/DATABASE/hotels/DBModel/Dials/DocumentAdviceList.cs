@@ -13,7 +13,6 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public DateTime TimeStamp { get; set; }
 
         public virtual BranchList Branch { get; set; }

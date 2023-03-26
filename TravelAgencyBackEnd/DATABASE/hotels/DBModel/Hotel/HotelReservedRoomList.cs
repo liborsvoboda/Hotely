@@ -16,7 +16,6 @@ namespace TravelAgencyBackEnd.DBModel
         public int StatusId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
 
         public virtual HotelRoomList HotelRoom { get; set; }

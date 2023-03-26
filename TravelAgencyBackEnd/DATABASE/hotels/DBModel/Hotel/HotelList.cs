@@ -29,7 +29,6 @@ namespace TravelAgencyBackEnd.DBModel
         public bool ExtraBedSupported { get; set; }
         public int DefaultCurrencyId { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
 
         public virtual CityList City { get; set; }

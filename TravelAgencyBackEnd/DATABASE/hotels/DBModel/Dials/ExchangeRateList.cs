@@ -12,7 +12,6 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime? ValidTo { get; set; }
         public string Description { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; }
         public DateTime TimeStamp { get; set; }
 
         public virtual CurrencyList Currency { get; set; }
