@@ -16,15 +16,15 @@ namespace TravelAgencyBackEnd.Services
             _db = new hotelsContext();
         }
 
-        public IEnumerable<Reservation> FindReservation(int id)
+        public IEnumerable<HotelReservationList> FindReservation(int id)
         {
-            return _db.Reservations.Where(x => x.GuestId == id).AsEnumerable();
+            return _db.HotelReservationLists.Where(x => x.GuestId == id).AsEnumerable();
         }
         
        
-        public IEnumerable<ReservationsDetail> FindReservationDetails(int id)
+        public IEnumerable<HotelReservationDetailList> FindReservationDetails(int id)
         {
-            return _db.ReservationsDetails.Where(x => x.ReservationId == id).AsEnumerable();
+            return _db.HotelReservationDetailLists.Where(x => x.ReservationId == id).AsEnumerable();
         }
 
         

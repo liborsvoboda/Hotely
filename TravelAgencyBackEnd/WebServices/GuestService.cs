@@ -20,21 +20,21 @@ namespace TravelAgencyBackEnd.Services
             _db = new hotelsContext();
         }
 
-
+        /*
         public IEnumerable<SavedHotel> GetSavedHotels(int id)
         {
             return _db.SavedHotels.Where(n => n.GuestId == id).AsEnumerable();
         }
-
-        public IEnumerable<Guest> GetGuestById(int id)
+        */
+        public IEnumerable<GuestList> GetGuestById(int id)
         {
-            return _db.Guests.Where(g => g.Id == id);
+            return _db.GuestLists.Where(g => g.Id == id);
         }
 
         public void AddGuest(AddGuestViewModel guest)
         {
 
-            var newGuest = new Guest()
+            var newGuest = new GuestList()
             {
                 FullName = guest.FullName,
                 Street = guest.Street,
@@ -45,31 +45,31 @@ namespace TravelAgencyBackEnd.Services
                 Email = guest.Email
             };
 
-            _db.Guests.Add(newGuest);
+            _db.GuestLists.Add(newGuest);
             _db.SaveChanges();
         }
 
-        public async Task<int> EditGuest(Guest guest)
+        public async Task<int> EditGuest(GuestList guest)
         {
-            _db.Guests.Update(guest);
+            _db.GuestLists.Update(guest);
             return await _db.SaveChangesAsync();
         }
 
         public int AddReview(ReviewModel model)
         {
-            var newReview = new Review()
+            var newReview = new HotelReservationReviewList()
             {
+                HotelId = model.HotelId,
+                ReservationId = model.ReservationId,
+                GuestId = model.GuestId,
                 Rating = model.Rating,
-                Description = model.Description,
-                HotelId = model.HotelID,
-                GuestId = model.GuestID,
-                CreationDate = DateTime.Now
+                Description = model.Description
             };
 
-            _db.Reviews.Add(newReview);
+            _db.HotelReservationReviewLists.Add(newReview);
             return _db.SaveChanges();
         }
-
+        /*
         public int SaveHotel(SaveModel model)
         {
             var newSaveHotel = new SavedHotel()
@@ -93,28 +93,28 @@ namespace TravelAgencyBackEnd.Services
             _db.SavedHotels.Remove(newRemoveHotel);
             return _db.SaveChanges();
         }
-
-        public Guest FindGuestById(int id)
+        */
+        public GuestList FindGuestById(int id)
         {
-            return _db.Guests.FirstOrDefault(x => x.Id == id);
+            return _db.GuestLists.FirstOrDefault(x => x.Id == id);
         }
 
-        //public IEnumerable<Reservation> GetReservationsByID(int id)
-        //{
-        //    var result = _db.Reservations.Include(r => r.Guest).Include(h => h.Hotel).Where(r => r.Id == id).AsEnumerable();
+        public IEnumerable<HotelReservationList> GetReservationsByID(int id)
+        {
+            var result = _db.HotelReservationLists.Include(r => r.Guest).Include(h => h.Hotel).Where(r => r.Id == id).AsEnumerable();
 
-        //    var test = _db.Reservations.Where(r => r.GuestId == id).Include(r => r.Hotel).ThenInclude(r => r.Rooms).AsEnumerable();
+            var test = _db.HotelReservationLists.Where(r => r.GuestId == id).Include(r => r.Hotel).ThenInclude(r => r.HotelRoomLists).AsEnumerable();
 
-        //    return test;
-        //}
+            return test;
+        }
 
         public LoginResponseViewModel Login(LoginRequestViewModel model)
         {
-            Guest user =null;
+            GuestList user =null;
             bool isValid = false;
             if (model.UserId !=0)
             {
-                user = _db.Guests.FirstOrDefault(x => x.Id == model.UserId);
+                user = _db.GuestLists.FirstOrDefault(x => x.Id == model.UserId);
                 if (user != null)
                 {
                     return new LoginResponseViewModel(user);
@@ -122,7 +122,7 @@ namespace TravelAgencyBackEnd.Services
             }
             else
             {
-                user = _db.Guests.FirstOrDefault(x => x.Email == model.Email);
+                user = _db.GuestLists.FirstOrDefault(x => x.Email == model.Email);
                 
                 isValid = BCrypt.Net.BCrypt.Verify(model.Password, user.Password);
                 if (isValid==false)
@@ -137,7 +137,7 @@ namespace TravelAgencyBackEnd.Services
         public void RemoveGuest(int id)
         {
             const string deleted = "deleted";
-            var customer = _db.Guests.SingleOrDefault(x => x.Id == id);
+            var customer = _db.GuestLists.SingleOrDefault(x => x.Id == id);
             customer.FullName = deleted;
             customer.Street = deleted;
             customer.ZipCode = deleted;

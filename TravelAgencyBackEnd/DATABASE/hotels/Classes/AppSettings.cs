@@ -22,7 +22,6 @@ namespace TravelAgencyBackEnd.Classes
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Token { get; set; }
-        public bool SystemAdmin { get; set; }
     }
 
     public class IdFilter

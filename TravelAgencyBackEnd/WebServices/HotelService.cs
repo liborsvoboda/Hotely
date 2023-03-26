@@ -45,7 +45,7 @@ namespace TravelAgencyBackEnd.Services
         }
         public HotelRoomsViewModel GetAvailableRooms(int id, DateTime date1, DateTime date2)
         {
-            var reservations = _db.Reservations.Where(r => r.HotelId == id && r.StartDate >= date1 && r.EndDate <= date2).Include(r => r.ReservedRooms).ThenInclude(r => r.Room);
+            var reservations = _db.HotelReservationLists.Where(r => r.HotelId == id && r.StartDate >= date1 && r.EndDate <= date2).Include(r => r.HotelReservedRoomLists).ThenInclude(r => r.HotelRoom);
 
             var availableRooms = new Dictionary<string, int>();
 
@@ -55,24 +55,24 @@ namespace TravelAgencyBackEnd.Services
 
             foreach (var reservation in reservations)
             {
-                foreach (var reservedRoom in reservation.ReservedRooms)
+                foreach (var reservedRoom in reservation.HotelReservedRoomLists)
                 {
-                    if (reservedRoom.BookedRooms > 0)
+                    if (reservedRoom.BookedRoomsRequest > 0)
                     { // Get amount of bookings for each room type
-                        availableRooms[reservedRoom.Room.Type] += reservedRoom.BookedRooms;
+                        //availableRooms[reservedRoom.HotelRoom.RoomType] += reservedRoom.BookedRooms;
                     }
                 }
             }
 
-            var roomInfo = _db.Rooms.Where(h => h.HotelId == id).ToList();
+            var roomInfo = _db.HotelRoomLists.Where(h => h.HotelId == id).ToList();
 
             foreach (var key in availableRooms.Keys)
             {
                 for (int i = 0; i < roomInfo.Count; i++)
                 {
-                    if (roomInfo[i].Type == key)
+                    if (roomInfo[i].RoomType.SystemName == key)
                     { // Get availability of the rooms
-                        availableRooms[key] = roomInfo[i].NoOfRooms - availableRooms[key];
+                        availableRooms[key] = roomInfo[i].Hotel.HotelRoomLists.Count() - availableRooms[key];
                     }
                 }
             }
@@ -82,32 +82,32 @@ namespace TravelAgencyBackEnd.Services
             return vm;
         }
 
-        //public IEnumerable<Review> GetReviews(int id)
-        //{
-        //    return _db.Reviews.Where(r => r.Hotel.Id == id).Include(c => c.Guest).AsEnumerable();
-        //}
-
-        //public HotelList GetById(int id)
-        //{
-        //    return _db.HotelLists.Include(r => r.Rooms).SingleOrDefault(h => h.Id == id);
-        //}
-
-        public Room GetRoomByRoomId(int id)
+        public IEnumerable<HotelReservationReviewList> GetReviews(int id)
         {
-            return _db.Rooms.SingleOrDefault(r => r.Id == id);
+            return _db.HotelReservationReviewLists.Where(r => r.Hotel.Id == id).Include(c => c.Guest).AsEnumerable();
         }
 
-        public Room GetRoomByHotelId_Type(int id, string type)
+        public HotelList GetById(int id)
         {
-            return _db.Rooms.SingleOrDefault(r => r.HotelId == id && r.Type == type);
+            return _db.HotelLists.Include(r => r.HotelRoomLists).SingleOrDefault(h => h.Id == id);
         }
 
-        //public IEnumerable<HotelList> GetAllHotels()
-        //{
-            
-        //    var result = _db.HotelLists.Include(n => n.Country).Include(n => n.City).Include(r => r.Rooms).AsEnumerable();
-        //    return result;
-        //}
+        public HotelRoomList GetRoomByRoomId(int id)
+        {
+            return _db.HotelRoomLists.SingleOrDefault(r => r.Id == id);
+        }
+
+        public HotelRoomList GetRoomByHotelId_Type(int id, string type)
+        {
+            return _db.HotelRoomLists.SingleOrDefault(r => r.HotelId == id && r.RoomType.SystemName == type);
+        }
+
+        public IEnumerable<HotelList> GetAllHotels()
+        {
+
+            var result = _db.HotelLists.Include(n => n.Country).Include(n => n.City).Include(r => r.HotelRoomLists).AsEnumerable();
+            return result;
+        }
 
         public IEnumerable<HotelList> GetHotelsByRandom()
         {

@@ -20,26 +20,26 @@ namespace TravelAgencyBackEnd.Services
             _hs = new HotelService();
 
         }
-        /*
-        public IEnumerable<Hotel> GetHotelByName(string input)
+        
+        public IEnumerable<HotelList> GetHotelByName(string input)
         {
-            return _db.Hotels.Where(n => n.Name.Contains(input)).Include(n => n.Country).Include(n => n.City).Include(r => r.Rooms).AsEnumerable();
+            return _db.HotelLists.Where(n => n.Name.Contains(input)).Include(n => n.Country).Include(n => n.City).Include(r => r.HotelRoomLists).AsEnumerable();
         }
 
-        public IEnumerable<Hotel> GetHotelByCity(string input)
+        public IEnumerable<HotelList> GetHotelByCity(string input)
         {
-            var result = _db.Hotels.Where(n => n.City.CityName.Contains(input)).Include(n => n.Country).Include(n => n.City).Include(r => r.Rooms).AsEnumerable();
+            var result = _db.HotelLists.Where(n => n.City.City.Contains(input)).Include(n => n.Country).Include(n => n.City).Include(r => r.HotelRoomLists).AsEnumerable();
             return result;
         }
 
-        public IEnumerable<Hotel> GetHotelByCountry(string input)
+        public IEnumerable<HotelList> GetHotelByCountry(string input)
         {
-            var result = _db.Hotels.Where(n => n.Country.CountryName.Contains(input)).Include(n => n.Country).Include(n=> n.City).Include(r => r.Rooms).AsEnumerable();
+            var result = _db.HotelLists.Where(n => n.Country.SystemName.Contains(input)).Include(n => n.Country).Include(n=> n.City).Include(r => r.HotelRoomLists).AsEnumerable();
             return result;
         }
 
         //includes hotel name, city name and country name
-        public IEnumerable<Hotel> GetAllHotelByInput(string input)
+        public IEnumerable<HotelList> GetAllHotelByInput(string input)
         {
             var result = GetHotelByCity(input).ToHashSet();
             var hotelCountry = GetHotelByCountry(input);
@@ -62,7 +62,7 @@ namespace TravelAgencyBackEnd.Services
         //working: searchstring + dates + rooms + people
         public IEnumerable<AvailableHotelViewModel> GetAvailableHotels(DateTime startDate, DateTime endDate, int rooms, int people, string input = null)
         {
-            IEnumerable<Hotel> hotels;
+            IEnumerable<HotelList> hotels;
             if (input == null || input == "")
             {
                 hotels = _hs.GetAllHotels();
@@ -82,19 +82,19 @@ namespace TravelAgencyBackEnd.Services
         {
             List<string> list = new List<string>();
 
-            var countries = _db.Countries;
+            var countries = _db.CountryLists;
             foreach (var country in countries)
             {
-                list.Add(country.CountryName);
+                list.Add(country.SystemName);
             }
 
-            var cities = _db.Cities;
+            var cities = _db.CityLists;
             foreach (var city in cities)
             {
-                list.Add(city.CityName);
+                list.Add(city.City);
             }
 
-            var hotels = _db.Hotels;
+            var hotels = _db.HotelLists;
             foreach (var hotel in hotels)   
             {
                 list.Add(hotel.Name);
@@ -104,7 +104,7 @@ namespace TravelAgencyBackEnd.Services
         }
 
         //method to get available rooms and checks if hotel has capacity for selected people
-        private void SearchAvailableRoomsDependingOnPeople(DateTime startDate, DateTime endDate, int rooms, int people, IEnumerable<Hotel> hotelsByInput, HashSet<AvailableHotelViewModel> hotelList)
+        private void SearchAvailableRoomsDependingOnPeople(DateTime startDate, DateTime endDate, int rooms, int people, IEnumerable<HotelList> hotelsByInput, HashSet<AvailableHotelViewModel> hotelList)
         {
             foreach (var h in hotelsByInput)
             {
@@ -120,6 +120,6 @@ namespace TravelAgencyBackEnd.Services
                     }
                 }
             }
-        }*/
+        }
     }
 }

@@ -33,6 +33,7 @@ namespace TravelAgencyBackEnd.DBModel
             }
         }
 
+        public virtual DbSet<AccessRuleList> AccessRuleLists { get; set; }
         public virtual DbSet<AddressList> AddressLists { get; set; }
         public virtual DbSet<BranchList> BranchLists { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
@@ -45,6 +46,8 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual DbSet<HotelList> HotelLists { get; set; }
+        public virtual DbSet<HotelPropertyFeeList> HotelPropertyFeeLists { get; set; }
+        public virtual DbSet<HotelPropertyList> HotelPropertyLists { get; set; }
         public virtual DbSet<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
         public virtual DbSet<HotelReservationList> HotelReservationLists { get; set; }
         public virtual DbSet<HotelReservationReviewList> HotelReservationReviewLists { get; set; }
@@ -52,6 +55,8 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
         public virtual DbSet<HotelRoomList> HotelRoomLists { get; set; }
         public virtual DbSet<HotelRoomTypeList> HotelRoomTypeLists { get; set; }
+        public virtual DbSet<HotelServiceFeeList> HotelServiceFeeLists { get; set; }
+        public virtual DbSet<HotelServiceList> HotelServiceLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
         public virtual DbSet<LoginHistoryList> LoginHistoryLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
@@ -67,6 +72,33 @@ namespace TravelAgencyBackEnd.DBModel
         {
             modelBuilder.UseCollation("Czech_CI_AS");
 
+            modelBuilder.Entity<AccessRuleList>(entity =>
+            {
+                entity.ToTable("AccessRuleList");
+
+                entity.HasIndex(e => e.TableName, "IX_AccessRuleList")
+                    .IsUnique();
+
+                entity.Property(e => e.AccessRole)
+                    .IsRequired()
+                    .HasMaxLength(1024)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('Admin,')");
+
+                entity.Property(e => e.TableName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AccessRuleLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AccessRuleList_UserList");
+            });
+
             modelBuilder.Entity<AddressList>(entity =>
             {
                 entity.ToTable("AddressList");
@@ -75,12 +107,6 @@ namespace TravelAgencyBackEnd.DBModel
                     .IsUnique();
 
                 entity.HasIndex(e => new { e.Email, e.OwnerId }, "IX_AddressList_1");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.AddressType)
                     .IsRequired()
@@ -136,14 +162,8 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.AddressListOwners)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AddressList_UserList1");
-
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.AddressListUsers)
+                    .WithMany(p => p.AddressLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AddressList_UserList");
@@ -155,12 +175,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => new { e.CompanyName, e.OwnerId }, "IX_BranchList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.BankAccount)
                     .HasMaxLength(150)
@@ -211,14 +225,8 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.BranchListOwners)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_BranchList_UserList1");
-
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.BranchListUsers)
+                    .WithMany(p => p.BranchLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BranchList_UserList");
@@ -251,12 +259,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => e.City, "IX_CityList")
                     .IsUnique();
 
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
-
                 entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(250)
@@ -286,12 +288,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => e.SystemName, "IX_Country")
                     .IsUnique();
 
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
-
                 entity.Property(e => e.SystemName)
                     .IsRequired()
                     .HasMaxLength(150)
@@ -314,12 +310,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.Name, "IX_CurrencyList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.Description).HasColumnType("ntext");
 
@@ -345,12 +335,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => new { e.BranchId, e.DocumentTypeId, e.StartDate }, "IX_DocumentAdviceList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
@@ -380,14 +364,8 @@ namespace TravelAgencyBackEnd.DBModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentAdviceList_DocumentTypeList");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.DocumentAdviceListOwners)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentAdviceList_UserList");
-
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.DocumentAdviceListUsers)
+                    .WithMany(p => p.DocumentAdviceLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentAdvice_UserList");
@@ -399,12 +377,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.SystemName, "IX_DocumentTypeList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.SystemName)
                     .IsRequired()
@@ -425,12 +397,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.ToTable("GuestList");
 
                 entity.HasIndex(e => e.Email, "IX_GuestList");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.City)
                     .IsRequired()
@@ -479,14 +445,8 @@ namespace TravelAgencyBackEnd.DBModel
             {
                 entity.ToTable("HotelAccommodationActionList");
 
-                entity.HasIndex(e => new { e.HotelId, e.HotelActionTypeId, e.StartDate, e.EndDate }, "IX_HotelAccommodationActionList")
+                entity.HasIndex(e => new { e.HotelId, e.HotelActionTypeId, e.StartDate, e.EndDate }, "IX_HotelAccomodationActionList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.DescriptionCz)
                     .IsRequired()
@@ -508,25 +468,19 @@ namespace TravelAgencyBackEnd.DBModel
                     .WithMany(p => p.HotelAccommodationActionLists)
                     .HasForeignKey(d => d.HotelActionTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelAccommodationActionList_HotelActionList");
+                    .HasConstraintName("FK_HotelAccomodationActionList_HotelActionList");
 
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.HotelAccommodationActionLists)
                     .HasForeignKey(d => d.HotelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelAccommodationActionList_HotelList");
-
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.HotelAccommodationActionListOwners)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelAccommodationActionList_UserList1");
+                    .HasConstraintName("FK_HotelAccomodationActionList_HotelList");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.HotelAccommodationActionListUsers)
+                    .WithMany(p => p.HotelAccommodationActionLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelAccommodationActionList_UserList");
+                    .HasConstraintName("FK_HotelAccomodationActionList_UserList");
             });
 
             modelBuilder.Entity<HotelActionTypeList>(entity =>
@@ -535,12 +489,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.SystemName, "IX_HotelActionList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.SystemName)
                     .IsRequired()
@@ -562,12 +510,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => new { e.Name, e.CityId }, "IX_Hotels")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -603,17 +545,52 @@ namespace TravelAgencyBackEnd.DBModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelList_CurrencyList");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.HotelListOwners)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelList_UserList");
-
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.HotelListUsers)
+                    .WithMany(p => p.HotelLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Hotels_UserList");
+            });
+
+            modelBuilder.Entity<HotelPropertyFeeList>(entity =>
+            {
+                entity.ToTable("HotelPropertyFeeList");
+
+                entity.HasIndex(e => new { e.HotelId, e.PropertyId }, "IX_HotelPropertyFeeList")
+                    .IsUnique();
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HotelPropertyFeeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelPropertyFeeList_UserList");
+            });
+
+            modelBuilder.Entity<HotelPropertyList>(entity =>
+            {
+                entity.ToTable("HotelPropertyList");
+
+                entity.HasIndex(e => e.SystemName, "IX_PropertyList")
+                    .IsUnique();
+
+                entity.Property(e => e.SystemName)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Type)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HotelPropertyLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PropertyList_UserList");
             });
 
             modelBuilder.Entity<HotelReservationDetailList>(entity =>
@@ -625,12 +602,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => new { e.HotelId, e.GuestId }, "IX_ReservationsDetailList_1");
 
                 entity.HasIndex(e => e.GuestId, "IX_ReservationsDetailList_2");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
@@ -655,12 +626,6 @@ namespace TravelAgencyBackEnd.DBModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ReservationsDetailList_HotelList");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.HotelReservationDetailLists)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ReservationsDetailList_UserList");
-
                 entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.HotelReservationDetailLists)
                     .HasForeignKey(d => d.ReservationId)
@@ -671,12 +636,6 @@ namespace TravelAgencyBackEnd.DBModel
             modelBuilder.Entity<HotelReservationList>(entity =>
             {
                 entity.ToTable("HotelReservationList");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.City)
                     .IsRequired()
@@ -741,7 +700,7 @@ namespace TravelAgencyBackEnd.DBModel
                     .WithMany(p => p.HotelReservationLists)
                     .HasForeignKey(d => d.HotelAccommodationActionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelReservationList_HotelAccommodationActionList");
+                    .HasConstraintName("FK_HotelReservationList_HotelAccomodationActionList");
 
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.HotelReservationLists)
@@ -758,12 +717,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.ReservationId, "IX_ReviewList_1")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRule)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -784,12 +737,6 @@ namespace TravelAgencyBackEnd.DBModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ReviewList_HotelList");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.HotelReservationReviewLists)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ReviewList_UserList");
-
                 entity.HasOne(d => d.Reservation)
                     .WithOne(p => p.HotelReservationReviewList)
                     .HasForeignKey<HotelReservationReviewList>(d => d.ReservationId)
@@ -803,12 +750,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.SystemName, "IX_ReservationStatusList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.SystemName)
                     .IsRequired()
@@ -831,12 +772,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => new { e.HotelRoomId, e.ReservationId }, "IX_HotelReservedRoomList")
                     .IsUnique();
 
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
-
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
@@ -849,17 +784,17 @@ namespace TravelAgencyBackEnd.DBModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelReservedRoomList_HotelRoomList");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.HotelReservedRoomLists)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelReservedRoomList_UserList");
-
                 entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.HotelReservedRoomLists)
                     .HasForeignKey(d => d.ReservationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelReservedRoomList_ReservationList");
+
+                entity.HasOne(d => d.RoomType)
+                    .WithMany(p => p.HotelReservedRoomLists)
+                    .HasForeignKey(d => d.RoomTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelReservedRoomList_HotelRoomTypeList");
             });
 
             modelBuilder.Entity<HotelRoomList>(entity =>
@@ -867,12 +802,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.ToTable("HotelRoomList");
 
                 entity.HasIndex(e => e.HotelId, "IX_HotelRoomList");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
@@ -902,12 +831,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => e.SystemName, "IX_RoomTypeList")
                     .IsUnique();
 
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
-
                 entity.Property(e => e.DescriptionCz)
                     .HasMaxLength(2048)
                     .IsUnicode(false);
@@ -924,17 +847,52 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
+            modelBuilder.Entity<HotelServiceFeeList>(entity =>
+            {
+                entity.ToTable("HotelServiceFeeList");
+
+                entity.HasIndex(e => new { e.HotelId, e.PropertyId }, "IX_HotelServiceFeeList")
+                    .IsUnique();
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HotelServiceFeeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelServiceFeeList_UserList");
+            });
+
+            modelBuilder.Entity<HotelServiceList>(entity =>
+            {
+                entity.ToTable("HotelServiceList");
+
+                entity.HasIndex(e => e.SystemName, "IX_ServiceList")
+                    .IsUnique();
+
+                entity.Property(e => e.SystemName)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Type)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HotelServiceLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServiceList_UserList");
+            });
+
             modelBuilder.Entity<LanguageList>(entity =>
             {
                 entity.ToTable("LanguageList");
 
                 entity.HasIndex(e => e.SystemName, "IX_LanguageList");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.DescriptionCz)
                     .IsRequired()
@@ -963,12 +921,6 @@ namespace TravelAgencyBackEnd.DBModel
             modelBuilder.Entity<LoginHistoryList>(entity =>
             {
                 entity.ToTable("LoginHistoryList");
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.IpAddress)
                     .IsRequired()
@@ -1039,12 +991,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => new { e.PageName, e.SystemName }, "IX_ReportList")
                     .IsUnique();
 
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
-
                 entity.Property(e => e.Description).HasColumnType("text");
 
                 entity.Property(e => e.File).IsRequired();
@@ -1083,12 +1029,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => new { e.TableName, e.Sequence }, "IX_ReportQueueList_1")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.Search)
                     .HasMaxLength(50)
@@ -1151,12 +1091,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => e.UserName, "IX_UserList")
                     .IsUnique();
 
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
-
                 entity.Property(e => e.Active)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
@@ -1205,12 +1139,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.SystemName, "IX_UserRoleList")
                     .IsUnique();
-
-                entity.Property(e => e.AccessRole)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin,')");
 
                 entity.Property(e => e.Description).HasColumnType("text");
 

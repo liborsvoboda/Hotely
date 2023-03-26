@@ -72,3 +72,12 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.pdb
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.genruntimeconfig.cache
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\ref\TravelAgencyBackEnd.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\TravelAgencyBackEnd.xml
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Scrutor.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Swashbuckle.AspNetCore.Newtonsoft.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\Swashbuckle.AspNetCore.ReDoc.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.xml

@@ -16,7 +16,7 @@ namespace BACKENDCORE.Services
         public static AuthenticateResponse? Authenticate(string? username, string? password)
         {
             var user = new hotelsContext()
-                .UserLists.Include(a => a.Role).Where(a => a.Active == true && a.Role.Active == a.Active && a.UserName == username && a.Password == password)
+                .UserLists.Include(a => a.Role).Where(a => a.Active == true && a.UserName == username && a.Password == password)
                 .First();
 
             if (user == null)
@@ -31,7 +31,7 @@ namespace BACKENDCORE.Services
                     //new Claim(ClaimTypes.Name, user.Name),
                     //new Claim(ClaimTypes.Surname, user.Surname),
                     new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                    new Claim(ClaimTypes.Role, user.Role.Role),
+                    new Claim(ClaimTypes.Role, user.Role.SystemName),
                 }),
                 Issuer = user.UserName,
                 NotBefore = DateTimeOffset.Now.DateTime,
@@ -40,7 +40,7 @@ namespace BACKENDCORE.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            AuthenticateResponse authResponse = new() {Id = user.Id, Name = user.Name, Surname = user.SurName, SystemAdmin = user.SystemAdmin , Token = tokenHandler.WriteToken(token) };
+            AuthenticateResponse authResponse = new() {Id = user.Id, Name = user.Name, Surname = user.SurName, Token = tokenHandler.WriteToken(token) };
             return authResponse;
         }
 
@@ -49,13 +49,8 @@ namespace BACKENDCORE.Services
             var dbUser = new hotelsContext()
                 .UserLists.Where(a => a.Active == true && a.UserName == username)
                 .First();
-            if (dbUser.Token == token.Token && dbUser.Expiration < DateTimeOffset.Now) return false;
 
-            dbUser.Token = token.Token;
-
-            var data = new hotelsContext().UserLists.Update(dbUser);
-            int result = data.Context.SaveChanges();
-            if (result > 0) return true;
+            if (dbUser != null) return true;
             return false;
         }
 

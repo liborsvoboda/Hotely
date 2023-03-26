@@ -7,15 +7,10 @@ namespace TravelAgencyBackEnd.Models.ViewModels
 {
     public class ReviewModel
     {
-
+        public int HotelId { get; set; }
+        public int ReservationId { get; set; }
+        public int GuestId { get; set; }
         public float Rating { get; set; }
-
         public string Description { get; set; }
-        public int HotelID { get; set; }
-        public int GuestID { get; set; }
-
-        
-
-
     }
 }

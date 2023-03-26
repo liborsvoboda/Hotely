@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.DBModel
 {
@@ -16,20 +14,10 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime EndDate { get; set; }
         public int UserId { get; set; }
         public int OwnerId { get; set; }
-        public string AccessRole { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        [JsonIgnore]
-        [ValidateNever]
         public virtual BranchList Branch { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
         public virtual DocumentTypeList DocumentType { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
-        public virtual UserList Owner { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
         public virtual UserList User { get; set; }
     }
 }

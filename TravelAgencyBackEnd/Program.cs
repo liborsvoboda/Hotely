@@ -11,6 +11,12 @@ namespace TravelAgencyBackEnd
 {
     public class Program
     {
+
+        public readonly static bool EnableReDoc = true;
+        public readonly static bool EnableSwagger = true;
+        public readonly static string BackendServiceName = "TravelAgencySystem";
+
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.DBModel
 {
@@ -22,8 +20,9 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime EndDate { get; set; }
         public double TotalPrice { get; set; }
         public int Adult { get; set; }
-        public int Children { get; set; }
-        public int ExtraBed { get; set; }
+        public int? Children { get; set; }
+        public int Rooms { get; set; }
+        public bool ExtraBed { get; set; }
         public string FullName { get; set; }
         public string Street { get; set; }
         public string Zipcode { get; set; }
@@ -32,21 +31,13 @@ namespace TravelAgencyBackEnd.DBModel
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Status { get; set; }
+        public int OwnerId { get; set; }
         public DateTime Timestamp { get; set; }
         public string SearchedText { get; set; }
-        public string AccessRole { get; set; }
 
-        [JsonIgnore]
-        [ValidateNever]
         public virtual GuestList Guest { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
         public virtual HotelList Hotel { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
         public virtual HotelAccommodationActionList HotelAccommodationAction { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
         public virtual HotelReservationReviewList HotelReservationReviewList { get; set; }
         public virtual ICollection<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
         public virtual ICollection<HotelReservedRoomList> HotelReservedRoomLists { get; set; }

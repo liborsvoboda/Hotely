@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.DBModel
 {
@@ -26,14 +24,8 @@ namespace TravelAgencyBackEnd.DBModel
         public int UserId { get; set; }
         public int OwnerId { get; set; }
         public bool Active { get; set; }
-        public string AccessRole { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        [JsonIgnore]
-        [ValidateNever]
-        public virtual UserList Owner { get; set; }
-        [JsonIgnore]
-        [ValidateNever]
         public virtual UserList User { get; set; }
         public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
     }

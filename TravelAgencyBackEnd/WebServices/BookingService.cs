@@ -21,12 +21,12 @@ namespace TravelAgencyBackEnd.Services
         public int latestId;
         public string latestType;
 
-        //public Reservation GetBookingById(int id)
-        //{
-            
-        //    var result = _db.Reservations.Include(r => r.Guest).Include(h => h.Hotel).ThenInclude(r=>r.Rooms).SingleOrDefault(r => r.Id == id);
-        //    return result;
-        //}
+        public HotelReservationList GetBookingById(int id)
+        {
+
+            var result = _db.HotelReservationLists.Include(r => r.Guest).Include(h => h.Hotel).ThenInclude(r => r.HotelRoomLists).SingleOrDefault(r => r.Id == id);
+            return result;
+        }
 
         public HotelReservedRoomList GetReservedRoom(int id)
         {
@@ -51,122 +51,121 @@ namespace TravelAgencyBackEnd.Services
             return result;
         }
 
-        //public int CancelBooking(int bookingId)
-        //{
-        //    var booking = GetBookingById(bookingId);
-        //    var reservedRooms = GetReservedRooms(bookingId);
+        public int CancelBooking(int bookingId)
+        {
+            var booking = GetBookingById(bookingId);
+            var reservedRooms = GetReservedRooms(bookingId);
 
-        //    foreach(var r in reservedRooms)
-        //    {
-        //        r.BookedRooms = 0;
-        //        _db.ReservedRooms.Update(r);
-        //    }
+            foreach (var r in reservedRooms)
+            {
+                r.BookedRoomsRequest = 0;
+                _db.HotelReservedRoomLists.Update(r);
+            }
 
-        //    booking.Status = "Cancelled";
-        //    _db.Reservations.Update(booking);
+            booking.Status = "Cancelled";
+            _db.HotelReservationLists.Update(booking);
 
-        //    return _db.SaveChanges();
-        //}
+            return _db.SaveChanges();
+        }
 
-        //public int MakeBooking(SearchViewModel model)
-        //{
-        //    var newReservation = new Reservation()
-        //    {
-        //        StartDate = model.StartDate,
-        //        EndDate = model.EndDate,
-        //        DateCreated = DateTime.Now,
-        //        HotelId = model.HotelId,
-        //        GuestId = model.GuestId,
-        //        FullName = model.customerDetails.FirstName + " " + model.customerDetails.LastName,
-        //        Email = model.customerDetails.Email,
-        //        Phone = model.customerDetails.PhoneNumber,
-        //        Street = model.customerDetails.Street,
-        //        City = model.customerDetails.City,
-        //        Zipcode = model.customerDetails.ZipCode,
-        //        Country = model.customerDetails.Country,
-        //        Status = "Confirmed"
-        //    };
+        public int MakeBooking(SearchViewModel model)
+        {
+            var newReservation = new HotelReservationList()
+            {
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                HotelId = model.HotelId,
+                GuestId = model.GuestId,
+                FullName = model.customerDetails.FirstName + " " + model.customerDetails.LastName,
+                Email = model.customerDetails.Email,
+                Phone = model.customerDetails.PhoneNumber,
+                Street = model.customerDetails.Street,
+                City = model.customerDetails.City,
+                Zipcode = model.customerDetails.ZipCode,
+                Country = model.customerDetails.Country,
+                Status = "Confirmed"
+            };
 
-        //    _db.Reservations.Add(newReservation);
-        //    _db.SaveChanges();
-        //    latestId = newReservation.Id;
+            _db.HotelReservationLists.Add(newReservation);
+            _db.SaveChanges();
+            latestId = newReservation.Id;
 
-        //    var Acc = new Accomodation();
-           
-        //    latestType = Acc.Type = model.Type;
-                  
-        //    var newResDetails = new ReservationsDetail()
-        //    {
-        //        Adults = model.Adults,
-        //        Children = model.Children,
-        //        ExtraBed = model.ExtraBed,
-        //        CustomerMessage = model.CustomerMessage,
-        //        ReservationId = latestId,
-                
-        //        Type = latestType,
+            //var Acc = new Accomodation();
 
-        //    };
+            //latestType = Acc.Type = model.Type;
 
-        //    _db.ReservationsDetails.Add(newResDetails);
-        //    _db.SaveChanges();
+            var newResDetails = new HotelReservationDetailList()
+            {
+                Adult = model.Adults,
+               // Children = model.Children,
+               // ExtraBed = model.ExtraBed,
+                Message = model.CustomerMessage,
+                ReservationId = latestId,
 
-        //    foreach (var reservedRooms in model.ReservedRooms)
-        //    {
-        //        var newReservedRooms = new ReservedRoom()
-        //        {
-        //            ReservationId = latestId,
-        //            RoomId = reservedRooms.RoomId,
-        //            BookedRooms = reservedRooms.BookedRooms,
-        //        };
+                //Type = latestType,
 
-        //        _db.ReservedRooms.Add(newReservedRooms);
-        //        _db.SaveChanges();
-        //    }
+            };
 
-        //    var Cost = CalculateCost(newReservation, model.ReservedRooms, newResDetails);
-        //    return latestId;
-        //}
+            _db.HotelReservationDetailLists.Add(newResDetails);
+            _db.SaveChanges();
 
-        
-        //public double CalculateCost(Reservation reservation, List<ReservedRooms> reservedRooms, ReservationsDetail reservationsDetail)
-        //{
-        //    double totalprice = 0;
-        //    bool extrabed = (bool)reservationsDetail.ExtraBed;
-        //    List<double> costPerNightForEachRoom = new();
-        //    foreach (var room in reservedRooms)
-        //    {
-        //        costPerNightForEachRoom.Add(_db.Rooms.FirstOrDefault(x => x.Id == room.RoomId).Price);
-        //    }
-        //    DateTime d1 = reservation.StartDate;
-        //    DateTime d2 = reservation.EndDate;
-        //    TimeSpan t = d2 - d1;
-        //    var accomodationPrice = _hs.GetAccomodationFee(reservation.HotelId, reservationsDetail.Type);
-        //    int days = (int)t.Days;
-        //    int rooms = reservedRooms.Sum(b => b.BookedRooms);
+            foreach (var reservedRooms in model.ReservedRooms)
+            {
+                var newReservedRooms = new HotelReservedRoomList()
+                {
+                    ReservationId = latestId,
+                    HotelRoomId = reservedRooms.RoomId,
+                    BookedRoomsRequest = reservedRooms.BookedRooms,
+                };
 
-        //    var CostPerNightAndRoom = costPerNightForEachRoom.Sum() * (days*rooms);
+                _db.HotelReservedRoomLists.Add(newReservedRooms);
+                _db.SaveChanges();
+            }
 
-        //    totalprice += CostPerNightAndRoom;
+            var Cost = CalculateCost(newReservation, model.ReservedRooms, newResDetails);
+            return latestId;
+        }
 
-        //    totalprice += accomodationPrice;
 
-        //    if (extrabed==true)
-        //    {
-        //        var hotel = _hs.GetById(reservation.HotelId);
-        //        totalprice += (double)hotel.ExtraBedFee;
-        //    }
+        public double CalculateCost(HotelReservationList reservation, List<ReservedRooms> reservedRooms, HotelReservationDetailList reservationsDetail)
+        {
+            double totalprice = 0;
+            //bool extrabed = (bool)reservationsDetail.ExtraBed;
+            List<double> costPerNightForEachRoom = new();
+            foreach (var room in reservedRooms)
+            {
+                costPerNightForEachRoom.Add(_db.HotelRoomLists.FirstOrDefault(x => x.Id == room.RoomId).Price);
+            }
+            DateTime d1 = reservation.StartDate;
+            DateTime d2 = reservation.EndDate;
+            TimeSpan t = d2 - d1;
+            //var accomodationPrice = _hs.GetAccomodationFee(reservation.HotelId, reservationsDetail.Type);
+            int days = (int)t.Days;
+            int rooms = reservedRooms.Sum(b => b.BookedRooms);
 
-        //    using (var db = new hotelsContext())
-        //    {
-        //        var result = db.Reservations.SingleOrDefault(b => b.Id == latestId);
-        //        if (result != null)
-        //        {
-        //            result.TotalPrice = totalprice;
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //    return totalprice;
-        //}
+            var CostPerNightAndRoom = costPerNightForEachRoom.Sum() * (days * rooms);
+
+            totalprice += CostPerNightAndRoom;
+
+            //totalprice += accomodationPrice;
+
+           /* if (extrabed == true)
+            {
+                var hotel = _hs.GetById(reservation.HotelId);
+                totalprice += (double)hotel.ExtraBedFee;
+            }
+           */
+            using (var db = new hotelsContext())
+            {
+                var result = db.HotelReservationLists.SingleOrDefault(b => b.Id == latestId);
+                if (result != null)
+                {
+                    result.TotalPrice = totalprice;
+                    db.SaveChanges();
+                }
+            }
+            return totalprice;
+        }
 
         public void UpdateReservation(CustomerDetailsModel model, int id)
         {
