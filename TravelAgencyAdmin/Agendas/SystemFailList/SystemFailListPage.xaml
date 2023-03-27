@@ -105,7 +105,8 @@
                 Controls:TextBoxHelper.ClearTextButton="true"
                 Controls:TextBoxHelper.IsWaitingForData="True"
                 Controls:TextBoxHelper.Watermark=""
-                ToolTip="" IsReadOnly="True" />
+                IsReadOnly="True"
+                ToolTip="" />
 
             <Label
                 x:Name="lbl_description"
@@ -121,7 +122,8 @@
                 Controls:TextBoxHelper.ClearTextButton="True"
                 Controls:TextBoxHelper.Watermark=""
                 AcceptsReturn="True"
-                TextWrapping="Wrap" IsReadOnly="True"
+                IsReadOnly="True"
+                TextWrapping="Wrap"
                 VerticalScrollBarVisibility="Visible" />
 
 
@@ -137,7 +139,7 @@
                 Controls:ButtonHelper.PreserveTextCase="True"
                 Click="BtnSave_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}"
-                Visibility="Hidden"/>
+                Visibility="Hidden" />
             <Button
                 Name="btn_cancel"
                 Grid.Row="10"

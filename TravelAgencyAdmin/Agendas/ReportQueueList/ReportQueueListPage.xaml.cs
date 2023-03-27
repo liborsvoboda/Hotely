@@ -165,6 +165,7 @@ namespace TravelAgencyAdmin.Pages
 
         private void DgListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (DgListView.SelectedItems.Count == 0) return;
             selectedRecord = (ReportQueueList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true);

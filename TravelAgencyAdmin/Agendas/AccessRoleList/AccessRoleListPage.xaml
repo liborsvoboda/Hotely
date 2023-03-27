@@ -2,7 +2,6 @@
     x:Class="TravelAgencyAdmin.Pages.AccessRoleListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:TravelAgencyAdmin.Pages"
@@ -47,7 +46,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="80" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -101,14 +100,20 @@
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
-            <Multi
-                x:Name="lb_accessRole"
+
+            <xctk:CheckComboBox
+                x:Name="cb_accessRole"
                 Grid.Row="2"
                 Grid.Column="1"
                 Margin="0,2,0,2"
+                DisplayMemberPath="SystemName"
+                SelectedMemberPath="Id"
                 Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.Watermark="" AutoWordSelection="True"
-                SelectionMode="Multiple" />
+                Controls:TextBoxHelper.Watermark="">
+                <Button Name="display" Margin="5">
+                    Display Selected
+                </Button>
+            </xctk:CheckComboBox>
 
 
 

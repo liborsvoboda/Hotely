@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4WcTWYodysIpfH5BAyDJ9WN8ess7BlmG7GPCIpIwyMqSnsGvtI32TYzv0zDleB9COqB33HuXid/EFVaHIdtYEw==",
+  "dgSpecHash": "L+rwwtxRQjo00VVk3crnRIlmuyMKt3/akU+ZI2Ls8QaXgwBGumA7GC3ndETnQeYgt8tMBwqPZX4AErjbtkyZ1w==",
   "success": true,
   "projectFilePath": "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,7 @@
     "C:\\Users\\tatka\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\wpf.controls.panandzoom\\2.2.0\\wpf.controls.panandzoom.2.2.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\wpf.matrixextensions\\2.2.0\\wpf.matrixextensions.2.2.0.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\wpfconfigurator\\1.0.5\\wpfconfigurator.1.0.5.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\wpflocalizeextension\\3.9.4\\wpflocalizeextension.3.9.4.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\xamlmarkupextensions\\2.1.3\\xamlmarkupextensions.2.1.3.nupkg.sha512"
   ],

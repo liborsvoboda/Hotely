@@ -371,6 +371,10 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
+            "WpfConfigurator": {
+              "target": "Package",
+              "version": "[1.0.5, )"
+            },
             "itextsharp.4.1.6.0": {
               "target": "Package",
               "version": "[4.1.6, )"

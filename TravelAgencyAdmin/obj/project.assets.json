@@ -861,6 +861,18 @@
           }
         }
       },
+      "WpfConfigurator/1.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.8"
+        },
+        "compile": {
+          "lib/WpfConfiguratorLib.dll": {}
+        },
+        "runtime": {
+          "lib/WpfConfiguratorLib.dll": {}
+        }
+      },
       "WPFLocalizeExtension/3.9.4": {
         "type": "package",
         "dependencies": {
@@ -1786,6 +1798,18 @@
           "lib/net452/Wpf.MatrixExtensions.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "WpfConfigurator/1.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.8"
+        },
+        "compile": {
+          "lib/WpfConfiguratorLib.dll": {}
+        },
+        "runtime": {
+          "lib/WpfConfiguratorLib.dll": {}
         }
       },
       "WPFLocalizeExtension/3.9.4": {
@@ -2715,6 +2739,18 @@
           }
         }
       },
+      "WpfConfigurator/1.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.8"
+        },
+        "compile": {
+          "lib/WpfConfiguratorLib.dll": {}
+        },
+        "runtime": {
+          "lib/WpfConfiguratorLib.dll": {}
+        }
+      },
       "WPFLocalizeExtension/3.9.4": {
         "type": "package",
         "dependencies": {
@@ -3640,6 +3676,18 @@
           "lib/net452/Wpf.MatrixExtensions.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "WpfConfigurator/1.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.8"
+        },
+        "compile": {
+          "lib/WpfConfiguratorLib.dll": {}
+        },
+        "runtime": {
+          "lib/WpfConfiguratorLib.dll": {}
         }
       },
       "WPFLocalizeExtension/3.9.4": {
@@ -7481,6 +7529,19 @@
         "wpf.matrixextensions.nuspec"
       ]
     },
+    "WpfConfigurator/1.0.5": {
+      "sha512": "t98cQgRLxG66yLPWTIJJKJRm0t0cT6lMCQTZ1decUY+27bPgjPpObHU6vv5EgRYORsylLDWdxJTddz1mrcJkog==",
+      "type": "package",
+      "path": "wpfconfigurator/1.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/WpfConfiguratorLib.dll",
+        "lib/WpfConfiguratorLib.pdb",
+        "wpfconfigurator.1.0.5.nupkg.sha512",
+        "wpfconfigurator.nuspec"
+      ]
+    },
     "WPFLocalizeExtension/3.9.4": {
       "sha512": "0Nw59pTWCv7C8MLo/fotKcINmdr33M0Q+Z4YsaOSEa+KMdRnrTiabDGAbuyVcp5wrsMZZc38T9PQT0P9hJ8+kA==",
       "type": "package",
@@ -7604,6 +7665,7 @@
       "System.Xml.XDocument >= 4.3.0",
       "WPFLocalizeExtension >= 3.9.4",
       "Wpf.Controls.PanAndZoom >= 2.2.0",
+      "WpfConfigurator >= 1.0.5",
       "itextsharp.4.1.6.0 >= 4.1.6",
       "log4net >= 2.0.15"
     ]
@@ -7842,6 +7904,10 @@
           "Wpf.Controls.PanAndZoom": {
             "target": "Package",
             "version": "[2.2.0, )"
+          },
+          "WpfConfigurator": {
+            "target": "Package",
+            "version": "[1.0.5, )"
           },
           "itextsharp.4.1.6.0": {
             "target": "Package",

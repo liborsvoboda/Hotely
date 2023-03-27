@@ -68,7 +68,7 @@ namespace TravelAgencyAdmin.Pages
                         ApiTables.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "") }); }
                 } cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
 
-                lb_accessRole.ItemsSource = userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
+                cb_accessRole.ItemsSource = userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
 
             }
@@ -137,6 +137,7 @@ namespace TravelAgencyAdmin.Pages
 
         private void DgListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (DgListView.SelectedItems.Count == 0) return;
             selectedRecord = (AccessRoleList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true);
