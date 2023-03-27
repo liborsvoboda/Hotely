@@ -27,7 +27,7 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static ReportList selectedRecord = new ReportList();
 
-        public ObservableCollection<UpdateVariant> ReportDefinitions = new ObservableCollection<UpdateVariant>() {
+        private ObservableCollection<UpdateVariant> ReportDefinitions = new ObservableCollection<UpdateVariant>() {
                                                              //  new UpdateVariant() { Name = "SomeName", Value = someView },
                                                              }; 
 

@@ -34,8 +34,8 @@ namespace TravelAgencyAdmin.Pages
         private readonly ObservableCollection<ReportSelection> ParamTypes = new ObservableCollection<ReportSelection>() {
                                                                new ReportSelection() { Name = "bit" },new ReportSelection() { Name = "string" },new ReportSelection() { Name = "int" },new ReportSelection() { Name = "numeric" },new ReportSelection() { Name = "date" },new ReportSelection() { Name = "time" },new ReportSelection() { Name = "datetime" },
                                                              };
-        private List<ParameterList> parametersList = new List<ParameterList>(); 
-
+        private List<ParameterList> parametersList = new List<ParameterList>();
+        private List<UserList> adminUserList = new List<UserList>();
         public ParameterListPage()
         {
             InitializeComponent();
@@ -48,7 +48,7 @@ namespace TravelAgencyAdmin.Pages
             lbl_type.Content = Resources["type"].ToString();
             lbl_description.Content = Resources["description"].ToString();
             lbl_timestamp.Content = Resources["timestamp"].ToString();
-
+            lbl_owner.Content = Resources["owner"].ToString();
 
             btn_check.Content = Resources["check"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
@@ -69,9 +69,16 @@ namespace TravelAgencyAdmin.Pages
                 parametersList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
                 parametersList.ForEach(parameter => { parameter.Translation = SystemFunctions.DBTranslation(parameter.SystemName); });
 
-
                 DgListView.ItemsSource = parametersList;
                 DgListView.Items.Refresh();
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                {
+                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
+                }
+
             }
             catch { }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -173,6 +180,10 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
+
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -211,6 +222,9 @@ namespace TravelAgencyAdmin.Pages
             txt_description.Text = selectedRecord.Description;
             lbl_translation.Content = selectedRecord.Translation;
 
+            //Only for Admin: Owner/UserId Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

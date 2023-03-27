@@ -61,7 +61,8 @@
     <DocumentationFile>bin\Release\TravelAgencyAdmin.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>lama.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>TravelAgencyAdmin.App</StartupObject>
@@ -218,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\AccessRoleList\AccessRoleList.cs" />
+    <Compile Include="Agendas\AccessRoleList\AccessRoleListPage.xaml.cs">
+      <DependentUpon>AccessRoleListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\AddressList\AddressList.cs" />
     <Compile Include="Agendas\AddressList\AddressListPage.xaml.cs">
       <DependentUpon>AddressListPage.xaml</DependentUpon>
@@ -319,6 +324,10 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\AccessRoleList\AccessRoleListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\AddressList\AddressListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -682,6 +691,7 @@
       <Version>3.9.4</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

@@ -18,7 +18,7 @@ namespace TravelAgencyAdmin.Extension
 
         public List<AccentColorMenuData> AccentColors { get; set; }
         public List<AppThemeMenuData> AppThemes { get; set; }
-        MainWindowViewModel mwm;
+        //MainWindowViewModel mwm;
 
         public MainWindowViewModel()
         {

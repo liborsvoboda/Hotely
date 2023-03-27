@@ -173,9 +173,9 @@
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 HorizontalContentAlignment="Left"
-                FontWeight="Bold" FontSize="16"
-                />
-            
+                FontSize="16"
+                FontWeight="Bold" />
+
             <Label
                 x:Name="lbl_description"
                 Grid.Row="5"
@@ -211,6 +211,26 @@
                 ShowDropDownButton="False"
                 TextAlignment="Left" />
 
+            <Label
+                x:Name="lbl_owner"
+                Grid.Row="7"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right"
+                Visibility="Hidden" />
+            <ComboBox
+                x:Name="cb_owner"
+                Grid.Row="7"
+                Grid.Column="1"
+                Margin="0,2,0,2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Controls:TextBoxHelper.ClearTextButton="false"
+                Controls:TextBoxHelper.IsWaitingForData="True"
+                DisplayMemberPath="UserName"
+                IsEnabled="true"
+                SelectedValuePath="Id"
+                Visibility="Hidden" />
 
 
 
@@ -224,7 +244,8 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnSave_Click" IsEnabled="False"
+                Click="BtnSave_Click"
+                IsEnabled="False"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
             <Button
                 Name="btn_cancel"

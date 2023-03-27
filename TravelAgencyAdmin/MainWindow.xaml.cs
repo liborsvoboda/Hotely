@@ -870,7 +870,7 @@ namespace TravelAgencyAdmin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Menu_action_Click(object sender, RoutedEventArgs e)
+        private void Menu_action_Click(object sender, RoutedEventArgs e)
         {
             try
             {

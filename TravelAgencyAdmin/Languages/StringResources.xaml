@@ -377,4 +377,6 @@
     <system:String x:Key="documentTypeList">Document Types</system:String>
     <system:String x:Key="userId">User id</system:String>
     <system:String x:Key="systemFailList">System Fails</system:String>
+    <system:String x:Key="accessRole">Allowed Roles</system:String>
+    <system:String x:Key="accessRoleList">Settings Menu Rights</system:String>
 </ResourceDictionary>

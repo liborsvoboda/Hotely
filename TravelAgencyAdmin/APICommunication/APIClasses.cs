@@ -7,6 +7,7 @@ namespace TravelAgencyAdmin.Api
     /// </summary>
     public enum ApiUrls
     {
+        AccessRoleList,
         AddressList,
         Authentication,
         BackendCheck,

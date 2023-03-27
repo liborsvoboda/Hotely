@@ -13,72 +13,64 @@ using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("ParameterList")]
-    public class ParameterListApi : ControllerBase
+    [Route("AccessRuleList")]
+    public class AccessRuleListApi : ControllerBase
     {
-
-        [HttpGet("/ParameterList")]
-        public async Task<string> GetParameterList()
+        [HttpGet("/AccessRuleList")]
+        public async Task<string> GetAccessRuleList()
         {
-            List<ParameterList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().ParameterLists.Where(a => a.UserId == null).ToList();
-            }
-            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
-        }
-
-        [HttpGet("/ParameterList/Filter/{filter}")]
-        public async Task<string> GetParameterListByFilter(string filter)
-        {
-            List<ParameterList> data;
+            List<AccessRuleList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("Admin"))
-                { data = new hotelsContext().ParameterLists.FromSqlRaw("SELECT * FROM ParameterList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
-                else
-                {
-                    data = new hotelsContext().ParameterLists.FromSqlRaw("SELECT * FROM ParameterList WHERE 1=1 AND " + filter.Replace("+", " "))
-                        .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
-                        .AsNoTracking().ToList();
-                }
+                data = new hotelsContext().AccessRuleLists.ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [Authorize]
-        [HttpGet("/ParameterList/{userId}")]
-        public async Task<string> GetParameterListKey(int userId)
+        [HttpGet("/AccessRuleList/Filter/{filter}")]
+        public async Task<string> GetAccessRuleListByFilter(string filter)
         {
-            List<ParameterList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-
-                if (Request.HttpContext.User.IsInRole("Admin"))
-                {
-                    data = new hotelsContext().ParameterLists.ToList();
-                }
-                else
-                {
-                    data = new hotelsContext().ParameterLists.Where(a => a.UserId == userId).ToList();
-                }
+            List<AccessRuleList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
+            }))
+            {
+                data = new hotelsContext().AccessRuleLists.FromSqlRaw("SELECT * FROM AccessRuleList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [Authorize]
-        [HttpPut("/ParameterList")]
+        [HttpGet("/AccessRuleList/{id}")]
+        public async Task<string> GetAccessRuleListKey(int id)
+        {
+            AccessRuleList data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            }))
+            {
+                data = new hotelsContext().AccessRuleLists.Where(a => a.Id == id).First();
+            }
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
+        [HttpPut("/AccessRuleList")]
         [Consumes("application/json")]
-        public async Task<string> InsertParameterList([FromBody] ParameterList record)
+        public async Task<string> InsertAccessRuleList([FromBody] AccessRuleList record)
         {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new hotelsContext().ParameterLists.Add(record);
+                var data = new hotelsContext().AccessRuleLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -89,14 +81,13 @@ namespace TravelAgencyBackEnd.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPost("/ParameterList")]
+        [HttpPost("/AccessRuleList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateParameterList([FromBody] ParameterList record)
+        public async Task<string> UpdateAccessRuleList([FromBody] AccessRuleList record)
         {
             try
             {
-                var data = new hotelsContext().ParameterLists.Update(record);
+                var data = new hotelsContext().AccessRuleLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -105,18 +96,17 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [Authorize]
-        [HttpDelete("/ParameterList/{id}")]
+        [HttpDelete("/AccessRuleList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteParameterList(string id)
+        public async Task<string> DeleteAccessRuleList(string id)
         {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                ParameterList record = new() { Id = int.Parse(id) };
+                AccessRuleList record = new() { Id = int.Parse(id) };
 
-                var data = new hotelsContext().ParameterLists.Remove(record);
+                var data = new hotelsContext().AccessRuleLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="DATABASE\hotels\DBModel\WebPages\" />
-    <Folder Include="DBModel\" />
   </ItemGroup>
 
 </Project>

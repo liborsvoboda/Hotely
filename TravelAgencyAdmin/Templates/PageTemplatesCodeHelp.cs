@@ -108,7 +108,7 @@ namespace TravelAgencyAdmin.Templates
         /// <summary>
         /// Global Specific Methods For Customized Working
         /// </summary>
-        private async void UsedSpecificMethodsForCustomizedWorking()
+        private void UsedSpecificMethodsForCustomizedWorking()
         {
 
             #region Other Help Global Definitions and Methods
