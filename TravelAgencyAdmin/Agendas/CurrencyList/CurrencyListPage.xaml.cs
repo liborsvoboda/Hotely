@@ -26,6 +26,8 @@ namespace TravelAgencyAdmin.Pages
 
         public ExtendedExchangeRateList selectedSubRecord = new ExtendedExchangeRateList();
 
+        private List<UserList> adminUserList = new List<UserList>();
+
         public CurrencyListPage()
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace TravelAgencyAdmin.Pages
             lbl_description.Content = Resources["description"].ToString();
             lbl_default.Content = Resources["default"].ToString();
             lbl_active.Content = Resources["active"].ToString();
+            lbl_owner.Content = Resources["owner"].ToString();
 
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -51,7 +54,15 @@ namespace TravelAgencyAdmin.Pages
         public async Task<bool> LoadDataList()
         {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
+            try { 
+                if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); 
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin") {
+                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
+                }
+            }
             catch { }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -68,7 +79,7 @@ namespace TravelAgencyAdmin.Pages
                 else if (headername == "Description") e.Header = Resources["description"].ToString();
                 else if (headername == "Default") { e.Header = Resources["default"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 3; }
                 else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -153,6 +164,10 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
+
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -186,6 +201,10 @@ namespace TravelAgencyAdmin.Pages
             chb_default.IsChecked = selectedRecord.Default;
             chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
 
+            //Only for Admin: Owner/UserId Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+
             if (showForm)
             {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
@@ -205,7 +224,7 @@ namespace TravelAgencyAdmin.Pages
             List<ExtendedExchangeRateList> extendedExchangeRateList = new List<ExtendedExchangeRateList>();
             try
             {
-                if (MainWindow.serviceRunning) exchangeRateList = await ApiCommunication.GetApiRequest<List<ExchangeRateList>>(ApiUrls.ExchangeRateList, null, App.UserData.Authentification.Token);
+                if (MainWindow.serviceRunning) exchangeRateList = await ApiCommunication.GetApiRequest<List<ExchangeRateList>>(ApiUrls.ExchangeRateList, "ForUser/" + selectedRecord.UserId, App.UserData.Authentification.Token);
                 exchangeRateList.Where(a => a.CurrencyId == selectedRecord.Id).ToList().ForEach(record => {
                     ExtendedExchangeRateList item = new ExtendedExchangeRateList()
                     {
@@ -216,7 +235,6 @@ namespace TravelAgencyAdmin.Pages
                         ValidTo = record.ValidTo,
                         Description = record.Description,
                         UserId = record.UserId,
-                        Active = record.Active,
                         TimeStamp = record.TimeStamp,
                         Currency = selectedRecord.Name
                     };

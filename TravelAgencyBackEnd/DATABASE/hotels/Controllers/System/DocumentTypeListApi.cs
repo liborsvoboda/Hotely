@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using BACKENDCORE.CoreClasses;
+using TravelAgencyBackEnd.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -9,59 +9,81 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("ParameterList")]
-    public class ParameterListApi : ControllerBase
+    [Route("DocumentTypeList")]
+    public class DocumentTypeListApi : ControllerBase
     {
-        [HttpGet("/ParameterList")]
-        public async Task<string> GetParameterList()
+        [HttpGet("/DocumentTypeList")]
+        public async Task<string> GetDocumentTypeList()
         {
-            List<ParameterList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().ParameterLists.Where(a => a.UserId == null).ToList();
-            }
-            return JsonSerializer.Serialize(data);
-        }
-
-        [HttpGet("/ParameterList/Filter/{filter}")]
-        public async Task<string> GetParameterListByFilter(string filter)
-        {
-            List<ParameterList> data;
+            List<DocumentTypeList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().ParameterLists.FromSqlRaw("SELECT * FROM ParameterList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().DocumentTypeLists.ToList();
+
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [Authorize]
-        [HttpGet("/ParameterList/{userId}")]
-        public async Task<string> GetParameterListKey(int userId)
+        [HttpGet("/DocumentTypeList/Filter/{filter}")]
+        public async Task<string> GetDocumentTypeListByFilter(string filter)
         {
-            List<ParameterList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().ParameterLists.Where(a => a.UserId == userId).ToList();
+            List<DocumentTypeList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
+            }))
+            {
+                data = new hotelsContext().DocumentTypeLists.FromSqlRaw("SELECT * FROM DocumentTypeList WHERE 1=1 AND " + filter.Replace("+"," "))
+                .AsNoTracking().ToList();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [Authorize]
-        [HttpPut("/ParameterList")]
+        [HttpGet("/DocumentTypeList/{id}")]
+        public async Task<string> GetDocumentTypeListKey(int id)
+        {
+            DocumentTypeList data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            }))
+            {
+                data = new hotelsContext().DocumentTypeLists.Where(a => a.Id == id).First();
+            }
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
+        [HttpPut("/DocumentTypeList")]
         [Consumes("application/json")]
-        public async Task<string> InsertParameterList([FromBody] ParameterList record)
+        public async Task<string> InsertDocumentTypeList([FromBody] DocumentTypeList record)
         {
             try
             {
+                //Check exist  translations
+                LanguageList languageRec = new hotelsContext().LanguageLists.Where(a => a.SystemName == record.SystemName).FirstOrDefault();
+
+                //Insert translation before save new Document Type
+                if (languageRec == null)
+                {
+                    languageRec = new LanguageList() { SystemName = record.SystemName, UserId = record.UserId, DescriptionCz= record.SystemName,DescriptionEn = record.SystemName };
+                    await new hotelsContext().LanguageLists.Add(languageRec).Context.SaveChangesAsync();
+                }
+                
+
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new hotelsContext().ParameterLists.Add(record);
+                var data = new hotelsContext().DocumentTypeLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -72,14 +94,13 @@ namespace TravelAgencyBackEnd.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPost("/ParameterList")]
+        [HttpPost("/DocumentTypeList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateParameterList([FromBody] ParameterList record)
+        public async Task<string> UpdateDocumentTypeList([FromBody] DocumentTypeList record)
         {
             try
             {
-                var data = new hotelsContext().ParameterLists.Update(record);
+                var data = new hotelsContext().DocumentTypeLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -88,18 +109,17 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [Authorize]
-        [HttpDelete("/ParameterList/{id}")]
+        [HttpDelete("/DocumentTypeList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteParameterList(string id)
+        public async Task<string> DeleteDocumentTypeList(string id)
         {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                ParameterList record = new() { Id = int.Parse(id) };
+                DocumentTypeList record = new() { Id = int.Parse(id) };
 
-                var data = new hotelsContext().ParameterLists.Remove(record);
+                var data = new hotelsContext().DocumentTypeLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

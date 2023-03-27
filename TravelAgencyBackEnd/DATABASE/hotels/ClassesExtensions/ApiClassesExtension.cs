@@ -1,6 +1,8 @@
-﻿namespace BACKENDCORE.CoreClasses
+﻿using TravelAgencyBackEnd.DBModel;
+
+namespace TravelAgencyBackEnd.CoreClasses
 {
-    public class ReportExtension
+    public class ApiClassesExtension
     {
         public partial class SetReportFilter
         {
@@ -10,4 +12,5 @@
             public int RecId { get; set; } = 0;
         }
     }
+
 }

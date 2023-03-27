@@ -2,13 +2,13 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using BACKENDCORE.CoreClasses;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
 using System.Linq;
 using System;
+using TravelAgencyBackEnd.CoreClasses;
 
-namespace BACKENDCORE.Services
+namespace TravelAgencyBackEnd.Services
 {
     public static class UserService
     {

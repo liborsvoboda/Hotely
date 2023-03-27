@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using BACKENDCORE.CoreClasses;
+using TravelAgencyBackEnd.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -26,10 +27,33 @@ namespace TravelAgencyBackEnd.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().ExchangeRateLists.ToList();
+                if (Request.HttpContext.User.IsInRole("Admin"))
+                {
+                    data = new hotelsContext().ExchangeRateLists.ToList();
+                }
+                else
+                {
+                    data = new hotelsContext().ExchangeRateLists.Include(a => a.User)
+                        .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
+                }
+             }
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
+        [HttpGet("/ExchangeRateList/ForUser/{userId}")]
+        public async Task<string> GetExchangeRateList(int userId)
+        {
+            List<ExchangeRateList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
+            }))
+            {
+                data = new hotelsContext().ExchangeRateLists.Where(a=> a.UserId == userId).ToList();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/ExchangeRateList/Filter/{filter}")]
@@ -41,14 +65,21 @@ namespace TravelAgencyBackEnd.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().ExchangeRateLists.FromSqlRaw("SELECT * FROM ExchangeRateList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                if (Request.HttpContext.User.IsInRole("Admin"))
+                { data = new hotelsContext().ExchangeRateLists.FromSqlRaw("SELECT * FROM ExchangeRateList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                else
+                {
+                    data = new hotelsContext().ExchangeRateLists.FromSqlRaw("SELECT * FROM ExchangeRateList WHERE 1=1 AND " + filter.Replace("+", " "))
+                        .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
+                        .AsNoTracking().ToList();
+                }
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/ExchangeRateList/{currency}")]
-        public async Task<string> GetActualExchangeRate(string currency)
+        [HttpGet("/ExchangeRateList/Actual/{userId}/{currency}")]
+        public async Task<string> GetActualExchangeRate(int userId, string currency)
         {
             ExchangeRateList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -56,10 +87,10 @@ namespace TravelAgencyBackEnd.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new hotelsContext().ExchangeRateLists.Include(a => a.Currency).Where(a => a.Currency.Name == currency).First();
+                data = new hotelsContext().ExchangeRateLists.Include(a => a.Currency).Where(a => a.UserId == userId && a.Currency.Name == currency).Last();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpPut("/ExchangeRateList")]

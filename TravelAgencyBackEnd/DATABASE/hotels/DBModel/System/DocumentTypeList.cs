@@ -12,9 +12,11 @@ namespace TravelAgencyBackEnd.DBModel
 
         public int Id { get; set; }
         public string SystemName { get; set; }
+        public string Description { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
+        public virtual LanguageList SystemNameNavigation { get; set; }
         public virtual UserList User { get; set; }
         public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
     }

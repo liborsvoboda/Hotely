@@ -23,6 +23,9 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static BranchList selectedRecord = new BranchList();
 
+
+        private List<UserList> adminUserList = new List<UserList>();
+
         public BranchListPage()
         {
             InitializeComponent();
@@ -41,6 +44,7 @@ namespace TravelAgencyAdmin.Pages
             lbl_ico.Content = Resources["ico"].ToString();
             lbl_dic.Content = Resources["dic"].ToString();
             lbl_active.Content = Resources["active"].ToString();
+            lbl_owner.Content = Resources["owner"].ToString();
 
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -54,8 +58,14 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
+                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<BranchList>>(ApiUrls.BranchList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
-                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<BranchList>>(ApiUrls.BranchList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); 
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                {
+                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
+                }
             } catch { }
 
             MainWindow.ProgressRing = Visibility.Hidden;return true;
@@ -177,6 +187,10 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
+
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -213,9 +227,11 @@ namespace TravelAgencyAdmin.Pages
             txt_bankAccount.Text = selectedRecord.BankAccount;
             txt_ico.Text = selectedRecord.Ico;
             txt_dic.Text = selectedRecord.Dic;
-
             chb_active.IsChecked = selectedRecord.Active;
 
+            //Only for Admin: Owner/UserId Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm)
             {

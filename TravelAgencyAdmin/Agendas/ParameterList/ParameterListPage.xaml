@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:TravelAgencyAdmin.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -46,7 +47,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="60" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="80" />
@@ -89,11 +90,33 @@
                 x:Name="txt_parameter"
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="0,2,0,2"
+                Margin="0,2,0,32"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 Controls:TextBoxHelper.IsWaitingForData="True"
                 Controls:TextBoxHelper.Watermark="" />
-
+            <Label
+                x:Name="lbl_translation"
+                Grid.Row="1"
+                Grid.Column="2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                HorizontalContentAlignment="Left"
+                FontSize="16"
+                FontWeight="Bold" />
+            <iconPacks:PackIconMaterial
+                x:Name="ip_copyToClip"
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="25"
+                Height="25"
+                Margin="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Cursor="Hand"
+                Foreground="{DynamicResource AccentBaseColorBrush}"
+                Kind="Clipboard"
+                MouseLeftButtonUp="CopyToClipClick"
+                ToolTip="Copy to Clipboard" />
             <Label
                 x:Name="lbl_type"
                 Grid.Row="2"
@@ -162,18 +185,6 @@
                 VerticalScrollBarVisibility="Visible" />
 
             <Label
-                x:Name="lbl_active"
-                Grid.Row="5"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
-            <CheckBox
-                x:Name="chb_active"
-                Grid.Row="5"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
-
-            <Label
                 x:Name="lbl_timestamp"
                 Grid.Row="6"
                 Grid.Column="0"
@@ -204,7 +215,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnSave_Click"
+                Click="BtnSave_Click" IsEnabled="False"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
             <Button
                 Name="btn_cancel"

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using BACKENDCORE.CoreClasses;
+using TravelAgencyBackEnd.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;

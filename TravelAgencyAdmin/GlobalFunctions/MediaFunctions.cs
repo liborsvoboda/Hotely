@@ -22,6 +22,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
         public static ResourceDictionary SetLanguageDictionary(ResourceDictionary Resources, string languageDefault)
         {
             if (languageDefault == "system") languageDefault = Thread.CurrentThread.CurrentCulture.ToString();
+            App.appLanguage = languageDefault;
 
             ResourceDictionary dict = new ResourceDictionary();
             switch (languageDefault)

@@ -48,6 +48,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="110" />
             </Grid.RowDefinitions>
@@ -119,7 +124,7 @@
 
             <Button
                 Name="btn_save"
-                Grid.Row="5"
+                Grid.Row="10"
                 Grid.Column="0"
                 Width="200"
                 Height="40"
@@ -131,7 +136,7 @@
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
             <Button
                 Name="btn_cancel"
-                Grid.Row="5"
+                Grid.Row="10"
                 Grid.Column="1"
                 Width="200"
                 Height="40"

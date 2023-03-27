@@ -88,9 +88,9 @@
                 Click="BtnApiTest_Click"
                 IsEnabled="False"
                 Style="{DynamicResource AccentedSquareButtonStyle}">
-                <Button.ToolTip> 
+                <Button.ToolTip>
                     <TextBlock>
-                        Test API connection<LineBreak /> </TextBlock> 
+                        Test API connection<LineBreak /> </TextBlock>
                 </Button.ToolTip>
             </Button>
 

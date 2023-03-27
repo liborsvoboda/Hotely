@@ -27,7 +27,7 @@ namespace TravelAgencyAdmin.Pages
         public static AddressList selectedRecord = new AddressList();
 
         
-        private List<UserList> userList = new List<UserList>();
+        private List<UserList> adminUserList = new List<UserList>();
 
         public AddressListPage()
         {
@@ -66,7 +66,7 @@ namespace TravelAgencyAdmin.Pages
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin"){
-                    cb_owner.ItemsSource = userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null , App.UserData.Authentification.Token);
+                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null , App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
@@ -96,7 +96,6 @@ namespace TravelAgencyAdmin.Pages
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 else if (headername == "AddressType") e.Visibility = Visibility.Hidden;
-                else if (headername == "OwnerId") e.Visibility = Visibility.Hidden;
             });
         }
 
@@ -195,7 +194,7 @@ namespace TravelAgencyAdmin.Pages
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
-                    selectedRecord.UserId = selectedRecord.OwnerId = ((UserList)cb_owner.SelectedItem).Id;
+                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
@@ -238,7 +237,7 @@ namespace TravelAgencyAdmin.Pages
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")
-                cb_owner.Text = userList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.Username).FirstOrDefault();
+                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm)
             {

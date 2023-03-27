@@ -58,21 +58,6 @@ namespace TravelAgencyAdmin.GlobalClasses
         public string Value { get; set; }
     }
 
-    /// <summary>
-    /// Parameters Definition Class for special application settings
-    /// </summary>
-    public class Parameters
-    {
-        public string Parameter { get; set; }
-        public string Value { get; set; }
-    }
-
-    public class Parameter
-    {
-        public string Value { get; set; } = string.Empty;
-        public bool Correct { get; set; } = false;
-    }
-
     public enum TiltTargets
     {
         None,

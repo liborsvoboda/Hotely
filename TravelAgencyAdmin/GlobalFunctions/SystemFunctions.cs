@@ -20,32 +20,64 @@ using System.Linq;
 using TravelAgencyAdmin.GlobalClasses;
 using System.Windows.Controls;
 using System.DirectoryServices.AccountManagement;
+using System.Diagnostics.Eventing.Reader;
+using System.Text.RegularExpressions;
 
 namespace TravelAgencyAdmin.GlobalFunctions
 {
     class SystemFunctions
     {
         /// <summary>
-        /// Get founded parameter
+        /// Return User or default DB parameter
         /// </summary>
         /// <param name="parameterName"></param>
         /// <returns></returns>
-        public static Parameter ParameterCheck(string parameterName)
+        public static string ParameterCheck(string parameterName)
         {
-            Parameter variable = new Parameter();
+            string result = string.Empty;
+            try {
+                result = App.Parameters.Where(a => a.SystemName == parameterName && a.UserId == App.UserData.Authentification.Id).Select(a => a.Value).FirstOrDefault();
+
+                if (result == null)
+                {
+                    SaveSystemFailMessage($"Parameter Name {parameterName} for userId {App.UserData.Authentification.Id} and userName {App.UserData.UserName} is missing");
+                    result = App.Parameters.Where(a => a.SystemName == parameterName && a.UserId == null).Select(a => a.Value).FirstOrDefault();
+                    if (result == null) SaveSystemFailMessage($"Parameter Name {parameterName} for NULL userId is missing");
+                    else return result;
+
+                    return result;
+                }
+                else { return result; }
+            }catch { return result; }
+        }
+
+        public static string GetExceptionMessages(Exception exception, int msgCount = 1)
+        {
+            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetExceptionMessages(exception.InnerException, ++msgCount)) : string.Empty;
+        }
+
+        public static async void SaveSystemFailMessage(string message)
+        {
+            
+        }
+
+
+        public static string ReformatDate(string input)
+        {
             try
             {
-                if (App.Parameters.Where(a => a.Parameter == parameterName).Count() == 1)
-                {
-                    variable.Value = App.Parameters.First(a => a.Parameter == parameterName).Value;
-                    variable.Correct = true;
-                }
-                return variable;
-
+                return Regex.Replace(input,
+                      "\\b(?<year>\\d{2,4})/(?<month>\\d{1,2})/(?<day>\\d{1,2})\\b",
+                      "${year}-${month}-${day}",
+                      RegexOptions.Multiline | RegexOptions.IgnoreCase,
+                      TimeSpan.FromMilliseconds(1000));
             }
-            catch { return variable; }
-
+            catch (RegexMatchTimeoutException)
+            {
+                return input;
+            }
         }
+
 
         /// <summary>
         /// return existing filter for saving to string in selected Page
@@ -87,6 +119,10 @@ namespace TravelAgencyAdmin.GlobalFunctions
             return advancedFilter;
         }
 
-
+        public static string DBTranslation(string systemName)
+        {
+            string result = (App.appLanguage == "cs-CZ") ? App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionEn).FirstOrDefault();
+            return (string.IsNullOrWhiteSpace(result)) ? systemName : result;
+        }
     }
 }

@@ -258,25 +258,6 @@
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="Visible" />
 
-            <Label
-                x:Name="lbl_expiration"
-                Grid.Row="11"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
-            <xctk:DateTimePicker
-                x:Name="dp_expiration"
-                Grid.Row="11"
-                Grid.Column="1"
-                Margin="0,2,0,2"
-                Controls:TextBoxHelper.UseFloatingWatermark="false"
-                Controls:TextBoxHelper.Watermark=""
-                Format="SortableDateTime"
-                ShowDropDownButton="False"
-                TextAlignment="Left" />
-
-
-
             <Button
                 Name="btn_save"
                 Grid.Row="13"

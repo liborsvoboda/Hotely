@@ -1,14 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Diagnostics;
-using TravelAgencyBackEnd;
+﻿using System.Text;
 using System.IO;
 
-namespace BACKENDCORE
+namespace TravelAgencyBackEnd
 {
     class Functions
     {

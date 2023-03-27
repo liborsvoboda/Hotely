@@ -24,21 +24,13 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static ExtendedDocumentAdviceList selectedRecord = new ExtendedDocumentAdviceList();
 
-        List<BranchList> BranchList = new List<BranchList>();
+        private List<UserList> adminUserList = new List<UserList>();
+        private List<BranchList> branchList = new List<BranchList>();
+        private List<DocumentTypeList> documentTypeList = new List<DocumentTypeList>();
         public DocumentAdviceListPage()
         {
             InitializeComponent();
             _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
-
-            ObservableCollection<UpdateVariant> documentType = new ObservableCollection<UpdateVariant>() {
-                                                        new UpdateVariant() { Name = Resources["offer"].ToString(), Value = "offer" },
-                                                        new UpdateVariant() { Name = Resources["incomingOrder"].ToString(), Value = "incomingOrder" },
-                                                        new UpdateVariant() { Name = Resources["outgoingOrder"].ToString(), Value = "outgoingOrder" },
-                                                        new UpdateVariant() { Name = Resources["incomingInvoice"].ToString(), Value = "incomingInvoice" },
-                                                        new UpdateVariant() { Name = Resources["outgoingInvoice"].ToString(), Value = "outgoingInvoice" },
-                                                        new UpdateVariant() { Name = Resources["creditNote"].ToString(), Value = "creditNote" },
-                                                        new UpdateVariant() { Name = Resources["receipt"].ToString(), Value = "receipt" }
-                                                  };
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -50,12 +42,10 @@ namespace TravelAgencyAdmin.Pages
             dp_startDate.Value = DateTime.Now;
             lb_endDate.Content = Resources["endDate"].ToString();
             dp_endDate.Value = DateTime.Now;
-            lbl_active.Content = Resources["active"].ToString();
+            lbl_owner.Content = Resources["owner"].ToString();
 
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
-
-            cb_documentType.ItemsSource = documentType;
 
             _ = LoadDataList();
             SetRecord(false);
@@ -69,8 +59,13 @@ namespace TravelAgencyAdmin.Pages
             List<ExtendedDocumentAdviceList> extendedDocumentAdviceList = new List<ExtendedDocumentAdviceList>();
             try
             {
-                cb_branch.ItemsSource = BranchList = await ApiCommunication.GetApiRequest<List<BranchList>>(ApiUrls.BranchList, null, App.UserData.Authentification.Token);
+                cb_branch.ItemsSource = branchList = await ApiCommunication.GetApiRequest<List<BranchList>>(ApiUrls.BranchList, null, App.UserData.Authentification.Token);
                 documentAdviceList = await ApiCommunication.GetApiRequest<List<DocumentAdviceList>>(ApiUrls.DocumentAdviceList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+
+                //set document types translation
+                cb_documentType.ItemsSource = documentTypeList = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, null, App.UserData.Authentification.Token);
+                cb_documentType.DisplayMemberPath = (App.appLanguage == "cs-CZ") ? "DescriptionCz" : "DescriptionEn";
+
 
                 documentAdviceList.ForEach(record =>
                 {
@@ -78,20 +73,27 @@ namespace TravelAgencyAdmin.Pages
                     {
                         Id = record.Id,
                         BranchId = record.BranchId,
-                        DocumentType = record.DocumentType,
+                        DocumentType = SystemFunctions.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
                         Prefix = record.Prefix,
                         Number = record.Number,
                         StartDate = record.StartDate,
                         EndDate = record.EndDate,
                         UserId = record.UserId,
-                        Active = record.Active,
                         TimeStamp = record.TimeStamp,
-                        Branch = BranchList.First(a => a.Id == record.BranchId).CompanyName
+                        Branch = branchList.First(a => a.Id == record.BranchId).CompanyName
                     };
                     extendedDocumentAdviceList.Add(item);
                 });
                 DgListView.ItemsSource = extendedDocumentAdviceList;
                 DgListView.Items.Refresh();
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                {
+                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
+                }
+
             } catch { }
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -109,11 +111,11 @@ namespace TravelAgencyAdmin.Pages
                 else if (headername == "Number") e.Header = Resources["number"].ToString();
                 else if (headername == "StartDate") { e.Header = Resources["startDate"].ToString(); (e as DataGridTextColumn).Binding.StringFormat = "dd.MM.yyyy"; e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "EndDate") { e.Header = Resources["endDate"].ToString(); (e as DataGridTextColumn).Binding.StringFormat = "dd.MM.yyyy"; e.CellStyle = DatagridStyles.gridTextRightAligment; }
-                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
+                else if (headername == "DocumentTypeId") e.Visibility = Visibility.Hidden;
                 else if (headername == "BranchId") e.Visibility = Visibility.Hidden;
             });
         }
@@ -193,15 +195,21 @@ namespace TravelAgencyAdmin.Pages
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.BranchId = ((BranchList)cb_branch.SelectedItem).Id;
-                selectedRecord.DocumentType = ((UpdateVariant)cb_documentType.SelectedItem).Value;
+                selectedRecord.DocumentTypeId = ((DocumentTypeList)cb_documentType.SelectedItem).Id;
                 selectedRecord.Prefix = txt_prefix.Text;
                 selectedRecord.Number = txt_number.Text;
                 selectedRecord.StartDate = (DateTime)dp_startDate.Value;
                 selectedRecord.EndDate = (DateTime)dp_endDate.Value;
-                selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
+
+
+                selectedRecord.Branch = selectedRecord.DocumentType = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -230,12 +238,15 @@ namespace TravelAgencyAdmin.Pages
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
             cb_branch.Text = selectedRecord.Branch;
-            cb_documentType.Text = (string.IsNullOrWhiteSpace(selectedRecord.DocumentType)) ? null : Resources[selectedRecord.DocumentType].ToString();
+            cb_documentType.Text = (string.IsNullOrWhiteSpace(selectedRecord.DocumentType)) ? null : selectedRecord.DocumentType.ToString();
             txt_prefix.Text = selectedRecord.Prefix;
             txt_number.Text = selectedRecord.Number;
             dp_startDate.Value = (selectedRecord.Id == 0) ? (DateTime)dp_startDate.Value : selectedRecord.StartDate;
             dp_endDate.Value = (selectedRecord.Id == 0) ? (DateTime)dp_endDate.Value : selectedRecord.EndDate;
-            chb_active.IsChecked = selectedRecord.Active;
+
+            //Only for Admin: Owner/UserId Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm)
             {

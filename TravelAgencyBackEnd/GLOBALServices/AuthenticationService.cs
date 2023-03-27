@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using BACKENDCORE.Services;
 using System.Linq;
 using System;
+using TravelAgencyBackEnd.Services;
 
-namespace BACKENDCORE.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [ApiController]
     [Route("Authentication")]

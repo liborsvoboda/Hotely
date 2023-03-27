@@ -110,10 +110,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 Controls:TextBoxHelper.ClearTextButton="false"
-                DisplayMemberPath="Name"
+                DisplayMemberPath="SystemName"
                 IsEnabled="true"
-                ItemsSource="{Binding Path=documentType}"
-                SelectedValuePath="Value" />
+                SelectedValuePath="Id" />
 
             <Label
                 x:Name="lbl_prefix"
@@ -190,16 +189,25 @@
                 TimePickerVisibility="Hidden" />
 
             <Label
-                x:Name="lbl_active"
+                x:Name="lbl_owner"
                 Grid.Row="7"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
-            <CheckBox
-                x:Name="chb_active"
+                HorizontalContentAlignment="Right"
+                Visibility="Hidden" />
+            <ComboBox
+                x:Name="cb_owner"
                 Grid.Row="7"
                 Grid.Column="1"
-                VerticalAlignment="Center" />
+                Margin="0,2,0,2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Controls:TextBoxHelper.ClearTextButton="false"
+                Controls:TextBoxHelper.IsWaitingForData="True"
+                DisplayMemberPath="UserName"
+                IsEnabled="true"
+                SelectedValuePath="Id"
+                Visibility="Hidden" />
 
 
 

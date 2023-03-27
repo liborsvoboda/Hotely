@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5gCJukxnI2w9RM++xpsatTuZdyqSjxG7k2cyYs5aHelNOHJc/diVVYVY23N7yH29+RfczHKBfLb0pNeIJXYvRw==",
+  "dgSpecHash": "gOt7JzJbz/7yeE5seAU/XWcuXtLy6sklz8vfVGf6cKsU1qMQfibReQEAxp6NyUQjYSoJcAWp2Ygiz4o5AcD49w==",
   "success": true,
   "projectFilePath": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\TravelAgencyBackEnd.csproj",
   "expectedPackageFiles": [
@@ -49,7 +49,6 @@
     "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.filters\\7.0.6\\swashbuckle.aspnetcore.filters.7.0.6.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.filters.abstractions\\7.0.6\\swashbuckle.aspnetcore.filters.abstractions.7.0.6.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.newtonsoft\\6.5.0\\swashbuckle.aspnetcore.newtonsoft.6.5.0.nupkg.sha512",
-    "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.redoc\\6.5.0\\swashbuckle.aspnetcore.redoc.6.5.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",

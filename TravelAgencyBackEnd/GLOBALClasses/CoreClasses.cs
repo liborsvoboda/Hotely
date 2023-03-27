@@ -1,4 +1,5 @@
-﻿namespace BACKENDCORE.CoreClasses
+﻿
+namespace TravelAgencyBackEnd.CoreClasses
 {
     public enum DBResult
     {

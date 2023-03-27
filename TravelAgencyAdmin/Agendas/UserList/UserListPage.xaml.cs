@@ -46,7 +46,6 @@ namespace TravelAgencyAdmin.Pages
             lbl_active.Content = Resources["active"].ToString();
             lbl_timestamp.Content = Resources["timestamp"].ToString();
             lbl_token.Content = Resources["token"].ToString();
-            lbl_expiration.Content = Resources["expiration"].ToString();
 
             btn_browse.Content = Resources["browse"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
@@ -79,10 +78,10 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "Username") e.Header = Resources["userName"].ToString();
+                if (headername == "UserName") e.Header = Resources["userName"].ToString();
                 else if (headername == "Password") e.Header = Resources["password"].ToString();
                 else if (headername == "Name") e.Header = Resources["name"].ToString();
-                else if (headername == "Surname") e.Header = Resources["surname"].ToString();
+                else if (headername == "SurName") e.Header = Resources["surname"].ToString();
                 else if (headername == "Description") e.Header = Resources["description"].ToString();
                 else if (headername == "Expiration") e.Header = Resources["expiration"].ToString();
                 else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
@@ -109,10 +108,9 @@ namespace TravelAgencyAdmin.Pages
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
                     UserList user = e as UserList;
-                    return user.Username.ToLower().Contains(filter.ToLower())
+                    return user.UserName.ToLower().Contains(filter.ToLower())
                     || user.Name.ToLower().Contains(filter.ToLower())
-                    || user.Surname.ToLower().Contains(filter.ToLower())
-                    || user.Role.ToLower().Contains(filter.ToLower())
+                    || user.SurName.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
@@ -171,19 +169,17 @@ namespace TravelAgencyAdmin.Pages
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.RoleId = ((UserRoleList)cb_roleId.SelectedItem).Id;
-                selectedRecord.Username = txt_userName.Text;
+                selectedRecord.UserName = txt_userName.Text;
                 selectedRecord.Password = pb_password.Password;
                 selectedRecord.Name = txt_name.Text;
-                selectedRecord.Surname = txt_surname.Text;
+                selectedRecord.SurName = txt_surname.Text;
                 selectedRecord.Description = txt_description.Text;
                 selectedRecord.Active = chb_active.IsChecked;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
-                selectedRecord.Token = txt_token.Text;
-                selectedRecord.Expiration = dp_expiration.Value;
+                selectedRecord.ApiToken = txt_token.Text;
 
                 if (selectedRecord.PhotoPath != txt_photoPath.Text)
                 {
-                    selectedRecord.MimeType = MimeMapping.GetMimeMapping(txt_photoPath.Text);
                     selectedRecord.Photo = File.ReadAllBytes(txt_photoPath.Text);
                 }
                 selectedRecord.PhotoPath = txt_photoPath.Text;
@@ -220,15 +216,14 @@ namespace TravelAgencyAdmin.Pages
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
             int index = 0; cb_roleId.Items.SourceCollection.Cast<UserRoleList>().ToList().ForEach(role => { if (role.Id == selectedRecord.RoleId) { cb_roleId.SelectedIndex = index; } index++; });
-            txt_userName.Text = selectedRecord.Username;
+            txt_userName.Text = selectedRecord.UserName;
             pb_password.Password = selectedRecord.Password;
             txt_name.Text = selectedRecord.Name;
-            txt_surname.Text = selectedRecord.Surname;
+            txt_surname.Text = selectedRecord.SurName;
             txt_description.Text = selectedRecord.Description;
             chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
             dp_timestamp.Value = selectedRecord.Timestamp;
-            txt_token.Text = selectedRecord.Token;
-            dp_expiration.Value = selectedRecord.Expiration;
+            txt_token.Text = selectedRecord.ApiToken;
             img_photoPath.Source = (!string.IsNullOrWhiteSpace(selectedRecord.PhotoPath)) ? MediaFunctions.ByteToImage(selectedRecord.Photo) : new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png")));
             txt_photoPath.Text = selectedRecord.PhotoPath;
 
@@ -253,7 +248,6 @@ namespace TravelAgencyAdmin.Pages
                 {
                     img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
                     txt_photoPath.Text = dlg.FileName;
-                    selectedRecord.MimeType = MimeMapping.GetMimeMapping(dlg.FileName);
                     selectedRecord.Photo = File.ReadAllBytes(dlg.FileName);
                 }
             }

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <StartupObject>TravelAgencyBackEnd.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,16 +21,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DATABASE\hotels\Controllers\Services\" />
-    <Folder Include="DATABASE\hotels\Controllers\Support\" />
-    <Folder Include="DATABASE\hotels\DBModel\Support\" />
     <Folder Include="DATABASE\hotels\DBModel\WebPages\" />
     <Folder Include="DBModel\" />
   </ItemGroup>

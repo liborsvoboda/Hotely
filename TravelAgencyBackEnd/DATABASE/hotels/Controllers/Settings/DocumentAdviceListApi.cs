@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using BACKENDCORE.CoreClasses;
+using TravelAgencyBackEnd.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -9,66 +9,84 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("ReportQueueList")]
-    public class ReportQueueListApi : ControllerBase
+    [Route("DocumentAdviceList")]
+    public class DocumentAdviceListApi : ControllerBase
     {
-        [HttpGet("/ReportQueueList")]
-        public async Task<string> GetReportQueueList()
+        [HttpGet("/DocumentAdviceList")]
+        public async Task<string> GetDocumentAdviceList()
         {
-            List<ReportQueueList> data;
+            List<DocumentAdviceList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().ReportQueueLists.ToList();
+                if (Request.HttpContext.User.IsInRole("Admin"))
+                {
+                    data = new hotelsContext().DocumentAdviceLists.ToList();
+                }
+                else
+                {
+                    data = new hotelsContext().DocumentAdviceLists.Include(a => a.User)
+                        .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
+                }
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/ReportQueueList/Filter/{filter}")]
-        public async Task<string> GetReportQueueListByFilter(string filter)
+        [HttpGet("/DocumentAdviceList/Filter/{filter}")]
+        public async Task<string> GetDocumentAdviceListByFilter(string filter)
         {
-            List<ReportQueueList> data;
+            List<DocumentAdviceList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().ReportQueueLists.FromSqlRaw("SELECT * FROM ReportQueueList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                if (Request.HttpContext.User.IsInRole("Admin"))
+                { data = new hotelsContext().DocumentAdviceLists.FromSqlRaw("SELECT * FROM DocumentAdviceList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                else
+                {
+                    data = new hotelsContext().DocumentAdviceLists.FromSqlRaw("SELECT * FROM DocumentAdviceList WHERE 1=1 AND " + filter.Replace("+", " "))
+                        .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
+                        .AsNoTracking().ToList();
+                }
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/ReportQueueList/{id}")]
-        public async Task<string> GetReportQueueListKey(int id)
+        [HttpGet("/DocumentAdviceList/{userId}/{documentTypeId}/{branchId}")]
+        public async Task<string> GetDocumentAdviceListType(int userId, int documentTypeId, int branchId)
         {
-            ReportQueueList data;
+            DocumentAdviceList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new hotelsContext().ReportQueueLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().DocumentAdviceLists.Where(a => a.UserId == userId && a.DocumentTypeId == documentTypeId && a.BranchId == branchId &&
+                (a.StartDate == null || a.StartDate <= DateTime.UtcNow.Date) && (a.EndDate == null || a.EndDate >= DateTime.UtcNow.Date)).FirstOrDefault();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpPut("/ReportQueueList")]
+        [HttpPut("/DocumentAdviceList")]
         [Consumes("application/json")]
-        public async Task<string> InsertReportQueueList([FromBody] ReportQueueList record)
+        public async Task<string> InsertDocumentAdviceList([FromBody] DocumentAdviceList record)
         {
             try
             {
-                var data = new hotelsContext().ReportQueueLists.Add(record);
+                record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
+                var data = new hotelsContext().DocumentAdviceLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -79,34 +97,13 @@ namespace TravelAgencyBackEnd.Controllers
             }
         }
 
-        [HttpPost("/ReportQueueList/WriteFilter")]
+        [HttpPost("/DocumentAdviceList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateReportQueueListWriteFilter([FromBody] ReportExtension.SetReportFilter record)
+        public async Task<string> UpdateDocumentAdviceList([FromBody] DocumentAdviceList record)
         {
             try
             {
-                List<ReportQueueList> dbData;
-                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-                { dbData = new hotelsContext().ReportQueueLists.Where(a => a.TableName == record.TableName).ToList(); }
-                dbData.ForEach(rec => { rec.Filter = record.Filter; rec.Search = record.Search; rec.RecId = record.RecId; });
-
-                var data = new hotelsContext();
-                data.ReportQueueLists.UpdateRange(dbData);
-                int result = await data.SaveChangesAsync();
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = 0, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
-                else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
-            }
-            catch (Exception ex)
-            { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
-        }
-
-        [HttpPost("/ReportQueueList")]
-        [Consumes("application/json")]
-        public async Task<string> UpdateReportQueueList([FromBody] ReportQueueList record)
-        {
-            try
-            {
-                var data = new hotelsContext().ReportQueueLists.Update(record);
+                var data = new hotelsContext().DocumentAdviceLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -115,17 +112,17 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/ReportQueueList/{id}")]
+        [HttpDelete("/DocumentAdviceList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteReportQueueList(string id)
+        public async Task<string> DeleteDocumentAdviceList(string id)
         {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                ReportQueueList record = new() { Id = int.Parse(id) };
+                DocumentAdviceList record = new() { Id = int.Parse(id) };
 
-                var data = new hotelsContext().ReportQueueLists.Remove(record);
+                var data = new hotelsContext().DocumentAdviceLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });

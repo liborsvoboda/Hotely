@@ -246,7 +246,7 @@
     <system:String x:Key="unlockActivationHit">Počet pokusů o odemknutí</system:String>
     <system:String x:Key="generateCode">Generovat kód</system:String>
     <system:String x:Key="parameterList">Parametry</system:String>
-    <system:String x:Key="parameter">Parameter</system:String>
+    <system:String x:Key="parameter">Parametr</system:String>
     <system:String x:Key="default">Výchozí</system:String>
     <system:String x:Key="value">Hodnota</system:String>
     <system:String x:Key="vatList">Nastavení DPH</system:String>
@@ -371,5 +371,12 @@
 
     <system:String x:Key="accommodations">Ubytování</system:String>
     <system:String x:Key="owner">Vlastník</system:String>
-    
+    <system:String x:Key="systemName">Systémový název</system:String>
+    <system:String x:Key="descriptionCz">Překlad CZ</system:String>
+    <system:String x:Key="descriptionEn">Překlad EN</system:String>
+    <system:String x:Key="languageList">Překlady</system:String>
+    <system:String x:Key="documentTypeList">Typy Dokladů</system:String>
+    <system:String x:Key="userId">Id uživatele</system:String>
+    <system:String x:Key="systemFailList">Chyby systému</system:String>
+
 </ResourceDictionary>

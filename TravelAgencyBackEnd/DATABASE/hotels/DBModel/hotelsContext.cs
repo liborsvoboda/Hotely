@@ -64,6 +64,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
         public virtual DbSet<ReportList> ReportLists { get; set; }
         public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
+        public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
         public virtual DbSet<UserList> UserLists { get; set; }
         public virtual DbSet<UserRoleList> UserRoleLists { get; set; }
@@ -329,7 +330,7 @@ namespace TravelAgencyBackEnd.DBModel
             {
                 entity.ToTable("DocumentAdviceList");
 
-                entity.HasIndex(e => new { e.BranchId, e.DocumentTypeId, e.StartDate }, "IX_DocumentAdviceList")
+                entity.HasIndex(e => new { e.BranchId, e.DocumentTypeId, e.StartDate, e.UserId }, "IX_DocumentAdviceList")
                     .IsUnique();
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
@@ -374,12 +375,22 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => e.SystemName, "IX_DocumentTypeList")
                     .IsUnique();
 
+                entity.Property(e => e.Description).HasColumnType("text");
+
                 entity.Property(e => e.SystemName)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('MustProgramming')");
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.SystemNameNavigation)
+                    .WithOne(p => p.DocumentTypeList)
+                    .HasPrincipalKey<LanguageList>(p => p.SystemName)
+                    .HasForeignKey<DocumentTypeList>(d => d.SystemName)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentTypeList_LanguageList");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.DocumentTypeLists)
@@ -913,7 +924,8 @@ namespace TravelAgencyBackEnd.DBModel
             {
                 entity.ToTable("LanguageList");
 
-                entity.HasIndex(e => e.SystemName, "IX_LanguageList");
+                entity.HasIndex(e => e.SystemName, "IX_LanguageList")
+                    .IsUnique();
 
                 entity.Property(e => e.DescriptionCz)
                     .IsRequired()
@@ -1076,6 +1088,26 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ReportQueueList_UserList");
+            });
+
+            modelBuilder.Entity<SystemFailList>(entity =>
+            {
+                entity.ToTable("SystemFailList");
+
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemFailLists)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_SystemFailList_UserList");
             });
 
             modelBuilder.Entity<TemplateList>(entity =>

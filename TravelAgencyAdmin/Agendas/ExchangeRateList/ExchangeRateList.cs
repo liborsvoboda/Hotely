@@ -11,7 +11,6 @@ namespace TravelAgencyAdmin.Classes
         public DateTime? ValidTo { get; set; } = null;
         public string Description { get; set; } = null;
         public int UserId { get; set; }
-        public bool Active { get; set; }
         public DateTime TimeStamp { get; set; }
     }
 

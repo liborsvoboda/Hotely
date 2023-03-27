@@ -230,13 +230,25 @@
     <Compile Include="Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml.cs">
       <DependentUpon>DocumentAdviceListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\DocumentTypeList\DocumentTypeList.cs" />
+    <Compile Include="Agendas\DocumentTypeList\DocumentTypeListPage.xaml.cs">
+      <DependentUpon>DocumentTypeListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\ExchangeRateList\ExchangeRateList.cs" />
     <Compile Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml.cs">
       <DependentUpon>ExchangeRateListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\LanguageList\LanguageList.cs" />
+    <Compile Include="Agendas\LanguageList\LanguageListPage.xaml.cs">
+      <DependentUpon>LanguageListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\ReportQueueList\ReportQueueList.cs" />
     <Compile Include="Agendas\ReportQueueList\ReportQueueListPage.xaml.cs">
       <DependentUpon>ReportQueueListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\SystemFailList\SystemFailList.cs" />
+    <Compile Include="Agendas\SystemFailList\SystemFailListPage.xaml.cs">
+      <DependentUpon>SystemFailListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="APICommunication\ApiFunctions.cs" />
     <Compile Include="Agendas\BranchList\BranchList.cs" />
@@ -331,7 +343,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\DocumentTypeList\DocumentTypeListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\LanguageList\LanguageListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -352,6 +372,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Support\SupportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\SystemFailList\SystemFailListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

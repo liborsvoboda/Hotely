@@ -30,6 +30,7 @@ namespace TravelAgencyBackEnd.DBModel
             ParameterLists = new HashSet<ParameterList>();
             ReportLists = new HashSet<ReportList>();
             ReportQueueLists = new HashSet<ReportQueueList>();
+            SystemFailLists = new HashSet<SystemFailList>();
             TemplateLists = new HashSet<TemplateList>();
         }
 
@@ -70,6 +71,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<ParameterList> ParameterLists { get; set; }
         public virtual ICollection<ReportList> ReportLists { get; set; }
         public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
+        public virtual ICollection<SystemFailList> SystemFailLists { get; set; }
         public virtual ICollection<TemplateList> TemplateLists { get; set; }
     }
 }

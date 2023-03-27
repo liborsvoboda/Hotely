@@ -12,10 +12,8 @@ namespace TravelAgencyBackEnd
     public class Program
     {
 
-        public readonly static bool EnableReDoc = true;
-        public readonly static bool EnableSwagger = true;
         public readonly static string BackendServiceName = "TravelAgencySystem";
-
+        public readonly static bool DebugMode = "Development" == Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         public static void Main(string[] args)
         {

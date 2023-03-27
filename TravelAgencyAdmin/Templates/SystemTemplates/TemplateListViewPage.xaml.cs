@@ -30,8 +30,8 @@ namespace TravelAgencyAdmin.Pages
         /// All is setted as global Classes for All Pages and Work is Fully automatized by System core
         /// 
         /// </summary>
-        public DataViewSupport dataViewSupport = new DataViewSupport();
-        public TemplateClassList selectedRecord = new TemplateClassList();
+        public static DataViewSupport dataViewSupport = new DataViewSupport();
+        public static TemplateClassList selectedRecord = new TemplateClassList();
 
 
         /// <summary>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using TravelAgencyBackEnd.DBModel;
 
-namespace BACKENDCORE.Services
+namespace TravelAgencyBackEnd.Services
 {
     public static class LoginHistoryService
     {

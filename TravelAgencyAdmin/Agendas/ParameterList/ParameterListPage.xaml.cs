@@ -29,15 +29,12 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static ParameterList selectedRecord = new ParameterList();
 
+        //Param types list
         private ObservableCollection<ReportSelection> ParamTypes = new ObservableCollection<ReportSelection>() {
-                                                               new ReportSelection() { Name = "bit" },
-                                                               new ReportSelection() { Name = "string" },
-                                                               new ReportSelection() { Name = "int" },
-                                                               new ReportSelection() { Name = "numeric" },
-                                                               new ReportSelection() { Name = "date" },
-                                                               new ReportSelection() { Name = "time" },
-                                                               new ReportSelection() { Name = "datetime" },
+                                                               new ReportSelection() { Name = "bit" },new ReportSelection() { Name = "string" },new ReportSelection() { Name = "int" },new ReportSelection() { Name = "numeric" },new ReportSelection() { Name = "date" },new ReportSelection() { Name = "time" },new ReportSelection() { Name = "datetime" },
                                                              };
+        private List<ParameterList> parametersList = new List<ParameterList>(); 
+
         public ParameterListPage()
         {
             InitializeComponent();
@@ -49,8 +46,8 @@ namespace TravelAgencyAdmin.Pages
             lbl_value.Content = Resources["value"].ToString();
             lbl_type.Content = Resources["type"].ToString();
             lbl_description.Content = Resources["description"].ToString();
-            lbl_active.Content = Resources["active"].ToString();
             lbl_timestamp.Content = Resources["timestamp"].ToString();
+
 
             btn_check.Content = Resources["check"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
@@ -67,7 +64,14 @@ namespace TravelAgencyAdmin.Pages
         public async Task<bool> LoadDataList()
         {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token); }
+            try { 
+                parametersList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
+                parametersList.ForEach(parameter => { parameter.Translation = SystemFunctions.DBTranslation(parameter.SystemName); });
+
+
+                DgListView.ItemsSource = parametersList;
+                DgListView.Items.Refresh();
+            }
             catch { }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -79,15 +83,16 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "Parameter") e.Header = Resources["parameter"].ToString();
+                if (headername == "Translation") { e.Header = Resources["parameter"].ToString(); e.DisplayIndex = 1; }
                 else if (headername == "Value") { e.Header = Resources["value"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "Type") { e.Header = Resources["type"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "Description") { e.Header = Resources["description"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
+                else if (headername == "SystemName") e.Visibility = Visibility.Hidden;
             });
         }
 
@@ -100,7 +105,7 @@ namespace TravelAgencyAdmin.Pages
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
                     ParameterList param = e as ParameterList;
-                    return param.Parameter.ToLower().Contains(filter.ToLower())
+                    return param.SystemName.ToLower().Contains(filter.ToLower())
                     || param.Value.ToLower().Contains(filter.ToLower())
                     || param.Type.ToLower().Contains(filter.ToLower())
                     || param.Type.ToLower().Contains(filter.ToLower())
@@ -160,12 +165,11 @@ namespace TravelAgencyAdmin.Pages
             {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.Parameter = txt_parameter.Text;
+                selectedRecord.SystemName = txt_parameter.Text;
                 selectedRecord.Value = txt_value.Text;
                 selectedRecord.Type = ((ReportSelection)cb_type.SelectedItem).Name;
                 selectedRecord.Description = txt_description.Text;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
-                selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
@@ -177,9 +181,9 @@ namespace TravelAgencyAdmin.Pages
                 if (dBResult.recordCount > 0)
                 {
                     // Refresh Param in memory
-                    if (App.Parameters.Where(a => a.Parameter == selectedRecord.Parameter).Count() == 0)
-                    { App.Parameters.Add(new Parameters() { Parameter = selectedRecord.Parameter, Value = selectedRecord.Value }); }
-                    else { App.Parameters.Where(a => a.Parameter == selectedRecord.Parameter).First().Value = selectedRecord.Value; }
+                    if (App.Parameters.Where(a => a.SystemName == selectedRecord.SystemName).Count() == 0)
+                    { App.Parameters.Add(selectedRecord); }
+                    else { App.Parameters.Where(a => a.SystemName == selectedRecord.SystemName).First().Value = selectedRecord.Value; }
 
                     selectedRecord = new ParameterList();
                     await LoadDataList();
@@ -200,11 +204,12 @@ namespace TravelAgencyAdmin.Pages
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
-            txt_parameter.Text = selectedRecord.Parameter;
+            txt_parameter.Text = selectedRecord.SystemName;
             txt_value.Text = selectedRecord.Value;
             cb_type.Text = selectedRecord.Type;
             txt_description.Text = selectedRecord.Description;
-            chb_active.IsChecked = selectedRecord.Active;
+            lbl_translation.Content = selectedRecord.Translation;
+
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
@@ -218,6 +223,7 @@ namespace TravelAgencyAdmin.Pages
         private void Value_TextChanged(object sender, TextChangedEventArgs e) => btn_save.IsEnabled = false;
         private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e) => btn_save.IsEnabled = false;
 
+        private void CopyToClipClick(object sender, MouseButtonEventArgs e) { Clipboard.SetDataObject(lbl_translation.Content.ToString()); } 
 
         private void Check_Click(object sender, RoutedEventArgs e)
         {

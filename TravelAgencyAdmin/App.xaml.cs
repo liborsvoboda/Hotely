@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using TravelAgencyAdmin.GlobalFunctions;
 
 namespace TravelAgencyAdmin
 {
@@ -23,7 +24,8 @@ namespace TravelAgencyAdmin
         /// </summary>
         public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
-        public static List<Parameters> Parameters = new List<Parameters>();
+        public static List<ParameterList> Parameters = null;
+        public static List<LanguageList> LanguageList = null;
         public static UserData UserData = new UserData();
 
         internal static string appName = Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0];
@@ -34,7 +36,7 @@ namespace TravelAgencyAdmin
         internal static string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Temp");
         internal static string settingFile = "config.json";
         public static Config Setting = GlobalFunctions.FileFunctions.LoadSettings();
-
+        internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
         /// <summary>
         /// Application Error handlers
         /// </summary>
@@ -65,6 +67,7 @@ namespace TravelAgencyAdmin
             log.Fatal(e.Exception);
             e.Handled = true;
 
+            SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(e.Exception));
             //CrashReporterGlobalField._ReportCrash.Send(e.Exception);
             //if (CrashReporterGlobalField._ReportCrash.IsQuit)
             //{
@@ -78,6 +81,7 @@ namespace TravelAgencyAdmin
 
             Exception exception = e.ExceptionObject as Exception;
             log.Fatal(exception);
+            SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(exception));
 
             _ = MessageBox.Show(exception.Message + "\n" + "Application must be close !!!", "CurrentDomain UnhandledException", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -97,6 +101,7 @@ namespace TravelAgencyAdmin
         private void WinFormApplication_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             log.Fatal(e.Exception);
+            SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(e.Exception));
             //CrashReporterGlobalField._ReportCrash.Send(e.Exception);
         }
 

@@ -90,7 +90,7 @@
     <system:String x:Key="userRoleList">User role</system:String>
     <system:String x:Key="contacts">Contacts</system:String>
     <system:String x:Key="visitorList">Visitors List</system:String>
-    <system:String x:Key="documentAdviceList">Řady dokumentů</system:String>
+    <system:String x:Key="documentAdviceList">document Advice</system:String>
     <system:String x:Key="addressList">Adresy</system:String>
 
     <!--  dataPart  -->
@@ -370,4 +370,11 @@
 
     <system:String x:Key="accommodations">Accommodations</system:String>
     <system:String x:Key="owner">Owner</system:String>
+    <system:String x:Key="systemName">System name</system:String>
+    <system:String x:Key="descriptionCz">Tranlation CZ</system:String>
+    <system:String x:Key="descriptionEn">Tranlation EN</system:String>
+    <system:String x:Key="languageList">Translation</system:String>
+    <system:String x:Key="documentTypeList">Document Types</system:String>
+    <system:String x:Key="userId">User id</system:String>
+    <system:String x:Key="systemFailList">System Fails</system:String>
 </ResourceDictionary>

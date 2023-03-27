@@ -13,5 +13,6 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime Timestamp { get; set; }
 
         public virtual UserList User { get; set; }
+        public virtual DocumentTypeList DocumentTypeList { get; set; }
     }
 }

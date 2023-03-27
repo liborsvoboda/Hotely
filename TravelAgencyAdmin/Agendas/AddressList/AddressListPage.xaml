@@ -230,8 +230,8 @@
                 VerticalAlignment="Center"
                 Controls:TextBoxHelper.ClearTextButton="false"
                 DisplayMemberPath="Name"
-                SelectedValuePath="Value"
                 IsEnabled="true"
+                SelectedValuePath="Value"
                 Visibility="Hidden" />
 
             <Label

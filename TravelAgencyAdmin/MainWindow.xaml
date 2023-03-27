@@ -282,11 +282,6 @@
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_clientSettings"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
                         x:Name="tv_system"
@@ -294,6 +289,23 @@
                         Margin="0"
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_clientSettings"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_documentTypeList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_languageList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
                             x:Name="tm_userList"
                             HorizontalAlignment="Stretch"
@@ -308,6 +320,12 @@
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
                             x:Name="tm_loginHistoryList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_systemFailList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"

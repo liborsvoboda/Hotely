@@ -210,6 +210,8 @@ namespace TravelAgencyAdmin
 
                 tm_addressList.Header = Resources["addressList"].ToString(); tm_parameterList.Header = Resources["parameterList"].ToString();
                 tm_branchList.Header = Resources["branchList"].ToString(); tm_reportQueueList.Header = Resources["reportQueueList"].ToString();
+                tm_languageList.Header = Resources["languageList"].ToString(); tm_documentTypeList.Header = Resources["documentTypeList"].ToString();
+                tm_systemFailList.Header = Resources["systemFailList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -221,7 +223,9 @@ namespace TravelAgencyAdmin
                 Loaded += MainWindow_Loaded;
                 cb_filter.SelectedIndex = 0;
                 ShowLoginDialog();
-            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
         /// <summary>
@@ -249,6 +253,8 @@ namespace TravelAgencyAdmin
         /// <returns></returns>
         public static async Task<MessageDialogResult> ShowMessage(bool error, string message, bool confirm = false)
         {
+            if (error) SystemFunctions.SaveSystemFailMessage(message);
+            
             ProgressRing = Visibility.Hidden; MessageDialogResult result;
             MetroWindow metroWindow = Application.Current.MainWindow as MetroWindow;
             if (confirm)
@@ -275,7 +281,9 @@ namespace TravelAgencyAdmin
                 AppTheme theme = ThemeManager.AppThemes.FirstOrDefault(t => t.Name.Equals(App.Setting.ThemeName));
                 Accent accent = ThemeManager.Accents.FirstOrDefault(a => a.Name.Equals(App.Setting.AccentName));
                 if ((theme != null) && (accent != null)) { ThemeManager.ChangeAppStyle(Application.Current, accent, theme); }
-            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
         /// <summary>
@@ -299,14 +307,19 @@ namespace TravelAgencyAdmin
                         ServiceRunning = true; ServiceStatus = Resources["running"].ToString();
                         UserLogged = ServiceRunning && !string.IsNullOrWhiteSpace((string)si_loggedIn.Content);
                         mi_logout.Header = UserLogged ? Resources["logout"].ToString() : Resources["logon"].ToString();
-                    
-                        //Load DB Settings
-                        App.Parameters = await ApiCommunication.GetApiRequest<List<Parameters>>(ApiUrls.ParameterList, null, null);
+
+                        //Load DB Settings and Language
+                        if (App.Parameters == null) { 
+                            App.Parameters = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, null, null); 
+                            App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, null);
+                        }
                         
                         //ONETime Update
                         if (ServiceRunning && !updateChecked && UserLogged) { this.Invoke(() => { if (App.Setting.AutomaticUpdate != "never") { Updater.CheckUpdate(false); } updateChecked = true; }); }
                     } else { SetServiceStop(); }
-                } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); SetServiceStop(); }
+                } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); SetServiceStop();
+                    SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+                }
             });
         }
 
@@ -385,17 +398,17 @@ namespace TravelAgencyAdmin
 
                     } else {
                         App.UserData.Authentification = dBResult;
-                        List<Parameters> parameters = await ApiCommunication.GetApiRequest<List<Parameters>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
-                        parameters.ForEach(parameter => {
-                            App.Parameters.First(a => a.Parameter == parameter.Parameter).Value = parameter.Value;
-                        });
+                        App.Parameters.AddRange(await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token));
+
                         //MessageDialogResult messageResult = await this.ShowMessageAsync(Resources["login"].ToString(), Resources["successLogin"].ToString() + Environment.NewLine + Resources["successHelp"].ToString() + Environment.NewLine + Resources["successThanks"].ToString());
                         si_loggedIn.Content = Resources["loggedIn"].ToString() + " " + ((App.UserData.Authentification.Name.Length > 0 || App.UserData.Authentification.SurName.Length > 0) ? App.UserData.Authentification.Name + " " + App.UserData.Authentification.SurName : result.Username);
                         ProgressRing = Visibility.Hidden;
                     }
                 }
                 ProgressRing = Visibility.Hidden;
-            } catch (Exception ex) { App.log.Error(ex.Message); await ShowMessage(true, ex.Message); }
+            } catch (Exception ex) { App.log.Error(ex.Message); await ShowMessage(true, ex.Message);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
         private void ApplicationClosing(object sender, CancelEventArgs e)
@@ -408,7 +421,9 @@ namespace TravelAgencyAdmin
                 if (metroWindowClosing) { metroWindowClosing = false; return; }
                 AppQuit(false);
 
-            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
 
         }
 
@@ -590,7 +605,8 @@ namespace TravelAgencyAdmin
         /// <param name="e"></param>
         public void RemoveFilterItem_Click(object sender, RoutedEventArgs e)
         {
-            try { foreach (WrapPanel filterItem in cb_filter.Items) { if (filterItem.Name.Split('_')[1] == ((Button)sender).Name.Split('_')[1]) { cb_filter.Items.Remove(filterItem); } } } catch { }
+            try { foreach (WrapPanel filterItem in cb_filter.Items) { if (filterItem.Name.Split('_')[1] == ((Button)sender).Name.Split('_')[1]) { cb_filter.Items.Remove(filterItem); } } } 
+            catch { }
         }
 
         /// <summary>
@@ -606,20 +622,20 @@ namespace TravelAgencyAdmin
                     {
                         ((ComboBox)filterItem.Children[2]).Items.Clear();
                         if ("string?".Contains(((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag.ToString())) ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " LIKE ", Width = 80 });
-                            if ("string?,float?,int?,int32?,int64?,decimal?,double?,bit?,boolean?,datetime?,date?".Contains(((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag.ToString()))
-                            {
-                                ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " = ", Width = 80, FontSize = 20 });
-                                ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " <> ", Width = 80, FontSize = 20 });
-                            }
-                            if (",int?,float?,int32?,int64?,decimal?,double?,datetime?,date?".Contains(((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag.ToString()))
-                            {
-                                ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " > ", Width = 80, FontSize = 20 });
-                                ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " < ", Width = 80, FontSize = 20 });
-                            }
+                        if ("string?,float?,int?,int32?,int64?,decimal?,double?,bit?,boolean?,datetime?,date?".Contains(((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag.ToString()))
+                        {
+                            ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " = ", Width = 80, FontSize = 20 });
+                            ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " <> ", Width = 80, FontSize = 20 });
                         }
-                    index ++;
+                        if (",int?,float?,int32?,int64?,decimal?,double?,datetime?,date?".Contains(((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag.ToString()))
+                        {
+                            ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " > ", Width = 80, FontSize = 20 });
+                            ((ComboBox)filterItem.Children[2]).Items.Add(new ComboBoxItem() { Content = " < ", Width = 80, FontSize = 20 });
+                        }
+                    }
+                    index++;
                 }
-            } catch { }
+            } catch (Exception ex) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex)); }
         }
 
 
@@ -689,6 +705,7 @@ namespace TravelAgencyAdmin
             }
             catch (Exception ex)
             {
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
                 App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
                 await ShowMessage(true, Resources["connectionStringIsNotValid"].ToString());
                 ProgressRing = Visibility.Hidden;
@@ -756,12 +773,26 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentAdviceList", App.UserData.Authentification.Token);
                             break;
+                        case "tm_documentTypeList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new DocumentTypeListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentTypeList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_exchangeRateList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ExchangeRateListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ExchangeRateList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_languageList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new LanguageListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/LanguageList", App.UserData.Authentification.Token);
                             break;
                         case "tm_loginHistoryList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
@@ -812,7 +843,14 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/UserRoleList", App.UserData.Authentification.Token);
                             break;
-
+                        case "tm_systemFailList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new SystemFailListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/SystemFailList", App.UserData.Authentification.Token);
+                            break;
+                            
                         default:
                             cb_printReports.ItemsSource = null;
                             break;
@@ -821,7 +859,9 @@ namespace TravelAgencyAdmin
                     tb_verticalMenu.IsOverflowOpen = false; 
                 }
             }
-            catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
         /// <summary>
@@ -869,7 +909,7 @@ namespace TravelAgencyAdmin
                 }
                 cb_printReports.IsEnabled = cb_printReports.Items.Count > 0;
             } catch (Exception ex) {
-                //await ShowMessage(true, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
                 App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); 
             }
         }
@@ -902,7 +942,9 @@ namespace TravelAgencyAdmin
                     existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
                 }
 
-            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
 
@@ -959,7 +1001,9 @@ namespace TravelAgencyAdmin
                 }
 
                 cb_printReports.IsEnabled = cb_printReports.Items.Count > 0;
-            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
 
@@ -975,7 +1019,9 @@ namespace TravelAgencyAdmin
             {
                 if (e.Source.ToString().Contains("Dragablz.TabablzControl") && e.OriginalSource.ToString() == "System.Windows.Controls.Button") { metroWindowClosing = true; }
             } 
-            catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace); }
+            catch (Exception ex) { App.log.Error(ex.Message + Environment.NewLine + ex.StackTrace);
+                SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+            }
         }
 
     }

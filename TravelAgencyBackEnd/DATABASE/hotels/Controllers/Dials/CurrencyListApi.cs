@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Transactions;
-using BACKENDCORE.CoreClasses;
+using TravelAgencyBackEnd.CoreClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.DBModel;
@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -26,10 +27,19 @@ namespace TravelAgencyBackEnd.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().CurrencyLists.ToList();
+                if (Request.HttpContext.User.IsInRole("Admin"))
+                {
+                    data = new hotelsContext().CurrencyLists.ToList();
+                }
+                else
+                {
+                    data = new hotelsContext().CurrencyLists.Include(a => a.User)
+                        .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
+                }
+                
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/CurrencyList/Filter/{filter}")]
@@ -41,10 +51,17 @@ namespace TravelAgencyBackEnd.Controllers
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().CurrencyLists.FromSqlRaw("SELECT * FROM CurrencyList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                if (Request.HttpContext.User.IsInRole("Admin"))
+                { data = new hotelsContext().CurrencyLists.FromSqlRaw("SELECT * FROM CurrencyList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                else
+                {
+                    data = new hotelsContext().CurrencyLists.FromSqlRaw("SELECT * FROM CurrencyList WHERE 1=1 AND " + filter.Replace("+", " "))
+                        .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
+                        .AsNoTracking().ToList();
+                }
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/CurrencyList/{id}")]

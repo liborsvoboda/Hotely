@@ -14,7 +14,9 @@ namespace TravelAgencyAdmin.Api
         CurrencyList,
         Calendar,
         DocumentAdviceList,
+        DocumentTypeList,
         ExchangeRateList,
+        LanguageList,
         LoginHistoryList,
         MottoList,
         ParameterList,
@@ -23,6 +25,7 @@ namespace TravelAgencyAdmin.Api
         UserList,
         UserRoleList,
 
+        SystemFailList,
         TemplateClassList
     }
 

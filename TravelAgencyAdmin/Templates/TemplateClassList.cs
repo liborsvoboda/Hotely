@@ -2,9 +2,7 @@
 
 namespace TravelAgencyAdmin.Classes
 {
-    /// <summary>
-    /// Example of Table Dataset
-    /// </summary>
+
     public partial class TemplateClassList
     {
         public int Id { get; set; }
@@ -15,9 +13,6 @@ namespace TravelAgencyAdmin.Classes
         public DateTime TimeStamp { get; set; }
     }
 
-    /// <summary>
-    /// Example of extended Table dataset for user friendly
-    /// </summary>
     public partial class ExtendedTemplateClassList : TemplateClassList
     {
         public string TotalCurrency { get; set; }

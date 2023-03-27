@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace BACKENDCORE.Controllers
+namespace TravelAgencyBackEnd.Controllers
 {
     [ApiController]
     [Route("BackendCheck")]

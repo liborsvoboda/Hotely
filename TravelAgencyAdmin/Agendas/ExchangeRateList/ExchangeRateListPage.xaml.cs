@@ -26,7 +26,9 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static ExtendedExchangeRateList selectedRecord = new ExtendedExchangeRateList();
 
-        List<CurrencyList> CurrencyList = new List<CurrencyList>();
+
+        private List<UserList> adminUserList = new List<UserList>();
+        private List<CurrencyList> CurrencyList = new List<CurrencyList>();
         public ExchangeRateListPage()
         {
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace TravelAgencyAdmin.Pages
                 lbl_validTo.Content = Resources["validTo"].ToString();
                 lbl_value.Content = Resources["value"].ToString();
                 lbl_description.Content = Resources["description"].ToString();
-                lbl_active.Content = Resources["active"].ToString();
+                lbl_owner.Content = Resources["owner"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -71,7 +73,6 @@ namespace TravelAgencyAdmin.Pages
                         ValidTo = record.ValidTo,
                         Description = record.Description,
                         UserId = record.UserId,
-                        Active = record.Active,
                         TimeStamp = record.TimeStamp,
                         Currency = CurrencyList.Where( a=> a.Id == record.CurrencyId).First().Name
                     };
@@ -80,6 +81,13 @@ namespace TravelAgencyAdmin.Pages
                 cb_currency.ItemsSource = CurrencyList.Where(a => a.Fixed == false).ToList();
                 DgListView.ItemsSource = extendedExchangeRateList;
                 DgListView.Items.Refresh();
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                {
+                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
+                }
             } catch { }
 
 
@@ -98,8 +106,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "ValidTo") { e.Header = Resources["validTo"].ToString(); (e as DataGridTextColumn).Binding.StringFormat = "dd.MM.yyyy"; }
                     else if (headername == "Value") e.Header = Resources["value"].ToString();
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
-                    else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -179,8 +186,11 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.ValidTo = dp_validTo.Value;
                 selectedRecord.Description = txt_description.Text;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
-                selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -217,7 +227,10 @@ namespace TravelAgencyAdmin.Pages
             dp_validFrom.Value = selectedRecord.ValidFrom;
             dp_validTo.Value = selectedRecord.ValidTo;
             txt_description.Text = selectedRecord.Description;
-            chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
+
+            //Only for Admin: Owner/UserId Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm)
             {

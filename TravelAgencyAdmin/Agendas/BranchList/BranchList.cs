@@ -16,7 +16,6 @@ namespace TravelAgencyAdmin.Classes
         public string Ico { get; set; }
         public string Dic { get; set; }
         public int UserId { get; set; }
-        public int OwnerId { get; set; } = App.UserData.Authentification.Id;
         public bool Active { get; set; }
         public DateTime TimeStamp { get; set; }
     }

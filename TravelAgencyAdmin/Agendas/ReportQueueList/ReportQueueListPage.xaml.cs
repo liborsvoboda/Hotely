@@ -56,10 +56,10 @@ namespace TravelAgencyAdmin.Pages
                 btn_execute.Content = Resources["execute"].ToString();
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
+
+
+                DgListView.RowHeight = int.Parse(SystemFunctions.ParameterCheck("ReportSqlRowHeight"));
             } catch { }
-
-            DgListView.RowHeight = SystemFunctions.ParameterCheck("ReportSqlRowHeight").Correct ? int.Parse(SystemFunctions.ParameterCheck("ReportSqlRowHeight").Value) : 50;
-
             _ = LoadDataList();
             SetRecord(false);
         }
