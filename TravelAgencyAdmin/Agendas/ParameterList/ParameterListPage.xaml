@@ -50,8 +50,8 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -168,14 +168,23 @@
                 ToolTipService.ShowOnDisabled="True" />
 
             <Label
-                x:Name="lbl_description"
+                x:Name="lbl_paramCheckResult"
                 Grid.Row="4"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                FontWeight="Bold" FontSize="16"
+                />
+            
+            <Label
+                x:Name="lbl_description"
+                Grid.Row="5"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <TextBox
                 x:Name="txt_description"
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.Column="1"
                 Margin="0,2,0,2"
                 Controls:TextBoxHelper.ClearTextButton="True"

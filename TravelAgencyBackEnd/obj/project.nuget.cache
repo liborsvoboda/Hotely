@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gOt7JzJbz/7yeE5seAU/XWcuXtLy6sklz8vfVGf6cKsU1qMQfibReQEAxp6NyUQjYSoJcAWp2Ygiz4o5AcD49w==",
+  "dgSpecHash": "g+UJr+7w2kr02VJ2Z0D2eWzvkKEw8qYEkUQ9jvlO0NhCkgSAsYc8hBh0ftXUET/i3Y3+PQJeI+7LaYwn2EIAQQ==",
   "success": true,
   "projectFilePath": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\TravelAgencyBackEnd.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\microsoft.dependencyvalidation.analyzers\\0.11.0\\microsoft.dependencyvalidation.analyzers.0.11.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.14\\microsoft.entityframeworkcore.6.0.14.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.14\\microsoft.entityframeworkcore.abstractions.6.0.14.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.14\\microsoft.entityframeworkcore.analyzers.6.0.14.nupkg.sha512",

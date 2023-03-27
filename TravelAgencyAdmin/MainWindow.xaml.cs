@@ -456,7 +456,7 @@ namespace TravelAgencyAdmin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cb_FilterDropDownClosed(object sender, EventArgs e)
+        private void Cb_FilterDropDownClosed(object sender, EventArgs e)
         {
             TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
             string advancedFilter = SystemFunctions.FilterToString(cb_filter);

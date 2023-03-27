@@ -12,9 +12,10 @@ namespace TravelAgencyBackEnd
 
         public void ConfigureServices(IServiceCollection services)
         {
- 
+
             #region Server Core & Security
             ServerCoreConfiguration.ConfigureCookie(ref services);
+            //ServerCoreConfiguration.ConfigureAllowAllCors(ref services);
             ServerCoreConfiguration.ConfigureControllers(ref services);
             ServerCoreConfiguration.ConfigureAuthentication(ref services);
             services.AddEndpointsApiExplorer();

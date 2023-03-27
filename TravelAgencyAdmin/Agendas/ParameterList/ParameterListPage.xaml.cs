@@ -21,6 +21,7 @@ using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
 using TravelAgencyAdmin.GlobalClasses;
+using System.Globalization;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -30,7 +31,7 @@ namespace TravelAgencyAdmin.Pages
         public static ParameterList selectedRecord = new ParameterList();
 
         //Param types list
-        private ObservableCollection<ReportSelection> ParamTypes = new ObservableCollection<ReportSelection>() {
+        private readonly ObservableCollection<ReportSelection> ParamTypes = new ObservableCollection<ReportSelection>() {
                                                                new ReportSelection() { Name = "bit" },new ReportSelection() { Name = "string" },new ReportSelection() { Name = "int" },new ReportSelection() { Name = "numeric" },new ReportSelection() { Name = "date" },new ReportSelection() { Name = "time" },new ReportSelection() { Name = "datetime" },
                                                              };
         private List<ParameterList> parametersList = new List<ParameterList>(); 
@@ -233,22 +234,23 @@ namespace TravelAgencyAdmin.Pages
                 switch ((string)cb_type.SelectedValue)
                 {
                     case "bit":
-                        bool.Parse(txt_value.Text);
+                        lbl_paramCheckResult.Content = bool.Parse(txt_value.Text);
                         break;
                     case "int":
-                        int.Parse(txt_value.Text);
+                        lbl_paramCheckResult.Content = int.Parse(txt_value.Text);
                         break;
                     case "numeric":
-                        double.Parse(txt_value.Text);
+                        lbl_paramCheckResult.Content = double.Parse(txt_value.Text);
                         break;
                     case "date":
-                        DateTime.Parse(txt_value.Text);
+                        //DateTime.ParseExact(DateTime.Now.ToShortDateString(), txt_value.Text, CultureInfo.InvariantCulture);
+                        lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
                         break;
                     case "time":
-                        TimeSpan.Parse(txt_value.Text);
+                        lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
                         break;
                     case "datetime":
-                        DateTime.Parse(txt_value.Text);
+                        lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
                         break;
                 }
                 btn_save.IsEnabled = true;

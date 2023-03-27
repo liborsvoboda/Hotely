@@ -83,6 +83,17 @@ namespace TravelAgencyBackEnd
             });
         }
 
+        internal static void ConfigureAllowAllCors(ref IServiceCollection services)
+        {
+            services.AddCors(options => 
+            options.AddPolicy("AllowAllCors", 
+            p => p.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .Build()));
+        }
+
 
         /// <summary>
         /// Server Core: Configure Server Authentication Support

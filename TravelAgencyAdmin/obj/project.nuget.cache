@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GK3LMWhJOzUFOLFjX34HLF1vh/1ydFesHqhkPO5qZG9Itqle1jjqMXesKxD9NjUhiQJbg9/CrEtrlpg0Kg0baQ==",
+  "dgSpecHash": "4WcTWYodysIpfH5BAyDJ9WN8ess7BlmG7GPCIpIwyMqSnsGvtI32TYzv0zDleB9COqB33HuXid/EFVaHIdtYEw==",
   "success": true,
   "projectFilePath": "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\tatka\\.nuget\\packages\\mahapps.metro.iconpacks\\4.11.0\\mahapps.metro.iconpacks.4.11.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\mahapps.metro.simplechildwindow\\2.2.1\\mahapps.metro.simplechildwindow.2.2.1.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.bcl.build\\1.0.21\\microsoft.bcl.build.1.0.21.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\microsoft.dependencyvalidation.analyzers\\0.11.0\\microsoft.dependencyvalidation.analyzers.0.11.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.netcore.platforms\\6.0.6\\microsoft.netcore.platforms.6.0.6.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

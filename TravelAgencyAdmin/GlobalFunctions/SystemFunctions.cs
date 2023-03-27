@@ -1,27 +1,12 @@
 ﻿using System;
-using System.IO;
-using System.Web.Script.Serialization;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using TravelAgencyAdmin.Classes;
-using System.Windows;
-using System.Threading;
 using Newtonsoft.Json;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Net.Http.Headers;
 using System.Text;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using Microsoft.Win32;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using System.Linq;
-using TravelAgencyAdmin.GlobalClasses;
 using System.Windows.Controls;
-using System.DirectoryServices.AccountManagement;
-using System.Diagnostics.Eventing.Reader;
 using System.Text.RegularExpressions;
+using TravelAgencyAdmin.Api;
 
 namespace TravelAgencyAdmin.GlobalFunctions
 {
@@ -58,6 +43,10 @@ namespace TravelAgencyAdmin.GlobalFunctions
 
         public static async void SaveSystemFailMessage(string message)
         {
+            SystemFailList systemFailList = new SystemFailList() { UserId =  App.UserData.Authentification.Id, UserName = App.UserData.UserName, Message = message };
+            string json = JsonConvert.SerializeObject(systemFailList);
+            StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            await ApiCommunication.PutApiRequest(ApiUrls.SystemFailList, httpContent, null, App.UserData.Authentification.Token);
             
         }
 

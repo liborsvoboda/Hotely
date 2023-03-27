@@ -106,8 +106,6 @@ namespace TravelAgencyAdmin.Pages
 
         public async void DeleteRecord()
         {
-            await MainWindow.ShowMessage(true, Resources["deleteRecordQuestion"].ToString());
-            /*
             selectedRecord = (SystemFailList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
@@ -117,7 +115,6 @@ namespace TravelAgencyAdmin.Pages
                 if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
-            */
         }
 
 

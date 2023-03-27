@@ -381,6 +381,12 @@
           "build/Microsoft.Bcl.Build.targets": {}
         }
       },
+      "Microsoft.DependencyValidation.Analyzers/0.11.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System"
+        ]
+      },
       "Microsoft.NETCore.Platforms/6.0.6": {
         "type": "package",
         "compile": {
@@ -889,6 +895,10 @@
       },
       "EASYTools.Calendar/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.Calendar.dll": {}
         },
@@ -907,6 +917,10 @@
       },
       "EASYTools.SqlConnectionDialog/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.SqlConnectionDialog.dll": {}
         },
@@ -1304,6 +1318,12 @@
           "build/Microsoft.Bcl.Build.targets": {}
         }
       },
+      "Microsoft.DependencyValidation.Analyzers/0.11.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System"
+        ]
+      },
       "Microsoft.NETCore.Platforms/6.0.6": {
         "type": "package",
         "compile": {
@@ -1802,6 +1822,10 @@
       },
       "EASYTools.Calendar/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.Calendar.dll": {}
         },
@@ -1820,6 +1844,10 @@
       },
       "EASYTools.SqlConnectionDialog/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.SqlConnectionDialog.dll": {}
         },
@@ -2217,6 +2245,12 @@
           "build/Microsoft.Bcl.Build.targets": {}
         }
       },
+      "Microsoft.DependencyValidation.Analyzers/0.11.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System"
+        ]
+      },
       "Microsoft.NETCore.Platforms/6.0.6": {
         "type": "package",
         "compile": {
@@ -2715,6 +2749,10 @@
       },
       "EASYTools.Calendar/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.Calendar.dll": {}
         },
@@ -2733,6 +2771,10 @@
       },
       "EASYTools.SqlConnectionDialog/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.SqlConnectionDialog.dll": {}
         },
@@ -3130,6 +3172,12 @@
           "build/Microsoft.Bcl.Build.targets": {}
         }
       },
+      "Microsoft.DependencyValidation.Analyzers/0.11.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System"
+        ]
+      },
       "Microsoft.NETCore.Platforms/6.0.6": {
         "type": "package",
         "compile": {
@@ -3628,6 +3676,10 @@
       },
       "EASYTools.Calendar/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.Calendar.dll": {}
         },
@@ -3646,6 +3698,10 @@
       },
       "EASYTools.SqlConnectionDialog/1.0.0": {
         "type": "project",
+        "framework": ".NETFramework,Version=v4.5.2",
+        "dependencies": {
+          "Microsoft.DependencyValidation.Analyzers": "0.11.0"
+        },
         "compile": {
           "bin/placeholder/EASYTools.SqlConnectionDialog.dll": {}
         },
@@ -5028,6 +5084,34 @@
         "build/Microsoft.Bcl.Build.targets",
         "microsoft.bcl.build.1.0.21.nupkg.sha512",
         "microsoft.bcl.build.nuspec"
+      ]
+    },
+    "Microsoft.DependencyValidation.Analyzers/0.11.0": {
+      "sha512": "3xBVhMsM4o9cDpsvmlv78T1FG+cTH8i6bjl1Irk6hoIwEc6Ekoz4mKAR6Hn5M/2G2ZsHNrYBNwGkgF7aiw74UA==",
+      "type": "package",
+      "path": "microsoft.dependencyvalidation.analyzers/0.11.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/Microsoft.DependencyValidation.Analyzers.dll",
+        "analyzers/dotnet/cs/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/de/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/es/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/fr/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/it/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/ja/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/ko/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/pl/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/pt-BR/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/ru/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/tr/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/zh-HANS/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/zh-HANT/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "microsoft.dependencyvalidation.analyzers.0.11.0.nupkg.sha512",
+        "microsoft.dependencyvalidation.analyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.NETCore.Platforms/6.0.6": {
@@ -7483,6 +7567,7 @@
       "MahApps.Metro.IconPacks >= 4.11.0",
       "MahApps.Metro.SimpleChildWindow >= 2.2.1",
       "Microsoft.Bcl.Build >= 1.0.21",
+      "Microsoft.DependencyValidation.Analyzers >= 0.11.0",
       "Microsoft.NETCore.Platforms >= 6.0.6",
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.39",
       "NETStandard.Library >= 2.0.3",
@@ -7609,6 +7694,10 @@
           "Microsoft.Bcl.Build": {
             "target": "Package",
             "version": "[1.0.21, )"
+          },
+          "Microsoft.DependencyValidation.Analyzers": {
+            "target": "Package",
+            "version": "[0.11.0, )"
           },
           "Microsoft.NETCore.Platforms": {
             "target": "Package",

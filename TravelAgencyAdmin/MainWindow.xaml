@@ -402,7 +402,7 @@
                     Padding="-13,-1,0,0"
                     HorizontalAlignment="Right"
                     Cursor="Hand"
-                    DropDownClosed="cb_FilterDropDownClosed"
+                    DropDownClosed="Cb_FilterDropDownClosed"
                     FontSize="20"
                     IsEnabled="{Binding Path=(local:MainWindow.DgRefresh)}">
                     <WrapPanel x:Name="filter_Menu" Width="230">
