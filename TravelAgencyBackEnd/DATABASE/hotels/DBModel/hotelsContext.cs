@@ -33,7 +33,7 @@ namespace TravelAgencyBackEnd.DBModel
             }
         }
 
-        public virtual DbSet<AccessRuleList> AccessRuleLists { get; set; }
+        public virtual DbSet<AccessRoleList> AccessRoleLists { get; set; }
         public virtual DbSet<AddressList> AddressLists { get; set; }
         public virtual DbSet<BranchList> BranchLists { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
@@ -74,9 +74,9 @@ namespace TravelAgencyBackEnd.DBModel
         {
             modelBuilder.UseCollation("Czech_CI_AS");
 
-            modelBuilder.Entity<AccessRuleList>(entity =>
+            modelBuilder.Entity<AccessRoleList>(entity =>
             {
-                entity.ToTable("AccessRuleList");
+                entity.ToTable("AccessRoleList");
 
                 entity.HasIndex(e => e.TableName, "IX_AccessRuleList")
                     .IsUnique();
@@ -95,7 +95,7 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.AccessRuleLists)
+                    .WithMany(p => p.AccessRoleLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AccessRuleList_UserList");

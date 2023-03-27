@@ -379,5 +379,8 @@
     <system:String x:Key="userId">Id uživatele</system:String>
     <system:String x:Key="systemFailList">Chyby systému</system:String>
     <system:String x:Key="accessRole">Povolené Role</system:String>
-    <system:String x:Key="accessRoleList">Nastavení Práv Menu</system:String>
+    <system:String x:Key="accessRoleList">Menu Práva</system:String>
+    <system:String x:Key="mottoList">Nápady a Vize</system:String>
+    <system:String x:Key="templateClassList">Systémová šablona</system:String>
+
 </ResourceDictionary>

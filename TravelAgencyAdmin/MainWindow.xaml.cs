@@ -211,7 +211,7 @@ namespace TravelAgencyAdmin
                 tm_addressList.Header = Resources["addressList"].ToString(); tm_parameterList.Header = Resources["parameterList"].ToString();
                 tm_branchList.Header = Resources["branchList"].ToString(); tm_reportQueueList.Header = Resources["reportQueueList"].ToString();
                 tm_languageList.Header = Resources["languageList"].ToString(); tm_documentTypeList.Header = Resources["documentTypeList"].ToString();
-                tm_systemFailList.Header = Resources["systemFailList"].ToString();
+                tm_systemFailList.Header = Resources["systemFailList"].ToString(); tm_accessRoleList.Header = Resources["accessRoleList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -390,6 +390,7 @@ namespace TravelAgencyAdmin
                 if (result == null) { AppQuit(false); }
                 else
                 {
+                    App.UserData.UserName = result.Username;
                     Authentification dBResult = await ApiCommunication.Authentification(ApiUrls.Authentication, result.Username, result.Password);
                     if (dBResult == null || dBResult.Token == null)
                     {
@@ -731,6 +732,14 @@ namespace TravelAgencyAdmin
                 } else if (!name.StartsWith("tv_")) {
                     switch (name)
                     {
+
+                        case "tm_accessRoleList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AccessRoleListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/AccessRoleList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_addressList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AddressListPage()); }

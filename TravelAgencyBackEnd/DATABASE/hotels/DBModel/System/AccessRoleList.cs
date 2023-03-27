@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TravelAgencyBackEnd.DBModel
 {
-    public partial class AccessRuleList
+    public partial class AccessRoleList
     {
         public int Id { get; set; }
         public string TableName { get; set; }

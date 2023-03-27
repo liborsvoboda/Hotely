@@ -33,6 +33,7 @@ namespace TravelAgencyAdmin.Pages
         private ObservableCollection<UpdateVariant> ApiTables = new ObservableCollection<UpdateVariant>() {
             //  new UpdateVariant() { Name = "SomeName", Value = someView },
         };
+        private List<UserRoleList> userRoleList = new List<UserRoleList>();
 
         public AccessRoleListPage()
         {
@@ -67,6 +68,7 @@ namespace TravelAgencyAdmin.Pages
                         ApiTables.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "") }); }
                 } cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
 
+                lb_accessRole.ItemsSource = userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
 
             }
@@ -192,7 +194,7 @@ namespace TravelAgencyAdmin.Pages
         private void SetRecord(bool showForm, bool copy = false)
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
-            cb_tableName.Text = Resources[selectedRecord.TableName].ToString();
+            cb_tableName.Text = selectedRecord.TableName != null ? Resources[selectedRecord.TableName].ToString() : null;
             //lb_accessRole.SelectedItems = selectedRecord.Description;
 
             if (showForm)

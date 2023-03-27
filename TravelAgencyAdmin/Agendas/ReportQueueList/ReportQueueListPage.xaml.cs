@@ -29,8 +29,8 @@ namespace TravelAgencyAdmin.Pages
 {
     public partial class ReportQueueListPage : UserControl
     {
-        public DataViewSupport dataViewSupport = new DataViewSupport();
-        public ReportQueueList selectedRecord = new ReportQueueList();
+        public static DataViewSupport dataViewSupport = new DataViewSupport();
+        public static ReportQueueList selectedRecord = new ReportQueueList();
 
         private string connectionString = null;
         public ObservableCollection<UpdateVariant> tableList = new ObservableCollection<UpdateVariant>();

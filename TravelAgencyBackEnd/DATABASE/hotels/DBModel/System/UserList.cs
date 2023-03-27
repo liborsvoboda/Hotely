@@ -7,7 +7,7 @@ namespace TravelAgencyBackEnd.DBModel
     {
         public UserList()
         {
-            AccessRuleLists = new HashSet<AccessRuleList>();
+            AccessRoleLists = new HashSet<AccessRoleList>();
             AddressLists = new HashSet<AddressList>();
             BranchLists = new HashSet<BranchList>();
             Calendars = new HashSet<Calendar>();
@@ -48,7 +48,7 @@ namespace TravelAgencyBackEnd.DBModel
         public DateTime Timestamp { get; set; }
 
         public virtual UserRoleList Role { get; set; }
-        public virtual ICollection<AccessRuleList> AccessRuleLists { get; set; }
+        public virtual ICollection<AccessRoleList> AccessRoleLists { get; set; }
         public virtual ICollection<AddressList> AddressLists { get; set; }
         public virtual ICollection<BranchList> BranchLists { get; set; }
         public virtual ICollection<Calendar> Calendars { get; set; }

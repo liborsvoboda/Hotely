@@ -15,62 +15,62 @@ namespace TravelAgencyBackEnd.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("AccessRuleList")]
-    public class AccessRuleListApi : ControllerBase
+    [Route("AccessRoleList")]
+    public class AccessRoleListApi : ControllerBase
     {
-        [HttpGet("/AccessRuleList")]
-        public async Task<string> GetAccessRuleList()
+        [HttpGet("/AccessRoleList")]
+        public async Task<string> GetAccessRoleList()
         {
-            List<AccessRuleList> data;
+            List<AccessRoleList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().AccessRuleLists.ToList();
+                data = new hotelsContext().AccessRoleLists.ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/AccessRuleList/Filter/{filter}")]
-        public async Task<string> GetAccessRuleListByFilter(string filter)
+        [HttpGet("/AccessRoleList/Filter/{filter}")]
+        public async Task<string> GetAccessRoleListByFilter(string filter)
         {
-            List<AccessRuleList> data;
+            List<AccessRoleList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().AccessRuleLists.FromSqlRaw("SELECT * FROM AccessRuleList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().AccessRoleLists.FromSqlRaw("SELECT * FROM AccessRoleList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/AccessRuleList/{id}")]
-        public async Task<string> GetAccessRuleListKey(int id)
+        [HttpGet("/AccessRoleList/{id}")]
+        public async Task<string> GetAccessRoleListKey(int id)
         {
-            AccessRuleList data;
+            AccessRoleList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new hotelsContext().AccessRuleLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().AccessRoleLists.Where(a => a.Id == id).First();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpPut("/AccessRuleList")]
+        [HttpPut("/AccessRoleList")]
         [Consumes("application/json")]
-        public async Task<string> InsertAccessRuleList([FromBody] AccessRuleList record)
+        public async Task<string> InsertAccessRoleList([FromBody] AccessRoleList record)
         {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new hotelsContext().AccessRuleLists.Add(record);
+                var data = new hotelsContext().AccessRoleLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -81,13 +81,13 @@ namespace TravelAgencyBackEnd.Controllers
             }
         }
 
-        [HttpPost("/AccessRuleList")]
+        [HttpPost("/AccessRoleList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateAccessRuleList([FromBody] AccessRuleList record)
+        public async Task<string> UpdateAccessRoleList([FromBody] AccessRoleList record)
         {
             try
             {
-                var data = new hotelsContext().AccessRuleLists.Update(record);
+                var data = new hotelsContext().AccessRoleLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
@@ -96,17 +96,17 @@ namespace TravelAgencyBackEnd.Controllers
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = ex.Message }); }
         }
 
-        [HttpDelete("/AccessRuleList/{id}")]
+        [HttpDelete("/AccessRoleList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteAccessRuleList(string id)
+        public async Task<string> DeleteAccessRoleList(string id)
         {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, ErrorMessage = "Id is not set" });
 
-                AccessRuleList record = new() { Id = int.Parse(id) };
+                AccessRoleList record = new() { Id = int.Parse(id) };
 
-                var data = new hotelsContext().AccessRuleLists.Remove(record);
+                var data = new hotelsContext().AccessRoleLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, ErrorMessage = string.Empty });
