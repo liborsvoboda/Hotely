@@ -72,13 +72,13 @@
                 ToolTip="This unique identificator is read only value which is filled automatically by system" />
 
             <Label
-                x:Name="lbl_role"
+                x:Name="lbl_systemName"
                 Grid.Row="1"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_role"
+                x:Name="txt_systemName"
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="0,2,0,2"
@@ -88,14 +88,27 @@
                 ToolTip="" />
 
             <Label
-                x:Name="lbl_description"
+                x:Name="lbl_translation"
+                Grid.Row="3"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right" />
+            <Label
+                x:Name="text_translation"
                 Grid.Row="2"
+                Grid.Column="1" FontWeight="Bold" FontSize="16"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left" />
+            
+            <Label
+                x:Name="lbl_description"
+                Grid.Row="3"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <TextBox
                 x:Name="txt_description"
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="1"
                 Margin="0,2,0,2"
                 Controls:TextBoxHelper.ClearTextButton="True"
@@ -103,18 +116,6 @@
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="Visible" />
-
-            <Label
-                x:Name="lbl_active"
-                Grid.Row="3"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
-            <CheckBox
-                x:Name="chb_active"
-                Grid.Row="3"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
 
             <Label
                 x:Name="lbl_timestamp"

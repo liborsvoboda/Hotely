@@ -42,7 +42,7 @@ namespace TravelAgencyAdmin.Pages
                 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -53,7 +53,7 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             try { if (MainWindow.serviceRunning) DgListView.ItemsSource = App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -71,7 +71,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 
@@ -87,7 +87,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 
@@ -164,7 +164,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 

@@ -53,7 +53,7 @@ namespace TravelAgencyAdmin.Pages
                 btn_restart.Content = Resources["restart"].ToString();
                 btn_save.Content = Resources["btn_save"].ToString();
                 btnApiTest.Content = Resources["apiConnectionTest"].ToString();
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             //data
             txt_apiAddress.Text = App.Setting.ApiAddress;
@@ -138,7 +138,7 @@ namespace TravelAgencyAdmin.Pages
                 { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { txt_powerBuilderPath.Text = dlg.FileName; }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
     }
 }

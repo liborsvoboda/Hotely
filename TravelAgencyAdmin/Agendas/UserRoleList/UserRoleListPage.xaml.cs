@@ -24,16 +24,19 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static UserRoleList selectedRecord = new UserRoleList();
 
+
+        private List<UserRoleList> userRoleLists = new List<UserRoleList>();
         public UserRoleListPage()
         {
             InitializeComponent();
             _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
-            lbl_id.Content = Resources["id"].ToString(); 
-            lbl_role.Content = Resources["role"].ToString();
+            lbl_id.Content = Resources["id"].ToString();
+            lbl_systemName.Content = Resources["systemName"].ToString();
+            lbl_translation.Content = Resources["translation"].ToString();
             lbl_description.Content = Resources["description"].ToString();
-            lbl_active.Content = Resources["active"].ToString();
+            
             lbl_timestamp.Content = Resources["timestamp"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -46,8 +49,15 @@ namespace TravelAgencyAdmin.Pages
         public async Task<bool> LoadDataList()
         {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch { }
+            try
+            {
+                userRoleLists = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                userRoleLists.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
+
+                DgListView.ItemsSource = userRoleLists;
+                DgListView.Items.Refresh();
+            }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -57,8 +67,9 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "Description") e.Header = Resources["description"].ToString();
-                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 2; }
+                if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; }
+                if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
+                else if (headername == "Description") e.Header = Resources["description"].ToString();
                 else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
@@ -75,12 +86,13 @@ namespace TravelAgencyAdmin.Pages
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
                     UserRoleList user = e as UserRoleList;
-                    return user.Role.ToLower().Contains(filter.ToLower())
+                    return user.SystemName.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(user.Translation) && user.Translation.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void NewRecord()
@@ -135,11 +147,11 @@ namespace TravelAgencyAdmin.Pages
             {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.Role = txt_role.Text;
+                selectedRecord.SystemName = txt_systemName.Text;
                 selectedRecord.Description = txt_description.Text;
-                selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
+                selectedRecord.Translation = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -153,7 +165,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -166,9 +178,9 @@ namespace TravelAgencyAdmin.Pages
         private void SetRecord(bool showForm, bool copy = false)
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
-            txt_role.Text = selectedRecord.Role;
+            txt_systemName.Text = selectedRecord.SystemName;
+            text_translation.Content = selectedRecord.Translation;
             txt_description.Text = selectedRecord.Description;
-            chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
             dp_timestamp.Value = selectedRecord.Timestamp;
 
             if (showForm)

@@ -66,7 +66,7 @@ namespace TravelAgencyAdmin.Pages
                     cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
@@ -114,7 +114,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(report.BankAccount) && report.BankAccount.ToLower().Contains(filter.ToLower());
                 };
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -205,7 +205,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

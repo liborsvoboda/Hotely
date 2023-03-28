@@ -8,6 +8,7 @@ using System.IO;
 using TravelAgencyAdmin.Classes;
 using System.Threading;
 using TravelAgencyAdmin.Api;
+using TravelAgencyAdmin.GlobalFunctions;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -31,7 +32,7 @@ namespace TravelAgencyAdmin.Pages
 
                 MottoList = await ApiCommunication.GetApiRequest<List<MottoList>>(ApiUrls.MottoList, null, null);
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             try
             {

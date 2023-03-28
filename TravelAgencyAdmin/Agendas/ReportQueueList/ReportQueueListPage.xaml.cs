@@ -59,7 +59,7 @@ namespace TravelAgencyAdmin.Pages
 
 
                 DgListView.RowHeight = int.Parse(SystemFunctions.ParameterCheck("ReportSqlRowHeight"));
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             _ = LoadDataList();
             SetRecord(false);
         }
@@ -92,7 +92,7 @@ namespace TravelAgencyAdmin.Pages
                 }
             }
 
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -116,7 +116,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Search") e.Visibility = Visibility.Hidden;
                     else if (headername == "RecId") e.Visibility = Visibility.Hidden;
                 });
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         //change filter fields
@@ -133,7 +133,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.SearchColumnList) && user.SearchColumnList.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void NewRecord()
@@ -218,7 +218,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

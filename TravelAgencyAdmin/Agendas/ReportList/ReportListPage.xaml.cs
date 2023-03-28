@@ -66,7 +66,7 @@ namespace TravelAgencyAdmin.Pages
 
 
 
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             _ = LoadDataList();
             SetRecord(false);
         }
@@ -76,7 +76,7 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -119,7 +119,7 @@ namespace TravelAgencyAdmin.Pages
                     ;
                 };
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -203,7 +203,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -255,7 +255,7 @@ namespace TravelAgencyAdmin.Pages
                     selectedRecord.MimeType = MimeMapping.GetMimeMapping(dlg.FileName);
                     selectedRecord.File = System.IO.File.ReadAllBytes(dlg.FileName);
                 }
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -263,7 +263,7 @@ namespace TravelAgencyAdmin.Pages
             try { SaveFileDialog dlg = new SaveFileDialog
                 { DefaultExt = ".rdl", Filter = "Report files |*.rdl", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { FileFunctions.ByteArrayToFile(dlg.FileName, selectedRecord.File); }
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
     }
 }

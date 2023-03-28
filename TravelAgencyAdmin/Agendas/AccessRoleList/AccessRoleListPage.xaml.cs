@@ -34,6 +34,7 @@ namespace TravelAgencyAdmin.Pages
             //  new UpdateVariant() { Name = "SomeName", Value = someView },
         };
         private List<UserRoleList> userRoleList = new List<UserRoleList>();
+        private List<AccessRoleList> accessRoleLists = new List<AccessRoleList>();  
 
         public AccessRoleListPage()
         {
@@ -48,7 +49,7 @@ namespace TravelAgencyAdmin.Pages
                 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -59,7 +60,12 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
-                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<AccessRoleList>>(ApiUrls.AccessRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+
+                accessRoleLists = await ApiCommunication.GetApiRequest<List<AccessRoleList>>(ApiUrls.AccessRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                accessRoleLists.ForEach(access => { access.Translation = SystemFunctions.DBTranslation(access.TableName); });
+
+                DgListView.ItemsSource = accessRoleLists;
+                DgListView.Items.Refresh();
 
                 //Prepare Table List from ApiList and Local dictionary
                 foreach (ApiUrls apiUrl in (ApiUrls[])Enum.GetValues(typeof(ApiUrls)))
@@ -68,11 +74,11 @@ namespace TravelAgencyAdmin.Pages
                         ApiTables.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "") }); }
                 } cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
 
-                cb_accessRole.ItemsSource = userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
-
-
+                userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
+                userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
+                cb_accessRole.ItemsSource = userRoleList;
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -81,14 +87,15 @@ namespace TravelAgencyAdmin.Pages
             try { 
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "TableName") e.Header = Resources["tableName"].ToString();
+                    if (headername == "TableName") { e.Header = Resources["tableName"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "AccessRole") e.Header = Resources["accessRole"].ToString();
                     else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void Filter(string filter)
@@ -101,7 +108,7 @@ namespace TravelAgencyAdmin.Pages
                     return user.TableName.ToLower().Contains(filter.ToLower())
                     || user.AccessRole.ToLower().Contains(filter.ToLower());
                 };
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 
@@ -161,10 +168,15 @@ namespace TravelAgencyAdmin.Pages
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.TableName = ((UpdateVariant)cb_tableName.SelectedItem).Value;
-                //selectedRecord.AccessRole = lb_accessRole.SelectedItems;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
+                selectedRecord.AccessRole = "";
+                for (int i = 0; i < cb_accessRole.SelectedItems.Count; i++)
+                { selectedRecord.AccessRole += ((UserRoleList)cb_accessRole.SelectedItems[i]).SystemName + ","; }
+                
+
+                selectedRecord.Translation = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -181,7 +193,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 
@@ -195,8 +207,12 @@ namespace TravelAgencyAdmin.Pages
         private void SetRecord(bool showForm, bool copy = false)
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
-            cb_tableName.Text = selectedRecord.TableName != null ? Resources[selectedRecord.TableName].ToString() : null;
-            //lb_accessRole.SelectedItems = selectedRecord.Description;
+            cb_tableName.Text = selectedRecord.TableName != null ? Resources[selectedRecord.TableName.FirstOrDefault().ToString().ToLower() + selectedRecord.TableName.Substring(1)].ToString() : null;
+
+            cb_accessRole.SelectedItems.Clear();
+            if (!string.IsNullOrWhiteSpace(selectedRecord.AccessRole))
+                selectedRecord.AccessRole.Split(',').ToList().ForEach(role => { if (!string.IsNullOrEmpty(role)) cb_accessRole.SelectedItems.Add(userRoleList.First(a=> a.SystemName == role)); });
+            
 
             if (showForm)
             {

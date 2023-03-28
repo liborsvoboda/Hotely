@@ -46,7 +46,7 @@ namespace TravelAgencyAdmin.Pages
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -88,7 +88,7 @@ namespace TravelAgencyAdmin.Pages
                     cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -112,7 +112,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "CurrencyId") e.Visibility = Visibility.Hidden; 
                 });
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         //change filter fields
@@ -126,7 +126,7 @@ namespace TravelAgencyAdmin.Pages
                     return user.Currency.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower());
                 };
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void NewRecord()
@@ -209,7 +209,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

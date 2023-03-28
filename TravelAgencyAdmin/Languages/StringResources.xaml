@@ -381,5 +381,6 @@
     <system:String x:Key="accessRoleList">Menu Rights</system:String>
     <system:String x:Key="mottoList">Ideas and Visions</system:String>
     <system:String x:Key="templateClassList">System template</system:String>
+    <system:String x:Key="translation">Translation</system:String>
 
 </ResourceDictionary>

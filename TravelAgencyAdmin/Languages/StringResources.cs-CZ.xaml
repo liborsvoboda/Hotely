@@ -382,5 +382,6 @@
     <system:String x:Key="accessRoleList">Menu Práva</system:String>
     <system:String x:Key="mottoList">Nápady a Vize</system:String>
     <system:String x:Key="templateClassList">Systémová šablona</system:String>
+    <system:String x:Key="translation">Překlad</system:String>
 
 </ResourceDictionary>

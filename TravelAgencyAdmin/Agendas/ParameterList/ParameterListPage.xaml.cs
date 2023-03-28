@@ -80,7 +80,7 @@ namespace TravelAgencyAdmin.Pages
                 }
 
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -120,7 +120,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(param.Description) && param.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void NewRecord()
@@ -203,7 +203,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -270,7 +270,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 btn_save.IsEnabled = true;
             }
-            catch { }
+            catch {}
         }
 
     }

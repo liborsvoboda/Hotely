@@ -42,7 +42,7 @@ namespace TravelAgencyAdmin.Pages
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -53,7 +53,7 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -74,7 +74,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void Filter(string filter)
@@ -92,7 +92,7 @@ namespace TravelAgencyAdmin.Pages
                     ;
                 };
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 
@@ -172,7 +172,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 

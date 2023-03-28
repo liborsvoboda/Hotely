@@ -28,7 +28,7 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static UserList selectedRecord = new UserList();
 
-        List<UserRoleList> UserRoleList = new List<UserRoleList>();
+        List<UserRoleList> userRoleList = new List<UserRoleList>();
 
         public UserListPage()
         {
@@ -63,10 +63,14 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                cb_roleId.ItemsSource = UserRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
+                userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
+                userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
+
+
+                cb_roleId.ItemsSource = userRoleList;
 
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             DgListView.Items.Refresh();
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -115,7 +119,7 @@ namespace TravelAgencyAdmin.Pages
                     ;
                 };
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         public void NewRecord()
@@ -201,7 +205,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -213,7 +217,6 @@ namespace TravelAgencyAdmin.Pages
         //change dataset prepare for working
         private void SetRecord(bool showForm, bool copy = false)
         {
-            SetSubListsNonActiveOnNewItem(selectedRecord.Id == 0);
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
             int index = 0; cb_roleId.Items.SourceCollection.Cast<UserRoleList>().ToList().ForEach(role => { if (role.Id == selectedRecord.RoleId) { cb_roleId.SelectedIndex = index; } index++; });
@@ -252,16 +255,7 @@ namespace TravelAgencyAdmin.Pages
                     selectedRecord.Photo = File.ReadAllBytes(dlg.FileName);
                 }
             }
-            catch { }
-        }
-
-        private void SetSubListsNonActiveOnNewItem(bool newItem)
-        {
-            if (newItem)
-            {
-                cb_roleId.ItemsSource = UserRoleList.Where(a => a.Active).ToList();
-            }
-            else { cb_roleId.ItemsSource = UserRoleList; }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
     }
 }

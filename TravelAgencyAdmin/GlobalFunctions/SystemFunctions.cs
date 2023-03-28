@@ -104,13 +104,23 @@ namespace TravelAgencyAdmin.GlobalFunctions
                     index++;
                 }
             }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             return advancedFilter;
         }
 
-        public static string DBTranslation(string systemName)
+        public static string DBTranslation(string systemName, bool comaList = false)
         {
-            string result = (App.appLanguage == "cs-CZ") ? App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionEn).FirstOrDefault();
+            string result = "";
+            if (comaList)
+            {
+                systemName.Split(',').ToList().ForEach(word =>
+                {
+                    if (string.IsNullOrWhiteSpace(word))
+                        result += (App.appLanguage == "cs-CZ") ? App.LanguageList.Where(a => a.SystemName == word).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == word).Select(a => a.DescriptionEn).FirstOrDefault() + ",";
+                });
+            }
+            else
+            { result = (App.appLanguage == "cs-CZ") ? App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionEn).FirstOrDefault(); }
             return (string.IsNullOrWhiteSpace(result)) ? systemName : result;
         }
     }

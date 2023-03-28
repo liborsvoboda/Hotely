@@ -18,7 +18,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/EASYTools.TouchKeyboard;component/Styles/OnScreenKeyoard.xaml" />
                 <ResourceDictionary Source="GlobalStyles/MenuButtonStyle.xaml" />
-                <ResourceDictionary Source="GlobalStyles/MultiSelectionComboBox.xaml" />
+                <ResourceDictionary Source="GlobalStyles/CheckComboBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style BasedOn="{StaticResource MahAppsTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}">

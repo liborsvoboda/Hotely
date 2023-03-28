@@ -62,7 +62,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             List<Classes.Calendar> Data = new List<Classes.Calendar>();
             try { if (MainWindow.serviceRunning) Data = await ApiCommunication.GetApiRequest<List<Classes.Calendar>>(ApiUrls.Calendar, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token); }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             foreach (Classes.Calendar record in Data)
             {

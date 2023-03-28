@@ -93,9 +93,8 @@
                 VerticalAlignment="Center"
                 Controls:TextBoxHelper.ClearTextButton="false"
                 Controls:TextBoxHelper.IsWaitingForData="True"
-                DisplayMemberPath="Role"
+                DisplayMemberPath="Translation"
                 IsEnabled="true"
-                ItemsSource="{Binding Path=userRoleListSelection}"
                 SelectedValuePath="Id" />
 
             <Label

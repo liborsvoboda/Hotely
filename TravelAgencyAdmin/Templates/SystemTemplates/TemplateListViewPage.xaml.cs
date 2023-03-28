@@ -63,7 +63,7 @@ namespace TravelAgencyAdmin.Pages
         {
             MainWindow.ProgressRing = Visibility.Visible;
             try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<TemplateClassList>>(ApiUrls.TemplateClassList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -89,7 +89,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 
@@ -112,7 +112,7 @@ namespace TravelAgencyAdmin.Pages
                     return user.Name.ToLower().Contains(filter.ToLower())
                     || user.Description.ToLower().Contains(filter.ToLower());
                 };
-            } catch { }
+            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
 

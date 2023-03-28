@@ -607,7 +607,7 @@ namespace TravelAgencyAdmin
         public void RemoveFilterItem_Click(object sender, RoutedEventArgs e)
         {
             try { foreach (WrapPanel filterItem in cb_filter.Items) { if (filterItem.Name.Split('_')[1] == ((Button)sender).Name.Split('_')[1]) { cb_filter.Items.Remove(filterItem); } } } 
-            catch { }
+            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         /// <summary>
