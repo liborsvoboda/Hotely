@@ -108,10 +108,9 @@
                 Margin="0,2,0,2"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
-                DisplayMemberPath="Translation" UseLayoutRounding="True"
-                SelectedMemberPath="Id">
-                
-            </xctk:CheckComboBox>
+                DisplayMemberPath="Translation"
+                SelectedMemberPath="Id"
+                UseLayoutRounding="True" />
 
 
 

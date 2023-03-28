@@ -17,6 +17,7 @@ using TravelAgencyAdmin.GlobalStyles;
 using TravelAgencyAdmin.GlobalFunctions;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
+using System.Web.Security;
 
 
 namespace TravelAgencyAdmin.Pages
@@ -28,7 +29,7 @@ namespace TravelAgencyAdmin.Pages
         public static DocumentTypeList selectedRecord = new DocumentTypeList();
 
 
-
+        private List<DocumentTypeList> documentTypeLists = new List<DocumentTypeList>();
         public DocumentTypeListPage()
         {
             InitializeComponent();
@@ -52,7 +53,16 @@ namespace TravelAgencyAdmin.Pages
         public async Task<bool> LoadDataList()
         {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
+            try { 
+                documentTypeLists = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                documentTypeLists.ForEach(document => { 
+                    document.DescriptionCz = SystemFunctions.DBTranslation(document.SystemName);
+                    document.DescriptionEn = SystemFunctions.DBTranslation(document.SystemName,false,"en");
+                });
+
+                DgListView.ItemsSource = documentTypeLists;
+                DgListView.Items.Refresh();
+            }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }

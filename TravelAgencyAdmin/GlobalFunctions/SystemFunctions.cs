@@ -38,7 +38,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
 
         public static string GetExceptionMessages(Exception exception, int msgCount = 1)
         {
-            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetExceptionMessages(exception.InnerException, ++msgCount)) : string.Empty;
+            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetExceptionMessages(exception, ++msgCount)) : string.Empty;
         }
 
         public static async void SaveSystemFailMessage(string message)
@@ -108,7 +108,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
             return advancedFilter;
         }
 
-        public static string DBTranslation(string systemName, bool comaList = false)
+        public static string DBTranslation(string systemName, bool comaList = false, string lang = null)
         {
             string result = "";
             if (comaList)
@@ -116,11 +116,11 @@ namespace TravelAgencyAdmin.GlobalFunctions
                 systemName.Split(',').ToList().ForEach(word =>
                 {
                     if (string.IsNullOrWhiteSpace(word))
-                        result += (App.appLanguage == "cs-CZ") ? App.LanguageList.Where(a => a.SystemName == word).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == word).Select(a => a.DescriptionEn).FirstOrDefault() + ",";
+                        result += ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName == word).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == word).Select(a => a.DescriptionEn).FirstOrDefault() + ",";
                 });
             }
             else
-            { result = (App.appLanguage == "cs-CZ") ? App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionEn).FirstOrDefault(); }
+            { result = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName == systemName).Select(a => a.DescriptionEn).FirstOrDefault(); }
             return (string.IsNullOrWhiteSpace(result)) ? systemName : result;
         }
     }
