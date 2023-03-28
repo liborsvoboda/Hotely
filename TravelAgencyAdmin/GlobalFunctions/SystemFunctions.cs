@@ -51,23 +51,6 @@ namespace TravelAgencyAdmin.GlobalFunctions
         }
 
 
-        public static string ReformatDate(string input)
-        {
-            try
-            {
-                return Regex.Replace(input,
-                      "\\b(?<year>\\d{2,4})/(?<month>\\d{1,2})/(?<day>\\d{1,2})\\b",
-                      "${year}-${month}-${day}",
-                      RegexOptions.Multiline | RegexOptions.IgnoreCase,
-                      TimeSpan.FromMilliseconds(1000));
-            }
-            catch (RegexMatchTimeoutException)
-            {
-                return input;
-            }
-        }
-
-
         /// <summary>
         /// return existing filter for saving to string in selected Page
         /// </summary>

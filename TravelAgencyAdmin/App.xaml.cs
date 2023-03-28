@@ -21,6 +21,7 @@ namespace TravelAgencyAdmin
     {
         /// <summary>
         /// Global Application Startup Settings
+        /// Central Parameters / Languages / User / Config 
         /// </summary>
         public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
@@ -35,7 +36,7 @@ namespace TravelAgencyAdmin
         internal static string updateFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Update");
         internal static string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Temp");
         internal static string settingFile = "config.json";
-        public static Config Setting = GlobalFunctions.FileFunctions.LoadSettings();
+        public static Config Setting = FileFunctions.LoadSettings();
         internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
         /// <summary>
         /// Application Error handlers
