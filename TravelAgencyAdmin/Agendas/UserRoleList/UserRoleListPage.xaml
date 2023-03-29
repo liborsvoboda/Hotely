@@ -46,8 +46,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="110" />
@@ -89,17 +89,19 @@
 
             <Label
                 x:Name="lbl_translation"
-                Grid.Row="3"
+                Grid.Row="2"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <Label
                 x:Name="text_translation"
                 Grid.Row="2"
-                Grid.Column="1" FontWeight="Bold" FontSize="16"
+                Grid.Column="1"
                 HorizontalAlignment="Left"
-                HorizontalContentAlignment="Left" />
-            
+                HorizontalContentAlignment="Left"
+                FontSize="16"
+                FontWeight="Bold" />
+
             <Label
                 x:Name="lbl_description"
                 Grid.Row="3"

@@ -38,7 +38,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
 
         public static string GetExceptionMessages(Exception exception, int msgCount = 1)
         {
-            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetExceptionMessages(exception, ++msgCount)) : string.Empty;
+            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, (exception.Message + Environment.NewLine + exception.StackTrace + Environment.NewLine), GetExceptionMessages(exception.InnerException, ++msgCount)) : string.Empty;
         }
 
         public static async void SaveSystemFailMessage(string message)

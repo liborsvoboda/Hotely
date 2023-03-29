@@ -28,7 +28,8 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static UserList selectedRecord = new UserList();
 
-        List<UserRoleList> userRoleList = new List<UserRoleList>();
+        private List<UserList> userList = new List<UserList>();
+        private List<UserRoleList> userRoleList = new List<UserRoleList>();
 
         public UserListPage()
         {
@@ -62,13 +63,15 @@ namespace TravelAgencyAdmin.Pages
 
             try
             {
-                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
+
+                userList.ForEach(user => { user.Translation = SystemFunctions.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
                 userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
 
-
+                DgListView.ItemsSource = userList;
+                DgListView.Items.Refresh();
                 cb_roleId.ItemsSource = userRoleList;
-
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             DgListView.Items.Refresh();
@@ -82,7 +85,8 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "UserName") e.Header = Resources["userName"].ToString();
+                if (headername == "Username") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 1; }
+                else if (headername == "Translation") { e.Header = Resources["role"].ToString(); e.DisplayIndex = 2; }
                 else if (headername == "Password") e.Header = Resources["password"].ToString();
                 else if (headername == "Name") e.Header = Resources["name"].ToString();
                 else if (headername == "SurName") e.Header = Resources["surname"].ToString();
@@ -179,15 +183,15 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.Name = txt_name.Text;
                 selectedRecord.SurName = txt_surname.Text;
                 selectedRecord.Description = txt_description.Text;
-                selectedRecord.Active = chb_active.IsChecked;
+                selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
                 selectedRecord.ApiToken = txt_token.Text;
 
                 if (selectedRecord.PhotoPath != txt_photoPath.Text)
                 {
                     selectedRecord.Photo = File.ReadAllBytes(txt_photoPath.Text);
+                    selectedRecord.PhotoPath = txt_photoPath.Text;
                 }
-                selectedRecord.PhotoPath = txt_photoPath.Text;
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -219,7 +223,7 @@ namespace TravelAgencyAdmin.Pages
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
-            int index = 0; cb_roleId.Items.SourceCollection.Cast<UserRoleList>().ToList().ForEach(role => { if (role.Id == selectedRecord.RoleId) { cb_roleId.SelectedIndex = index; } index++; });
+            cb_roleId.SelectedItem = (selectedRecord.Id == 0) ? userRoleList.FirstOrDefault() : userRoleList.First(a => a.Id == selectedRecord.RoleId);
             txt_userName.Text = selectedRecord.UserName;
             pb_password.Password = selectedRecord.Password;
             txt_name.Text = selectedRecord.Name;

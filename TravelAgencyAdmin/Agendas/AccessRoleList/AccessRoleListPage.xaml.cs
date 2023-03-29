@@ -68,11 +68,14 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.Items.Refresh();
 
                 //Prepare Table List from ApiList and Local dictionary
+                ApiTables.Clear();
                 foreach (ApiUrls apiUrl in (ApiUrls[])Enum.GetValues(typeof(ApiUrls)))
                 {
                     if (apiUrl.ToString().EndsWith("List")) {
-                        ApiTables.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "") }); }
-                } cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
+                        try {
+                            ApiTables.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "") });
+                        } catch {}
+                    } cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
 
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
                 userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });

@@ -248,6 +248,9 @@ namespace TravelAgencyAdmin.Pages
                 btn_save.IsEnabled = false;
                 switch ((string)cb_type.SelectedValue)
                 {
+                    case "string":
+                        lbl_paramCheckResult.Content = (txt_value.Text.Length > 0) ? txt_value.Text : throw new Exception();
+                        break;
                     case "bit":
                         lbl_paramCheckResult.Content = bool.Parse(txt_value.Text);
                         break;
@@ -267,6 +270,7 @@ namespace TravelAgencyAdmin.Pages
                     case "datetime":
                         lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
                         break;
+                    default: throw new Exception();
                 }
                 btn_save.IsEnabled = true;
             }

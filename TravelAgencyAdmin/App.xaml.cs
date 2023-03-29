@@ -38,6 +38,7 @@ namespace TravelAgencyAdmin
         internal static string settingFile = "config.json";
         public static Config Setting = FileFunctions.LoadSettings();
         internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+
         /// <summary>
         /// Application Error handlers
         /// </summary>
