@@ -372,8 +372,10 @@
     <system:String x:Key="accommodations">Ubytování</system:String>
     <system:String x:Key="owner">Vlastník</system:String>
     <system:String x:Key="systemName">Systémový název</system:String>
-    <system:String x:Key="descriptionCz">Překlad CZ</system:String>
-    <system:String x:Key="descriptionEn">Překlad EN</system:String>
+    <system:String x:Key="translationCz">Překlad CZ</system:String>
+    <system:String x:Key="translationEn">Překlad EN</system:String>
+    <system:String x:Key="descriptionCz">Popis CZ</system:String>
+    <system:String x:Key="descriptionEn">Popis EN</system:String>
     <system:String x:Key="languageList">Překlady</system:String>
     <system:String x:Key="documentTypeList">Typy Dokladů</system:String>
     <system:String x:Key="userId">Id uživatele</system:String>
@@ -383,5 +385,31 @@
     <system:String x:Key="mottoList">Nápady a Vize</system:String>
     <system:String x:Key="templateClassList">Systémová šablona</system:String>
     <system:String x:Key="translation">Překlad</system:String>
+    <system:String x:Key="countryList">Státy</system:String>
+    <system:String x:Key="cityList">Města</system:String>
+    <system:String x:Key="country">Stát</system:String>
+    <system:String x:Key="accommodationConfiguration">Ubyt.Konfigurace</system:String>
+    <system:String x:Key="hotelRoomTypeList">Typy místností</system:String>
+    <system:String x:Key="propertyOrServiceUnitList">Jednotky</system:String>
+
+    <system:String x:Key="parameterType">Typ Parametru</system:String>
+    <system:String x:Key="propertyOrServiceTypeList">Typy Parametrů</system:String>
+    <system:String x:Key="searchRequired">Povinný pro vyhledávání</system:String>
+    <system:String x:Key="service">Služba</system:String>
+    <system:String x:Key="isBit">Typ Ano/Ne</system:String>
+    <system:String x:Key="isValue">Typ Hodnota</system:String>
+    <system:String x:Key="isRangeValue">Typ rozsah hodnoty</system:String>
+    <system:String x:Key="isRangeTime">Typ rozsah času</system:String>
+    <system:String x:Key="isValueRangeAllowed">Zadání rozsahu povoleno</system:String>
+    <system:String x:Key="searchEngine">Vyhledávač</system:String>
+    <system:String x:Key="defaultBit">Výchozí Ano/Ne</system:String>
+    <system:String x:Key="defaultValue">Výchozí hodnota</system:String>
+    <system:String x:Key="defaultMin">Výchozí Min.</system:String>
+    <system:String x:Key="defaultMax">Výchozí Max.</system:String>
+    <system:String x:Key="feeInfoRequired">Požadované info 'Poplatky'</system:String>
+    <system:String x:Key="feeRangeAllowed">rozsah Poplatku povolen</system:String>
+    <system:String x:Key="hotelActionTypeList">Typy akcí</system:String>
+
+
 
 </ResourceDictionary>

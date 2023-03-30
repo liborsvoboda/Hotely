@@ -371,8 +371,10 @@
     <system:String x:Key="accommodations">Accommodations</system:String>
     <system:String x:Key="owner">Owner</system:String>
     <system:String x:Key="systemName">System name</system:String>
-    <system:String x:Key="descriptionCz">Tranlation CZ</system:String>
-    <system:String x:Key="descriptionEn">Tranlation EN</system:String>
+    <system:String x:Key="descriptionCz">Description CZ</system:String>
+    <system:String x:Key="descriptionEn">Description EN</system:String>
+    <system:String x:Key="translationCz">Tranlation CZ</system:String>
+    <system:String x:Key="translationEn">Tranlation EN</system:String>
     <system:String x:Key="languageList">Translation</system:String>
     <system:String x:Key="documentTypeList">Document Types</system:String>
     <system:String x:Key="userId">User id</system:String>
@@ -382,5 +384,30 @@
     <system:String x:Key="mottoList">Ideas and Visions</system:String>
     <system:String x:Key="templateClassList">System template</system:String>
     <system:String x:Key="translation">Translation</system:String>
+    <system:String x:Key="countryList">States</system:String>
+    <system:String x:Key="cityList">Cities</system:String>
+    <system:String x:Key="country">Country</system:String>
+
+    <system:String x:Key="accommodationConfiguration">Acco.Config</system:String>
+    <system:String x:Key="hotelRoomTypeList">Room Types</system:String>
+    <system:String x:Key="propertyOrServiceUnitList">Jednotky</system:String>
+
+    <system:String x:Key="parameterType">Parameter type</system:String>
+    <system:String x:Key="propertyOrServiceTypeList">Parameter types</system:String>
+    <system:String x:Key="searchRequired">Required for Search</system:String>
+    <system:String x:Key="service">Service</system:String>
+    <system:String x:Key="isBit">Yes/No type</system:String>
+    <system:String x:Key="isValue">Value type</system:String>
+    <system:String x:Key="isRangeValue">Range value type</system:String>
+    <system:String x:Key="isRangeTime">Range time type</system:String>
+    <system:String x:Key="isValueRangeAllowed">Range value allowed</system:String>
+    <system:String x:Key="searchEngine">Search engine</system:String>
+    <system:String x:Key="defaultBit">Default Ano/Ne</system:String>
+    <system:String x:Key="defaultValue">Default value</system:String>
+    <system:String x:Key="defaultMin">Default Min.</system:String>
+    <system:String x:Key="defaultMax">Default Max.</system:String>
+    <system:String x:Key="feeInfoRequired">Required Fee info</system:String>
+    <system:String x:Key="feeRangeAllowed">Range Fee allowed</system:String>
+    <system:String x:Key="hotelActionTypeList">Action types</system:String>
 
 </ResourceDictionary>

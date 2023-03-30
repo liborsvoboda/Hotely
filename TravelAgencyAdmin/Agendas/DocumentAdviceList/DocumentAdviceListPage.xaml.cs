@@ -63,9 +63,9 @@ namespace TravelAgencyAdmin.Pages
                 documentAdviceList = await ApiCommunication.GetApiRequest<List<DocumentAdviceList>>(ApiUrls.DocumentAdviceList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 //set document types translation
-                cb_documentType.ItemsSource = documentTypeList = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, null, App.UserData.Authentification.Token);
-                cb_documentType.DisplayMemberPath = (App.appLanguage == "cs-CZ") ? "DescriptionCz" : "DescriptionEn";
-
+                documentTypeList = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, null, App.UserData.Authentification.Token);
+                documentTypeList.ForEach(item => { item.Translation = SystemFunctions.DBTranslation(item.SystemName); });
+                cb_documentType.ItemsSource = documentTypeList;
 
                 documentAdviceList.ForEach(record =>
                 {
@@ -166,7 +166,7 @@ namespace TravelAgencyAdmin.Pages
             if (result == MessageDialogResult.Affirmative)
             {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.DocumentAdviceList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -222,7 +222,7 @@ namespace TravelAgencyAdmin.Pages
                     selectedRecord = new ExtendedDocumentAdviceList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }

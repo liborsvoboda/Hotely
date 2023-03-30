@@ -115,7 +115,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
                     encoder.Save(fs);
                     fs.Close();
                 }
-            } catch (Exception ex) { await MainWindow.ShowMessage(true, ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); }
 
         }
 

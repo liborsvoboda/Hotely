@@ -34,6 +34,7 @@ namespace TravelAgencyAdmin.Pages
         private readonly ObservableCollection<ReportSelection> ParamTypes = new ObservableCollection<ReportSelection>() {
                                                                new ReportSelection() { Name = "bit" },new ReportSelection() { Name = "string" },new ReportSelection() { Name = "int" },new ReportSelection() { Name = "numeric" },new ReportSelection() { Name = "date" },new ReportSelection() { Name = "time" },new ReportSelection() { Name = "datetime" },
                                                              };
+
         private List<ParameterList> parametersList = new List<ParameterList>();
         private List<UserList> adminUserList = new List<UserList>();
         public ParameterListPage()
@@ -145,7 +146,7 @@ namespace TravelAgencyAdmin.Pages
             if (result == MessageDialogResult.Affirmative)
             {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.ParameterList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -201,7 +202,7 @@ namespace TravelAgencyAdmin.Pages
                     selectedRecord = new ParameterList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }

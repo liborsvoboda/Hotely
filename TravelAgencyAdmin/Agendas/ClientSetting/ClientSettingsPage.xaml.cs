@@ -110,7 +110,7 @@ namespace TravelAgencyAdmin.Pages
                     catch (Exception ex)
                     {
                         tbOutputMessageBox.Text = null;
-                        await MainWindow.ShowMessage(true, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
+                        await MainWindow.ShowMessage(false, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
                     }
                 }
 

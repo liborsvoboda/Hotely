@@ -144,7 +144,7 @@ namespace TravelAgencyAdmin.Templates
                     string json = await httpClient.GetStringAsync("someUrl");
                     await MainWindow.ShowMessage(false, json);
                 }
-                catch (Exception ex) { await MainWindow.ShowMessage(true, "Exception Error : " + ex.StackTrace); }
+                catch (Exception ex) { await MainWindow.ShowMessage(false, "Exception Error : " + ex.StackTrace); }
             }
         } 
         #endregion

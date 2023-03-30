@@ -215,6 +215,18 @@
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
+                            x:Name="tm_cityList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_countryList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
                             x:Name="tm_currencyList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
@@ -222,6 +234,37 @@
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
                             x:Name="tm_exchangeRateList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                    </TreeViewItem>
+                    <TreeViewItem
+                        x:Name="tv_accommodationConfiguration"
+                        Width="200"
+                        Margin="0"
+                        FontSize="20"
+                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_hotelActionTypeList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_propertyOrServiceUnitList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_propertyOrServiceTypeList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_hotelRoomTypeList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -596,13 +639,24 @@
                         x:Name="ip_captureApp"
                         Width="30"
                         Height="30"
-                        Margin="10,0"
+                        Margin="10,0,0,0"
                         HorizontalAlignment="Right"
                         Cursor="Hand"
                         Foreground="{DynamicResource IdealForegroundColorBrush}"
                         Kind="EyePlus"
                         MouseLeftButtonUp="IpcaptureAppClick"
                         ToolTip="ScreenShot" />
+                    <iconPacks:PackIconMaterial
+                        x:Name="ip_rdpServer"
+                        Width="30"
+                        Height="30"
+                        Margin="10,0"
+                        HorizontalAlignment="Right"
+                        Cursor="Hand"
+                        Foreground="Red"
+                        Kind="RemoteDesktop"
+                        MouseLeftButtonUp="IpStartRdpServer"
+                        ToolTip="Open Support Connection" />
                 </WrapPanel>
             </StatusBarItem>
         </StatusBar>

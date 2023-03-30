@@ -110,7 +110,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 Controls:TextBoxHelper.ClearTextButton="false"
-                DisplayMemberPath="SystemName"
+                DisplayMemberPath="Translation"
                 IsEnabled="true"
                 SelectedValuePath="Id" />
 

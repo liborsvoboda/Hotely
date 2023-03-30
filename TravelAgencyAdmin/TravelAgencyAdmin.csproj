@@ -226,6 +226,14 @@
     <Compile Include="Agendas\AddressList\AddressListPage.xaml.cs">
       <DependentUpon>AddressListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\CityList\CityList.cs" />
+    <Compile Include="Agendas\CityList\CityListPage.xaml.cs">
+      <DependentUpon>CityListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\CountryList\CountryList.cs" />
+    <Compile Include="Agendas\CountryList\CountryListPage.xaml.cs">
+      <DependentUpon>CountryListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\CurrencyList\CurrencyList.cs" />
     <Compile Include="Agendas\CurrencyList\CurrencyListPage.xaml.cs">
       <DependentUpon>CurrencyListPage.xaml</DependentUpon>
@@ -242,9 +250,25 @@
     <Compile Include="Agendas\ExchangeRateList\ExchangeRateListPage.xaml.cs">
       <DependentUpon>ExchangeRateListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\HotelActionTypeList\HotelActionTypeList.cs" />
+    <Compile Include="Agendas\HotelActionTypeList\HotelActionTypeListPage.xaml.cs">
+      <DependentUpon>HotelActionTypeListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\HotelRoomTypeList\HotelRoomTypeList.cs" />
+    <Compile Include="Agendas\HotelRoomTypeList\HotelRoomTypeListPage.xaml.cs">
+      <DependentUpon>HotelRoomTypeListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\LanguageList\LanguageList.cs" />
     <Compile Include="Agendas\LanguageList\LanguageListPage.xaml.cs">
       <DependentUpon>LanguageListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\PropertyOrServiceTypeList\PropertyOrServiceTypeList.cs" />
+    <Compile Include="Agendas\PropertyOrServiceTypeList\PropertyOrServiceTypeListPage.xaml.cs">
+      <DependentUpon>PropertyOrServiceTypeListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\PropertyOrServiceUnitList\PropertyOrServiceUnitList.cs" />
+    <Compile Include="Agendas\PropertyOrServiceUnitList\PropertyOrServiceUnitListPage.xaml.cs">
+      <DependentUpon>PropertyOrServiceUnitListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\ReportQueueList\ReportQueueList.cs" />
     <Compile Include="Agendas\ReportQueueList\ReportQueueListPage.xaml.cs">
@@ -339,9 +363,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\CityList\CityListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\ClientSetting\ClientSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Agendas\CountryList\CountryListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\CurrencyList\CurrencyListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -359,6 +391,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\HotelActionTypeList\HotelActionTypeListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\HotelRoomTypeList\HotelRoomTypeListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\LanguageList\LanguageListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -368,6 +408,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\ParameterList\ParameterListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\PropertyOrServiceTypeList\PropertyOrServiceTypeListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\PropertyOrServiceUnitList\PropertyOrServiceUnitListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -464,6 +512,9 @@
     <Resource Include="Data\ERP.png" />
     <Resource Include="Data\formbuilder.png" />
     <Resource Include="Data\images.png" />
+    <Content Include="Data\AddOn\winvnc.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\no_photo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -505,6 +556,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\SubReports\OutgoingInvoicesItems.rdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\AddOn\UltraVNC.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\Settings.settings">

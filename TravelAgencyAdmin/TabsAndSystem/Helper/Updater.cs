@@ -84,7 +84,7 @@ namespace TravelAgencyAdmin.Helper
                 await webClient.DownloadFileTaskAsync(new Uri(App.Setting.UpdateUrl.Remove(App.Setting.UpdateUrl.Length - 6, 6) + App.appName + "_" + version + ".exe"), Path.Combine(App.updateFolder, App.appName + "_" + version + ".exe"));
 
             } catch (Exception ex) {
-                await MainWindow.ShowMessage(true, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden;
+                await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden;
             }
         }
 
@@ -109,7 +109,7 @@ namespace TravelAgencyAdmin.Helper
                     metroWindow.Dispatcher.Invoke(DispatcherPriority.DataBind, new Action(delegate () { MainWindow.ProgressRing = Visibility.Hidden; MainWindow.DownloadShow = 0; MainWindow.DownloadStatus = 0; }));
                 } 
             }
-            catch (Exception ex) { await MainWindow.ShowMessage(true, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
+            catch (Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
         }
 
         private static async void InstallUpdate(string path)
@@ -118,7 +118,7 @@ namespace TravelAgencyAdmin.Helper
                 var psi = new ProcessStartInfo() { FileName = path, Verb = (Environment.OSVersion.Version.Major >= 6) ? "runas" : "" };
                 Process.Start(psi);
                 MainWindow.AppQuit(true);
-            } catch(Exception ex) { await MainWindow.ShowMessage(true, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
+            } catch(Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
         }
     }
 }

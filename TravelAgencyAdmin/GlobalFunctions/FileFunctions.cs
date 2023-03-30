@@ -205,7 +205,16 @@ namespace TravelAgencyAdmin.GlobalFunctions
             objWriter.Close();
         }
 
-
+        public static bool VncServerIniFile(string path)
+        {
+            try
+            {
+                string iniFileContent = $"[Permissions]\r\n[admin]\r\nFileTransferEnabled=1\r\nFTUserImpersonation=0\r\nBlankMonitorEnabled=1\r\nBlankInputsOnly=0\r\nDefaultScale=1\r\nUseDSMPlugin=0\r\nDSMPlugin=\r\nprimary=1\r\nsecondary=0\r\nSocketConnect=1\r\nHTTPConnect=1\r\nAutoPortSelect=1\r\nInputsEnabled=1\r\nLocalInputsDisabled=0\r\nIdleTimeout=0\r\nEnableJapInput=0\r\nEnableUnicodeInput=0\r\nEnableWin8Helper=0\r\nQuerySetting=2\r\nQueryTimeout=10\r\nQueryDisableTime=0\r\nQueryAccept=0\r\nMaxViewerSetting=0\r\nMaxViewers=128\r\nCollabo=0\r\nFrame=0\r\nNotification=1\r\nOSD=0\r\nNotificationSelection=0\r\nLockSetting=0\r\nRemoveWallpaper=0\r\nRemoveEffects=0\r\nRemoveFontSmoothing=0\r\nDebugMode=0\r\nAvilog=0\r\npath={path}\r\nDebugLevel=0\r\nAllowLoopback=1\r\nLoopbackOnly=0\r\nAllowShutdown=1\r\nAllowProperties=1\r\nAllowInjection=0\r\nAllowEditClients=1\r\nFileTransferTimeout=30\r\nKeepAliveInterval=5\r\nIdleInputTimeout=0\r\nDisableTrayIcon=0\r\nrdpmode=0\r\nnoscreensaver=0\r\nSecure=0\r\nMSLogonRequired=0\r\nNewMSLogon=0\r\nReverseAuthRequired=0\r\nConnectPriority=0\r\nservice_commandline=\r\naccept_reject_mesg=\r\ncloudServer=\r\ncloudEnabled=0\r\n[UltraVNC]\r\npasswd=B16A3A6F32CE4F0B1E\r\npasswd2=B16A3A6F32CE4F0B1E\r\n[poll]\r\nTurboMode=1\r\nPollUnderCursor=0\r\nPollForeground=0\r\nPollFullScreen=1\r\nOnlyPollConsole=0\r\nOnlyPollOnEvent=0\r\nMaxCpu2=100\r\nMaxFPS=25\r\nEnableDriver=1\r\nEnableHook=1\r\nEnableVirtual=0\r\nautocapt=1\r\n";
+                File.WriteAllText(Path.Combine(path, "UltraVNC.ini"), iniFileContent);
+                return true;
+            }
+            catch (Exception ex) { return false; }
+        }
 
     }
 }

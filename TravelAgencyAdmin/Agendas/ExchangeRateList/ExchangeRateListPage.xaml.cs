@@ -151,7 +151,7 @@ namespace TravelAgencyAdmin.Pages
             if (result == MessageDialogResult.Affirmative)
             {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.ExchangeRateList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -207,7 +207,7 @@ namespace TravelAgencyAdmin.Pages
                     await LoadDataList();
                     SetRecord(false);
                 }
-                else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
+                else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }

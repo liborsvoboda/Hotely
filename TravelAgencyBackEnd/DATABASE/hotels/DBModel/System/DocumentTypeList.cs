@@ -16,7 +16,6 @@ namespace TravelAgencyBackEnd.DBModel
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public virtual LanguageList SystemNameNavigation { get; set; }
         public virtual UserList User { get; set; }
         public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
     }

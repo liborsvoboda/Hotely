@@ -17,7 +17,7 @@ namespace TravelAgencyAdmin.Classes
         public string AccentName { get; set; } = "Green";
         public string ReportingPath { get; set; } = "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlReader.exe";
         public string UpdateUrl { get; set; } = "https://groupware-solution.eu/FTP/TravelAgencyAdminProject/Update";
-        public string AutomaticUpdate { get; set; } = "never";
+        public string AutomaticUpdate { get; set; } = "showInfo";
         public bool HideStartVideo { get; set; } = false;
         public string ReportConnectionString { get; set; } = "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;";
         public string ReportBuilderPath { get; set; } = "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe";

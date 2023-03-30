@@ -55,10 +55,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
                 documentTypeLists = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                documentTypeLists.ForEach(document => { 
-                    document.DescriptionCz = SystemFunctions.DBTranslation(document.SystemName);
-                    document.DescriptionEn = SystemFunctions.DBTranslation(document.SystemName,false,"en");
-                });
+                documentTypeLists.ForEach(document => { document.Translation = SystemFunctions.DBTranslation(document.SystemName); });
 
                 DgListView.ItemsSource = documentTypeLists;
                 DgListView.Items.Refresh();
@@ -71,14 +68,13 @@ namespace TravelAgencyAdmin.Pages
         {
             try
             {
-                ((DataGrid)sender).Columns.ToList().ForEach(e => {
+                ((DataGrid)sender).Columns.ToList().ForEach(e =>
+                {
                     string headername = e.Header.ToString();
-                    if (headername == "Name") e.Header = Resources["fname"].ToString();
+                    if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2;}
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
-                    else if (headername == "DescriptionCz") e.Header = Resources["descriptionCz"].ToString();
-                    else if (headername == "DescriptionEn") e.Header = Resources["descriptionEn"].ToString();
-                    else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -97,8 +93,7 @@ namespace TravelAgencyAdmin.Pages
                     DocumentTypeList user = e as DocumentTypeList;
                     return user.SystemName.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.DescriptionCz) && user.DescriptionCz.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(user.Translation) && user.Translation.ToLower().Contains(filter.ToLower())
                     ;
                 };
             }
@@ -130,7 +125,7 @@ namespace TravelAgencyAdmin.Pages
             if (result == MessageDialogResult.Affirmative)
             {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.DocumentTypeList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
         }
@@ -180,7 +175,7 @@ namespace TravelAgencyAdmin.Pages
                     await LoadDataList();
                     SetRecord(false);
                 }
-                else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
+                else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }

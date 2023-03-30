@@ -106,7 +106,7 @@ namespace TravelAgencyAdmin.Pages
             DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.Calendar, httpContent, null, App.UserData.Authentification.Token);
             if (dBResult.recordCount == 0)
             {
-               await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+               await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
             }
         }
 

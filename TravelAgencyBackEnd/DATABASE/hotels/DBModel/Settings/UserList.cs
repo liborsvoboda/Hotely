@@ -20,14 +20,12 @@ namespace TravelAgencyBackEnd.DBModel
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
             HotelActionTypeLists = new HashSet<HotelActionTypeList>();
             HotelLists = new HashSet<HotelList>();
-            HotelPropertyFeeLists = new HashSet<HotelPropertyFeeList>();
-            HotelPropertyLists = new HashSet<HotelPropertyList>();
             HotelReservationStatusLists = new HashSet<HotelReservationStatusList>();
             HotelRoomLists = new HashSet<HotelRoomList>();
-            HotelServiceFeeLists = new HashSet<HotelServiceFeeList>();
-            HotelServiceLists = new HashSet<HotelServiceList>();
             LanguageLists = new HashSet<LanguageList>();
             ParameterLists = new HashSet<ParameterList>();
+            PropertyOrServiceTypeLists = new HashSet<PropertyOrServiceTypeList>();
+            PropertyOrServiceUnitLists = new HashSet<PropertyOrServiceUnitList>();
             ReportLists = new HashSet<ReportList>();
             ReportQueueLists = new HashSet<ReportQueueList>();
             SystemFailLists = new HashSet<SystemFailList>();
@@ -61,14 +59,12 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual ICollection<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual ICollection<HotelList> HotelLists { get; set; }
-        public virtual ICollection<HotelPropertyFeeList> HotelPropertyFeeLists { get; set; }
-        public virtual ICollection<HotelPropertyList> HotelPropertyLists { get; set; }
         public virtual ICollection<HotelReservationStatusList> HotelReservationStatusLists { get; set; }
         public virtual ICollection<HotelRoomList> HotelRoomLists { get; set; }
-        public virtual ICollection<HotelServiceFeeList> HotelServiceFeeLists { get; set; }
-        public virtual ICollection<HotelServiceList> HotelServiceLists { get; set; }
         public virtual ICollection<LanguageList> LanguageLists { get; set; }
         public virtual ICollection<ParameterList> ParameterLists { get; set; }
+        public virtual ICollection<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
+        public virtual ICollection<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
         public virtual ICollection<ReportList> ReportLists { get; set; }
         public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
         public virtual ICollection<SystemFailList> SystemFailLists { get; set; }

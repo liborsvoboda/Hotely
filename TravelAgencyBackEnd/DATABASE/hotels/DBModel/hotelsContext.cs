@@ -47,8 +47,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual DbSet<HotelList> HotelLists { get; set; }
-        public virtual DbSet<HotelPropertyFeeList> HotelPropertyFeeLists { get; set; }
-        public virtual DbSet<HotelPropertyList> HotelPropertyLists { get; set; }
+        public virtual DbSet<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
         public virtual DbSet<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
         public virtual DbSet<HotelReservationList> HotelReservationLists { get; set; }
         public virtual DbSet<HotelReservationReviewList> HotelReservationReviewLists { get; set; }
@@ -56,12 +55,12 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
         public virtual DbSet<HotelRoomList> HotelRoomLists { get; set; }
         public virtual DbSet<HotelRoomTypeList> HotelRoomTypeLists { get; set; }
-        public virtual DbSet<HotelServiceFeeList> HotelServiceFeeLists { get; set; }
-        public virtual DbSet<HotelServiceList> HotelServiceLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
         public virtual DbSet<LoginHistoryList> LoginHistoryLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
+        public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
+        public virtual DbSet<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
         public virtual DbSet<ReportList> ReportLists { get; set; }
         public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
         public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
@@ -385,13 +384,6 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.SystemNameNavigation)
-                    .WithOne(p => p.DocumentTypeList)
-                    .HasPrincipalKey<LanguageList>(p => p.SystemName)
-                    .HasForeignKey<DocumentTypeList>(d => d.SystemName)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentTypeList_LanguageList");
-
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.DocumentTypeLists)
                     .HasForeignKey(d => d.UserId)
@@ -584,45 +576,34 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasConstraintName("FK_Hotels_UserList");
             });
 
-            modelBuilder.Entity<HotelPropertyFeeList>(entity =>
+            modelBuilder.Entity<HotelPropertyAndServiceList>(entity =>
             {
-                entity.ToTable("HotelPropertyFeeList");
+                entity.ToTable("HotelPropertyAndServiceList");
 
-                entity.HasIndex(e => new { e.HotelId, e.PropertyId }, "IX_HotelPropertyFeeList")
+                entity.HasIndex(e => new { e.HotelId, e.PropertyOrServiceId }, "IX_HotelPropertyAndServiceList")
                     .IsUnique();
 
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.HotelPropertyFeeLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelPropertyFeeList_UserList");
-            });
-
-            modelBuilder.Entity<HotelPropertyList>(entity =>
-            {
-                entity.ToTable("HotelPropertyList");
-
-                entity.HasIndex(e => e.SystemName, "IX_PropertyList")
-                    .IsUnique();
-
-                entity.Property(e => e.SystemName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Type)
+                entity.Property(e => e.FeeRange)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.HotelPropertyLists)
-                    .HasForeignKey(d => d.UserId)
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Value)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Valuerange)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.HotelPropertyAndServiceList)
+                    .HasForeignKey<HotelPropertyAndServiceList>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PropertyList_UserList");
+                    .HasConstraintName("FK_HotelPropertyAndServiceList_PropertyOrServiceList");
             });
 
             modelBuilder.Entity<HotelReservationDetailList>(entity =>
@@ -879,47 +860,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
-            modelBuilder.Entity<HotelServiceFeeList>(entity =>
-            {
-                entity.ToTable("HotelServiceFeeList");
-
-                entity.HasIndex(e => new { e.HotelId, e.PropertyId }, "IX_HotelServiceFeeList")
-                    .IsUnique();
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.HotelServiceFeeLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelServiceFeeList_UserList");
-            });
-
-            modelBuilder.Entity<HotelServiceList>(entity =>
-            {
-                entity.ToTable("HotelServiceList");
-
-                entity.HasIndex(e => e.SystemName, "IX_ServiceList")
-                    .IsUnique();
-
-                entity.Property(e => e.SystemName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Type)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.HotelServiceLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ServiceList_UserList");
-            });
-
             modelBuilder.Entity<LanguageList>(entity =>
             {
                 entity.ToTable("LanguageList");
@@ -1015,6 +955,62 @@ namespace TravelAgencyBackEnd.DBModel
                     .WithMany(p => p.ParameterLists)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_ParameterList_UserList");
+            });
+
+            modelBuilder.Entity<PropertyOrServiceTypeList>(entity =>
+            {
+                entity.ToTable("PropertyOrServiceTypeList");
+
+                entity.HasIndex(e => e.SystemName, "IX_PropertyOrServiceList")
+                    .IsUnique();
+
+                entity.Property(e => e.IsFeeInfoRequired).HasColumnName("isFeeInfoRequired");
+
+                entity.Property(e => e.IsFeeRangeAllowed).HasColumnName("isFeeRangeAllowed");
+
+                entity.Property(e => e.SearchDefaultValue)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SystemName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.PropertyOrServiceUnitType)
+                    .WithMany(p => p.PropertyOrServiceTypeLists)
+                    .HasForeignKey(d => d.PropertyOrServiceUnitTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PropertyOrServiceList_PropertyOrServiceUnitTypeList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PropertyOrServiceTypeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PropertyOrServiceList_UserList");
+            });
+
+            modelBuilder.Entity<PropertyOrServiceUnitList>(entity =>
+            {
+                entity.ToTable("PropertyOrServiceUnitList");
+
+                entity.HasIndex(e => e.SystemName, "IX_PropertyOrServiceTypeList")
+                    .IsUnique();
+
+                entity.Property(e => e.SystemName)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PropertyOrServiceUnitLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PropertyOrServiceTypeList_UserList");
             });
 
             modelBuilder.Entity<ReportList>(entity =>

@@ -25,6 +25,7 @@ using TravelAgencyAdmin.GlobalFunctions;
 using TravelAgencyAdmin.Helper;
 using System.Net.Http;
 using TravelAgencyAdmin.GlobalClasses;
+using System.Windows.Media;
 
 namespace TravelAgencyAdmin
 {
@@ -39,18 +40,25 @@ namespace TravelAgencyAdmin
         /// Variables for indicators
         /// </summary>
         public static bool dataGridSelected, dgIdSetted, dgRefresh, serviceRunning, userLogged, updateChecked = false;
-        public static int dataGridSelectedId, downloadShow, downloadStatus = 0;
+        public static int dataGridSelectedId, downloadShow, downloadStatus = 0, vncProcessId = 0;
         public static string serviceStatus;
         public static Visibility progressRing = Visibility.Hidden;
 
-        /// <summary>
-        /// Handlers for indicators
-        /// </summary>
-        public static event EventHandler DataGridSelectedChanged, DataGridSelectedIdListIndicatorChanged, DgRefreshChanged, ServiceStatusChanged, ServiceRunningChanged, DownloadStatusChanged, DownloadShowChanged, ProgressRingChanged, UserLoggedChanged = delegate { };
+        public SolidColorBrush vncRunning = Brushes.Red;
+        private static Process vncProccess;
+        public static event EventHandler DataGridSelectedChanged, DataGridSelectedIdListIndicatorChanged, DgRefreshChanged, ServiceStatusChanged, ServiceRunningChanged, DownloadStatusChanged, DownloadShowChanged, ProgressRingChanged, UserLoggedChanged, VncRunningChanged = delegate { };
 
-        /// <summary>
-        /// User logged indicator
-        /// </summary>
+        public SolidColorBrush VncRunning
+        {
+            get => vncRunning;
+            set
+            {
+                vncRunning = value;
+                ip_rdpServer.Foreground = (vncRunning == Brushes.Green) ? Brushes.Green : Brushes.Red;
+                VncRunningChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
         public static bool UserLogged
         {
             get => userLogged;
@@ -199,7 +207,7 @@ namespace TravelAgencyAdmin
                 //Vertical main menu
                 tv_dials.Header = Resources["dials"].ToString(); tv_crm.Header = Resources["crm"].ToString(); tv_agendas.Header = Resources["agendas"].ToString(); 
                 tv_settings.Header = Resources["settings"].ToString(); tv_system.Header = Resources["system"].ToString();
-                tv_accommodations.Header = Resources["accommodations"].ToString();
+                tv_accommodations.Header = Resources["accommodations"].ToString(); tv_accommodationConfiguration.Header = Resources["accommodationConfiguration"].ToString();
 
                 //Standard Application menu
                 tm_reportList.Header = Resources["reportList"].ToString(); tm_calendar.Header = Resources["calendar"].ToString();
@@ -207,12 +215,15 @@ namespace TravelAgencyAdmin
                 tm_clientSettings.Header = Resources["clientSettings"].ToString(); tm_loginHistoryList.Header = Resources["loginHistoryList"].ToString();
                 tm_support.Header = Resources["support"].ToString(); tm_documentAdviceList.Header = Resources["documentAdviceList"].ToString();
                 tm_currencyList.Header = Resources["currencyList"].ToString();tm_exchangeRateList.Header = Resources["exchangeRateList"].ToString();
+                tm_cityList.Header = Resources["cityList"].ToString(); tm_countryList.Header = Resources["countryList"].ToString();
 
                 tm_addressList.Header = Resources["addressList"].ToString(); tm_parameterList.Header = Resources["parameterList"].ToString();
                 tm_branchList.Header = Resources["branchList"].ToString(); tm_reportQueueList.Header = Resources["reportQueueList"].ToString();
                 tm_languageList.Header = Resources["languageList"].ToString(); tm_documentTypeList.Header = Resources["documentTypeList"].ToString();
                 tm_systemFailList.Header = Resources["systemFailList"].ToString(); tm_accessRoleList.Header = Resources["accessRoleList"].ToString();
 
+                tm_hotelRoomTypeList.Header = Resources["hotelRoomTypeList"].ToString(); tm_propertyOrServiceUnitList.Header = Resources["propertyOrServiceUnitList"].ToString();
+                tm_propertyOrServiceTypeList.Header = Resources["propertyOrServiceTypeList"].ToString(); tm_hotelActionTypeList.Header = Resources["hotelActionTypeList"].ToString();
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
 
@@ -239,9 +250,10 @@ namespace TravelAgencyAdmin
                 MetroWindow metroWindow = Application.Current.MainWindow as MetroWindow;
                 MetroDialogSettings settings = new MetroDialogSettings() { AffirmativeButtonText = metroWindow.Resources["yes"].ToString(), NegativeButtonText = metroWindow.Resources["no"].ToString() };
                 MessageDialogResult result = await metroWindow.ShowMessageAsync(metroWindow.Resources["closeAppTitle"].ToString(), metroWindow.Resources["closeAppQuestion"].ToString(), MessageDialogStyle.AffirmativeAndNegative, settings);
-                if (result == MessageDialogResult.Affirmative) { MainWindowViewModel.SaveTheme(); FileFunctions.ClearFolder(App.reportFolder); Application.Current.Shutdown(); } //Window.GetWindow(this).Close();
+                if (result == MessageDialogResult.Affirmative) { MainWindowViewModel.SaveTheme(); FileFunctions.ClearFolder(App.reportFolder);
+                    if (vncProccess != null && !vncProccess.HasExited) { vncProccess.Kill(); } Application.Current.Shutdown(); } 
             }
-            else { MainWindowViewModel.SaveTheme(); FileFunctions.ClearFolder(App.reportFolder); Application.Current.Shutdown(); }
+            else { MainWindowViewModel.SaveTheme(); FileFunctions.ClearFolder(App.reportFolder); if (vncProccess != null && !vncProccess.HasExited) { vncProccess.Kill(); } Application.Current.Shutdown(); }
         }
 
         /// <summary>
@@ -445,6 +457,36 @@ namespace TravelAgencyAdmin
         /// <param name="e"></param>
         private void IpKeyboardClick(object sender, MouseButtonEventArgs e) => TouchKeyboard.IsOpen = !TouchKeyboard.IsOpen; 
         private void IpCalculatorClick(object sender, MouseButtonEventArgs e) => Calc.Visibility = (Calc.IsVisible != true) ? Visibility.Visible : Visibility.Hidden;
+        private void IpStartRdpServer(object sender, MouseButtonEventArgs e)
+        {
+            if (vncProcessId > 0) { vncProccess.Kill(); vncProcessId = 0; VncRunning = Brushes.Red; }
+            else {
+                if (FileFunctions.CheckFile(Path.Combine(App.startupPath, "Data", "AddOn", "winvnc.exe")))
+                {
+                    if (FileFunctions.VncServerIniFile(Path.Combine(App.startupPath, "Data", "AddOn")))
+                    {
+                        vncProccess = new Process();
+                        ProcessStartInfo info = new ProcessStartInfo()
+                        {
+                            FileName = Path.Combine(App.startupPath, "Data", "AddOn", "winvnc.exe"),
+                            WorkingDirectory = Path.Combine(App.startupPath, "Data", "AddOn"),
+                            Arguments = $@" -inifile {Path.Combine(App.startupPath, "Data", "AddOn", "server.ini")} -run",
+                            LoadUserProfile = true,
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            Verb = (Environment.OSVersion.Version.Major >= 6) ? "runas" : "",
+                        };
+                        vncProccess.StartInfo = info;
+                        vncProccess.Start();
+                        vncProcessId = vncProccess.Id;
+                        if (vncProcessId > 0) VncRunning = Brushes.Green; else VncRunning = Brushes.Red;
+                    }
+                }
+            }
+        }
         private void IpcaptureAppClick(object sender, MouseEventArgs e) => MediaFunctions.SaveAppScreenShot(this);
 
 
@@ -732,7 +774,20 @@ namespace TravelAgencyAdmin
                 } else if (!name.StartsWith("tv_")) {
                     switch (name)
                     {
-
+                        case "tm_cityList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CityListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CityList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_countryList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CountryListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CountryList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_accessRoleList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AccessRoleListPage()); }
@@ -789,6 +844,20 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentTypeList", App.UserData.Authentification.Token);
                             break;
+                        case "tm_hotelActionTypeList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelActionTypeListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelActionTypeList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_hotelRoomTypeList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomTypeListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelRoomTypeList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_exchangeRateList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ExchangeRateListPage()); }
@@ -816,6 +885,20 @@ namespace TravelAgencyAdmin
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ParameterList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_propertyOrServiceTypeList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceTypeListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/PropertyOrServiceTypeList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_propertyOrServiceUnitList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceUnitListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/PropertyOrServiceUnitList", App.UserData.Authentification.Token);
                             break;
                         case "tm_reportList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)

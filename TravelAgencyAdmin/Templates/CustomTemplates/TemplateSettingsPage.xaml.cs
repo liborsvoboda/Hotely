@@ -82,7 +82,7 @@ namespace TravelAgencyAdmin.Pages
                 {
                     string json = await httpClient.GetStringAsync(txt_apiAddress.Text + "/" + ApiUrls.BackendCheck + "/Db");
                     await MainWindow.ShowMessage(false, json); 
-                } catch (Exception ex) { await MainWindow.ShowMessage(true, "Exception Error : " + ex.StackTrace);                 }
+                } catch (Exception ex) { await MainWindow.ShowMessage(false, "Exception Error : " + ex.StackTrace);                 }
             }
         }
 

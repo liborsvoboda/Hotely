@@ -71,12 +71,16 @@ namespace TravelAgencyAdmin.Pages
                 ApiTables.Clear();
                 foreach (ApiUrls apiUrl in (ApiUrls[])Enum.GetValues(typeof(ApiUrls)))
                 {
-                    if (apiUrl.ToString().EndsWith("List")) {
-                        try {
+                    if (apiUrl.ToString().EndsWith("List"))
+                    {
+                        try
+                        {
                             ApiTables.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "") });
-                        } catch {}
-                    } cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
-
+                        }
+                        catch { }
+                    }
+                    cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
+                }
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
                 userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
                 cb_accessRole.ItemsSource = userRoleList;
@@ -139,7 +143,7 @@ namespace TravelAgencyAdmin.Pages
             if (result == MessageDialogResult.Affirmative)
             {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.AccessRoleList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
         }
@@ -194,7 +198,7 @@ namespace TravelAgencyAdmin.Pages
                     await LoadDataList();
                     SetRecord(false);
                 }
-                else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
+                else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
