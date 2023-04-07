@@ -224,6 +224,9 @@ namespace TravelAgencyAdmin
 
                 tm_hotelRoomTypeList.Header = Resources["hotelRoomTypeList"].ToString(); tm_propertyOrServiceUnitList.Header = Resources["propertyOrServiceUnitList"].ToString();
                 tm_propertyOrServiceTypeList.Header = Resources["propertyOrServiceTypeList"].ToString(); tm_hotelActionTypeList.Header = Resources["hotelActionTypeList"].ToString();
+                tm_accommodation.Header = Resources["accommodation"].ToString(); tm_roomList.Header = Resources["roomList"].ToString();
+                tm_propertyOrServiceList.Header = Resources["propertyOrServiceList"].ToString();
+
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
 
@@ -770,10 +773,18 @@ namespace TravelAgencyAdmin
                 string name = ((FrameworkElement)sender).Name;
                 if (name.StartsWith("tv_") && !((TreeViewItem)sender).IsExpanded)
                 {
+                    foreach (TreeViewItem menuItem in tb_verticalMenu.Items) { menuItem.IsExpanded = false; }
                     ((TreeViewItem)sender).IsExpanded = !((TreeViewItem)sender).IsExpanded;
                 } else if (!name.StartsWith("tv_")) {
                     switch (name)
                     {
+                        case "tm_accommodation":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_cityList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CityListPage()); }
@@ -886,6 +897,13 @@ namespace TravelAgencyAdmin
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ParameterList", App.UserData.Authentification.Token);
                             break;
+                        case "tm_propertyOrServiceList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelPropertyAndServiceListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelPropertyOrServiceList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_propertyOrServiceTypeList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceTypeListPage()); }
@@ -913,6 +931,13 @@ namespace TravelAgencyAdmin
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ReportQueueList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_roomList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelRoomList", App.UserData.Authentification.Token);
                             break;
                         case "tm_support":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)

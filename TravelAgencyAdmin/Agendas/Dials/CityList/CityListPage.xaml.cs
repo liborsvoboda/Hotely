@@ -29,8 +29,8 @@ namespace TravelAgencyAdmin.Pages
         public static CityList selectedRecord = new CityList();
 
 
-        private List<CityList> cityLists = new List<CityList>();
-        private List<CountryList> countryLists = new List<CountryList>();   
+        private List<CityList> cityList = new List<CityList>();
+        private List<CountryList> countryList = new List<CountryList>();   
         public CityListPage()
         {
             InitializeComponent();
@@ -56,16 +56,16 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
                 
-                cityLists = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                countryLists = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
+                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
 
-                cityLists.ForEach(city => { city.Translation = SystemFunctions.DBTranslation(countryLists.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); });
-                countryLists.ForEach(country => { country.Translation = SystemFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(city => { city.Translation = SystemFunctions.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); });
+                countryList.ForEach(country => { country.Translation = SystemFunctions.DBTranslation(country.SystemName); });
 
-                DgListView.ItemsSource = cityLists;
+                DgListView.ItemsSource = cityList;
                 DgListView.Items.Refresh();
 
-                cb_countryId.ItemsSource = countryLists;
+                cb_countryId.ItemsSource = countryList;
 
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
@@ -194,7 +194,7 @@ namespace TravelAgencyAdmin.Pages
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
             txt_city.Text = selectedRecord.City;
-            cb_countryId.SelectedItem = countryLists.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
+            cb_countryId.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
 
             if (showForm)
             {

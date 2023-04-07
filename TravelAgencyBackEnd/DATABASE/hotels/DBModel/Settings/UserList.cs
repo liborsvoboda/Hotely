@@ -20,6 +20,7 @@ namespace TravelAgencyBackEnd.DBModel
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
             HotelActionTypeLists = new HashSet<HotelActionTypeList>();
             HotelLists = new HashSet<HotelList>();
+            HotelPropertyAndServiceLists = new HashSet<HotelPropertyAndServiceList>();
             HotelReservationStatusLists = new HashSet<HotelReservationStatusList>();
             HotelRoomLists = new HashSet<HotelRoomList>();
             LanguageLists = new HashSet<LanguageList>();
@@ -59,6 +60,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual ICollection<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual ICollection<HotelList> HotelLists { get; set; }
+        public virtual ICollection<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
         public virtual ICollection<HotelReservationStatusList> HotelReservationStatusLists { get; set; }
         public virtual ICollection<HotelRoomList> HotelRoomLists { get; set; }
         public virtual ICollection<LanguageList> LanguageLists { get; set; }

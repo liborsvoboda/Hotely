@@ -275,7 +275,26 @@
                         Width="200"
                         Margin="0"
                         FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected" />
+                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_accommodation"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_propertyOrServiceList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_roomList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                    </TreeViewItem>
                     <TreeViewItem
                         x:Name="tv_crm"
                         Width="200"
@@ -302,46 +321,16 @@
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_documentAdviceList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_parameterList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_reportList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                        <TreeViewItem
-                            x:Name="tm_reportQueueList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
-                    </TreeViewItem>
-                    <TreeViewItem
-                        x:Name="tv_system"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
-                        <TreeViewItem
                             x:Name="tm_accessRoleList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_clientSettings"
+                            x:Name="tm_documentAdviceList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
                             x:Name="tm_documentTypeList"
@@ -372,6 +361,36 @@
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_parameterList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_reportList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_reportQueueList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                    </TreeViewItem>
+                    <TreeViewItem
+                        x:Name="tv_system"
+                        Width="200"
+                        Margin="0"
+                        FontSize="20"
+                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_clientSettings"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
                             x:Name="tm_systemFailList"

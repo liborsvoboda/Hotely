@@ -378,7 +378,7 @@
     <system:String x:Key="languageList">Translation</system:String>
     <system:String x:Key="documentTypeList">Document Types</system:String>
     <system:String x:Key="userId">User id</system:String>
-    <system:String x:Key="systemFailList">System Fails</system:String>
+    <system:String x:Key="systemFailList">System Log</system:String>
     <system:String x:Key="accessRole">Allowed Roles</system:String>
     <system:String x:Key="accessRoleList">Menu Rights</system:String>
     <system:String x:Key="mottoList">Ideas and Visions</system:String>
@@ -409,5 +409,25 @@
     <system:String x:Key="feeInfoRequired">Required Fee info</system:String>
     <system:String x:Key="feeRangeAllowed">Range Fee allowed</system:String>
     <system:String x:Key="hotelActionTypeList">Action types</system:String>
+    <system:String x:Key="hotelList">Hotels</system:String>
+    <system:String x:Key="hotel">Hotel</system:String>
+    <system:String x:Key="roomType">Room type</system:String>
+    <system:String x:Key="maxCapacity">Max. capacity</system:String>
+    <system:String x:Key="extraBed">Extra bed</system:String>
+    <system:String x:Key="roomsCount">Rooms count</system:String>
+    <system:String x:Key="accommodation">Accommodation</system:String>
+    <system:String x:Key="roomList">Rooms</system:String>
+    <system:String x:Key="advertised">Advertised</system:String>
+    <system:String x:Key="approved">Approved</system:String>
+    <system:String x:Key="propertyOrService">Property/Service</system:String>
+    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Properties &amp; Services</system:String>
+    <system:String x:Key="isAvailable">Is available</system:String>
+    <system:String x:Key="valueBit">Value Yes/No</system:String>
+    <system:String x:Key="valueRangeMin">Range value Min</system:String>
+    <system:String x:Key="valueRangeMax">Range value Max</system:String>
+    <system:String x:Key="fee">Fee</system:String>
+    <system:String x:Key="feeValue">Fee value</system:String>
+    <system:String x:Key="feeValueRangeMin">Range fee value Min</system:String>
+    <system:String x:Key="feeValueRangeMax">Range fee value Max</system:String>
 
 </ResourceDictionary>

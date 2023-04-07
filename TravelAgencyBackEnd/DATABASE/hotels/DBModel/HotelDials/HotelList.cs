@@ -18,16 +18,10 @@ namespace TravelAgencyBackEnd.DBModel
         public int CountryId { get; set; }
         public int CityId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Pool { get; set; }
-        public bool NightEntertainment { get; set; }
-        public bool ChildClub { get; set; }
-        public bool Restaurant { get; set; }
-        public double AverageRating { get; set; }
-        public double BeachDistance { get; set; }
-        public double CentrumDistance { get; set; }
-        public bool ExtraBedSupported { get; set; }
+        public string DescriptionCz { get; set; }
+        public string DescriptionEn { get; set; }
         public int DefaultCurrencyId { get; set; }
+        public bool Advertised { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 

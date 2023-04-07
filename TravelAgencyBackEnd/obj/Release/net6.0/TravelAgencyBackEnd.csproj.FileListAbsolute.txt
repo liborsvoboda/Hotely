@@ -36,7 +36,6 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.Filters.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.Newtonsoft.dll
-E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.ReDoc.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

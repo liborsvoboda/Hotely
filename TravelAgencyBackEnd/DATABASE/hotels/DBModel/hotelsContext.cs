@@ -534,11 +534,18 @@ namespace TravelAgencyBackEnd.DBModel
             {
                 entity.ToTable("HotelList");
 
-                entity.HasIndex(e => new { e.Name, e.CityId }, "IX_Hotels")
+                entity.HasIndex(e => new { e.Name, e.CityId, e.UserId }, "IX_Hotels")
                     .IsUnique();
 
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Advertised)
                     .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.DescriptionCz)
+                    .HasMaxLength(4096)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescriptionEn)
                     .HasMaxLength(4096)
                     .IsUnicode(false);
 
@@ -585,25 +592,19 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.FeeRange)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Value)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Valuerange)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
 
                 entity.HasOne(d => d.IdNavigation)
                     .WithOne(p => p.HotelPropertyAndServiceList)
                     .HasForeignKey<HotelPropertyAndServiceList>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelPropertyAndServiceList_PropertyOrServiceList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HotelPropertyAndServiceLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelPropertyAndServiceList_UserList");
             });
 
             modelBuilder.Entity<HotelReservationDetailList>(entity =>
@@ -816,6 +817,19 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.HotelId, "IX_HotelRoomList");
 
+                entity.Property(e => e.DescriptionCz)
+                    .HasMaxLength(4096)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescriptionEn)
+                    .HasMaxLength(4096)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Hotel)
@@ -975,7 +989,7 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.SystemName)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsFixedLength();
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 

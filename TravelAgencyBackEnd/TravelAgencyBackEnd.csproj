@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DATABASE\hotels\Controllers\HotelDials\" />
     <Folder Include="DATABASE\hotels\DBModel\WebPages\" />
   </ItemGroup>
 

@@ -4,5 +4,41 @@
         <name>TravelAgencyBackEnd</name>
     </assembly>
     <members>
+        <member name="M:TravelAgencyBackEnd.ServerCoreConfiguration.ConfigureLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Server Logging
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.ServerCoreConfiguration.ConfigureAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Server Authentication Support
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.ServerCoreConfiguration.ConfigureThirdPartyApi(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure HTTP Client for work with third party API
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.ServerCoreConfiguration.ConfigureScopes(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Custom Core Services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.ServerCoreConfiguration.ConfigureDatabaseContext(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Custom Services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.ServerModulesEnabling.EnableSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Module: Enable Swagger Api Doc Generator And Online Tester
+            </summary>
+            <param name="services"></param>
+        </member>
     </members>
 </doc>

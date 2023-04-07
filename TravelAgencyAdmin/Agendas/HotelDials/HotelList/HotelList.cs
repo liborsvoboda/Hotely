@@ -1,0 +1,24 @@
+﻿using System;
+
+namespace TravelAgencyAdmin.Classes
+{
+
+    public partial class HotelList
+    {
+        public int Id { get; set; } = 0;
+        public int? CountryId { get; set; } = null;
+        public int? CityId { get; set; } = null;
+        public string Name { get; set; } = null;
+        public string DescriptionCz { get; set; }
+        public string DescriptionEn { get; set; }
+        public int? DefaultCurrencyId { get; set; } = null;
+        public bool Advertised { get; set; }
+        public int UserId { get; set; } 
+        public DateTime Timestamp { get; set; }
+
+
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Currency { get; set; }
+    }
+}
