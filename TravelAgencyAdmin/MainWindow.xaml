@@ -277,6 +277,12 @@
                         FontSize="20"
                         PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
+                            x:Name="tm_approvingProcess"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
                             x:Name="tm_accommodation"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"

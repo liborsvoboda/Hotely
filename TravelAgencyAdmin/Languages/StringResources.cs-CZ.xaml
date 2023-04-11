@@ -420,7 +420,7 @@
     <system:String x:Key="advertised">Inzerován</system:String>
     <system:String x:Key="approved">Schváleno</system:String>
     <system:String x:Key="propertyOrService">Vlastnost/Služba</system:String>
-    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Vlastnosti &amp; Služby</system:String>
+    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Vlastnosti&amp;Služby</system:String>
     <system:String x:Key="isAvailable">Je dostupná</system:String>
     <system:String x:Key="valueBit">Hodnota Ano/Ne</system:String>
     <system:String x:Key="valueRangeMin">Hodnota rozsahu Min</system:String>
@@ -429,5 +429,10 @@
     <system:String x:Key="feeValue">Hodnota poplatku</system:String>
     <system:String x:Key="feeValueRangeMin">Hodnota rozsahu poplatku Min</system:String>
     <system:String x:Key="feeValueRangeMax">Hodnota rozsahu poplatku Max</system:String>
-    
+    <system:String x:Key="approveRequest">Žádost o schválení</system:String>
+    <system:String x:Key="approvingProcess">Proces Schvalování</system:String>
+    <system:String x:Key="next">Dále</system:String>
+    <system:String x:Key="changesSaved">Změny byly uloženy</system:String>
+
+
 </ResourceDictionary>

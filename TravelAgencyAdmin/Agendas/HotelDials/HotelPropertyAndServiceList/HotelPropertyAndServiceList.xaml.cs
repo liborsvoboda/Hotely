@@ -28,6 +28,7 @@ namespace TravelAgencyAdmin.Pages
         private List<HotelList> hotelList = new List<HotelList>();
         private List<CurrencyList> currencyList = new List<CurrencyList>();
         private List<PropertyOrServiceTypeList> propertyOrServiceTypeList = new List<PropertyOrServiceTypeList>();
+        private List<PropertyOrServiceUnitList> propertyOrServiceUnitList = new List<PropertyOrServiceUnitList>();
 
         public HotelPropertyAndServiceListPage()
         {
@@ -50,6 +51,7 @@ namespace TravelAgencyAdmin.Pages
                 lbl_feeValueRangeMax.Content = Resources["feeValueRangeMax"].ToString();
 
                 lbl_owner.Content = Resources["owner"].ToString();
+                lbl_approveRequest.Content = Resources["approveRequest"].ToString();
                 lbl_approved.Content = Resources["approved"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
@@ -71,8 +73,10 @@ namespace TravelAgencyAdmin.Pages
                 hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
+                propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(propery => { propery.Translation = SystemFunctions.DBTranslation(propery.SystemName); });
+                propertyOrServiceTypeList.ForEach(property => { property.Translation = SystemFunctions.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(propertyUnit => { propertyUnit.Translation = SystemFunctions.DBTranslation(propertyUnit.SystemName); });
                 hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
 
                 //Only for Admin: Owner/UserId Selection
@@ -88,11 +92,13 @@ namespace TravelAgencyAdmin.Pages
                     room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
                     room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
                     room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
+                    room.PropertyUnit = SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgListView.ItemsSource = hotelPropertyAndServiceList;
                 DgListView.Items.Refresh();
 
                 cb_hotelId.ItemsSource = hotelList;
+                cb_propertyOrServiceId.ItemsSource = propertyOrServiceTypeList;
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
@@ -109,7 +115,9 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 4; }
                     else if (headername == "IsAvailable") e.Header = Resources["isAvailable"].ToString();
                     else if (headername == "Fee") e.Header = Resources["fee"].ToString();
+                    else if (headername == "PropertyUnit") e.Header = Resources["unit"].ToString();
                     else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
+                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
                     else if (headername == "Approved") e.Header = Resources["approved"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
@@ -145,9 +153,7 @@ namespace TravelAgencyAdmin.Pages
 
         public void NewRecord()
         {
-            selectedRecord = new HotelPropertyAndServiceList();
-            dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            SetRecord(true);
+            SetRecord(false);
         }
 
 
@@ -155,21 +161,13 @@ namespace TravelAgencyAdmin.Pages
         {
             selectedRecord = (HotelPropertyAndServiceList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            SetRecord(true, copy);
+            SetRecord(true, false);
         }
 
 
         public async void DeleteRecord()
         {
-            selectedRecord = (HotelPropertyAndServiceList)DgListView.SelectedItem;
-            dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
-            if (result == MessageDialogResult.Affirmative)
-            {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelPropertyAndServiceList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
-                await LoadDataList(); SetRecord(false);
-            }
+            SetRecord(false);
         }
 
 
@@ -199,7 +197,7 @@ namespace TravelAgencyAdmin.Pages
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.IsAvailable = (bool)chb_isAvailable.IsChecked;
-                selectedRecord.ValueBit = (bool)chb_valueBit.IsChecked;
+                selectedRecord.ValueBit = (bool?)chb_valueBit.IsChecked;
                 selectedRecord.Value = txt_value.Value;
                 selectedRecord.ValueRangeMin = txt_valueRangeMin.Value;
                 selectedRecord.ValueRangeMax = txt_valueRangeMax.Value;
@@ -208,6 +206,7 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.FeeRangeMin = txt_feeValueRangeMin.Value;
                 selectedRecord.FeeRangeMax = txt_feeValueRangeMax.Value;
 
+                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
@@ -258,6 +257,7 @@ namespace TravelAgencyAdmin.Pages
 
             if (propertyOrServiceTypeList.Count > 0 && showForm)
             {
+                lbl_propertyUnit.Content = selectedRecord.PropertyUnit;
                 chb_valueBit.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceId).IsBit;
                 chb_valueBit.IsChecked = selectedRecord.ValueBit;
 
@@ -273,13 +273,14 @@ namespace TravelAgencyAdmin.Pages
                 else { chb_fee.IsChecked = selectedRecord.Fee; }
 
                 txt_feeValue.Value = selectedRecord.FeeValue;
-                if (propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceId).IsFeeRangeAllowed)
-                { txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = true; }
+                txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceId).IsFeeRangeAllowed;
+                
                 txt_feeValueRangeMin.Value = selectedRecord.FeeRangeMin;
                 txt_feeValueRangeMax.Value = selectedRecord.FeeRangeMax;
             }
 
-            selectedRecord.Approved = (bool)chb_approved.IsChecked;
+            chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
+            chb_approved.IsChecked = false;
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")

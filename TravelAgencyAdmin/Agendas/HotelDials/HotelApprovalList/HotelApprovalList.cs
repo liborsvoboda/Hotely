@@ -3,7 +3,7 @@
 namespace TravelAgencyAdmin.Classes
 {
 
-    public partial class HotelList
+    public partial class HotelApprovalList
     {
         public int Id { get; set; } = 0;
         public int? CountryId { get; set; } = null;

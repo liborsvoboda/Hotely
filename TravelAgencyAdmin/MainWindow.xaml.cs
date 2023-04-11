@@ -225,7 +225,7 @@ namespace TravelAgencyAdmin
                 tm_hotelRoomTypeList.Header = Resources["hotelRoomTypeList"].ToString(); tm_propertyOrServiceUnitList.Header = Resources["propertyOrServiceUnitList"].ToString();
                 tm_propertyOrServiceTypeList.Header = Resources["propertyOrServiceTypeList"].ToString(); tm_hotelActionTypeList.Header = Resources["hotelActionTypeList"].ToString();
                 tm_accommodation.Header = Resources["accommodation"].ToString(); tm_roomList.Header = Resources["roomList"].ToString();
-                tm_propertyOrServiceList.Header = Resources["propertyOrServiceList"].ToString();
+                tm_propertyOrServiceList.Header = Resources["propertyOrServiceList"].ToString(); tm_approvingProcess.Header = Resources["approvingProcess"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -784,6 +784,13 @@ namespace TravelAgencyAdmin
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_approvingProcess":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelApprovalListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelApprovalList", App.UserData.Authentification.Token);
                             break;
                         case "tm_cityList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)

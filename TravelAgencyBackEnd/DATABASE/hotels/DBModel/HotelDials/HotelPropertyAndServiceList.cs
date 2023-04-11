@@ -17,11 +17,13 @@ namespace TravelAgencyBackEnd.DBModel
         public double? FeeValue { get; set; }
         public double? FeeRangeMin { get; set; }
         public double? FeeRangeMax { get; set; }
+        public bool ApproveRequest { get; set; }
         public bool Approved { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public virtual PropertyOrServiceTypeList IdNavigation { get; set; }
+        public virtual HotelList Hotel { get; set; }
+        public virtual PropertyOrServiceTypeList PropertyOrService { get; set; }
         public virtual UserList User { get; set; }
     }
 }

@@ -50,6 +50,7 @@ namespace TravelAgencyAdmin.Pages
                 lbl_extraBed.Content = Resources["extraBed"].ToString();
                 lbl_owner.Content = Resources["owner"].ToString();
                 lbl_roomsCount.Content = Resources["roomsCount"].ToString();
+                lbl_approveRequest.Content = Resources["approveRequest"].ToString();
                 lbl_approved.Content = Resources["approved"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
@@ -108,6 +109,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "MaxCapacity") e.Header = Resources["maxCapacity"].ToString();
                     else if (headername == "ExtraBed") e.Header = Resources["extraBed"].ToString();
                     else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
+                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
                     else if (headername == "Approved") e.Header = Resources["approved"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
@@ -203,6 +205,7 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.MaxCapacity = (int)txt_maxCapacity.Value;
                 selectedRecord.ExtraBed = (bool)chb_extraBed.IsChecked;
                 selectedRecord.RoomsCount = (int)txt_roomsCount.Value;
+                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
@@ -253,7 +256,8 @@ namespace TravelAgencyAdmin.Pages
             txt_maxCapacity.Value = selectedRecord.MaxCapacity;
             chb_extraBed.IsChecked = selectedRecord.ExtraBed;
             txt_roomsCount.Value = selectedRecord.RoomsCount;
-            chb_approved.IsChecked = selectedRecord.Approved;
+            chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
+            chb_approved.IsChecked = false;
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")

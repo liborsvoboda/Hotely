@@ -46,6 +46,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
+        public virtual DbSet<HotelApprovalList> HotelApprovalLists { get; set; }
         public virtual DbSet<HotelList> HotelLists { get; set; }
         public virtual DbSet<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
         public virtual DbSet<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
@@ -530,6 +531,26 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasConstraintName("FK_HotelActionList_UserList");
             });
 
+            modelBuilder.Entity<HotelApprovalList>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("HotelApprovalList");
+
+                entity.Property(e => e.DescriptionCz)
+                    .HasMaxLength(4096)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DescriptionEn)
+                    .HasMaxLength(4096)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<HotelList>(entity =>
             {
                 entity.ToTable("HotelList");
@@ -590,14 +611,16 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasIndex(e => new { e.HotelId, e.PropertyOrServiceId }, "IX_HotelPropertyAndServiceList")
                     .IsUnique();
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.HotelPropertyAndServiceList)
-                    .HasForeignKey<HotelPropertyAndServiceList>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.Hotel)
+                    .WithMany(p => p.HotelPropertyAndServiceLists)
+                    .HasForeignKey(d => d.HotelId)
+                    .HasConstraintName("FK_HotelPropertyAndServiceList_HotelList");
+
+                entity.HasOne(d => d.PropertyOrService)
+                    .WithMany(p => p.HotelPropertyAndServiceLists)
+                    .HasForeignKey(d => d.PropertyOrServiceId)
                     .HasConstraintName("FK_HotelPropertyAndServiceList_PropertyOrServiceList");
 
                 entity.HasOne(d => d.User)

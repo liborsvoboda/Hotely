@@ -420,7 +420,7 @@
     <system:String x:Key="advertised">Advertised</system:String>
     <system:String x:Key="approved">Approved</system:String>
     <system:String x:Key="propertyOrService">Property/Service</system:String>
-    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Properties &amp; Services</system:String>
+    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Properties&amp;Services</system:String>
     <system:String x:Key="isAvailable">Is available</system:String>
     <system:String x:Key="valueBit">Value Yes/No</system:String>
     <system:String x:Key="valueRangeMin">Range value Min</system:String>
@@ -429,5 +429,10 @@
     <system:String x:Key="feeValue">Fee value</system:String>
     <system:String x:Key="feeValueRangeMin">Range fee value Min</system:String>
     <system:String x:Key="feeValueRangeMax">Range fee value Max</system:String>
-
+    <system:String x:Key="approveRequest">Approve request</system:String>
+    <system:String x:Key="approvingProcess">Approving proces</system:String>
+    <system:String x:Key="next">Next</system:String>
+    <system:String x:Key="changesSaved">Changes was saved</system:String>
+    
+    
 </ResourceDictionary>

@@ -17,6 +17,7 @@ namespace TravelAgencyAdmin.Classes
         public double? FeeValue { get; set; }
         public double? FeeRangeMin { get; set; } = null;
         public double? FeeRangeMax { get; set; } = null;
+        public bool ApproveRequest { get; set; }
         public bool Approved { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
@@ -26,6 +27,7 @@ namespace TravelAgencyAdmin.Classes
         public string PropertyOrService { get; set; }
         public bool IsSearchRequired { get; set; }
         public bool IsService { get; set; }
-
+        public string PropertyUnit { get; set; }
+        
     }
 }

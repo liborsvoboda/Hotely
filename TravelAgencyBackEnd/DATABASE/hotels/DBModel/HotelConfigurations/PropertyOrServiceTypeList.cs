@@ -5,6 +5,11 @@ namespace TravelAgencyBackEnd.DBModel
 {
     public partial class PropertyOrServiceTypeList
     {
+        public PropertyOrServiceTypeList()
+        {
+            HotelPropertyAndServiceLists = new HashSet<HotelPropertyAndServiceList>();
+        }
+
         public int Id { get; set; }
         public string SystemName { get; set; }
         public int PropertyOrServiceUnitTypeId { get; set; }
@@ -26,6 +31,6 @@ namespace TravelAgencyBackEnd.DBModel
 
         public virtual PropertyOrServiceUnitList PropertyOrServiceUnitType { get; set; }
         public virtual UserList User { get; set; }
-        public virtual HotelPropertyAndServiceList HotelPropertyAndServiceList { get; set; }
+        public virtual ICollection<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
     }
 }

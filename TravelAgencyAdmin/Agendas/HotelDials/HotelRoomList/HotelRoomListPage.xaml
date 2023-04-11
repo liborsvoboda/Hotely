@@ -198,14 +198,26 @@
                 FontWeight="Bold" />
 
             <Label
-                x:Name="lbl_maxCapacity"
+                x:Name="lbl_extraBed"
                 Grid.Row="7"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right" />
+            <CheckBox
+                x:Name="chb_extraBed"
+                Grid.Row="7"
+                Grid.Column="1"
+                VerticalAlignment="Center" />
+
+            <Label
+                x:Name="lbl_maxCapacity"
+                Grid.Row="8"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <Controls:NumericUpDown
                 x:Name="txt_maxCapacity"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="1"
                 Margin="0,2,0,2"
                 HorizontalContentAlignment="Left"
@@ -216,18 +228,6 @@
                 NumericInputMode="Numbers"
                 SelectAllOnFocus="True"
                 StringFormat="N0" />
-
-            <Label
-                x:Name="lbl_extraBed"
-                Grid.Row="8"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
-            <CheckBox
-                x:Name="chb_extraBed"
-                Grid.Row="8"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
 
             <Label
                 x:Name="lbl_roomsCount"
@@ -271,14 +271,26 @@
                 Visibility="Hidden" />
 
             <Label
-                x:Name="lbl_approved"
+                x:Name="lbl_approveRequest"
                 Grid.Row="11"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_approved"
+                x:Name="chb_approveRequest"
                 Grid.Row="11"
+                Grid.Column="1"
+                VerticalAlignment="Center" />
+
+            <Label
+                x:Name="lbl_approved"
+                Grid.Row="12"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right" />
+            <CheckBox
+                x:Name="chb_approved"
+                Grid.Row="12"
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 IsEnabled="False" />

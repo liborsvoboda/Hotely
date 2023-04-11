@@ -58,6 +58,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="110" />
             </Grid.RowDefinitions>
@@ -97,8 +102,7 @@
                 Controls:TextBoxHelper.IsWaitingForData="True"
                 DisplayMemberPath="Name"
                 IsEnabled="False"
-                SelectedValuePath="Id"
-                />
+                SelectedValuePath="Id" />
 
             <Label
                 x:Name="lbl_propertyOrServiceId"
@@ -153,7 +157,7 @@
                 x:Name="txt_value"
                 Grid.Row="5"
                 Grid.Column="1"
-                Margin="0,2,40,2"
+                Margin="0,2,60,2"
                 HorizontalContentAlignment="Left"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 HasDecimals="True"
@@ -162,6 +166,15 @@
                 NumericInputMode="Decimal"
                 SelectAllOnFocus="True"
                 StringFormat="N2" />
+            <Label
+                x:Name="lbl_propertyUnit"
+                Grid.Row="5"
+                Grid.Column="1"
+                Width="60"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right"
+                FontSize="16"
+                FontWeight="Bold" />
 
             <Label
                 x:Name="lbl_valueRangeMin"
@@ -173,11 +186,11 @@
                 x:Name="txt_valueRangeMin"
                 Grid.Row="6"
                 Grid.Column="1"
-                Margin="0,2,40,2"
+                Margin="0,2,0,2"
                 HorizontalContentAlignment="Left"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 HasDecimals="True"
-                Maximum="9999999999.99"
+                Maximum="99999.99"
                 Minimum="0"
                 NumericInputMode="Decimal"
                 SelectAllOnFocus="True"
@@ -193,11 +206,11 @@
                 x:Name="txt_valueRangeMax"
                 Grid.Row="7"
                 Grid.Column="1"
-                Margin="0,2,40,2"
+                Margin="0,2,0,2"
                 HorizontalContentAlignment="Left"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 HasDecimals="True"
-                Maximum="9999999999.99"
+                Maximum="99999.99"
                 Minimum="0"
                 NumericInputMode="Decimal"
                 SelectAllOnFocus="True"
@@ -213,9 +226,9 @@
                 x:Name="chb_fee"
                 Grid.Row="8"
                 Grid.Column="1"
-                Checked="FeeStatusClick" 
-                Unchecked="FeeStatusClick"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                Checked="FeeStatusClick"
+                Unchecked="FeeStatusClick" />
 
             <Label
                 x:Name="lbl_feeValue"
@@ -227,13 +240,13 @@
                 x:Name="txt_feeValue"
                 Grid.Row="9"
                 Grid.Column="1"
-                Margin="0,2,40,2"
+                Margin="0,2,0,2"
                 HorizontalContentAlignment="Left"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 HasDecimals="True"
-                Maximum="9999999999.99"
-                Minimum="0"
                 IsEnabled="False"
+                Maximum="99999.99"
+                Minimum="0"
                 NumericInputMode="Decimal"
                 SelectAllOnFocus="True"
                 StringFormat="N2" />
@@ -248,13 +261,13 @@
                 x:Name="txt_feeValueRangeMin"
                 Grid.Row="10"
                 Grid.Column="1"
-                Margin="0,2,40,2"
+                Margin="0,2,0,2"
                 HorizontalContentAlignment="Left"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 HasDecimals="True"
-                Maximum="9999999999.99"
-                Minimum="0"
                 IsEnabled="False"
+                Maximum="99999.99"
+                Minimum="0"
                 NumericInputMode="Decimal"
                 SelectAllOnFocus="True"
                 StringFormat="N2" />
@@ -269,13 +282,13 @@
                 x:Name="txt_feeValueRangeMax"
                 Grid.Row="11"
                 Grid.Column="1"
-                Margin="0,2,40,2"
+                Margin="0,2,0,2"
                 HorizontalContentAlignment="Left"
                 Controls:TextBoxHelper.ClearTextButton="true"
                 HasDecimals="True"
+                IsEnabled="False"
                 Maximum="9999999999.99"
                 Minimum="0"
-                IsEnabled="False"
                 NumericInputMode="Decimal"
                 SelectAllOnFocus="True"
                 StringFormat="N2" />
@@ -302,14 +315,26 @@
                 Visibility="Hidden" />
 
             <Label
-                x:Name="lbl_approved"
+                x:Name="lbl_approveRequest"
                 Grid.Row="13"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_approved"
+                x:Name="chb_approveRequest"
                 Grid.Row="13"
+                Grid.Column="1"
+                VerticalAlignment="Center" />
+            
+            <Label
+                x:Name="lbl_approved"
+                Grid.Row="14"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right" />
+            <CheckBox
+                x:Name="chb_approved"
+                Grid.Row="14"
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 IsEnabled="False" />
@@ -318,7 +343,7 @@
 
             <Button
                 Name="btn_save"
-                Grid.Row="15"
+                Grid.Row="20"
                 Grid.Column="0"
                 Width="200"
                 Height="40"
@@ -330,7 +355,7 @@
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
             <Button
                 Name="btn_cancel"
-                Grid.Row="15"
+                Grid.Row="20"
                 Grid.Column="1"
                 Width="200"
                 Height="40"

@@ -218,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalList.cs" />
+    <Compile Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml.cs">
+      <DependentUpon>HotelApprovalListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\HotelDials\HotelPropertyAndServiceList\HotelPropertyAndServiceList.cs" />
     <Compile Include="Agendas\HotelDials\HotelPropertyAndServiceList\HotelPropertyAndServiceList.xaml.cs">
       <DependentUpon>HotelPropertyAndServiceList.xaml</DependentUpon>
@@ -359,6 +363,10 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\HotelDials\HotelPropertyAndServiceList\HotelPropertyAndServiceList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

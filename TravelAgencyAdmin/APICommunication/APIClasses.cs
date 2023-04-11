@@ -20,6 +20,7 @@ namespace TravelAgencyAdmin.Api
         DocumentTypeList,
         ExchangeRateList,
         HotelActionTypeList,
+        HotelApprovalList,
         HotelList,
         HotelPropertyAndServiceList,
         HotelRoomList,

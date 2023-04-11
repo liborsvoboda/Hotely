@@ -46,9 +46,11 @@ namespace TravelAgencyAdmin.Pages
                 lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
                 lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
                 lbl_currencyId.Content = Resources["currency"].ToString();
-                lbl_advertised.Content = Resources["advertised"].ToString();
 
                 lbl_owner.Content = Resources["owner"].ToString();
+                lbl_approveRequest.Content = Resources["approveRequest"].ToString();
+                lbl_approved.Content = Resources["approved"].ToString();
+                lbl_advertised.Content = Resources["advertised"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -107,6 +109,8 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; }
                     else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 5; }
+                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
+                    else if (headername == "Approved") e.Header = Resources["approved"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -199,6 +203,8 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.DescriptionCz = txt_descriptionCz.Text;
                 selectedRecord.DescriptionEn = txt_descriptionEn.Text;
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
+                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
+                selectedRecord.Approved = (bool)chb_approved.IsChecked;
                 selectedRecord.Advertised = (bool)chb_advertised.IsChecked;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
@@ -245,6 +251,9 @@ namespace TravelAgencyAdmin.Pages
             txt_descriptionCz.Text = selectedRecord.DescriptionCz;
             txt_descriptionEn.Text = selectedRecord.DescriptionEn;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
+
+            chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
+            chb_approved.IsChecked = false;
             chb_advertised.IsChecked = selectedRecord.Advertised;
 
             //Only for Admin: Owner/UserId Selection
