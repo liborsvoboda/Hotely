@@ -28,7 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DATABASE\hotels\DBModel\WebPages\" />
+    <Folder Include="DATABASE\hotels\Controllers\WebPages\Guest\" />
+    <Folder Include="DATABASE\hotels\DBModel\WebPages\Guest\" />
   </ItemGroup>
 
 </Project>

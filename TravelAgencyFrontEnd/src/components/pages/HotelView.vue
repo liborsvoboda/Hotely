@@ -130,7 +130,7 @@ export default ({
             }
         },
         getSavedHotels(){ 
-            fetch('http://nomad.ubytkac.cz:5000/api/Guest/GetSavedHotels/' + this.$store.state.user.id)
+            fetch(this.state.apiRootUrl + '/Guest/GetSavedHotels/' + this.$store.state.user.id)
                 .then(response => response.json())
                 .then(result => {
                     if(result){

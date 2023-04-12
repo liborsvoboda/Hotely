@@ -16,5 +16,8 @@ and use variable: store.state.apiRootUrl
 
 5] Api call example
 await fetch(
-          'http://nomad.ubytkac.cz:5000/api/Search/search?input=' + searchString
+          this.state.apiRootUrl + '/Search/search?input=' + searchString
         )
+All Api are called from store/index.js + HotelView.vue, Registration.vue
+  Task move from vue to store/index.js
+

@@ -86,7 +86,7 @@ export default {
     
     async addGuest(){
       
-      await fetch('http://nomad.ubytkac.cz:5000/api/Guest/addGuest', {
+      await fetch(this.state.apiRootUrl + '/Guest/addGuest', {
         method:'Post',
         headers:{
           'Accept': 'application/json',

@@ -247,7 +247,7 @@ const store = createStore({
       //search with all values but no string
       if (searchString === null || searchString == '') {
         var response = await fetch(
-          'http://nomad.ubytkac.cz:5000/api/Search/search?startDate=' +
+          this.state.apiRootUrl + '/Search/search?startDate=' +
             startDate +
             '&endDate=' +
             endDate +
@@ -260,12 +260,12 @@ const store = createStore({
         //search with only string
       } else if (!this.state.searchString.dates.length) {
         var response = await fetch(
-          'http://nomad.ubytkac.cz:5000/api/Search/search?input=' + searchString
+          this.state.apiRootUrl + '/Search/search?input=' + searchString
         )
         //search with all values
       } else {
         var response = await fetch(
-          'http://nomad.ubytkac.cz:5000/api/Search/search?startDate=' +
+          this.state.apiRootUrl + '/Search/search?startDate=' +
             startDate +
             '&endDate=' +
             endDate +
@@ -286,7 +286,7 @@ const store = createStore({
     },
     async searchHotelByName({ commit }, searchString) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Search/search?input=' + searchString
+        this.state.apiRootUrl + '/Search/search?input=' + searchString
       ) // Default is GET
       var result = await response.json()
       if (result) {
@@ -296,7 +296,7 @@ const store = createStore({
     },
     async getHotelById({ commit }, hotelId) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Hotel/GetById/' + hotelId
+        this.state.apiRootUrl + '/Hotel/GetById/' + hotelId
       ) // Default is GET
       var result = await response.json()
       commit('setHotel', result)
@@ -306,14 +306,14 @@ const store = createStore({
     },
     async getReservationById({ commit }, reservationId) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Booking/' + reservationId
+        this.state.apiRootUrl + '/Booking/' + reservationId
       )
       var result = await response.json()
       commit('setReservationDetails', result)
     },
     async searchHotelByCity({ commit }, searchString) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Search/GetHotelByCity?input=' +
+        this.state.apiRootUrl + '/Search/GetHotelByCity?input=' +
           searchString
       ) // Default is GET
       var result = await response.json()
@@ -341,13 +341,13 @@ const store = createStore({
     },
     async getAutoComplete({ commit }) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Search/GetSearchAutoComplete'
+        this.state.apiRootUrl + '/Search/GetSearchAutoComplete'
       )
       var result = await response.json()
       commit('setAutoComplete', result)
     },
     async login({ commit }, credentials) {
-      let response = await fetch('http://nomad.ubytkac.cz:5000/api/Guest/login', {
+      let response = await fetch(this.state.apiRootUrl + '/Guest/login', {
         method: 'post',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(credentials),
@@ -381,7 +381,7 @@ const store = createStore({
     },
     async getSavedHotelsInfo({ commit }) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Hotel/SavedHotelsInfo?id=' +
+        this.state.apiRootUrl + '/Hotel/SavedHotelsInfo?id=' +
           this.state.user.id
       )
       var result = await response.json()
@@ -393,7 +393,7 @@ const store = createStore({
       }
     },
     async addFavouriteHotel({ commit }, hotelId) {
-      fetch('http://nomad.ubytkac.cz:5000/api/Guest/saveFavoriteHotel', {
+      fetch(this.state.apiRootUrl + '/Guest/saveFavoriteHotel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ hotelID: hotelId, guestID: this.state.user.id }),
@@ -407,7 +407,7 @@ const store = createStore({
         })
     },
     async removeFavouriteHotel({ commit }, hotelId) {
-      fetch('http://nomad.ubytkac.cz:5000/api/Guest/removeFavoriteHotel', {
+      fetch(this.state.apiRootUrl + '/Guest/removeFavoriteHotel', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ hotelID: hotelId, guestID: this.state.user.id }),
@@ -437,7 +437,7 @@ const store = createStore({
     },
     async getReviews({ commit }, hotelId) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Hotel/GetReviews/' + hotelId
+        this.state.apiRootUrl + '/Hotel/GetReviews/' + hotelId
       )
       var result = await response.json()
       commit('getReviews', result)
@@ -468,7 +468,7 @@ const store = createStore({
     },
     async setServiceFee({ commit }, payload) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Hotel/GetAccomodationFee?id=' +
+        this.state.apiRootUrl + '/Hotel/GetAccomodationFee?id=' +
           payload.id +
           '&type=' +
           payload.type
@@ -477,7 +477,7 @@ const store = createStore({
       commit('setServiceFee', result)
     },
     deleteGuestAccount({ commit }, Id) {
-      fetch('http://nomad.ubytkac.cz:5000/api/Guest/removeGuest', {
+      fetch(this.state.apiRootUrl + '/Guest/removeGuest', {
         method: 'post',
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ Id: Id }),
@@ -489,7 +489,7 @@ const store = createStore({
     },
     async getBookings({ commit }) {
       var response = await fetch(
-        'http://nomad.ubytkac.cz:5000/api/Booking/guest/' + this.state.user.id
+        this.state.apiRootUrl + '/Booking/guest/' + this.state.user.id
       )
       var result = await response.json()
       commit('setBookedHotels', result)
