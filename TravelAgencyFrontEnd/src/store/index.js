@@ -1,8 +1,14 @@
 import { createStore } from 'vuex'
 import router from '../router/index'
 
+/*
+APiRoots Urls
+http://nomad.ubytkac.cz:5000/WebApi
+http://localhost:5000/WebApi
+*/
 const store = createStore({
     state: {
+        apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         searchButtonLoading: false,
         guestId: 33, // hard coded

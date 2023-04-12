@@ -19,7 +19,7 @@ import { createI18n } from 'vue-i18n';
 import en from './translation/en.json';
 import cz from './translation/cz.json';
 
-
+store.state.apiUrls
 const i18n = createI18n({
     locale: 'cz',
     messages: { en, cz },

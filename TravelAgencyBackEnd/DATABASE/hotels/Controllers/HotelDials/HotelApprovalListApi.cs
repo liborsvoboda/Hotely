@@ -78,6 +78,21 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
+        [HttpGet("/HotelApprovalList/Properties/{hotelId}")]
+        public async Task<string> GetHotelPropertyListById(int hotelId)
+        {
+            List<HotelPropertyAndServiceList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
+            }))
+            {
+                data = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == hotelId).AsNoTracking().ToList();
+            }
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
         [HttpPost("/HotelApprovalList")]
         [Consumes("application/json")]
         public async Task<string> UpdateHotelApprovalList([FromBody] HotelApprovalList record)

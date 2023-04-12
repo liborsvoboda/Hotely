@@ -34,6 +34,9 @@ namespace TravelAgencyAdmin.Pages
         private HotelApprovalList hotelList = new HotelApprovalList();
         private List<HotelRoomTypeList> hotelRoomTypeList = new List<HotelRoomTypeList>();
         private HotelRoomList selectedRoom = new HotelRoomList();
+        private List<PropertyOrServiceTypeList> propertyOrServiceTypeList = new List<PropertyOrServiceTypeList>();
+        private List<PropertyOrServiceUnitList> propertyOrServiceUnitList = new List<PropertyOrServiceUnitList>();
+        private HotelPropertyAndServiceList selectedProperty = new HotelPropertyAndServiceList();
 
         public HotelApprovalListPage()
         {
@@ -57,7 +60,7 @@ namespace TravelAgencyAdmin.Pages
 
                 btn_save1.Content = btn_save2.Content = btn_save3.Content = Resources["btn_save"].ToString();
                 btn_next1.Content = btn_next2.Content = Resources["next"].ToString();
-                btn_cancel1.Content = btn_cancel2.Content = btn_cancel3.Content = Resources["btn_cancel"].ToString();
+                btn_cancel1.Content = btn_cancel2.Content = btn_cancel3.Content = Resources["close"].ToString();
 
                 //RoomList
                 lbl_rooms.Content = Resources["roomList"].ToString();
@@ -71,6 +74,16 @@ namespace TravelAgencyAdmin.Pages
                 lbl_roomsCount.Content = Resources["roomsCount"].ToString();
 
                 //PropertyList
+                lbl_propertyOrServiceId.Content = Resources["propertyOrService"].ToString();
+                lbl_isAvailable.Content = Resources["isAvailable"].ToString();
+                lbl_valueBit.Content = Resources["valueBit"].ToString();
+                lbl_value.Content = Resources["value"].ToString();
+                lbl_valueRangeMin.Content = Resources["valueRangeMin"].ToString();
+                lbl_valueRangeMax.Content = Resources["valueRangeMax"].ToString();
+                lbl_fee.Content = Resources["fee"].ToString();
+                lbl_feeValue.Content = Resources["feeValue"].ToString();
+                lbl_feeValueRangeMin.Content = Resources["feeValueRangeMin"].ToString();
+                lbl_feeValueRangeMax.Content = Resources["feeValueRangeMax"].ToString();
 
             } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
@@ -126,9 +139,10 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Country") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; }
                     else if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; }
-                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 5; }
-                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
-                    else if (headername == "Approved") e.Header = Resources["approved"].ToString();
+                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; }
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; }
+                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; }
+                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; }
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -234,9 +248,10 @@ namespace TravelAgencyAdmin.Pages
         }
 
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        private async void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             selectedRecord = (DgListView.SelectedItems.Count > 0) ? (HotelApprovalList)DgListView.SelectedItem : new HotelApprovalList();
+            await LoadDataList();
             SetRecord(false);
         }
 
@@ -250,8 +265,9 @@ namespace TravelAgencyAdmin.Pages
             txt_descriptionEn.Text = selectedRecord.DescriptionEn;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
-            chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
-            chb_approved.IsChecked = false;
+            chb_approveRequest.IsChecked = false;
+            btn_save1.IsEnabled = selectedRecord.ApproveRequest;
+            chb_approved.IsChecked = selectedRecord.Approved;
             chb_advertised.IsChecked = selectedRecord.Advertised;
 
             hotelList = selectedRecord;
@@ -263,12 +279,12 @@ namespace TravelAgencyAdmin.Pages
             if (showForm)
             {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
-                ListView.Visibility = ListForm2.Visibility = Visibility.Hidden; ListForm1.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
+                ListView.Visibility = ListForm2.Visibility = ListForm3.Visibility = Visibility.Hidden; ListForm1.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
             }
             else
             {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
-                ListForm1.Visibility = ListForm2.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
+                ListForm1.Visibility = ListForm2.Visibility = ListForm3.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
             }
         }
 
@@ -291,6 +307,8 @@ namespace TravelAgencyAdmin.Pages
             ListForm1.Visibility = Visibility.Hidden;
             ListForm2.Visibility = Visibility.Visible;
             ListForm3.Visibility = Visibility.Hidden;
+            CleanRoomForm();
+            LoadRoomDataList();
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
@@ -299,11 +317,13 @@ namespace TravelAgencyAdmin.Pages
             {
                 ListForm1.Visibility = ListForm3.Visibility = Visibility.Hidden;
                 ListForm2.Visibility = Visibility.Visible;
+                CleanRoomForm();
                 LoadRoomDataList();
             } else if (ListForm2.Visibility == Visibility.Visible)
             {
                 ListForm1.Visibility = ListForm2.Visibility = Visibility.Hidden;
                 ListForm3.Visibility = Visibility.Visible;
+                CleanPropertyForm();
                 LoadPropertyDataList();
             }
         }
@@ -383,7 +403,7 @@ namespace TravelAgencyAdmin.Pages
             txt_descriptionCz2.Text = txt_descriptionEn2.Text = null ;
             txt_price.Value = txt_maxCapacity.Value = txt_roomsCount.Value = null;
             chb_extraBed.IsChecked = false;
-            chb_approveRequest.IsChecked = false;
+            chb_approveRequest2.IsChecked = false;
             chb_approved2.IsChecked = false;
 
             cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled = txt_descriptionEn2.IsEnabled =
@@ -401,7 +421,10 @@ namespace TravelAgencyAdmin.Pages
             txt_maxCapacity.Value = selectedRoom.MaxCapacity;
             chb_extraBed.IsChecked = selectedRoom.ExtraBed;
             txt_roomsCount.Value = selectedRoom.RoomsCount;
-            chb_approveRequest.IsChecked = false;
+
+
+            chb_approveRequest2.IsChecked = false;
+            btn_save2.IsEnabled = selectedRoom.ApproveRequest;
             chb_approved2.IsChecked = selectedRoom.Approved;
 
             //Only for Admin: Owner/UserId Selection
@@ -410,7 +433,7 @@ namespace TravelAgencyAdmin.Pages
 
             cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled = txt_descriptionEn2.IsEnabled =
                 txt_price.IsEnabled = txt_maxCapacity.IsEnabled = txt_roomsCount.IsEnabled = chb_extraBed.IsEnabled =
-                chb_approveRequest2.IsEnabled = chb_approved2.IsEnabled = cb_owner2.IsEnabled = btn_save2.IsEnabled = true;
+                chb_approveRequest2.IsEnabled = chb_approved2.IsEnabled = cb_owner2.IsEnabled = true;
         }
 
         private async void BtnSaveRoom_Click(object sender, RoutedEventArgs e)
@@ -426,6 +449,7 @@ namespace TravelAgencyAdmin.Pages
                 selectedRoom.MaxCapacity = (int)txt_maxCapacity.Value;
                 selectedRoom.ExtraBed = (bool)chb_extraBed.IsChecked;
                 selectedRoom.RoomsCount = (int)txt_roomsCount.Value;
+
                 selectedRoom.ApproveRequest = false;
                 selectedRoom.Approved = (bool)chb_approved2.IsChecked;
 
@@ -435,7 +459,7 @@ namespace TravelAgencyAdmin.Pages
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
-                    selectedRoom.UserId = ((UserList)cb_owner.SelectedItem).Id;
+                    selectedRoom.UserId = ((UserList)cb_owner2.SelectedItem).Id;
 
                 selectedRoom.Accommodation = selectedRoom.RoomType = null;
                 string json = JsonConvert.SerializeObject(selectedRoom);
@@ -443,14 +467,49 @@ namespace TravelAgencyAdmin.Pages
                 dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelRoomList, httpContent, null, App.UserData.Authentification.Token);
 
                 if (dBResult.recordCount > 0)
-                {
-                    LoadRoomDataList();
-                  //  await MainWindow.ShowMessage(false, Resources["changesSaved"].ToString()); 
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                { LoadRoomDataList(); } 
+                else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
             catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
         }
 
+
+        private async void LoadPropertyDataList()
+        {
+            List<HotelPropertyAndServiceList> hotelPropertyAndServiceList = new List<HotelPropertyAndServiceList>();
+            MainWindow.ProgressRing = Visibility.Visible;
+            try
+            {
+                hotelPropertyAndServiceList = await ApiCommunication.GetApiRequest<List<HotelPropertyAndServiceList>>(ApiUrls.HotelApprovalList, "Properties/" + hotelList.Id , App.UserData.Authentification.Token);
+                currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
+                propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
+                propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
+
+                propertyOrServiceTypeList.ForEach(property => { property.Translation = SystemFunctions.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(propertyUnit => { propertyUnit.Translation = SystemFunctions.DBTranslation(propertyUnit.SystemName); });
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                {
+                    cb_owner3.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    lbl_owner3.Visibility = cb_owner3.Visibility = Visibility.Visible;
+                }
+
+                hotelPropertyAndServiceList.ForEach(room => {
+                    room.Accommodation = hotelList.Name;
+                    room.PropertyOrService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).Translation;
+                    room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
+                    room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
+                    room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
+                    room.PropertyUnit = SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                });
+                DgPropertyListView.ItemsSource = hotelPropertyAndServiceList;
+                DgPropertyListView.Items.Refresh();
+                cb_propertyOrServiceId.ItemsSource = propertyOrServiceTypeList;
+            }
+            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            MainWindow.ProgressRing = Visibility.Hidden;
+        }
 
         private void DgPropertyListView_Translate(object sender, EventArgs ex)
         {
@@ -488,19 +547,107 @@ namespace TravelAgencyAdmin.Pages
 
         private void DgPropertyListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DgRoomListView.SelectedItems.Count > 0)
+            if (DgPropertyListView.SelectedItems.Count > 0)
             {
-                selectedRoom = (HotelRoomList)DgRoomListView.SelectedItem;
+                selectedProperty = (HotelPropertyAndServiceList)DgPropertyListView.SelectedItem;
                 SetPropertyRecord();
             }
-            else { selectedRoom = new HotelRoomList(); CleanPropertyForm(); }
+            else { selectedProperty = new HotelPropertyAndServiceList(); CleanPropertyForm(); }
         }
 
         private void CleanPropertyForm()
         {
-            chb_approveRequest3.IsEnabled = chb_approved3.IsEnabled = cb_owner3.IsEnabled = btn_save3.IsEnabled = false;
+            cb_propertyOrServiceId.Text = null;
+            chb_isAvailable.IsChecked = chb_valueBit.IsChecked = chb_fee.IsChecked = chb_approveRequest3.IsChecked = chb_approved3.IsChecked = false ;
+            txt_value.Value = txt_valueRangeMin.Value = txt_valueRangeMax.Value = txt_feeValue.Value = txt_feeValueRangeMin.Value = txt_feeValueRangeMax.Value = null;
+
+            cb_propertyOrServiceId.IsEnabled = chb_isAvailable.IsEnabled = chb_valueBit.IsEnabled = txt_value.IsEnabled =
+                txt_valueRangeMin.IsEnabled = txt_valueRangeMax.IsEnabled = chb_fee.IsEnabled = txt_feeValue.IsEnabled =
+                txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = chb_approveRequest3.IsEnabled = chb_approved3.IsEnabled = cb_owner3.IsEnabled = btn_save3.IsEnabled = false;
         }
 
+        private void SetPropertyRecord()
+        {
+            cb_propertyOrServiceId.Text = selectedProperty.PropertyOrService;
+            chb_isAvailable.IsChecked = selectedProperty.IsAvailable;
 
+            chb_isAvailable.IsEnabled = chb_valueBit.IsEnabled = txt_value.IsEnabled =
+                txt_valueRangeMin.IsEnabled = txt_valueRangeMax.IsEnabled = chb_fee.IsEnabled = txt_feeValue.IsEnabled =
+                txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = chb_approved3.IsEnabled = cb_owner3.IsEnabled = btn_save3.IsEnabled = true;
+
+            lbl_propertyUnit.Content = selectedProperty.PropertyUnit;
+            chb_valueBit.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsBit;
+            chb_valueBit.IsChecked = selectedProperty.ValueBit;
+
+            txt_value.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsValue && !propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsRangeValue;
+            txt_value.Value = selectedProperty.Value;
+
+            txt_valueRangeMin.IsEnabled = txt_valueRangeMax.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsRangeValue || propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsValueRangeAllowed;
+            txt_valueRangeMin.Value = selectedProperty.ValueRangeMin;
+            txt_valueRangeMax.Value = selectedProperty.ValueRangeMax;
+
+            if (propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsFeeInfoRequired)
+            { chb_fee.IsChecked = true; chb_fee.IsEnabled = false; }
+            else { chb_fee.IsChecked = selectedProperty.Fee; }
+
+            txt_feeValue.Value = selectedProperty.FeeValue;
+            txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedProperty.PropertyOrServiceId).IsFeeRangeAllowed;
+
+            txt_feeValueRangeMin.Value = selectedProperty.FeeRangeMin;
+            txt_feeValueRangeMax.Value = selectedProperty.FeeRangeMax;
+
+
+            chb_approveRequest.IsChecked = false;
+            btn_save3.IsEnabled = selectedProperty.ApproveRequest;
+            chb_approved.IsChecked = selectedProperty.Approved;
+
+            //Only for Admin: Owner/UserId Selection
+            if (App.UserData.Authentification.Role == "Admin")
+                cb_owner3.Text = adminUserList.Where(a => a.Id == selectedProperty.UserId).Select(a => a.UserName).FirstOrDefault();
+        }
+
+        private async void BtnSaveProperty_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DBResultMessage dBResult;
+                selectedProperty.IsAvailable = (bool)chb_isAvailable.IsChecked;
+                selectedProperty.ValueBit = (bool?)chb_valueBit.IsChecked;
+                selectedProperty.Value = txt_value.Value;
+                selectedProperty.ValueRangeMin = txt_valueRangeMin.Value;
+                selectedProperty.ValueRangeMax = txt_valueRangeMax.Value;
+                selectedProperty.Fee = (bool)chb_fee.IsChecked;
+                selectedProperty.FeeValue = txt_feeValue.Value;
+                selectedProperty.FeeRangeMin = txt_feeValueRangeMin.Value;
+                selectedProperty.FeeRangeMax = txt_feeValueRangeMax.Value;
+
+                selectedProperty.ApproveRequest = false;
+                selectedProperty.Approved = (bool)chb_approved3.IsChecked;
+
+                selectedProperty.UserId = App.UserData.Authentification.Id;
+                selectedProperty.Timestamp = DateTimeOffset.Now.DateTime;
+
+
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    selectedProperty.UserId = ((UserList)cb_owner3.SelectedItem).Id;
+
+                //nullable additional fields
+                selectedProperty.Accommodation = selectedProperty.PropertyOrService = null;
+                string json = JsonConvert.SerializeObject(selectedProperty);
+                StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token);
+
+                if (dBResult.recordCount > 0)
+                { LoadPropertyDataList(); }
+                else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+            }
+            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+        }
+
+        private void FeeStatusClick(object sender, RoutedEventArgs e)
+        {
+            txt_feeValue.IsEnabled = txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = (bool)chb_fee.IsChecked;
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace TravelAgencyAdmin.Classes
         public bool ApproveRequest { get; set; }
         public bool Approved { get; set; }
         public bool Advertised { get; set; }
+        public int TotalCapacity { get; set; }
         public int UserId { get; set; } 
         public DateTime Timestamp { get; set; }
 

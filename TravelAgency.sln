@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EASYTools.SqlConnectionDial
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EASYTools.TouchKeyboard", "TOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj", "{0784CDC9-0F52-4B8B-9488-6589C11E94E2}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TravelAgencyFrontEnd", "TravelAgencyFrontEnd\TravelAgencyFrontEnd.njsproj", "{05505FDD-B668-4628-A989-803A12F2E729}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{0784CDC9-0F52-4B8B-9488-6589C11E94E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0784CDC9-0F52-4B8B-9488-6589C11E94E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0784CDC9-0F52-4B8B-9488-6589C11E94E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05505FDD-B668-4628-A989-803A12F2E729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05505FDD-B668-4628-A989-803A12F2E729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05505FDD-B668-4628-A989-803A12F2E729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05505FDD-B668-4628-A989-803A12F2E729}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

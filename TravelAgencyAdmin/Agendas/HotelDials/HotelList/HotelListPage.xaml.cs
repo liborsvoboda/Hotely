@@ -108,9 +108,10 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Country") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; }
                     else if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; }
-                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 5; }
-                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
-                    else if (headername == "Approved") e.Header = Resources["approved"].ToString();
+                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; }
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; }
+                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; }
+                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; }
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;

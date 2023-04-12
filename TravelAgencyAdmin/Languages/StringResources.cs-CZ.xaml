@@ -433,6 +433,8 @@
     <system:String x:Key="approvingProcess">Proces Schvalování</system:String>
     <system:String x:Key="next">Dále</system:String>
     <system:String x:Key="changesSaved">Změny byly uloženy</system:String>
-
+    <system:String x:Key="close">Zavřít</system:String>
+    <system:String x:Key="totalCapacity">Celk.Kapacita</system:String>
+    
 
 </ResourceDictionary>

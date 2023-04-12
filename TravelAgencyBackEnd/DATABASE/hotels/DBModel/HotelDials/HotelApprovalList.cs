@@ -17,5 +17,6 @@ namespace TravelAgencyBackEnd.DBModel
         public bool Advertised { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
+        public int TotalCapacity { get; set; }
     }
 }

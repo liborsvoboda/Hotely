@@ -433,6 +433,7 @@
     <system:String x:Key="approvingProcess">Approving proces</system:String>
     <system:String x:Key="next">Next</system:String>
     <system:String x:Key="changesSaved">Changes was saved</system:String>
-    
-    
+    <system:String x:Key="close">Close</system:String>
+    <system:String x:Key="totalCapacity">Total Cap.</system:String>
+
 </ResourceDictionary>
