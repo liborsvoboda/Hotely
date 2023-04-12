@@ -53,7 +53,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 DgListView.ItemsSource = HotelActionTypeLists = await ApiCommunication.GetApiRequest<List<HotelActionTypeList>>(ApiUrls.HotelActionTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                HotelActionTypeLists.ForEach(property => { property.Translation = SystemFunctions.DBTranslation(property.SystemName); });
+                HotelActionTypeLists.ForEach(async property => { property.Translation = await SystemFunctions.DBTranslation(property.SystemName); });
 
                 DgListView.ItemsSource = HotelActionTypeLists;
                 DgListView.Items.Refresh();

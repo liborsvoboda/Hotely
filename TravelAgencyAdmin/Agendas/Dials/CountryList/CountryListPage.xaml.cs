@@ -54,7 +54,7 @@ namespace TravelAgencyAdmin.Pages
             try { 
                 
                 DgListView.ItemsSource = countryLists = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                countryLists.ForEach(document => { document.Translation = SystemFunctions.DBTranslation(document.SystemName); });
+                countryLists.ForEach(async document => { document.Translation = await SystemFunctions.DBTranslation(document.SystemName); });
 
                 DgListView.ItemsSource = countryLists;
                 DgListView.Items.Refresh();

@@ -55,7 +55,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
                 documentTypeLists = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                documentTypeLists.ForEach(document => { document.Translation = SystemFunctions.DBTranslation(document.SystemName); });
+                documentTypeLists.ForEach(async document => { document.Translation = await SystemFunctions.DBTranslation(document.SystemName); });
 
                 DgListView.ItemsSource = documentTypeLists;
                 DgListView.Items.Refresh();

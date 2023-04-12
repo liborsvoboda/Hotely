@@ -83,7 +83,7 @@
 
     <!--  Datapohledy  -->
     <system:String x:Key="clientSettings">Client settings</system:String>
-    <system:String x:Key="loginHistoryList">Logon History</system:String>
+    <system:String x:Key="adminLoginHistoryList">Logon History</system:String>
     <system:String x:Key="serverSetting">Server setting</system:String>
     <system:String x:Key="scheduledTasks">Scheduled Tasks</system:String>
     <system:String x:Key="userList">Users</system:String>

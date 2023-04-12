@@ -101,7 +101,7 @@ namespace TravelAgencyBackEnd
                 c.EnableValidator();
                 c.ShowCommonExtensions();
                 c.ShowExtensions();
-                c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Head);
+                c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Head, SubmitMethod.Post);
                 c.UseRequestInterceptor("(request) => { return request; }");
                 c.UseResponseInterceptor("(response) => { return response; }");
             });

@@ -13,5 +13,8 @@
     "logout": "Odhlásit",
     "register": "Registrovat",
     "profile": "Profil"
+  },
+  "messages": {
+    "passwordsNotMatch": "Hesla nesouhlasí"
   }
 }

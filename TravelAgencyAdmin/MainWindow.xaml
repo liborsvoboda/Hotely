@@ -363,7 +363,7 @@
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_loginHistoryList"
+                            x:Name="tm_adminLoginHistoryList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"

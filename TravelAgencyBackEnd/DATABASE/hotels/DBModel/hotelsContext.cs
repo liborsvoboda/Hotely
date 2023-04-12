@@ -35,6 +35,7 @@ namespace TravelAgencyBackEnd.DBModel
 
         public virtual DbSet<AccessRoleList> AccessRoleLists { get; set; }
         public virtual DbSet<AddressList> AddressLists { get; set; }
+        public virtual DbSet<AdminLoginHistoryList> AdminLoginHistoryLists { get; set; }
         public virtual DbSet<BranchList> BranchLists { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CityList> CityLists { get; set; }
@@ -44,6 +45,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
+        public virtual DbSet<GuestLoginHistoryList> GuestLoginHistoryLists { get; set; }
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual DbSet<HotelApprovalList> HotelApprovalLists { get; set; }
@@ -57,7 +59,6 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelRoomList> HotelRoomLists { get; set; }
         public virtual DbSet<HotelRoomTypeList> HotelRoomTypeLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
-        public virtual DbSet<LoginHistoryList> LoginHistoryLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
         public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
@@ -166,6 +167,25 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AddressList_UserList");
+            });
+
+            modelBuilder.Entity<AdminLoginHistoryList>(entity =>
+            {
+                entity.ToTable("AdminLoginHistoryList");
+
+                entity.Property(e => e.IpAddress)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<BranchList>(entity =>
@@ -425,6 +445,10 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.HasIndex(e => e.Email, "IX_GuestList");
 
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(150)
@@ -466,6 +490,23 @@ namespace TravelAgencyBackEnd.DBModel
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<GuestLoginHistoryList>(entity =>
+            {
+                entity.ToTable("GuestLoginHistoryList");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IpAddress)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<HotelAccommodationActionList>(entity =>
@@ -926,25 +967,6 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LanguageList_UserList");
-            });
-
-            modelBuilder.Entity<LoginHistoryList>(entity =>
-            {
-                entity.ToTable("LoginHistoryList");
-
-                entity.Property(e => e.IpAddress)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<MottoList>(entity =>

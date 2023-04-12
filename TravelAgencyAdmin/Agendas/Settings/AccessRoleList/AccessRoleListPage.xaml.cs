@@ -62,7 +62,7 @@ namespace TravelAgencyAdmin.Pages
             try { 
 
                 accessRoleLists = await ApiCommunication.GetApiRequest<List<AccessRoleList>>(ApiUrls.AccessRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                accessRoleLists.ForEach(access => { access.Translation = SystemFunctions.DBTranslation(access.TableName); });
+                accessRoleLists.ForEach(async access => { access.Translation = await SystemFunctions.DBTranslation(access.TableName); });
 
                 DgListView.ItemsSource = accessRoleLists;
                 DgListView.Items.Refresh();
@@ -82,7 +82,7 @@ namespace TravelAgencyAdmin.Pages
                     cb_tableName.ItemsSource = ApiTables.OrderBy(a => a.Name);
                 }
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
-                userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
+                userRoleList.ForEach(async role => { role.Translation = await SystemFunctions.DBTranslation(role.SystemName); });
                 cb_accessRole.ItemsSource = userRoleList;
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}

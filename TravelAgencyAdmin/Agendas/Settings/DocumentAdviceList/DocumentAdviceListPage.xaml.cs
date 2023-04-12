@@ -64,16 +64,16 @@ namespace TravelAgencyAdmin.Pages
 
                 //set document types translation
                 documentTypeList = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, null, App.UserData.Authentification.Token);
-                documentTypeList.ForEach(item => { item.Translation = SystemFunctions.DBTranslation(item.SystemName); });
+                documentTypeList.ForEach(async item => { item.Translation = await SystemFunctions.DBTranslation(item.SystemName); });
                 cb_documentType.ItemsSource = documentTypeList;
 
-                documentAdviceList.ForEach(record =>
+                documentAdviceList.ForEach(async record =>
                 {
                     ExtendedDocumentAdviceList item = new ExtendedDocumentAdviceList()
                     {
                         Id = record.Id,
                         BranchId = record.BranchId,
-                        DocumentType = SystemFunctions.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
+                        DocumentType = await SystemFunctions.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
                         Prefix = record.Prefix,
                         Number = record.Number,
                         StartDate = record.StartDate,

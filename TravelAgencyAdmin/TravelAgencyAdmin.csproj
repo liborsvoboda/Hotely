@@ -321,13 +321,13 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Views\LoginHistoryList\LoginHistoryList.cs" />
+    <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
     <Compile Include="Agendas\Settings\ReportList\ReportList.cs" />
     <Compile Include="TabsAndSystem\Helper\Updater.cs" />
     <Compile Include="Agendas\Settings\UserList\UserList.cs" />
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleList.cs" />
-    <Compile Include="Agendas\Views\LoginHistoryList\LoginHistoryListPage.xaml.cs">
-      <DependentUpon>LoginHistoryListPage.xaml</DependentUpon>
+    <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
+      <DependentUpon>AdminLoginHistoryListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Settings\ReportList\ReportListPage.xaml.cs">
       <DependentUpon>ReportListPage.xaml</DependentUpon>
@@ -435,7 +435,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Views\LoginHistoryList\LoginHistoryListPage.xaml">
+    <Page Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

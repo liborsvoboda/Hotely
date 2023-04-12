@@ -12,7 +12,7 @@ namespace TravelAgencyBackEnd.CoreClasses
         public int insertedId { get; set; } = 0;
         public string status { get; set; }
         public int recordCount { get; set; }
-        public string ErrorMessage { get; set; }
+        public string message { get; set; }
     }
 
     public class AuthenticateResponse
@@ -34,4 +34,14 @@ namespace TravelAgencyBackEnd.CoreClasses
         public string Name { get; set; }
     }
 
+    public class PageLanguage
+    {
+        public string Language { get; set; }
+    }
+
+
+    public enum DBWebApiResponses {
+
+        emailExist
+    }
 }

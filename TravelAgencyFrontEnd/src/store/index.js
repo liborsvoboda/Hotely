@@ -1,6 +1,6 @@
-import { createStore } from 'vuex'
-import router from '../router/index'
-
+import { createStore } from 'vuex';
+import router from '../router/index';
+import { encode } from "base-64";
 /*
 APiRoots Urls
 http://nomad.ubytkac.cz:5000/WebApi
@@ -339,6 +339,7 @@ const store = createStore({
         this
       )
     },
+
     async getAutoComplete({ commit }) {
       var response = await fetch(
         this.state.apiRootUrl + '/Search/GetSearchAutoComplete'
@@ -346,23 +347,47 @@ const store = createStore({
       var result = await response.json()
       commit('setAutoComplete', result)
     },
-    async login({ commit }, credentials) {
-      let response = await fetch(this.state.apiRootUrl + '/Guest/login', {
-        method: 'post',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(credentials),
-      })
-      let result = await response.json()
 
-      if (result.message == 'Username or password is incorrect') {
-        document.querySelector('.text').innerHTML = result.message
-      } else {
-        commit('setUser', result)
-        Cookies.set('login', 'true')
-        Cookies.set('userId', result.id)
-        router.push('/profile')
-      }
-    },
+        async login({ commit }, credentials) {
+            let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Basic ' + encode(credentials.Email + ":" + credentials.Password),
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ language: this.state.language })
+            });
+
+            let result = await response.json()
+
+            if (result.message) {
+                document.querySelector('.text').innerHTML = result.message
+            } else {
+                commit('setUser', result)
+                Cookies.set('login', 'true')
+                Cookies.set('userId', result.id)
+                Cookies.set('token', result.token)
+                router.push('/profile')
+            }
+        },
+
+      async registration({ commit }, regInfo) {
+          let response = await fetch(this.state.apiRootUrl + '/Guest/WebRegistration', {
+              method: 'post',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-type': 'application/json'
+              },
+              body: JSON.stringify({ user: regInfo, language: this.state.language })
+          });
+          let result = await response.json()
+
+          if (result.message) {
+              document.querySelector('.text').innerHTML = result.message
+          }
+      },
+
     checkLoggedInUser({ commit }) {
       var myCookie = Cookies.get('login')
       if (myCookie) {

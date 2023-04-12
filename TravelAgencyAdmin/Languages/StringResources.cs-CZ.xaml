@@ -84,7 +84,7 @@
 
     <!--  Datapohledy  -->
     <system:String x:Key="clientSettings">Nastavení klienta</system:String>
-    <system:String x:Key="loginHistoryList">Historie přístupů</system:String>
+    <system:String x:Key="adminLoginHistoryList">Historie přístupů</system:String>
     <system:String x:Key="serverSetting">Nastavení Serveru</system:String>
     <system:String x:Key="scheduledTasks">Naplánované Úlohy</system:String>
     <system:String x:Key="userList">Uživatelé</system:String>
@@ -435,6 +435,6 @@
     <system:String x:Key="changesSaved">Změny byly uloženy</system:String>
     <system:String x:Key="close">Zavřít</system:String>
     <system:String x:Key="totalCapacity">Celk.Kapacita</system:String>
-    
+
 
 </ResourceDictionary>

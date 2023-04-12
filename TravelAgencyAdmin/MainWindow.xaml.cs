@@ -212,7 +212,7 @@ namespace TravelAgencyAdmin
                 //Standard Application menu
                 tm_reportList.Header = Resources["reportList"].ToString(); tm_calendar.Header = Resources["calendar"].ToString();
                 tm_userList.Header = Resources["userList"].ToString(); tm_userRoleList.Header = Resources["userRoleList"].ToString();
-                tm_clientSettings.Header = Resources["clientSettings"].ToString(); tm_loginHistoryList.Header = Resources["loginHistoryList"].ToString();
+                tm_clientSettings.Header = Resources["clientSettings"].ToString(); tm_adminLoginHistoryList.Header = Resources["adminLoginHistoryList"].ToString();
                 tm_support.Header = Resources["support"].ToString(); tm_documentAdviceList.Header = Resources["documentAdviceList"].ToString();
                 tm_currencyList.Header = Resources["currencyList"].ToString();tm_exchangeRateList.Header = Resources["exchangeRateList"].ToString();
                 tm_cityList.Header = Resources["cityList"].ToString(); tm_countryList.Header = Resources["countryList"].ToString();
@@ -778,6 +778,13 @@ namespace TravelAgencyAdmin
                 } else if (!name.StartsWith("tv_")) {
                     switch (name)
                     {
+                        case "tm_adminLoginHistoryList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AdminLoginHistoryListPage()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/AdminLoginHistoryList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_accommodation":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
                             { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelListPage()); }
@@ -889,13 +896,6 @@ namespace TravelAgencyAdmin
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/LanguageList", App.UserData.Authentification.Token);
-                            break;
-                        case "tm_loginHistoryList":
-                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new LoginHistoryListPage()); }
-                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
-                            StringToFilter(cb_filter, ""); 
-                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/LoginHistoryList", App.UserData.Authentification.Token);
                             break;
                         case "tm_parameterList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)

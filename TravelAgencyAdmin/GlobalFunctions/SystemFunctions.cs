@@ -7,6 +7,10 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using TravelAgencyAdmin.Api;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Net;
 
 namespace TravelAgencyAdmin.GlobalFunctions
 {
@@ -91,20 +95,62 @@ namespace TravelAgencyAdmin.GlobalFunctions
             return advancedFilter;
         }
 
-        public static string DBTranslation(string systemName, bool comaList = false, string lang = null)
+        public async static Task<string> DBTranslation(string systemName, bool comaList = false, string lang = null)
         {
-            string result = "";
+            bool dictionaryUpdated = false;
+            string result ="", translated = "";
             if (comaList)
             {
-                systemName.Split(',').ToList().ForEach(word =>
+                systemName.Split(',').ToList().ForEach(async word =>
                 {
-                    if (string.IsNullOrWhiteSpace(word))
-                        result += ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault() + ",";
+
+                    try {
+                        result = App.LanguageList.FirstOrDefault(a => a.SystemName == word).DescriptionCz;
+                        if (!string.IsNullOrWhiteSpace(word))
+                            translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
+
+                        result += (string.IsNullOrWhiteSpace(translated) ? word : translated) + ",";
+                    }
+                    catch {
+                        try {
+                            dictionaryUpdated = true;
+                            LanguageList newWord = new LanguageList() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
+                            string json = JsonConvert.SerializeObject(newWord);
+                            StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                            _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
+
+                            result += word + ",";
+                        } catch { }
+                    }
                 });
             }
             else
-            { result = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault(); }
-            return (string.IsNullOrWhiteSpace(result)) ? systemName : result;
+            {
+                try {
+                    result = App.LanguageList.FirstOrDefault(a => a.SystemName == systemName).DescriptionCz;
+
+                    translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
+                    result = string.IsNullOrWhiteSpace(translated) ? systemName : translated;
+                } 
+                catch {
+                    try {
+                        dictionaryUpdated = true;
+
+                        LanguageList newWord = new LanguageList() { SystemName = systemName, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
+                        string json = JsonConvert.SerializeObject(newWord);
+                        StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                        _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
+                        result = systemName;
+                    } catch { }
+                }
+
+            }
+
+            if (dictionaryUpdated) { 
+                App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token);
+            }
+
+            return result;
         }
     }
 }

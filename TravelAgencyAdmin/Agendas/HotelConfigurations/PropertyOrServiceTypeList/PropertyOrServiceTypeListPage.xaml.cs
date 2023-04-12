@@ -80,14 +80,14 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(item => {
-                    item.Translation = SystemFunctions.DBTranslation(item.SystemName);
-                    item.PropertyOrServiceUnitType = SystemFunctions.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
+                propertyOrServiceTypeList.ForEach(async item => {
+                    item.Translation = await SystemFunctions.DBTranslation(item.SystemName);
+                    item.PropertyOrServiceUnitType = await SystemFunctions.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
                 });
                 DgListView.ItemsSource = propertyOrServiceTypeList;
                 DgListView.Items.Refresh();
 
-                propertyOrServiceUnitList.ForEach(item => { item.Translation = SystemFunctions.DBTranslation(item.SystemName); });
+                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await SystemFunctions.DBTranslation(item.SystemName); });
                 cb_unit.ItemsSource = propertyOrServiceUnitList;
             }
             catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }

@@ -8,6 +8,7 @@ namespace TravelAgencyAdmin.Api
     public enum ApiUrls
     {
         AccessRoleList,
+        AdminLoginHistoryList,
         AddressList,
         Authentication,
         BackendCheck,
@@ -26,7 +27,6 @@ namespace TravelAgencyAdmin.Api
         HotelRoomList,
         HotelRoomTypeList,
         LanguageList,
-        LoginHistoryList,
         MottoList,
         ParameterList,
         PropertyOrServiceTypeList,

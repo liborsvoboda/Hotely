@@ -43,35 +43,35 @@
 </template>
 
 <script>
+import store from "../../../store/index"
+
 export default {
-  data() {
-    return {
-      Email: '',
-      Password: '',
-    }
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.user.loggedIn
+    data() {
+        return {
+            Email: '',
+            Password: '',
+        }
     },
-    user() {
-      return this.$store.state.user
+    computed: {
+        loggedIn() {
+            return this.$store.state.user.loggedIn
+        },
+        user() {
+            return this.$store.state.user
+        },
     },
-  },
 
-  methods: {
-    async guestLogin() {
-      let credentials = {
-        Email: this.Email,
-        Password: this.Password,
-        UserID: 0,
-      }
-
-      this.$store.dispatch('login', credentials)
-    },
-    logout() {
-      this.$store.dispatch('logout')
-    },
+    methods: {
+        async guestLogin() {
+            let credentials = {
+                Email: this.Email,
+                Password: this.Password
+            }
+            this.$store.dispatch('login', credentials)
+        },
+        logout() {
+            this.$store.dispatch('logout')
+        },
   },
 }
 </script>

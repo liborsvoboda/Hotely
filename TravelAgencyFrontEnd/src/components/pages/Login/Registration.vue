@@ -69,37 +69,50 @@ export default {
   async mounted(){
 
   },
-  methods:{
+  methods: {
     checkPasswords(){
         var password = document.querySelector('.password').value;
         var confirmPassword = document.querySelector('.confirmPassword').value;
         
-        if(confirmPassword !=password){
-          document.querySelector('.text').innerHTML = "Passwords dont match"
-          
-          
-        }else if(password ===confirmPassword){
-          document.querySelector('.text').innerHTML="";
-          this.addGuest()
+        if (confirmPassword != password) {
+            document.querySelector('.text').innerHTML = this.$i18n.t("messages.passwordsNotMatch");
+        } else if(password ===confirmPassword){
+            document.querySelector('.text').innerHTML="";
+            this.guestRegistration();
         }
     },
-    
-    async addGuest(){
-      
-      await fetch(this.state.apiRootUrl + '/Guest/addGuest', {
-        method:'Post',
-        headers:{
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({Fullname:this.guest.Fullname, Street:this.guest.Street, Zipcode:this.guest.Zipcode, City:this.guest.City, Country:this.guest.Country, Phone:this.guest.Phone, Email:this.guest.Email, Password:this.guest.Password}),
-        
-      })
-       this.resetForm()
+
+    async guestRegistration() {
+        let regInfo = {
+            Fullname: this.guest.Fullname, 
+            Street: this.guest.Street,
+            Zipcode: this.guest.Zipcode, 
+            City: this.guest.City,
+            Country: this.guest.Country, 
+            Phone: this.guest.Phone,
+            Email: this.guest.Email,
+            Password: this.guest.Password
+        }
+        this.$store.dispatch('registration', regInfo);
+        this.resetForm();
     },
-      resetForm(){
+
+    //async addGuest(){
+      
+    //        await fetch(this.state.apiRootUrl + '/Guest/addGuest', {
+    //        method:'Post',
+    //        headers:{
+    //            'Accept': 'application/json',
+    //            'Content-type': 'application/json'
+    //        },
+    //        body: JSON.stringify({Fullname:this.guest.Fullname, Street:this.guest.Street, Zipcode:this.guest.Zipcode, City:this.guest.City, Country:this.guest.Country, Phone:this.guest.Phone, Email:this.guest.Email, Password:this.guest.Password}),
+        
+    //        })
+    //    this.resetForm()
+    //},
+    resetForm(){
         document.querySelector('.form1').reset()
-      }
+    }
   }
 }
 </script>

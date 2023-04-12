@@ -66,8 +66,8 @@ namespace TravelAgencyAdmin.Pages
                 userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
-                userList.ForEach(user => { user.Translation = SystemFunctions.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
-                userRoleList.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
+                userList.ForEach(async user => { user.Translation = await SystemFunctions.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
+                userRoleList.ForEach(async role => { role.Translation = await SystemFunctions.DBTranslation(role.SystemName); });
 
                 DgListView.ItemsSource = userList;
                 DgListView.Items.Refresh();

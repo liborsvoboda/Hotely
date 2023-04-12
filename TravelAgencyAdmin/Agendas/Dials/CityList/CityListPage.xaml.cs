@@ -59,8 +59,8 @@ namespace TravelAgencyAdmin.Pages
                 cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(city => { city.Translation = SystemFunctions.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); });
-                countryList.ForEach(country => { country.Translation = SystemFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(async city => { city.Translation = await SystemFunctions.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); });
+                countryList.ForEach(async country => { country.Translation = await SystemFunctions.DBTranslation(country.SystemName); });
 
                 DgListView.ItemsSource = cityList;
                 DgListView.Items.Refresh();

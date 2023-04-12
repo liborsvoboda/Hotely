@@ -13,5 +13,4 @@ dotnet ef dbcontext script --output Migrations/BasicDBModel.sql
 
 
 Change Password to encrypt
-isValid = BCrypt.Net.BCrypt.Verify(model.Password, user.Password);
-
+isValid = BCrypt.Net.BCrypt.Verify(word, hashedWordFromDB);

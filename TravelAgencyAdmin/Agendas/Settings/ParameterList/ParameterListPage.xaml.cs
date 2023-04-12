@@ -68,7 +68,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
                 parametersList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
-                parametersList.ForEach(parameter => { parameter.Translation = SystemFunctions.DBTranslation(parameter.SystemName); });
+                parametersList.ForEach(async parameter => { parameter.Translation = await SystemFunctions.DBTranslation(parameter.SystemName); });
 
                 DgListView.ItemsSource = parametersList;
                 DgListView.Items.Refresh();

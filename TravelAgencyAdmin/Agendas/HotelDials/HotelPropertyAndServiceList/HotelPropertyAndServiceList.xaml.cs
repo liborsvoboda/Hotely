@@ -75,8 +75,8 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(property => { property.Translation = SystemFunctions.DBTranslation(property.SystemName); });
-                propertyOrServiceUnitList.ForEach(propertyUnit => { propertyUnit.Translation = SystemFunctions.DBTranslation(propertyUnit.SystemName); });
+                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await SystemFunctions.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await SystemFunctions.DBTranslation(propertyUnit.SystemName); });
                 hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
 
                 //Only for Admin: Owner/UserId Selection
@@ -86,13 +86,13 @@ namespace TravelAgencyAdmin.Pages
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
-                hotelPropertyAndServiceList.ForEach(room => {
+                hotelPropertyAndServiceList.ForEach(async room => {
                     room.Accommodation = hotelList.First(a => a.Id == room.HotelId).Name;
                     room.PropertyOrService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).Translation;
                     room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
                     room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
                     room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
-                    room.PropertyUnit = SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                    room.PropertyUnit = await SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgListView.ItemsSource = hotelPropertyAndServiceList;
                 DgListView.Items.Refresh();

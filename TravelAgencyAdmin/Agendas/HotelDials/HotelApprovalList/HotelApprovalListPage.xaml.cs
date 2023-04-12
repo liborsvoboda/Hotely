@@ -103,8 +103,8 @@ namespace TravelAgencyAdmin.Pages
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(city => { city.Translation = SystemFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); });
-                countryList.ForEach(country => { country.Translation = SystemFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(async city => { city.Translation = await SystemFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); });
+                countryList.ForEach(async country => { country.Translation = await SystemFunctions.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -339,7 +339,7 @@ namespace TravelAgencyAdmin.Pages
                 hotelRoomTypeList = await ApiCommunication.GetApiRequest<List<HotelRoomTypeList>>(ApiUrls.HotelRoomTypeList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                hotelRoomTypeList.ForEach(roomType => { roomType.Translation = SystemFunctions.DBTranslation(roomType.SystemName); });
+                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await SystemFunctions.DBTranslation(roomType.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -348,9 +348,9 @@ namespace TravelAgencyAdmin.Pages
                     lbl_owner2.Visibility = cb_owner2.Visibility = Visibility.Visible;
                 }
 
-                hotelRoomList.ForEach(room => {
+                hotelRoomList.ForEach(async room => {
                     room.Accommodation = hotelList.Name;
-                    room.RoomType = SystemFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
+                    room.RoomType = await SystemFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
                 });
                 DgRoomListView.ItemsSource = hotelRoomList;
                 DgRoomListView.Items.Refresh();
@@ -485,8 +485,8 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(property => { property.Translation = SystemFunctions.DBTranslation(property.SystemName); });
-                propertyOrServiceUnitList.ForEach(propertyUnit => { propertyUnit.Translation = SystemFunctions.DBTranslation(propertyUnit.SystemName); });
+                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await SystemFunctions.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await SystemFunctions.DBTranslation(propertyUnit.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -495,13 +495,13 @@ namespace TravelAgencyAdmin.Pages
                     lbl_owner3.Visibility = cb_owner3.Visibility = Visibility.Visible;
                 }
 
-                hotelPropertyAndServiceList.ForEach(room => {
+                hotelPropertyAndServiceList.ForEach(async room => {
                     room.Accommodation = hotelList.Name;
                     room.PropertyOrService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).Translation;
                     room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
                     room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
                     room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
-                    room.PropertyUnit = SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                    room.PropertyUnit = await SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgPropertyListView.ItemsSource = hotelPropertyAndServiceList;
                 DgPropertyListView.Items.Refresh();

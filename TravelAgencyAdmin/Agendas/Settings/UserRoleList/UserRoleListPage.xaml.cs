@@ -52,7 +52,7 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 userRoleLists = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                userRoleLists.ForEach(role => { role.Translation = SystemFunctions.DBTranslation(role.SystemName); });
+                userRoleLists.ForEach(async role => { role.Translation = await SystemFunctions.DBTranslation(role.SystemName); });
 
                 DgListView.ItemsSource = userRoleLists;
                 DgListView.Items.Refresh();

@@ -55,7 +55,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 DgListView.ItemsSource = hotelRoomTypeLists = await ApiCommunication.GetApiRequest<List<HotelRoomTypeList>>(ApiUrls.HotelRoomTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                hotelRoomTypeLists.ForEach(roomType => { roomType.Translation = SystemFunctions.DBTranslation(roomType.SystemName); });
+                hotelRoomTypeLists.ForEach(async roomType => { roomType.Translation = await SystemFunctions.DBTranslation(roomType.SystemName); });
 
                 DgListView.ItemsSource = hotelRoomTypeLists;
                 DgListView.Items.Refresh();
