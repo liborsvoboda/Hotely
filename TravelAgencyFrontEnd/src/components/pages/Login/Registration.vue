@@ -11,29 +11,29 @@
             <div class="main">
                     <p class="sign" align="center">Registration</p>
                    
-                        <form class="form1" @submit.prevent="checkPasswords">
-                        <input class="un" type="text" align="center" placeholder="Fullname" required v-model="guest.Fullname">
-                        <input class="un" type="text" align="center" placeholder="Street" required v-model="guest.Street">
-                        <input class="un" type="text" align="center" placeholder="Zipcode" required v-model="guest.Zipcode">
-                        <input class="un" type="text" align="center" placeholder="City" required v-model="guest.City">
-                        <input class="un" type="text" align="center" placeholder="Country" required v-model="guest.Country">
-                        <input class="un" type="text" align="center" placeholder="Phone" required v-model="guest.Phone">
-                        <input class="un" type="email" align="center" placeholder="Email" required v-model="guest.Email">
+                <form class="form1" @submit.prevent="checkPasswords">
+                    <input class="un" type="text" align="center" placeholder="Fullname" required v-model="guest.Fullname">
+                    <input class="un" type="text" align="center" placeholder="Street" required v-model="guest.Street">
+                    <input class="un" type="text" align="center" placeholder="Zipcode" required v-model="guest.Zipcode">
+                    <input class="un" type="text" align="center" placeholder="City" required v-model="guest.City">
+                    <input class="un" type="text" align="center" placeholder="Country" required v-model="guest.Country">
+                    <input class="un" type="text" align="center" placeholder="Phone" required v-model="guest.Phone">
+                    <input class="un" type="email" align="center" placeholder="Email" required v-model="guest.Email">
 
 
-                        <input  class="password"  type="password"  align="center" placeholder="Password" required v-model="guest.Password">
-                        <input class="confirmPassword" type="password" align="center" placeholder="Repeat-Password" required v-model="guest.confirmPassword">
-                        <p class="text"></p>
+                    <input  class="password"  type="password"  align="center" placeholder="Password" required v-model="guest.Password">
+                    <input class="confirmPassword" type="password" align="center" placeholder="Repeat-Password" required v-model="guest.confirmPassword">
+                    <p class="text"></p>
 
-                        <ul class="ul">
-                            <li>
-                            <button class="submit" align="center">Confirm</button>
-                            </li>
-                            <br>
-                            <li>
-                            <button class="submit" align="center">Cancel</button>
-                            </li>
-                        </ul>
+                    <ul class="ul">
+                        <li>
+                        <button class="submit" align="center">Confirm</button>
+                        </li>
+                        <br>
+                        <li>
+                        <button class="submit" align="center">Cancel</button>
+                        </li>
+                    </ul>
                 </form>
               
             </div>
@@ -93,23 +93,18 @@ export default {
             Email: this.guest.Email,
             Password: this.guest.Password
         }
-        this.$store.dispatch('registration', regInfo);
-        this.resetForm();
-    },
-
-    //async addGuest(){
-      
-    //        await fetch(this.state.apiRootUrl + '/Guest/addGuest', {
-    //        method:'Post',
-    //        headers:{
-    //            'Accept': 'application/json',
-    //            'Content-type': 'application/json'
-    //        },
-    //        body: JSON.stringify({Fullname:this.guest.Fullname, Street:this.guest.Street, Zipcode:this.guest.Zipcode, City:this.guest.City, Country:this.guest.Country, Phone:this.guest.Phone, Email:this.guest.Email, Password:this.guest.Password}),
+        await this.$store.dispatch('registration', regInfo).then(() => {
+            if (this.$store.state.tempVariables.registrationStatus.status == "emailExist") {
+                document.querySelector('.text').innerHTML = this.$store.state.tempVariables.registrationStatus.message;
+            } else if (this.$store.state.tempVariables.registrationStatus.status == "loginInfoSendedOnEmail") {
+                this.resetForm();
+                document.querySelector('.form1').innerHTML = '<p class="text"></p>';
+                document.querySelector('.main').style.height = "250px";
+                document.querySelector('.text').innerHTML = this.$store.state.tempVariables.registrationStatus.message;
+            }
+        });
         
-    //        })
-    //    this.resetForm()
-    //},
+    },
     resetForm(){
         document.querySelector('.form1').reset()
     }

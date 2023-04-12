@@ -1,4 +1,7 @@
-﻿namespace TravelAgencyBackEnd.WebPages
+﻿using TravelAgencyBackEnd.CoreClasses;
+using TravelAgencyBackEnd.DBModel;
+
+namespace TravelAgencyBackEnd.WebPages
 {
 
     public class GuestLoginRequest
@@ -26,13 +29,7 @@
     }
 
     public class GuestRegistration {
-        public int Id { get; set; }
-        public string Street { get; set; }
-        public string ZipCode { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string Phone { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
+        public GuestList User { get; set; }
+        public string Language { get; set; }
     }
 }

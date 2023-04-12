@@ -54,8 +54,7 @@
                         x:Name="PART_OutsideBorder"
                         BorderBrush="{TemplateBinding OutsideBorderBrush}"
                         BorderThickness="{TemplateBinding OutsideBorderThickness}"
-                        CornerRadius="3"
-                        SnapsToDevicePixels="true">
+                        CornerRadius="3" SnapsToDevicePixels="true">
                         <Grid>
                             <Border
                                 x:Name="PART_Surface"
@@ -65,18 +64,10 @@
                                 CornerRadius="3" />
 
                             <Border
-                                x:Name="PART_MouseDownSurface"
-                                Background="White"
-                                CornerRadius="3"
-                                Opacity="0"
-                                SnapsToDevicePixels="True" />
+                                x:Name="PART_MouseDownSurface" Background="White" CornerRadius="3" Opacity="0" SnapsToDevicePixels="True" />
 
                             <TextBlock
-                                x:Name="PART_KeyText"
-                                Margin="3,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                FontSize="20"
+                                x:Name="PART_KeyText" Margin="3,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20"
                                 Foreground="{TemplateBinding TextBrush}"
                                 SnapsToDevicePixels="true" />
                         </Grid>

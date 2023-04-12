@@ -83,7 +83,7 @@
 
     <!--  Datapohledy  -->
     <system:String x:Key="clientSettings">Client settings</system:String>
-    <system:String x:Key="adminLoginHistoryList">Logon History</system:String>
+    <system:String x:Key="adminLoginHistoryList">Users login</system:String>
     <system:String x:Key="serverSetting">Server setting</system:String>
     <system:String x:Key="scheduledTasks">Scheduled Tasks</system:String>
     <system:String x:Key="userList">Users</system:String>
@@ -435,5 +435,10 @@
     <system:String x:Key="changesSaved">Changes was saved</system:String>
     <system:String x:Key="close">Close</system:String>
     <system:String x:Key="totalCapacity">Total Cap.</system:String>
-
+    <system:String x:Key="guestLoginHistoryList">Guests login</system:String>
+    <system:String x:Key="overviews">Overviews</system:String>
+    <system:String x:Key="reservations">Reservations</system:String>
+    <system:String x:Key="guestList">Guests</system:String>
+    
+    
 </ResourceDictionary>

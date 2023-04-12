@@ -230,6 +230,10 @@
     <Compile Include="Agendas\HotelDials\HotelRoomList\HotelRoomListPage.xaml.cs">
       <DependentUpon>HotelRoomListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\HotelReservation\GuestList\GuestList.cs" />
+    <Compile Include="Agendas\HotelReservation\GuestList\GuestListPage.xaml.cs">
+      <DependentUpon>GuestListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Settings\AccessRoleList\AccessRoleList.cs" />
     <Compile Include="Agendas\Settings\AccessRoleList\AccessRoleListPage.xaml.cs">
       <DependentUpon>AccessRoleListPage.xaml</DependentUpon>
@@ -294,6 +298,14 @@
     <Compile Include="Agendas\System\SystemFailList\SystemFailListPage.xaml.cs">
       <DependentUpon>SystemFailListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\Settings\MottoList\MottoListPage.xaml.cs">
+      <DependentUpon>MottoListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Settings\MottoList\MottoList.cs" />
+    <Compile Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryList.cs" />
+    <Compile Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml.cs">
+      <DependentUpon>GuestLoginHistoryListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="APICommunication\ApiFunctions.cs" />
     <Compile Include="Agendas\Agendas\BranchList\BranchList.cs" />
     <Compile Include="Agendas\Agendas\BranchList\BranchListPage.xaml.cs">
@@ -312,7 +324,6 @@
     <Compile Include="Agendas\Views\Support\SupportPage.xaml.cs">
       <DependentUpon>SupportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Views\WelcomePage\MottoList.cs" />
     <Compile Include="Agendas\Views\WelcomePage\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
@@ -375,6 +386,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\HotelReservation\GuestList\GuestListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\Settings\AccessRoleList\AccessRoleListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -432,6 +447,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Settings\LanguageList\LanguageListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Settings\MottoList\MottoListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

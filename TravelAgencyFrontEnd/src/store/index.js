@@ -8,8 +8,13 @@ http://localhost:5000/WebApi
 */
 const store = createStore({
     state: {
+        tempVariables: {
+            registrationStatus: null
+        },
+
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
+
         searchButtonLoading: false,
         guestId: 33, // hard coded
         home: { title: 'store name' },
@@ -352,7 +357,6 @@ const store = createStore({
             let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {
                 method: 'post',
                 headers: {
-                    'Accept': 'application/json',
                     'Authorization': 'Basic ' + encode(credentials.Email + ":" + credentials.Password),
                     'Content-type': 'application/json'
                 },
@@ -376,16 +380,11 @@ const store = createStore({
           let response = await fetch(this.state.apiRootUrl + '/Guest/WebRegistration', {
               method: 'post',
               headers: {
-                  'Accept': 'application/json',
                   'Content-type': 'application/json'
               },
-              body: JSON.stringify({ user: regInfo, language: this.state.language })
+              body: JSON.stringify({ User: regInfo, Language: this.state.language })
           });
-          let result = await response.json()
-
-          if (result.message) {
-              document.querySelector('.text').innerHTML = result.message
-          }
+          this.state.tempVariables.registrationStatus = await response.json();
       },
 
     checkLoggedInUser({ commit }) {

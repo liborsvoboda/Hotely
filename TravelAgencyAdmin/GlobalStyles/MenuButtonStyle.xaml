@@ -1,4 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
@@ -120,15 +122,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
                     <Border
-                        x:Name="Border"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        BorderThickness="1">
+                        x:Name="Border" Background="Transparent" BorderBrush="Transparent" BorderThickness="1">
                         <ContentPresenter
-                            Margin="2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            RecognizesAccessKey="True" />
+                            Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="true">
@@ -185,8 +181,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border
-                        Name="Border"
-                        Padding="2"
+                        Name="Border" Padding="2"
                         Background="{StaticResource WindowBackgroundBrush}"
                         BorderBrush="{StaticResource SolidBorderBrush}"
                         BorderThickness="1">
@@ -214,11 +209,7 @@
                         <Rectangle Margin="0,2">
                             <Rectangle.Fill>
                                 <DrawingBrush
-                                    TileMode="Tile"
-                                    Viewbox="0,0,8,8"
-                                    ViewboxUnits="Absolute"
-                                    Viewport="0,0,4,4"
-                                    ViewportUnits="Absolute">
+                                    TileMode="Tile" Viewbox="0,0,8,8" ViewboxUnits="Absolute" Viewport="0,0,4,4" ViewportUnits="Absolute">
                                     <DrawingBrush.Drawing>
                                         <DrawingGroup>
                                             <DrawingGroup.Children>
@@ -241,20 +232,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
-                        Name="Bd"
-                        Background="Transparent"
-                        CornerRadius="0,3,3,0"
-                        SnapsToDevicePixels="true">
+                        Name="Bd" Background="Transparent" CornerRadius="0,3,3,0" SnapsToDevicePixels="true">
                         <Grid>
                             <Label
-                                Name="Arrow"
-                                Margin="10,0"
-                                Padding="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Stretch"
-                                Content="MENU"
-                                FontSize="26"
-                                FontWeight="Bold"
+                                Name="Arrow" Margin="10,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                                Content="MENU" FontSize="26" FontWeight="Bold"
                                 Foreground="{DynamicResource AccentColorBrush}" />
                             <ContentPresenter />
                         </Grid>
@@ -286,48 +268,34 @@
                         x:Name="Border"
                         Background="{DynamicResource AccentSelectedColorBrush}"
                         BorderBrush="{StaticResource NormalBorderBrush}"
-                        BorderThickness="0"
-                        CornerRadius="2">
+                        BorderThickness="0" CornerRadius="2">
                         <DockPanel>
                             <ToggleButton
-                                Width="120"
-                                ClickMode="Press"
-                                DockPanel.Dock="Right"
+                                Width="120" ClickMode="Press" DockPanel.Dock="Right"
                                 IsChecked="{Binding Path=IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 IsEnabled="{TemplateBinding HasOverflowItems}"
                                 Style="{StaticResource ToolBarOverflowButtonStyle}">
                                 <Popup
-                                    x:Name="OverflowPopup"
-                                    AllowsTransparency="true"
-                                    Focusable="false"
+                                    x:Name="OverflowPopup" AllowsTransparency="true" Focusable="false"
                                     IsOpen="{Binding Path=IsOverflowOpen, RelativeSource={RelativeSource TemplatedParent}}"
-                                    Placement="Bottom"
-                                    PopupAnimation="Slide"
-                                    StaysOpen="false">
+                                    Placement="Bottom" PopupAnimation="Slide" StaysOpen="false">
                                     <Border
                                         x:Name="DropDownBorder"
                                         Background="{StaticResource WindowBackgroundBrush}"
                                         BorderBrush="{StaticResource SolidBorderBrush}"
                                         BorderThickness="1">
                                         <ToolBarOverflowPanel
-                                            x:Name="PART_ToolBarOverflowPanel"
-                                            Margin="2"
+                                            x:Name="PART_ToolBarOverflowPanel" Margin="2"
                                             FocusVisualStyle="{x:Null}"
-                                            Focusable="true"
-                                            KeyboardNavigation.DirectionalNavigation="Cycle"
-                                            KeyboardNavigation.TabNavigation="Cycle"
-                                            WrapWidth="200" />
+                                            Focusable="true" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle" WrapWidth="250" />
                                     </Border>
                                 </Popup>
                             </ToggleButton>
                             <Thumb
-                                x:Name="ToolBarThumb"
-                                Width="10"
+                                x:Name="ToolBarThumb" Width="10"
                                 Style="{StaticResource ToolBarThumbStyle}" />
                             <ToolBarPanel
-                                x:Name="PART_ToolBarPanel"
-                                Margin="0,1,2,2"
-                                IsItemsHost="true" />
+                                x:Name="PART_ToolBarPanel" Margin="0,1,2,2" IsItemsHost="true" />
                         </DockPanel>
                     </Border>
                     <ControlTemplate.Triggers>

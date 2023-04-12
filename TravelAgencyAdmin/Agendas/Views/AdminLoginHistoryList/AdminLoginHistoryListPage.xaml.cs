@@ -53,10 +53,8 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "TerminalName") { e.Header = Resources["terminalName"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
+                if (headername == "IpAddress") { e.Header = Resources["ipAddress"].ToString();}
                 else if (headername == "UserName") e.Header = Resources["userName"].ToString();
-                else if (headername == "Description") e.Header = Resources["description"].ToString();
-                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 2; }
                 else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
@@ -76,7 +74,7 @@ namespace TravelAgencyAdmin.Pages
                     if (
                        user.Id.ToString().ToLower().Contains(filter.ToLower())
                     || user.UserName.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower())
+                    || user.IpAddress.ToLower().Contains(filter.ToLower())
                     ) return true;
                     return false;
                 };

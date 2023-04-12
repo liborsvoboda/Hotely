@@ -12,14 +12,12 @@ namespace TravelAgencyBackEnd.DBModel
         }
 
         public hotelsContext(DbContextOptions<hotelsContext> options)
-                    : base(options)
-        {
+                    : base(options) {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.EnableServiceProviderCaching(false);
@@ -962,10 +960,11 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.UserId).HasDefaultValueSql("((0))");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.LanguageLists)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LanguageList_UserList");
             });
 
@@ -978,10 +977,18 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.SystemName)
                     .IsRequired()
-                    .HasMaxLength(100)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.MottoLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MottoList_UserList");
             });
 
             modelBuilder.Entity<ParameterList>(entity =>

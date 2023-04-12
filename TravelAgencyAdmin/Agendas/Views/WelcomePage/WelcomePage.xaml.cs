@@ -28,15 +28,15 @@ namespace TravelAgencyAdmin.Pages
             try
 			{
                 var lines = File.ReadLines(MottoListPath);
-                foreach (string line in lines) { if (!string.IsNullOrWhiteSpace(line)) { MottoList.Add(new MottoList() { Name = line }); } }
-
+                foreach (string line in lines) { if (!string.IsNullOrWhiteSpace(line)) { MottoList.Add(new MottoList() { SystemName = line }); } }
+                App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, null);
                 MottoList = await ApiCommunication.GetApiRequest<List<MottoList>>(ApiUrls.MottoList, null, null);
             }
             catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
 
             try
             {
-                labelMotto.Content = MottoList[int.Parse(Math.Truncate(0.001 * new Random().Next(0, (MottoList.Count - 1) * 1000)).ToString())].Name;
+                labelMotto.Content = await SystemFunctions.DBTranslation(MottoList[int.Parse(Math.Truncate(0.001 * new Random().Next(0, (MottoList.Count - 1) * 1000)).ToString())].SystemName);
                 Storyboard endAnimation = (Storyboard)FindResource("ProgressAnimation");
                 BeginStoryboard(endAnimation);
                 endAnimation = (Storyboard)FindResource("ImageAnimation");

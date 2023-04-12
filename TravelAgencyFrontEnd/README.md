@@ -28,3 +28,10 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
 
 7] i18n in HTML: {{ $t('labels.locationObject') }}
     i18n in code: this.$i18n.t("messages.passwordsNotMatch");
+
+8] Logged UserData state.user
+
+9] store variables in vue files>  this.$store.state.some
+
+10] Dispatch Then  action
+    await this.$store.dispatch('registration', regInfo).then(() => {

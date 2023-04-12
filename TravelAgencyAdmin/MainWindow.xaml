@@ -35,23 +35,15 @@
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Image
-                x:Key="GroupwareSolution"
-                x:Name="GroupwareSolution"
-                Source="Data\lama.png" />
+                x:Key="GroupwareSolution" x:Name="GroupwareSolution" Source="Data\lama.png" />
             <Rectangle
-                x:Key="AppThemeMenuIcon"
-                Width="16"
-                Height="16"
-                x:Shared="False"
+                x:Key="AppThemeMenuIcon" Width="16" Height="16" x:Shared="False"
                 Fill="{Binding ColorBrush, Mode=OneWay}"
                 Stroke="{Binding BorderColorBrush, Mode=OneWay}"
                 StrokeThickness="1" />
 
             <Rectangle
-                x:Key="AccentMenuIcon"
-                Width="20"
-                Height="25"
-                x:Shared="False"
+                x:Key="AccentMenuIcon" Width="20" Height="25" x:Shared="False"
                 Fill="{Binding ColorBrush, Mode=OneWay}" />
 
             <Style
@@ -93,30 +85,21 @@
         <Controls:WindowCommands>
             <Menu>
                 <MenuItem
-                    x:Name="mi_appearance"
-                    Width="52"
-                    FontWeight="Normal"
+                    x:Name="mi_appearance" Width="52" FontWeight="Normal"
                     ItemContainerStyle="{StaticResource AppThemeMenuItemStyle}"
                     ItemsSource="{Binding AppThemes, Mode=OneWay}" />
                 <MenuItem
-                    x:Name="mi_color"
-                    Width="45"
-                    FontWeight="Normal"
-                    Header=""
+                    x:Name="mi_color" Width="45" FontWeight="Normal" Header=""
                     ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}"
                     ItemsSource="{Binding AccentColors, Mode=OneWay}" />
             </Menu>
             <Button x:Name="btn_about" Click="Btn_about_click">
                 <iconPacks:PackIconModern
-                    Width="22"
-                    Height="22"
-                    Kind="InformationCircle" />
+                    Width="22" Height="22" Kind="InformationCircle" />
             </Button>
             <Button x:Name="btn_launchHelp" Click="Btn_LaunchHelp_Click">
                 <iconPacks:PackIconModern
-                    Width="22"
-                    Height="22"
-                    Kind="HomeQuestion" />
+                    Width="22" Height="22" Kind="HomeQuestion" />
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
@@ -132,10 +115,7 @@
             <Grid
                 Width="{TemplateBinding Width}"
                 Height="{TemplateBinding Height}"
-                Margin="4"
-                Background="Transparent"
-                RenderOptions.BitmapScalingMode="HighQuality"
-                RenderOptions.EdgeMode="Aliased">
+                Margin="4" Background="Transparent" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased">
                 <Image Source="Data\lama.ico" />
             </Grid>
         </DataTemplate>
@@ -148,11 +128,7 @@
         </Grid.RowDefinitions>
 
         <Menu
-            x:Name="menuOptions"
-            Grid.Row="0"
-            Margin="5"
-            VerticalAlignment="Stretch"
-            BorderThickness="0"
+            x:Name="menuOptions" Grid.Row="0" Margin="5" VerticalAlignment="Stretch" BorderThickness="0"
             Focusable="False">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -162,11 +138,7 @@
         </Menu>
 
         <ItemsControl
-            Grid.Row="0"
-            Height="40"
-            Margin="0"
-            VerticalAlignment="Stretch"
-            BorderThickness="0"
+            Grid.Row="0" Height="40" Margin="0" VerticalAlignment="Stretch" BorderThickness="0"
             Focusable="False">
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
@@ -182,405 +154,231 @@
             </ItemsControl.ItemsPanel>
 
             <DockPanel
-                x:Name="standardMenu"
-                Width="120"
-                Height="40"
-                Margin="0"
-                HorizontalAlignment="Left">
+                x:Name="standardMenu" Width="120" Height="40" Margin="0" HorizontalAlignment="Left">
                 <ToolBar
-                    x:Name="tb_verticalMenu"
-                    Width="120"
-                    Height="34"
-                    Margin="0"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    ToolBarTray.IsLocked="True">
+                    x:Name="tb_verticalMenu" Width="130" Height="34" Margin="0" Padding="0"
+                    HorizontalAlignment="Left" ToolBarTray.IsLocked="True">
                     <TreeViewItem
-                        x:Name="tv_agendas"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_agendas" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_calendar"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_calendar" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_dials"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_dials" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_cityList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_cityList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_countryList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_countryList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_currencyList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_currencyList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_exchangeRateList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_exchangeRateList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_accommodationConfiguration"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_accommodationConfiguration" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_hotelActionTypeList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_hotelActionTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_propertyOrServiceUnitList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_propertyOrServiceUnitList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_propertyOrServiceTypeList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_propertyOrServiceTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_hotelRoomTypeList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_hotelRoomTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_accommodations"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_accommodations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_approvingProcess"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_approvingProcess" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_accommodation"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_accommodation" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_propertyOrServiceList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_propertyOrServiceList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_roomList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_roomList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_crm"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_reservations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_branchList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_guestList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                    </TreeViewItem>
+                    
+                    <TreeViewItem
+                        x:Name="tv_crm" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_branchList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_addressList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_addressList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_settings"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_settings" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_accessRoleList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_accessRoleList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_documentAdviceList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_documentAdviceList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_documentTypeList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_documentTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_languageList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_languageList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_userList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_mottoList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_userRoleList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_parameterList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_adminLoginHistoryList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_reportList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_parameterList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_reportQueueList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_reportList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_userList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_reportQueueList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_userRoleList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_system"
-                        Width="200"
-                        Margin="0"
-                        FontSize="20"
-                        PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_system" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
                         <TreeViewItem
-                            x:Name="tm_clientSettings"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            x:Name="tm_clientSettings" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_systemFailList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_systemFailList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
                         <TreeViewItem
-                            x:Name="tm_support"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
+                            x:Name="tm_support" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Cb_verticalMenuSelected" />
+                    </TreeViewItem>
+                    <TreeViewItem
+                        x:Name="tv_overviews" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        <TreeViewItem
+                            x:Name="tm_adminLoginHistoryList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Cb_verticalMenuSelected" />
+                        <TreeViewItem
+                            x:Name="tm_guestLoginHistoryList" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Cb_verticalMenuSelected" />
                     </TreeViewItem>
                 </ToolBar>
             </DockPanel>
 
             <DockPanel
-                x:Name="gridMenu"
-                Width="620"
-                Height="40"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left">
+                x:Name="gridMenu" Width="620" Height="40" Margin="10,0,0,0" HorizontalAlignment="Left">
                 <MenuItem
-                    x:Name="mi_reload"
-                    Width="130"
-                    Height="34"
-                    HorizontalAlignment="Left"
-                    Click="Menu_action_Click"
+                    x:Name="mi_reload" Width="130" Height="34" HorizontalAlignment="Left" Click="Menu_action_Click"
                     Cursor="Hand"
                     IsEnabled="{Binding Path=(local:MainWindow.DgRefresh)}" />
                 <MenuItem
-                    x:Name="mi_new"
-                    Width="120"
-                    Height="34"
-                    HorizontalAlignment="Left"
-                    Click="Menu_action_Click"
+                    x:Name="mi_new" Width="120" Height="34" HorizontalAlignment="Left" Click="Menu_action_Click"
                     Cursor="Hand"
                     IsEnabled="{Binding Path=(local:MainWindow.DataGridSelected)}" />
                 <MenuItem
-                    x:Name="mi_edit"
-                    Width="130"
-                    Height="34"
-                    HorizontalAlignment="Left"
-                    Click="Menu_action_Click"
+                    x:Name="mi_edit" Width="130" Height="34" HorizontalAlignment="Left" Click="Menu_action_Click"
                     Cursor="Hand"
                     IsEnabled="{Binding Path=(local:MainWindow.DataGridSelectedIdListIndicator)}" />
                 <MenuItem
-                    x:Name="mi_copy"
-                    Width="120"
-                    Height="34"
-                    HorizontalAlignment="Left"
-                    Click="Menu_action_Click"
+                    x:Name="mi_copy" Width="120" Height="34" HorizontalAlignment="Left" Click="Menu_action_Click"
                     Cursor="Hand"
                     IsEnabled="{Binding Path=(local:MainWindow.DataGridSelectedIdListIndicator)}" />
                 <MenuItem
-                    x:Name="mi_delete"
-                    Width="120"
-                    Height="34"
-                    HorizontalAlignment="Left"
-                    Click="Menu_action_Click"
+                    x:Name="mi_delete" Width="120" Height="34" HorizontalAlignment="Left" Click="Menu_action_Click"
                     Cursor="Hand"
                     IsEnabled="{Binding Path=(local:MainWindow.DataGridSelectedIdListIndicator)}" />
             </DockPanel>
 
             <DockPanel
-                x:Name="rightMenu"
-                Width="260"
-                Height="40"
-                Margin="0"
-                HorizontalAlignment="Right"
+                x:Name="rightMenu" Width="260" Height="40" Margin="0" HorizontalAlignment="Right"
                 Visibility="Visible">
                 <ComboBox
-                    x:Name="cb_filter"
-                    Width="23"
-                    Height="34"
-                    Margin="0"
-                    Padding="-13,-1,0,0"
-                    HorizontalAlignment="Right"
-                    Cursor="Hand"
-                    DropDownClosed="Cb_FilterDropDownClosed"
-                    FontSize="20"
+                    x:Name="cb_filter" Width="23" Height="34" Margin="0" Padding="-13,-1,0,0"
+                    HorizontalAlignment="Right" Cursor="Hand" DropDownClosed="Cb_FilterDropDownClosed" FontSize="20"
                     IsEnabled="{Binding Path=(local:MainWindow.DgRefresh)}">
                     <WrapPanel x:Name="filter_Menu" Width="230">
                         <Button
-                            x:Name="mi_plus"
-                            Width="40"
-                            Height="34"
-                            Margin="0"
-                            Padding="0,0,0,5"
-                            HorizontalAlignment="Right"
-                            Click="Mi_filter_Click"
-                            Content="+"
-                            Cursor="Hand"
-                            FontSize="20" />
+                            x:Name="mi_plus" Width="40" Height="34" Margin="0" Padding="0,0,0,5"
+                            HorizontalAlignment="Right" Click="Mi_filter_Click" Content="+" Cursor="Hand" FontSize="20" />
                         <Button
-                            x:Name="mi_open"
-                            Width="40"
-                            Height="34"
-                            Margin="0"
-                            Padding="0,0,0,5"
-                            HorizontalAlignment="Right"
-                            Click="Mi_filter_Click"
-                            Content="("
-                            Cursor="Hand"
-                            FontSize="20" />
+                            x:Name="mi_open" Width="40" Height="34" Margin="0" Padding="0,0,0,5"
+                            HorizontalAlignment="Right" Click="Mi_filter_Click" Content="(" Cursor="Hand" FontSize="20" />
                         <Button
-                            x:Name="mi_close"
-                            Width="40"
-                            Height="34"
-                            Margin="0"
-                            Padding="0,0,0,5"
-                            HorizontalAlignment="Right"
-                            Click="Mi_filter_Click"
-                            Content=")"
-                            Cursor="Hand"
-                            FontSize="20" />
+                            x:Name="mi_close" Width="40" Height="34" Margin="0" Padding="0,0,0,5"
+                            HorizontalAlignment="Right" Click="Mi_filter_Click" Content=")" Cursor="Hand" FontSize="20" />
                         <Button
-                            x:Name="mi_and"
-                            Width="60"
-                            Height="34"
-                            Margin="0"
-                            Padding="0,0,0,5"
-                            HorizontalAlignment="Right"
-                            Click="Mi_filter_Click"
-                            Content="AND"
-                            Cursor="Hand"
-                            FontSize="20" />
+                            x:Name="mi_and" Width="60" Height="34" Margin="0" Padding="0,0,0,5"
+                            HorizontalAlignment="Right" Click="Mi_filter_Click" Content="AND" Cursor="Hand" FontSize="20" />
                         <Button
-                            x:Name="mi_or"
-                            Width="50"
-                            Height="34"
-                            Margin="0"
-                            Padding="0,0,0,5"
-                            HorizontalAlignment="Right"
-                            Click="Mi_filter_Click"
-                            Content="OR"
-                            Cursor="Hand"
-                            FontSize="20" />
+                            x:Name="mi_or" Width="50" Height="34" Margin="0" Padding="0,0,0,5"
+                            HorizontalAlignment="Right" Click="Mi_filter_Click" Content="OR" Cursor="Hand" FontSize="20" />
                     </WrapPanel>
                 </ComboBox>
 
                 <TextBox
-                    x:Name="tb_search"
-                    Width="130"
-                    Height="34"
-                    Margin="0,0,5,0"
-                    VerticalContentAlignment="Center"
-                    Controls:TextBoxHelper.ClearTextButton="true"
-                    Controls:TextBoxHelper.Watermark="Search"
+                    x:Name="tb_search" Width="130" Height="34" Margin="0,0,5,0" VerticalContentAlignment="Center"
+                    Controls:TextBoxHelper.ClearTextButton="true" Controls:TextBoxHelper.Watermark="Search"
                     IsEnabled="{Binding Path=(local:MainWindow.DgRefresh)}"
                     SelectionChanged="Menu_action_Click" />
                 <MenuItem
-                    x:Name="mi_logout"
-                    Width="110"
-                    Height="34"
-                    Margin="0"
-                    Padding="0,7,0,5"
-                    HorizontalAlignment="Right"
-                    Click="Mi_logout_Click"
-                    Cursor="Hand" />
+                    x:Name="mi_logout" Width="110" Height="34" Margin="0" Padding="0,7,0,5"
+                    HorizontalAlignment="Right" Click="Mi_logout_Click" Cursor="Hand" />
             </DockPanel>
         </ItemsControl>
 
 
         <dockablz:Layout
-            x:Name="mainGrid"
-            Grid.Row="1"
-            dragablz:DragablzItem.IsDraggingChanged="MainGrid_IsDraggingChanged"
+            x:Name="mainGrid" Grid.Row="1" dragablz:DragablzItem.IsDraggingChanged="MainGrid_IsDraggingChanged"
             FloatingItemContainerStyle="{DynamicResource MahAppsToolDragablzItemStyle}"
-            FloatingItemDisplayMemberPath="Content"
-            FloatingItemHeaderMemberPath="Header">
+            FloatingItemDisplayMemberPath="Content" FloatingItemHeaderMemberPath="Header">
 
             <dragablz:TabablzControl
-                x:Name="InitialTabablzControl"
-                Margin="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                ButtonBase.Click="TabPanelCloseClick"
-                FixedHeaderCount="0"
-                HeaderMemberPath="Header"
+                x:Name="InitialTabablzControl" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ButtonBase.Click="TabPanelCloseClick"
+                FixedHeaderCount="0" HeaderMemberPath="Header"
                 ItemsSource="{Binding TabContents}"
-                SelectionChanged="TabPanelOnSelectionChange"
-                ShowDefaultAddButton="False"
-                ShowDefaultCloseButton="True">
+                SelectionChanged="TabPanelOnSelectionChange" ShowDefaultAddButton="False" ShowDefaultCloseButton="True">
 
                 <!--  draging to more app instances  -->
                 <!--<dragablz:TabablzControl.InterTabController>
@@ -597,15 +395,8 @@
         <StatusBar Grid.Row="2">
             <StatusBarItem>
                 <ComboBox
-                    x:Name="cb_printReports"
-                    Width="200"
-                    Margin="0,0,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    DisplayMemberPath="Name"
-                    FontSize="18"
-                    SelectedValuePath="Name"
-                    SelectionChanged="Cb_PrintReportsSelected" />
+                    x:Name="cb_printReports" Width="200" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    DisplayMemberPath="Name" FontSize="18" SelectedValuePath="Name" SelectionChanged="Cb_PrintReportsSelected" />
             </StatusBarItem>
             <Separator Style="{DynamicResource MetroStatusBarSeparator}" />
             <StatusBarItem FontSize="14">Service Status:</StatusBarItem>
@@ -615,105 +406,52 @@
                 FontSize="14" />
 
             <StatusBarItem
-                x:Name="toolMenu"
-                Height="30"
-                Margin="0"
-                Padding="0"
-                HorizontalAlignment="Right">
+                x:Name="toolMenu" Height="30" Margin="0" Padding="0" HorizontalAlignment="Right">
                 <WrapPanel>
                     <Label
-                        x:Name="si_loggedIn"
-                        Margin="0,0,0,0"
-                        Padding="0"
-                        FontSize="20"
-                        Foreground="Azure" />
+                        x:Name="si_loggedIn" Margin="0,0,0,0" Padding="0" FontSize="20" Foreground="Azure" />
                     <Controls:MetroProgressBar
                         x:Name="pb_downloadStatus"
                         Width="{Binding Path=(local:MainWindow.DownloadShow)}"
-                        Height="30"
-                        Margin="10,0,0,0"
+                        Height="30" Margin="10,0,0,0"
                         Background="{DynamicResource ControlsDisabledBrush}"
                         BorderBrush="{DynamicResource ComboBoxPopupBorderBrush}"
                         Foreground="{DynamicResource ProgressBrush}"
-                        Maximum="100"
-                        Minimum="0"
+                        Maximum="100" Minimum="0"
                         Value="{Binding Path=(local:MainWindow.DownloadStatus)}" />
                     <iconPacks:PackIconMaterial
-                        x:Name="ip_calculator"
-                        Width="40"
-                        Height="30"
-                        Margin="0"
-                        HorizontalAlignment="Right"
+                        x:Name="ip_calculator" Width="40" Height="30" Margin="0" HorizontalAlignment="Right"
                         Cursor="Hand"
                         Foreground="{DynamicResource IdealForegroundColorBrush}"
-                        Kind="Calculator"
-                        MouseLeftButtonUp="IpCalculatorClick"
-                        ToolTip="Show Calculator" />
+                        Kind="Calculator" MouseLeftButtonUp="IpCalculatorClick" ToolTip="Show Calculator" />
                     <iconPacks:PackIconMaterial
-                        x:Name="ip_keyboard"
-                        Width="40"
-                        Height="30"
-                        Margin="0"
-                        HorizontalAlignment="Right"
+                        x:Name="ip_keyboard" Width="40" Height="30" Margin="0" HorizontalAlignment="Right"
                         Cursor="Hand"
                         Foreground="{DynamicResource IdealForegroundColorBrush}"
-                        Kind="Keyboard"
-                        MouseLeftButtonUp="IpKeyboardClick"
-                        ToolTip="Show Keyboard" />
+                        Kind="Keyboard" MouseLeftButtonUp="IpKeyboardClick" ToolTip="Show Keyboard" />
                     <iconPacks:PackIconMaterial
-                        x:Name="ip_captureApp"
-                        Width="30"
-                        Height="30"
-                        Margin="10,0,0,0"
-                        HorizontalAlignment="Right"
+                        x:Name="ip_captureApp" Width="30" Height="30" Margin="10,0,0,0" HorizontalAlignment="Right"
                         Cursor="Hand"
                         Foreground="{DynamicResource IdealForegroundColorBrush}"
-                        Kind="EyePlus"
-                        MouseLeftButtonUp="IpcaptureAppClick"
-                        ToolTip="ScreenShot" />
+                        Kind="EyePlus" MouseLeftButtonUp="IpcaptureAppClick" ToolTip="ScreenShot" />
                     <iconPacks:PackIconMaterial
-                        x:Name="ip_rdpServer"
-                        Width="30"
-                        Height="30"
-                        Margin="10,0"
-                        HorizontalAlignment="Right"
-                        Cursor="Hand"
-                        Foreground="Red"
-                        Kind="RemoteDesktop"
-                        MouseLeftButtonUp="IpStartRdpServer"
-                        ToolTip="Open Support Connection" />
+                        x:Name="ip_rdpServer" Width="30" Height="30" Margin="10,0" HorizontalAlignment="Right"
+                        Cursor="Hand" Foreground="Red" Kind="RemoteDesktop" MouseLeftButtonUp="IpStartRdpServer" ToolTip="Open Support Connection" />
                 </WrapPanel>
             </StatusBarItem>
         </StatusBar>
 
         <xctk:Calculator
-            x:Name="Calc"
-            Grid.Row="1"
-            Grid.Column="0"
-            Width="180"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Visibility="Hidden" />
+            x:Name="Calc" Grid.Row="1" Grid.Column="0" Width="180" HorizontalAlignment="Right"
+            VerticalAlignment="Bottom" Visibility="Hidden" />
         <TouchKeyboard:FloatingTouchScreenKeyboard
-            x:Name="TouchKeyboard"
-            Width="900"
-            Height="400"
-            AreAnimationsEnabled="True"
-            IsOpen="False"
+            x:Name="TouchKeyboard" Width="900" Height="400" AreAnimationsEnabled="True" IsOpen="False"
             Placement="Relative"
             PlacementTarget="{Binding ElementName=mainWindow}" />
 
         <Controls:ProgressRing
-            x:Name="pr_progressRing"
-            Grid.Row="0"
-            Grid.RowSpan="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Width="150"
-            Height="150"
-            Margin="0,0,0,0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+            x:Name="pr_progressRing" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"
+            Width="150" Height="150" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
             Visibility="{Binding Path=(local:MainWindow.ProgressRing)}" />
     </Grid>
 </Controls:MetroWindow>

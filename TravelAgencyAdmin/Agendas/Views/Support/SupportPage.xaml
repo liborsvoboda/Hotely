@@ -31,20 +31,11 @@
     <Grid Name="configuration">
         <Grid.Background>
             <ImageBrush
-                AlignmentX="Center"
-                AlignmentY="Top"
-                ImageSource="/Data/groupware-solution.png"
-                Opacity="0.3"
-                Stretch="Fill" />
+                AlignmentX="Center" AlignmentY="Top" ImageSource="/Data/groupware-solution.png" Opacity="0.3" Stretch="Fill" />
         </Grid.Background>
         <Grid
-            Width="Auto"
-            Height="Auto"
-            Margin="0,0,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            ForceCursor="False"
-            ShowGridLines="False">
+            Width="Auto" Height="Auto" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+            ForceCursor="False" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="*" />
@@ -64,83 +55,34 @@
             </Grid.RowDefinitions>
 
             <Label
-                x:Name="lbl_myCompany"
-                Grid.Row="1"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="40"
-                FontWeight="DemiBold" />
+                x:Name="lbl_myCompany" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                HorizontalContentAlignment="Center" FontSize="40" FontWeight="DemiBold" />
             <Label
-                x:Name="lbl_myName"
-                Grid.Row="2"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="26"
-                FontWeight="Medium" />
+                x:Name="lbl_myName" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="26" FontWeight="Medium" />
             <Label
-                x:Name="lbl_myStreet"
-                Grid.Row="3"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="20"
-                FontWeight="Medium" />
+                x:Name="lbl_myStreet" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="20" FontWeight="Medium" />
             <Label
-                x:Name="lbl_myState"
-                Grid.Row="4"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="20"
-                FontWeight="Medium" />
+                x:Name="lbl_myState" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="20" FontWeight="Medium" />
             <Label
-                x:Name="lbl_myInvoiceInfo"
-                Grid.Row="5"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="20"
-                FontWeight="Medium" />
+                x:Name="lbl_myInvoiceInfo" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="20" FontWeight="Medium" />
             <Label
-                x:Name="lbl_myPhone"
-                Grid.Row="6"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="26"
-                FontWeight="Medium" />
+                x:Name="lbl_myPhone" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="26" FontWeight="Medium" />
             <Label
-                x:Name="lbl_myEmail"
-                Grid.Row="7"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="24"
-                FontWeight="Medium" />
+                x:Name="lbl_myEmail" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="24" FontWeight="Medium" />
             <Label
-                x:Name="lbl_myAccount"
-                Grid.Row="8"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                FontSize="20"
-                FontWeight="Medium" />
+                x:Name="lbl_myAccount" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                FontSize="20" FontWeight="Medium" />
         </Grid>
 
         <Controls:ProgressRing
-            Name="progressring"
-            Grid.Row="7"
-            Grid.RowSpan="5"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Width="150"
-            Height="150"
-            Margin="0,0,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            Name="progressring" Grid.Row="7" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="2"
+            Width="150" Height="150" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
             Visibility="Hidden" />
     </Grid>
 </UserControl>

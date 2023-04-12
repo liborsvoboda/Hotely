@@ -42,6 +42,7 @@ namespace TravelAgencyBackEnd.CoreClasses
 
     public enum DBWebApiResponses {
 
-        emailExist
+        emailExist,
+        loginInfoSendedOnEmail
     }
 }
