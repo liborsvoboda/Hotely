@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -29,7 +30,7 @@ namespace TravelAgencyBackEnd.Controllers
                 data = new hotelsContext().UserRoleLists.ToList();
             }
             //return JsonSerializer.Serialize(data, new JsonSerializerOptions() { WriteIndented = true, IncludeFields = true });
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/UserRoleList/Filter/{filter}")]

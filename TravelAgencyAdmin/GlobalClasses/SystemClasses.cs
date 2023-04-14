@@ -87,6 +87,11 @@ namespace TravelAgencyAdmin.GlobalClasses
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
     }
+
+    public partial class TranslatedApiList {
+        public string ApiTableName { get; set; }
+        public string Translate { get; set; }
+    }
 }
 
 

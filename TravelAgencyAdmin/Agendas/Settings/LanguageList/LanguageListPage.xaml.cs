@@ -42,7 +42,7 @@ namespace TravelAgencyAdmin.Pages
                 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -54,7 +54,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
                 DgListView.ItemsSource = App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -72,7 +72,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 
@@ -88,7 +88,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 
@@ -159,13 +159,16 @@ namespace TravelAgencyAdmin.Pages
 
                 if (dBResult.recordCount > 0)
                 {
+                    // Refresh App DictionaryList
+                    App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, null);
+
                     selectedRecord = new LanguageList();
                     await LoadDataList();
                     SetRecord(false);
                 }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 

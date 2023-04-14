@@ -31,23 +31,24 @@ namespace TravelAgencyBackEnd.Services
             return _db.GuestLists.Where(g => g.Id == id);
         }
 
-        public void AddGuest(AddGuestViewModel guest)
-        {
+        // OLDVERSION Replaced by New
+        //public void AddGuest(AddGuestViewModel guest)
+        //{
 
-            var newGuest = new GuestList()
-            {
-                FullName = guest.FullName,
-                Street = guest.Street,
-                ZipCode = guest.ZipCode,
-                City = guest.City,
-                Country = guest.Country,
-                Phone = guest.Phone,
-                Email = guest.Email
-            };
+        //    var newGuest = new GuestList()
+        //    {
+        //        FullName = guest.FullName,
+        //        Street = guest.Street,
+        //        ZipCode = guest.ZipCode,
+        //        City = guest.City,
+        //        Country = guest.Country,
+        //        Phone = guest.Phone,
+        //        Email = guest.Email
+        //    };
 
-            _db.GuestLists.Add(newGuest);
-            _db.SaveChanges();
-        }
+        //    _db.GuestLists.Add(newGuest);
+        //    _db.SaveChanges();
+        //}
 
         public async Task<int> EditGuest(GuestList guest)
         {
@@ -108,31 +109,33 @@ namespace TravelAgencyBackEnd.Services
             return test;
         }
 
-        public LoginResponseViewModel Login(LoginRequestViewModel model)
-        {
-            GuestList user =null;
-            bool isValid = false;
-            if (model.UserId !=0)
-            {
-                user = _db.GuestLists.FirstOrDefault(x => x.Id == model.UserId);
-                if (user != null)
-                {
-                    return new LoginResponseViewModel(user);
-                }
-            }
-            else
-            {
-                user = _db.GuestLists.FirstOrDefault(x => x.Email == model.Email);
-                
-                isValid = BCrypt.Net.BCrypt.Verify(model.Password, user.Password);
-                if (isValid==false)
-                {
-                    return null;
-                }
-            }
 
-            return new LoginResponseViewModel(user);
-        }
+        // OLDVERSION Replaced by New
+        //public LoginResponseViewModel Login(LoginRequestViewModel model)
+        //{
+        //    GuestList user =null;
+        //    bool isValid = false;
+        //    if (model.UserId !=0)
+        //    {
+        //        user = _db.GuestLists.FirstOrDefault(x => x.Id == model.UserId);
+        //        if (user != null)
+        //        {
+        //            return new LoginResponseViewModel(user);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        user = _db.GuestLists.FirstOrDefault(x => x.Email == model.Email);
+                
+        //        isValid = BCrypt.Net.BCrypt.Verify(model.Password, user.Password);
+        //        if (isValid==false)
+        //        {
+        //            return null;
+        //        }
+        //    }
+
+        //    return new LoginResponseViewModel(user);
+        //}
 
         public void RemoveGuest(int id)
         {

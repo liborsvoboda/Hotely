@@ -4,5 +4,6 @@
     <Import Project="$(NuGetPackageRoot)microsoft.bcl.build\1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.bcl.build\1.0.21\build\Microsoft.Bcl.Build.targets')" />
     <Import Project="$(NuGetPackageRoot)fody\6.6.4\build\Fody.targets" Condition="Exists('$(NuGetPackageRoot)fody\6.6.4\build\Fody.targets')" />
     <Import Project="$(NuGetPackageRoot)costura.fody\5.7.0\build\Costura.Fody.targets" Condition="Exists('$(NuGetPackageRoot)costura.fody\5.7.0\build\Costura.Fody.targets')" />
+    <Import Project="$(NuGetPackageRoot)cefsharp.common\112.2.70\buildTransitive\CefSharp.Common.targets" Condition="Exists('$(NuGetPackageRoot)cefsharp.common\112.2.70\buildTransitive\CefSharp.Common.targets')" />
   </ImportGroup>
 </Project>

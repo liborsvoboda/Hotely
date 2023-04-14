@@ -11,7 +11,7 @@
     xmlns:local="clr-namespace:TravelAgencyAdmin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    x:Name="mainWindow"
+    x:Name="AppMainWindow"
     Title="TravelAgencyAdmin Application"
     MinWidth="1024"
     MinHeight="768"
@@ -19,10 +19,8 @@
     d:DesignWidth="1024"
     AllowDrop="False"
     AllowsTransparency="False"
-    Closing="ApplicationClosing"
     GlowBrush="{DynamicResource AccentColorBrush}"
     Icon="Data\lama.ico"
-    KeyDown="WinMain_KeyDown"
     NonActiveGlowBrush="#CDFF0000"
     ResizeMode="CanResizeWithGrip"
     SaveWindowPosition="True"
@@ -32,6 +30,7 @@
     WindowStartupLocation="CenterScreen"
     WindowTransitionsEnabled="True"
     mc:Ignorable="d">
+
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Image
@@ -159,150 +158,156 @@
                     x:Name="tb_verticalMenu" Width="130" Height="34" Margin="0" Padding="0"
                     HorizontalAlignment="Left" ToolBarTray.IsLocked="True">
                     <TreeViewItem
-                        x:Name="tv_agendas" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_agendas" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_calendar" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_dials" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_dials" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_cityList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_countryList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_currencyList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_exchangeRateList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_accommodationConfiguration" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_accommodationConfiguration" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_hotelActionTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_propertyOrServiceUnitList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_propertyOrServiceTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_hotelRoomTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_accommodations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_accommodations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_approvingProcess" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_accommodation" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_propertyOrServiceList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_roomList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_reservations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_reservations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_guestList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
-                    
+
                     <TreeViewItem
-                        x:Name="tv_crm" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_crm" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_branchList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_addressList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_settings" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_settings" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_accessRoleList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_documentAdviceList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_documentTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_languageList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_mottoList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_parameterList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_reportList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_reportQueueList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_userList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_userRoleList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_system" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_system" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
-                            x:Name="tm_clientSettings" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Cb_verticalMenuSelected" />
+                            x:Name="tm_clientSettings" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_ignoredExceptionList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_serverApiDocs" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_systemFailList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
-                            x:Name="tm_support" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Cb_verticalMenuSelected" />
+                            x:Name="tm_support" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_overviews" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Cb_verticalMenuSelected">
+                        x:Name="tv_overviews" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_adminLoginHistoryList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Cb_verticalMenuSelected" />
+                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
-                            x:Name="tm_guestLoginHistoryList" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Cb_verticalMenuSelected" />
+                            x:Name="tm_guestLoginHistoryList" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                 </ToolBar>
             </DockPanel>
@@ -375,8 +380,8 @@
             FloatingItemDisplayMemberPath="Content" FloatingItemHeaderMemberPath="Header">
 
             <dragablz:TabablzControl
-                x:Name="InitialTabablzControl" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ButtonBase.Click="TabPanelCloseClick"
-                FixedHeaderCount="0" HeaderMemberPath="Header"
+                x:Name="InitialTabablzControl" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FixedHeaderCount="0"
+                HeaderMemberPath="Header"
                 ItemsSource="{Binding TabContents}"
                 SelectionChanged="TabPanelOnSelectionChange" ShowDefaultAddButton="False" ShowDefaultCloseButton="True">
 

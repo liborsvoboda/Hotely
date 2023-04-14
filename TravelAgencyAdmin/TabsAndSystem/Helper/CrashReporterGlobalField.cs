@@ -10,15 +10,10 @@ using TravelAgencyAdmin.GlobalClasses;
 
 namespace TravelAgencyAdmin.Helper
 {
-     /// <summary>
-    /// Libreria condivisa
-    /// </summary>
+
     public class CrashReporterGlobalField
     {
-        /// <summary>
-        /// FirstRun
-        /// </summary>
-        /// 
+
         //public static ReportCrash _ReportCrash = new ReportCrash()
         //{
         //    FromEmail = UserPrincipal.Current.EmailAddress,

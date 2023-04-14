@@ -1,8 +1,9 @@
 # TravelAgencyFrontEnd
 
-1] ApiUrl is set in 
+1] ApiUrl is in 
 store/index.js parameter> apiRootUrl: 'http://localhost:5000'
 and use variable: store.state.apiRootUrl
+is Setted By Prod/Dev running in srv/main.js
 
 
 2] Run local for debuging

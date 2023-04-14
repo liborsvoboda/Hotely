@@ -14,10 +14,10 @@ namespace TravelAgencyBackEnd
         internal static void EnableCors(ref IApplicationBuilder app)
         {
             /*
-            return app.UseCors(
+            app.UseCors(
                     builder =>
                     {
-                        var allowedDomains = new[] { "http://localhost", "http://localhost:4200", "http://localhost:8080" };
+                        var allowedDomains = new[] { "http://localhost:5000", "http://nomad.ubytkac.cz:5000", "http://localhost:8080" };
 
                         builder
                         .WithOrigins(allowedDomains)
@@ -26,13 +26,14 @@ namespace TravelAgencyBackEnd
                         .AllowCredentials();
                     }
                 );
-            });
             */
 
+            
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
+            
             //.AllowCredentials()
             );
         }

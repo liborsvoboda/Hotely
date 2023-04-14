@@ -86,7 +86,7 @@ namespace TravelAgencyAdmin.Templates
         {
 
             ///Aplication Restart
-            MainWindow.AppRestart();
+            App.AppRestart();
 
             ///Progresring for Wait indication
             MainWindow.ProgressRing = Visibility.Hidden;
@@ -108,12 +108,12 @@ namespace TravelAgencyAdmin.Templates
         /// <summary>
         /// Global Specific Methods For Customized Working
         /// </summary>
-        private void UsedSpecificMethodsForCustomizedWorking()
+        private async void UsedSpecificMethodsForCustomizedWorking()
         {
 
             #region Other Help Global Definitions and Methods
             ///Load Parameter From Table Parameters text is Parameter name
-            var res = int.Parse(SystemFunctions.ParameterCheck("someParameterName"));
+            var res = int.Parse(await SystemFunctions.ParameterCheck("someParameterName"));
 
             ///Set ComboBox Item By myValue (from selected record or another)
             int index = 0; ComboBox cb_defaultLanguage = new ComboBox();

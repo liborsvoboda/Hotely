@@ -63,7 +63,7 @@ namespace TravelAgencyAdmin.Pages
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -99,7 +99,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower());
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void NewRecord()
@@ -182,7 +182,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -244,7 +244,7 @@ namespace TravelAgencyAdmin.Pages
                 DgSubListView.ItemsSource = extendedExchangeRateList;
                 DgSubListView.Items.Refresh();
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden;
         }
 

@@ -56,7 +56,7 @@ namespace TravelAgencyAdmin.Pages
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -75,8 +75,8 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await SystemFunctions.DBTranslation(property.SystemName); });
-                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await SystemFunctions.DBTranslation(propertyUnit.SystemName); });
+                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await DBFunctions.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await DBFunctions.DBTranslation(propertyUnit.SystemName); });
                 hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
 
                 //Only for Admin: Owner/UserId Selection
@@ -92,7 +92,7 @@ namespace TravelAgencyAdmin.Pages
                     room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
                     room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
                     room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
-                    room.PropertyUnit = await SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                    room.PropertyUnit = await DBFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgListView.ItemsSource = hotelPropertyAndServiceList;
                 DgListView.Items.Refresh();
@@ -100,7 +100,7 @@ namespace TravelAgencyAdmin.Pages
                 cb_hotelId.ItemsSource = hotelList;
                 cb_propertyOrServiceId.ItemsSource = propertyOrServiceTypeList;
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -133,7 +133,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "FeeRangeMin") e.Visibility = Visibility.Hidden;
                     else if (headername == "FeeRangeMax") e.Visibility = Visibility.Hidden;
                 });
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void Filter(string filter)
@@ -147,7 +147,7 @@ namespace TravelAgencyAdmin.Pages
                     || user.PropertyOrService.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 
@@ -235,7 +235,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 

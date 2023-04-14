@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "L+rwwtxRQjo00VVk3crnRIlmuyMKt3/akU+ZI2Ls8QaXgwBGumA7GC3ndETnQeYgt8tMBwqPZX4AErjbtkyZ1w==",
+  "dgSpecHash": "QOAFAqGGWTXcG4SbSLoTwHTenKtaefCmB1pYAdiAX0Z3qplvTfUB3PY74pfSALJPN3nc9fInyFiL3EEbeXn5vA==",
   "success": true,
   "projectFilePath": "E:\\Projekty\\Hotely\\TravelAgencyAdmin\\TravelAgencyAdmin.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\tatka\\.nuget\\packages\\cef.redist.x64\\112.2.7\\cef.redist.x64.112.2.7.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\cef.redist.x86\\112.2.7\\cef.redist.x86.112.2.7.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\cefsharp.common\\112.2.70\\cefsharp.common.112.2.70.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\cefsharp.wpf\\112.2.70\\cefsharp.wpf.112.2.70.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\controlzex\\3.0.2.4\\controlzex.3.0.2.4.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\costura.fody\\5.7.0\\costura.fody.5.7.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\dragablz\\0.0.3.234\\dragablz.0.0.3.234.nupkg.sha512",
@@ -51,6 +55,7 @@
     "C:\\Users\\tatka\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
+    "C:\\Users\\tatka\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\system.xml.readerwriter\\4.3.1\\system.xml.readerwriter.4.3.1.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\tatka\\.nuget\\packages\\wpf.controls.panandzoom\\2.2.0\\wpf.controls.panandzoom.2.2.0.nupkg.sha512",

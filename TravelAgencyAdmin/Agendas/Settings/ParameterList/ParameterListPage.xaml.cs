@@ -8,20 +8,12 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Web;
-using Microsoft.Win32;
-using System.Windows.Media.Imaging;
-using System.IO;
-using TravelAgencyAdmin;
-using Org.BouncyCastle.Asn1.X509;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.GlobalFunctions;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
-using TravelAgencyAdmin.GlobalClasses;
-using System.Globalization;
+
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -32,11 +24,11 @@ namespace TravelAgencyAdmin.Pages
 
         //Param types list
         private readonly ObservableCollection<ReportSelection> ParamTypes = new ObservableCollection<ReportSelection>() {
-                                                               new ReportSelection() { Name = "bit" },new ReportSelection() { Name = "string" },new ReportSelection() { Name = "int" },new ReportSelection() { Name = "numeric" },new ReportSelection() { Name = "date" },new ReportSelection() { Name = "time" },new ReportSelection() { Name = "datetime" },
+                                                               new ReportSelection() { Name = "bit" },new ReportSelection() { Name = "string" },new ReportSelection() { Name = "int" },new ReportSelection() { Name = "numeric" },
+            new ReportSelection() { Name = "date" },new ReportSelection() { Name = "dateFormat" },new ReportSelection() { Name = "time" },new ReportSelection() { Name = "timeFormat" },new ReportSelection() { Name = "datetime" },new ReportSelection() { Name = "datetimeFormat" },
                                                              };
+        private List<ParameterList> parameterList = new List<ParameterList>();
 
-        private List<ParameterList> parametersList = new List<ParameterList>();
-        private List<UserList> adminUserList = new List<UserList>();
         public ParameterListPage()
         {
             InitializeComponent();
@@ -44,12 +36,12 @@ namespace TravelAgencyAdmin.Pages
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
-            lbl_parameter.Content = Resources["parameter"].ToString();
+            lbl_translation.Content = Resources["translation"].ToString();
+            lbl_systemName.Content = Resources["systemName"].ToString();
             lbl_value.Content = Resources["value"].ToString();
             lbl_type.Content = Resources["type"].ToString();
             lbl_description.Content = Resources["description"].ToString();
             lbl_timestamp.Content = Resources["timestamp"].ToString();
-            lbl_owner.Content = Resources["owner"].ToString();
 
             btn_check.Content = Resources["check"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
@@ -65,23 +57,22 @@ namespace TravelAgencyAdmin.Pages
         //change datasource
         public async Task<bool> LoadDataList()
         {
+            List<UserList> userList = new List<UserList>();
             MainWindow.ProgressRing = Visibility.Visible;
-            try { 
-                parametersList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
-                parametersList.ForEach(async parameter => { parameter.Translation = await SystemFunctions.DBTranslation(parameter.SystemName); });
+            try
+            {
+                parameterList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
+                userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
 
-                DgListView.ItemsSource = parametersList;
+                parameterList.ForEach(async param => {
+                    param.Translation = await DBFunctions.DBTranslation(param.SystemName);
+                    if (!string.IsNullOrWhiteSpace(param.UserId.ToString())) param.User = userList.FirstOrDefault(a => a.Id == param.UserId).UserName; 
+                });
+
+                DgListView.ItemsSource = parameterList;
                 DgListView.Items.Refresh();
-
-                //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin")
-                {
-                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
-                    lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
-                }
-
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -92,16 +83,16 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "Translation") { e.Header = Resources["parameter"].ToString(); e.DisplayIndex = 1; }
+                if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; }
+                else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
                 else if (headername == "Value") { e.Header = Resources["value"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "Type") { e.Header = Resources["type"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "Description") { e.Header = Resources["description"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
-                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
+                else if (headername == "User") { e.Header = Resources["userName"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
                 else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
-                else if (headername == "SystemName") e.Visibility = Visibility.Hidden;
             });
         }
 
@@ -121,7 +112,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(param.Description) && param.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void NewRecord()
@@ -146,7 +137,7 @@ namespace TravelAgencyAdmin.Pages
             if (result == MessageDialogResult.Affirmative)
             {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.ParameterList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -175,17 +166,15 @@ namespace TravelAgencyAdmin.Pages
             {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.SystemName = txt_parameter.Text;
+                selectedRecord.SystemName = txt_systemName.Text;
                 selectedRecord.Value = txt_value.Text;
                 selectedRecord.Type = ((ReportSelection)cb_type.SelectedItem).Name;
                 selectedRecord.Description = txt_description.Text;
-                selectedRecord.UserId = App.UserData.Authentification.Id;
+                //selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
-                //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin")
-                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
+                selectedRecord.User = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -194,17 +183,15 @@ namespace TravelAgencyAdmin.Pages
 
                 if (dBResult.recordCount > 0)
                 {
-                    // Refresh Param in memory
-                    if (App.Parameters.Where(a => a.SystemName == selectedRecord.SystemName).Count() == 0)
-                    { App.Parameters.Add(selectedRecord); }
-                    else { App.Parameters.Where(a => a.SystemName == selectedRecord.SystemName).First().Value = selectedRecord.Value; }
+                    // Refresh User Params
+                    App.ParameterList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, null, null);
 
                     selectedRecord = new ParameterList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -218,15 +205,15 @@ namespace TravelAgencyAdmin.Pages
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
-            txt_parameter.Text = selectedRecord.SystemName;
+            desc_translation.Content = selectedRecord.Translation;
+            txt_systemName.Text = selectedRecord.SystemName;
             txt_value.Text = selectedRecord.Value;
             cb_type.Text = selectedRecord.Type;
             txt_description.Text = selectedRecord.Description;
-            lbl_translation.Content = selectedRecord.Translation;
 
-            //Only for Admin: Owner/UserId Selection
-            if (App.UserData.Authentification.Role == "Admin")
-                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+            //Only for Admin: Owner/UserId Selection Allow Editing Server Default Values
+            if (App.UserData.Authentification.Role == "Admin" || selectedRecord.UserId == App.UserData.Authentification.Id)
+                btn_save.IsEnabled = true; else btn_save.IsEnabled = false;
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
@@ -240,40 +227,14 @@ namespace TravelAgencyAdmin.Pages
         private void Value_TextChanged(object sender, TextChangedEventArgs e) => btn_save.IsEnabled = false;
         private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e) => btn_save.IsEnabled = false;
 
-        private void CopyToClipClick(object sender, MouseButtonEventArgs e) { Clipboard.SetDataObject(lbl_translation.Content.ToString()); } 
-
         private void Check_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 btn_save.IsEnabled = false;
-                switch ((string)cb_type.SelectedValue)
-                {
-                    case "string":
-                        lbl_paramCheckResult.Content = (txt_value.Text.Length > 0) ? txt_value.Text : throw new Exception();
-                        break;
-                    case "bit":
-                        lbl_paramCheckResult.Content = bool.Parse(txt_value.Text);
-                        break;
-                    case "int":
-                        lbl_paramCheckResult.Content = int.Parse(txt_value.Text);
-                        break;
-                    case "numeric":
-                        lbl_paramCheckResult.Content = double.Parse(txt_value.Text);
-                        break;
-                    case "date":
-                        //DateTime.ParseExact(DateTime.Now.ToShortDateString(), txt_value.Text, CultureInfo.InvariantCulture);
-                        lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
-                        break;
-                    case "time":
-                        lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
-                        break;
-                    case "datetime":
-                        lbl_paramCheckResult.Content = DateTime.Now.ToString(txt_value.Text);
-                        break;
-                    default: throw new Exception();
-                }
-                btn_save.IsEnabled = true;
+                var test = MathTypeFunctions.CheckTypeValue((string)cb_type.SelectedValue, txt_value.Text);
+                btn_save.IsEnabled = test.Item2 && ( App.UserData.Authentification.Role == "Admin" || selectedRecord.UserId == App.UserData.Authentification.Id);
+                lbl_paramCheckResult.Content = (string)test.Item1;
             }
             catch {}
         }

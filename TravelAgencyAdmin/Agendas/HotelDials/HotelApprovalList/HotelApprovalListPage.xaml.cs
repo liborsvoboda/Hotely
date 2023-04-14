@@ -85,7 +85,7 @@ namespace TravelAgencyAdmin.Pages
                 lbl_feeValueRangeMin.Content = Resources["feeValueRangeMin"].ToString();
                 lbl_feeValueRangeMax.Content = Resources["feeValueRangeMax"].ToString();
 
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -103,8 +103,8 @@ namespace TravelAgencyAdmin.Pages
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(async city => { city.Translation = await SystemFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); });
-                countryList.ForEach(async country => { country.Translation = await SystemFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(async city => { city.Translation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); });
+                countryList.ForEach(async country => { country.Translation = await DBFunctions.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -126,7 +126,7 @@ namespace TravelAgencyAdmin.Pages
                 cb_currencyId.ItemsSource = currencyList;
 
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -153,7 +153,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "DescriptionEn") e.Visibility = Visibility.Hidden;
                     else if (headername == "DefaultCurrencyId") e.Visibility = Visibility.Hidden;
                 });
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void Filter(string filter)
@@ -170,7 +170,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 
@@ -244,7 +244,7 @@ namespace TravelAgencyAdmin.Pages
                 { await MainWindow.ShowMessage(false, Resources["changesSaved"].ToString()); }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 
@@ -339,7 +339,7 @@ namespace TravelAgencyAdmin.Pages
                 hotelRoomTypeList = await ApiCommunication.GetApiRequest<List<HotelRoomTypeList>>(ApiUrls.HotelRoomTypeList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await SystemFunctions.DBTranslation(roomType.SystemName); });
+                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBFunctions.DBTranslation(roomType.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -350,14 +350,14 @@ namespace TravelAgencyAdmin.Pages
 
                 hotelRoomList.ForEach(async room => {
                     room.Accommodation = hotelList.Name;
-                    room.RoomType = await SystemFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
+                    room.RoomType = await DBFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
                 });
                 DgRoomListView.ItemsSource = hotelRoomList;
                 DgRoomListView.Items.Refresh();
 
                 cb_roomTypeId.ItemsSource = hotelRoomTypeList;
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden;
         }
 
@@ -470,7 +470,7 @@ namespace TravelAgencyAdmin.Pages
                 { LoadRoomDataList(); } 
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
 
@@ -485,8 +485,8 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await SystemFunctions.DBTranslation(property.SystemName); });
-                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await SystemFunctions.DBTranslation(propertyUnit.SystemName); });
+                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await DBFunctions.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await DBFunctions.DBTranslation(propertyUnit.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -501,13 +501,13 @@ namespace TravelAgencyAdmin.Pages
                     room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
                     room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
                     room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
-                    room.PropertyUnit = await SystemFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                    room.PropertyUnit = await DBFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgPropertyListView.ItemsSource = hotelPropertyAndServiceList;
                 DgPropertyListView.Items.Refresh();
                 cb_propertyOrServiceId.ItemsSource = propertyOrServiceTypeList;
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden;
         }
 
@@ -542,7 +542,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "FeeRangeMax") e.Visibility = Visibility.Hidden;
                 });
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
         private void DgPropertyListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -642,7 +642,7 @@ namespace TravelAgencyAdmin.Pages
                 { LoadPropertyDataList(); }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
         private void FeeStatusClick(object sender, RoutedEventArgs e)

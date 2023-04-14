@@ -64,7 +64,7 @@ namespace TravelAgencyAdmin.Pages
 
                 //set document types translation
                 documentTypeList = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, null, App.UserData.Authentification.Token);
-                documentTypeList.ForEach(async item => { item.Translation = await SystemFunctions.DBTranslation(item.SystemName); });
+                documentTypeList.ForEach(async item => { item.Translation = await DBFunctions.DBTranslation(item.SystemName); });
                 cb_documentType.ItemsSource = documentTypeList;
 
                 documentAdviceList.ForEach(async record =>
@@ -73,7 +73,7 @@ namespace TravelAgencyAdmin.Pages
                     {
                         Id = record.Id,
                         BranchId = record.BranchId,
-                        DocumentType = await SystemFunctions.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
+                        DocumentType = await DBFunctions.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
                         Prefix = record.Prefix,
                         Number = record.Number,
                         StartDate = record.StartDate,
@@ -94,7 +94,7 @@ namespace TravelAgencyAdmin.Pages
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -135,7 +135,7 @@ namespace TravelAgencyAdmin.Pages
                     || report.Number.ToLower().Contains(filter.ToLower());
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -224,7 +224,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

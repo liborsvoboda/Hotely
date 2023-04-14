@@ -11,7 +11,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpGet("/BackendCheck")]
         public Task<string> GetBackendCheckApi()
-        { return Task.FromResult(TranslateService.DBTranslate("ServerRunning", "cz")); }
+        { return Task.FromResult(DBOperations.DBTranslate("ServerRunning", "cz")); }
 
     }
 

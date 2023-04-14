@@ -56,6 +56,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
         public virtual DbSet<HotelRoomList> HotelRoomLists { get; set; }
         public virtual DbSet<HotelRoomTypeList> HotelRoomTypeLists { get; set; }
+        public virtual DbSet<IgnoredExceptionList> IgnoredExceptionLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
@@ -934,6 +935,33 @@ namespace TravelAgencyBackEnd.DBModel
                     .IsUnicode(false);
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<IgnoredExceptionList>(entity =>
+            {
+                entity.ToTable("IgnoredExceptionList");
+
+                entity.HasIndex(e => e.ErrorNumber, "IX_IgnoredExceptionList")
+                    .IsUnique();
+
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.ErrorNumber)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.IgnoredExceptionLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IgnoredExceptionList_UserList");
             });
 
             modelBuilder.Entity<LanguageList>(entity =>

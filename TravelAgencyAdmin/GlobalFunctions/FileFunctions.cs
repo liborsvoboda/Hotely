@@ -9,6 +9,12 @@ namespace TravelAgencyAdmin.GlobalFunctions
 {
     class FileFunctions
     {
+
+        /// <summary>
+        /// First Application Startup configure Data Structure in folder ProgramData
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static Config LoadSettings()
         {
             try
@@ -33,6 +39,12 @@ namespace TravelAgencyAdmin.GlobalFunctions
             }
         }
 
+
+        /// <summary>
+        /// Function for saving Application Configuration
+        /// This is client configuration only
+        /// </summary>
+        /// <returns></returns>
         public static bool SaveSettings()
         {
             try
@@ -51,6 +63,12 @@ namespace TravelAgencyAdmin.GlobalFunctions
             }
         }
 
+
+        /// <summary>
+        /// Prepared Method for Files Copy
+        /// </summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="destinationPath"></param>
         public static void CopyFiles(string sourcePath, string destinationPath)
         {
             string[] filePaths = Directory.GetFiles(sourcePath);
@@ -64,6 +82,12 @@ namespace TravelAgencyAdmin.GlobalFunctions
             }
         }
 
+
+        /// <summary>
+        /// Prepared Method for Create empty file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public static bool CreateFile(string file)
         {
             if (!File.Exists(file))
@@ -73,6 +97,13 @@ namespace TravelAgencyAdmin.GlobalFunctions
 
         }
 
+
+        /// <summary>
+        /// Prepared Method for Get Information of File encoding 
+        /// UTF8,WIN1250,etc
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <returns></returns>
         public static Encoding FileDetectEncoding(string FileName)
         {
             string enc = "";

@@ -55,7 +55,7 @@ namespace TravelAgencyAdmin.Pages
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             _ = LoadDataList();
             SetRecord(false);
@@ -74,7 +74,7 @@ namespace TravelAgencyAdmin.Pages
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
                 hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
-                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await SystemFunctions.DBTranslation(roomType.SystemName); });
+                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBFunctions.DBTranslation(roomType.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -85,7 +85,7 @@ namespace TravelAgencyAdmin.Pages
 
                 hotelRoomList.ForEach(async room => {
                     room.Accommodation = hotelList.First(a => a.Id == room.HotelId).Name;
-                    room.RoomType = await SystemFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
+                    room.RoomType = await DBFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
                 });
                 DgListView.ItemsSource = hotelRoomList;
                 DgListView.Items.Refresh();
@@ -93,7 +93,7 @@ namespace TravelAgencyAdmin.Pages
                 cb_hotelId.ItemsSource = hotelList;
                 cb_roomTypeId.ItemsSource = hotelRoomTypeList;
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -121,7 +121,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "DescriptionEn") e.Visibility = Visibility.Hidden;
 
                 });
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void Filter(string filter)
@@ -137,7 +137,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 
@@ -233,7 +233,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
 

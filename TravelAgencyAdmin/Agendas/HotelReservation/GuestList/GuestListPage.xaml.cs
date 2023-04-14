@@ -59,7 +59,7 @@ namespace TravelAgencyAdmin.Pages
             {
                 DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, (dataViewSupport.AdvancedFilter == null) ? null: "Filter/" + dataViewSupport.AdvancedFilter.Replace("[!]","").Replace("{!}",""), App.UserData.Authentification.Token);
 
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
@@ -105,7 +105,7 @@ namespace TravelAgencyAdmin.Pages
                     ;
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -188,7 +188,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

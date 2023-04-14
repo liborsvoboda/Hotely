@@ -27,21 +27,22 @@ namespace TravelAgencyAdmin.Pages
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static ReportList selectedRecord = new ReportList();
 
-        private ObservableCollection<UpdateVariant> ReportDefinitions = new ObservableCollection<UpdateVariant>() {
-                                                             //  new UpdateVariant() { Name = "SomeName", Value = someView },
-                                                             }; 
+        private List<TranslatedApiList> translatedApiList = new List<TranslatedApiList>();
+        private List<ReportList> reportList = new List<ReportList>();
+        private bool reportSupportForListOnly = true;
 
         public ReportListPage()
         {
             InitializeComponent();
             _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
-            try {
+            try
+            {
 
                 //translate fields in detail form
                 lbl_id.Content = Resources["id"].ToString();
                 lbl_pageName.Content = Resources["dataView"].ToString();
-                lbl_name.Content = Resources["fname"].ToString();
+                lbl_systemName.Content = Resources["systemName"].ToString();
                 lbl_joinedId.Content = Resources["joinedId"].ToString();
                 lbl_description.Content = Resources["description"].ToString();
                 lbl_reportPath.Content = Resources["reportPath"].ToString();
@@ -53,30 +54,37 @@ namespace TravelAgencyAdmin.Pages
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
 
-                //Import & Remove from AutoLoad Report Initiation 
-                foreach (ApiUrls apiUrl in (ApiUrls[])Enum.GetValues(typeof(ApiUrls)))
-                {
-                    if (apiUrl.ToString().EndsWith("List")
-                        && !apiUrl.ToString().Contains("MottoList")
-                        && !apiUrl.ToString().Contains("TemplateClassList")
-                        && !apiUrl.ToString().Contains("OfferItemList")
-                    ) { ReportDefinitions.Add(new UpdateVariant() { Name = Resources[$"{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").FirstOrDefault().ToString().ToLower()}{apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages", ""), "").Substring(1)}"].ToString(), Value = apiUrl.ToString().Replace(GetType().Namespace.Replace(".Pages",""), "") }); }
-                }
-                cb_pageName.ItemsSource = ReportDefinitions.OrderBy(a => a.Name);
+                LoadParameters();
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
-
-
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
             _ = LoadDataList();
             SetRecord(false);
+        }
+
+        private async void LoadParameters() {
+            reportSupportForListOnly = bool.Parse(await SystemFunctions.ParameterCheck("ReportSupportForListOnly"));
         }
 
         //change datasource
         public async Task<bool> LoadDataList()
         {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            try
+            {
+
+                reportList = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                cb_pageName.ItemsSource = translatedApiList = await SystemFunctions.GetTranslatedApiList(reportSupportForListOnly);
+
+                reportList.ForEach(async report =>
+                {
+                    report.Translation = await DBFunctions.DBTranslation(report.SystemName);
+                    report.PageTranslation = translatedApiList.FirstOrDefault(a => a.ApiTableName == report.PageName).Translate;
+                });
+
+
+                DgListView.ItemsSource = reportList;
+                DgListView.Items.Refresh();
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -87,8 +95,9 @@ namespace TravelAgencyAdmin.Pages
             ((DataGrid)sender).Columns.ToList().ForEach(e =>
             {
                 string headername = e.Header.ToString();
-                if (headername == "PageName") e.Header = Resources["dataView"].ToString();
-                else if (headername == "Name") e.Header = Resources["fname"].ToString();
+                if (headername == "PageTranslation") { e.Header = Resources["dataView"].ToString(); e.DisplayIndex = 1; }
+                else if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 2; }
+                else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 3; }
                 else if (headername == "JoinedId") e.Header = Resources["joinedId"].ToString();
                 else if (headername == "Description") e.Header = Resources["description"].ToString();
                 else if (headername == "Default") { e.Header = Resources["default"].ToString(); e.DisplayIndex = DgListView.Columns.Count - 3; }
@@ -97,10 +106,12 @@ namespace TravelAgencyAdmin.Pages
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
-        
+
                 else if (headername == "ReportPath") e.Visibility = Visibility.Hidden;
                 else if (headername == "File") e.Visibility = Visibility.Hidden;
                 else if (headername == "MimeType") e.Visibility = Visibility.Hidden;
+                else if (headername == "PageName") e.Visibility = Visibility.Hidden;
+                
             });
         }
 
@@ -114,12 +125,14 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.Items.Filter = (e) => {
                     ReportList report = e as ReportList;
                     return report.PageName.ToLower().Contains(filter.ToLower())
-                    || report.Name.ToLower().Contains(filter.ToLower())
+                    || report.SystemName.ToLower().Contains(filter.ToLower())
+                    || report.PageTranslation.ToLower().Contains(filter.ToLower())
+                    || report.Translation.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(report.Description) && report.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -179,14 +192,18 @@ namespace TravelAgencyAdmin.Pages
             {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.PageName = ((UpdateVariant)cb_pageName.SelectedItem).Value;
-                selectedRecord.Name = txt_name.Text;
+                selectedRecord.PageName = ((TranslatedApiList)cb_pageName.SelectedItem).ApiTableName;
+                selectedRecord.SystemName = txt_systemName.Text;
                 selectedRecord.JoinedId = (bool)chb_joinedId.IsChecked;
                 selectedRecord.Description = txt_description.Text;
                 selectedRecord.Default = (bool)chb_default.IsChecked;
-                selectedRecord.ReportPath = txt_reportPath.Text;
-                selectedRecord.MimeType = MimeMapping.GetMimeMapping(txt_reportPath.Text);
-                selectedRecord.File = System.IO.File.ReadAllBytes(txt_reportPath.Text);
+
+                if (!string.IsNullOrWhiteSpace(txt_reportPath.Text)) {
+                    selectedRecord.ReportPath = txt_reportPath.Text;
+                    selectedRecord.MimeType = MimeMapping.GetMimeMapping(txt_reportPath.Text);
+                    selectedRecord.File = System.IO.File.ReadAllBytes(txt_reportPath.Text);
+                }
+                
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
@@ -203,7 +220,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -213,19 +230,14 @@ namespace TravelAgencyAdmin.Pages
         }
 
         //change dataset prepare for working
-        private void SetRecord(bool showForm, bool copy = false)
-        {
+        private void SetRecord(bool showForm, bool copy = false) {
 
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
-            if (selectedRecord.Name != null)
-            {
-                int index = 0; cb_pageName.Items.SourceCollection.Cast<UpdateVariant>().ToList().ForEach(report => { if (report.Name == Resources[$"{selectedRecord.PageName.FirstOrDefault().ToString().ToLower()}{selectedRecord.PageName.Substring(1)}"].ToString()) { cb_pageName.SelectedIndex = index; } index++; });
-            }
-            //cb_pageName.Text = selectedRecord.PageName;
-            txt_name.Text = selectedRecord.Name;
+            cb_pageName.Text = (selectedRecord.Id == 0) ? null : selectedRecord.PageTranslation;
+            txt_systemName.Text = selectedRecord.SystemName;
             chb_joinedId.IsChecked = selectedRecord.JoinedId;
-            txt_reportPath.Text = selectedRecord.ReportPath;
+            txt_reportPath.Text = null;
             txt_description.Text = selectedRecord.Description;
             chb_default.IsChecked = selectedRecord.Default;
             dp_timestamp.Value = selectedRecord.Timestamp;
@@ -255,7 +267,7 @@ namespace TravelAgencyAdmin.Pages
                     selectedRecord.MimeType = MimeMapping.GetMimeMapping(dlg.FileName);
                     selectedRecord.File = System.IO.File.ReadAllBytes(dlg.FileName);
                 }
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -263,7 +275,7 @@ namespace TravelAgencyAdmin.Pages
             try { SaveFileDialog dlg = new SaveFileDialog
                 { DefaultExt = ".rdl", Filter = "Report files |*.rdl", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { FileFunctions.ByteArrayToFile(dlg.FileName, selectedRecord.File); }
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
     }
 }

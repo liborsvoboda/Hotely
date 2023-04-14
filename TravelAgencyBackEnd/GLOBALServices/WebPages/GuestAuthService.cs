@@ -16,7 +16,7 @@ namespace TravelAgencyBackEnd.Controllers
 {
     [ApiController]
     [Route("WebApi/Guest")]
-    public class GuestAuthService : ControllerBase
+    public class WebLoginApi : ControllerBase
     {
         static Encoding ISO_8859_1_ENCODING = Encoding.GetEncoding("ISO-8859-1");
 
@@ -35,13 +35,13 @@ namespace TravelAgencyBackEnd.Controllers
                 if (HttpContext.Connection.RemoteIpAddress != null && guest != null)
                 {
                     string clientIPAddr = System.Net.Dns.GetHostEntry(HttpContext.Connection.RemoteIpAddress).AddressList.First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
-                    if (!string.IsNullOrWhiteSpace(clientIPAddr)) { LoginLogService.WriteWebLogin(clientIPAddr, guest.Id, email); }
+                    if (!string.IsNullOrWhiteSpace(clientIPAddr)) { DBOperations.WriteWebLogin(clientIPAddr, guest.Id, email); }
                 }
             }
             catch { }
 
             if (guest == null)
-                return BadRequest(new { message = TranslateService.DBTranslate("IncorrectEmailOrPassword", language.Language) });
+                return BadRequest(new { message = DBOperations.DBTranslate("IncorrectEmailOrPassword", language.Language) });
 
             RefreshGuestToken(email, guest);
             return Ok(JsonSerializer.Serialize(guest));

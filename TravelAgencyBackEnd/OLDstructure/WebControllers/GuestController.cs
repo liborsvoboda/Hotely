@@ -39,26 +39,28 @@ namespace TravelAgencyBackEnd.Controllers
             return result;
         }
         */
-        [HttpPost("addGuest")]
-        public async Task<GuestList> AddGuest(AddGuestViewModel model)
-        {
-            var newGuest = new GuestList()
-            {
-                FullName = model.FullName,
-                Street = model.Street,
-                ZipCode = model.ZipCode,
-                City = model.ZipCode,
-                Country = model.Country,
-                Phone = model.Phone,
-                Email = model.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
-            };
 
-            _db.GuestLists.Add(newGuest);
-            await _db.SaveChangesAsync();
+        // OLDVERSION Replaced by New
+        //[HttpPost("addGuest")]
+        //public async Task<GuestList> AddGuest(AddGuestViewModel model)
+        //{
+        //    var newGuest = new GuestList()
+        //    {
+        //        FullName = model.FullName,
+        //        Street = model.Street,
+        //        ZipCode = model.ZipCode,
+        //        City = model.ZipCode,
+        //        Country = model.Country,
+        //        Phone = model.Phone,
+        //        Email = model.Email,
+        //        Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+        //    };
 
-            return newGuest;
-        }
+        //    _db.GuestLists.Add(newGuest);
+        //    await _db.SaveChangesAsync();
+
+        //    return newGuest;
+        //}
 
         [HttpPost("AddReview")]
         public ActionResult AddReview([FromBody]ReviewModel model)
@@ -76,18 +78,19 @@ namespace TravelAgencyBackEnd.Controllers
         }
         */
 
-        [HttpPost("login")]
-        public IActionResult Login(LoginRequestViewModel model)
-        {
-            
-            var response = _guestService.Login(model);
-            if (response == null)
-            {
-                return BadRequest(new { message = "Username or password is incorrect" });
-            }
+        // OLDVERSION Replaced by New
+        //[HttpPost("login")]
+        //public IActionResult Login(LoginRequestViewModel model)
+        //{
 
-            return Ok(response);
-        }
+        //    var response = _guestService.Login(model);
+        //    if (response == null)
+        //    {
+        //        return BadRequest(new { message = "Username or password is incorrect" });
+        //    }
+
+        //    return Ok(response);
+        //}
 
 
         /*

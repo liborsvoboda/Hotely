@@ -117,7 +117,7 @@ namespace TravelAgencyAdmin.Helper
             try {
                 var psi = new ProcessStartInfo() { FileName = path, Verb = (Environment.OSVersion.Version.Major >= 6) ? "runas" : "" };
                 Process.Start(psi);
-                MainWindow.AppQuit(true);
+                App.AppQuitRequest(true);
             } catch(Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
         }
     }

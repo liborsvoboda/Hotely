@@ -11,47 +11,51 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Net;
+using TravelAgencyAdmin.GlobalClasses;
+using log4net.Util;
 
 namespace TravelAgencyAdmin.GlobalFunctions
 {
-    class SystemFunctions
-    {
+    class SystemFunctions {
         /// <summary>
-        /// Return User or default DB parameter
+        /// Return Requested User or if not exist default DB parameter
+        /// CamelCase Ignored
         /// </summary>
         /// <param name="parameterName"></param>
         /// <returns></returns>
-        public static string ParameterCheck(string parameterName)
-        {
-            string result = string.Empty;
-            try {
-                result = App.Parameters.Where(a => a.SystemName == parameterName && a.UserId == App.UserData.Authentification.Id).Select(a => a.Value).FirstOrDefault();
+        public static async Task<string> ParameterCheck(string parameterName) {
+            string result = null;
+            try
+            {
+                result = App.ParameterList.FirstOrDefault(a => a.SystemName.ToLower() == parameterName.ToLower() && a.UserId == App.UserData.Authentification.Id).Value;
+            }
+            catch (Exception Ex) {
+                App.ApplicationLogging(Ex, $"{await DBFunctions.DBTranslation("Missing User Parameter")} {App.UserData.Authentification.Id} {parameterName} {await DBFunctions.DBTranslation("Will used System Default")}");
+                App.ApplicationLogging(Ex);
+            }
 
+            try
+            {
                 if (result == null)
                 {
-                    SaveSystemFailMessage($"Parameter Name {parameterName} for userId {App.UserData.Authentification.Id} and userName {App.UserData.UserName} is missing");
-                    result = App.Parameters.Where(a => a.SystemName == parameterName && a.UserId == null).Select(a => a.Value).FirstOrDefault();
-                    if (result == null) SaveSystemFailMessage($"Parameter Name {parameterName} for NULL userId is missing");
-                    else return result;
-
-                    return result;
+                    result = App.ParameterList.Where(a => a.SystemName.ToLower() == parameterName.ToLower() && a.UserId == null).Select(a => a.Value).FirstOrDefault();
+                    if (result == null) App.ApplicationLogging(new Exception(), $"{await DBFunctions.DBTranslation("Missing Server Parameter")}: {parameterName}");
                 }
-                else { return result; }
-            }catch { return result; }
+                return result;
+            }
+            catch (Exception Ex) { return result; }
         }
 
-        public static string GetExceptionMessages(Exception exception, int msgCount = 1)
-        {
-            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, (exception.Message + Environment.NewLine + exception.StackTrace + Environment.NewLine), GetExceptionMessages(exception.InnerException, ++msgCount)) : string.Empty;
-        }
 
-        public static async void SaveSystemFailMessage(string message)
-        {
-            SystemFailList systemFailList = new SystemFailList() { UserId =  App.UserData.Authentification.Id, UserName = App.UserData.UserName, Message = message };
-            string json = JsonConvert.SerializeObject(systemFailList);
-            StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            await ApiCommunication.PutApiRequest(ApiUrls.SystemFailList, httpContent, null, App.UserData.Authentification.Token);
-            
+        /// <summary>
+        /// Mining All Exception Information
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <param name="msgCount"></param>
+        /// <returns></returns>
+        public static string GetExceptionMessages(Exception exception, int msgCount = 1) {
+            if (exception != null && App.IgnoredExceptionList.FirstOrDefault(a => a.ErrorNumber == exception.HResult.ToString() && a.Active == true) != null) return null;
+            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, (exception.Message + Environment.NewLine + exception.HResult.ToString() + Environment.NewLine + exception.StackTrace + Environment.NewLine), GetExceptionMessages(exception.InnerException, ++msgCount)) : string.Empty;
         }
 
 
@@ -60,8 +64,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
         /// </summary>
         /// <param name="filterBox"></param>
         /// <returns></returns>
-        public static string FilterToString(ComboBox filterBox)
-        {
+        public static string FilterToString(ComboBox filterBox) {
             string advancedFilter = null;
             int index = 0;
             try
@@ -91,66 +94,44 @@ namespace TravelAgencyAdmin.GlobalFunctions
                     index++;
                 }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             return advancedFilter;
         }
 
-        public async static Task<string> DBTranslation(string systemName, bool comaList = false, string lang = null)
-        {
-            bool dictionaryUpdated = false;
-            string result ="", translated = "";
-            if (comaList)
+
+        /// <summary>
+        /// Global Method for Using API Urls as Unique Generic List for
+        /// All Call - logic is All standartised DataPages
+        /// </summary>
+        /// <param name="listOnly"></param>
+        /// <param name="translatedApiList"></param>
+        /// <param name="exceptionApiList"></param>
+        public static async Task<List<TranslatedApiList>> GetTranslatedApiList(bool listOnly, List<string> omitApiList = null) {
+            List<TranslatedApiList> translatedApiList = new List<TranslatedApiList>();
+            foreach (ApiUrls apiUrl in (ApiUrls[])Enum.GetValues(typeof(ApiUrls)))
             {
-                systemName.Split(',').ToList().ForEach(async word =>
-                {
-
-                    try {
-                        result = App.LanguageList.FirstOrDefault(a => a.SystemName == word).DescriptionCz;
-                        if (!string.IsNullOrWhiteSpace(word))
-                            translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
-
-                        result += (string.IsNullOrWhiteSpace(translated) ? word : translated) + ",";
+                if (omitApiList == null || (omitApiList != null && !omitApiList.Contains(apiUrl.ToString()))) {
+                    if (!listOnly || (listOnly && apiUrl.ToString().EndsWith("List")))
+                    {
+                        string translatedApiUrl = await DBFunctions.DBTranslation(RemoveAppNamespaceFromString(apiUrl.ToString()));
+                        translatedApiList.Add(new TranslatedApiList() { ApiTableName = RemoveAppNamespaceFromString(apiUrl.ToString()), Translate = translatedApiUrl });
                     }
-                    catch {
-                        try {
-                            dictionaryUpdated = true;
-                            LanguageList newWord = new LanguageList() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
-                            string json = JsonConvert.SerializeObject(newWord);
-                            StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-                            _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
-
-                            result += word + ",";
-                        } catch { }
-                    }
-                });
-            }
-            else
-            {
-                try {
-                    result = App.LanguageList.FirstOrDefault(a => a.SystemName == systemName).DescriptionCz;
-
-                    translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
-                    result = string.IsNullOrWhiteSpace(translated) ? systemName : translated;
-                } 
-                catch {
-                    try {
-                        dictionaryUpdated = true;
-
-                        LanguageList newWord = new LanguageList() { SystemName = systemName, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
-                        string json = JsonConvert.SerializeObject(newWord);
-                        StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-                        _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
-                        result = systemName;
-                    } catch { }
                 }
-
             }
+            return translatedApiList;
+        }
 
-            if (dictionaryUpdated) { 
-                App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token);
-            }
 
-            return result;
+        /// <summary>
+        /// Its Solution for this is a solution for demanding and multiplied servers 
+        /// Or Running SHARP and Test System By One Backend Server Service
+        /// API Urls with Namespaces in Name are for Backend model with More Same Database Schemas
+        /// Backend Databases count in One Server Service is Unlimited
+        /// </summary>
+        /// <param name="stringForRemovenamespace"></param>
+        public static string RemoveAppNamespaceFromString(string stringForRemovenamespace) {
+            string appNameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace.Split('.')[0];
+            return stringForRemovenamespace.Replace(appNameSpace,string.Empty);
         }
     }
 }

@@ -17,3 +17,6 @@ isValid = BCrypt.Net.BCrypt.Verify(word, hashedWordFromDB);
 
 Translations
 TranslateService.DBTranslate("IncorrectEmailOrPassword", language.Language)
+
+DataModel context with include another table need in serialize:
+, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true }

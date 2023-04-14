@@ -28,6 +28,7 @@ namespace TravelAgencyAdmin.Api
         HotelPropertyAndServiceList,
         HotelRoomList,
         HotelRoomTypeList,
+        IgnoredExceptionList,
         LanguageList,
         MottoList,
         ParameterList,

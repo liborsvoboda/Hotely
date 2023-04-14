@@ -169,10 +169,10 @@ namespace TravelAgencyAdmin.Pages
             try
             { OpenFileDialog dlg = new OpenFileDialog { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { txt_reportingPath.Text = dlg.FileName; }
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
-        private void BtnRestart_Click(object sender, RoutedEventArgs e) => MainWindow.AppRestart();
+        private void BtnRestart_Click(object sender, RoutedEventArgs e) => App.AppRestart();
         private void BtnCheckUpdate_Click(object sender, RoutedEventArgs e) => Updater.CheckUpdate(true);
         private void BtnShowVideo_Click(object sender, RoutedEventArgs e) => new WelcomePage().Show();
         private void BtnTestConnection_Click(object sender, RoutedEventArgs e)
@@ -209,7 +209,7 @@ namespace TravelAgencyAdmin.Pages
             try {
                 OpenFileDialog dlg = new OpenFileDialog { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { txt_reportBuilder.Text = dlg.FileName; }
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnRun_Click(object sender, RoutedEventArgs e)
@@ -231,7 +231,7 @@ namespace TravelAgencyAdmin.Pages
                 };
                 exeProcess.StartInfo = info;
                 exeProcess.Start();
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
     }
 }

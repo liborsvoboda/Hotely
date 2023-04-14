@@ -14,6 +14,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using TravelAgencyAdmin.GlobalFunctions;
+using CefSharp;
+using MahApps.Metro.Controls.Dialogs;
+using TravelAgencyAdmin.Extension;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Input;
 
 namespace TravelAgencyAdmin
 {
@@ -25,9 +32,10 @@ namespace TravelAgencyAdmin
         /// </summary>
         public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
-        public static List<ParameterList> Parameters = null;
+        public static List<ParameterList> ParameterList = null;
         public static List<LanguageList> LanguageList = null;
         public static UserData UserData = new UserData();
+        public static List<IgnoredExceptionList> IgnoredExceptionList = new List<IgnoredExceptionList>();
 
         internal static string appName = Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0];
         internal static string startupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -44,7 +52,8 @@ namespace TravelAgencyAdmin
         /// </summary>
         public App()
         {
-            log4net.GlobalContext.Properties["RollingFileAppender"] = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
+            MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(Setting.DefaultLanguage).Value);
+            log4net.GlobalContext.Properties["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
             _ = XmlConfigurator.Configure();
             Dispatcher.UnhandledException += App_DispatcherUnhandledException;
             DispatcherUnhandledException += App_DispatcherUnhandledException;
@@ -53,59 +62,13 @@ namespace TravelAgencyAdmin
             AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
+
             // enabled ssl connections
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
         }
 
-        private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
-        {
-            log.Warn(e.Exception);
-        }
-
-        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            log.Fatal(e.Exception);
-            e.Handled = true;
-
-            SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(e.Exception));
-            //CrashReporterGlobalField._ReportCrash.Send(e.Exception);
-            //if (CrashReporterGlobalField._ReportCrash.IsQuit)
-            //{
-                Current.Shutdown(-1);
-            //}
-
-        }
-
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-
-            Exception exception = e.ExceptionObject as Exception;
-            log.Fatal(exception);
-            SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(exception));
-
-            _ = MessageBox.Show(exception.Message + "\n" + "Application must be close !!!", "CurrentDomain UnhandledException", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            if (e.IsTerminating)
-            {
-                Environment.Exit(1);
-            }
-        }
-
-        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            log.Fatal(e.Exception);
-            _ = MessageBox.Show(e.Exception.Message, "TaskScheduler UnobservedTaskException", MessageBoxButton.OK, MessageBoxImage.Error);
-            e.SetObserved();
-        }
-
-        private void WinFormApplication_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            log.Fatal(e.Exception);
-            SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(e.Exception));
-            //CrashReporterGlobalField._ReportCrash.Send(e.Exception);
-        }
 
         /// <summary>
         /// Connected Starting Video
@@ -126,12 +89,101 @@ namespace TravelAgencyAdmin
             }
         }
 
-
+        /// <summary>
+        /// Close Start Animation and run Application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartupAnimation_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MetroWindow mainView = new MainWindow();
             MainWindow = mainView;
             mainView.Show(); mainView.Focus();
         }
+
+
+        public static void AppRestart() {
+            MainWindowViewModel.SaveTheme();
+            Process.Start(Assembly.GetEntryAssembly().EscapedCodeBase);
+            Process.GetCurrentProcess().Kill();
+        }
+
+        /// <summary>
+        /// App Quit
+        /// </summary>
+        /// <param name="silent"></param>
+        public static async void AppQuitRequest(bool silent) {
+            if (!silent)
+            {
+                MetroWindow metroWindow = Current.MainWindow as MetroWindow;
+                MetroDialogSettings settings = new MetroDialogSettings() { AffirmativeButtonText = metroWindow.Resources["yes"].ToString(), NegativeButtonText = metroWindow.Resources["no"].ToString() };
+                MessageDialogResult result = await metroWindow.ShowMessageAsync(metroWindow.Resources["closeAppTitle"].ToString(), metroWindow.Resources["closeAppQuestion"].ToString(), MessageDialogStyle.AffirmativeAndNegative, settings);
+                if (result == MessageDialogResult.Affirmative) ApplicationQuit();
+            } else { ApplicationQuit(); }
+        }
+
+        /// <summary>
+        /// MainWindow Closing Handler for Cleaning TempData, disable Addons / Tool and Third Party Software
+        /// Closing Third Party processes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void ApplicationQuit() {
+
+            MainWindow mainWindow = (MainWindow)Current.MainWindow;
+            mainWindow.AppSystemTimer.Enabled = false;
+
+
+            Cef.Shutdown();
+            if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
+            
+            FileFunctions.ClearFolder(reportFolder);
+            MainWindowViewModel.SaveTheme();
+            Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Full Application System logging 
+        /// Running If is AppSystemTimer is Enabled for disable other processes exceptions
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="customMessage"></param>
+        public static void ApplicationLogging(Exception ex, string customMessage = null) {
+            try {
+                Current?.Invoke(() => {
+                    if (Current.MainWindow.Name == "AppMainWindow" && ((MainWindow)Current.MainWindow).AppSystemTimer.Enabled && IgnoredExceptionList.FirstOrDefault(a => a.ErrorNumber == ex.HResult.ToString() && a.Active == true) == null)
+                    {
+                        if (string.IsNullOrWhiteSpace(customMessage)) DBFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
+                        else DBFunctions.SaveSystemFailMessage(customMessage);
+                        if (Setting.WriteToLog) log.Error(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + customMessage);
+                    }
+                });
+            } catch { }
+        }
+
+
+
+        /// <summary>
+        /// FullSystem Logging
+        /// Every Exeption types are monitored for 
+        /// maximalize correct running 
+        /// all processes, addons, systems, communications, threads, network
+        /// All detail of application system add all used posibilities
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e) => ApplicationLogging(e.Exception);
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e) { e.Handled = true; ApplicationLogging(e.Exception); }
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) { Exception exception = e.ExceptionObject as Exception; ApplicationLogging(exception); if (e.IsTerminating) Environment.Exit(1); }
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e) { ApplicationLogging(e.Exception); e.SetObserved(); }
+        private void WinFormApplication_ThreadException(object sender, ThreadExceptionEventArgs e) { ApplicationLogging(e.Exception); /*CrashReporterGlobalField._ReportCrash.Send(e.Exception);*/ }
+
+
+        /// <summary>
+        /// Keyboard Pointer to Central Keyboard Reaction Definitions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RootAppKeyDownController(object sender, KeyEventArgs e) => HardwareFunctions.ApplicationKeyboardMaping(e);
     }
 }

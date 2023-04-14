@@ -439,6 +439,11 @@
     <system:String x:Key="overviews">Přehledy</system:String>
     <system:String x:Key="reservations">Rezervace</system:String>
     <system:String x:Key="guestList">Návštěvníci</system:String>
+    <system:String x:Key="serverApiDocs">Server API Doc.</system:String>
+    <system:String x:Key="ignoredExceptionList">Ignorované Vyjímky</system:String>
+    <system:String x:Key="errorNumber">Kód Chyby</system:String>
+    <system:String x:Key="hotelApprovalList">Proces Schalování</system:String>
+    <system:String x:Key="hotelPropertyAndServiceList" xml:space="preserve">Vlastnosti&amp;Služby</system:String>
+    <system:String x:Key="hotelRoomList">Pokoje</system:String>
 
-    
 </ResourceDictionary>

@@ -187,6 +187,14 @@
       "frameworks": {
         "net452": {
           "dependencies": {
+            "CefSharp.Common": {
+              "target": "Package",
+              "version": "[112.2.70, )"
+            },
+            "CefSharp.Wpf": {
+              "target": "Package",
+              "version": "[112.2.70, )"
+            },
             "Costura.Fody": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -355,6 +363,10 @@
               "target": "Package",
               "version": "[4.3.0, )"
             },
+            "System.ValueTuple": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
             "System.Xml.ReaderWriter": {
               "target": "Package",
               "version": "[4.3.1, )"
@@ -374,6 +386,14 @@
             "WpfConfigurator": {
               "target": "Package",
               "version": "[1.0.5, )"
+            },
+            "cef.redist.x64": {
+              "target": "Package",
+              "version": "[112.2.7, )"
+            },
+            "cef.redist.x86": {
+              "target": "Package",
+              "version": "[112.2.7, )"
             },
             "itextsharp.4.1.6.0": {
               "target": "Package",

@@ -66,14 +66,14 @@ namespace TravelAgencyAdmin.Pages
                 userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
-                userList.ForEach(async user => { user.Translation = await SystemFunctions.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
-                userRoleList.ForEach(async role => { role.Translation = await SystemFunctions.DBTranslation(role.SystemName); });
+                userList.ForEach(async user => { user.Translation = await DBFunctions.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
+                userRoleList.ForEach(async role => { role.Translation = await DBFunctions.DBTranslation(role.SystemName); });
 
                 DgListView.ItemsSource = userList;
                 DgListView.Items.Refresh();
                 cb_roleId.ItemsSource = userRoleList;
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             DgListView.Items.Refresh();
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -123,7 +123,7 @@ namespace TravelAgencyAdmin.Pages
                     ;
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void NewRecord()
@@ -187,8 +187,7 @@ namespace TravelAgencyAdmin.Pages
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
                 selectedRecord.ApiToken = txt_token.Text;
 
-                if (selectedRecord.PhotoPath != txt_photoPath.Text)
-                {
+                if (!string.IsNullOrWhiteSpace(txt_photoPath.Text)) {
                     selectedRecord.Photo = File.ReadAllBytes(txt_photoPath.Text);
                     selectedRecord.PhotoPath = txt_photoPath.Text;
                 }
@@ -209,7 +208,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -233,7 +232,7 @@ namespace TravelAgencyAdmin.Pages
             dp_timestamp.Value = selectedRecord.Timestamp;
             txt_token.Text = selectedRecord.ApiToken;
             img_photoPath.Source = (!string.IsNullOrWhiteSpace(selectedRecord.PhotoPath)) ? MediaFunctions.ByteToImage(selectedRecord.Photo) : new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png")));
-            txt_photoPath.Text = selectedRecord.PhotoPath;
+            txt_photoPath.Text = null;
 
             if (showForm)
             {
@@ -259,7 +258,7 @@ namespace TravelAgencyAdmin.Pages
                     selectedRecord.Photo = File.ReadAllBytes(dlg.FileName);
                 }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
     }
 }

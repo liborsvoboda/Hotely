@@ -43,7 +43,7 @@ namespace TravelAgencyAdmin.Pages
                     DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<GuestLoginHistoryList>>(ApiUrls.GuestLoginHistoryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -79,7 +79,7 @@ namespace TravelAgencyAdmin.Pages
                     return false;
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void DgListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -64,7 +64,7 @@ namespace TravelAgencyAdmin.Pages
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
-            } catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             _ = LoadDataList();
             SetRecord(false);
@@ -81,16 +81,16 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
                 propertyOrServiceTypeList.ForEach(async item => {
-                    item.Translation = await SystemFunctions.DBTranslation(item.SystemName);
-                    item.PropertyOrServiceUnitType = await SystemFunctions.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
+                    item.Translation = await DBFunctions.DBTranslation(item.SystemName);
+                    item.PropertyOrServiceUnitType = await DBFunctions.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
                 });
                 DgListView.ItemsSource = propertyOrServiceTypeList;
                 DgListView.Items.Refresh();
 
-                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await SystemFunctions.DBTranslation(item.SystemName); });
+                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await DBFunctions.DBTranslation(item.SystemName); });
                 cb_unit.ItemsSource = propertyOrServiceUnitList;
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -123,7 +123,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "IsFeeRangeAllowed") e.Visibility = Visibility.Hidden;
                     else if (headername == "PropertyOrServiceUnitTypeId") e.Visibility = Visibility.Hidden;
                 });
-            } catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
         public void Filter(string filter)
@@ -136,7 +136,7 @@ namespace TravelAgencyAdmin.Pages
                     return user.SystemName.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.Translation) && user.Translation.ToLower().Contains(filter.ToLower());
                 };
-            } catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
 
@@ -248,7 +248,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) { SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx)); }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
 

@@ -63,7 +63,7 @@ namespace TravelAgencyBackEnd.Controllers
                 }
                 else
                 {
-                    data = new hotelsContext().ParameterLists.Where(a => a.UserId == userId).ToList();
+                    data = new hotelsContext().ParameterLists.Where(a => a.UserId == userId || a.UserId == null).ToList();
                 }
             }
 

@@ -52,12 +52,12 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 userRoleLists = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                userRoleLists.ForEach(async role => { role.Translation = await SystemFunctions.DBTranslation(role.SystemName); });
+                userRoleLists.ForEach(async role => { role.Translation = await DBFunctions.DBTranslation(role.SystemName); });
 
                 DgListView.ItemsSource = userRoleLists;
                 DgListView.Items.Refresh();
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -92,7 +92,7 @@ namespace TravelAgencyAdmin.Pages
                     ;
                 };
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void NewRecord()
@@ -165,7 +165,7 @@ namespace TravelAgencyAdmin.Pages
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

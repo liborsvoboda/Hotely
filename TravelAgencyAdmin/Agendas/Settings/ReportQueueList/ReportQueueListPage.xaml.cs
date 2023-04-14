@@ -58,10 +58,15 @@ namespace TravelAgencyAdmin.Pages
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
 
 
-                DgListView.RowHeight = int.Parse(SystemFunctions.ParameterCheck("ReportSqlRowHeight"));
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+                LoadParameters();
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             _ = LoadDataList();
             SetRecord(false);
+        }
+
+
+        private async void LoadParameters() {
+            DgListView.RowHeight = double.Parse(await SystemFunctions.ParameterCheck("ReportSqlRowHeight"));
         }
 
         //change datasource
@@ -92,7 +97,7 @@ namespace TravelAgencyAdmin.Pages
                 }
             }
 
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
             MainWindow.ProgressRing = Visibility.Hidden;return true;
         }
 
@@ -116,7 +121,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Search") e.Visibility = Visibility.Hidden;
                     else if (headername == "RecId") e.Visibility = Visibility.Hidden;
                 });
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {DBFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
         }
 
         //change filter fields
@@ -133,7 +138,7 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.SearchColumnList) && user.SearchColumnList.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            } catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         public void NewRecord()
@@ -218,7 +223,7 @@ namespace TravelAgencyAdmin.Pages
                 }
                 else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             }
-            catch (Exception autoEx) {SystemFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
