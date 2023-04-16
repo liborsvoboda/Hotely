@@ -11,7 +11,8 @@ namespace TravelAgencyAdmin.Classes
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public string Translation { get; set; }
+        public string CountryTranslation { get; set; }
+        public string CityTranslation { get; set; }
     }
 
 }

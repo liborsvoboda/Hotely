@@ -9,7 +9,7 @@
       minlength="2"
     />
     <datalist id="datalistOptions">
-      <option :value="item" v-for="item in autoComplete" :key="item.id" />
+        <option :value="item" v-for="item in searchDialList" :key="item.id" />
     </datalist>
   </div>
 </template>
@@ -17,33 +17,32 @@
 <script>
 
 export default {
-  data() {
-    return {
-      searchString: "",
-    };
-  },
-  computed: {
-    autoComplete() {
-      return this.$store.state.searchAutoComplete;
+    data() {
+        return {
+            searchString: "",
+        };
     },
-  },
-  mounted() {
-    this.GetAutoComplete();
-    
-  },
-  methods: {
-    GetAutoComplete() {
-      this.$store.dispatch("getAutoComplete");
+    computed: {
+        searchDialList() {
+            return this.$store.state.searchDialList;
+        },
     },
+    mounted() {
+        this.GetSearchDialList();
+    },
+    methods: {
+        GetSearchDialList() {
+            this.$store.dispatch("getSearchDialList");
+        },
     searchFieldChange() {
-      this.$emit("input-changed", this.searchString);
-      if(this.searchString.length >= 2){
-        var input = document.querySelector("#searchInput")
-        input.setAttribute("list", "datalistOptions")
-      } else{
-        var input = document.querySelector("#searchInput")
-        input.setAttribute("list", "")
-      }
+        this.$emit("input-changed", this.searchString);
+            if(this.searchString.length >= 2){
+                var input = document.querySelector("#searchInput")
+            input.setAttribute("list", "datalistOptions")
+        } else{
+            var input = document.querySelector("#searchInput")
+            input.setAttribute("list", "")
+        }
     }
   },
 };

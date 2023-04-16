@@ -59,8 +59,11 @@ namespace TravelAgencyAdmin.Pages
                 cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(async city => { city.Translation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); });
-                countryList.ForEach(async country => { country.Translation = await DBFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(async city => {
+                    city.CityTranslation = await DBFunctions.DBTranslation(city.City);
+                    city.CountryTranslation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); 
+                });
+                countryList.ForEach(async country => { country.CountryTranslation = await DBFunctions.DBTranslation(country.SystemName); });
 
                 DgListView.ItemsSource = cityList;
                 DgListView.Items.Refresh();
@@ -77,14 +80,15 @@ namespace TravelAgencyAdmin.Pages
             try { 
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
-                    else if (headername == "Translation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; }
+                    if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "CountryId") e.Visibility = Visibility.Hidden;
+                    else if (headername == "City") e.Visibility = Visibility.Hidden;
                 });
             } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
@@ -97,7 +101,7 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.Items.Filter = (e) => {
                     CityList user = e as CityList;
                     return user.City.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.Translation) && user.Translation.ToLower().Contains(filter.ToLower());
+                    || !string.IsNullOrEmpty(user.CountryTranslation) && user.CountryTranslation.ToLower().Contains(filter.ToLower());
                 };
             } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }

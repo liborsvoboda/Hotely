@@ -72,8 +72,11 @@ namespace TravelAgencyAdmin.Pages
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(async city => { city.Translation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); });
-                countryList.ForEach(async country => { country.Translation = await DBFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(async city => { 
+                    city.CityTranslation = await DBFunctions.DBTranslation(city.City);
+                    city.CountryTranslation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
+                });
+                countryList.ForEach(async country => { country.CountryTranslation = await DBFunctions.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -83,8 +86,8 @@ namespace TravelAgencyAdmin.Pages
                 }
 
                 hotelList.ForEach(hotel => {
-                    hotel.Country = countryList.First(a => a.Id == hotel.CountryId).Translation;
-                    hotel.City = cityList.First(a => a.Id == hotel.CityId).City;
+                    hotel.CountryTranslation = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
+                    hotel.CityTranslation = cityList.First(a => a.Id == hotel.CityId).CityTranslation;
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
                 });
                 DgListView.ItemsSource = hotelList;
@@ -105,8 +108,8 @@ namespace TravelAgencyAdmin.Pages
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
                     if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; }
-                    else if (headername == "Country") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; }
-                    else if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
+                    else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; }
                     else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; }
                     else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; }
@@ -133,8 +136,8 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.Items.Filter = (e) => {
                     HotelList user = e as HotelList;
                     return user.Name.ToLower().Contains(filter.ToLower())
-                    || user.Country.ToLower().Contains(filter.ToLower())
-                    || user.City.ToLower().Contains(filter.ToLower())
+                    || user.CountryTranslation.ToLower().Contains(filter.ToLower())
+                    || user.CityTranslation.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionCz) && user.DescriptionCz.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
@@ -215,7 +218,7 @@ namespace TravelAgencyAdmin.Pages
                 if (App.UserData.Authentification.Role == "Admin")
                     selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
-                selectedRecord.Country = selectedRecord.City = selectedRecord.Currency = null;
+                selectedRecord.Currency = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
@@ -274,10 +277,28 @@ namespace TravelAgencyAdmin.Pages
         }
 
 
-        private void CitySelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        /// <summary>
+        /// Change Country With changed City
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CitySelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (cb_cityId.SelectedItem != null)
-                cb_countryId.Text = ((CityList)cb_cityId.SelectedItem).Translation;
+            {
+                cb_countryId.SelectionChanged -= CountrySelectionChanged;
+                cb_countryId.Text = ((CityList)cb_cityId.SelectedItem).CountryTranslation;
+                cb_countryId.SelectionChanged += CountrySelectionChanged;
+            }
+
+        }
+
+        private void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (cb_countryId.SelectedItem != null)
+            {
+                cb_cityId.SelectionChanged -= CitySelectionChanged;
+                cb_cityId.SelectedItem = null;
+                cb_cityId.SelectionChanged += CitySelectionChanged;
+            }
         }
     }
 }

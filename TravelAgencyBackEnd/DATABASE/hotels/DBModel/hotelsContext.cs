@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -14,13 +15,15 @@ namespace TravelAgencyBackEnd.DBModel
         public hotelsContext(DbContextOptions<hotelsContext> options)
                     : base(options) {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            
         }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.EnableServiceProviderCaching(false);
+                if (Program.DebugMode) { optionsBuilder.EnableServiceProviderCaching(true); }
+                else { optionsBuilder.EnableServiceProviderCaching(false); }
                 optionsBuilder.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;",
                 //optionsBuilder.UseSqlServer(Program.ServerSettings.DbConnectionString,
                 x => x.MigrationsHistoryTable("MigrationsHistory", "dbo"))

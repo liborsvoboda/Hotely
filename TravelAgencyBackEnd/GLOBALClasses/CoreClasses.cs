@@ -7,6 +7,14 @@ namespace TravelAgencyBackEnd.CoreClasses
         error
     }
 
+    /// <summary>
+    /// Auto Updated LocalDials - in Future Can be setted as Server Configurator
+    /// </summary>
+    public enum ServerLocalDbDials {
+        LanguageList
+    }
+
+
     public class DBResultMessage
     {
         public int insertedId { get; set; } = 0;

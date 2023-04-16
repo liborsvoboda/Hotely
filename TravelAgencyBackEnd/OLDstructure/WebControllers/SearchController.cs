@@ -111,10 +111,10 @@ namespace TravelAgencyBackEnd.Controllers
             return result;
         }
 
-        [HttpGet("GetSearchAutoComplete")]
-        public IEnumerable<string> GetSearchAutoComplete()
-        {
-            return _searchService.GetSearchAutoComplete();
-        }
+        //[HttpGet("GetSearchAutoComplete")]
+        //public IEnumerable<string> GetSearchAutoComplete()
+        //{
+        //    return _searchService.GetSearchAutoComplete();
+        //}
     }
 }

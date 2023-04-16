@@ -103,8 +103,11 @@ namespace TravelAgencyAdmin.Pages
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(async city => { city.Translation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); });
-                countryList.ForEach(async country => { country.Translation = await DBFunctions.DBTranslation(country.SystemName); });
+                cityList.ForEach(async city => {
+                    city.CityTranslation = await DBFunctions.DBTranslation(city.City);
+                    city.CountryTranslation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName); 
+                });
+                countryList.ForEach(async country => { country.CountryTranslation = await DBFunctions.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -114,7 +117,7 @@ namespace TravelAgencyAdmin.Pages
                 }
 
                 HotelApprovalList.ForEach(hotel => {
-                    hotel.Country = countryList.First(a => a.Id == hotel.CountryId).Translation;
+                    hotel.Country = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
                     hotel.City = cityList.First(a => a.Id == hotel.CityId).City;
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
                 });
@@ -289,10 +292,28 @@ namespace TravelAgencyAdmin.Pages
         }
 
 
-        private void CitySelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        /// <summary>
+        /// Change Country With changed City
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CitySelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (cb_cityId.SelectedItem != null)
-                cb_countryId.Text = ((CityList)cb_cityId.SelectedItem).Translation;
+            {
+                cb_countryId.SelectionChanged -= CountrySelectionChanged;
+                cb_countryId.Text = ((CityList)cb_cityId.SelectedItem).CountryTranslation;
+                cb_countryId.SelectionChanged += CountrySelectionChanged;
+            }
+
+        }
+
+        private void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (cb_countryId.SelectedItem != null)
+            {
+                cb_cityId.SelectionChanged -= CitySelectionChanged;
+                cb_cityId.SelectedItem = null;
+                cb_cityId.SelectionChanged += CitySelectionChanged;
+            }
         }
 
         private void GoToForm1_Click(object sender, MouseButtonEventArgs e)
@@ -649,5 +670,7 @@ namespace TravelAgencyAdmin.Pages
         {
             txt_feeValue.IsEnabled = txt_feeValueRangeMin.IsEnabled = txt_feeValueRangeMax.IsEnabled = (bool)chb_fee.IsChecked;
         }
+
+
     }
 }

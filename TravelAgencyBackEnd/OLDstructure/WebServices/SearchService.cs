@@ -78,30 +78,30 @@ namespace TravelAgencyBackEnd.Services
             return hotelList;
         }
 
-        public IEnumerable<string> GetSearchAutoComplete()
-        {
-            List<string> list = new List<string>();
+        //public IEnumerable<string> GetSearchAutoComplete()
+        //{
+        //    List<string> list = new List<string>();
 
-            var countries = _db.CountryLists;
-            foreach (var country in countries)
-            {
-                list.Add(country.SystemName);
-            }
+        //    var countries = _db.CountryLists;
+        //    foreach (var country in countries)
+        //    {
+        //        list.Add(country.SystemName);
+        //    }
 
-            var cities = _db.CityLists;
-            foreach (var city in cities)
-            {
-                list.Add(city.City);
-            }
+        //    var cities = _db.CityLists;
+        //    foreach (var city in cities)
+        //    {
+        //        list.Add(city.City);
+        //    }
 
-            var hotels = _db.HotelLists;
-            foreach (var hotel in hotels)   
-            {
-                list.Add(hotel.Name);
-            }
+        //    var hotels = _db.HotelLists;
+        //    foreach (var hotel in hotels)   
+        //    {
+        //        list.Add(hotel.Name);
+        //    }
 
-            return list.AsEnumerable();
-        }
+        //    return list.AsEnumerable();
+        //}
 
         //method to get available rooms and checks if hotel has capacity for selected people
         private void SearchAvailableRoomsDependingOnPeople(DateTime startDate, DateTime endDate, int rooms, int people, IEnumerable<HotelList> hotelsByInput, HashSet<AvailableHotelViewModel> hotelList)

@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 namespace TravelAgencyBackEnd
 {
-    public class Startup
-    {
+    public class Startup {
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
 
             #region Server Core & Security
             ServerCoreConfiguration.ConfigureCookie(ref services);
@@ -37,9 +35,12 @@ namespace TravelAgencyBackEnd
         }
 
 
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        /// <summary>
+        /// Server Configuration Definition
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (Program.DebugMode) { app.UseDeveloperExceptionPage(); }
 
             ServerModulesEnabling.EnableSwagger(ref app);
@@ -54,8 +55,7 @@ namespace TravelAgencyBackEnd
             app.UseAuthorization();
             ServerEnablingServices.EnableCors(ref app);
             ServerEnablingServices.EnableEndpoints(ref app);
+
         }
-
-
     }
 }

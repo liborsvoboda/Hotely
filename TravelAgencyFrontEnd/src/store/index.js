@@ -35,7 +35,7 @@ const store = createStore({
     },
     savedHotel: [],
     bookedHotels: [],
-    searchAutoComplete: [],
+        searchDialList: [],
     seachResults: [],
     hotel: [],
     user: {
@@ -115,9 +115,9 @@ const store = createStore({
     setSearchString(state, value) {
       state.searchString.string = value
     },
-    setAutoComplete(store, value) {
-      store.searchAutoComplete = value
-    },
+      setSearchDialList(store, value) {
+          store.searchDialList = value
+      },
     setReservationDetails(state, data) {
       state.reservation = data
     },
@@ -345,13 +345,17 @@ const store = createStore({
       )
     },
 
-    async getAutoComplete({ commit }) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Search/GetSearchAutoComplete'
-      )
-      var result = await response.json()
-      commit('setAutoComplete', result)
-    },
+      async getSearchDialList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Search/GetSearchDialList/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json()
+          commit('setSearchDialList', result)
+        },
 
         async login({ commit }, credentials) {
             let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {

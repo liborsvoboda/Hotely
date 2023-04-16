@@ -37,7 +37,7 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 lbl_id.Content = Resources["id"].ToString();
-                lbl_name.Content = Resources["country"].ToString();
+                lbl_systemName.Content = Resources["systemName"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -54,7 +54,7 @@ namespace TravelAgencyAdmin.Pages
             try { 
                 
                 DgListView.ItemsSource = countryLists = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                countryLists.ForEach(async document => { document.Translation = await DBFunctions.DBTranslation(document.SystemName); });
+                countryLists.ForEach(async document => { document.CountryTranslation = await DBFunctions.DBTranslation(document.SystemName); });
 
                 DgListView.ItemsSource = countryLists;
                 DgListView.Items.Refresh();
@@ -71,7 +71,7 @@ namespace TravelAgencyAdmin.Pages
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
                     if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; }
-                    else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
+                    else if (headername == "CountryTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
@@ -89,7 +89,7 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.Items.Filter = (e) => {
                     CountryList user = e as CountryList;
                     return user.SystemName.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.Translation) && user.Translation.ToLower().Contains(filter.ToLower());
+                    || !string.IsNullOrEmpty(user.CountryTranslation) && user.CountryTranslation.ToLower().Contains(filter.ToLower());
                 };
             } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
@@ -150,7 +150,7 @@ namespace TravelAgencyAdmin.Pages
             {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.SystemName = txt_name.Text;
+                selectedRecord.SystemName = txt_systemName.Text;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
@@ -184,7 +184,7 @@ namespace TravelAgencyAdmin.Pages
         private void SetRecord(bool showForm, bool copy = false)
         {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
-            txt_name.Text = selectedRecord.SystemName;
+            txt_systemName.Text = selectedRecord.SystemName;
 
             if (showForm)
             {

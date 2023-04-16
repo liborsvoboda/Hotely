@@ -20,8 +20,8 @@ namespace TravelAgencyAdmin.Classes
         public DateTime Timestamp { get; set; }
 
 
-        public string Country { get; set; }
-        public string City { get; set; }
+        public string CountryTranslation { get; set; }
+        public string CityTranslation { get; set; }
         public string Currency { get; set; }
     }
 }
