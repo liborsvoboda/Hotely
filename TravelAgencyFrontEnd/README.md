@@ -36,3 +36,9 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
 
 10] Dispatch Then  action
     await this.$store.dispatch('registration', regInfo).then(() => {
+
+    setHotelSearchResultsList - onsahuje vracene inzeraty
+
+
+    použit camesCase
+    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase});

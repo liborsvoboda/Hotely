@@ -153,7 +153,7 @@ export default ({
         }
     },
     created() {
-        if(!this.$store.state.seachResults.length){
+        if(!this.$store.state.searchResults.length){
             this.$store.dispatch('getHotelById', this.$route.params.id)
         }
         

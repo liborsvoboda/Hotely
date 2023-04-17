@@ -36,7 +36,7 @@ const store = createStore({
     savedHotel: [],
     bookedHotels: [],
         searchDialList: [],
-    seachResults: [],
+    searchResults: [],
     hotel: [],
     user: {
       loggedIn: false,
@@ -93,8 +93,8 @@ const store = createStore({
     setSearchButtonLoadingTrue(store, value) {
       store.searchButtonLoading = true
     },
-    setHotelSeachResultsList(store, value) {
-      store.seachResults = value
+    setHotelSearchResultsList(store, value) {
+      store.searchResults = value
       store.searchButtonLoading = false
     },
     setHotel(store, value) {
@@ -230,7 +230,7 @@ const store = createStore({
         (state.bookingDetails.extraBed = false),
         (state.bookingDetails.extraBedFee = 0)
       state.bookingDetails.totalprice = '',
-      state.seachResults = [],
+      state.searchResults = [],
       state.searchString.dates = []
     },
     setHotelId(state, value) {
@@ -242,60 +242,65 @@ const store = createStore({
       commit('setCustomerDetailsCheckout', data)
     },
     async searchHotels({ commit }, searchString) {
-      router.push({ name: 'result' })
-      let startDate
-      let endDate
-      if (this.state.searchString.dates.length) {
-        startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE')
-        endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE')
-      }
-      //search with all values but no string
-      if (searchString === null || searchString == '') {
-        var response = await fetch(
-          this.state.apiRootUrl + '/Search/search?startDate=' +
-            startDate +
-            '&endDate=' +
-            endDate +
-            '&rooms=' +
-            this.state.searchString.inputRooms +
-            '&people=' +
-            (this.state.searchString.inputAdult +
-              this.state.searchString.inputChild)
-        )
-        //search with only string
-      } else if (!this.state.searchString.dates.length) {
-        var response = await fetch(
-          this.state.apiRootUrl + '/Search/search?input=' + searchString
-        )
-        //search with all values
-      } else {
-        var response = await fetch(
-          this.state.apiRootUrl + '/Search/search?startDate=' +
-            startDate +
-            '&endDate=' +
-            endDate +
-            '&rooms=' +
-            this.state.searchString.inputRooms +
-            '&people=' +
-            (this.state.searchString.inputAdult +
-              this.state.searchString.inputChild) +
-            '&input=' +
-            searchString
-        )
-      }
-      var result = await response.json()
-      commit('setHotelSeachResultsList', result)
-      if (result) {
-        router.push({ name: 'result' })
-      }
+          router.push({ name: 'result' })
+          let startDate
+          let endDate
+          if (this.state.searchString.dates.length) {
+            startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE')
+            endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE')
+          }
+          //search with all values but no string
+          if (searchString === null || searchString == '') {
+            var response = await fetch(
+              this.state.apiRootUrl + '/Search/search?startDate=' +
+                startDate +
+                '&endDate=' +
+                endDate +
+                '&rooms=' +
+                this.state.searchString.inputRooms +
+                '&people=' +
+                (this.state.searchString.inputAdult +
+                  this.state.searchString.inputChild)
+            )
+            //search with only string
+          } else if (!this.state.searchString.dates.length) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Search/GetSearchInput/' + searchString + '/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            //search with all values
+          } else {
+            var response = await fetch(
+              this.state.apiRootUrl + '/Search/search?startDate=' +
+                startDate +
+                '&endDate=' +
+                endDate +
+                '&rooms=' +
+                this.state.searchString.inputRooms +
+                '&people=' +
+                (this.state.searchString.inputAdult +
+                  this.state.searchString.inputChild) +
+                '&input=' +
+                searchString
+            )
+          }
+
+          var result = await response.json()
+          commit('setHotelSearchResultsList', result.hotelList)
+          if (result) {
+            router.push({ name: 'result' })
+          }
     },
     async searchHotelByName({ commit }, searchString) {
       var response = await fetch(
         this.state.apiRootUrl + '/Search/search?input=' + searchString
       ) // Default is GET
       var result = await response.json()
-      if (result) {
-        commit('setHotelSeachResultsList', result)
+        if (result) {
+        commit('setHotelSearchResultsList', result)
         router.push({ name: 'result' })
       }
     },
@@ -323,7 +328,7 @@ const store = createStore({
       ) // Default is GET
       var result = await response.json()
       if (result) {
-        commit('setHotelSeachResultsList', result)
+        commit('setHotelSearchResultsList', result)
         router.push({ name: 'result' })
       }
     },
@@ -357,27 +362,36 @@ const store = createStore({
           commit('setSearchDialList', result)
         },
 
-        async login({ commit }, credentials) {
-            let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {
-                method: 'post',
-                headers: {
-                    'Authorization': 'Basic ' + encode(credentials.Email + ":" + credentials.Password),
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({ language: this.state.language })
-            });
+      async login({ commit }, credentials) {
+          if (credentials.Email) {
+              let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {
+                  method: 'post',
+                  headers: {
+                      'Authorization': 'Basic ' + encode(credentials.Email + ":" + credentials.Password),
+                      'Content-type': 'application/json'
+                  },
+                  body: JSON.stringify({ language: this.state.language })
+              });
 
-            let result = await response.json()
+              let result = await response.json()
 
-            if (result.message) {
-                document.querySelector('.text').innerHTML = result.message
-            } else {
-                commit('setUser', result)
-                Cookies.set('login', 'true')
-                Cookies.set('userId', result.id)
-                Cookies.set('token', result.token)
-                router.push('/profile')
-            }
+              if (result.message) {
+                  document.querySelector('.text').innerHTML = result.message
+                  router.push('/')
+              } else {
+                  commit('setUser', result)
+                  Cookies.set('login', 'true')
+                  Cookies.set('userId', result.id)
+                  Cookies.set('token', result.token)
+                  router.push('/profile')
+              }
+
+          } else { // remove login on Refresh page
+              Cookies.remove('userId')
+              Cookies.remove('login')
+              commit('logOutUser')
+              router.push('/')
+          }
         },
 
       async registration({ commit }, regInfo) {

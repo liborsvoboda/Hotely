@@ -170,7 +170,7 @@ export default {
       return 3;
     },
     searchResults() {
-      return this.$store.state.seachResults;
+      return this.$store.state.searchResults;
     },
     hotelsCount() {
       return this.filteredHotels.length;
@@ -180,10 +180,11 @@ export default {
         //filter price
         let result = this.searchResults.filter(
           (res) =>
-            this.pricerange.value[0] <= res.hotel.rooms[0].price &&
-            res.hotel.rooms[0].price <= this.pricerange.value[1]
+            this.pricerange.value[0] <= res.hotel.hotelRoomLists[0].price &&
+            res.hotel.hotelRoomLists[0].price <= this.pricerange.value[1]
         );
 
+/*
         result = result.filter(
           (res) => res.hotel.beachDistance <= this.beachDistance.value
         );
@@ -213,6 +214,7 @@ export default {
             (res) => res.hotel.restaurant == this.restaurant
           );
         }
+    */
         this.$emit("updateNrOfHotels", result.length);
         return result;
       }

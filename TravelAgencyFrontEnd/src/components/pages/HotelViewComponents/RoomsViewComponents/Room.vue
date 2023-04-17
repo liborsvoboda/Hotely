@@ -11,7 +11,7 @@
         <div
           v-if="
             $store.state.searchString.dates.length &&
-            $store.state.seachResults.length
+            $store.state.searchResults.length
           "
         >
           <InputNumber
@@ -77,8 +77,8 @@ export default {
     room: {},
   },
   mounted() {
-    if (this.$store.state.seachResults.length) {
-      this.array = this.$store.state.seachResults;
+    if (this.$store.state.searchResults.length) {
+      this.array = this.$store.state.searchResults;
       this.arrayIndex = this.array.findIndex(
         (i) => i.hotel.id == this.$route.params.id
       );

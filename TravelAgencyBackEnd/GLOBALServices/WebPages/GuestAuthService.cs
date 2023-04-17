@@ -68,16 +68,13 @@ namespace TravelAgencyBackEnd.Controllers
         ////Auth mechanism
         public static GuestLoginResponse? GuestLogin(string? email, string? password)
         {
-            if (email == null)
-                return null;
+            
+            if (string.IsNullOrWhiteSpace(email)) return null;
 
-            var guest = new hotelsContext()
-                .GuestLists.Where(a => a.Active == true && a.Email.ToLower() == email.ToLower())
-                .FirstOrDefault();
-            guest = BCrypt.Net.BCrypt.Verify(password, guest.Password) ? guest : null;
+            var guest = new hotelsContext().GuestLists.Where(a => a.Active == true && a.Email.ToLower() == email.ToLower()).FirstOrDefault();
 
-            if (guest == null)
-                return null;
+            if (guest != null) guest = BCrypt.Net.BCrypt.Verify(password, guest.Password) ? guest : null;
+            if (guest == null) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");

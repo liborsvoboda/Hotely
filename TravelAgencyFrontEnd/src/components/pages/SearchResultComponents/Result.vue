@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-6 text-start">
               <b>{{ hotel.name }}</b>
-              <p>{{ hotel.city.cityName }}, {{ hotel.country.countryName }}</p>
+              <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
               <p>
                 Ratings:
                 <span class="badge rounded-pill bg-secondary">{{
@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-6 text-start">
               <h5>
-                <small>from</small> <b>{{ lowestPrice }} kr/unit</b>
+                <small>from</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
               </h5>
               <br />
               <p v-if="hotel.pool"><i class="fas fa-check"></i> Pool</p>
@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     lowestPrice() {
-      var rooms = this.hotel.rooms;
+      var rooms = this.hotel.hotelRoomLists;
       rooms.sort((a, b) => {
         return a.price - b.price;
       });
@@ -83,7 +83,7 @@ export default {
     photos() {
       var photos = [];
       photos.push({id: this.hotel.id, roomPhoto: this.hotel.img});
-      this.hotel.rooms.forEach(room => {
+      this.hotel.hotelRoomLists.forEach(room => {
           photos.push({id: this.hotel.id, roomPhoto: room.img})
       });
       return photos;
