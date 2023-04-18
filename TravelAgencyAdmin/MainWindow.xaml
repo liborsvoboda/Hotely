@@ -19,7 +19,7 @@
     d:DesignWidth="1024"
     AllowDrop="False"
     AllowsTransparency="False"
-    GlowBrush="{DynamicResource AccentColorBrush}"
+    GlowBrush="{DynamicResource GlyphBrush}"
     Icon="Data\lama.ico"
     NonActiveGlowBrush="#CDFF0000"
     ResizeMode="CanResizeWithGrip"
@@ -53,7 +53,7 @@
                 <Setter Property="Icon" Value="{StaticResource AppThemeMenuIcon}" />
                 <Setter Property="Header" Value="{Binding NameDisplay, Mode=OneWay}" />
             </Style>
-            
+
             <Style
                 x:Key="AccentColorMenuItemStyle"
                 BasedOn="{StaticResource MetroMenuItem}"
@@ -63,7 +63,7 @@
                 <Setter Property="Header" Value="{Binding NameDisplay, Mode=OneWay}" />
             </Style>
 
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroButton}">
+            <Style BasedOn="{StaticResource MetroButton}" TargetType="{x:Type Button}">
                 <Setter Property="Controls:ButtonHelper.PreserveTextCase" Value="True" />
             </Style>
 
@@ -126,9 +126,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu Style="{DynamicResource MetroMenu }"
+        <Menu
             x:Name="menuOptions" Grid.Row="0" Margin="5" VerticalAlignment="Stretch" BorderThickness="0"
-            Focusable="False">
+            Focusable="False"
+            Style="{DynamicResource MetroMenu}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch" />

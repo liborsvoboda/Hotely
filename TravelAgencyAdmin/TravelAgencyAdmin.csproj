@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TravelAgencyAdmin</RootNamespace>
     <AssemblyName>TravelAgencyAdmin</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -68,19 +68,26 @@
   <PropertyGroup>
     <StartupObject>TravelAgencyAdmin.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Accord">
-      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.dll</HintPath>
-    </Reference>
-    <Reference Include="Accord.Imaging">
-      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.Imaging.dll</HintPath>
-    </Reference>
-    <Reference Include="Accord.Math">
-      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.Math.dll</HintPath>
-    </Reference>
-    <Reference Include="Accord.Math.Core">
-      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.Math.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Cyotek.Drawing.BitmapFont, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
       <HintPath>..\packages\Cyotek.Drawing.BitmapFont.2.0.4\lib\net40\Cyotek.Drawing.BitmapFont.dll</HintPath>
     </Reference>
@@ -673,6 +680,7 @@
     <Content Include="Data\AddOn\UltraVNC.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -686,6 +694,11 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 a x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
@@ -714,17 +727,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="cef.redist.x64">
-      <Version>112.2.7</Version>
-    </PackageReference>
-    <PackageReference Include="cef.redist.x86">
-      <Version>112.2.7</Version>
-    </PackageReference>
     <PackageReference Include="CefSharp.Common">
       <Version>112.2.70</Version>
     </PackageReference>
     <PackageReference Include="CefSharp.Wpf">
       <Version>112.2.70</Version>
+    </PackageReference>
+    <PackageReference Include="ControlzEx">
+      <Version>5.0.2</Version>
     </PackageReference>
     <PackageReference Include="Costura.Fody">
       <Version>5.7.0</Version>
@@ -765,9 +775,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Platforms">
       <Version>6.0.6</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
-      <Version>1.1.39</Version>
     </PackageReference>
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>

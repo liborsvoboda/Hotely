@@ -26,8 +26,10 @@ namespace TravelAgencyAdmin.Pages
             webViewer.FrameLoadEnd += WebViewer_FrameLoadEnd;
             webViewer.LifeSpanHandler = new MyCustomLifeSpanHandler();
 
-            //Autoshutdown when closing
+            if (!Cef.IsInitialized) { Cef.Initialize(App.CeffSettings, performDependencyCheck: true, browserProcessHandler: null); }
+            
             CefSharpSettings.ShutdownOnExit = true;
+            CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
         }
 
 

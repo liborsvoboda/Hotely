@@ -21,6 +21,8 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using CefSharp.Wpf;
+using iTextSharp.text.pdf;
 
 namespace TravelAgencyAdmin
 {
@@ -49,10 +51,17 @@ namespace TravelAgencyAdmin
         internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
 
         /// <summary>
+        /// CefSharp Settings
+        /// </summary>
+        public static CefSettings CeffSettings = new CefSettings()
+        { LogSeverity = LogSeverity.Disable, IgnoreCertificateErrors = true };
+
+
+        /// <summary>
         /// Application Error handlers
         /// </summary>
-        public App()
-        {
+        public App() {
+
             MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(Setting.DefaultLanguage).Value);
             log4net.GlobalContext.Properties["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
             _ = XmlConfigurator.Configure();
@@ -100,6 +109,7 @@ namespace TravelAgencyAdmin
             MetroWindow mainView = new MainWindow();
             MainWindow = mainView;
             mainView.Show(); mainView.Focus();
+            
         }
 
 
@@ -130,16 +140,20 @@ namespace TravelAgencyAdmin
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private static void ApplicationQuit() {
+            try
+            {
+                MainWindow mainWindow = (MainWindow)Current.MainWindow;
+                mainWindow.AppSystemTimer.Enabled = false;
 
-            MainWindow mainWindow = (MainWindow)Current.MainWindow;
-            mainWindow.AppSystemTimer.Enabled = false;
 
+                Cef.PreShutdown();
+                if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
 
-            Cef.Shutdown();
-            if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
-            
-            FileFunctions.ClearFolder(reportFolder);
-            FileFunctions.ClearFolder(galleryFolder);
+                FileFunctions.ClearFolder(reportFolder);
+                FileFunctions.ClearFolder(galleryFolder);
+                FileFunctions.ClearFolder(tempFolder);
+
+            } catch { }
             MainWindowViewModel.SaveTheme();
             Current.Shutdown();
         }

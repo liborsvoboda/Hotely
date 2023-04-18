@@ -28,10 +28,6 @@
                 <Setter Property="ShowDefaultCloseButton" Value="false" />
             </Style>
 
-            <Style TargetType="{x:Type common:MainWindow}">
-                <Setter Property="Background" Value="{DynamicResource WindowGradient}" />
-            </Style>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

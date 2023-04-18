@@ -18,6 +18,8 @@ using TravelAgencyAdmin.GlobalFunctions;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.Helper;
 using TravelAgencyAdmin.GlobalClasses;
+using MahApps.Metro.Controls;
+using TravelAgencyAdmin.Extension;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -122,14 +124,14 @@ namespace TravelAgencyAdmin.Pages
         {
             public ExtensionsItem()
             {
-                ident = null;
-                isTrue = false;
-                asn1OctetString = null;
+                Ident = null;
+                IsTrue = false;
+                Asn1OctetStringV = null;
             }
 
-            public DerObjectIdentifier ident { get; set; }
-            public bool isTrue { get; set; }
-            public Asn1OctetString asn1OctetString { get; set; }
+            public DerObjectIdentifier Ident { get; set; }
+            public bool IsTrue { get; set; }
+            public Asn1OctetString Asn1OctetStringV { get; set; }
         }
 
         #endregion
@@ -155,6 +157,9 @@ namespace TravelAgencyAdmin.Pages
             App.Setting.HideStartVideo = (bool)chb_hideStartVideo.IsChecked;
             App.Setting.ReportConnectionString = pb_reportConnectionString.Password;
             App.Setting.ReportBuilderPath = txt_reportBuilder.Text;
+
+            
+            MainWindowViewModel.SaveTheme();
 
             if (FileFunctions.SaveSettings())
             {
