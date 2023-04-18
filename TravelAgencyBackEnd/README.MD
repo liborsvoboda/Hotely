@@ -20,3 +20,7 @@ TranslateService.DBTranslate("IncorrectEmailOrPassword", language.Language)
 
 DataModel context with include another table need in serialize:
 , new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true }
+
+
+web Pages used
+DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase});

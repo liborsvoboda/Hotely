@@ -43,6 +43,7 @@ namespace TravelAgencyAdmin
         internal static string reportFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Reports");
         internal static string updateFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Update");
         internal static string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Temp");
+        internal static string galleryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Gallery");
         internal static string settingFile = "config.json";
         public static Config Setting = FileFunctions.LoadSettings();
         internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
@@ -138,6 +139,7 @@ namespace TravelAgencyAdmin
             if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
             
             FileFunctions.ClearFolder(reportFolder);
+            FileFunctions.ClearFolder(galleryFolder);
             MainWindowViewModel.SaveTheme();
             Current.Shutdown();
         }

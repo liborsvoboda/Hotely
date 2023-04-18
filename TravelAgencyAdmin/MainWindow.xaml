@@ -53,7 +53,7 @@
                 <Setter Property="Icon" Value="{StaticResource AppThemeMenuIcon}" />
                 <Setter Property="Header" Value="{Binding NameDisplay, Mode=OneWay}" />
             </Style>
-
+            
             <Style
                 x:Key="AccentColorMenuItemStyle"
                 BasedOn="{StaticResource MetroMenuItem}"
@@ -63,7 +63,7 @@
                 <Setter Property="Header" Value="{Binding NameDisplay, Mode=OneWay}" />
             </Style>
 
-            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroButton}">
                 <Setter Property="Controls:ButtonHelper.PreserveTextCase" Value="True" />
             </Style>
 
@@ -126,7 +126,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu
+        <Menu Style="{DynamicResource MetroMenu }"
             x:Name="menuOptions" Grid.Row="0" Margin="5" VerticalAlignment="Stretch" BorderThickness="0"
             Focusable="False">
             <Menu.ItemsPanel>
@@ -210,6 +210,10 @@
                             PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_accommodation" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_hotelImagesList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem

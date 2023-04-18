@@ -28,6 +28,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
                 CopyFiles(Path.Combine(App.startupPath, "Data", "SubReports"), App.reportFolder);
                 if (!CheckDirectory(App.updateFolder)) { CreatePath(App.updateFolder); }
                 if (!CheckDirectory(App.tempFolder)) { CreatePath(App.tempFolder); }
+                if (!CheckDirectory(App.galleryFolder)) { CreatePath(App.galleryFolder); }
                 string json = File.ReadAllText(Path.Combine(App.settingFolder, App.settingFile), FileDetectEncoding(Path.Combine(App.settingFolder, App.settingFile)));
                 Config SettingData = JsonConvert.DeserializeObject<Config>(json);
                 return SettingData;
@@ -57,10 +58,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
                 }
                 return true;
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
 

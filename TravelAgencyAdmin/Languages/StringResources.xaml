@@ -445,6 +445,12 @@
     <system:String x:Key="hotelApprovalList">Approving process</system:String>
     <system:String x:Key="hotelPropertyAndServiceList" xml:space="preserve">Properties&amp;Services</system:String>
     <system:String x:Key="hotelRoomList">Rooms</system:String>
-    
+    <system:String x:Key="hotelImagesList">Gallery</system:String>
+    <system:String x:Key="loadFromServer">Load from server</system:String>
+    <system:String x:Key="saveToServer">Save to server</system:String>
+    <system:String x:Key="images">Images</system:String>
+    <system:String x:Key="localStorage">Local storage</system:String>
+    <system:String x:Key="screenSaver">System saver</system:String>
+
     
 </ResourceDictionary>

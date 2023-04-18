@@ -2,29 +2,27 @@
     x:Class="EASYTools.Controls.FloatingTouchScreenKeyboard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:EASYTools="clr-namespace:EASYTools"
-    xmlns:Controls="clr-namespace:EASYTools.Controls"
     xmlns:Behaviors="clr-namespace:EASYTools.Behaviors"
+    xmlns:Controls="clr-namespace:EASYTools.Controls"
+    xmlns:EASYTools="clr-namespace:EASYTools"
+    xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     x:Name="keyboard"
-    DataContext="{Binding ElementName=keyboard}"
-    Placement="Center"
     AllowsTransparency="True"
+    DataContext="{Binding ElementName=keyboard}"
     HorizontalOffset="0"
-    VerticalOffset="0"
-    >
+    Placement="Center"
+    VerticalOffset="0">
     <Grid x:Name="LayoutGrid">
         <Interactivity:Interaction.Behaviors>
             <Behaviors:AutoHideBehavior
                 AreAnimationsEnabled="{Binding AreAnimationsEnabled}"
-                IsShown="{Binding IsKeyboardShown, Mode=TwoWay}"
-                IsAllowedToHide="{Binding IsAllowedToFade}"
-                MinOpacity="{Binding MinimumKeyboardOpacity}"
-                MaxOpacity="{Binding MaximumKeyboardOpacity}"
                 HideDelay="{Binding KeyboardHideDelay}"
                 HideDuration="{Binding KeyboardHideAnimationDuration}"
-                ShowDuration="{Binding KeyboardShowAnimationDuration}"
-                />
+                IsAllowedToHide="{Binding IsAllowedToFade}"
+                IsShown="{Binding IsKeyboardShown, Mode=TwoWay}"
+                MaxOpacity="{Binding MaximumKeyboardOpacity}"
+                MinOpacity="{Binding MinimumKeyboardOpacity}"
+                ShowDuration="{Binding KeyboardShowAnimationDuration}" />
         </Interactivity:Interaction.Behaviors>
 
         <Grid.RowDefinitions>
@@ -36,37 +34,19 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Border
-            x:Name="DragHandle"
-            Grid.Column="0"
-            BorderBrush="LightGray"
-            BorderThickness="10 10 10 5"
-            Background="DarkGray"
-            CornerRadius="10, 10, 0, 0"
-            PreviewMouseDown="DragHandle_PreviewMouseDown"
-            PreviewMouseMove="DragHandle_PreviewMouseMove"
-            PreviewMouseUp="DragHandle_PreviewMouseUp"
-            >
+            x:Name="DragHandle" Grid.Column="0" Background="DarkGray" BorderBrush="LightGray" BorderThickness="10,10,10,5"
+            CornerRadius="10, 10, 0, 0" PreviewMouseDown="DragHandle_PreviewMouseDown" PreviewMouseMove="DragHandle_PreviewMouseMove" PreviewMouseUp="DragHandle_PreviewMouseUp">
             <Viewbox>
-                <TextBlock Text="Drag to move" Style="{DynamicResource Text.Detail}">
+                <TextBlock Style="{DynamicResource Text.Detail}" Text="Drag to move">
                     <Interactivity:Interaction.Behaviors>
-                        <Behaviors:AutoHideBehavior
-                            ActionWhenClicked="None"
-                            IsAllowedToHide="{Binding IsDragHelperAllowedToHide}"
-                            />
+                        <Behaviors:AutoHideBehavior ActionWhenClicked="None" IsAllowedToHide="{Binding IsDragHelperAllowedToHide}" />
                     </Interactivity:Interaction.Behaviors>
                 </TextBlock>
             </Viewbox>
         </Border>
         <Border
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Background="LightGray"
-            Padding="10"
-            CornerRadius="0, 10, 10, 10"
-            >
-            <Controls:OnScreenWebKeyboard
-                AreAnimationsEnabled="{Binding AreAnimationsEnabled}"
-                />
+            Grid.Row="1" Grid.ColumnSpan="2" Padding="10" Background="LightGray" CornerRadius="0, 10, 10, 10">
+            <Controls:OnScreenWebKeyboard AreAnimationsEnabled="{Binding AreAnimationsEnabled}" />
         </Border>
     </Grid>
 </Popup>

@@ -24,6 +24,7 @@ namespace TravelAgencyAdmin.Api
         GuestLoginHistoryList,
         HotelActionTypeList,
         HotelApprovalList,
+        HotelImagesList,
         HotelList,
         HotelPropertyAndServiceList,
         HotelRoomList,

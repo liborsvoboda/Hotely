@@ -445,5 +445,12 @@
     <system:String x:Key="hotelApprovalList">Proces Schalování</system:String>
     <system:String x:Key="hotelPropertyAndServiceList" xml:space="preserve">Vlastnosti&amp;Služby</system:String>
     <system:String x:Key="hotelRoomList">Pokoje</system:String>
-
+    <system:String x:Key="hotelImagesList">Galerie</system:String>
+    <system:String x:Key="loadFromServer">Načíst ze serveru</system:String>
+    <system:String x:Key="saveToServer">Uložit na server</system:String>
+    <system:String x:Key="images">Obrázky</system:String>
+    <system:String x:Key="localStorage">Místní Úložístě</system:String>
+    <system:String x:Key="screenSaver">Spořič systému</system:String>
+    
+    
 </ResourceDictionary>

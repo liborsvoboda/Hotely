@@ -27,6 +27,7 @@ using System.Net.Http;
 using TravelAgencyAdmin.GlobalClasses;
 using System.Windows.Media;
 using CefSharp;
+using System.Xml.Linq;
 
 namespace TravelAgencyAdmin
 {
@@ -230,6 +231,7 @@ namespace TravelAgencyAdmin
                 tm_propertyOrServiceList.Header = Resources["propertyOrServiceList"].ToString(); tm_approvingProcess.Header = Resources["approvingProcess"].ToString();
                 tm_guestLoginHistoryList.Header = Resources["guestLoginHistoryList"].ToString(); tm_mottoList.Header = Resources["mottoList"].ToString();
                 tm_guestList.Header = Resources["guestList"].ToString(); tm_serverApiDocs.Header = Resources["serverApiDocs"].ToString();
+                tm_hotelImagesList.Header = Resources["hotelImagesList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -246,6 +248,7 @@ namespace TravelAgencyAdmin
                 Closing += MainWindow_Closing;
                 ShowLoginDialog();
             } catch (Exception ex) { App.ApplicationLogging(ex); }
+            
         }
 
 
@@ -397,6 +400,7 @@ namespace TravelAgencyAdmin
                         ProgressRing = Visibility.Hidden;
                     }
                 }
+                
                 ProgressRing = Visibility.Hidden;
             } catch (Exception ex) { App.ApplicationLogging(ex); }
         }
@@ -833,6 +837,13 @@ namespace TravelAgencyAdmin
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentTypeList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_hotelImagesList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
+                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelImagesListPages()); }
+                            else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelImagesList", App.UserData.Authentification.Token);
                             break;
                         case "tm_guestList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)

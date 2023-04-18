@@ -69,6 +69,18 @@
     <StartupObject>TravelAgencyAdmin.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accord">
+      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Imaging">
+      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math">
+      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math.Core">
+      <HintPath>..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\Libraries\Accord.Math.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Cyotek.Drawing.BitmapFont, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
       <HintPath>..\packages\Cyotek.Drawing.BitmapFont.2.0.4\lib\net40\Cyotek.Drawing.BitmapFont.dll</HintPath>
     </Reference>
@@ -224,6 +236,13 @@
     <Compile Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml.cs">
       <DependentUpon>HotelApprovalListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPages.xaml.cs">
+      <DependentUpon>HotelImagesListPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPage.xaml.cs">
+      <DependentUpon>HotelImagesListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\HotelDials\HotelImagesList\HotelImagesList.cs" />
     <Compile Include="Agendas\HotelDials\HotelPropertyAndServiceList\HotelPropertyAndServiceList.cs" />
     <Compile Include="Agendas\HotelDials\HotelPropertyAndServiceList\HotelPropertyAndServiceList.xaml.cs">
       <DependentUpon>HotelPropertyAndServiceList.xaml</DependentUpon>
@@ -312,6 +331,9 @@
     <Compile Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml.cs">
       <DependentUpon>GuestLoginHistoryListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\Views\ScreenSaverPage\ScreenSaverPage.xaml.cs">
+      <DependentUpon>ScreenSaverPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Views\ServerApiDocs\ServerApiDocsPage.xaml.cs">
       <DependentUpon>ServerApiDocsPage.xaml</DependentUpon>
     </Compile>
@@ -346,6 +368,7 @@
     </Compile>
     <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
     <Compile Include="Agendas\Settings\ReportList\ReportList.cs" />
+    <Compile Include="GlobalClasses\PhotoCollectionClasses.cs" />
     <Compile Include="TabsAndSystem\Helper\Updater.cs" />
     <Compile Include="Agendas\Settings\UserList\UserList.cs" />
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleList.cs" />
@@ -364,6 +387,7 @@
     <Compile Include="GlobalFunctions\FileFunctions.cs" />
     <Compile Include="GlobalFunctions\MediaFunctions.cs" />
     <Compile Include="GlobalStyles\Styles.cs" />
+    <Compile Include="TabsAndSystem\ImageEffects\TrackBall.cs" />
     <Compile Include="TabsAndSystem\Properties\Settings.cs" />
     <Compile Include="TabsAndSystem\Extensions\ExtendedKeyUsageData.cs" />
     <Compile Include="Agendas\System\ClientSetting\ClientSettingsPage.xaml.cs">
@@ -387,6 +411,14 @@
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
     <Page Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -495,6 +527,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Settings\ReportList\ReportListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Views\ScreenSaverPage\ScreenSaverPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -624,6 +660,7 @@
     <Resource Include="Data\w7.png" />
     <Resource Include="Data\w8.png" />
     <Resource Include="Data\wXP.png" />
+    <Resource Include="Agendas\Views\ScreenSaverPage\roundcornersheet.png" />
     <Content Include="Data\xpsDocument.xps">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

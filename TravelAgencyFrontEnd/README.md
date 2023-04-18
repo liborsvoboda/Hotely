@@ -39,6 +39,6 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
 
     setHotelSearchResultsList - onsahuje vracene inzeraty
 
-
+    
     použit camesCase
     DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase});

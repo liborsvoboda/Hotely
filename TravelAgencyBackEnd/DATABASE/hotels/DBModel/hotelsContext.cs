@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -15,7 +14,7 @@ namespace TravelAgencyBackEnd.DBModel
         public hotelsContext(DbContextOptions<hotelsContext> options)
                     : base(options) {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            
+
         }
 
 
@@ -50,6 +49,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual DbSet<HotelApprovalList> HotelApprovalLists { get; set; }
+        public virtual DbSet<HotelImagesList> HotelImagesLists { get; set; }
         public virtual DbSet<HotelList> HotelLists { get; set; }
         public virtual DbSet<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
         public virtual DbSet<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
@@ -592,6 +592,29 @@ namespace TravelAgencyBackEnd.DBModel
                     .IsRequired()
                     .HasMaxLength(250)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<HotelImagesList>(entity =>
+            {
+                entity.ToTable("HotelImagesList");
+
+                entity.HasIndex(e => new { e.HotelId, e.FileName }, "UX_HotelImagesList")
+                    .IsUnique();
+
+                entity.Property(e => e.Attachment).IsRequired();
+
+                entity.Property(e => e.FileName)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HotelImagesLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelImagesList_UserList");
             });
 
             modelBuilder.Entity<HotelList>(entity =>
