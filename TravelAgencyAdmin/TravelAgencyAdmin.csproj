@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TravelAgencyAdmin</RootNamespace>
     <AssemblyName>TravelAgencyAdmin</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -78,9 +78,7 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
@@ -243,9 +241,6 @@
     <Compile Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml.cs">
       <DependentUpon>HotelApprovalListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPages.xaml.cs">
-      <DependentUpon>HotelImagesListPages.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPage.xaml.cs">
       <DependentUpon>HotelImagesListPage.xaml</DependentUpon>
     </Compile>
@@ -394,17 +389,16 @@
     <Compile Include="GlobalFunctions\FileFunctions.cs" />
     <Compile Include="GlobalFunctions\MediaFunctions.cs" />
     <Compile Include="GlobalStyles\Styles.cs" />
+    <Compile Include="TabsAndSystem\ImageEffects\Effects.cs" />
     <Compile Include="TabsAndSystem\ImageEffects\TrackBall.cs" />
     <Compile Include="TabsAndSystem\Properties\Settings.cs" />
-    <Compile Include="TabsAndSystem\Extensions\ExtendedKeyUsageData.cs" />
+    <Compile Include="TabsAndSystem\Extensions\CoreModelExtensions.cs" />
     <Compile Include="Agendas\System\ClientSetting\ClientSettingsPage.xaml.cs">
       <DependentUpon>ClientSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TabsAndSystem\Extensions\KeyUsageData.cs" />
     <Compile Include="TabsAndSystem\Properties\IniFile.cs" />
     <Compile Include="TabsAndSystem\Extensions\NewLineOnTabBehavior.cs" />
     <Compile Include="TabsAndSystem\Extensions\Platform.cs" />
-    <Compile Include="TabsAndSystem\Extensions\SetMinWidthToAutoAttachedBehaviour.cs" />
     <Compile Include="TabsAndSystem\Extensions\TabContent.cs" />
     <Compile Include="Templates\CustomTemplates\TemplateSettingsPage.xaml.cs">
       <DependentUpon>TemplateSettingsPage.xaml</DependentUpon>
@@ -418,10 +412,6 @@
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
     <Page Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -569,9 +559,9 @@
     <Compile Include="TabsAndSystem\Extensions\AppThemeMenuData.cs" />
     <Compile Include="TabsAndSystem\Helper\CrashReporterGlobalField.cs" />
     <Compile Include="TabsAndSystem\Helper\DelegateCommand.cs" />
-    <Compile Include="TabsAndSystem\Extensions\SubjectName.cs" />
+    <Compile Include="TabsAndSystem\Extensions\CoreAutoControllers.cs" />
     <Compile Include="TabsAndSystem\Helper\Help.cs" />
-    <Compile Include="TabsAndSystem\Extensions\IconMaker.cs" />
+    <Compile Include="GlobalGenerators\IconMakerGenerator.cs" />
     <Page Include="Agendas\Views\WelcomePage\WelcomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -680,7 +670,6 @@
     <Content Include="Data\AddOn\UltraVNC.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -727,6 +716,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="cef.redist.x64">
+      <Version>112.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="cef.redist.x86">
+      <Version>112.2.7</Version>
+    </PackageReference>
     <PackageReference Include="CefSharp.Common">
       <Version>112.2.70</Version>
     </PackageReference>
@@ -734,7 +729,7 @@
       <Version>112.2.70</Version>
     </PackageReference>
     <PackageReference Include="ControlzEx">
-      <Version>5.0.2</Version>
+      <Version>3.0.2.4</Version>
     </PackageReference>
     <PackageReference Include="Costura.Fody">
       <Version>5.7.0</Version>

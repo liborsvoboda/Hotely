@@ -20,21 +20,20 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using TravelAgencyAdmin.Pages;
 using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Extension;
+using TravelAgencyAdmin.SystemCoreExtensions;
 using TravelAgencyAdmin.GlobalFunctions;
 using TravelAgencyAdmin.Helper;
 using System.Net.Http;
 using TravelAgencyAdmin.GlobalClasses;
 using System.Windows.Media;
-using CefSharp;
-using System.Xml.Linq;
+
 
 namespace TravelAgencyAdmin
 {
-    public partial class MainWindow : MetroWindow
-    {
+    public partial class MainWindow : MetroWindow {
         #region Definitions
         private static bool _hackyIsFirstWindow = true;
+        public static DateTimeOffset lastUserAction = DateTimeOffset.UtcNow.AddSeconds(App.Setting.TimeToEnable);
         public readonly Timer AppSystemTimer = new Timer() { Enabled = false, Interval = 1 };
 
         /// <summary>
@@ -49,22 +48,18 @@ namespace TravelAgencyAdmin
         public Process vncProccess;
         public static event EventHandler DataGridSelectedChanged, DataGridSelectedIdListIndicatorChanged, DgRefreshChanged, ServiceStatusChanged, ServiceRunningChanged, DownloadStatusChanged, DownloadShowChanged, ProgressRingChanged, UserLoggedChanged, VncRunningChanged = delegate { };
 
-        public SolidColorBrush VncRunning
-        {
+        public SolidColorBrush VncRunning {
             get => vncRunning;
-            set
-            {
+            set {
                 vncRunning = value;
                 ip_rdpServer.Foreground = (vncRunning == Brushes.Green) ? Brushes.Green : Brushes.Red;
                 VncRunningChanged?.Invoke(null, EventArgs.Empty);
             }
         }
 
-        public static bool UserLogged
-        {
+        public static bool UserLogged {
             get => userLogged;
-            set
-            {
+            set {
                 userLogged = value;
                 UserLoggedChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -73,11 +68,9 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Service Status description
         /// </summary>
-        public static bool ServiceRunning
-        {
+        public static bool ServiceRunning {
             get => serviceRunning;
-            set
-            {
+            set {
                 serviceRunning = value;
                 ServiceRunningChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -86,11 +79,9 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Indicator for enable Refresh Button Indicator
         /// </summary>
-        public static bool DgRefresh
-        {
+        public static bool DgRefresh {
             get => dgRefresh;
-            set
-            {
+            set {
                 dgRefresh = value;
                 DgRefreshChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -99,11 +90,9 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Indicator for Enable New datagrid Button
         /// </summary>
-        public static bool DataGridSelected
-        {
+        public static bool DataGridSelected {
             get => dataGridSelected;
-            set
-            {
+            set {
                 dataGridSelected = value;
                 DataGridSelectedChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -112,11 +101,9 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Datagrid have selected record indicator
         /// </summary>
-        public static bool DataGridSelectedIdListIndicator
-        {
+        public static bool DataGridSelectedIdListIndicator {
             get => dgIdSetted;
-            set
-            {
+            set {
                 dgIdSetted = value;
                 DataGridSelectedIdListIndicatorChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -125,11 +112,9 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Service Status public Variable
         /// </summary>
-        public static string ServiceStatus
-        {
+        public static string ServiceStatus {
             get => serviceStatus;
-            set
-            {
+            set {
                 serviceStatus = value;
                 ServiceStatusChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -139,12 +124,10 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Downloading of update status variable
         /// </summary>
-        public static int DownloadStatus
-        {
+        public static int DownloadStatus {
 
             get => downloadStatus;
-            set
-            {
+            set {
                 downloadStatus = value;
                 DownloadStatusChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -153,12 +136,10 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Indicator for show Downloading area
         /// </summary>
-        public static int DownloadShow
-        {
+        public static int DownloadShow {
 
             get => downloadShow;
-            set
-            {
+            set {
                 downloadShow = value;
                 DownloadShowChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -167,12 +148,10 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// ProgressRing Visibility indicator
         /// </summary>
-        public static Visibility ProgressRing
-        {
+        public static Visibility ProgressRing {
 
             get => progressRing;
-            set
-            {
+            set {
                 progressRing = value;
                 ProgressRingChanged?.Invoke(null, EventArgs.Empty);
             }
@@ -183,8 +162,7 @@ namespace TravelAgencyAdmin
         /// <summary>
         /// Initialize Application Main Window
         /// </summary>
-        public MainWindow()
-        {
+        public MainWindow() {
             try
             {
                 InitializeComponent();
@@ -206,7 +184,7 @@ namespace TravelAgencyAdmin
 
                 //MENUS THIS IS FOR MANUAL UPDATE
                 //Vertical main menu
-                tv_dials.Header = Resources["dials"].ToString(); tv_crm.Header = Resources["crm"].ToString(); tv_agendas.Header = Resources["agendas"].ToString(); 
+                tv_dials.Header = Resources["dials"].ToString(); tv_crm.Header = Resources["crm"].ToString(); tv_agendas.Header = Resources["agendas"].ToString();
                 tv_settings.Header = Resources["settings"].ToString(); tv_system.Header = Resources["system"].ToString();
                 tv_accommodations.Header = Resources["accommodations"].ToString(); tv_accommodationConfiguration.Header = Resources["accommodationConfiguration"].ToString();
                 tv_overviews.Header = Resources["overviews"].ToString(); tv_reservations.Header = Resources["reservations"].ToString();
@@ -216,7 +194,7 @@ namespace TravelAgencyAdmin
                 tm_userList.Header = Resources["userList"].ToString(); tm_userRoleList.Header = Resources["userRoleList"].ToString();
                 tm_clientSettings.Header = Resources["clientSettings"].ToString(); tm_adminLoginHistoryList.Header = Resources["adminLoginHistoryList"].ToString();
                 tm_support.Header = Resources["support"].ToString(); tm_documentAdviceList.Header = Resources["documentAdviceList"].ToString();
-                tm_currencyList.Header = Resources["currencyList"].ToString();tm_exchangeRateList.Header = Resources["exchangeRateList"].ToString();
+                tm_currencyList.Header = Resources["currencyList"].ToString(); tm_exchangeRateList.Header = Resources["exchangeRateList"].ToString();
                 tm_cityList.Header = Resources["cityList"].ToString(); tm_countryList.Header = Resources["countryList"].ToString();
 
                 tm_addressList.Header = Resources["addressList"].ToString(); tm_parameterList.Header = Resources["parameterList"].ToString();
@@ -243,12 +221,44 @@ namespace TravelAgencyAdmin
                 cb_filter.SelectedIndex = 0;
 
 
+
+                ///Core Startup / Closing handlers
                 Loaded += MainWindow_Loaded;
                 KeyDown += MainWindow_KeyDown;
                 Closing += MainWindow_Closing;
+
+
+                ///User Activity Handlers
+                PreviewMouseDown += MainWindow_MouseLeave;
+                PreviewKeyDown += MainWindow_PreviewKeyDown;
+                PreviewMouseMove += MainWindow_PreviewMouseMove;
+
                 ShowLoginDialog();
             } catch (Exception ex) { App.ApplicationLogging(ex); }
-            
+
+        }
+
+        
+
+
+        /// <summary>
+        /// Writing Last User action for monitoring Free Time
+        /// Used by: SceenSaver
+        /// </summary>
+        internal void MainWindow_MouseLeave(object sender, MouseEventArgs e) => SetLastUserAction();
+        internal void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e) => SetLastUserAction();
+        private void MainWindow_PreviewMouseMove(object sender, MouseEventArgs e) => SetLastUserAction();
+        internal DateTimeOffset SetLastUserAction() {
+
+            ///ScreenSaver 
+            if (App.Setting.DisableOnActivity && this.FindChild<ScreenSaverPage>("") != null) {
+                try {
+                    TabContent existingTab = ((MainWindowViewModel)DataContext).TabContents.ToList().FirstOrDefault(a => (string)a.Tag == nameof(App.Setting.ActiveSystemSaver));
+                    var result = (MainWindowViewModel)this.DataContext;
+                    result.TabContents.Remove(existingTab);
+                } catch (Exception ex) { App.ApplicationLogging(ex); }
+            }
+            return lastUserAction = DateTimeOffset.UtcNow;
         }
 
 
@@ -259,8 +269,7 @@ namespace TravelAgencyAdmin
         /// <param name="message"></param>
         /// <param name="confirm"></param>
         /// <returns></returns>
-        public static async Task<MessageDialogResult> ShowMessage(bool error, string message, bool confirm = false)
-        {
+        public static async Task<MessageDialogResult> ShowMessage(bool error, string message, bool confirm = false) {
             if (error) App.ApplicationLogging(new Exception(), message);
 
             ProgressRing = Visibility.Hidden; MessageDialogResult result;
@@ -274,16 +283,15 @@ namespace TravelAgencyAdmin
             return result;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
             try
             {
                 MenuSortOnStart();
                 this.Invoke(() =>
                 {
-                    AppSystemTimer.Elapsed += AppSystemTimer_Elapsed; AppSystemTimer.Enabled = true;
+                    AppSystemTimer.Elapsed += SystemTimerController; AppSystemTimer.Enabled = true;
                     _ = MediaFunctions.IncreaseFileVersionBuild();
-                    AddNewTab(Resources["support"].ToString(), new SupportPage());
+                    AddOrRemoveTab(Resources["support"].ToString(), new SupportPage());
                 });
                 //Load Theme
                 AppTheme theme = ThemeManager.AppThemes.FirstOrDefault(t => t.Name.Equals(App.Setting.ThemeName));
@@ -297,17 +305,30 @@ namespace TravelAgencyAdmin
         /// </summary>
         private void MenuSortOnStart() { foreach (TreeViewItem menuItem in tb_verticalMenu.Items) { menuItem.Items.SortDescriptions.Add(new SortDescription("Header", ListSortDirection.Ascending)); } }
 
+
+
         /// <summary>
         /// Backend Time for check server connection
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void AppSystemTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            await this.Invoke(async () => {
+        private async void SystemTimerController(object sender, ElapsedEventArgs e) {
+
+            await this.Invoke(async () =>
+            {
                 AppSystemTimer.Interval = App.Setting.ServerCheckIntervalSec;
                 try
-                {   //Check server connection
+                {
+                    //System Saver
+                    if (App.Setting.ActiveSystemSaver && (DateTimeOffset.UtcNow - lastUserAction).TotalSeconds > App.Setting.TimeToEnable && this.FindChild<ScreenSaverPage>("") == null)
+                    {
+                        SetLastUserAction();
+                        string translatedName = await DBFunctions.DBTranslation("activeSystemSaver");
+                        this.AddOrRemoveTab(translatedName, new ScreenSaverPage(), nameof(App.Setting.ActiveSystemSaver));
+                    }
+
+
+                    //Check server connection
                     if (await ApiCommunication.CheckApiConnection())
                     {
                         ServiceRunning = true; ServiceStatus = Resources["running"].ToString();
@@ -319,12 +340,16 @@ namespace TravelAgencyAdmin
 
                         //ONETime Update
                         if (ServiceRunning && !updateChecked && UserLogged) { this.Invoke(() => { if (App.Setting.AutomaticUpdate != "never") { Updater.CheckUpdate(false); } updateChecked = true; }); }
-                    } else { SetServiceStop(); }
-                } catch (Exception ex) { App.ApplicationLogging(ex); }
+                    }
+                    else { SetServiceStop(); }
+                }
+                catch (Exception ex) { App.ApplicationLogging(ex); }
             });
         }
 
-        private void SetServiceStop()
+
+
+        internal void SetServiceStop()
         {
             ServiceStatus = Resources["stopped"].ToString();
             DataGridSelected = DataGridSelectedIdListIndicator = DgRefresh = ServiceRunning = false;
@@ -346,6 +371,7 @@ namespace TravelAgencyAdmin
             Resources["myState"].ToString() + "\n" + Resources["myInvoiceInfo"].ToString() + "\n" + Resources["myPhone"].ToString() + "\n" +
             Resources["myEmail"].ToString() + "\n" + Resources["myAccount"].ToString(), MessageDialogStyle.Affirmative);
         }
+
 
 
         /// <summary>
@@ -406,12 +432,15 @@ namespace TravelAgencyAdmin
         }
 
 
+
         /// <summary>
         /// Applications Close Request Controller
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void MainWindow_Closing(object sender, CancelEventArgs e) { if (e.Cancel) return; e.Cancel = !e.Cancel; App.AppQuitRequest(false); }
+        public static void MainWindow_Closing(object sender, CancelEventArgs e) { 
+            if (e.Cancel) return; e.Cancel = !e.Cancel; App.AppQuitRequest(false); 
+        }
 
 
         /// <summary>
@@ -749,238 +778,238 @@ namespace TravelAgencyAdmin
                     {
                         case "tm_adminLoginHistoryList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AdminLoginHistoryListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new AdminLoginHistoryListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/AdminLoginHistoryList", App.UserData.Authentification.Token);
                             break;
                         case "tm_accommodation":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelList", App.UserData.Authentification.Token);
                             break;
                         case "tm_approvingProcess":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelApprovalListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelApprovalListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelApprovalList", App.UserData.Authentification.Token);
                             break;
                         case "tm_cityList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CityListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CityListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CityList", App.UserData.Authentification.Token);
                             break;
                         case "tm_countryList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CountryListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CountryListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CountryList", App.UserData.Authentification.Token);
                             break;
                         case "tm_accessRoleList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AccessRoleListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new AccessRoleListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/AccessRoleList", App.UserData.Authentification.Token);
                             break;
                         case "tm_addressList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new AddressListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new AddressListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/AddressList", App.UserData.Authentification.Token);
                             break;
                         case "tm_branchList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new BranchListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new BranchListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/BranchList", App.UserData.Authentification.Token);
                             break;
                         case "tm_calendar":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CalendarPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CalendarPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = null;
                             break;
                         case "tm_clientSettings":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ClientSettingsPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ClientSettingsPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, ""); 
                             cb_printReports.ItemsSource = null;
                             break;
                         case "tm_currencyList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new CurrencyListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CurrencyListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CurrencyList", App.UserData.Authentification.Token);
                             break;
                         case "tm_documentAdviceList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new DocumentAdviceListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new DocumentAdviceListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentAdviceList", App.UserData.Authentification.Token);
                             break;
                         case "tm_documentTypeList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new DocumentTypeListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new DocumentTypeListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentTypeList", App.UserData.Authentification.Token);
                             break;
                         case "tm_hotelImagesList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelImagesListPages()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelImagesListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelImagesList", App.UserData.Authentification.Token);
                             break;
                         case "tm_guestList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new GuestListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new GuestListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/GuestList", App.UserData.Authentification.Token);
                             break;
                         case "tm_guestLoginHistoryList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new GuestLoginHistoryListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new GuestLoginHistoryListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/GuestLoginHistoryList", App.UserData.Authentification.Token);
                             break;
                         case "tm_hotelActionTypeList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelActionTypeListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelActionTypeListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelActionTypeList", App.UserData.Authentification.Token);
                             break;
                         case "tm_hotelRoomTypeList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomTypeListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomTypeListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelRoomTypeList", App.UserData.Authentification.Token);
                             break;
                         case "tm_exchangeRateList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ExchangeRateListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ExchangeRateListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ExchangeRateList", App.UserData.Authentification.Token);
                             break;
                         case "tm_ignoredExceptionList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new IgnoredExceptionListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new IgnoredExceptionListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/IgnoredExceptionList", App.UserData.Authentification.Token);
                             break;
                         case "tm_languageList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new LanguageListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new LanguageListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/LanguageList", App.UserData.Authentification.Token);
                             break;
                         case "tm_mottoList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new MottoListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new MottoListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/MottoList", App.UserData.Authentification.Token);
                             break;
                         case "tm_parameterList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ParameterListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ParameterListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ParameterList", App.UserData.Authentification.Token);
                             break;
                         case "tm_propertyOrServiceList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelPropertyAndServiceListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelPropertyAndServiceListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelPropertyOrServiceList", App.UserData.Authentification.Token);
                             break;
                         case "tm_propertyOrServiceTypeList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceTypeListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceTypeListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/PropertyOrServiceTypeList", App.UserData.Authentification.Token);
                             break;
                         case "tm_propertyOrServiceUnitList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceUnitListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new PropertyOrServiceUnitListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/PropertyOrServiceUnitList", App.UserData.Authentification.Token);
                             break;
                         case "tm_reportList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ReportListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ReportListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ReportList", App.UserData.Authentification.Token);
                             break;
                         case "tm_reportQueueList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ReportQueueListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ReportQueueListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ReportQueueList", App.UserData.Authentification.Token);
                             break;
                         case "tm_roomList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelRoomList", App.UserData.Authentification.Token);
                             break;
                         case "tm_serverApiDocs":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new ServerApiDocsPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ServerApiDocsPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = null;
                             break;
                         case "tm_support":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources["support"].ToString(), new SupportPage()); }
+                            { AddOrRemoveTab(Resources["support"].ToString(), new SupportPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = null;
                             break;
                         case "tm_userList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new UserListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new UserListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/UserList", App.UserData.Authentification.Token);
                             break;
                         case "tm_userRoleList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new UserRoleListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new UserRoleListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/UserRoleList", App.UserData.Authentification.Token);
                             break;
                         case "tm_systemFailList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0)
-                            { AddNewTab(Resources[name.Split('_')[1]].ToString(), new SystemFailListPage()); }
+                            { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new SystemFailListPage()); }
                             else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/SystemFailList", App.UserData.Authentification.Token);
@@ -1050,24 +1079,30 @@ namespace TravelAgencyAdmin
         /// </summary>
         /// <param name="headerName"></param>
         /// <param name="tabPage"></param>
-        private void AddNewTab(string headerName, object tabPage)
+        /// <param name="tagText"></param>
+        internal void AddOrRemoveTab(string headerName, object tabPage = null,string tagText = null)
         {
             try
             {
                 IEnumerable<DragablzItem> existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
                 existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
-                if (existedTabs.Count() > 0)
+
+                if (tabPage == null) //Removing TabPage by name
                 {
-                    TabContent tc1 = new TabContent(headerName, tabPage);
+
+
+                } else if (existedTabs.Count() > 0) // Select Existing TabPage
+                {
+                    TabContent tc1 = new TabContent(headerName, tabPage, tagText);
                     TabablzControl.AddItem(tc1, existedTabs.Last().DataContext, AddLocationHint.After);
                     TabablzControl.SelectItem(tc1);
                     existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
                 }
 
-                if (existedTabs.Count() == 0)
+                if (existedTabs.Count() == 0) // Insert New TabPage
                 {
                     MainWindowViewModel result = new MainWindowViewModel();
-                    result.TabContents.Add(new TabContent(headerName, tabPage));
+                    result.TabContents.Add(new TabContent(headerName, tabPage, tagText));
                     DataContext = result;
                     existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
                 }
@@ -1088,8 +1123,17 @@ namespace TravelAgencyAdmin
         {
             try
             {
+                // Closing TabPanel
+                if (e.RemovedItems.Count > 0 && ((TabContent)e.RemovedItems[0]).Tag.ToString().ToUpperInvariant() == "ActiveSystemSaver".ToUpperInvariant())
+                    SetLastUserAction();
+
+
+
+                ///Insert TabPanel
                 TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                 DataViewSupport dataViewSupport = new DataViewSupport();
+
+
 
                 if (SelectedTab == null || ((FrameworkElement)SelectedTab.Content).Tag.ToString() == "Setting") {
                     //SETTING 

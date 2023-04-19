@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace TravelAgencyAdmin.Extension
+namespace TravelAgencyAdmin.GlobalGenerators
 {
-    public class IconMaker
+    public class IconMakerGenerator
     {
         public static BitmapImage Icon(Color color)
         {

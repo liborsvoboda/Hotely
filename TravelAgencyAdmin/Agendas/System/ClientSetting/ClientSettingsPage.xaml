@@ -5,7 +5,8 @@
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Name="Settings"
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+    Name="Setting"
     d:DesignHeight="500"
     d:DesignWidth="600"
     Tag="Setting"
@@ -22,13 +23,8 @@
 
     <Grid Name="configuration">
         <Grid
-            Width="Auto"
-            Height="Auto"
-            Margin="0,0,0,0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            ForceCursor="False"
-            ShowGridLines="False">
+            Width="Auto" Height="Auto" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            ForceCursor="False" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300" />
                 <ColumnDefinition Width="*" />
@@ -58,35 +54,15 @@
             </Grid.RowDefinitions>
 
             <Label
-                x:Name="lbl_apiAddress"
-                Grid.Row="0"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_apiAddress" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_apiAddress"
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="0,2,160,2"
-                Controls:TextBoxHelper.ClearTextButton="true"
-                Controls:TextBoxHelper.IsWaitingForData="True"
-                Controls:TextBoxHelper.Watermark="Default is http://127.0.0.1:5000"
-                TextChanged="Txt_apiAddress_TextChanged"
-                ToolTip="GroupWare-Solution API is HTTP://109.164.71.204:5000 only for READ" />
+                x:Name="txt_apiAddress" Grid.Row="0" Grid.Column="1" Margin="0,2,160,2" Controls:TextBoxHelper.ClearTextButton="true"
+                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="Default is http://127.0.0.1:5000" TextChanged="Txt_apiAddress_TextChanged" ToolTip="GroupWare-Solution API is HTTP://109.164.71.204:5000 only for READ" />
 
             <Button
-                x:Name="btnApiTest"
-                Grid.Row="0"
-                Grid.Column="1"
-                Width="150"
-                Height="25"
-                Margin="0,2,5,0"
-                Padding="5,4,5,5"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnApiTest_Click"
-                IsEnabled="False"
+                x:Name="btnApiTest" Grid.Row="0" Grid.Column="1" Width="150" Height="25"
+                Margin="0,2,5,0" Padding="5,4,5,5" HorizontalAlignment="Right" VerticalAlignment="Top" Controls:ButtonHelper.PreserveTextCase="True"
+                Click="BtnApiTest_Click" IsEnabled="False"
                 Style="{DynamicResource AccentedSquareButtonStyle}">
                 <Button.ToolTip>
                     <TextBlock>
@@ -95,102 +71,42 @@
             </Button>
 
             <Label
-                x:Name="lbl_writeToLog"
-                Grid.Row="1"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_writeToLog" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_WritetoLog"
-                Grid.Row="1"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
+                x:Name="chb_WritetoLog" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
 
             <Label
-                x:Name="lbl_serverCheckIntervalSec"
-                Grid.Row="2"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_serverCheckIntervalSec" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <Controls:NumericUpDown
-                x:Name="txt_serverCheckIntervalSec"
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="0,2,0,2"
-                HorizontalContentAlignment="Left"
-                Controls:TextBoxHelper.ClearTextButton="true"
-                Controls:TextBoxHelper.Watermark=""
-                Maximum="99"
-                Minimum="1" />
+                x:Name="txt_serverCheckIntervalSec" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" HorizontalContentAlignment="Left"
+                Controls:TextBoxHelper.ClearTextButton="true" Controls:TextBoxHelper.Watermark="" Maximum="99" Minimum="1" />
 
             <Label
-                x:Name="lbl_topMost"
-                Grid.Row="3"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_topMost" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_topMost"
-                Grid.Row="3"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
+                x:Name="chb_topMost" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" />
 
             <Label
-                x:Name="lbl_activeNewInputDefault"
-                Grid.Row="4"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_activeNewInputDefault" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_activeNewInputDefault"
-                Grid.Row="4"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
+                x:Name="chb_activeNewInputDefault" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" />
 
             <Label
-                x:Name="lbl_defaultLanguage"
-                Grid.Row="5"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_defaultLanguage" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <ComboBox
-                Name="cb_defaultLanguage"
-                Grid.Row="5"
-                Grid.Column="1"
-                Margin="0,2,0,2"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Controls:TextBoxHelper.ClearTextButton="false"
-                DisplayMemberPath="Name"
-                IsEnabled="true"
+                Name="cb_defaultLanguage" Grid.Row="5" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" DisplayMemberPath="Name" IsEnabled="true"
                 ItemsSource="{Binding Path=Languages}"
                 SelectedValuePath="Value" />
 
             <Label
-                x:Name="lbl_reportingPath"
-                Grid.Row="7"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_reportingPath" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_reportingPath"
-                Grid.Row="7"
-                Grid.Column="1"
-                Margin="0,2,85,0"
-                Controls:TextBoxHelper.SelectAllOnFocus="True"
-                Controls:TextBoxHelper.Watermark="Enter path with RdlReader installed exe file"
-                IsEnabled="False" />
+                x:Name="txt_reportingPath" Grid.Row="7" Grid.Column="1" Margin="0,2,85,0" Controls:TextBoxHelper.SelectAllOnFocus="True"
+                Controls:TextBoxHelper.Watermark="Enter path with RdlReader installed exe file" IsEnabled="False" />
             <Button
-                x:Name="btn_browse"
-                Grid.Row="7"
-                Grid.Column="1"
-                Width="80"
-                Height="28"
-                Margin="0,2,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnBrowse_Click"
+                x:Name="btn_browse" Grid.Row="7" Grid.Column="1" Width="80" Height="28"
+                Margin="0,2,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnBrowse_Click"
                 Content="Browse"
                 Style="{DynamicResource AccentedSquareButtonStyle}">
                 <Button.ToolTip>
@@ -199,77 +115,33 @@
             </Button>
 
             <Label
-                x:Name="lbl_updateUrl"
-                Grid.Row="8"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_updateUrl" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_updateUrl"
-                Grid.Row="8"
-                Grid.Column="1"
-                Margin="0,2,0,2"
-                Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.SelectAllOnFocus="True"
-                Controls:TextBoxHelper.Watermark="Enter the Update Url" />
+                x:Name="txt_updateUrl" Grid.Row="8" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
+                Controls:TextBoxHelper.SelectAllOnFocus="True" Controls:TextBoxHelper.Watermark="Enter the Update Url" />
 
             <Label
-                x:Name="lbl_automaticUpdate"
-                Grid.Row="9"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_automaticUpdate" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <ComboBox
-                Name="cb_automaticUpdate"
-                Grid.Row="9"
-                Grid.Column="1"
-                Margin="0,2,0,2"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Controls:TextBoxHelper.ClearTextButton="false"
-                DisplayMemberPath="Name"
-                IsEnabled="true"
+                Name="cb_automaticUpdate" Grid.Row="9" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" DisplayMemberPath="Name" IsEnabled="true"
                 ItemsSource="{Binding Path=UpdateVariants}"
                 SelectedValuePath="Value" />
 
             <Label
-                x:Name="lbl_hideStartVideo"
-                Grid.Row="10"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_hideStartVideo" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_hideStartVideo"
-                Grid.Row="10"
-                Grid.Column="1"
-                VerticalAlignment="Center" />
+                x:Name="chb_hideStartVideo" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" />
             <Button
-                x:Name="btn_showVideo"
-                Grid.Row="10"
-                Grid.Column="1"
-                Height="28"
-                Margin="0,2,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnShowVideo_Click"
+                x:Name="btn_showVideo" Grid.Row="10" Grid.Column="1" Height="28" Margin="0,2,0,0"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnShowVideo_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
 
             <Label
-                x:Name="lbl_reportConnectionString"
-                Grid.Row="11"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_reportConnectionString" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <PasswordBox
-                x:Name="pb_reportConnectionString"
-                Grid.Row="11"
-                Grid.Column="1"
-                Height="28"
-                Margin="0,2,80,2"
-                Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.SelectAllOnFocus="True"
-                Controls:TextBoxHelper.Watermark="">
+                x:Name="pb_reportConnectionString" Grid.Row="11" Grid.Column="1" Height="28" Margin="0,2,80,2"
+                Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.SelectAllOnFocus="True" Controls:TextBoxHelper.Watermark="">
                 <PasswordBox.ToolTip>
                     <TextBlock>
                         Examples: Server=192.168.1.10,1433;Database=db;User ID=user;Password=pw;<LineBreak />
@@ -277,103 +149,73 @@
                 </PasswordBox.ToolTip>
             </PasswordBox>
             <Button
-                x:Name="btn_test"
-                Grid.Row="11"
-                Grid.Column="1"
-                Width="75"
-                Height="28"
-                Margin="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnTestConnection_Click"
+                x:Name="btn_test" Grid.Row="11" Grid.Column="1" Width="75" Height="28"
+                Margin="0" HorizontalAlignment="Right" VerticalAlignment="Center" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnTestConnection_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
 
             <Label
-                x:Name="lbl_reportBuilder"
-                Grid.Row="12"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                HorizontalContentAlignment="Right" />
+                x:Name="lbl_reportBuilder" Grid.Row="12" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_reportBuilder"
-                Grid.Row="12"
-                Grid.Column="1"
-                Margin="0,2,170,0"
-                Controls:TextBoxHelper.SelectAllOnFocus="True"
-                Controls:TextBoxHelper.Watermark="Enter path with RdlDesigner installed exe file"
-                IsEnabled="False" />
+                x:Name="txt_reportBuilder" Grid.Row="12" Grid.Column="1" Margin="0,2,170,0" Controls:TextBoxHelper.SelectAllOnFocus="True"
+                Controls:TextBoxHelper.Watermark="Enter path with RdlDesigner installed exe file" IsEnabled="False" />
             <Button
-                x:Name="btn_browseDesigner"
-                Grid.Row="12"
-                Grid.Column="1"
-                Width="80"
-                Height="28"
-                Margin="0,2,85,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Click="BtnBrowseDesigner_Click"
+                x:Name="btn_browseDesigner" Grid.Row="12" Grid.Column="1" Width="80" Height="28"
+                Margin="0,2,85,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="BtnBrowseDesigner_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}"
                 ToolTip="Select the RdlDesigner installed exe file" />
             <Button
-                x:Name="btn_run"
-                Grid.Row="12"
-                Grid.Column="1"
-                Width="80"
-                Height="28"
-                Margin="0,2,0,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Click="BtnRun_Click"
+                x:Name="btn_run" Grid.Row="12" Grid.Column="1" Width="80" Height="28"
+                Margin="0,2,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="BtnRun_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
 
+            <Grid
+                Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    x:Name="lbl_activeSystemSaver" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                <CheckBox
+                    x:Name="chb_activeSystemSaver" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
+
+                <Label
+                    x:Name="lbl_disableOnActivity" Grid.Row="0" Grid.Column="2" Margin="20,0,0,0" HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Right" />
+                <CheckBox
+                    x:Name="chb_disableOnActivity" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+                <Label
+                    x:Name="lbl_timeToEnable" Grid.Row="0" Grid.Column="3" Margin="0,0,100,0" HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right" />
+                <Controls:TimePicker
+                    x:Name="tp_timeToEnable" Grid.Row="0" Grid.Column="3" Width="100" HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right" HandVisibility="Second" IsClockVisible="False" IsDropDownOpen="True" PickerVisibility="Second"
+                    SelectedTimeFormat="Long" />
+
+            </Grid>
 
 
 
             <Button
-                x:Name="btn_checkUpdate"
-                Grid.Row="19"
-                Grid.Column="0"
-                Width="200"
-                Height="40"
-                Margin="44,21,44,44"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Click="BtnCheckUpdate_Click"
+                x:Name="btn_checkUpdate" Grid.Row="19" Grid.Column="0" Width="200" Height="40"
+                Margin="44,21,44,44" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BtnCheckUpdate_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
 
             <TextBlock
-                x:Name="tbOutputMessageBox"
-                Grid.Row="19"
-                Grid.Column="1"
-                Margin="5,10,5,5"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                FontWeight="Bold"
-                TextWrapping="Wrap" />
+                x:Name="tbOutputMessageBox" Grid.Row="19" Grid.Column="1" Margin="5,10,5,5" HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" FontWeight="Bold" TextWrapping="Wrap" />
 
             <Button
-                x:Name="btn_save"
-                Grid.Row="20"
-                Grid.Column="0"
-                Width="200"
-                Height="40"
-                Margin="44,21,0,44"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Controls:ButtonHelper.PreserveTextCase="True"
-                Click="BtnSave_Click"
+                x:Name="btn_save" Grid.Row="20" Grid.Column="0" Width="200" Height="40"
+                Margin="44,21,0,44" HorizontalAlignment="Left" VerticalAlignment="Bottom" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnSave_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
             <Button
-                x:Name="btn_restart"
-                Grid.Row="20"
-                Grid.Column="1"
-                Width="200"
-                Height="40"
-                Margin="44,21,44,44"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="BtnRestart_Click"
+                x:Name="btn_restart" Grid.Row="20" Grid.Column="1" Width="200" Height="40"
+                Margin="44,21,44,44" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="BtnRestart_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
         </Grid>
     </Grid>

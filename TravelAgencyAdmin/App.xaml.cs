@@ -14,15 +14,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using TravelAgencyAdmin.GlobalFunctions;
-using CefSharp;
 using MahApps.Metro.Controls.Dialogs;
-using TravelAgencyAdmin.Extension;
+using TravelAgencyAdmin.SystemCoreExtensions;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using CefSharp.Wpf;
-using iTextSharp.text.pdf;
+using CefSharp;
+//using CefSharp;
+//using CefSharp.Wpf;
+
 
 namespace TravelAgencyAdmin
 {
@@ -32,7 +34,7 @@ namespace TravelAgencyAdmin
         /// Global Application Startup Settings
         /// Central Parameters / Languages / User / Config 
         /// </summary>
-        public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        //public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
         public static List<ParameterList> ParameterList = null;
         public static List<LanguageList> LanguageList = null;
@@ -50,11 +52,6 @@ namespace TravelAgencyAdmin
         public static Config Setting = FileFunctions.LoadSettings();
         internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
 
-        /// <summary>
-        /// CefSharp Settings
-        /// </summary>
-        public static CefSettings CeffSettings = new CefSettings()
-        { LogSeverity = LogSeverity.Disable, IgnoreCertificateErrors = true };
 
 
         /// <summary>
@@ -63,8 +60,8 @@ namespace TravelAgencyAdmin
         public App() {
 
             MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(Setting.DefaultLanguage).Value);
-            log4net.GlobalContext.Properties["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
-            _ = XmlConfigurator.Configure();
+        //log4net.GlobalContext.Properties["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
+        //_ = XmlConfigurator.Configure();
             Dispatcher.UnhandledException += App_DispatcherUnhandledException;
             DispatcherUnhandledException += App_DispatcherUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
@@ -116,6 +113,7 @@ namespace TravelAgencyAdmin
         public static void AppRestart() {
             MainWindowViewModel.SaveTheme();
             Process.Start(Assembly.GetEntryAssembly().EscapedCodeBase);
+            ApplicationQuit();
             Process.GetCurrentProcess().Kill();
         }
 
@@ -140,20 +138,21 @@ namespace TravelAgencyAdmin
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private static void ApplicationQuit() {
-            try
-            {
+            try {
                 MainWindow mainWindow = (MainWindow)Current.MainWindow;
                 mainWindow.AppSystemTimer.Enabled = false;
-
-
-                Cef.PreShutdown();
                 if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
-
-                FileFunctions.ClearFolder(reportFolder);
-                FileFunctions.ClearFolder(galleryFolder);
-                FileFunctions.ClearFolder(tempFolder);
-
             } catch { }
+
+
+            try { Cef.PreShutdown();
+                Cef.ShutdownWithoutChecks();
+            } catch { }
+
+            try { FileFunctions.ClearFolder(reportFolder); } catch { }
+            try { FileFunctions.ClearFolder(galleryFolder); } catch { }
+            try { FileFunctions.ClearFolder(tempFolder); } catch { }
+
             MainWindowViewModel.SaveTheme();
             Current.Shutdown();
         }
@@ -171,7 +170,7 @@ namespace TravelAgencyAdmin
                     {
                         if (string.IsNullOrWhiteSpace(customMessage)) DBFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
                         else DBFunctions.SaveSystemFailMessage(customMessage);
-                        if (Setting.WriteToLog) log.Error(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + customMessage);
+                        //if (Setting.WriteToLog) log.Error(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + customMessage);
                     }
                 });
             } catch { }

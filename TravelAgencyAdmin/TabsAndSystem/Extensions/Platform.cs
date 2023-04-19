@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace TravelAgencyAdmin.Extension
+namespace TravelAgencyAdmin.SystemCoreExtensions
 {
     internal abstract class Platform
     {

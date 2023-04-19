@@ -76,6 +76,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Cursor" Value="Hand" />
             </Style>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
@@ -396,7 +397,7 @@
                 </dragablz:TabablzControl.InterTabController>-->
 
                 <dragablz:TabablzControl.ContentTemplate>
-                    <DataTemplate DataType="{x:Type local:Extension.TabContent}">
+                    <DataTemplate DataType="{x:Type local:SystemCoreExtensions.TabContent}">
                         <ContentControl Margin="2" Content="{Binding Content}" />
                     </DataTemplate>
                 </dragablz:TabablzControl.ContentTemplate>
@@ -457,7 +458,7 @@
         <TouchKeyboard:FloatingTouchScreenKeyboard
             x:Name="TouchKeyboard" Width="900" Height="400" AreAnimationsEnabled="True" IsOpen="False"
             Placement="Relative"
-            PlacementTarget="{Binding ElementName=mainWindow}" />
+            PlacementTarget="{Binding ElementName=AppMainWindow}" />
 
         <Controls:ProgressRing
             x:Name="pr_progressRing" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"

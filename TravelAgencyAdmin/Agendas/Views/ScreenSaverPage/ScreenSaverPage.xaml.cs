@@ -3,6 +3,9 @@
 
 using System.Windows.Controls;
 using TravelAgencyAdmin.ImageEffects;
+using TravelAgencyAdmin.SystemCoreExtensions;
+using MahApps.Metro.Controls;
+using System.Windows;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -23,10 +26,10 @@ namespace TravelAgencyAdmin.Pages
             _trackball.Slaves.Add(myViewport3D);
             _trackball.Enabled = true;
 
-
             var s = (Storyboard)FindResource("RotateStoryboard");
             BeginStoryboard(s);
+
+           
         }
-               
     }
 }

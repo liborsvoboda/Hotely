@@ -19,7 +19,7 @@ using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.Helper;
 using TravelAgencyAdmin.GlobalClasses;
 using MahApps.Metro.Controls;
-using TravelAgencyAdmin.Extension;
+using TravelAgencyAdmin.SystemCoreExtensions;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -57,6 +57,10 @@ namespace TravelAgencyAdmin.Pages
             btn_showVideo.Content = Resources["showVideo"].ToString();
             lbl_reportConnectionString.Content = Resources["reportConnectionString"].ToString();
             lbl_reportBuilder.Content = Resources["reportBuilder"].ToString();
+            lbl_activeSystemSaver.Content = Resources["activeSystemSaver"].ToString();
+            lbl_disableOnActivity.Content = Resources["disableOnActivity"].ToString();
+            lbl_timeToEnable.Content = Resources["timeToEnable"].ToString();
+
 
             btn_run.Content = Resources["run"].ToString();
             btn_test.Content = Resources["test"].ToString();
@@ -78,6 +82,9 @@ namespace TravelAgencyAdmin.Pages
             chb_hideStartVideo.IsChecked = App.Setting.HideStartVideo;
             pb_reportConnectionString.Password = App.Setting.ReportConnectionString;
             txt_reportBuilder.Text = App.Setting.ReportBuilderPath;
+            chb_activeSystemSaver.IsChecked = App.Setting.ActiveSystemSaver;
+            chb_disableOnActivity.IsChecked = App.Setting.DisableOnActivity;
+            tp_timeToEnable.SelectedTime = TimeSpan.Parse(App.Setting.TimeToEnable.ToString());
 
             cb_defaultLanguage.ItemsSource = Languages;
             cb_automaticUpdate.ItemsSource = UpdateVariants;
@@ -157,8 +164,10 @@ namespace TravelAgencyAdmin.Pages
             App.Setting.HideStartVideo = (bool)chb_hideStartVideo.IsChecked;
             App.Setting.ReportConnectionString = pb_reportConnectionString.Password;
             App.Setting.ReportBuilderPath = txt_reportBuilder.Text;
+            App.Setting.ActiveSystemSaver = (bool)chb_activeSystemSaver.IsChecked;
+            App.Setting.DisableOnActivity = (bool)chb_disableOnActivity.IsChecked;
+            App.Setting.TimeToEnable = tp_timeToEnable.SelectedTime.Value.Seconds;
 
-            
             MainWindowViewModel.SaveTheme();
 
             if (FileFunctions.SaveSettings())

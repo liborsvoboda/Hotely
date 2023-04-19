@@ -451,6 +451,17 @@
     <system:String x:Key="images">Images</system:String>
     <system:String x:Key="localStorage">Local storage</system:String>
     <system:String x:Key="screenSaver">System saver</system:String>
+    <system:String x:Key="cleanLocalStorage">Clean local storage</system:String>
+    <system:String x:Key="insertNew">Insert new</system:String>
+    <system:String x:Key="deleteSelected">Delete delected</system:String>
+    <system:String x:Key="server">Server</system:String>
+    <system:String x:Key="isPrimary">Primary</system:String>
+    <system:String x:Key="imageFace">Image face</system:String>
+    <system:String x:Key="imageColor">Image color</system:String>
+    <system:String x:Key="imageSize">Image size</system:String>
+    <system:String x:Key="imageInfo">Image info</system:String>
+    <system:String x:Key="activeSystemSaver">Active System saver</system:String>
+    <system:String x:Key="disableOnActivity">Disable on activity</system:String>
+    <system:String x:Key="timeToEnable">Time to enable</system:String>
 
-    
 </ResourceDictionary>

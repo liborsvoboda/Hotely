@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 
-namespace TravelAgencyAdmin.Extension
+namespace TravelAgencyAdmin.SystemCoreExtensions
 {
     public class AppThemeMenuData : AccentColorMenuData
     {

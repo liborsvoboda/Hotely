@@ -59,24 +59,25 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/HotelImagesList/Active")]
-        public async Task<string> GetActiveHotel()
-        {
-            HotelImagesList data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            { data = new hotelsContext().HotelImagesLists
-                     .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First(); }
-            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
-        }
 
         [HttpGet("/HotelImagesList/{id}")]
-        public async Task<string> GetHotelImagesListKey(int id)
+        public async Task<string> GetHotelImagesListById(int id)
         {
             HotelImagesList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             { data = new hotelsContext().HotelImagesLists.Where(a => a.Id == id).First(); }
             return JsonSerializer.Serialize(data);
         }
+
+
+        [HttpGet("/HotelImagesList/HotelId/{hotelId}")]
+        public async Task<string> GetHotelImagesListByHotelId(int hotelId) {
+            List<HotelImagesList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            { data = new hotelsContext().HotelImagesLists.Where(a => a.HotelId == hotelId).ToList(); }
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
 
         [HttpPut("/HotelImagesList")]
         [Consumes("application/json")]

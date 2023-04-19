@@ -451,6 +451,17 @@
     <system:String x:Key="images">Obrázky</system:String>
     <system:String x:Key="localStorage">Místní Úložístě</system:String>
     <system:String x:Key="screenSaver">Spořič systému</system:String>
-    
-    
+    <system:String x:Key="cleanLocalStorage">Vymazat úložiště</system:String>
+    <system:String x:Key="insertNew">Vložit nový</system:String>
+    <system:String x:Key="deleteSelected">Smazat vybraný</system:String>
+    <system:String x:Key="server">Server</system:String>
+    <system:String x:Key="isPrimary">Primární</system:String>
+    <system:String x:Key="imageFace">Tvar Obrázku</system:String>
+    <system:String x:Key="imageColor">Barvy Obrázku</system:String>
+    <system:String x:Key="imageSize">Velikost Obrázku</system:String>
+    <system:String x:Key="imageInfo">Informace Obrázku</system:String>
+    <system:String x:Key="activeSystemSaver">Aktivní šetřič Systému</system:String>
+    <system:String x:Key="disableOnActivity">Vypnout při aktivitě</system:String>
+    <system:String x:Key="timeToEnable">Čas do zapnutí</system:String>
+
 </ResourceDictionary>

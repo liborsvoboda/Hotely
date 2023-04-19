@@ -5,12 +5,12 @@
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="welcomePage"
+    x:Name="screenSaverPage"
     MinWidth="1024"
     MinHeight="768"
     MaxWidth="1024"
     MaxHeight="768"
-    AllowDrop="False"
+    AllowDrop="True"
     mc:Ignorable="d">
 
     <UserControl.Resources>

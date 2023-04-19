@@ -21,6 +21,9 @@ namespace TravelAgencyAdmin.Classes
         public bool HideStartVideo { get; set; } = false;
         public string ReportConnectionString { get; set; } = "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;";
         public string ReportBuilderPath { get; set; } = "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe";
+        public bool ActiveSystemSaver { get; set; } = true;
+        public bool DisableOnActivity { get; set; } = true;
+        public int TimeToEnable { get; set; } = TimeSpan.Parse("0:30").Seconds;
     }
 
     /// <summary>

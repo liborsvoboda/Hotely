@@ -23,7 +23,7 @@
 
             <Style BasedOn="{StaticResource MahAppsTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}">
                 <Setter Property="AdjacentHeaderItemOffset" Value="-12" />
-                <Setter Property="NewItemFactory" Value="{x:Static common:Extension.MainWindowViewModel.NewItemFactory}" />
+                <Setter Property="NewItemFactory" Value="{x:Static common:SystemCoreExtensions.MainWindowViewModel.NewItemFactory}" />
                 <Setter Property="ShowDefaultAddButton" Value="False" />
                 <Setter Property="ShowDefaultCloseButton" Value="false" />
             </Style>

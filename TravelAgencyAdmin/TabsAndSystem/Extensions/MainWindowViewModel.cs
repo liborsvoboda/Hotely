@@ -9,7 +9,7 @@ using TravelAgencyAdmin.Properties;
 using Dragablz;
 using TravelAgencyAdmin.Pages;
 
-namespace TravelAgencyAdmin.Extension
+namespace TravelAgencyAdmin.SystemCoreExtensions
 {
     public class MainWindowViewModel
     {

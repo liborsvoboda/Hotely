@@ -13,5 +13,9 @@
   "AutomaticUpdate": "showInfo",
   "HideStartVideo": false,
   "ReportConnectionString": "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;",
-  "ReportBuilderPath": "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe"
+  "ReportBuilderPath": "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe",
+  "ActiveSystemSaver": true,
+  "DisableOnActivity": true,
+  "TimeToEnable": 30
+
 }

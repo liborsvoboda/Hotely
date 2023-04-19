@@ -6,6 +6,8 @@ using TravelAgencyAdmin.GlobalFunctions;
 using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
+//using CefSharp;
+//using CefSharp.Wpf;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -14,6 +16,9 @@ namespace TravelAgencyAdmin.Pages
 
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static TemplateClassList selectedRecord = new TemplateClassList();
+
+        public static CefSettings CeffSettings = new CefSettings()
+        { LogSeverity = LogSeverity.Disable, IgnoreCertificateErrors = true };
 
         public ServerApiDocsPage() {
 
@@ -26,13 +31,13 @@ namespace TravelAgencyAdmin.Pages
             webViewer.FrameLoadEnd += WebViewer_FrameLoadEnd;
             webViewer.LifeSpanHandler = new MyCustomLifeSpanHandler();
 
-            if (!Cef.IsInitialized) { Cef.Initialize(App.CeffSettings, performDependencyCheck: true, browserProcessHandler: null); }
-            
+            if (!Cef.IsInitialized) { Cef.Initialize(CeffSettings, performDependencyCheck: true, browserProcessHandler: null); }
+
             CefSharpSettings.ShutdownOnExit = true;
             CefSharpSettings.SubprocessExitIfParentProcessClosed = true;
         }
 
-
+        
         private void WebViewer_FrameLoadStart(object sender, FrameLoadStartEventArgs e) {
             MainWindow.ProgressRing = Visibility.Visible;
         }

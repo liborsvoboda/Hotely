@@ -10,8 +10,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:TravelAgencyAdmin"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
     Name="Setting"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -29,5 +28,10 @@
             x:Name="webViewer"
             Width="{Binding Path=ActualWidth, ElementName=View}"
             Height="{Binding Path=ActualHeight, ElementName=View}" />
+
+        <!--<WebBrowser
+            x:Name="webViewer"
+            Width="{Binding Path=ActualWidth, ElementName=View}"
+            Height="{Binding Path=ActualHeight, ElementName=View}" />-->
     </Grid>
 </UserControl>
