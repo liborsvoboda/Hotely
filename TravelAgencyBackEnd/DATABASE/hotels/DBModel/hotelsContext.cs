@@ -610,6 +610,12 @@ namespace TravelAgencyBackEnd.DBModel
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
+                entity.HasOne(d => d.Hotel)
+                    .WithMany(p => p.HotelImagesLists)
+                    .HasForeignKey(d => d.HotelId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelImagesList_HotelList");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.HotelImagesLists)
                     .HasForeignKey(d => d.UserId)

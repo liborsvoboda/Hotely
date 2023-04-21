@@ -6,7 +6,8 @@
     "locationObject": "Lokace / Objekt",
     "dates": "Období",
     "guestRooms": "Osoby a místnosti",
-    "search": "Vyhledat"
+    "search": "Vyhledat",
+    "moreFilters": "Více filtrů"
   },
   "user": {
     "login": "Přihlásit",

@@ -13,6 +13,7 @@ namespace TravelAgencyBackEnd.DBModel
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
 
+        public virtual HotelList Hotel { get; set; }
         public virtual UserList User { get; set; }
     }
 }

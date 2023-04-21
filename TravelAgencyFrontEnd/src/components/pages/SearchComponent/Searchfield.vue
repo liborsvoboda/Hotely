@@ -29,22 +29,26 @@ export default {
     },
     mounted() {
         this.GetSearchDialList();
+        this.GetPropertyList();
     },
     methods: {
         GetSearchDialList() {
             this.$store.dispatch("getSearchDialList");
         },
-    searchFieldChange() {
-        this.$emit("input-changed", this.searchString);
-            if(this.searchString.length >= 2){
+         GetPropertyList() {
+            this.$store.dispatch("getPropertyList");
+        },
+        searchFieldChange() {
+            this.$emit("input-changed", this.searchString);
+                if(this.searchString.length >= 2){
+                    var input = document.querySelector("#searchInput")
+                input.setAttribute("list", "datalistOptions")
+            } else{
                 var input = document.querySelector("#searchInput")
-            input.setAttribute("list", "datalistOptions")
-        } else{
-            var input = document.querySelector("#searchInput")
-            input.setAttribute("list", "")
+                input.setAttribute("list", "")
+            }
         }
-    }
-  },
+    },
 };
 </script>
 

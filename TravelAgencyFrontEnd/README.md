@@ -42,3 +42,8 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
     
     použit camesCase
     DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
+
+    image checker
+    https://codebeautify.org/base64-to-image-converter
+
+11)  pøeklad {{ $t('user.login') }}

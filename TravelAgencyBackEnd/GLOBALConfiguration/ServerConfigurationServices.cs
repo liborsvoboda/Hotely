@@ -38,9 +38,8 @@ namespace TravelAgencyBackEnd
             });
         }
 
-        internal static void ConfigureControllers(ref IServiceCollection services)
-        {
-            services.AddRouting(options => options.LowercaseUrls = true);
+        internal static void ConfigureControllers(ref IServiceCollection services) {
+            services.AddRouting(options => { options.LowercaseUrls = true; });
             services.AddControllersWithViews(options =>
             {
                 options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;

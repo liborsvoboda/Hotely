@@ -14,13 +14,12 @@ using System.Text;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using Microsoft.Win32;
+using CefSharp.DevTools.CSS;
 
 namespace TravelAgencyAdmin.GlobalFunctions
 {
-    class MediaFunctions
-    {
-        public static ResourceDictionary SetLanguageDictionary(ResourceDictionary Resources, string languageDefault)
-        {
+    class MediaFunctions {
+        public static ResourceDictionary SetLanguageDictionary(ResourceDictionary Resources, string languageDefault) {
             if (languageDefault == "system") languageDefault = Thread.CurrentThread.CurrentCulture.ToString();
             App.appLanguage = languageDefault;
 
@@ -41,16 +40,14 @@ namespace TravelAgencyAdmin.GlobalFunctions
 
 
 
-        public static void SendMailWithMailTo(string address, string subject, string body, string attach)
-        {
+        public static void SendMailWithMailTo(string address, string subject, string body, string attach) {
             string mailto =
                 $"mailto:{address}?Subject={subject}&Body={body}&Attach={attach}";
             Process.Start(mailto);
         }
 
 
-        public static bool IncreaseFileVersionBuild()
-        {
+        public static bool IncreaseFileVersionBuild() {
             if (Debugger.IsAttached)
             {
                 try
@@ -87,8 +84,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
             }
         }
 
-        public static ImageSource ByteToImage(byte[] imageData)
-        {
+        public static ImageSource ByteToImage(byte[] imageData) {
             BitmapImage biImg = new BitmapImage();
             MemoryStream ms = new MemoryStream(imageData);
             biImg.BeginInit();
@@ -100,8 +96,7 @@ namespace TravelAgencyAdmin.GlobalFunctions
             return imgSrc;
         }
 
-        public async static void SaveAppScreenShot(MainWindow mainWindow)
-        {
+        public async static void SaveAppScreenShot(MainWindow mainWindow) {
             try
             {
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
@@ -110,13 +105,33 @@ namespace TravelAgencyAdmin.GlobalFunctions
                 encoder.Frames.Add(BitmapFrame.Create(bmp));
 
                 SaveFileDialog dlg = new SaveFileDialog() { DefaultExt = ".png", Filter = "Image files |*.png;" };
-                if (dlg.ShowDialog() == true) { 
+                if (dlg.ShowDialog() == true) {
                     FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
                     encoder.Save(fs);
                     fs.Close();
                 }
             } catch (Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); }
 
+        }
+
+
+        /// <summary>
+        /// Important Closing connections of openned files by Form and binding
+        /// this is solution for close oppened file after load
+        /// Solution for All Files 
+        /// </summary>
+        /// <param name="path"></param>
+        public static BitmapImage GetImageImmediatelly(string path) {
+            var image = new BitmapImage();
+            using (var stream = File.OpenRead(path))
+            {
+                
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = stream;
+                image.EndInit();
+            }
+            return image;
         }
 
     }

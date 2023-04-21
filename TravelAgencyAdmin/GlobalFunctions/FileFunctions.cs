@@ -4,6 +4,8 @@ using System.Web.Script.Serialization;
 using TravelAgencyAdmin.Classes;
 using Newtonsoft.Json;
 using System.Text;
+using CefSharp.DevTools.SystemInfo;
+using System.Windows.Media.Imaging;
 
 namespace TravelAgencyAdmin.GlobalFunctions
 {
@@ -234,5 +236,19 @@ namespace TravelAgencyAdmin.GlobalFunctions
             catch { return false; }
         }
 
+        public void CreateImageFile(FileStream file, BitmapFrame frame, ImageType type) {
+            if (file == null) return;
+            BitmapEncoder encoder = null;
+            switch (type)
+            {
+                //case ImageType.Bmp: encoder = new BmpBitmapEncoder(); break;
+                case ImageType.Jpeg: encoder = new JpegBitmapEncoder() { QualityLevel = 100 }; break;
+                case ImageType.Unknown: encoder = new  PngBitmapEncoder(); break;
+                //case ImageType.Gif: encoder = new GifBitmapEncoder(); break;
+                //case ImageType.Tiff: encoder = new TiffBitmapEncoder() { Compression = TiffCompressOption.Default }; break;
+            }
+            encoder.Frames.Add(frame);
+            encoder.Save(file);
+        }
     }
 }

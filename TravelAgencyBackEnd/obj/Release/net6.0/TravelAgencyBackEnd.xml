@@ -4,6 +4,11 @@
         <name>TravelAgencyBackEnd</name>
     </assembly>
     <members>
+        <member name="T:TravelAgencyBackEnd.CoreClasses.ServerLocalDbDials">
+            <summary>
+            Auto Updated LocalDials - in Future Can be setted as Server Configurator
+            </summary>
+        </member>
         <member name="T:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi">
             <summary>
             Universal Template For Make Any Full Backend Server
@@ -57,6 +62,20 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:TravelAgencyBackEnd.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
+            <summary>
+            Full Translate List for WebPage Search Input : Whisperer
+            </summary>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TravelAgencyBackEnd.Controllers.WebSearchApi.GetSearchedIdList(System.String,System.String)">
+            <summary>
+            Full Translate List for WebPage Search Input 
+            </summary>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
         <member name="M:TravelAgencyBackEnd.ServerCoreConfiguration.ConfigureLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
             <summary>
             Server Core: Configure Server Logging
@@ -92,6 +111,114 @@
             Server Module: Enable Swagger Api Doc Generator And Online Tester
             </summary>
             <param name="services"></param>
+        </member>
+        <member name="T:TravelAgencyBackEnd.DBOperations">
+            <summary>
+            All Server Definitions of Database Operation metod
+            </summary>
+        </member>
+        <member name="M:TravelAgencyBackEnd.DBOperations.LoadStaticDbDials(System.Nullable{TravelAgencyBackEnd.CoreClasses.ServerLocalDbDials})">
+            <summary>
+            Method for All Server Defined Table for Local Using As Offline AutoUpdated Tables
+            </summary>
+            <param name="onlyThis"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.DBOperations.WriteAppLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger User Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="userId"></param>
+            <param name="userName"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.DBOperations.WriteWebLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger Web Guest Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="guestId"></param>
+            <param name="email"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.DBOperations.DBTranslateOffline(System.String,System.String)">
+            <summary>
+            Database LanuageList for Offline Using Definitions
+            </summary>
+            <param name="word"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TravelAgencyBackEnd.DBOperations.DBTranslateOnline(System.String,System.String)">
+            <summary>
+            Database LanuageList for Online Using Definitions
+            </summary>
+            <param name="word"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="F:TravelAgencyBackEnd.Program.ServerDBLanguageList">
+            <summary>
+            Local DB dials: LanguageList
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.Program.Main(System.String[])">
+            <summary>
+            Server Startup Process
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Final Preparing Server HostBuilder Definition
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TravelAgencyBackEnd.Program.ServerStartupDbDataLoading">
+            <summary>
+            Server Startup DB Data loaging for minimise DB Connect TO Frequency Dials Without Changes
+            Example: LanguageList 
+            </summary>
+        </member>
+        <member name="M:TravelAgencyBackEnd.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Server Configuration Definition
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:TravelAgencyBackEnd.MimeTypes">
+            <summary>
+            Provides utilities for mapping file names and extensions to MIME-types.
+            </summary>
+        </member>
+        <member name="P:TravelAgencyBackEnd.MimeTypes.FallbackMimeType">
+            <summary>
+            The fallback MIME-type. Defaults to <c>application/octet-stream</c>.
+            </summary>
+        </member>
+        <member name="M:TravelAgencyBackEnd.MimeTypes.GetMimeTypeExtensions(System.String)">
+            <summary>
+            Attempts to fetch all available file extensions for a MIME-type.
+            </summary>
+            <param name="mimeType">The name of the MIME-type</param>
+            <returns>All available extensions for the given MIME-type</returns>
+        </member>
+        <member name="M:TravelAgencyBackEnd.MimeTypes.TryGetMimeType(System.String,System.String@)">
+            <summary>
+            Tries to get the MIME-type for the given file name.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+            <param name="mimeType">The MIME-type for the given file name.</param>
+            <returns><c>true</c> if a MIME-type was found, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:TravelAgencyBackEnd.MimeTypes.GetMimeType(System.String)">
+            <summary>
+            Gets the MIME-type for the given file name,
+            or <see cref="P:TravelAgencyBackEnd.MimeTypes.FallbackMimeType"/> if a mapping doesn't exist.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+            <returns>The MIME-type for the given file name.</returns>
         </member>
     </members>
 </doc>

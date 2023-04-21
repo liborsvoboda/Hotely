@@ -371,7 +371,8 @@
     <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
     <Compile Include="Agendas\Settings\ReportList\ReportList.cs" />
     <Compile Include="GlobalClasses\PhotoCollectionClasses.cs" />
-    <Compile Include="TabsAndSystem\Helper\Updater.cs" />
+    <Compile Include="TabsAndSystem\Helpers\ImageHelper.cs" />
+    <Compile Include="TabsAndSystem\Helpers\Updater.cs" />
     <Compile Include="Agendas\Settings\UserList\UserList.cs" />
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleList.cs" />
     <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
@@ -389,7 +390,6 @@
     <Compile Include="GlobalFunctions\FileFunctions.cs" />
     <Compile Include="GlobalFunctions\MediaFunctions.cs" />
     <Compile Include="GlobalStyles\Styles.cs" />
-    <Compile Include="TabsAndSystem\ImageEffects\Effects.cs" />
     <Compile Include="TabsAndSystem\ImageEffects\TrackBall.cs" />
     <Compile Include="TabsAndSystem\Properties\Settings.cs" />
     <Compile Include="TabsAndSystem\Extensions\CoreModelExtensions.cs" />
@@ -557,10 +557,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TabsAndSystem\Extensions\AppThemeMenuData.cs" />
-    <Compile Include="TabsAndSystem\Helper\CrashReporterGlobalField.cs" />
-    <Compile Include="TabsAndSystem\Helper\DelegateCommand.cs" />
+    <Compile Include="TabsAndSystem\Helpers\CrashReporterGlobalField.cs" />
+    <Compile Include="TabsAndSystem\Helpers\DelegateCommand.cs" />
     <Compile Include="TabsAndSystem\Extensions\CoreAutoControllers.cs" />
-    <Compile Include="TabsAndSystem\Helper\Help.cs" />
+    <Compile Include="TabsAndSystem\Helpers\Help.cs" />
     <Compile Include="GlobalGenerators\IconMakerGenerator.cs" />
     <Page Include="Agendas\Views\WelcomePage\WelcomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -705,6 +705,10 @@
     <ProjectReference Include="..\TOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
       <Project>{7696262e-45fc-4f68-a65e-468cd988cbc2}</Project>
       <Name>EASYTools.CrashReporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
+      <Project>{d01e86c3-5704-4d2e-ae9d-057224ba7b81}</Project>
+      <Name>EASYTools.ImageEffectLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\TOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
       <Project>{ec61d2c4-7eab-474f-9c4f-d93de57a64f1}</Project>

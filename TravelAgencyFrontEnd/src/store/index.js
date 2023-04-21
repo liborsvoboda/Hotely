@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
 import router from '../router/index';
 import { encode } from "base-64";
+
+
 /*
 APiRoots Urls
 http://nomad.ubytkac.cz:5000/WebApi
@@ -23,15 +25,16 @@ const store = createStore({
           name: '',
           email: '',
           message: '',
-    },
-    getReviews: [],
-    hotels: [],
-    searchString: {
-      string: '',
-      inputAdult: 0,
-      inputChild: 0,
-      inputRooms: 0,
-      dates: [],
+        },
+        propertyList:[],
+        getReviews: [],
+        hotels: [],
+        searchString: {
+        string: '',
+        inputAdult: 0,
+        inputChild: 0,
+        inputRooms: 0,
+        dates: [],
     },
     savedHotel: [],
     bookedHotels: [],
@@ -90,6 +93,9 @@ const store = createStore({
     setMessage(store, value) {
       store.addReview.message = value
     },
+      setPropertyList(store, value) {
+          store.propertyList = value
+      },
     setSearchButtonLoadingTrue(store, value) {
       store.searchButtonLoading = true
     },
@@ -288,12 +294,26 @@ const store = createStore({
             )
           }
 
-          var result = await response.json()
+        var result = await response.json();
+        console.log("hotels", result);
+
           commit('setHotelSearchResultsList', result.hotelList)
           if (result) {
             router.push({ name: 'result' })
           }
-    },
+      },
+      async getPropertyList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/Properties/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          console.log("Property",result);
+          commit('setPropertyList', result)
+      },
     async searchHotelByName({ commit }, searchString) {
       var response = await fetch(
         this.state.apiRootUrl + '/Search/search?input=' + searchString

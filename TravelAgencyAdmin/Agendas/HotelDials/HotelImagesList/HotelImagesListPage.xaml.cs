@@ -10,26 +10,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using TravelAgencyAdmin.GlobalFunctions;
 using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.GlobalStyles;
-using System.Net;
-using System.Windows.Media.Imaging;
-using System.Collections.ObjectModel;
 using TravelAgencyAdmin.GlobalClasses;
 using Microsoft.Win32;
-using System.Net.Mail;
-using HelixToolkit.Wpf.SharpDX;
 using System.Net.Http;
-using System.Threading;
-using TravelAgencyAdmin.SystemCoreExtensions;
-using CefSharp.DevTools.Network;
 using System.Web;
-using MahApps.Metro.Controls;
-using System.Windows.Threading;
-using static Xamarin.Essentials.Permissions;
-
+using iTextSharp.text.pdf.codec;
+using EASYTools.ImageEffectLibrary;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -42,15 +31,15 @@ namespace TravelAgencyAdmin.Pages
         private List<HotelList> hotelList = new List<HotelList>();
         private int selectedHotel = 0;
 
-        public static PhotoCollection Photos = new PhotoCollection();
-        public static Photo _photo;
-
+        public PhotoCollection Photos = new PhotoCollection();
+        private ImageHelper ClonedSelectedImage = new ImageHelper();
 
         public HotelImagesListPage() {
             InitializeComponent();
 
             _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
+             
             //mi_server.Header = Resources["server"].ToString();
             //mi_loadFromServer.Header = Resources["loadFromServer"].ToString();
             //mi_saveToServer.Header = Resources["saveToServer"].ToString();
@@ -62,19 +51,21 @@ namespace TravelAgencyAdmin.Pages
             mi_deleteSelected.Header = Resources["deleteSelected"].ToString();
             mi_imageFace.Header = Resources["imageFace"].ToString();
             mi_imageColor.Header = Resources["imageColor"].ToString();
-            mi_imageSize.Header = Resources["imageSize"].ToString();
             mi_imageInfo.Header = Resources["imageInfo"].ToString();
 
 
             gd_Photos.DataContext = Photos;
+            PhotosListBox.ItemsSource = Photos;
 
             _ = LoadDataList();
             SetRecord();
         }
 
 
+
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
+            this.PhotosListBox.InputBindings.Clear();
             try
             {
                 cb_hodelId.ItemsSource = hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
@@ -84,42 +75,6 @@ namespace TravelAgencyAdmin.Pages
             catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
-
-        //change dataset prepare for working
-        private void SetRecord() {
-            MainWindow.DataGridSelected = false; MainWindow.DataGridSelectedIdListIndicator = false; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
-            dataViewSupport.FormShown = false;
-        }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="selectedPhotoId" >selectedPhotoId -1 is Select Last</param>
-        private void RefreshViewPhoto(int selectedPhotoId = 0) {
-
-            if (PhotosListBox.SelectedItem != null || selectedPhotoId != 0)
-            {
-                if (selectedPhotoId != 0) PhotosListBox.SelectedItem = Photos.First(x => (selectedPhotoId > 0 && x.DbId == selectedPhotoId) || (selectedPhotoId == -1 && x.DbId == Photos.Max(a=> a.DbId) ));
-                _photo = (Photo)PhotosListBox.SelectedItem;
-                ViewedPhoto.Source = _photo.Image;
-
-                chb_isPrimary.Checked -= IsPrimaryClick; chb_isPrimary.Unchecked -= IsPrimaryClick;
-                chb_isPrimary.IsEnabled = true; chb_isPrimary.IsChecked = ((Photo)PhotosListBox.SelectedItem).IsPrimary;
-                chb_isPrimary.Checked += IsPrimaryClick; chb_isPrimary.Unchecked += IsPrimaryClick;
-            } else { PhotosListBox.SelectedItem = ViewedPhoto.Source = null; _photo = null; chb_isPrimary.IsEnabled = false;
-                chb_isPrimary.Checked -= IsPrimaryClick; chb_isPrimary.Unchecked -= IsPrimaryClick;
-                chb_isPrimary.IsEnabled = false; chb_isPrimary.IsChecked = false;
-                chb_isPrimary.Checked += IsPrimaryClick; chb_isPrimary.Unchecked += IsPrimaryClick;
-            }
-        }
-
-        private void OnPhotoMove(object sender, MouseEventArgs e) => RefreshViewPhoto();
-        private void PhotoListBoxSelectClick(object sender, MouseButtonEventArgs e) => RefreshViewPhoto();
-        private async void LoadFromServerClick(object sender, RoutedEventArgs e) => await LoadFromServer();
-        private async void SaveToServerClick(object sender, RoutedEventArgs e) => await SaveImageToServer();
-        private void CleanLocalStorageClick(object sender, RoutedEventArgs e) => ClearGallery();
 
         /// <summary>
         /// Last proccess
@@ -140,9 +95,64 @@ namespace TravelAgencyAdmin.Pages
                 RefreshViewPhoto(selectedPhotoId);
             }
             catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
-            MainWindow.ProgressRing = Visibility.Hidden;return true;
+            MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
+
+
+        //change dataset prepare for working
+        private void SetRecord() {
+            MainWindow.DataGridSelected = false; MainWindow.DataGridSelectedIdListIndicator = false; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
+            dataViewSupport.FormShown = false;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="selectedPhotoId" >selectedPhotoId -1 is Select Last</param>
+        private async void RefreshViewPhoto(int? selectedPhotoId = 0) {
+
+            if (selectedPhotoId != 0)
+            { PhotosListBox.SelectedItem = Photos.First(x => (selectedPhotoId > 0 && x.DbId == selectedPhotoId) || (selectedPhotoId == -1 && x.DbId == Photos.Max(a => a.DbId))); }
+
+            MessageDialogResult result = new MessageDialogResult();
+            if (PhotosListBox.IsEnabled && ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBFunctions.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
+            if (!ClonedSelectedImage.Changed || (ClonedSelectedImage.Changed && result == MessageDialogResult.Affirmative)) { ClonedSelectedImage = new ImageHelper(((Photo)PhotosListBox.SelectedItem).Source); SetImageChanges(false); }
+                ViewedPhoto.Source = ClonedSelectedImage.EditingImage;
+            
+            if (PhotosListBox.SelectedItem == null) { PhotosListBox.SelectedItem = ViewedPhoto.Source = null; }
+            SetImageControls();
+        }
+
+
+        //private void ImageSelectionChanged(object sender, SelectionChangedEventArgs e) => RefreshViewPhoto();
+        private void PhotoListBoxSelectClick(object sender, MouseButtonEventArgs e) => RefreshViewPhoto();
+        private async void LoadFromServerClick(object sender, RoutedEventArgs e) => await LoadFromServer();
+        private async void SaveToServerClick(object sender, RoutedEventArgs e) => await SaveImageToServer();
+        private void CleanLocalStorageClick(object sender, RoutedEventArgs e) => ClearGallery();
+
+        /// <summary>
+        /// Image Graphics Changes Controllers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImageChangesCancelClick(object sender, MouseButtonEventArgs e) { ClonedSelectedImage.ResetChanges(); RefreshViewPhoto(); }
+        private async void ImageChangesSaveClick(object sender, MouseButtonEventArgs e) {
+            ClonedSelectedImage.SaveTo(((Photo)PhotosListBox.SelectedItem).Source);
+            int selectedPhotoId = ((Photo)PhotosListBox.SelectedItem).DbId;
+            await SaveImageToServer(selectedPhotoId);
+            await LoadFromServer(selectedPhotoId);
+
+        }
+
+
+        /// <summary>
+        /// null For Full Folder else No of dbId, 0 = new
+        /// </summary>
+        /// <param name="onlyThis"></param>
+        /// <returns></returns>
         private async Task<bool> SaveImageToServer(int? onlyThis = null) {
             MainWindow.ProgressRing = Visibility.Visible;
             DBResultMessage dBResult;
@@ -168,11 +178,11 @@ namespace TravelAgencyAdmin.Pages
                         else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
                     }
                 } else {  // Save Last image only
-                    Photo photo = ((Photo)PhotosListBox.SelectedItem);
+                    Photo selectedPhoto = Photos.First(a=>a.DbId == onlyThis);
                     selectedRecord = new HotelImagesList()
                     {
-                        Id = photo.DbId, HotelId = selectedHotel, IsPrimary = photo.IsPrimary, FileName = Path.GetFileName(photo.Source),
-                        Attachment = File.ReadAllBytes(photo.Source), UserId = App.UserData.Authentification.Id, TimeStamp = DateTimeOffset.Now.DateTime
+                        Id = selectedPhoto.DbId, HotelId = selectedHotel, IsPrimary = selectedPhoto.IsPrimary, FileName = Path.GetFileName(selectedPhoto.Source),
+                        Attachment = File.ReadAllBytes(selectedPhoto.Source), UserId = App.UserData.Authentification.Id, TimeStamp = DateTimeOffset.Now.DateTime
                     };
 
                     string json = JsonConvert.SerializeObject(selectedRecord);
@@ -201,6 +211,7 @@ namespace TravelAgencyAdmin.Pages
                 if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBFunctions.DBTranslation("fileisNotImage")); }
                 else {
                     try { FileFunctions.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
+                    Photos.Add(openFileDialog.FileName, 0, false);
                     await SaveImageToServer(0);
                     await LoadFromServer(-1);
                 }
@@ -230,28 +241,89 @@ namespace TravelAgencyAdmin.Pages
         /// Phycical clear local storage and form
         /// </summary>
         private void ClearGallery() {
-            Photos?.Clear();
-            PhotosListBox.SelectedItem = ViewedPhoto.Source = null; _photo = null;
+            Photos.Clear();PhotosListBox.Items.Refresh();
+            PhotosListBox.SelectedItem = ViewedPhoto.Source = null;
+            ClonedSelectedImage.ResetChanges();
             try { FileFunctions.ClearFolder(App.galleryFolder); } catch { }
         }
 
 
         private async void IsPrimaryClick(object sender, RoutedEventArgs e) {
-            _photo.IsPrimary = (bool)chb_isPrimary.IsChecked;int selectedPhoto = _photo.DbId;
-            await SaveImageToServer(_photo.DbId);
-            await LoadFromServer(selectedPhoto);
+            int selectedPhotoId = ((Photo)PhotosListBox.SelectedItem).DbId;
+            Photos.First(a => a.DbId == selectedPhotoId).IsPrimary = (bool)chb_isPrimary.IsChecked;
+
+            await SaveImageToServer(selectedPhotoId);
+            await LoadFromServer(selectedPhotoId);
         }
 
         private async void SelectedHotelChanged(object sender, SelectionChangedEventArgs e) {
+            MessageDialogResult result = new MessageDialogResult();
+            if (ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBFunctions.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
             selectedHotel = ((HotelList)cb_hodelId.SelectedItem).Id;
             await LoadFromServer();
         }
 
 
-        private void GrayscaleClick(object sender, RoutedEventArgs e) => ImageEffects.Effects.Grayscale(_photo);
-        private void NegativeClick(object sender, RoutedEventArgs e) => ImageEffects.Effects.Negative(_photo);
+        private void SetImageControls() {
+            chb_isPrimary.Checked -= IsPrimaryClick; chb_isPrimary.Unchecked -= IsPrimaryClick;
+            if (((Photo)PhotosListBox.SelectedItem) != null)
+            {
+                mi_imageFace.IsEnabled = mi_imageColor.IsEnabled = mi_imageInfo.IsEnabled = true;
+                chb_isPrimary.IsEnabled = true; chb_isPrimary.IsChecked = ((Photo)PhotosListBox.SelectedItem).IsPrimary;
+            }
+            else { mi_imageFace.IsEnabled = mi_imageColor.IsEnabled = mi_imageInfo.IsEnabled = false; }
 
-        
-        
+            if (((Photo)PhotosListBox.SelectedItem) == null) { chb_isPrimary.IsEnabled = false; chb_isPrimary.IsChecked = false; }
+                chb_isPrimary.Checked += IsPrimaryClick; chb_isPrimary.Unchecked += IsPrimaryClick;
+        }
+
+        private void SetImageChanges(bool imageChanged) {
+            if (imageChanged) { 
+                dp_imageChanges.Visibility = Visibility.Visible; PhotosListBox.IsEnabled = false;
+                chb_isPrimary.Checked -= IsPrimaryClick; chb_isPrimary.Unchecked -= IsPrimaryClick;
+                cb_hodelId.IsEnabled = mi_images.IsEnabled = false;
+            } else {  dp_imageChanges.Visibility = Visibility.Hidden; cb_hodelId.IsEnabled = mi_images.IsEnabled = PhotosListBox.IsEnabled = true; }
+        }
+
+
+        /// <summary>
+        /// Images Effect Part
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GrayscaleClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.ConvertToGrayscale(); SetImageChanges(true); RefreshViewPhoto();
+        }
+        private void NegativeClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.LightnessLinearStretch(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void EnhanceVisibilityClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.EnhanceVisibility(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void GrayscaleHistogramEqualizationClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.GrayscaleHistogramEqualization(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void SaturationHistogramEqualizationClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.SaturationHistogramEqualization(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void LightnessHistogramEqualizationClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.LightnessHistogramEqualization(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void MirrorHorizontallyClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.MirrorHorizontally(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void MirrorVerticallyClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.MirrorVertically(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void LaplacianFilterClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.LaplacianFilter(); SetImageChanges(true); RefreshViewPhoto();
+        }
     }
 }

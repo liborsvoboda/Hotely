@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from "./router/index"
-
 import store from "./store/index"
 
 import PrimeVue from 'primevue/config';
@@ -11,9 +10,13 @@ import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css';
+import 'vite/modulepreload-polyfill'
 
 import ConfirmationService from 'primevue/confirmationservice';
 import { createI18n } from 'vue-i18n';
+
+import btoa from 'btoa';
+
 
 
 import en from './translation/en.json';

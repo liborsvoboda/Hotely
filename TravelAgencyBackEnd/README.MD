@@ -24,3 +24,9 @@ DataModel context with include another table need in serialize:
 
 web Pages used
 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
+example:
+       return JsonSerializer.Serialize(rootData, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true, 
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
+
+To generate a developer certificate run 'dotnet dev-certs https'. 
+To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.

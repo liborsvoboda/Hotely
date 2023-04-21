@@ -80,12 +80,13 @@ export default {
       var min = rooms[0];
       return min.price;
     },
-    photos() {
-      var photos = [];
-      photos.push({id: this.hotel.id, roomPhoto: this.hotel.img});
-      this.hotel.hotelRoomLists.forEach(room => {
-          photos.push({id: this.hotel.id, roomPhoto: room.img})
-      });
+      photos() {
+          var photos = [];
+            photos.push({ id: this.hotel.id, hotelPhoto:this.$store.state.apiRootUrl+'/Image/'+this.hotel.id+'/'+this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });
+          this.hotel.hotelImagesLists.forEach(room => {
+              photos.push({id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl+'/Image/'+this.hotel.id+'/'+room.fileName})
+          });
+        console.log("PHOTOS", photos);
       return photos;
     },
   },

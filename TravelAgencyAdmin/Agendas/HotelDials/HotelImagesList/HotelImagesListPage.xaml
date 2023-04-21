@@ -9,7 +9,9 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:TravelAgencyAdmin.Pages"
     xmlns:local1="clr-namespace:TravelAgencyAdmin.GlobalClasses"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xceed="clr-namespace:Xceed.Wpf.AvalonDock.Themes.Controls;assembly=Xceed.Wpf.AvalonDock.Themes.Aero"
     Name="Setting"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -39,7 +41,7 @@
                 <Border
                     Padding="4" Background="White" BorderBrush="#22000000" BorderThickness="1">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="{Binding Image, Converter={StaticResource UriToBitmapConverter}}" />
+                        <Image Source="{Binding Source, Converter={StaticResource UriToBitmapConverter}}" />
                     </StackPanel>
                 </Border>
             </Grid>
@@ -108,7 +110,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="240" MinWidth="240" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -118,55 +120,115 @@
 
         <!--  Tools  -->
         <DockPanel
-            x:Name="dp_menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,2"
+            x:Name="dp_menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0"
             HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Menu
                 Margin="0" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch"
                 Background="White" DockPanel.Dock="Top" FontSize="14">
                 <ComboBox
-                    x:Name="cb_hodelId" Width="150" Margin="0" VerticalAlignment="Center" DisplayMemberPath="Name"
-                    SelectedValuePath="Id" SelectionChanged="SelectedHotelChanged" />
+                    x:Name="cb_hodelId" Width="150" Margin="0" Padding="0" VerticalAlignment="Center"
+                    DisplayMemberPath="Name" SelectedValuePath="Id" SelectionChanged="SelectedHotelChanged" />
                 <!--<MenuItem
-                    x:Name="mi_server" Margin="20,0,20,0" VerticalAlignment="Top" Cursor="Hand" FontWeight="Bold">
+                    x:Name="mi_server" Padding="10" VerticalAlignment="Top" Cursor="Hand" FontWeight="Bold">
                     <MenuItem x:Name="mi_loadFromServer" Click="LoadFromServerClick" />
                     <MenuItem x:Name="mi_saveToServer" Click="SaveToServerClick" />
                     <MenuItem x:Name="mi_cleanLocalStorage" Click="CleanLocalStorageClick" />
                 </MenuItem>-->
                 <MenuItem
-                    x:Name="mi_images" Margin="20,0,20,0" VerticalAlignment="Top" FontWeight="Bold">
-                    <MenuItem x:Name="mi_insertNew" Click="InsertNewClick" />
-                    <MenuItem x:Name="mi_deleteSelected" Click="DeleteSelectedClick" />
+                    x:Name="mi_images" Padding="10" VerticalAlignment="Top"
+                    Background="{DynamicResource MenuItemBackgroundBrush}"
+                    FontWeight="Bold">
+                    <MenuItem
+                        x:Name="mi_insertNew" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="InsertNewClick" />
+                    <MenuItem
+                        x:Name="mi_deleteSelected" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="DeleteSelectedClick" />
                 </MenuItem>
                 <MenuItem
-                    x:Name="mi_imageFace" Margin="20,0,20,0" VerticalAlignment="Top" FontWeight="Bold" />
+                    x:Name="mi_imageFace" Padding="10" VerticalAlignment="Top"
+                    Background="{DynamicResource MenuItemBackgroundBrush}"
+                    FontWeight="Bold" >
+                    <MenuItem
+                        x:Name="mi_mirrorHorizontally" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="MirrorHorizontallyClick" Header="MirrorHorizontally" />
+                    <MenuItem
+                        x:Name="mi_mirrorVertically" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="MirrorVerticallyClick" Header="MirrorVertically" />
+                </MenuItem>
+                
                 <MenuItem
-                    x:Name="mi_imageColor" Margin="20,0,20,0" VerticalAlignment="Top" FontWeight="Bold">
+                    x:Name="mi_imageColor" Padding="10" VerticalAlignment="Top"
+                    Background="{DynamicResource MenuItemBackgroundBrush}"
+                    FontWeight="Bold">
                     <MenuItem
-                        x:Name="mi_grayscale" Click="GrayscaleClick" Header="grayscale" />
+                        x:Name="mi_grayscale" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="GrayscaleClick" Header="grayscale" />
                     <MenuItem
-                        x:Name="mi_negative" Click="NegativeClick" Header="Negative" />
+                        x:Name="mi_negative" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="NegativeClick" Header="LightnessLinearStretch" />
+                    <MenuItem
+                        x:Name="mi_enhanceVisibility" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="EnhanceVisibilityClick" Header="EnhanceVisibility" />
+
+                    <MenuItem
+                        x:Name="mi_grayscaleHistogramEqualization" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="GrayscaleHistogramEqualizationClick" Header="GrayscaleHistogramEq" />
+                    <MenuItem
+                        x:Name="mi_saturationHistogramEqualization" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="SaturationHistogramEqualizationClick" Header="SaturationHistogramEq" />
+                    <MenuItem
+                        x:Name="mi_lightnessHistogramEqualization" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="LightnessHistogramEqualizationClick" Header="LightnessHistogramEq" />
+                    <MenuItem
+                        x:Name="mi_LaplacianFilter" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="LaplacianFilterClick" Header="LaplacianFilter" />
                 </MenuItem>
                 <MenuItem
-                    x:Name="mi_imageSize" Margin="20,0,20,0" VerticalAlignment="Top" FontWeight="Bold" />
-                <MenuItem
-                    x:Name="mi_imageInfo" Margin="20,0,20,0" VerticalAlignment="Top" FontWeight="Bold" />
+                    x:Name="mi_imageInfo" Padding="10" VerticalAlignment="Top"
+                    Background="{DynamicResource MenuItemBackgroundBrush}"
+                    FontWeight="Bold" />
             </Menu>
 
         </DockPanel>
         <DockPanel
-            Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right">
+            Grid.Row="0" Grid.Column="2" Margin="0,0,60,0" HorizontalAlignment="Right">
+
             <Label
                 x:Name="lbl_default" HorizontalAlignment="Right" FontSize="16" />
             <CheckBox
                 x:Name="chb_isPrimary" HorizontalAlignment="Right" Checked="IsPrimaryClick" Unchecked="IsPrimaryClick" />
         </DockPanel>
+        <DockPanel
+            x:Name="dp_imageChanges" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Visibility="Hidden">
+            <iconPacks:PackIconMaterialDesign
+                x:Name="ip_save" Width="20" Height="20" Margin="10,10,10,0" HorizontalAlignment="Right"
+                Cursor="Hand"
+                Foreground="{DynamicResource AccentColorBrush2}"
+                Kind="Save" MouseLeftButtonUp="ImageChangesSaveClick" />
+            <iconPacks:PackIconMaterialDesign
+                x:Name="ip_undo" Width="20" Height="20" Margin="0,10,5,0" HorizontalAlignment="Right"
+                Cursor="Hand"
+                Foreground="{DynamicResource AccentColorBrush2}"
+                Kind="Cancel" MouseLeftButtonUp="ImageChangesCancelClick" />
+        </DockPanel>
+
         <!--  Photo Management Canvas  -->
-        <GroupBox Grid.Row="1" Grid.Column="0">
+        <GroupBox x:Name="PhotoPart"  Grid.Row="1" Grid.Column="0">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <ListBox
-                    Name="PhotosListBox" IsSynchronizedWithCurrentItem="True" MouseDown="PhotoListBoxSelectClick"
-                    ItemsSource="{Binding}" PreviewMouseDown="PhotoListBoxSelectClick"
-                    MouseMove="OnPhotoMove" SelectedIndex="0" SelectionMode="Extended"
+                    Name="PhotosListBox" IsSynchronizedWithCurrentItem="True" SelectedIndex="0" PreviewMouseLeftButtonUp="PhotoListBoxSelectClick" SelectionMode="Extended"
                     Style="{StaticResource PhotoListBoxStyle}" />
             </ScrollViewer>
         </GroupBox>
@@ -189,6 +251,5 @@
             Background="White" BorderBrush="#22000000" BorderThickness="1">
             <Image Name="ViewedPhoto" />
         </Border>
-
     </Grid>
 </UserControl>

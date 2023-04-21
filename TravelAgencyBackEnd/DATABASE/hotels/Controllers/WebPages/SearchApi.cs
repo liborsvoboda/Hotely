@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TravelAgencyBackEnd.WebPages;
 using Microsoft.Extensions.Options;
+using static TravelAgencyBackEnd.CoreClasses.ApiClassesExtension;
 
 namespace TravelAgencyBackEnd.Controllers
 {
@@ -39,9 +40,13 @@ namespace TravelAgencyBackEnd.Controllers
             {
                 result = new hotelsContext().HotelLists
                     .Include(a => a.HotelRoomLists.Where(a => a.Approved == true)).Include(a => a.City).Include(a => a.Country)
-                    .Include(a => a.DefaultCurrency).Include(a => a.HotelPropertyAndServiceLists)
+                    .Include(a => a.DefaultCurrency)
+                    .Include(a => a.HotelPropertyAndServiceLists.Where(a => a.Approved == true))
+                    .Include(a => a.HotelImagesLists)
                     .Where(a => data.Contains(a.Id)).ToList();
             }
+
+            result.ForEach(hotel => { hotel.HotelImagesLists.ToList().ForEach(attachment => { attachment.Attachment = null; }); });
 
             //TODO changed to old structure 
             WebPageRootSearchData rootData = new();
@@ -67,7 +72,7 @@ namespace TravelAgencyBackEnd.Controllers
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 countryData = _dbContext.CountryLists.
-                    Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),
+                    Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved),
                     joiner => joiner.Id, joined => joined.CountryId, (_joiner, _joined) => _joiner.SystemName).ToList();
 
                 cityData = _dbContext.CityLists.Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),

@@ -40,7 +40,7 @@ namespace TravelAgencyBackEnd.Controllers
             catch { }
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = DBOperations.DBTranslate("IncorrectEmailOrPassword", "en") });
 
             refreshUserToken(username, user);
             return Ok(JsonSerializer.Serialize(user));

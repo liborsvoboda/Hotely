@@ -1,8 +1,39 @@
 <template>
   <div class="row">
     <div class="col-md-4">
+
+        <div v-for="property in propertyList">
+           <div v-if="property.isSearchRequired == true && property.isValue">
+              <p>{{property.systemName}}</p>
+              <Slider
+                v-model="property.searchDefaultValue"
+                :step="1"
+                :min="property.searchDefaultMin"
+                :max="property.searchDefaultMax"
+                :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
+                
+              ></Slider>
+               <hr />
+           </div>
+           <div v-else-if="property.isSearchRequired == true && property.isBit" >
+                    <input
+                      class="form-check-input"
+                      v-model="property.searchDefaultBit"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                      @click="restaurant = !restaurant"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      {{property.systemName}}
+                    </label>
+                     <hr />
+            </div>
+        </div>
+
+
       <div id="sliders">
-        <div>
+       <!-- <div>
           <p>Price range (SEK)</p>
           <Slider
             v-model="pricerange.value"
@@ -28,7 +59,7 @@
             :max="5"
           ></Slider>
         </div>
-        <hr />
+        <hr />-->
         <div>
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
@@ -41,7 +72,7 @@
                   aria-expanded="false"
                   aria-controls="flush-collapseOne"
                 >
-                  More filters
+                  {{ $t('labels.moreFilters') }}
                 </button>
               </h2>
               <div
@@ -51,7 +82,36 @@
                 data-bs-parent="#accordionFlushExample"
               >
                 <div class="accordion-body text-start">
-                  <div class="form-check">
+                      <div v-for="property in propertyList">
+                       <div v-if="property.isSearchRequired == false && property.isValue">
+                          <p>{{property.systemName}}</p>
+                          <Slider
+                            v-model="property.searchDefaultValue"
+                            :step="1"
+                            :min="property.searchDefaultMin"
+                            :max="property.searchDefaultMax"
+                            :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
+                
+                          ></Slider>
+                           <hr />
+                       </div>
+                       <div v-else-if="property.isSearchRequired == false && property.isBit" class="form-check">
+                            <input
+                                class="form-check-input"
+                                v-model="property.searchDefaultBit"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                                @click="restaurant = !restaurant"
+                            />
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{property.systemName}}
+                            </label>
+                        </div>
+                    </div>
+
+
+<!--                  <div class="form-check">
                     <input
                       class="form-check-input"
                       v-model="pool"
@@ -102,7 +162,7 @@
                     <label class="form-check-label" for="flexCheckDefault">
                       Restaurant
                     </label>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -140,6 +200,10 @@ export default {
   },
   data() {
     return {
+        kmFormat:{
+          decimals: 1,
+          suffix: " Km",
+        },
       pricerange: {
         value: [0, 2000],
       },
@@ -166,9 +230,12 @@ export default {
     };
   },
   computed: {
-    nrOfSkeletons() {
-      return 3;
-    },
+      propertyList() {
+          return this.$store.state.propertyList;
+      },
+      nrOfSkeletons() {
+         return 3;
+      },
     searchResults() {
       return this.$store.state.searchResults;
     },
