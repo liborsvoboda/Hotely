@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class CurrencyList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class CurrencyList {
         public int Id { get; set; } = 0;
         public string Name { get; set; } = null;
         public decimal ExchangeRate { get; set; } = 1;

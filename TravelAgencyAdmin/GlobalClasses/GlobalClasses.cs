@@ -3,10 +3,8 @@
 namespace GlobalClasses {
 
     /// <summary>
-    /// SYSTEM Running mode
-    /// In debug mode is disabled the System Logger
-    /// Visual Studio Debugger difficult operation has problem
-    /// If you want you can enable SystemLogger by change to: DebugWithSystemLogger
+    /// SYSTEM Running mode In debug mode is disabled the System Logger Visual Studio Debugger
+    /// difficult operation has problem If you want you can enable SystemLogger by change to: DebugWithSystemLogger
     /// </summary>
     public enum RunningMode {
         Debug,
@@ -84,10 +82,9 @@ namespace GlobalClasses {
     }
 
     /// <summary>
-    /// Class for Using as customized list the List of API urls
-    /// for Central using in the system
-    /// One Api is One: Dataview / Right / Report Posibility / Menu Item / Page
-    /// Exist rules for automatic processing in System Core Logic for simple Developing
+    /// Class for Using as customized list the List of API urls for Central using in the system One
+    /// Api is One: Dataview / Right / Report Posibility / Menu Item / Page Exist rules for
+    /// automatic processing in System Core Logic for simple Developing
     /// </summary>
     public partial class TranslatedApiList {
         public string ApiTableName { get; set; }

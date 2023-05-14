@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class ParameterList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class ParameterList {
         public int Id { get; set; } = 0;
         public int? UserId { get; set; } = null;
         public string SystemName { get; set; } = null;
@@ -15,5 +14,4 @@ namespace TravelAgencyAdmin.Classes
         public string Translation { get; set; } = null;
         public string User { get; set; } = null;
     }
-
 }

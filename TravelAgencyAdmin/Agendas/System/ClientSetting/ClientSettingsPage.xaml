@@ -194,10 +194,7 @@
                 <metro:NumericUpDown
                     x:Name="n_timeToEnable" Grid.Row="0" Grid.Column="3" Width="100" HorizontalAlignment="Right"
                     HorizontalContentAlignment="Right" HideUpDownButtons="False" Maximum="300" Minimum="10" NumericInputMode="Decimal" />
-
             </Grid>
-
-
 
             <Button
                 x:Name="btn_checkUpdate" Grid.Row="19" Grid.Column="0" Width="200" Height="40"

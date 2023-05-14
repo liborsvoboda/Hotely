@@ -26,8 +26,7 @@ namespace TravelAgencyAdmin.SystemStructure {
         }
 
         private void _KeyDown(object sender, KeyEventArgs e) {
-            if (_monitorForTab && e.Key == Key.Tab)
-            {
+            if (_monitorForTab && e.Key == Key.Tab) {
                 AssociatedObject.CommitEdit(DataGridEditingUnit.Row, false);
             }
         }
@@ -59,8 +58,7 @@ namespace TravelAgencyAdmin.SystemStructure {
 
             var doIt = (bool)e.NewValue;
 
-            if (doIt)
-            {
+            if (doIt) {
                 grid.Loaded += SetMinWidths;
             }
         }
@@ -68,8 +66,7 @@ namespace TravelAgencyAdmin.SystemStructure {
         public static void SetMinWidths(object source, EventArgs e) {
             var grid = (DataGrid)source;
 
-            foreach (var column in grid.Columns)
-            {
+            foreach (var column in grid.Columns) {
                 column.MinWidth = column.ActualWidth;
                 column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }

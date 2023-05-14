@@ -1,38 +1,32 @@
-﻿using Newtonsoft.Json;
-using TravelAgencyAdmin.Classes;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Web;
-using Microsoft.Win32;
 using System.Windows.Media.Imaging;
-using System.IO;
-using TravelAgencyAdmin;
-using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
+using TravelAgencyAdmin.Classes;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.GlobalStyles;
-using MahApps.Metro.Controls.Dialogs;
-using System.Net;
 
-namespace TravelAgencyAdmin.Pages
-{
-    public partial class UserListPage : UserControl
-    {
+namespace TravelAgencyAdmin.Pages {
+
+    public partial class UserListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static UserList selectedRecord = new UserList();
 
         private List<UserList> userList = new List<UserList>();
         private List<UserRoleList> userRoleList = new List<UserRoleList>();
 
-        public UserListPage()
-        {
+        public UserListPage() {
             InitializeComponent();
             _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
@@ -57,12 +51,10 @@ namespace TravelAgencyAdmin.Pages
         }
 
         //change datasource
-        public async Task<bool> LoadDataList()
-        {
+        public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
 
-            try
-            {
+            try {
                 userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
@@ -72,32 +64,22 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.ItemsSource = userList;
                 DgListView.Items.Refresh();
                 cb_roleId.ItemsSource = userRoleList;
-            }
-            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             DgListView.Items.Refresh();
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
-
         // set translate columns in listView
-        private void DgListView_Translate(object sender, EventArgs ex)
-        {
-            ((DataGrid)sender).Columns.ToList().ForEach(e =>
-            {
+        private void DgListView_Translate(object sender, EventArgs ex) {
+            ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
-                if (headername == "Username") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 1; }
-                else if (headername == "Translation") { e.Header = Resources["role"].ToString(); e.DisplayIndex = 2; }
-                else if (headername == "Password") e.Header = Resources["password"].ToString();
+                if (headername == "Username") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 1; } else if (headername == "Translation") { e.Header = Resources["role"].ToString(); e.DisplayIndex = 2; } else if (headername == "Password") e.Header = Resources["password"].ToString();
                 else if (headername == "Name") e.Header = Resources["name"].ToString();
                 else if (headername == "SurName") e.Header = Resources["surname"].ToString();
                 else if (headername == "Description") e.Header = Resources["description"].ToString();
                 else if (headername == "Expiration") e.Header = Resources["expiration"].ToString();
-                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
-
-                else if (headername == "Id") e.DisplayIndex = 0;
+                else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; } else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
-
                 else if (headername == "RoleId") e.Visibility = Visibility.Hidden;
                 else if (headername == "Photo") e.Visibility = Visibility.Hidden;
                 else if (headername == "Token") e.Visibility = Visibility.Hidden;
@@ -106,12 +88,9 @@ namespace TravelAgencyAdmin.Pages
             });
         }
 
-
         //change filter fields
-        public void Filter(string filter)
-        {
-            try
-            {
+        public void Filter(string filter) {
+            try {
                 if (filter.Length == 0) { dataViewSupport.FilteredValue = null; DgListView.Items.Filter = null; return; }
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
@@ -122,59 +101,50 @@ namespace TravelAgencyAdmin.Pages
                     || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
-            }
-            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
-        public void NewRecord()
-        {
+        public void NewRecord() {
             selectedRecord = new UserList();
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true);
         }
 
-        public void EditRecord(bool copy)
-        {
+        public void EditRecord(bool copy) {
             selectedRecord = (UserList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true, copy);
         }
 
-        public async void DeleteRecord()
-        {
+        public async void DeleteRecord() {
             selectedRecord = (UserList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
-            if (result == MessageDialogResult.Affirmative)
-            {
+            if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.UserList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
 
-        private void DgListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
+        private void DgListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             if (DgListView.SelectedItems.Count == 0) return;
             selectedRecord = (UserList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true);
         }
 
-        private void DgListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (DgListView.SelectedItems.Count > 0)
-            { selectedRecord = (UserList)DgListView.SelectedItem;
+        private void DgListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (DgListView.SelectedItems.Count > 0) {
+                selectedRecord = (UserList)DgListView.SelectedItem;
             } else { selectedRecord = new UserList(); }
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(false);
         }
 
         //change dataset save method
-        private async void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
+        private async void BtnSave_Click(object sender, RoutedEventArgs e) {
+            try {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.RoleId = ((UserRoleList)cb_roleId.SelectedItem).Id;
@@ -194,32 +164,25 @@ namespace TravelAgencyAdmin.Pages
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                if (selectedRecord.Id == 0)
-                {
+                if (selectedRecord.Id == 0) {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.UserList, httpContent, null, App.UserData.Authentification.Token);
-                }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.UserList, httpContent, null, App.UserData.Authentification.Token); }
+                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.UserList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0)
-                {
+                if (dBResult.recordCount > 0) {
                     selectedRecord = new UserList();
                     await LoadDataList();
                     SetRecord(false);
-                }
-                else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
-            }
-            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) {
             selectedRecord = (DgListView.SelectedItems.Count > 0) ? (UserList)DgListView.SelectedItem : new UserList();
             SetRecord(false);
         }
 
         //change dataset prepare for working
-        private void SetRecord(bool showForm, bool copy = false)
-        {
+        private void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
             cb_roleId.SelectedItem = (selectedRecord.Id == 0) ? userRoleList.FirstOrDefault() : userRoleList.First(a => a.Id == selectedRecord.RoleId);
@@ -234,31 +197,24 @@ namespace TravelAgencyAdmin.Pages
             img_photoPath.Source = (!string.IsNullOrWhiteSpace(selectedRecord.PhotoPath)) ? MediaOperations.ByteToImage(selectedRecord.Photo) : new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png")));
             txt_photoPath.Text = null;
 
-            if (showForm)
-            {
+            if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
                 ListView.Visibility = Visibility.Hidden; ListForm.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
-            }
-            else
-            {
+            } else {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
                 ListForm.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
             }
         }
 
-        private void BtnBrowse_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
+        private void BtnBrowse_Click(object sender, RoutedEventArgs e) {
+            try {
                 OpenFileDialog dlg = new OpenFileDialog() { DefaultExt = ".png", Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
-                if (dlg.ShowDialog() == true)
-                {
+                if (dlg.ShowDialog() == true) {
                     img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
                     txt_photoPath.Text = dlg.FileName;
                     selectedRecord.Photo = File.ReadAllBytes(dlg.FileName);
                 }
-            }
-            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
     }
 }

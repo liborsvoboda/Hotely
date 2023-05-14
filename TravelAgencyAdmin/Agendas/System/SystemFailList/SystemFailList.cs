@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
 
-    public partial class SystemFailList
-    {
+    public partial class SystemFailList {
         public int Id { get; set; } = 0;
         public string Message { get; set; } = null;
         public int? UserId { get; set; } = null;

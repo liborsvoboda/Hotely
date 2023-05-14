@@ -1,39 +1,34 @@
-﻿using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using Org.BouncyCastle.Asn1;
-using System.Net.Http;
-using Newtonsoft.Json;
-using System.Windows.Media;
-using TravelAgencyAdmin.Classes;
-using System.Collections.ObjectModel;
-using System;
+﻿using GlobalClasses;
 using Microsoft.Win32;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1;
+using System;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
-using System.Windows.Input;
 using System.Diagnostics;
 using System.IO;
-using TravelAgencyAdmin.GlobalOperations;
+using System.Linq;
+using System.Net.Http;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using TravelAgencyAdmin.Api;
+using TravelAgencyAdmin.Classes;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Helper;
-
-using MahApps.Metro.Controls;
 using TravelAgencyAdmin.SystemStructure;
-using GlobalClasses;
 
-namespace TravelAgencyAdmin.Pages
-{
-    public partial class ClientSettingsPage : UserControl
-    {
+namespace TravelAgencyAdmin.Pages {
+
+    public partial class ClientSettingsPage : UserControl {
+
         public ObservableCollection<Language> Languages = new ObservableCollection<Language>() {
                                                                 new Language() { Name = "System", Value = "system" },
                                                                 new Language() { Name = "Czech", Value = "cs-CZ" },
                                                                 new Language() { Name = "English", Value = "en-US" }
                                                              };
 
-        public ClientSettingsPage()
-        {
+        public ClientSettingsPage() {
             InitializeComponent();
             Language defaultLanguage = JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage);
             _ = SystemOperations.SetLanguageDictionary(Resources, defaultLanguage.Value);
@@ -62,7 +57,6 @@ namespace TravelAgencyAdmin.Pages
             lbl_disableOnActivity.Content = Resources["disableOnActivity"].ToString();
             lbl_timeToEnable.Content = Resources["timeToEnable"].ToString();
 
-
             btn_run.Content = Resources["run"].ToString();
             btn_test.Content = Resources["test"].ToString();
             btn_browseDesigner.Content = btn_browse.Content = Resources["browse"].ToString();
@@ -70,7 +64,6 @@ namespace TravelAgencyAdmin.Pages
             btn_restart.Content = Resources["restart"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
             btnApiTest.Content = Resources["apiConnectionTest"].ToString();
-
 
             //data
             txt_apiAddress.Text = App.Setting.ApiAddress;
@@ -94,44 +87,34 @@ namespace TravelAgencyAdmin.Pages
             cb_defaultLanguage.Items.SourceCollection.Cast<Language>().ToList().ForEach(language => { if (language.Name == defaultLanguage.Name) { cb_defaultLanguage.SelectedIndex = index; } index++; });
             index = 0;
             cb_automaticUpdate.Items.SourceCollection.Cast<UpdateVariant>().ToList().ForEach(update => { if (update.Value == App.Setting.AutomaticUpdate) { cb_automaticUpdate.SelectedIndex = index; } index++; });
-
         }
 
-        private async void BtnApiTest_Click(object sender, RoutedEventArgs e)
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                try
-                {
+        private async void BtnApiTest_Click(object sender, RoutedEventArgs e) {
+            using (HttpClient httpClient = new HttpClient()) {
+                try {
                     MainWindow.ProgressRing = Visibility.Visible;
                     string json = await httpClient.GetStringAsync(txt_apiAddress.Text + "/" + ApiUrls.BackendCheck + "/Db");
                     tbOutputMessageBox.Foreground = new SolidColorBrush(Colors.Green); tbOutputMessageBox.Text = json;
                     MainWindow.ProgressRing = Visibility.Hidden;
-                }
-                catch
-                {
-                    try
-                    {
+                } catch {
+                    try {
                         MainWindow.ProgressRing = Visibility.Visible;
                         string json = await httpClient.GetStringAsync(txt_apiAddress.Text + "/" + ApiUrls.BackendCheck);
                         tbOutputMessageBox.Foreground = new SolidColorBrush(Colors.Green); tbOutputMessageBox.Text = json;
                         MainWindow.ProgressRing = Visibility.Hidden;
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                         tbOutputMessageBox.Text = null;
                         await MainWindow.ShowMessage(false, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
                     }
                 }
-
             }
         }
 
         #region helper methods
-        private class ExtensionsItem
-        {
-            public ExtensionsItem()
-            {
+
+        private class ExtensionsItem {
+
+            public ExtensionsItem() {
                 Ident = null;
                 IsTrue = false;
                 Asn1OctetStringV = null;
@@ -142,15 +125,13 @@ namespace TravelAgencyAdmin.Pages
             public Asn1OctetString Asn1OctetStringV { get; set; }
         }
 
-        #endregion
+        #endregion helper methods
 
-        private void Txt_apiAddress_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        private void Txt_apiAddress_TextChanged(object sender, TextChangedEventArgs e) {
             if (txt_apiAddress.Text.Length > 0) btnApiTest.IsEnabled = true; else btnApiTest.IsEnabled = false;
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnSave_Click(object sender, RoutedEventArgs e) {
             App.Setting.ApiAddress = txt_apiAddress.Text;
             App.Setting.WriteToLog = (bool)chb_WritetoLog.IsChecked;
             App.Setting.ServerCheckIntervalSec = (double)txt_serverCheckIntervalSec.Value * 1000;
@@ -171,68 +152,58 @@ namespace TravelAgencyAdmin.Pages
 
             SystemWindowDataModel.SaveTheme();
 
-            if (FileOperations.SaveSettings())
-            {
+            if (FileOperations.SaveSettings()) {
                 tbOutputMessageBox.Foreground = Brushes.Orange;
                 tbOutputMessageBox.Text = Resources["savingSuccessfull"].ToString()
                     + Environment.NewLine + Resources["restartForApply"].ToString();
             }
         }
 
-        private void BtnBrowse_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            { OpenFileDialog dlg = new OpenFileDialog { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
+        private void BtnBrowse_Click(object sender, RoutedEventArgs e) {
+            try {
+                OpenFileDialog dlg = new OpenFileDialog { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { txt_reportingPath.Text = dlg.FileName; }
-            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
         private void BtnRestart_Click(object sender, RoutedEventArgs e) => App.AppRestart();
+
         private void BtnCheckUpdate_Click(object sender, RoutedEventArgs e) => SystemUpdater.CheckUpdate(true);
+
         private void BtnShowVideo_Click(object sender, RoutedEventArgs e) => new WelcomePage().Show();
-        private void BtnTestConnection_Click(object sender, RoutedEventArgs e)
-        {
-            
-            try
-            {
+
+        private void BtnTestConnection_Click(object sender, RoutedEventArgs e) {
+            try {
                 MainWindow.ProgressRing = Visibility.Visible;
                 SqlConnection cnn = new SqlConnection(pb_reportConnectionString.Password);
                 cnn.Open();
-                if (cnn.State == System.Data.ConnectionState.Open)
-                {
+                if (cnn.State == System.Data.ConnectionState.Open) {
                     tbOutputMessageBox.Foreground = Brushes.Green;
                     tbOutputMessageBox.Text = Resources["connectionSucceed"].ToString();
-                }
-                else
-                {
+                } else {
                     tbOutputMessageBox.Foreground = Brushes.Red;
                     tbOutputMessageBox.Text = cnn.ConnectionString + Environment.NewLine + Resources["connectionFail"].ToString();
                 }
                 cnn.Close();
                 MainWindow.ProgressRing = Visibility.Hidden;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 tbOutputMessageBox.Foreground = Brushes.Red;
                 tbOutputMessageBox.Text = pb_reportConnectionString.Password + Environment.NewLine + ex.Message;
                 MainWindow.ProgressRing = Visibility.Hidden;
             }
         }
 
-        private void BtnBrowseDesigner_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnBrowseDesigner_Click(object sender, RoutedEventArgs e) {
             try {
                 OpenFileDialog dlg = new OpenFileDialog { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { txt_reportBuilder.Text = dlg.FileName; }
-            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
-        private void BtnRun_Click(object sender, RoutedEventArgs e)
-        {
+        private void BtnRun_Click(object sender, RoutedEventArgs e) {
             try {
                 Process exeProcess = new Process();
-                ProcessStartInfo info = new ProcessStartInfo()
-                {
+                ProcessStartInfo info = new ProcessStartInfo() {
                     FileName = txt_reportBuilder.Text,
                     WorkingDirectory = Path.GetDirectoryName(txt_reportBuilder.Text) + "\\",
                     Arguments = "",
@@ -246,7 +217,7 @@ namespace TravelAgencyAdmin.Pages
                 };
                 exeProcess.StartInfo = info;
                 exeProcess.Start();
-            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
     }
 }

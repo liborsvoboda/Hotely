@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
+
     /// <summary>
     /// Client configuration Definition
     /// </summary>
-    public class Config
-    {
+    public class Config {
         public string ApiAddress { get; set; } = "http://95.183.52.33:5000";
         public bool WriteToLog { get; set; } = true;
         public Double ServerCheckIntervalSec { get; set; } = 5000;
@@ -29,8 +28,7 @@ namespace TravelAgencyAdmin.Classes
     /// <summary>
     /// Program version Class
     /// </summary>
-    public class AppVersion
-    {
+    public class AppVersion {
         public int Major { get; set; }
         public int Minor { get; set; }
         public int Build { get; set; }
@@ -40,8 +38,7 @@ namespace TravelAgencyAdmin.Classes
     /// <summary>
     /// Actual List Item informations for Controls each Page in MainView
     /// </summary>
-    public class DataViewSupport
-    {
+    public class DataViewSupport {
         public int SelectedRecordId { get; set; } = 0;
         public bool FormShown { get; set; } = false;
         public string FilteredValue { get; set; } = null;
@@ -51,8 +48,7 @@ namespace TravelAgencyAdmin.Classes
     /// <summary>
     /// Language definition support
     /// </summary>
-    public class Language
-    {
+    public class Language {
         public string Name { get; set; }
         public string Value { get; set; }
     }
@@ -60,12 +56,7 @@ namespace TravelAgencyAdmin.Classes
     /// <summary>
     /// Report naming support
     /// </summary>
-    public class ReportSelection
-    {
+    public class ReportSelection {
         public string Name { get; set; }
     }
-
 }
-
-
-

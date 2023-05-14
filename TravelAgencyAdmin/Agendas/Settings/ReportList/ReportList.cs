@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class ReportList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class ReportList {
         public int Id { get; set; } = 0;
         public string PageName { get; set; } = null;
         public string SystemName { get; set; } = null;
@@ -19,5 +18,4 @@ namespace TravelAgencyAdmin.Classes
         public string PageTranslation { get; set; } = null;
         public string Translation { get; set; } = null;
     }
-
 }

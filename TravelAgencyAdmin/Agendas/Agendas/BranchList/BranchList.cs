@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class BranchList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class BranchList {
         public int Id { get; set; } = 0;
         public string CompanyName { get; set; } = null;
         public string ContactName { get; set; }
@@ -19,5 +18,4 @@ namespace TravelAgencyAdmin.Classes
         public bool Active { get; set; }
         public DateTime TimeStamp { get; set; }
     }
-
 }

@@ -379,7 +379,6 @@
             </DockPanel>
         </ItemsControl>
 
-
         <dockablz:Layout
             x:Name="mainGrid" Grid.Row="1" dragablz:DragablzItem.IsDraggingChanged="MainGrid_IsDraggingChanged"
             FloatingItemContainerStyle="{DynamicResource MahAppsToolDragablzItemStyle}"
@@ -393,7 +392,7 @@
 
                 <!--  draging to more app instances  -->
                 <!--<dragablz:TabablzControl.InterTabController>
-                    <dragablz:InterTabController InterTabClient="{Binding InterTabClient}"/>
+                    <dragablz:InterTabController InterTabClient="{Binding InterTabClient}" />
                 </dragablz:TabablzControl.InterTabController>-->
 
                 <dragablz:TabablzControl.ContentTemplate>

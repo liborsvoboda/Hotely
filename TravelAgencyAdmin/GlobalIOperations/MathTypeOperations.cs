@@ -5,15 +5,12 @@ namespace TravelAgencyAdmin.GlobalOperations {
     internal class MathTypeOperations {
 
         /// <summary>
-        /// Global DataTypes Chwecker with Bool Result
-        /// Used on System Parameters
+        /// Global DataTypes Chwecker with Bool Result Used on System Parameters
         /// </summary>
         public static (object, bool) CheckTypeValue(string typeString, string value) {
             bool result = false;
-            try
-            {
-                switch (typeString)
-                {
+            try {
+                switch (typeString) {
                     case "string":
                         result = !string.IsNullOrWhiteSpace(value);
                         Convert.ChangeType(value, value.GetTypeCode());
@@ -69,8 +66,7 @@ namespace TravelAgencyAdmin.GlobalOperations {
 
                     default: throw new Exception();
                 }
-            }
-            catch { Convert.ChangeType(value, value.GetTypeCode()); }
+            } catch { Convert.ChangeType(value, value.GetTypeCode()); }
 
             return (value, result);
         }

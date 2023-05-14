@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
 
-    public partial class CountryList
-    {
+    public partial class CountryList {
         public int Id { get; set; }
         public string SystemName { get; set; }
         public int UserId { get; set; }
@@ -12,5 +10,4 @@ namespace TravelAgencyAdmin.Classes
 
         public string CountryTranslation { get; set; }
     }
-
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
+
     public class HotelImagesList {
         public int Id { get; set; } = 0;
         public int HotelId { get; set; }
@@ -14,6 +14,3 @@ namespace TravelAgencyAdmin.Classes
         public string Hotel { get; set; }
     }
 }
-
-
-

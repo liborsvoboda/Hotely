@@ -1,16 +1,14 @@
-﻿using System.Windows.Controls;
-using Dragablz;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1;
+using System.Windows.Controls;
 using TravelAgencyAdmin.Classes;
 using TravelAgencyAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages
-{
-    public partial class SupportPage : UserControl
-    {
-        public SupportPage()
-        {
+namespace TravelAgencyAdmin.Pages {
+
+    public partial class SupportPage : UserControl {
+
+        public SupportPage() {
             InitializeComponent();
             _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
@@ -30,10 +28,10 @@ namespace TravelAgencyAdmin.Pages
         }
 
         #region helper methods
-        private class ExtensionsItem
-        {
-            public ExtensionsItem()
-            {
+
+        private class ExtensionsItem {
+
+            public ExtensionsItem() {
                 ident = null;
                 isTrue = false;
                 asn1OctetString = null;
@@ -43,8 +41,7 @@ namespace TravelAgencyAdmin.Pages
             public bool isTrue { get; set; }
             public Asn1OctetString asn1OctetString { get; set; }
         }
-        #endregion
 
-
+        #endregion helper methods
     }
 }

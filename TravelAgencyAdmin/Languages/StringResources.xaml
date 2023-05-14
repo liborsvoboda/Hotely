@@ -168,7 +168,6 @@
     <system:String x:Key="installNow">Install now</system:String>
     <system:String x:Key="noneUpdateAvailable">None update available</system:String>
 
-
     <system:String x:Key="group">Group</system:String>
     <system:String x:Key="groupList">Groups</system:String>
     <system:String x:Key="groupNotExist">Inserted group not exist</system:String>
@@ -465,5 +464,4 @@
     <system:String x:Key="timeToEnable">Time to enable</system:String>
     <system:String x:Key="averageRating">Average Rating</system:String>
     <system:String x:Key="image">Image</system:String>
-
 </ResourceDictionary>

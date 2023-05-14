@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class ReportQueueList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class ReportQueueList {
         public int Id { get; set; } = 0;
         public string Name { get; set; } = null;
         public int Sequence { get; set; } = 0;
@@ -18,8 +17,7 @@ namespace TravelAgencyAdmin.Classes
         public DateTime Timestamp { get; set; }
     }
 
-    public partial class SetReportFilter
-    {
+    public partial class SetReportFilter {
         public string TableName { get; set; } = null;
         public string Filter { get; set; } = null;
         public string Search { get; set; } = null;

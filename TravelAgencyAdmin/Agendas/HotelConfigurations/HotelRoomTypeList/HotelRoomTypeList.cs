@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
 
-    public partial class HotelRoomTypeList
-    {
+    public partial class HotelRoomTypeList {
         public int Id { get; set; } = 0;
         public string SystemName { get; set; }
         public string DescriptionCz { get; set; }
@@ -14,5 +12,4 @@ namespace TravelAgencyAdmin.Classes
 
         public string Translation { get; set; } = null;
     }
-
 }

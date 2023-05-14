@@ -1,23 +1,16 @@
-﻿using System.Windows.Media.Animation;
-
-
+﻿using EASYTools.ImageEffectLibrary;
 using System.Windows.Controls;
-using MahApps.Metro.Controls;
-using System.Windows;
-using EASYTools.ImageEffectLibrary;
+using System.Windows.Media.Animation;
 
-namespace TravelAgencyAdmin.Pages
-{
+namespace TravelAgencyAdmin.Pages {
+
     public partial class ScreenSaverPage : UserControl {
-
         //private List<MottoList> MottoList = new List<MottoList>();
         //private readonly string MottoListPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),"Data","Mottos");
 
         private Trackball _trackball;
 
-
         public ScreenSaverPage() {
-
             InitializeComponent();
             // setup trackball for moving the model around
             _trackball = new Trackball();
@@ -27,8 +20,6 @@ namespace TravelAgencyAdmin.Pages
 
             var s = (Storyboard)FindResource("RotateStoryboard");
             BeginStoryboard(s);
-
-           
         }
     }
 }

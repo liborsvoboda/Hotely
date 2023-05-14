@@ -1,24 +1,22 @@
-﻿using System.Linq;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
-using Org.BouncyCastle.Asn1;
-using System.Net.Http;
-using Newtonsoft.Json;
-using System.Windows.Media;
-using TravelAgencyAdmin.Classes;
-using System.Collections.ObjectModel;
-using System;
-using System.Web;
-using Microsoft.Win32;
-using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
+using TravelAgencyAdmin.Classes;
+using TravelAgencyAdmin.GlobalOperations;
 
-// This is Template Is Customized For Load and Save data without List (Settings) is folded from standartized Methods
-namespace TravelAgencyAdmin.Pages
-{
+// This is Template Is Customized For Load and Save data without List (Settings) is folded from
+// standartized Methods
+namespace TravelAgencyAdmin.Pages {
 
-    public partial class TemplateSettingsPage : UserControl
-    {
+    public partial class TemplateSettingsPage : UserControl {
+
         /// <summary>
         /// Define Collection For Combobox
         /// </summary>
@@ -27,18 +25,16 @@ namespace TravelAgencyAdmin.Pages
                                                                 new Language() { Name = "Czech", Value = "cs-CZ" },
                                                                 new Language() { Name = "English", Value = "en-US" }
                                                              };
+
         /// <summary>
-        /// Initialize page with loading Dictionary and start loding data
-        /// Manual work needed Translate All XAML fields by Resources
-        /// Runned on start
-        /// 
+        /// Initialize page with loading Dictionary and start loding data Manual work needed
+        /// Translate All XAML fields by Resources Runned on start
         /// </summary>
-        public TemplateSettingsPage()
-        {
+        public TemplateSettingsPage() {
             InitializeComponent();
             Language defaultLanguage = JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage);
             _ = SystemOperations.SetLanguageDictionary(Resources, defaultLanguage.Value);
-            try { 
+            try {
                 lbl_apiAddress.Content = Resources["apiAddress"].ToString();
                 lbl_serviceName.Content = Resources["serviceName"].ToString();
                 lbl_writeToLog.Content = Resources["logging"].ToString();
@@ -53,7 +49,7 @@ namespace TravelAgencyAdmin.Pages
                 btn_restart.Content = Resources["restart"].ToString();
                 btn_save.Content = Resources["btn_save"].ToString();
                 btnApiTest.Content = Resources["apiConnectionTest"].ToString();
-            } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             //data
             txt_apiAddress.Text = App.Setting.ApiAddress;
@@ -70,27 +66,24 @@ namespace TravelAgencyAdmin.Pages
         }
 
         /// <summary>
-        /// Customized GET Call 
+        /// Customized GET Call
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void BtnApiTest_Click(object sender, RoutedEventArgs e)
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                try
-                {
+        /// <param name="e">     </param>
+        private async void BtnApiTest_Click(object sender, RoutedEventArgs e) {
+            using (HttpClient httpClient = new HttpClient()) {
+                try {
                     string json = await httpClient.GetStringAsync(txt_apiAddress.Text + "/" + ApiUrls.BackendCheck + "/Db");
-                    await MainWindow.ShowMessage(false, json); 
-                } catch (Exception ex) { await MainWindow.ShowMessage(false, "Exception Error : " + ex.StackTrace);                 }
+                    await MainWindow.ShowMessage(false, json);
+                } catch (Exception ex) { await MainWindow.ShowMessage(false, "Exception Error : " + ex.StackTrace); }
             }
         }
 
         #region helper methods
-        private class ExtensionsItem
-        {
-            public ExtensionsItem()
-            {
+
+        private class ExtensionsItem {
+
+            public ExtensionsItem() {
                 ident = null;
                 isTrue = false;
                 asn1OctetString = null;
@@ -101,16 +94,11 @@ namespace TravelAgencyAdmin.Pages
             public Asn1OctetString asn1OctetString { get; set; }
         }
 
-        #endregion
+        #endregion helper methods
 
-
-        /// <summary>
-        /// Standartized method for Direct Save Record
-        /// Manual work needed, set correct data set for SubRecord
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
+        /// <summary> Standartized method for Direct Save Record Manual work needed, set correct
+        /// data set for SubRecord <param name="sender"></param> <param name="e"></param>
+        private async void BtnSave_Click(object sender, RoutedEventArgs e) {
             App.Setting.ApiAddress = txt_apiAddress.Text;
             App.Setting.WriteToLog = (bool)chb_WritetoLog.IsChecked;
             App.Setting.ServerCheckIntervalSec = (double)txt_serverCheckIntervalSec.Value * 1000;
@@ -124,21 +112,15 @@ namespace TravelAgencyAdmin.Pages
             if (FileOperations.SaveSettings()) { await MainWindow.ShowMessage(false, Resources["savingSuccessfull"].ToString()); }
         }
 
-
         private void ApiAddress_TextChanged(object sender, TextChangedEventArgs e) => btnApiTest.IsEnabled = txt_apiAddress.Text.Length > 0;
 
         private void BtnRestart_Click(object sender, RoutedEventArgs e) => App.AppRestart();
-        
 
-        private void BtnBrowse_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                OpenFileDialog dlg = new OpenFileDialog
-                { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
+        private void BtnBrowse_Click(object sender, RoutedEventArgs e) {
+            try {
+                OpenFileDialog dlg = new OpenFileDialog { DefaultExt = ".exe", Filter = "Exe files |*.exe", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) { txt_powerBuilderPath.Text = dlg.FileName; }
-            }
-            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
     }
 }

@@ -2,14 +2,12 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace TravelAgencyAdmin.GlobalStyles
-{
-    class DatagridStyles
-    {
+namespace TravelAgencyAdmin.GlobalStyles {
+
+    internal class DatagridStyles {
         public static Style gridTextRightAligment = GridTextRightAligment();
 
-        public static Style GridTextRightAligment()
-        {
+        public static Style GridTextRightAligment() {
             Style columnRightStyle = new Style();
             columnRightStyle.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty, HorizontalAlignment.Right));
             columnRightStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(Colors.Transparent)));
@@ -21,6 +19,5 @@ namespace TravelAgencyAdmin.GlobalStyles
 
             return columnRightStyle;
         }
-
     }
 }

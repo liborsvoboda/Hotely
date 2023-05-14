@@ -12,13 +12,10 @@ using System.Windows;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None,
     ResourceDictionaryLocation.SourceAssembly
 )]
-
-[assembly: AssemblyVersion("1.5.97.1957")]
-[assembly: AssemblyFileVersion("1.5.97.1957")]
-
-[assembly: NeutralResourcesLanguageAttribute("en-US")] 
+[assembly: AssemblyVersion("1.5.97.1962")]
+[assembly: AssemblyFileVersion("1.5.97.1962")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]

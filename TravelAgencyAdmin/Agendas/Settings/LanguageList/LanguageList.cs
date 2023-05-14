@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class LanguageList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class LanguageList {
         public int Id { get; set; } = 0;
         public string SystemName { get; set; } = null;
         public string DescriptionCz { get; set; } = null;
@@ -11,5 +10,4 @@ namespace TravelAgencyAdmin.Classes
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
     }
-
 }

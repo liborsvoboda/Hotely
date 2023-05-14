@@ -20,12 +20,9 @@ namespace GlobalClasses {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         private void RaiseCollectionChanged(NotifyCollectionChangedAction changeType, T oldItem, T newItem, int oldIndex, int newIndex) {
-            if (this.CollectionChanged != null)
-            {
-                try
-                {
-                    switch (changeType)
-                    {
+            if (this.CollectionChanged != null) {
+                try {
+                    switch (changeType) {
                         case NotifyCollectionChangedAction.Reset:
                             if (App.Current != null)
                                 App.Current.Dispatcher.BeginInvoke(new _action(() => CollectionChanged(this, new NotifyCollectionChangedEventArgs(changeType))));
@@ -61,17 +58,14 @@ namespace GlobalClasses {
                                 this.CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, newItem, newIndex, oldIndex));
                             break;
                     }
-                }
-                catch (Exception exceptio)
-                {
+                } catch (Exception exceptio) {
                     throw;
                 }
             }
         }
 
         private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e) {
-            if (this.CollectionChanged != null)
-            {
+            if (this.CollectionChanged != null) {
                 if (App.Current != null)
                     App.Current.Dispatcher.BeginInvoke(new _action(() => this.CollectionChanged(this, e)));
                 else
@@ -86,8 +80,7 @@ namespace GlobalClasses {
         public int IndexOf(T item) {
             int i = -1;
 
-            lock (syncObject)
-            {
+            lock (syncObject) {
                 i = _list.IndexOf(item);
             }
 
@@ -96,17 +89,14 @@ namespace GlobalClasses {
 
         public void Insert(int index, T item) {
             bool changed = false;
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.Insert(index, item);
                     changed = true;
                 }
             }
 
-            if (changed)
-            {
+            if (changed) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(NotifyCollectionChangedAction.Add, item, item, 0, 0);
             }
@@ -118,10 +108,8 @@ namespace GlobalClasses {
 
             T[] arrT = new T[_list.Count];
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     oldItem = _list[index];
 
                     _list.RemoveAt(index);
@@ -129,8 +117,7 @@ namespace GlobalClasses {
                 }
             }
 
-            if (changed)
-            {
+            if (changed) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(NotifyCollectionChangedAction.Remove, oldItem, oldItem, index, index);
             }
@@ -140,8 +127,7 @@ namespace GlobalClasses {
             get {
                 T newItem;
 
-                lock (syncObject)
-                {
+                lock (syncObject) {
                     newItem = _list.ElementAt<T>(index);
                 }
 
@@ -151,10 +137,8 @@ namespace GlobalClasses {
                 bool isChanged = false;
                 T oldItem = _list.ElementAt<T>(index);
 
-                lock (syncObject)
-                {
-                    if (oldItem.Equals(value) == false && _isReadOnly == false)
-                    {
+                lock (syncObject) {
+                    if (oldItem.Equals(value) == false && _isReadOnly == false) {
                         _list[index] = value;
                         isChanged = true;
                     }
@@ -172,17 +156,14 @@ namespace GlobalClasses {
         public void Add(T item) {
             bool isChanged = false;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.Add(item);
                     isChanged = true;
                 }
             }
 
-            if (isChanged)
-            {
+            if (isChanged) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(NotifyCollectionChangedAction.Add, item, item, 0, 0);
             }
@@ -191,17 +172,14 @@ namespace GlobalClasses {
         public void Clear() {
             bool isChanged = false;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.Clear();
                     isChanged = true;
                 }
             }
 
-            if (isChanged)
-            {
+            if (isChanged) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
@@ -210,8 +188,7 @@ namespace GlobalClasses {
         public bool Contains(T item) {
             bool contains = false;
 
-            lock (syncObject)
-            {
+            lock (syncObject) {
                 contains = _list.Contains<T>(item);
             }
 
@@ -221,10 +198,8 @@ namespace GlobalClasses {
         public void CopyTo(T[] array, int arrayIndex) {
             bool isChanged = false;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.CopyTo(array, arrayIndex);
                     isChanged = true;
                 }
@@ -240,8 +215,7 @@ namespace GlobalClasses {
             get {
                 int i = 0;
 
-                lock (syncObject)
-                {
+                lock (syncObject) {
                     i = _list.Count;
                 }
 
@@ -259,17 +233,14 @@ namespace GlobalClasses {
             bool changed = false;
             int index = 0;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     index = _list.IndexOf(item);
                     changed = _list.Remove(item);
                 }
             }
 
-            if (changed)
-            {
+            if (changed) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(NotifyCollectionChangedAction.Remove, item, item, index, index);
             }
@@ -311,8 +282,7 @@ namespace GlobalClasses {
         public List<T> GetRange(int index, int count) {
             List<T> range = new List<T>();
 
-            lock (syncObject)
-            {
+            lock (syncObject) {
                 range = _list.GetRange(index, count);
             }
 
@@ -322,17 +292,14 @@ namespace GlobalClasses {
         public void AddRange(IEnumerable<T> range) {
             bool isChanged = false;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.AddRange(range);
                     isChanged = true;
                 }
             }
 
-            if (isChanged)
-            {
+            if (isChanged) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(range)));
             }
@@ -341,17 +308,14 @@ namespace GlobalClasses {
         public void InsertRange(int index, IEnumerable<T> range) {
             bool isChanged = false;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.InsertRange(index, range);
                     isChanged = true;
                 }
             }
 
-            if (isChanged)
-            {
+            if (isChanged) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(range), index));
             }
@@ -361,10 +325,8 @@ namespace GlobalClasses {
             bool isChanged = false;
             IEnumerable<T> range = new T[0];
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     range = _list.GetRange(index, count);
 
                     _list.RemoveRange(index, count);
@@ -372,8 +334,7 @@ namespace GlobalClasses {
                 }
             }
 
-            if (isChanged)
-            {
+            if (isChanged) {
                 RaisePropertyChanged("Count");
                 RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new List<T>(range), index));
             }
@@ -386,13 +347,10 @@ namespace GlobalClasses {
             bool result = false;
             int index = 0;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     index = _list.IndexOf(oldItem);
-                    if (index != -1)
-                    {
+                    if (index != -1) {
                         _list[index] = newItem;
                         result = true;
                         changed = true;
@@ -400,8 +358,7 @@ namespace GlobalClasses {
                 }
             }
 
-            if (changed)
-            {
+            if (changed) {
                 RaiseCollectionChanged(NotifyCollectionChangedAction.Replace, oldItem, newItem, index, index);
             }
 
@@ -411,17 +368,14 @@ namespace GlobalClasses {
         public void Sort(System.Comparison<T> comparison) {
             bool isChanged = false;
 
-            lock (syncObject)
-            {
-                if (!_isReadOnly)
-                {
+            lock (syncObject) {
+                if (!_isReadOnly) {
                     _list.Sort(comparison);
                     isChanged = true;
                 }
             }
 
-            if (isChanged)
-            {
+            if (isChanged) {
                 RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }

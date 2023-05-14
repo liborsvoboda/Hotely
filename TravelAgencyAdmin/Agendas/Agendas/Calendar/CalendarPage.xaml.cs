@@ -1,45 +1,37 @@
-﻿using Newtonsoft.Json;
-using TravelAgencyAdmin.Classes;
+﻿using EASYTools.Calendar;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using MahApps.Metro.Controls;
-using EASYTools.Calendar;
-using System.Web.UI.WebControls;
-using System.Web;
-using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
+using TravelAgencyAdmin.Classes;
+using TravelAgencyAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages
-{
-    public partial class CalendarPage : UserControl
-    {
+namespace TravelAgencyAdmin.Pages {
+
+    public partial class CalendarPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static Classes.Calendar selectedRecord = new Classes.Calendar();
 
         private new string Language = JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value;
         private List<string> Months = new List<string>();
 
-        public CalendarPage()
-        {
+        public CalendarPage() {
             InitializeComponent();
             _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             if (Language == "system") { Language = Thread.CurrentThread.CurrentCulture.ToString(); }
-            switch (Language)
-            {
+            switch (Language) {
                 case "cs-CZ":
                     Months = new List<string> { "Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec" };
                     break;
+
                 case "en-US":
                     Months = new List<string> { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
                     break;
@@ -57,19 +49,14 @@ namespace TravelAgencyAdmin.Pages
             SetRecord(false);
         }
 
-        public async Task<bool> LoadDataList()
-        {
+        public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             List<Classes.Calendar> Data = new List<Classes.Calendar>();
-            try { if (MainWindow.serviceRunning) Data = await ApiCommunication.GetApiRequest<List<Classes.Calendar>>(ApiUrls.Calendar, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token); }
-            catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
+            try { if (MainWindow.serviceRunning) Data = await ApiCommunication.GetApiRequest<List<Classes.Calendar>>(ApiUrls.Calendar, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token); } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
-            foreach (Classes.Calendar record in Data)
-            {
-                foreach (Day calendarDay in Calendar.Days)
-                {
-                    if (calendarDay.Date == record.Date && record.Notes.Length > 0)
-                    {
+            foreach (Classes.Calendar record in Data) {
+                foreach (Day calendarDay in Calendar.Days) {
+                    if (calendarDay.Date == record.Date && record.Notes.Length > 0) {
                         calendarDay.Notes = record.Notes;
                     }
                 }
@@ -77,8 +64,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
-        private async void RefreshCalendar()
-        {
+        private async void RefreshCalendar() {
             if (cboYear.SelectedItem == null) return;
             if (cboMonth.SelectedItem == null) return;
 
@@ -90,10 +76,8 @@ namespace TravelAgencyAdmin.Pages
             await LoadDataList();
         }
 
-        private async void Calendar_DayChanged(object sender, DayChangedEventArgs e)
-        {
-            selectedRecord = new Classes.Calendar()
-            {
+        private async void Calendar_DayChanged(object sender, DayChangedEventArgs e) {
+            selectedRecord = new Classes.Calendar() {
                 UserId = App.UserData.Authentification.Id,
                 Date = e.Day.Date,
                 Notes = e.Day.Notes,
@@ -104,14 +88,12 @@ namespace TravelAgencyAdmin.Pages
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.Calendar, httpContent, null, App.UserData.Authentification.Token);
-            if (dBResult.recordCount == 0)
-            {
-               await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+            if (dBResult.recordCount == 0) {
+                await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
             }
         }
 
-        private void SetRecord(bool showForm)
-        {
+        private void SetRecord(bool showForm) {
             MainWindow.DataGridSelected = MainWindow.DataGridSelectedIdListIndicator = false; MainWindow.dataGridSelectedId = 0; MainWindow.DgRefresh = false;
             dataViewSupport.FormShown = true;
         }

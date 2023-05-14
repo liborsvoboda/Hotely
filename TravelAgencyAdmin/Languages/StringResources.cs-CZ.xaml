@@ -81,7 +81,6 @@
     <system:String x:Key="showVideo">Ukázat video</system:String>
     <system:String x:Key="restart">Restart</system:String>
 
-
     <!--  Datapohledy  -->
     <system:String x:Key="clientSettings">Nastavení klienta</system:String>
     <system:String x:Key="adminLoginHistoryList">Login uživatelů</system:String>
@@ -168,7 +167,6 @@
     <system:String x:Key="newVersionIsDownloaded">Nová verze je stažena</system:String>
     <system:String x:Key="installNow">Instalovat nyní</system:String>
     <system:String x:Key="noneUpdateAvailable">Není k dispozici žádná aktualizace</system:String>
-
 
     <system:String x:Key="group">Skupina</system:String>
     <system:String x:Key="groupList">Skupiny</system:String>
@@ -465,5 +463,4 @@
     <system:String x:Key="timeToEnable">Čas do zapnutí</system:String>
     <system:String x:Key="averageRating">Průměrné hodnocení</system:String>
     <system:String x:Key="image">Obrázek</system:String>
-
 </ResourceDictionary>

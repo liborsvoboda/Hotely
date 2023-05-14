@@ -15,7 +15,6 @@
     Tag="View"
     mc:Ignorable="d">
 
-
     <Grid
         Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
         Background="{DynamicResource AccentColorBrush}">

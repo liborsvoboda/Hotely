@@ -93,7 +93,6 @@
                 </Button.ToolTip>
             </Button>
 
-
             <Label
                 x:Name="lbl_name" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox

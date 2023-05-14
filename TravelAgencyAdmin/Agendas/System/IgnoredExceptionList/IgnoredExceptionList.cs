@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
+
     public partial class IgnoredExceptionList {
         public int Id { get; set; } = 0;
         public string ErrorNumber { get; set; } = null;

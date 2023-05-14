@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
 
-    public partial class HotelApprovalList
-    {
+    public partial class HotelApprovalList {
         public int Id { get; set; } = 0;
         public int? CountryId { get; set; } = null;
         public int? CityId { get; set; } = null;
@@ -16,9 +14,8 @@ namespace TravelAgencyAdmin.Classes
         public bool Approved { get; set; }
         public bool Advertised { get; set; }
         public int TotalCapacity { get; set; }
-        public int UserId { get; set; } 
+        public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
-
 
         public string Country { get; set; }
         public string City { get; set; }

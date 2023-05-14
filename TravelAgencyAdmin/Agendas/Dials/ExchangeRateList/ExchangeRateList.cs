@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class ExchangeRateList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class ExchangeRateList {
         public int Id { get; set; } = 0;
         public int CurrencyId { get; set; }
         public decimal Value { get; set; }
@@ -14,9 +13,7 @@ namespace TravelAgencyAdmin.Classes
         public DateTime TimeStamp { get; set; }
     }
 
-    public partial class ExtendedExchangeRateList : ExchangeRateList
-    {
+    public partial class ExtendedExchangeRateList : ExchangeRateList {
         public string Currency { get; set; }
     }
-
 }

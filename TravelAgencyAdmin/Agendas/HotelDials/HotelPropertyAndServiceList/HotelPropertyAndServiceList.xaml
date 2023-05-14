@@ -153,8 +153,6 @@
             <CheckBox
                 x:Name="chb_approved" Grid.Row="14" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" />
 
-
-
             <Button
                 Name="btn_save" Grid.Row="20" Grid.Column="0" Width="200" Height="40"
                 Margin="44,21,0,44" HorizontalAlignment="Left" VerticalAlignment="Bottom" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnSave_Click"

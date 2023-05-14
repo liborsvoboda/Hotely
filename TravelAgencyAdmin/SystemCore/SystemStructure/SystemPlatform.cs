@@ -18,12 +18,9 @@ namespace TravelAgencyAdmin.SystemStructure {
 
         internal static string GetEnvironmentVariable(
             string variable) {
-            try
-            {
+            try {
                 return Environment.GetEnvironmentVariable(variable);
-            }
-            catch (System.Security.SecurityException)
-            {
+            } catch (System.Security.SecurityException) {
                 return null;
             }
         }
@@ -47,8 +44,7 @@ namespace TravelAgencyAdmin.SystemStructure {
 
         internal static IList CreateArrayList(IEnumerable collection) {
             ArrayList result = new ArrayList();
-            foreach (object o in collection)
-            {
+            foreach (object o in collection) {
                 result.Add(o);
             }
             return result;

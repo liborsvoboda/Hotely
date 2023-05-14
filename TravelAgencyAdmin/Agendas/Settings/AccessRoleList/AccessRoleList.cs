@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
 
-    public partial class AccessRoleList
-    {
+    public partial class AccessRoleList {
         public int Id { get; set; } = 0;
         public string TableName { get; set; } = null;
         public string AccessRole { get; set; } = null;

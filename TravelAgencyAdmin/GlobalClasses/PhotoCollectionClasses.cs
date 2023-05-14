@@ -16,8 +16,7 @@ namespace TravelAgencyAdmin.GlobalClasses {
             object parameter,
             CultureInfo culture
         ) {
-            using (var stream = File.OpenRead(value?.ToString()))
-            {
+            using (var stream = File.OpenRead(value?.ToString())) {
                 var image = new BitmapImage();
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad;

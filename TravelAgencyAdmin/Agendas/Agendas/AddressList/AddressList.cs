@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class AddressList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class AddressList {
         public int Id { get; set; } = 0;
         public string AddressType { get; set; } = null;
         public string CompanyName { get; set; } = null;
@@ -19,5 +18,4 @@ namespace TravelAgencyAdmin.Classes
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
     }
-
 }

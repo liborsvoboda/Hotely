@@ -158,8 +158,6 @@
                 x:Name="chb_advertised" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
                 IsEnabled="False" />
 
-
-
             <Button
                 Name="btn_save1" Grid.Row="15" Grid.Column="0" Width="200" Height="40"
                 Margin="44,21,0,44" HorizontalAlignment="Left" VerticalAlignment="Bottom" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnSaveHotel_Click"
@@ -321,8 +319,6 @@
                 x:Name="lbl_approved2" Grid.Row="13" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <CheckBox
                 x:Name="chb_approved2" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" />
-
-
 
             <Button
                 Name="btn_save2" Grid.Row="15" Grid.Column="0" Width="200" Height="40"
@@ -500,8 +496,6 @@
             <CheckBox
                 x:Name="chb_approved3" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" />
 
-
-
             <Button
                 Name="btn_save3" Grid.Row="20" Grid.Column="0" Width="200" Height="40"
                 Margin="44,21,0,44" HorizontalAlignment="Left" VerticalAlignment="Bottom" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnSaveProperty_Click"
@@ -513,6 +507,5 @@
                 Height="40" Margin="44,21,44,44" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="BtnCancel_Click"
                 Style="{DynamicResource AccentedSquareButtonStyle}" />
         </Grid>
-
     </Grid>
 </UserControl>

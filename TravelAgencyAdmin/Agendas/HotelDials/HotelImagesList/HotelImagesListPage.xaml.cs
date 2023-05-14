@@ -1,32 +1,27 @@
-﻿using HelixToolkit.Wpf;
+﻿using EASYTools.ImageEffectLibrary;
+using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Win32;
 using Newtonsoft.Json;
-using TravelAgencyAdmin.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
-
-using Microsoft.Win32;
-using System.Net.Http;
-using System.Web;
-using iTextSharp.text.pdf.codec;
-using EASYTools.ImageEffectLibrary;
-using MahApps.Metro.Controls.Dialogs;
+using TravelAgencyAdmin.Classes;
 using TravelAgencyAdmin.GlobalClasses;
+using TravelAgencyAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages
-{
+namespace TravelAgencyAdmin.Pages {
+
     public partial class HotelImagesListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static HotelImagesList selectedRecord = new HotelImagesList();
-
 
         private List<HotelImagesList> hotelImagesList = new List<HotelImagesList>();
         private List<HotelList> hotelList = new List<HotelList>();
@@ -40,7 +35,6 @@ namespace TravelAgencyAdmin.Pages
 
             _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
-             
             //mi_server.Header = Resources["server"].ToString();
             //mi_loadFromServer.Header = Resources["loadFromServer"].ToString();
             //mi_saveToServer.Header = Resources["saveToServer"].ToString();
@@ -54,7 +48,6 @@ namespace TravelAgencyAdmin.Pages
             mi_imageColor.Header = Resources["imageColor"].ToString();
             mi_imageInfo.Header = Resources["imageInfo"].ToString();
 
-
             gd_Photos.DataContext = Photos;
             PhotosListBox.ItemsSource = Photos;
 
@@ -62,18 +55,14 @@ namespace TravelAgencyAdmin.Pages
             SetRecord();
         }
 
-
-
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             this.PhotosListBox.InputBindings.Clear();
-            try
-            {
+            try {
                 cb_hodelId.ItemsSource = hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
                 if (hotelList.Count > 0) { cb_hodelId.SelectedIndex = 0; } else { gd_Photos.IsEnabled = false; }
                 await LoadFromServer();
-            }
-            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -83,8 +72,7 @@ namespace TravelAgencyAdmin.Pages
         /// <returns></returns>
         private async Task<bool> LoadFromServer(int selectedPhotoId = 0) {
             MainWindow.ProgressRing = Visibility.Visible;
-            try
-            {
+            try {
                 hotelImagesList = await ApiCommunication.GetApiRequest<List<HotelImagesList>>(ApiUrls.HotelImagesList, "HotelId/" + ((HotelList)cb_hodelId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token);
 
                 ClearGallery();
@@ -94,12 +82,9 @@ namespace TravelAgencyAdmin.Pages
                     Photos.Add(Path.Combine(App.galleryFolder, item.FileName), item.Id, item.IsPrimary);
                 });
                 RefreshViewPhoto(selectedPhotoId);
-            }
-            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
-
-
 
         //change dataset prepare for working
         private void SetRecord() {
@@ -107,47 +92,43 @@ namespace TravelAgencyAdmin.Pages
             dataViewSupport.FormShown = false;
         }
 
-
-
         /// <summary>
-        /// 
         /// </summary>
-        /// <param name="selectedPhotoId" >selectedPhotoId -1 is Select Last</param>
+        /// <param name="selectedPhotoId">selectedPhotoId -1 is Select Last</param>
         private async void RefreshViewPhoto(int? selectedPhotoId = 0) {
-
-            if (selectedPhotoId != 0)
-            { PhotosListBox.SelectedItem = Photos.First(x => (selectedPhotoId > 0 && x.DbId == selectedPhotoId) || (selectedPhotoId == -1 && x.DbId == Photos.Max(a => a.DbId))); }
+            if (selectedPhotoId != 0) { PhotosListBox.SelectedItem = Photos.First(x => (selectedPhotoId > 0 && x.DbId == selectedPhotoId) || (selectedPhotoId == -1 && x.DbId == Photos.Max(a => a.DbId))); }
 
             MessageDialogResult result = new MessageDialogResult();
             if (PhotosListBox.IsEnabled && ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
             if (!ClonedSelectedImage.Changed || (ClonedSelectedImage.Changed && result == MessageDialogResult.Affirmative)) { ClonedSelectedImage = new ImageHelper(((Photo)PhotosListBox.SelectedItem).Source); SetImageChanges(false); }
-                ViewedPhoto.Source = ClonedSelectedImage.EditingImage;
-            
+            ViewedPhoto.Source = ClonedSelectedImage.EditingImage;
+
             if (PhotosListBox.SelectedItem == null) { PhotosListBox.SelectedItem = ViewedPhoto.Source = null; }
             SetImageControls();
         }
 
-
         //private void ImageSelectionChanged(object sender, SelectionChangedEventArgs e) => RefreshViewPhoto();
         private void PhotoListBoxSelectClick(object sender, MouseButtonEventArgs e) => RefreshViewPhoto();
+
         private async void LoadFromServerClick(object sender, RoutedEventArgs e) => await LoadFromServer();
+
         private async void SaveToServerClick(object sender, RoutedEventArgs e) => await SaveImageToServer();
+
         private void CleanLocalStorageClick(object sender, RoutedEventArgs e) => ClearGallery();
 
         /// <summary>
         /// Image Graphics Changes Controllers
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e">     </param>
         private void ImageChangesCancelClick(object sender, MouseButtonEventArgs e) { ClonedSelectedImage.ResetChanges(); RefreshViewPhoto(); }
+
         private async void ImageChangesSaveClick(object sender, MouseButtonEventArgs e) {
             ClonedSelectedImage.SaveTo(((Photo)PhotosListBox.SelectedItem).Source);
             int selectedPhotoId = ((Photo)PhotosListBox.SelectedItem).DbId;
             await SaveImageToServer(selectedPhotoId);
             await LoadFromServer(selectedPhotoId);
-
         }
-
 
         /// <summary>
         /// null For Full Folder else No of dbId, 0 = new
@@ -159,58 +140,58 @@ namespace TravelAgencyAdmin.Pages
             DBResultMessage dBResult;
 
             try {
-                if (onlyThis == null) { //Saving Full Galery 
-                    foreach (Photo photo in Photos)
-                    {
+                if (onlyThis == null) { //Saving Full Galery
+                    foreach (Photo photo in Photos) {
                         string fileName = Path.GetFileName(photo.Source);
-                        selectedRecord = new HotelImagesList()
-                        { Id = photo.DbId, HotelId = selectedHotel, IsPrimary = photo.IsPrimary, FileName = fileName,
-                            Attachment = File.ReadAllBytes(photo.Source), UserId = App.UserData.Authentification.Id, TimeStamp = DateTimeOffset.Now.DateTime
+                        selectedRecord = new HotelImagesList() {
+                            Id = photo.DbId,
+                            HotelId = selectedHotel,
+                            IsPrimary = photo.IsPrimary,
+                            FileName = fileName,
+                            Attachment = File.ReadAllBytes(photo.Source),
+                            UserId = App.UserData.Authentification.Id,
+                            TimeStamp = DateTimeOffset.Now.DateTime
                         };
 
                         string json = JsonConvert.SerializeObject(selectedRecord);
                         StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-                        if (selectedRecord.Id == 0)
-                        { dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
+                        if (selectedRecord.Id == 0) {
+                            dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
                         } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
-                        if (dBResult.recordCount > 0) { }
-                        else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                        if (dBResult.recordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
                     }
                 } else {  // Save Last image only
-                    Photo selectedPhoto = Photos.First(a=>a.DbId == onlyThis);
-                    selectedRecord = new HotelImagesList()
-                    {
-                        Id = selectedPhoto.DbId, HotelId = selectedHotel, IsPrimary = selectedPhoto.IsPrimary, FileName = Path.GetFileName(selectedPhoto.Source),
-                        Attachment = File.ReadAllBytes(selectedPhoto.Source), UserId = App.UserData.Authentification.Id, TimeStamp = DateTimeOffset.Now.DateTime
+                    Photo selectedPhoto = Photos.First(a => a.DbId == onlyThis);
+                    selectedRecord = new HotelImagesList() {
+                        Id = selectedPhoto.DbId,
+                        HotelId = selectedHotel,
+                        IsPrimary = selectedPhoto.IsPrimary,
+                        FileName = Path.GetFileName(selectedPhoto.Source),
+                        Attachment = File.ReadAllBytes(selectedPhoto.Source),
+                        UserId = App.UserData.Authentification.Id,
+                        TimeStamp = DateTimeOffset.Now.DateTime
                     };
 
                     string json = JsonConvert.SerializeObject(selectedRecord);
                     StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-                    if (selectedRecord.Id == 0)
-                    { dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
+                    if (selectedRecord.Id == 0) {
+                        dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
                     } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
-                    if (dBResult.recordCount > 0) { }
-                    else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
+                    if (dBResult.recordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
                 }
-                
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); return false; }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
-
-
         private async void InsertNewClick(object sender, RoutedEventArgs e) {
-           
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Images|*.jpg; *.jpeg; *.png; *.tiff; *.bmp|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
-                else {
+            if (openFileDialog.ShowDialog() == true) {
+                if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); } else {
                     try { FileOperations.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
                     Photos.Add(openFileDialog.FileName, 0, false);
                     await SaveImageToServer(0);
@@ -224,30 +205,26 @@ namespace TravelAgencyAdmin.Pages
             DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelImagesList, dbId.ToString(), App.UserData.Authentification.Token);
             MainWindow.ProgressRing = Visibility.Hidden;
 
-            if (dBResult.recordCount > 0) { return true; }
-            else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
+            if (dBResult.recordCount > 0) { return true; } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
         }
-
 
         private async void DeleteSelectedClick(object sender, RoutedEventArgs e) {
             if (PhotosListBox.SelectedItem != null) {
-                Photo deletePhoto= (Photo)PhotosListBox.SelectedItem;
+                Photo deletePhoto = (Photo)PhotosListBox.SelectedItem;
                 await DeleteImageFromServer(deletePhoto.DbId);
                 await LoadFromServer();
             }
         }
 
-
         /// <summary>
         /// Phycical clear local storage and form
         /// </summary>
         private void ClearGallery() {
-            Photos.Clear();PhotosListBox.Items.Refresh();
+            Photos.Clear(); PhotosListBox.Items.Refresh();
             PhotosListBox.SelectedItem = ViewedPhoto.Source = null;
             ClonedSelectedImage.ResetChanges();
             try { FileOperations.ClearFolder(App.galleryFolder); } catch { }
         }
-
 
         private async void IsPrimaryClick(object sender, RoutedEventArgs e) {
             int selectedPhotoId = ((Photo)PhotosListBox.SelectedItem).DbId;
@@ -264,37 +241,34 @@ namespace TravelAgencyAdmin.Pages
             await LoadFromServer();
         }
 
-
         private void SetImageControls() {
             chb_isPrimary.Checked -= IsPrimaryClick; chb_isPrimary.Unchecked -= IsPrimaryClick;
-            if (((Photo)PhotosListBox.SelectedItem) != null)
-            {
+            if (((Photo)PhotosListBox.SelectedItem) != null) {
                 mi_imageFace.IsEnabled = mi_imageColor.IsEnabled = mi_imageInfo.IsEnabled = true;
                 chb_isPrimary.IsEnabled = true; chb_isPrimary.IsChecked = ((Photo)PhotosListBox.SelectedItem).IsPrimary;
-            }
-            else { mi_imageFace.IsEnabled = mi_imageColor.IsEnabled = mi_imageInfo.IsEnabled = false; }
+            } else { mi_imageFace.IsEnabled = mi_imageColor.IsEnabled = mi_imageInfo.IsEnabled = false; }
 
             if (((Photo)PhotosListBox.SelectedItem) == null) { chb_isPrimary.IsEnabled = false; chb_isPrimary.IsChecked = false; }
-                chb_isPrimary.Checked += IsPrimaryClick; chb_isPrimary.Unchecked += IsPrimaryClick;
+            chb_isPrimary.Checked += IsPrimaryClick; chb_isPrimary.Unchecked += IsPrimaryClick;
         }
 
         private void SetImageChanges(bool imageChanged) {
-            if (imageChanged) { 
+            if (imageChanged) {
                 dp_imageChanges.Visibility = Visibility.Visible; PhotosListBox.IsEnabled = false;
                 chb_isPrimary.Checked -= IsPrimaryClick; chb_isPrimary.Unchecked -= IsPrimaryClick;
                 cb_hodelId.IsEnabled = mi_images.IsEnabled = false;
-            } else {  dp_imageChanges.Visibility = Visibility.Hidden; cb_hodelId.IsEnabled = mi_images.IsEnabled = PhotosListBox.IsEnabled = true; }
+            } else { dp_imageChanges.Visibility = Visibility.Hidden; cb_hodelId.IsEnabled = mi_images.IsEnabled = PhotosListBox.IsEnabled = true; }
         }
-
 
         /// <summary>
         /// Images Effect Part
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e">     </param>
         private void GrayscaleClick(object sender, RoutedEventArgs e) {
             ClonedSelectedImage.ConvertToGrayscale(); SetImageChanges(true); RefreshViewPhoto();
         }
+
         private void NegativeClick(object sender, RoutedEventArgs e) {
             ClonedSelectedImage.LightnessLinearStretch(); SetImageChanges(true); RefreshViewPhoto();
         }

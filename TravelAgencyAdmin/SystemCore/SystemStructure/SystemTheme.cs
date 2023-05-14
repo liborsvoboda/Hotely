@@ -1,9 +1,9 @@
-﻿using TravelAgencyAdmin.SystemConfiguration;
-using MahApps.Metro;
+﻿using MahApps.Metro;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
+using TravelAgencyAdmin.SystemConfiguration;
 using TravelAgencyAdmin.SystemHelpers;
 
 namespace TravelAgencyAdmin.SystemStructure {

@@ -221,7 +221,6 @@
                     Background="{DynamicResource MenuItemBackgroundBrush}"
                     FontWeight="Bold" />
             </Menu>
-
         </DockPanel>
         <DockPanel
             Grid.Row="0" Grid.Column="2" Margin="0,0,60,0" HorizontalAlignment="Right">

@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class UserList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class UserList {
         public int Id { get; set; } = 0;
         public int RoleId { get; set; }
         public string UserName { get; set; } = null;
@@ -19,5 +18,4 @@ namespace TravelAgencyAdmin.Classes
 
         public string Translation { get; set; } = null;
     }
-
 }

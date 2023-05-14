@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
-    public partial class DocumentAdviceList
-    {
+namespace TravelAgencyAdmin.Classes {
+
+    public partial class DocumentAdviceList {
         public int Id { get; set; } = 0;
         public int BranchId { get; set; }
         public int DocumentTypeId { get; set; }
@@ -15,8 +14,7 @@ namespace TravelAgencyAdmin.Classes
         public DateTime TimeStamp { get; set; }
     }
 
-    public partial class ExtendedDocumentAdviceList : DocumentAdviceList
-    {
+    public partial class ExtendedDocumentAdviceList : DocumentAdviceList {
         public string DocumentType { get; set; }
         public string Branch { get; set; }
     }

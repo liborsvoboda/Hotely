@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
 
-    public partial class DocumentTypeList
-    {
+    public partial class DocumentTypeList {
         public int Id { get; set; } = 0;
         public string SystemName { get; set; } = null;
         public string Description { get; set; } = null;
@@ -13,5 +11,4 @@ namespace TravelAgencyAdmin.Classes
 
         public string Translation { get; set; } = null;
     }
-
 }

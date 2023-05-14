@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes
-{
+namespace TravelAgencyAdmin.Classes {
+
     public partial class GuestList {
         public int Id { get; set; } = 0;
         public string Email { get; set; }
@@ -16,5 +16,4 @@ namespace TravelAgencyAdmin.Classes
         public bool Active { get; set; }
         public DateTime Timestamp { get; set; }
     }
-
 }

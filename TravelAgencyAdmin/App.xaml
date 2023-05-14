@@ -2,8 +2,6 @@
     x:Class="TravelAgencyAdmin.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="clr-namespace:TravelAgencyAdmin"
-    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     ShutdownMode="OnMainWindowClose">
     <!--  StartupUri="MainWindow.xaml"  -->
     <Application.Resources>
@@ -27,7 +25,6 @@
                 <ResourceDictionary Source="GlobalStyles/System/SystemPagesDefaultStyles.xaml" />
                 <ResourceDictionary Source="GlobalStyles/System/SystemSpecificFieldsStyles.xaml" />
                 <ResourceDictionary Source="GlobalStyles/System/SystemFieldsEffects.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
