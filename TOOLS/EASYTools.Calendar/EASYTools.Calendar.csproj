@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\DayBorderColorConverter.cs" />
+    <Compile Include="DateConverter.cs" />
     <Compile Include="Day.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -1,0 +1,23 @@
+{
+  "DataSource": "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;TrustServerCertificate=True",
+  "Provider": "Microsoft.EntityFrameworkCore.SqlServer",
+  "ContextName": "ScaffoldContext",
+  "ContextDirectory": "DATABASE/hotels/DBModel",
+  "OutputDirectory": "DATABASE/hotels/NewEntities",
+  "ContextNamespace": "TravelAgencyBackEnd.DBModel",
+  "Namespace": "TravelAgencyBackEnd.DBModel",
+  "Schemas": null,
+  "Tables": null,
+  "ProjectDirectory": "",
+  "StartupProjectDirectory": "",
+  "TargetFramework": "",
+  "Configuration": "",
+  "TargetRuntime": null,
+  "DataAnnotations": true,
+  "UseDatabaseNames": false,
+  "NoOnConfiguring": true,
+  "NoPluralize": false,
+  "Force": true,
+  "NoBuild": true,
+  "Verbose": true
+}

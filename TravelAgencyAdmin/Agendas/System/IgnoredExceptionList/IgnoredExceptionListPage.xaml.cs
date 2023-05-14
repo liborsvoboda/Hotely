@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 
@@ -33,7 +33,7 @@ namespace TravelAgencyAdmin.Pages
         public IgnoredExceptionListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {

@@ -1,47 +1,34 @@
-﻿using TravelAgencyBackEnd.DBModel;
-using TravelAgencyBackEnd.Models.ViewModels;
-using TravelAgencyBackEnd.Services;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
+﻿using TravelAgencyBackEnd.Services;
 
-namespace TravelAgencyBackEnd.Controllers
-{
+namespace TravelAgencyBackEnd.Controllers {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingController : ControllerBase
-    {
-
+    public class BookingController : ControllerBase {
         private readonly BookingService _bookingService;
         private readonly GuestService _guestService;
         private readonly HotelService _hotelService;
 
-        public BookingController()
-        {
-           _bookingService = new BookingService();
+        public BookingController() {
+            _bookingService = new BookingService();
             _guestService = new GuestService();
             _hotelService = new HotelService();
         }
-        
+
         [HttpPost("AddBooking")]
-        public ActionResult AddBooking(SearchViewModel model)
-        {
+        public ActionResult AddBooking(SearchViewModel model) {
             int bookingId = _bookingService.MakeBooking(model);
             return Ok(bookingId);
         }
 
         [HttpPut("CancelBooking")]
-        public ActionResult CancelBooking(int id)
-        {
+        public ActionResult CancelBooking(int id) {
             int result = _bookingService.CancelBooking(id);
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ReservationViewModel> Get(int id)
-        {
+        public ActionResult<ReservationViewModel> Get(int id) {
             ReservationViewModel model = new();
             int statusCode = this.GetBookingById(id, ref model);
 
@@ -52,9 +39,7 @@ namespace TravelAgencyBackEnd.Controllers
             return Ok();
         }
 
-
-        private int GetBookingById(int id, ref ReservationViewModel reference)
-        {
+        private int GetBookingById(int id, ref ReservationViewModel reference) {
             var result = new HotelReservationList();
             var reservationDetails = new HotelReservationDetailList();
             IEnumerable<HotelReservedRoomList> reservedRooms;
@@ -66,10 +51,8 @@ namespace TravelAgencyBackEnd.Controllers
             }
             catch (Exception)
             {
-
                 return 204;
             }
-
 
             ReservationViewModel model = new ReservationViewModel();
             model.FullName = result.FullName;
@@ -115,7 +98,6 @@ namespace TravelAgencyBackEnd.Controllers
                 {
                     model.hotelRoomsViewModel.FamilyRooms = item.RoomType.Id;
                 }
-
             }
 
             reference = model;
@@ -123,8 +105,7 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("guest/{id}")]
-        public List<ReservationViewModel> GetAllBookingByGuestId(int id)
-        {
+        public List<ReservationViewModel> GetAllBookingByGuestId(int id) {
             GuestAllBookingsViewModel model = new GuestAllBookingsViewModel();
 
             var guest = _guestService.FindGuestById(id);
@@ -143,8 +124,7 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpPut("{id}")]
-        public int UpdateBookingDetails(int id, CustomerDetailsModel model)
-        {
+        public int UpdateBookingDetails(int id, CustomerDetailsModel model) {
             try
             {
                 _bookingService.UpdateReservation(model, id);

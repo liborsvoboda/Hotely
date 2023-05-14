@@ -9,7 +9,6 @@ namespace TravelAgencyAdmin.Classes
         public int HotelId { get; set; }
         public int PropertyOrServiceId { get; set; }
         public bool IsAvailable { get; set; }
-        public bool? ValueBit { get; set; } = null;
         public double? Value { get; set; } = null;
         public double? ValueRangeMin { get; set; } = null;
         public double? ValueRangeMax { get; set; } = null;

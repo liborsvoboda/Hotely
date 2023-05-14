@@ -2,7 +2,7 @@
 using TravelAgencyAdmin.Classes;
 using System;
 using System.Windows.Controls;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
@@ -23,7 +23,7 @@ namespace TravelAgencyAdmin.Pages
         public ServerApiDocsPage() {
 
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
 
             webViewer.Address = "http://nomad.ubytkac.cz:5000/AdminApiDocs";

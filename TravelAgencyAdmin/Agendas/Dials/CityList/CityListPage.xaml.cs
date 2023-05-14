@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 using SharpDX.Direct3D11;
@@ -34,7 +34,7 @@ namespace TravelAgencyAdmin.Pages
         public CityListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -60,10 +60,10 @@ namespace TravelAgencyAdmin.Pages
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
 
                 cityList.ForEach(async city => {
-                    city.CityTranslation = await DBFunctions.DBTranslation(city.City);
-                    city.CountryTranslation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); 
+                    city.CityTranslation = await DBOperations.DBTranslation(city.City);
+                    city.CountryTranslation = await DBOperations.DBTranslation(countryList.FirstOrDefault(a=> a.Id == city.CountryId).SystemName); 
                 });
-                countryList.ForEach(async country => { country.CountryTranslation = await DBFunctions.DBTranslation(country.SystemName); });
+                countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 DgListView.ItemsSource = cityList;
                 DgListView.Items.Refresh();

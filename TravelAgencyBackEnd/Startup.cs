@@ -1,39 +1,35 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.DependencyInjection;
-using Stripe;
-using Microsoft.AspNetCore.HttpOverrides;
+namespace TravelAgencyBackEnd {
 
-namespace TravelAgencyBackEnd
-{
     public class Startup {
 
         public void ConfigureServices(IServiceCollection services) {
 
             #region Server Core & Security
+
             ServerCoreConfiguration.ConfigureCookie(ref services);
             //ServerCoreConfiguration.ConfigureAllowAllCors(ref services);
             ServerCoreConfiguration.ConfigureControllers(ref services);
             ServerCoreConfiguration.ConfigureAuthentication(ref services);
             services.AddEndpointsApiExplorer();
-            StripeConfiguration.ApiKey = "sk_test_51Ix5jxB3kuAuBTpumfFOUXqYLSAiDcCYrIejgIX48knYENVJdkaB42V1VdqBPIuvM9KbuWwSrkfMNxkjYSrQucx500FLoljwSC";
-            #endregion
+            StripeConfiguration.ApiKey = "51Ix5jxB3kuAuBTpumfFOUXqYLSAiDcCYrIejgIX48knYENVJdkaB42V1VdqBPIuvM9KbuWwSrkfMNxkjYSrQucx500FLoljwSC";
+
+            #endregion Server Core & Security
 
             #region Server Data Segment
+
             ServerCoreConfiguration.ConfigureScopes(ref services);
             ServerCoreConfiguration.ConfigureDatabaseContext(ref services);
             ServerCoreConfiguration.ConfigureThirdPartyApi(ref services);
             ServerCoreConfiguration.ConfigureLogging(ref services);
-            #endregion
 
+            #endregion Server Data Segment
 
             #region Server Modules
+
             ServerModulesConfiguration.ConfigureSwagger(ref services);
-            #endregion
 
+            #endregion Server Modules
         }
-
 
         /// <summary>
         /// Server Configuration Definition
@@ -55,7 +51,6 @@ namespace TravelAgencyBackEnd
             app.UseAuthorization();
             ServerEnablingServices.EnableCors(ref app);
             ServerEnablingServices.EnableEndpoints(ref app);
-
         }
     }
 }

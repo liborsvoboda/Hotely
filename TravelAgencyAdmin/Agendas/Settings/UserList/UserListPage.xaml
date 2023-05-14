@@ -85,7 +85,7 @@
                 Controls:TextBoxHelper.Watermark="Enter path with image file" IsEnabled="False" ToolTip="leave blank for no changes" />
             <Button
                 x:Name="btn_browse" Grid.Row="4" Grid.Column="1" Width="80" Height="28"
-                Margin="0,2,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Controls:ButtonHelper.PreserveTextCase="True" Click="btnBrowse_Click"
+                Margin="0,2,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnBrowse_Click"
                 Content="Browse"
                 Style="{DynamicResource AccentedSquareButtonStyle}">
                 <Button.ToolTip>

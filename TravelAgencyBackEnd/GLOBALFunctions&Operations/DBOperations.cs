@@ -1,23 +1,14 @@
-﻿using System.Text;
-using System.IO;
-using System;
-using TravelAgencyBackEnd.DBModel;
-using System.Linq;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using System.Collections.Generic;
+﻿namespace TravelAgencyBackEnd {
 
-namespace TravelAgencyBackEnd
-{
     /// <summary>
-    /// All Server Definitions of Database Operation metod
+    /// All Server Definitions of Database Operation method
     /// </summary>
-    class DBOperations
-    {
+    internal class DBOperations {
 
         #region StartupAndReloadDefinitions
+
         /// <summary>
-        /// Method for All Server Defined Table for Local Using As Offline AutoUpdated Tables
+        /// Method for All Server Defined Table for Local Using As OffLine AutoUpdated Tables
         /// </summary>
         /// <param name="onlyThis"></param>
         public static void LoadStaticDbDials(ServerLocalDbDials? onlyThis = null) {
@@ -25,18 +16,18 @@ namespace TravelAgencyBackEnd
             {
                 if (onlyThis is null || onlyThis == ServerLocalDbDials.LanguageList) Program.ServerDBLanguageList = new hotelsContext().LanguageLists.ToList();
             }
-
         }
-        #endregion
 
+        #endregion StartupAndReloadDefinitions
 
         #region Public definitions for standard using
+
         /// <summary>
         /// Trigger User Login History
         /// </summary>
         /// <param name="ipAddress"></param>
-        /// <param name="userId"></param>
-        /// <param name="userName"></param>
+        /// <param name="userId">   </param>
+        /// <param name="userName"> </param>
         public static async void WriteAppLogin(string ipAddress, int userId, string userName) {
             // Save new visit
             if (!string.IsNullOrWhiteSpace(userName))
@@ -51,8 +42,8 @@ namespace TravelAgencyBackEnd
         /// Trigger Web Guest Login History
         /// </summary>
         /// <param name="ipAddress"></param>
-        /// <param name="guestId"></param>
-        /// <param name="email"></param>
+        /// <param name="guestId">  </param>
+        /// <param name="email">    </param>
         public static async void WriteWebLogin(string ipAddress, int guestId, string email) {
             // Save new visit
             if (!string.IsNullOrWhiteSpace(email))
@@ -66,16 +57,15 @@ namespace TravelAgencyBackEnd
         public static string DBTranslate(string word, string language = "cz") {
             return Program.UseDBLocalAutoupdatedDials ? DBTranslateOffline(word, language) : DBTranslateOnline(word, language);
         }
-        #endregion
 
+        #endregion Public definitions for standard using
 
+        #region Private or Online/OffLine Definitions
 
-
-        #region Private or Online/Offline Definitions
         /// <summary>
-        /// Database LanuageList for Offline Using Definitions
+        /// Database LanuageList for OffLine Using Definitions
         /// </summary>
-        /// <param name="word"></param>
+        /// <param name="word">    </param>
         /// <param name="language"></param>
         /// <returns></returns>
         private static string DBTranslateOffline(string word, string language = "cz") {
@@ -103,7 +93,7 @@ namespace TravelAgencyBackEnd
         /// <summary>
         /// Database LanuageList for Online Using Definitions
         /// </summary>
-        /// <param name="word"></param>
+        /// <param name="word">    </param>
         /// <param name="language"></param>
         /// <returns></returns>
         private static string DBTranslateOnline(string word, string language = "cz") {
@@ -125,7 +115,8 @@ namespace TravelAgencyBackEnd
 
             if (string.IsNullOrWhiteSpace(result)) { result = word; }
             return result;
-        } 
-        #endregion
+        }
+
+        #endregion Private or Online/OffLine Definitions
     }
 }

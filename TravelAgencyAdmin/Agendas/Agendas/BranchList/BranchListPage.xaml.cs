@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using MahApps.Metro.Controls.Dialogs;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using System.Net;
@@ -29,7 +29,7 @@ namespace TravelAgencyAdmin.Pages
         public BranchListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();

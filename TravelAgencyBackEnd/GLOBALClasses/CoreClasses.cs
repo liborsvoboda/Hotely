@@ -1,8 +1,6 @@
-﻿
-namespace TravelAgencyBackEnd.CoreClasses
-{
-    public enum DBResult
-    {
+﻿namespace TravelAgencyBackEnd.CoreClasses {
+
+    public enum DBResult {
         success,
         error
     }
@@ -14,17 +12,14 @@ namespace TravelAgencyBackEnd.CoreClasses
         LanguageList
     }
 
-
-    public class DBResultMessage
-    {
+    public class DBResultMessage {
         public int insertedId { get; set; } = 0;
         public string status { get; set; }
         public int recordCount { get; set; }
         public string message { get; set; }
     }
 
-    public class AuthenticateResponse
-    {
+    public class AuthenticateResponse {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -32,24 +27,19 @@ namespace TravelAgencyBackEnd.CoreClasses
         public string Role { get; set; }
     }
 
-    public class IdFilter
-    {
+    public class IdFilter {
         public int Id { get; set; }
     }
 
-    public class NameFilter
-    {
+    public class NameFilter {
         public string Name { get; set; }
     }
 
-    public class PageLanguage
-    {
+    public class PageLanguage {
         public string Language { get; set; }
     }
 
-
     public enum DBWebApiResponses {
-
         emailExist,
         loginInfoSendedOnEmail
     }

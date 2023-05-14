@@ -1,31 +1,9 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Filters;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.AspNetCore.SwaggerUI;
-using System.IO;
-using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
+namespace TravelAgencyBackEnd {
 
-namespace TravelAgencyBackEnd
-{
-
-    public class ServerModulesConfiguration
-    {
-
+    public class ServerModulesConfiguration {
         public static readonly string SwaggerModuleDescription = "Full Backend Server DB & API & WebSocket model";
 
-
-        internal static void ConfigureSwagger(ref IServiceCollection services)
-        {
-
+        internal static void ConfigureSwagger(ref IServiceCollection services) {
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Basic", new OpenApiSecurityScheme
@@ -36,7 +14,6 @@ namespace TravelAgencyBackEnd
                 { Description = "JWT Authorization header using the Bearer scheme for All safe APIs.", Name = "Authorization", In = ParameterLocation.Header, Scheme = "bearer", Type = SecuritySchemeType.Http, BearerFormat = "JWT" });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 { { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } }, new List<string>() } });
-
 
                 c.SchemaGeneratorOptions = new SchemaGeneratorOptions { SchemaIdSelector = type => type.FullName };
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -49,12 +26,12 @@ namespace TravelAgencyBackEnd
                 });
 
                 var xmlFile = Path.Combine(AppContext.BaseDirectory, "TravelAgencyBackEnd.xml");
-                if (File.Exists(xmlFile)) c.IncludeXmlComments(xmlFile, true);
+                if (System.IO.File.Exists(xmlFile)) c.IncludeXmlComments(xmlFile, true);
 
                 //c.InferSecuritySchemes();
                 c.UseOneOfForPolymorphism();
                 c.DescribeAllParametersInCamelCase();
-                    
+
                 c.EnableAnnotations(true, true);
                 c.UseAllOfForInheritance();
                 c.UseInlineDefinitionsForEnums();
@@ -65,23 +42,16 @@ namespace TravelAgencyBackEnd
                 c.ResolveConflictingActions(x => x.First());
             });
             //services.AddSwaggerGenNewtonsoftSupport();
-
         }
     }
 
-
-
-
-    public class ServerModulesEnabling
-    {
-
+    public class ServerModulesEnabling {
 
         /// <summary>
         /// Server Module: Enable Swagger Api Doc Generator And Online Tester
         /// </summary>
         /// <param name="services"></param>
-        internal static void EnableSwagger(ref IApplicationBuilder app)
-        {
+        internal static void EnableSwagger(ref IApplicationBuilder app) {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -105,7 +75,6 @@ namespace TravelAgencyBackEnd
                 c.UseRequestInterceptor("(request) => { return request; }");
                 c.UseResponseInterceptor("(response) => { return response; }");
             });
-
         }
     }
 }

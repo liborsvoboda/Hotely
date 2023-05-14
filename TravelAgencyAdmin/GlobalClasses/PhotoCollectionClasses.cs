@@ -1,24 +1,17 @@
-﻿using ControlzEx.Standard;
-using HelixToolkit.Wpf.SharpDX;
-using SharpDX;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Web.UI.WebControls;
 using System.Windows.Data;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using TravelAgencyAdmin.GlobalFunctions;
 
 namespace TravelAgencyAdmin.GlobalClasses {
-    class UriToBitmapConverter : IValueConverter {
+
+    internal class UriToBitmapConverter : IValueConverter {
 
         public object Convert
         (
-            object value ,
+            object value,
             Type targetType,
             object parameter,
             CultureInfo culture
@@ -43,38 +36,35 @@ namespace TravelAgencyAdmin.GlobalClasses {
          ) {
             throw new Exception("The method or operation is not implemented.");
         }
-
     }
 
-    public class PhotoCollection  : ObservableCollection<Photo> {
+    public class PhotoCollection : ObservableCollection<Photo> {
 
-        public PhotoCollection() { }
-        
+        public PhotoCollection() {
+        }
+
         public void Add(string fullName, int dbId, bool isPrimary) {
             Add(new Photo(fullName, dbId, isPrimary));
         }
 
         public void Clear() {
-            if  (Items != null) this.Items.Clear();
+            if (Items != null) this.Items.Clear();
         }
-
-    } 
+    }
 
     public class Photo {
         private string _path;
         private bool _isPrimary;
         private int _dbId;
-        
+
         public Photo(string path, int dbId, bool isPrimary) {
             _path = path;
             _isPrimary = isPrimary;
             _dbId = dbId;
-        } 
+        }
 
         public int DbId { get { return _dbId; } set { _dbId = value; } }
         public bool IsPrimary { get { return _isPrimary; } set { _isPrimary = value; } }
         public string Source { get { return _path; } set { _path = value; } }
-
-
     }
 }

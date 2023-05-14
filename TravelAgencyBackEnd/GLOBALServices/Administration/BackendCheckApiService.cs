@@ -1,18 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using TravelAgencyBackEnd.Services;
+﻿using System.Threading.Tasks;
 
-namespace TravelAgencyBackEnd.Controllers
-{
+namespace TravelAgencyBackEnd.Controllers {
+
     [ApiController]
     [Route("BackendCheck")]
-    public class BackendCheckApiService : ControllerBase
-    {
+    public class BackendCheckApiService : ControllerBase {
 
         [HttpGet("/BackendCheck")]
-        public Task<string> GetBackendCheckApi()
-        { return Task.FromResult(DBOperations.DBTranslate("ServerRunning", "cz")); }
-
+        public Task<string> GetBackendCheckApi() { return Task.FromResult(DBOperations.DBTranslate("ServerRunning", "cz")); }
     }
-
 }

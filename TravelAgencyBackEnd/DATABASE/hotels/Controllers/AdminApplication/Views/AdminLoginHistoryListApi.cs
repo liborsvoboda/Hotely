@@ -1,25 +1,12 @@
-﻿using TravelAgencyBackEnd.DBModel;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [Authorize]
     [ApiController]
     [Route("AdminLoginHistoryList")]
-    public class AdminLoginHistoryListApi : ControllerBase
-    {
+    public class AdminLoginHistoryListApi : ControllerBase {
+
         [HttpGet("/AdminLoginHistoryList")]
-        public async Task<string> GetLoginHistory()
-        {
+        public async Task<string> GetLoginHistory() {
             List<AdminLoginHistoryList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -30,15 +17,14 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/AdminLoginHistoryList/Filter/{filter}")]
-        public async Task<string> GetAdminLoginHistoryListByFilter(string filter)
-        {
+        public async Task<string> GetAdminLoginHistoryListByFilter(string filter) {
             List<AdminLoginHistoryList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().AdminLoginHistoryLists.FromSqlRaw("SELECT * FROM AdminLoginHistoryList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().AdminLoginHistoryLists.FromSqlRaw("SELECT * FROM AdminLoginHistoryList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data);
@@ -46,8 +32,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPost("/AdminLoginHistoryList")]
         [Consumes("application/json")] // ([FromBody] int Id) Body is only 17 ([FromBody] IdFilter id) Body is {"Id":17}
-        public async Task<string> GetAdminLoginHistoryListId([FromBody] IdFilter id)
-        {
+        public async Task<string> GetAdminLoginHistoryListId([FromBody] IdFilter id) {
             if (!int.TryParse(id.Id.ToString(), out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
 
             AdminLoginHistoryList data;

@@ -14,11 +14,11 @@ using Microsoft.Win32;
 using System.Linq;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
-using TravelAgencyAdmin.GlobalClasses;
+using GlobalClasses;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -34,7 +34,7 @@ namespace TravelAgencyAdmin.Pages
         public ReportListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -62,7 +62,7 @@ namespace TravelAgencyAdmin.Pages
         }
 
         private async void LoadParameters() {
-            reportSupportForListOnly = bool.Parse(await SystemFunctions.ParameterCheck("ReportSupportForListOnly"));
+            reportSupportForListOnly = bool.Parse(await DataOperations.ParameterCheck("ReportSupportForListOnly"));
         }
 
         //change datasource
@@ -73,11 +73,11 @@ namespace TravelAgencyAdmin.Pages
             {
 
                 reportList = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                cb_pageName.ItemsSource = translatedApiList = await SystemFunctions.GetTranslatedApiList(reportSupportForListOnly);
+                cb_pageName.ItemsSource = translatedApiList = await DataOperations.GetTranslatedApiList(reportSupportForListOnly);
 
                 reportList.ForEach(async report =>
                 {
-                    report.Translation = await DBFunctions.DBTranslation(report.SystemName);
+                    report.Translation = await DBOperations.DBTranslation(report.SystemName);
                     report.PageTranslation = translatedApiList.FirstOrDefault(a => a.ApiTableName == report.PageName).Translate;
                 });
 
@@ -274,7 +274,7 @@ namespace TravelAgencyAdmin.Pages
         {
             try { SaveFileDialog dlg = new SaveFileDialog
                 { DefaultExt = ".rdl", Filter = "Report files |*.rdl", Title = Resources["fileOpenDescription"].ToString() };
-                if (dlg.ShowDialog() == true) { FileFunctions.ByteArrayToFile(dlg.FileName, selectedRecord.File); }
+                if (dlg.ShowDialog() == true) { FileOperations.ByteArrayToFile(dlg.FileName, selectedRecord.File); }
             } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
         }
     }

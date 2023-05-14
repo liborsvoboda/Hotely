@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 using System.Web.Security;
@@ -33,7 +33,7 @@ namespace TravelAgencyAdmin.Pages
         public DocumentTypeListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -55,7 +55,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
                 documentTypeLists = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                documentTypeLists.ForEach(async document => { document.Translation = await DBFunctions.DBTranslation(document.SystemName); });
+                documentTypeLists.ForEach(async document => { document.Translation = await DBOperations.DBTranslation(document.SystemName); });
 
                 DgListView.ItemsSource = documentTypeLists;
                 DgListView.Items.Refresh();

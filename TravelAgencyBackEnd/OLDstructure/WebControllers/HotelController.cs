@@ -1,29 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TravelAgencyBackEnd.Services;
-using TravelAgencyBackEnd.Models.ViewModels;
-using TravelAgencyBackEnd.DBModel;
+﻿using TravelAgencyBackEnd.Services;
 
-namespace TravelAgencyBackEnd.Controllers
-{
+namespace TravelAgencyBackEnd.Controllers {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class HotelController : ControllerBase
-    {
+    public class HotelController : ControllerBase {
         private readonly HotelService _hotelService;
 
-        public HotelController()
-        {
+        public HotelController() {
             _hotelService = new HotelService();
         }
 
         [HttpGet("GetAvailableRooms/{id}")]
-        public HotelRoomsViewModel GetAvailableRooms(int id, DateTime date1, DateTime date2)
-        {
+        public HotelRoomsViewModel GetAvailableRooms(int id, DateTime date1, DateTime date2) {
             var result = _hotelService.GetAvailableRooms(id, date1, date2);
 
             return result;
@@ -39,7 +28,6 @@ namespace TravelAgencyBackEnd.Controllers
 
             foreach (var item in result)
             {
-
                 SavedHotelViewModel tmp = new();
                 tmp.HotelName = item.Hotel.Name;
                 tmp.HotelDescription = item.Hotel.Description;
@@ -56,37 +44,33 @@ namespace TravelAgencyBackEnd.Controllers
         */
 
         [HttpGet("GetReviews/{id}")]
-        public IEnumerable<HotelReservationReviewList> GetReviews(int id)
-        {
+        public IEnumerable<HotelReservationReviewList> GetReviews(int id) {
             var result = _hotelService.GetReviews(id);
             return result;
         }
 
         [HttpGet("GetById/{id}")]
-        public HotelList GetById(int id)
-        {
+        public HotelList GetById(int id) {
             var result = _hotelService.GetById(id);
             return result;
         }
-        
+
         [HttpGet("GetAllHotels")]
-        public IEnumerable<HotelList> GetAllHotels()
-        {
+        public IEnumerable<HotelList> GetAllHotels() {
             return _hotelService.GetAllHotels();
         }
-        
+
         [HttpGet("GetMaxCap")]
-        public int GetMaxCapacityForHotel(int id, DateTime d1, DateTime d2)
-        {
+        public int GetMaxCapacityForHotel(int id, DateTime d1, DateTime d2) {
             return _hotelService.GetMaxCapacityAvailableForHotel(id, d1, d2);
         }
 
         [HttpGet("GetHotelsByRandom")]
-        public IEnumerable<HotelList> GetHotelsByRandom()
-        {
+        public IEnumerable<HotelList> GetHotelsByRandom() {
             var result = _hotelService.GetHotelsByRandom();
             return result;
         }
+
         /*
         [HttpGet("GetAccomodationFee")]
         public double GetAccomodationFee(int id, string type)

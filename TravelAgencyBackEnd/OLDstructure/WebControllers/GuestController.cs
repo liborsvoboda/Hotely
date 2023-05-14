@@ -1,36 +1,23 @@
-﻿using TravelAgencyBackEnd.DBModel;
-using TravelAgencyBackEnd.Models.ViewModels;
-using TravelAgencyBackEnd.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using TravelAgencyBackEnd.Services;
 
-namespace TravelAgencyBackEnd.Controllers
-{
+namespace TravelAgencyBackEnd.Controllers {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestController : ControllerBase
-    {
+    public class GuestController : ControllerBase {
         private readonly hotelsContext _db = new hotelsContext();
         private readonly GuestService _guestService;
 
-        public GuestController()
-        {
+        public GuestController() {
             _guestService = new GuestService();
-
         }
 
         [HttpGet("GetGuestById/{id}")]
-        public IEnumerable<GuestList> GetGuestById(int id)
-        {
-            
+        public IEnumerable<GuestList> GetGuestById(int id) {
             var result = _guestService.GetGuestById(id);
             return result;
         }
+
         /*
         [HttpGet("GetSavedHotels/{id}")]
         public IEnumerable<SavedHotel> GetSavedHotels(int id)
@@ -56,17 +43,15 @@ namespace TravelAgencyBackEnd.Controllers
         //        Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
         //    };
 
-        //    _db.GuestLists.Add(newGuest);
-        //    await _db.SaveChangesAsync();
+        // _db.GuestLists.Add(newGuest); await _db.SaveChangesAsync();
 
         //    return newGuest;
         //}
 
         [HttpPost("AddReview")]
-        public ActionResult AddReview([FromBody]ReviewModel model)
-        {
+        public ActionResult AddReview([FromBody] ReviewModel model) {
             int result = _guestService.AddReview(model);
-                return Ok(result);
+            return Ok(result);
         }
 
         /*
@@ -82,7 +67,6 @@ namespace TravelAgencyBackEnd.Controllers
         //[HttpPost("login")]
         //public IActionResult Login(LoginRequestViewModel model)
         //{
-
         //    var response = _guestService.Login(model);
         //    if (response == null)
         //    {
@@ -91,7 +75,6 @@ namespace TravelAgencyBackEnd.Controllers
 
         //    return Ok(response);
         //}
-
 
         /*
         [HttpDelete("removeFavoriteHotel")]
@@ -103,18 +86,14 @@ namespace TravelAgencyBackEnd.Controllers
         */
 
         [HttpPost("removeGuest")]
-        public void RemoveGuest(Test id)
-        {
-           _guestService.RemoveGuest(id.Id);
+        public void RemoveGuest(Test id) {
+            _guestService.RemoveGuest(id.Id);
         }
 
         [HttpPost("updateGuest")]
-        public void UpdateGuest(UpdateGuestViewModel model)
-        {
-
+        public void UpdateGuest(UpdateGuestViewModel model) {
             if (model.Id != 0)
             {
-
                 var guest = _db.GuestLists.FirstOrDefault(x => x.Id == model.Id);
                 if (model.FullName != "")
                 {
@@ -134,7 +113,6 @@ namespace TravelAgencyBackEnd.Controllers
                 if (model.Street != "")
                 {
                     guest.Street = model.Street;
-
                 }
 
                 if (model.ZipCode != "")
@@ -156,16 +134,13 @@ namespace TravelAgencyBackEnd.Controllers
                 {
                     guest.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
                 }
-
             }
 
             _db.SaveChanges();
         }
-
     }
 
-    public class Test
-    {
+    public class Test {
         public int Id { get; set; }
     }
 }

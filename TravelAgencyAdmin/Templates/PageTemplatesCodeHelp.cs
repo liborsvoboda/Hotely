@@ -1,6 +1,6 @@
 ﻿using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -100,7 +100,7 @@ namespace TravelAgencyAdmin.Templates
 
             ///Method For Sett Language of Each Page
             Language defaultLanguage = JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage);
-            ///_ = MediaFunctions.SetLanguageDictionary(Resources, defaultLanguage.Value);
+            ///_ = SystemOperations.SetLanguageDictionary(Resources, defaultLanguage.Value);
 
         }
 
@@ -113,7 +113,7 @@ namespace TravelAgencyAdmin.Templates
 
             #region Other Help Global Definitions and Methods
             ///Load Parameter From Table Parameters text is Parameter name
-            var res = int.Parse(await SystemFunctions.ParameterCheck("someParameterName"));
+            var res = int.Parse(await DataOperations.ParameterCheck("someParameterName"));
 
             ///Set ComboBox Item By myValue (from selected record or another)
             int index = 0; ComboBox cb_defaultLanguage = new ComboBox();

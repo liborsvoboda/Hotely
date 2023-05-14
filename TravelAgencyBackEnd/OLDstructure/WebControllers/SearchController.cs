@@ -1,39 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TravelAgencyBackEnd.Services;
-using TravelAgencyBackEnd.Models.ViewModels;
-using TravelAgencyBackEnd.DBModel;
+﻿using TravelAgencyBackEnd.Services;
 
-namespace TravelAgencyBackEnd.Controllers
-{
+namespace TravelAgencyBackEnd.Controllers {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class SearchController : ControllerBase
-    {//test
+    public class SearchController : ControllerBase {//test
         private readonly SearchService _searchService;
         private readonly HotelService _hotelService;
 
-        public SearchController()
-        {
+        public SearchController() {
             _searchService = new SearchService();
         }
 
         [HttpGet("GetAllHotels")]
-        public IEnumerable<HotelList> GetAllHotel()
-        {
-            
-                var result = _hotelService.GetAllHotels();
-                return result;
-
+        public IEnumerable<HotelList> GetAllHotel() {
+            var result = _hotelService.GetAllHotels();
+            return result;
         }
 
         [HttpGet("GetHotelByName")]
-        public IEnumerable<HotelList> GetHotelByName(string input)
-        {
+        public IEnumerable<HotelList> GetHotelByName(string input) {
             try
             {
                 var result = _searchService.GetHotelByName(input);
@@ -44,12 +30,10 @@ namespace TravelAgencyBackEnd.Controllers
                 Console.WriteLine(ex.Message);
                 throw new ArgumentException("Named Hotel not found");
             }
-
         }
 
         [HttpGet("GetHotelByCity")]
-        public IEnumerable<AvailableHotelViewModel> GetHotelByCity(string input)
-        {
+        public IEnumerable<AvailableHotelViewModel> GetHotelByCity(string input) {
             IEnumerable<HotelList> searchresult = _searchService.GetHotelByCity(input);
 
             List<AvailableHotelViewModel> viewModelList = new List<AvailableHotelViewModel>();
@@ -58,56 +42,51 @@ namespace TravelAgencyBackEnd.Controllers
             {
                 viewModelList.Add(new AvailableHotelViewModel { Hotel = hotel });
             }
-            
+
             var result = viewModelList.AsEnumerable();
 
             return result;
-          
         }
 
         [HttpGet("GetHotelByCountry")]
-        public IEnumerable<HotelList> GetHotelByCountry(string input)
-        {
+        public IEnumerable<HotelList> GetHotelByCountry(string input) {
             var result = _searchService.GetHotelByCountry(input);
             return result;
         }
 
-
-
         [HttpGet("GetAllHotelByInput")]
-        public IEnumerable<HotelList> GetAllHotelByInput(string input)
-        {
+        public IEnumerable<HotelList> GetAllHotelByInput(string input) {
             var result = _searchService.GetAllHotelByInput(input);
             return result;
         }
-        
+
         [HttpGet("search")]
-        public IEnumerable<AvailableHotelViewModel> GetAvailableHotelsWithStringDatesRoomsPeople(DateTime? startDate=null, DateTime? endDate=null, int? rooms=null, int? people=null, string input = null)
-        {
+        public IEnumerable<AvailableHotelViewModel> GetAvailableHotelsWithStringDatesRoomsPeople(DateTime? startDate = null, DateTime? endDate = null, int? rooms = null, int? people = null, string input = null) {
             IEnumerable<AvailableHotelViewModel> result = null;
-            
 
             if (rooms.HasValue && people.HasValue && (input == null || input == ""))
             {
                 //all fields except string has value
                 result = _searchService.GetAvailableHotels(startDate.Value, endDate.Value, rooms.Value, people.Value);
-            }else if(startDate == null && endDate == null)
+            }
+            else if (startDate == null && endDate == null)
             {
                 IEnumerable<HotelList> searchresult = _searchService.GetAllHotelByInput(input);
-                
+
                 List<AvailableHotelViewModel> viewModelList = new List<AvailableHotelViewModel>();
 
                 foreach (var hotel in searchresult)
                 {
-                    viewModelList.Add(new AvailableHotelViewModel { Hotel = hotel});    
+                    viewModelList.Add(new AvailableHotelViewModel { Hotel = hotel });
                 }
                 result = viewModelList.AsEnumerable();
-            } else
+            }
+            else
             {
                 //all fields has value
                 result = _searchService.GetAvailableHotels(startDate.Value, endDate.Value, rooms.Value, people.Value, input);
             }
-            
+
             return result;
         }
 

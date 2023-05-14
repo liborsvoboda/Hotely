@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace TravelAgencyBackEnd.DBModel {
 
-namespace TravelAgencyBackEnd.DBModel
-{
-    public partial class Calendar
-    {
+    [Table("Calendar")]
+    public partial class Calendar {
+
+        [Key]
         public int UserId { get; set; }
+
+        [Key]
+        [Column(TypeName = "date")]
         public DateTime Date { get; set; }
+
+        [StringLength(1024)]
+        [Unicode(false)]
         public string Notes { get; set; }
+
         public DateTime TimeStamp { get; set; }
 
+        [ForeignKey("UserId")]
+        [InverseProperty("Calendars")]
         public virtual UserList User { get; set; }
     }
 }

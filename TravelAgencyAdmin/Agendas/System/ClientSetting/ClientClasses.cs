@@ -23,7 +23,7 @@ namespace TravelAgencyAdmin.Classes
         public string ReportBuilderPath { get; set; } = "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlDesigner.exe";
         public bool ActiveSystemSaver { get; set; } = true;
         public bool DisableOnActivity { get; set; } = true;
-        public int TimeToEnable { get; set; } = TimeSpan.Parse("0:30").Seconds;
+        public int TimeToEnable { get; set; } = 30;
     }
 
     /// <summary>

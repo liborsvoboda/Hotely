@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using System.Text.RegularExpressions;
@@ -41,7 +41,7 @@ namespace TravelAgencyAdmin.Pages
         public TemplateListViewPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             _ = LoadDataList();
             SetRecord();

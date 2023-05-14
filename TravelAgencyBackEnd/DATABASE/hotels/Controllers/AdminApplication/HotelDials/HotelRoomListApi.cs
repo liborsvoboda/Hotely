@@ -1,26 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using TravelAgencyBackEnd.DBModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Text.Json.Serialization;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [Authorize]
     [ApiController]
     [Route("HotelRoomList")]
-    public class HotelRoomListApi : ControllerBase
-    {
+    public class HotelRoomListApi : ControllerBase {
+
         [HttpGet("/HotelRoomList")]
-        public async Task<string> GetHotelRoomList()
-        {
+        public async Task<string> GetHotelRoomList() {
             List<HotelRoomList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -29,7 +15,8 @@ namespace TravelAgencyBackEnd.Controllers
             {
                 if (Request.HttpContext.User.IsInRole("Admin"))
                 { data = new hotelsContext().HotelRoomLists.ToList(); }
-                else {
+                else
+                {
                     data = new hotelsContext().HotelRoomLists.Include(a => a.User)
                         .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
                 }
@@ -39,8 +26,7 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/HotelRoomList/Filter/{filter}")]
-        public async Task<string> GetHotelRoomListByFilter(string filter)
-        {
+        public async Task<string> GetHotelRoomListByFilter(string filter) {
             List<HotelRoomList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -60,18 +46,18 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/HotelRoomList/Active")]
-        public async Task<string> GetActiveHotel()
-        {
+        public async Task<string> GetActiveHotel() {
             HotelRoomList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            { data = new hotelsContext().HotelRoomLists
-                     .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First(); }
+            {
+                data = new hotelsContext().HotelRoomLists
+                     .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First();
+            }
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/HotelRoomList/{id}")]
-        public async Task<string> GetHotelRoomListKey(int id)
-        {
+        public async Task<string> GetHotelRoomListKey(int id) {
             HotelRoomList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             { data = new hotelsContext().HotelRoomLists.Where(a => a.Id == id).First(); }
@@ -80,8 +66,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPut("/HotelRoomList")]
         [Consumes("application/json")]
-        public async Task<string> InsertHotelRoomList([FromBody] HotelRoomList record)
-        {
+        public async Task<string> InsertHotelRoomList([FromBody] HotelRoomList record) {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
@@ -98,8 +83,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPost("/HotelRoomList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateHotelRoomList([FromBody] HotelRoomList record)
-        {
+        public async Task<string> UpdateHotelRoomList([FromBody] HotelRoomList record) {
             try
             {
                 var data = new hotelsContext().HotelRoomLists.Update(record);
@@ -113,8 +97,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpDelete("/HotelRoomList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteHotelRoomList(string id)
-        {
+        public async Task<string> DeleteHotelRoomList(string id) {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
@@ -125,7 +108,6 @@ namespace TravelAgencyBackEnd.Controllers
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });
-
             }
             catch (Exception ex)
             {

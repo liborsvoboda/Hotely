@@ -2,18 +2,27 @@
     <Card id="test4">
         <template #content>
             <div class="hotelview">
+
                 <h1>{{hotel.name}}</h1>
                 <div class="container-fluid">
-                    <PhotoG :photos="hotelImage"></PhotoG>
+                    <PhotoG :photos="photos"></PhotoG>
                     <div class="row">
                         <div class="col-md-12 buttons">
                             <ul class="nav nav-pills">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                        <Button  id="fuckyB" label="Info" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')" ></Button>
-                                        <Button  id="fuckyB" label="Photos" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
-                                        <Button  id="fuckyB" label="Reviews" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
-                                        <Button  id="fuckyB" label="Rooms" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
+                                    <router-link :to="'/result'">
+                                        <button class="btn btn-primary" style="height: 45px;margin-right:50px;"
+                                                for="btn-check-outlined">
+                                            {{ $t('labels.back') }}
+                                        </button>
+                                    </router-link>
+
+                                    <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.rooms')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
                                 </div>
+
                                 <li class="nav-item">
                                     <button class="btn" @click="ToggleStar" id="starBtn">
                                         <i :class="star ? 'fas fa-heart fa-2x' : 'far fa-heart fa-2x'" style="color: red;"></i>
@@ -30,7 +39,6 @@
         </template>
     </Card>
 </template>
-
 <style>
         #test4{
             margin-top: 30px;
@@ -44,14 +52,14 @@
             text-decoration:underline;
         }
 
-        #fuckyB{
+        #menuButton{
            margin-right:5px;
             height:45px;
             background: #53c16e;
             border:#14a04d;
         }
 
-        #fuckyB:enabled:hover{
+        #menuButton:enabled:hover{
             background:#348047 !important;
             border-color:#14a04d;
         }
@@ -108,12 +116,19 @@ export default ({
             star: false
         }
     },
-    computed:{
+    computed: {
+        photos() {
+            var photos = [];
+            photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });
+
+            this.hotel.hotelImagesLists.forEach(image => {
+                if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
+            });
+            console.log("PHOTOS", photos);
+            return photos;
+        },
         hotel(){ 
             return this.$store.state.hotel;
-        },
-        hotelImage(){
-            return [{id: this.hotel.id, roomPhoto: this.hotel.img}]
         }
     },
     methods:{

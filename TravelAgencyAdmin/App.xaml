@@ -16,18 +16,19 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+
+                <!--  EASYTools Include  -->
                 <ResourceDictionary Source="pack://application:,,,/EASYTools.TouchKeyboard;component/Styles/OnScreenKeyoard.xaml" />
-                <ResourceDictionary Source="GlobalStyles/MenuButtonStyle.xaml" />
-                <ResourceDictionary Source="GlobalStyles/CheckComboBoxStyle.xaml" />
+
+                <!--  Customizing for using as Global EASY SYSTEM Builder  -->
+                <ResourceDictionary Source="GlobalStyles/MetroFix/MetroCheckComboBoxStyleFix.xaml" />
+                <ResourceDictionary Source="GlobalStyles/System/SystemCoreDefaultStyles.xaml" />
+                <ResourceDictionary Source="GlobalStyles/System/SystemMainMenuStyle.xaml" />
+                <ResourceDictionary Source="GlobalStyles/System/SystemPagesDefaultStyles.xaml" />
+                <ResourceDictionary Source="GlobalStyles/System/SystemSpecificFieldsStyles.xaml" />
+                <ResourceDictionary Source="GlobalStyles/System/SystemFieldsEffects.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
-
-            <Style BasedOn="{StaticResource MahAppsTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}">
-                <Setter Property="AdjacentHeaderItemOffset" Value="-12" />
-                <Setter Property="NewItemFactory" Value="{x:Static common:SystemCoreExtensions.MainWindowViewModel.NewItemFactory}" />
-                <Setter Property="ShowDefaultAddButton" Value="False" />
-                <Setter Property="ShowDefaultCloseButton" Value="false" />
-            </Style>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

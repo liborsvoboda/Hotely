@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System;
 using System.Web;
 using Microsoft.Win32;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 
 // This is Template Is Customized For Load and Save data without List (Settings) is folded from standartized Methods
@@ -37,7 +37,7 @@ namespace TravelAgencyAdmin.Pages
         {
             InitializeComponent();
             Language defaultLanguage = JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage);
-            _ = MediaFunctions.SetLanguageDictionary(Resources, defaultLanguage.Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, defaultLanguage.Value);
             try { 
                 lbl_apiAddress.Content = Resources["apiAddress"].ToString();
                 lbl_serviceName.Content = Resources["serviceName"].ToString();
@@ -121,7 +121,7 @@ namespace TravelAgencyAdmin.Pages
             App.Setting.AccentName = App.Setting.AccentName;
             App.Setting.ReportingPath = txt_powerBuilderPath.Text;
 
-            if (FileFunctions.SaveSettings()) { await MainWindow.ShowMessage(false, Resources["savingSuccessfull"].ToString()); }
+            if (FileOperations.SaveSettings()) { await MainWindow.ShowMessage(false, Resources["savingSuccessfull"].ToString()); }
         }
 
 

@@ -46,4 +46,4 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
     image checker
     https://codebeautify.org/base64-to-image-converter
 
-11)  pøeklad {{ $t('user.login') }}
+11)  pøeklad {{ $t('user.login') }} :label="$t('labels.reviews')"

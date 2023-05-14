@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TravelAgencyAdmin.Properties {
+namespace TravelAgencyAdmin.SystemConfiguration {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

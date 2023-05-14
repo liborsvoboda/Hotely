@@ -10,15 +10,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.GlobalClasses;
+
 using Microsoft.Win32;
 using System.Net.Http;
 using System.Web;
 using iTextSharp.text.pdf.codec;
 using EASYTools.ImageEffectLibrary;
 using MahApps.Metro.Controls.Dialogs;
+using TravelAgencyAdmin.GlobalClasses;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -37,7 +38,7 @@ namespace TravelAgencyAdmin.Pages
         public HotelImagesListPage() {
             InitializeComponent();
 
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
              
             //mi_server.Header = Resources["server"].ToString();
@@ -89,7 +90,7 @@ namespace TravelAgencyAdmin.Pages
                 ClearGallery();
                 hotelImagesList.ForEach(item => {
                     item.Hotel = hotelList.First(a => a.Id == item.HotelId).Name;
-                    try { FileFunctions.ByteArrayToFile(Path.Combine(App.galleryFolder, item.FileName), item.Attachment); } catch { }
+                    try { FileOperations.ByteArrayToFile(Path.Combine(App.galleryFolder, item.FileName), item.Attachment); } catch { }
                     Photos.Add(Path.Combine(App.galleryFolder, item.FileName), item.Id, item.IsPrimary);
                 });
                 RefreshViewPhoto(selectedPhotoId);
@@ -118,7 +119,7 @@ namespace TravelAgencyAdmin.Pages
             { PhotosListBox.SelectedItem = Photos.First(x => (selectedPhotoId > 0 && x.DbId == selectedPhotoId) || (selectedPhotoId == -1 && x.DbId == Photos.Max(a => a.DbId))); }
 
             MessageDialogResult result = new MessageDialogResult();
-            if (PhotosListBox.IsEnabled && ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBFunctions.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
+            if (PhotosListBox.IsEnabled && ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
             if (!ClonedSelectedImage.Changed || (ClonedSelectedImage.Changed && result == MessageDialogResult.Affirmative)) { ClonedSelectedImage = new ImageHelper(((Photo)PhotosListBox.SelectedItem).Source); SetImageChanges(false); }
                 ViewedPhoto.Source = ClonedSelectedImage.EditingImage;
             
@@ -208,9 +209,9 @@ namespace TravelAgencyAdmin.Pages
             openFileDialog.Filter = "Images|*.jpg; *.jpeg; *.png; *.tiff; *.bmp|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBFunctions.DBTranslation("fileisNotImage")); }
+                if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
                 else {
-                    try { FileFunctions.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
+                    try { FileOperations.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
                     Photos.Add(openFileDialog.FileName, 0, false);
                     await SaveImageToServer(0);
                     await LoadFromServer(-1);
@@ -244,7 +245,7 @@ namespace TravelAgencyAdmin.Pages
             Photos.Clear();PhotosListBox.Items.Refresh();
             PhotosListBox.SelectedItem = ViewedPhoto.Source = null;
             ClonedSelectedImage.ResetChanges();
-            try { FileFunctions.ClearFolder(App.galleryFolder); } catch { }
+            try { FileOperations.ClearFolder(App.galleryFolder); } catch { }
         }
 
 
@@ -258,7 +259,7 @@ namespace TravelAgencyAdmin.Pages
 
         private async void SelectedHotelChanged(object sender, SelectionChangedEventArgs e) {
             MessageDialogResult result = new MessageDialogResult();
-            if (ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBFunctions.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
+            if (ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
             selectedHotel = ((HotelList)cb_hodelId.SelectedItem).Id;
             await LoadFromServer();
         }
@@ -324,6 +325,26 @@ namespace TravelAgencyAdmin.Pages
 
         private void LaplacianFilterClick(object sender, RoutedEventArgs e) {
             ClonedSelectedImage.LaplacianFilter(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void BinarizeClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.Binarize(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void DilationClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.Dilation(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void ErosionClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.Erosion(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void MorphologyOpenClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.MorphologyOpen(); SetImageChanges(true); RefreshViewPhoto();
+        }
+
+        private void MorphologyCloseClick(object sender, RoutedEventArgs e) {
+            ClonedSelectedImage.MorphologyClose(); SetImageChanges(true); RefreshViewPhoto();
         }
     }
 }

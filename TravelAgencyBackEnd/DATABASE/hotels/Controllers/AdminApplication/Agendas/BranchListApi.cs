@@ -1,26 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using TravelAgencyBackEnd.DBModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Text.Json.Serialization;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [Authorize]
     [ApiController]
     [Route("BranchList")]
-    public class BranchListApi : ControllerBase
-    {
+    public class BranchListApi : ControllerBase {
+
         [HttpGet("/BranchList")]
-        public async Task<string> GetBranchList()
-        {
+        public async Task<string> GetBranchList() {
             List<BranchList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -29,7 +15,8 @@ namespace TravelAgencyBackEnd.Controllers
             {
                 if (Request.HttpContext.User.IsInRole("Admin"))
                 { data = new hotelsContext().BranchLists.ToList(); }
-                else {
+                else
+                {
                     data = new hotelsContext().BranchLists.Include(a => a.User)
                         .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
                 }
@@ -39,8 +26,7 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/BranchList/Filter/{filter}")]
-        public async Task<string> GetBranchListByFilter(string filter)
-        {
+        public async Task<string> GetBranchListByFilter(string filter) {
             List<BranchList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -60,18 +46,18 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/BranchList/Active")]
-        public async Task<string> GetActiveBranch()
-        {
+        public async Task<string> GetActiveBranch() {
             BranchList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            { data = new hotelsContext().BranchLists.Where(a => a.Active == true)
-                     .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First(); }
+            {
+                data = new hotelsContext().BranchLists.Where(a => a.Active == true)
+                     .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First();
+            }
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/BranchList/{id}")]
-        public async Task<string> GetBranchListKey(int id)
-        {
+        public async Task<string> GetBranchListKey(int id) {
             BranchList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             { data = new hotelsContext().BranchLists.Where(a => a.Id == id).First(); }
@@ -80,8 +66,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPut("/BranchList")]
         [Consumes("application/json")]
-        public async Task<string> InsertBranchList([FromBody] BranchList record)
-        {
+        public async Task<string> InsertBranchList([FromBody] BranchList record) {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
@@ -98,8 +83,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPost("/BranchList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateBranchList([FromBody] BranchList record)
-        {
+        public async Task<string> UpdateBranchList([FromBody] BranchList record) {
             try
             {
                 var data = new hotelsContext().BranchLists.Update(record);
@@ -113,8 +97,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpDelete("/BranchList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteBranchList(string id)
-        {
+        public async Task<string> DeleteBranchList(string id) {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
@@ -125,7 +108,6 @@ namespace TravelAgencyBackEnd.Controllers
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });
-
             }
             catch (Exception ex)
             {

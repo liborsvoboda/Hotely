@@ -1,19 +1,10 @@
-﻿using TravelAgencyBackEnd.DBModel;
-using TravelAgencyBackEnd.Models.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace TravelAgencyBackEnd.Services {
 
-namespace TravelAgencyBackEnd.Services
-{
-    public class BookingService
-    {
+    public class BookingService {
         private readonly hotelsContext _db;
         private readonly HotelService _hs;
-        public BookingService()
-        {
+
+        public BookingService() {
             _db = new hotelsContext();
             _hs = new HotelService();
         }
@@ -21,38 +12,31 @@ namespace TravelAgencyBackEnd.Services
         public int latestId;
         public string latestType;
 
-        public HotelReservationList GetBookingById(int id)
-        {
-
+        public HotelReservationList GetBookingById(int id) {
             var result = _db.HotelReservationLists.Include(r => r.Guest).Include(h => h.Hotel).ThenInclude(r => r.HotelRoomLists).SingleOrDefault(r => r.Id == id);
             return result;
         }
 
-        public HotelReservedRoomList GetReservedRoom(int id)
-        {
+        public HotelReservedRoomList GetReservedRoom(int id) {
             var result = _db.HotelReservedRoomLists.FirstOrDefault(x => x.ReservationId == id);
             return result;
         }
 
-        public HotelReservationDetailList GetReservationsDetail(int id)
-        {
+        public HotelReservationDetailList GetReservationsDetail(int id) {
             var res = _db.HotelReservationDetailLists.FirstOrDefault(r => r.ReservationId == id);
             return res;
-
         }
-        public IEnumerable<HotelReservedRoomList> GetReservedRooms(int id)
-        {
-            return _db.HotelReservedRoomLists.Where(x => x.ReservationId == id).Include(r=>r.HotelRoom).AsEnumerable();
 
+        public IEnumerable<HotelReservedRoomList> GetReservedRooms(int id) {
+            return _db.HotelReservedRoomLists.Where(x => x.ReservationId == id).Include(r => r.HotelRoom).AsEnumerable();
         }
-        public IEnumerable<HotelReservationList> GetAllBookingByGuestId(int id)
-        {
+
+        public IEnumerable<HotelReservationList> GetAllBookingByGuestId(int id) {
             var result = _db.HotelReservationLists.Where(b => b.GuestId == id).AsEnumerable();
             return result;
         }
 
-        public int CancelBooking(int bookingId)
-        {
+        public int CancelBooking(int bookingId) {
             var booking = GetBookingById(bookingId);
             var reservedRooms = GetReservedRooms(bookingId);
 
@@ -68,8 +52,7 @@ namespace TravelAgencyBackEnd.Services
             return _db.SaveChanges();
         }
 
-        public int MakeBooking(SearchViewModel model)
-        {
+        public int MakeBooking(SearchViewModel model) {
             var newReservation = new HotelReservationList()
             {
                 StartDate = model.StartDate,
@@ -97,13 +80,11 @@ namespace TravelAgencyBackEnd.Services
             var newResDetails = new HotelReservationDetailList()
             {
                 Adult = model.Adults,
-               // Children = model.Children,
-               // ExtraBed = model.ExtraBed,
+                // Children = model.Children, ExtraBed = model.ExtraBed,
                 Message = model.CustomerMessage,
                 ReservationId = latestId,
 
                 //Type = latestType,
-
             };
 
             _db.HotelReservationDetailLists.Add(newResDetails);
@@ -126,9 +107,7 @@ namespace TravelAgencyBackEnd.Services
             return latestId;
         }
 
-
-        public double CalculateCost(HotelReservationList reservation, List<ReservedRooms> reservedRooms, HotelReservationDetailList reservationsDetail)
-        {
+        public double CalculateCost(HotelReservationList reservation, List<ReservedRooms> reservedRooms, HotelReservationDetailList reservationsDetail) {
             double totalprice = 0;
             //bool extrabed = (bool)reservationsDetail.ExtraBed;
             List<double> costPerNightForEachRoom = new();
@@ -149,12 +128,12 @@ namespace TravelAgencyBackEnd.Services
 
             //totalprice += accomodationPrice;
 
-           /* if (extrabed == true)
-            {
-                var hotel = _hs.GetById(reservation.HotelId);
-                totalprice += (double)hotel.ExtraBedFee;
-            }
-           */
+            /* if (extrabed == true)
+             {
+                 var hotel = _hs.GetById(reservation.HotelId);
+                 totalprice += (double)hotel.ExtraBedFee;
+             }
+            */
             using (var db = new hotelsContext())
             {
                 var result = db.HotelReservationLists.SingleOrDefault(b => b.Id == latestId);
@@ -167,8 +146,7 @@ namespace TravelAgencyBackEnd.Services
             return totalprice;
         }
 
-        public void UpdateReservation(CustomerDetailsModel model, int id)
-        {
+        public void UpdateReservation(CustomerDetailsModel model, int id) {
             var reservation = _db.HotelReservationLists.SingleOrDefault(r => r.Id == id);
 
             if (reservation != null)
@@ -183,8 +161,6 @@ namespace TravelAgencyBackEnd.Services
 
                 _db.SaveChanges();
             }
-            
         }
     }
 }
-

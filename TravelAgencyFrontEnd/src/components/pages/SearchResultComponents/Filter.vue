@@ -7,7 +7,7 @@
               <p>{{property.systemName}}</p>
               <Slider
                 v-model="property.searchDefaultValue"
-                :step="1"
+                :step="0.1"
                 :min="property.searchDefaultMin"
                 :max="property.searchDefaultMax"
                 :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"

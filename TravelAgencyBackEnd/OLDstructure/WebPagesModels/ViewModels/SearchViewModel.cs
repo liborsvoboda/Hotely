@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace TravelAgencyBackEnd.Models.ViewModels {
 
-namespace TravelAgencyBackEnd.Models.ViewModels
-{
-    public class SearchViewModel
-    {
+    public class SearchViewModel {
+
         //Reservation
         public DateTime StartDate { get; set; }
+
         public DateTime EndDate { get; set; }
         public double TotalPrice { get; set; }
         public DateTime DateCreated { get; set; }
@@ -18,6 +14,7 @@ namespace TravelAgencyBackEnd.Models.ViewModels
 
         //ReservationDetails
         public int Adults { get; set; }
+
         public int? Children { get; set; }
         public bool? ExtraBed { get; set; }
         public string CustomerMessage { get; set; }
@@ -28,10 +25,9 @@ namespace TravelAgencyBackEnd.Models.ViewModels
 
         //ReservedRooms
         public List<ReservedRooms> ReservedRooms { get; set; }
-
     }
-    public class ReservedRooms
-    {
+
+    public class ReservedRooms {
         public int RoomId { get; set; }
         public int BookedRooms { get; set; }
     }

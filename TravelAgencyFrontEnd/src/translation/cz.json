@@ -7,7 +7,21 @@
     "dates": "Období",
     "guestRooms": "Osoby a místnosti",
     "search": "Vyhledat",
-    "moreFilters": "Více filtrů"
+    "moreFilters": "Více filtrů",
+    "sortBy": "Seřadit dle",
+    "searchResult": "Nalezeno inzerátů",
+    "ratings": "Hodnocení",
+    "roomPriceFrom": "ceny již Od",
+    "seeDetail": "Ukázat detail",
+    "fee": "poplatek",
+    "servicesAndProperties": "Služby a Vybavení",
+    "back": "Zpět na výsledky",
+    "info": "Info",
+    "photos": "Fotky",
+    "reviews": "Hodnocení",
+    "rooms": "Místnosti"
+
+
   },
   "user": {
     "login": "Přihlásit",

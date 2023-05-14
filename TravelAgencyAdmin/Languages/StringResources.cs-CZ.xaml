@@ -463,5 +463,7 @@
     <system:String x:Key="activeSystemSaver">Aktivní šetřič Systému</system:String>
     <system:String x:Key="disableOnActivity">Vypnout při aktivitě</system:String>
     <system:String x:Key="timeToEnable">Čas do zapnutí</system:String>
+    <system:String x:Key="averageRating">Průměrné hodnocení</system:String>
+    <system:String x:Key="image">Obrázek</system:String>
 
 </ResourceDictionary>

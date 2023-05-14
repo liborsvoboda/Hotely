@@ -1,36 +1,13 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Logging.Debug;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Diagnostics;
 using System.Net.Http;
-using System.Net.WebSockets;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using TravelAgencyBackEnd;
-using TravelAgencyBackEnd.DBModel;
 
-namespace TravelAgencyBackEnd
-{
+namespace TravelAgencyBackEnd {
 
-    public class ServerCoreConfiguration
-    {
+    public class ServerCoreConfiguration {
 
-
-        internal static void ConfigureCookie(ref IServiceCollection services)
-        {
+        internal static void ConfigureCookie(ref IServiceCollection services) {
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -57,13 +34,11 @@ namespace TravelAgencyBackEnd
             });
         }
 
-
         /// <summary>
         /// Server Core: Configure Server Logging
         /// </summary>
         /// <param name="services"></param>
-        internal static void ConfigureLogging(ref IServiceCollection services)
-        {
+        internal static void ConfigureLogging(ref IServiceCollection services) {
             if (Program.DebugMode)
             {
                 services.AddLogging(builder =>
@@ -82,10 +57,9 @@ namespace TravelAgencyBackEnd
             });
         }
 
-        internal static void ConfigureAllowAllCors(ref IServiceCollection services)
-        {
-            services.AddCors(options => 
-            options.AddPolicy("AllowAllCors", 
+        internal static void ConfigureAllowAllCors(ref IServiceCollection services) {
+            services.AddCors(options =>
+            options.AddPolicy("AllowAllCors",
             p => p.AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -93,14 +67,13 @@ namespace TravelAgencyBackEnd
             .Build()));
         }
 
-
         /// <summary>
         /// Server Core: Configure Server Authentication Support
         /// </summary>
         /// <param name="services"></param>
-        internal static void ConfigureAuthentication(ref IServiceCollection services)
-        {
-            services.AddAuthentication(x => {
+        internal static void ConfigureAuthentication(ref IServiceCollection services) {
+            services.AddAuthentication(x =>
+            {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -132,35 +105,28 @@ namespace TravelAgencyBackEnd
             });
         }
 
-
         /// <summary>
         /// Server Core: Configure HTTP Client for work with third party API
         /// </summary>
         /// <param name="services"></param>
-        internal static void ConfigureThirdPartyApi(ref IServiceCollection services)
-        {
+        internal static void ConfigureThirdPartyApi(ref IServiceCollection services) {
             //services.AddHttpClient();
         }
-
 
         /// <summary>
         /// Server Core: Configure Custom Core Services
         /// </summary>
         /// <param name="services"></param>
-        internal static void ConfigureScopes(ref IServiceCollection services)
-        {
+        internal static void ConfigureScopes(ref IServiceCollection services) {
             //services.AddScoped<IUserService, UserService>();
         }
-
 
         /// <summary>
         /// Server Core: Configure Custom Services
         /// </summary>
         /// <param name="services"></param>
-        internal static void ConfigureDatabaseContext(ref IServiceCollection services)
-        {
+        internal static void ConfigureDatabaseContext(ref IServiceCollection services) {
             services.AddDbContext<hotelsContext>(opt => opt.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;"));
         }
-
     }
 }

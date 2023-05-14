@@ -1,25 +1,13 @@
-﻿using TravelAgencyBackEnd.DBModel;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace TravelAgencyBackEnd.Services {
 
-
-namespace TravelAgencyBackEnd.Services
-{
-
-    public class HotelService
-    {
+    public class HotelService {
         private readonly hotelsContext _db;
 
-        public HotelService()
-        {
+        public HotelService() {
             _db = new hotelsContext();
         }
 
-        public int GetMaxCapacityAvailableForHotel(int id, DateTime date1, DateTime date2)
-        {
+        public int GetMaxCapacityAvailableForHotel(int id, DateTime date1, DateTime date2) {
             var roomsList = GetAvailableRooms(id, date1, date2);
             var maxPeople = 0;
 
@@ -43,8 +31,8 @@ namespace TravelAgencyBackEnd.Services
 
             return maxPeople;
         }
-        public HotelRoomsViewModel GetAvailableRooms(int id, DateTime date1, DateTime date2)
-        {
+
+        public HotelRoomsViewModel GetAvailableRooms(int id, DateTime date1, DateTime date2) {
             var reservations = _db.HotelReservationLists.Where(r => r.HotelId == id && r.StartDate >= date1 && r.EndDate <= date2).Include(r => r.HotelReservedRoomLists).ThenInclude(r => r.HotelRoom);
 
             var availableRooms = new Dictionary<string, int>();
@@ -82,35 +70,28 @@ namespace TravelAgencyBackEnd.Services
             return vm;
         }
 
-        public IEnumerable<HotelReservationReviewList> GetReviews(int id)
-        {
+        public IEnumerable<HotelReservationReviewList> GetReviews(int id) {
             return _db.HotelReservationReviewLists.Where(r => r.Hotel.Id == id).Include(c => c.Guest).AsEnumerable();
         }
 
-        public HotelList GetById(int id)
-        {
+        public HotelList GetById(int id) {
             return _db.HotelLists.Include(r => r.HotelRoomLists).SingleOrDefault(h => h.Id == id);
         }
 
-        public HotelRoomList GetRoomByRoomId(int id)
-        {
+        public HotelRoomList GetRoomByRoomId(int id) {
             return _db.HotelRoomLists.SingleOrDefault(r => r.Id == id);
         }
 
-        public HotelRoomList GetRoomByHotelId_Type(int id, string type)
-        {
+        public HotelRoomList GetRoomByHotelId_Type(int id, string type) {
             return _db.HotelRoomLists.SingleOrDefault(r => r.HotelId == id && r.RoomType.SystemName == type);
         }
 
-        public IEnumerable<HotelList> GetAllHotels()
-        {
-
+        public IEnumerable<HotelList> GetAllHotels() {
             var result = _db.HotelLists.Include(n => n.Country).Include(n => n.City).Include(r => r.HotelRoomLists).AsEnumerable();
             return result;
         }
 
-        public IEnumerable<HotelList> GetHotelsByRandom()
-        {
+        public IEnumerable<HotelList> GetHotelsByRandom() {
             Random rand = new Random();
             int num1 = rand.Next(0, 5);
             int num2 = rand.Next(0, 5);
@@ -118,6 +99,7 @@ namespace TravelAgencyBackEnd.Services
 
             return _db.HotelLists.Where(x => x.Id == num1);
         }
+
         /*
         public double GetAccomodationFee(int hotelId, string type)
         {
@@ -133,6 +115,5 @@ namespace TravelAgencyBackEnd.Services
         //{
         //    return _db.SavedHotels.Where(u => u.GuestId == id).Include(h => h.Hotel).ToList();
         //}
-
     }
 }

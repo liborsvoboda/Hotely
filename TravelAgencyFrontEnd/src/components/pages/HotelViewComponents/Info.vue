@@ -1,14 +1,22 @@
 <template>
   <div class="py-4">
     <div class="p-4 bg-light rounded shadow-sm">
-        <h5>Rating: <span class="badge rounded-pill bg-secondary">{{hotel.averageRating}}</span></h5>
-        <p>{{hotel.description}}</p>
-        <h4>Amentities:</h4>
+        <h5>{{ $t('labels.ratings') }}: <span class="badge rounded-pill bg-secondary">{{hotel.averageRating}}</span></h5>
+        <p>{{($store.state.language == 'cz') ? hotel.descriptionCz : hotel.descriptionEn}}</p>
+        <h4>{{ $t('labels.servicesAndProperties') }}:</h4>
+
         <div class="amentities">
-          <p v-if="hotel.pool"> <i class="fas fa-check"></i> Pool</p>
-          <p v-if="hotel.nightEntertainment"> <i class="fas fa-check"></i> Night Entertainment</p>
-          <p v-if="hotel.childClub"> <i class="fas fa-check"></i> Kids club</p>
-          <p v-if="hotel.restaurant"> <i class="fas fa-check"></i> Restaurant</p>
+            <p v-for="property in valueProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                {{property.name}}:
+                <span class="badge rounded-pill bg-secondary">
+                    {{ property.value }} {{ property.unit }}
+                </span>
+            </p>
+
+            <p v-for="property in bitProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                <i class="fas fa-check"></i> {{property.name}}
+            </p>
+
         </div>
     </div>
   </div>
@@ -16,11 +24,27 @@
 
 <script>
 export default {
-  computed: {
-    hotel() {
-      return this.$store.state.hotel;
-    },
-  },
+    computed: {
+        hotel() {
+            return this.$store.state.hotel;
+        },
+        valueProperties() {
+            var valueProperties = [];
+            this.hotel.hotelPropertyAndServiceLists.forEach(property => {
+                var valueProperty = this.$store.state.propertyList.filter(obj => { return obj.id === property.propertyOrServiceId; })[0];
+                if (property.isAvailable && property.approved && valueProperty.isValue) { valueProperties.push({ name: valueProperty.systemName, value: property.value, unit: valueProperty.propertyOrServiceUnitType.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax }); }
+            });
+            return valueProperties;
+        },
+        bitProperties() {
+            var bitProperties = [];
+            this.hotel.hotelPropertyAndServiceLists.forEach(property => {
+                var valueProperty = this.$store.state.propertyList.filter(obj => { return obj.id === property.propertyOrServiceId; })[0];
+                if (property.isAvailable && property.approved && valueProperty.isBit) { bitProperties.push({ name: valueProperty.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax }); }
+            });
+            return bitProperties;
+        }
+    }
 };
 </script>
 

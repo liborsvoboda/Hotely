@@ -15,18 +15,18 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using MahApps.Metro;
 using System.IO;
-using TravelAgencyAdmin.Properties;
+using TravelAgencyAdmin.SystemConfiguration;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using TravelAgencyAdmin.Pages;
 using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.SystemCoreExtensions;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Helper;
 using System.Net.Http;
-using TravelAgencyAdmin.GlobalClasses;
-using System.Windows.Media;
 
+using System.Windows.Media;
+using TravelAgencyAdmin.SystemStructure;
+using GlobalClasses;
 
 namespace TravelAgencyAdmin
 {
@@ -166,14 +166,14 @@ namespace TravelAgencyAdmin
             try
             {
                 InitializeComponent();
-                MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+                SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
                 if (_hackyIsFirstWindow)
                 {
                     ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(int.MaxValue));
 
-                    AppMainWindow.Height = Settings.Default.Height; AppMainWindow.Width = Settings.Default.Width;
-                    AppMainWindow.Left = Settings.Default.Left; AppMainWindow.Top = Settings.Default.Top;
+                    XamlMainWindow.Height = Settings.Default.Height; XamlMainWindow.Width = Settings.Default.Width;
+                    XamlMainWindow.Left = Settings.Default.Left; XamlMainWindow.Top = Settings.Default.Top;
 
                     if (App.Setting.TopMost) Topmost = true;
                 }
@@ -253,8 +253,8 @@ namespace TravelAgencyAdmin
             ///ScreenSaver 
             if (App.Setting.DisableOnActivity && this.FindChild<ScreenSaverPage>("") != null) {
                 try {
-                    TabContent existingTab = ((MainWindowViewModel)DataContext).TabContents.ToList().FirstOrDefault(a => (string)a.Tag == nameof(App.Setting.ActiveSystemSaver));
-                    var result = (MainWindowViewModel)this.DataContext;
+                    SystemTabs existingTab = ((SystemWindowDataModel)DataContext).TabContents.ToList().FirstOrDefault(a => (string)a.Tag == nameof(App.Setting.ActiveSystemSaver));
+                    var result = (SystemWindowDataModel)this.DataContext;
                     result.TabContents.Remove(existingTab);
                 } catch (Exception ex) { App.ApplicationLogging(ex); }
             }
@@ -290,7 +290,7 @@ namespace TravelAgencyAdmin
                 this.Invoke(() =>
                 {
                     AppSystemTimer.Elapsed += SystemTimerController; AppSystemTimer.Enabled = true;
-                    _ = MediaFunctions.IncreaseFileVersionBuild();
+                    _ = SystemOperations.IncreaseFileVersionBuild();
                     AddOrRemoveTab(Resources["support"].ToString(), new SupportPage());
                 });
                 //Load Theme
@@ -323,7 +323,7 @@ namespace TravelAgencyAdmin
                     if (App.Setting.ActiveSystemSaver && (DateTimeOffset.UtcNow - lastUserAction).TotalSeconds > App.Setting.TimeToEnable && this.FindChild<ScreenSaverPage>("") == null)
                     {
                         SetLastUserAction();
-                        string translatedName = await DBFunctions.DBTranslation("activeSystemSaver");
+                        string translatedName = await DBOperations.DBTranslation("activeSystemSaver");
                         this.AddOrRemoveTab(translatedName, new ScreenSaverPage(), nameof(App.Setting.ActiveSystemSaver));
                     }
 
@@ -336,10 +336,10 @@ namespace TravelAgencyAdmin
                         mi_logout.Header = UserLogged ? Resources["logout"].ToString() : Resources["logon"].ToString();
 
                         //Load All startup DB Settings
-                        if (App.LanguageList == null) DBFunctions.LoadStartupDBData();
+                        if (App.LanguageList == null) DBOperations.LoadStartupDBData();
 
                         //ONETime Update
-                        if (ServiceRunning && !updateChecked && UserLogged) { this.Invoke(() => { if (App.Setting.AutomaticUpdate != "never") { Updater.CheckUpdate(false); } updateChecked = true; }); }
+                        if (ServiceRunning && !updateChecked && UserLogged) { this.Invoke(() => { if (App.Setting.AutomaticUpdate != "never") { SystemUpdater.CheckUpdate(false); } updateChecked = true; }); }
                     }
                     else { SetServiceStop(); }
                 }
@@ -379,7 +379,7 @@ namespace TravelAgencyAdmin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e) => HardwareFunctions.ApplicationKeyboardMaping(e);
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e) => HardwareOperations.ApplicationKeyboardMaping(e);
 
         /// <summary>
         /// Full dynamic Show Help File
@@ -422,7 +422,7 @@ namespace TravelAgencyAdmin
                     } else {
                         App.UserData.Authentification = dBResult;
                         si_loggedIn.Content = Resources["loggedIn"].ToString() + " " + ((App.UserData.Authentification.Name.Length > 0 || App.UserData.Authentification.SurName.Length > 0) ? App.UserData.Authentification.Name + " " + App.UserData.Authentification.SurName : result.Username);
-                        DBFunctions.LoadOrRefreshUserData();
+                        DBOperations.LoadOrRefreshUserData();
                         ProgressRing = Visibility.Hidden;
                     }
                 }
@@ -455,15 +455,15 @@ namespace TravelAgencyAdmin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void IpKeyboardClick(object sender, MouseButtonEventArgs e) => TouchKeyboard.IsOpen = !TouchKeyboard.IsOpen; 
-        private void IpCalculatorClick(object sender, MouseButtonEventArgs e) => Calc.Visibility = (Calc.IsVisible != true) ? Visibility.Visible : Visibility.Hidden;
-        private void IpStartRdpServer(object sender, MouseButtonEventArgs e)
-        {
+        private void BtnKeyboardClick(object sender, RoutedEventArgs e) => TouchKeyboard.IsOpen = !TouchKeyboard.IsOpen;
+        private void BtnCalculatorClick(object sender, RoutedEventArgs e) => Calc.Visibility = (Calc.IsVisible != true) ? Visibility.Visible : Visibility.Hidden;
+        private void BtnStartRdpServerClick(object sender, RoutedEventArgs e) {
+
             if (vncProcessId > 0) { vncProccess.Kill(); vncProcessId = 0; VncRunning = Brushes.Red; }
             else {
-                if (FileFunctions.CheckFile(Path.Combine(App.startupPath, "Data", "AddOn", "winvnc.exe")))
+                if (FileOperations.CheckFile(Path.Combine(App.startupPath, "Data", "AddOn", "winvnc.exe")))
                 {
-                    if (FileFunctions.VncServerIniFile(Path.Combine(App.startupPath, "Data", "AddOn")))
+                    if (FileOperations.VncServerIniFile(Path.Combine(App.startupPath, "Data", "AddOn")))
                     {
                         vncProccess = new Process();
                         ProcessStartInfo info = new ProcessStartInfo()
@@ -487,7 +487,7 @@ namespace TravelAgencyAdmin
                 }
             }
         }
-        private void IpcaptureAppClick(object sender, MouseEventArgs e) => MediaFunctions.SaveAppScreenShot(this);
+        private void BtnCaptureAppClick(object sender, RoutedEventArgs e) => MediaOperations.SaveAppScreenShot(this);
 
 
 
@@ -501,13 +501,13 @@ namespace TravelAgencyAdmin
         /// <param name="e"></param>
         private void Cb_FilterDropDownClosed(object sender, EventArgs e)
         {
-            TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
-            string advancedFilter = SystemFunctions.FilterToString(cb_filter);
+            SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
+            string advancedFilter = SystemOperations.FilterToString(cb_filter);
 
             ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("dataViewSupport").GetValue(null)).AdvancedFilter = advancedFilter;
             cb_filter.SelectedIndex = 0;
             _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType()
-                .GetMethod("LoadDataList").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, null);
+                .GetMethod("LoadDataList").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
         }
 
 
@@ -521,7 +521,7 @@ namespace TravelAgencyAdmin
             string mark = DateTime.UtcNow.Ticks.ToString();
 
             if (((Button)sender).Name == "mi_plus") {
-                TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
+                SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                 var viewFields = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("selectedRecord").GetValue(null);
 
                 ComboBox cbFieldsBox = new ComboBox() { Name = "field_" + mark, Width = 200, Height = 30 };
@@ -608,7 +608,7 @@ namespace TravelAgencyAdmin
                     filterBox.Items.Add(dockPanel);
                 } else // Item Field
                 {
-                    TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
+                    SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                     var viewFields = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("selectedRecord").GetValue(null);
 
                     ComboBox cbFieldsBox = new ComboBox() { Name = "field_" + mark, Width = 200, Height = 30 };
@@ -709,7 +709,7 @@ namespace TravelAgencyAdmin
                     if (cnn.State == System.Data.ConnectionState.Open)
                     {
                         cnn.Close();
-                        TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
+                        SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                         string advancedFilter = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("dataViewSupport").GetValue(null)).AdvancedFilter;
                         advancedFilter = (string.IsNullOrWhiteSpace(advancedFilter)) ? "1=1" : advancedFilter.Replace("[!]", "").Replace("{!}", "");
 
@@ -720,7 +720,7 @@ namespace TravelAgencyAdmin
                         DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.ReportQueueList, httpContent, "WriteFilter", App.UserData.Authentification.Token);
 
                         string reportFile = Path.Combine(App.reportFolder, DateTimeOffset.Now.Ticks.ToString() + ".rdl");
-                        if (FileFunctions.ByteArrayToFile(reportFile, ((ReportList)cb_printReports.SelectedItem).File))
+                        if (FileOperations.ByteArrayToFile(reportFile, ((ReportList)cb_printReports.SelectedItem).File))
                         {
                             Process exeProcess = new Process();
                             ProcessStartInfo info = new ProcessStartInfo()
@@ -1036,7 +1036,7 @@ namespace TravelAgencyAdmin
         {
             try
             {
-                TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
+                SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                 string senderName = SelectedTab?.Content.GetType().Name;
                 DBResultMessage dBResult = new DBResultMessage();
                 string buttonSenderName = ((FrameworkElement)sender).Name;
@@ -1045,27 +1045,27 @@ namespace TravelAgencyAdmin
                     //AUTOMATIC LIST VIEW PART NOT MODIFY
                     case "tb_search":
                         _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
-                            .GetMethod("Filter").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, new object[] { ((TextBox)e.Source).Text });
+                            .GetMethod("Filter").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, new object[] { ((TextBox)e.Source).Text });
                         break;
                     case "mi_reload":
                         _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
-                             .GetMethod("LoadDataList").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, null);
+                             .GetMethod("LoadDataList").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
                         break;
                     case "mi_new":
                         _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
-                            .GetMethod("NewRecord").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, null);
+                            .GetMethod("NewRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
                         break;
                     case "mi_edit":
                         _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
-                            .GetMethod("EditRecord").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, new object[] { false });
+                            .GetMethod("EditRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, new object[] { false });
                         break;
                     case "mi_copy":
                         _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
-                            .GetMethod("EditRecord").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, new object[] { true });
+                            .GetMethod("EditRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, new object[] { true });
                         break;
                     case "mi_delete":
                         _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
-                            .GetMethod("DeleteRecord").Invoke(((TabContent)InitialTabablzControl.SelectedItem).Content, null);
+                            .GetMethod("DeleteRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
                         break;
                     default: break;
                 }
@@ -1093,7 +1093,7 @@ namespace TravelAgencyAdmin
 
                 } else if (existedTabs.Count() > 0) // Select Existing TabPage
                 {
-                    TabContent tc1 = new TabContent(headerName, tabPage, tagText);
+                    SystemTabs tc1 = new SystemTabs(headerName, tabPage, tagText);
                     TabablzControl.AddItem(tc1, existedTabs.Last().DataContext, AddLocationHint.After);
                     TabablzControl.SelectItem(tc1);
                     existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
@@ -1101,8 +1101,8 @@ namespace TravelAgencyAdmin
 
                 if (existedTabs.Count() == 0) // Insert New TabPage
                 {
-                    MainWindowViewModel result = new MainWindowViewModel();
-                    result.TabContents.Add(new TabContent(headerName, tabPage, tagText));
+                    SystemWindowDataModel result = new SystemWindowDataModel();
+                    result.TabContents.Add(new SystemTabs(headerName, tabPage, tagText));
                     DataContext = result;
                     existedTabs = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders();
                 }
@@ -1124,13 +1124,13 @@ namespace TravelAgencyAdmin
             try
             {
                 // Closing TabPanel
-                if (e.RemovedItems.Count > 0 && ((TabContent)e.RemovedItems[0]).Tag.ToString().ToUpperInvariant() == "ActiveSystemSaver".ToUpperInvariant())
+                if (e.RemovedItems.Count > 0 && ((SystemTabs)e.RemovedItems[0]).Tag.ToString().ToUpperInvariant() == "ActiveSystemSaver".ToUpperInvariant())
                     SetLastUserAction();
 
 
 
                 ///Insert TabPanel
-                TabContent SelectedTab = (TabContent)TabablzControl.GetLoadedInstances().Last().SelectedItem;
+                SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                 DataViewSupport dataViewSupport = new DataViewSupport();
 
 

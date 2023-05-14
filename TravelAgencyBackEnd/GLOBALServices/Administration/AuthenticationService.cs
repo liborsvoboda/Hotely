@@ -1,30 +1,13 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System;
-using TravelAgencyBackEnd.Services;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using TravelAgencyBackEnd.CoreClasses;
-using TravelAgencyBackEnd.DBModel;
-using Microsoft.EntityFrameworkCore;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [ApiController]
     [Route("Authentication")]
-    public class AuthenticationService : ControllerBase
-    {
-        static System.Text.Encoding ISO_8859_1_ENCODING = System.Text.Encoding.GetEncoding("ISO-8859-1");
+    public class AuthenticationService : ControllerBase {
+        private static System.Text.Encoding ISO_8859_1_ENCODING = System.Text.Encoding.GetEncoding("ISO-8859-1");
 
         [AllowAnonymous]
         [HttpPost("/Authentication")]
-        public IActionResult Authenticate([FromHeader] string Authorization)
-        {
-  
+        public IActionResult Authenticate([FromHeader] string Authorization) {
             (string username, string password) = GetUsernameAndPasswordFromAuthorizeHeader(Authorization);
 
             var user = Authenticate(username, password);
@@ -46,8 +29,7 @@ namespace TravelAgencyBackEnd.Controllers
             return Ok(JsonSerializer.Serialize(user));
         }
 
-        private static (string?, string?) GetUsernameAndPasswordFromAuthorizeHeader(string authorizeHeader)
-        {
+        private static (string?, string?) GetUsernameAndPasswordFromAuthorizeHeader(string authorizeHeader) {
             if (authorizeHeader == null || (!authorizeHeader.Contains("Basic ") && !authorizeHeader.Contains("Bearer "))) return (null, null);
 
             if (authorizeHeader.Contains("Basic "))

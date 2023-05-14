@@ -1,27 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using TravelAgencyBackEnd.DBModel;
-using System.Globalization;
-using Microsoft.EntityFrameworkCore.Query;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [Authorize]
     [ApiController]
     [Route("Calendar")]
-    public class CalendarApi : ControllerBase
-    {
+    public class CalendarApi : ControllerBase {
+
         [HttpGet("/Calendar/{userId}")]
-        public async Task<string> GetCalendarById(int userId)
-        {
+        public async Task<string> GetCalendarById(int userId) {
             List<DBModel.Calendar> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -36,8 +21,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPost("/Calendar")]
         [Consumes("application/json")]
-        public async Task<string> InsertOrUpdateCalendar([FromBody] DBModel.Calendar record)
-        {
+        public async Task<string> InsertOrUpdateCalendar([FromBody] DBModel.Calendar record) {
             try
             {
                 int result = 0;

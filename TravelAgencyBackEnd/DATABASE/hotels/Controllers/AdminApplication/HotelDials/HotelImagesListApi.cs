@@ -1,26 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using TravelAgencyBackEnd.DBModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Text.Json.Serialization;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [Authorize]
     [ApiController]
     [Route("HotelImagesList")]
-    public class HotelImagesListApi : ControllerBase
-    {
+    public class HotelImagesListApi : ControllerBase {
+
         [HttpGet("/HotelImagesList")]
-        public async Task<string> GetHotelImagesList()
-        {
+        public async Task<string> GetHotelImagesList() {
             List<HotelImagesList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -29,7 +15,8 @@ namespace TravelAgencyBackEnd.Controllers
             {
                 if (Request.HttpContext.User.IsInRole("Admin"))
                 { data = new hotelsContext().HotelImagesLists.ToList(); }
-                else {
+                else
+                {
                     data = new hotelsContext().HotelImagesLists.Include(a => a.User)
                         .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
                 }
@@ -39,8 +26,7 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/HotelImagesList/Filter/{filter}")]
-        public async Task<string> GetHotelImagesListByFilter(string filter)
-        {
+        public async Task<string> GetHotelImagesListByFilter(string filter) {
             List<HotelImagesList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -59,16 +45,13 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-
         [HttpGet("/HotelImagesList/{id}")]
-        public async Task<string> GetHotelImagesListById(int id)
-        {
+        public async Task<string> GetHotelImagesListById(int id) {
             HotelImagesList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             { data = new hotelsContext().HotelImagesLists.Where(a => a.Id == id).First(); }
             return JsonSerializer.Serialize(data);
         }
-
 
         [HttpGet("/HotelImagesList/HotelId/{hotelId}")]
         public async Task<string> GetHotelImagesListByHotelId(int hotelId) {
@@ -78,11 +61,9 @@ namespace TravelAgencyBackEnd.Controllers
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-
         [HttpPut("/HotelImagesList")]
         [Consumes("application/json")]
-        public async Task<string> InsertHotelImagesList([FromBody] HotelImagesList record)
-        {
+        public async Task<string> InsertHotelImagesList([FromBody] HotelImagesList record) {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
@@ -99,8 +80,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPost("/HotelImagesList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateHotelImagesList([FromBody] HotelImagesList record)
-        {
+        public async Task<string> UpdateHotelImagesList([FromBody] HotelImagesList record) {
             try
             {
                 var data = new hotelsContext().HotelImagesLists.Update(record);
@@ -114,8 +94,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpDelete("/HotelImagesList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteHotelImagesList(string id)
-        {
+        public async Task<string> DeleteHotelImagesList(string id) {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
@@ -126,7 +105,6 @@ namespace TravelAgencyBackEnd.Controllers
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });
-
             }
             catch (Exception ex)
             {

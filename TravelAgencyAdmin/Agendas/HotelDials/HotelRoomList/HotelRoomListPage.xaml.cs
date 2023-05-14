@@ -14,10 +14,13 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
-
+using Microsoft.Win32;
+using System.Windows.Media.Imaging;
+using System.IO;
+using System.Windows.Markup;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -35,7 +38,7 @@ namespace TravelAgencyAdmin.Pages
         public HotelRoomListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -52,7 +55,9 @@ namespace TravelAgencyAdmin.Pages
                 lbl_roomsCount.Content = Resources["roomsCount"].ToString();
                 lbl_approveRequest.Content = Resources["approveRequest"].ToString();
                 lbl_approved.Content = Resources["approved"].ToString();
+                lbl_image.Content = Resources["image"].ToString();
 
+                btn_browse.Content = Resources["browse"].ToString();
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
             } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
@@ -74,7 +79,7 @@ namespace TravelAgencyAdmin.Pages
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
                 hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
-                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBFunctions.DBTranslation(roomType.SystemName); });
+                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBOperations.DBTranslation(roomType.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -85,7 +90,7 @@ namespace TravelAgencyAdmin.Pages
 
                 hotelRoomList.ForEach(async room => {
                     room.Accommodation = hotelList.First(a => a.Id == room.HotelId).Name;
-                    room.RoomType = await DBFunctions.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
+                    room.RoomType = await DBOperations.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
                 });
                 DgListView.ItemsSource = hotelRoomList;
                 DgListView.Items.Refresh();
@@ -119,6 +124,8 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "RoomTypeId") e.Visibility = Visibility.Hidden;
                     else if (headername == "DescriptionCz") e.Visibility = Visibility.Hidden;
                     else if (headername == "DescriptionEn") e.Visibility = Visibility.Hidden;
+                    else if (headername == "Image") e.Visibility = Visibility.Hidden;
+                    else if (headername == "ImageName") e.Visibility = Visibility.Hidden;
 
                 });
             } catch (Exception autoEx) {App.ApplicationLogging(autoEx);}
@@ -244,20 +251,21 @@ namespace TravelAgencyAdmin.Pages
         }
 
 
-        private void SetRecord(bool showForm, bool copy = false)
-        {
+        private void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
             cb_hotelId.SelectedItem = hotelList.FirstOrDefault(a => a.Id == selectedRecord.HotelId);
             cb_roomTypeId.SelectedItem = hotelRoomTypeList.FirstOrDefault(a => a.Id == selectedRecord.RoomTypeId);
             txt_name.Text = selectedRecord.Name;
             txt_descriptionCz.Text = selectedRecord.DescriptionCz;
-            txt_descriptionEn.Text = selectedRecord.DescriptionEn;  
+            txt_descriptionEn.Text = selectedRecord.DescriptionEn;
             txt_price.Value = selectedRecord.Price;
             txt_maxCapacity.Value = selectedRecord.MaxCapacity;
             chb_extraBed.IsChecked = selectedRecord.ExtraBed;
             txt_roomsCount.Value = selectedRecord.RoomsCount;
             chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
             chb_approved.IsChecked = false;
+
+            img_photoPath.Source = (selectedRecord.Image == null) ? new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png"))) : MediaOperations.ArrayToImage(selectedRecord.Image);
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")
@@ -279,6 +287,20 @@ namespace TravelAgencyAdmin.Pages
         {
             if (cb_hotelId.SelectedItem != null)
                 lbl_defaultPriceUnit.Content = ((HotelList)cb_hotelId.SelectedItem).Currency;
+        }
+
+        private void BtnBrowse_Click(object sender, RoutedEventArgs e) {
+            try
+            {
+                OpenFileDialog dlg = new OpenFileDialog() { DefaultExt = ".png", Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
+                if (dlg.ShowDialog() == true)
+                {
+                    img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
+                    selectedRecord.ImageName = dlg.SafeFileName;
+                    selectedRecord.Image = File.ReadAllBytes(dlg.FileName);
+                }
+            }
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
     }
 }

@@ -12,12 +12,12 @@ using System.Linq;
 using MahApps.Metro.Controls.Dialogs;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using SharpDX;
 using ControlzEx.Standard;
 using System.Web;
-using TravelAgencyAdmin.GlobalClasses;
+
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -32,7 +32,7 @@ namespace TravelAgencyAdmin.Pages
         public GuestListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();

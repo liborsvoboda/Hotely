@@ -3,7 +3,7 @@ using Dragablz;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1;
 using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -12,7 +12,7 @@ namespace TravelAgencyAdmin.Pages
         public SupportPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             lbl_myCompany.Content = Resources["myCompany"].ToString();
             lbl_myName.Content = Resources["myName"].ToString();

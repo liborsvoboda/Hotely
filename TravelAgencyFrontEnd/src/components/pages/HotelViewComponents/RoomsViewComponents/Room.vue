@@ -30,14 +30,14 @@
             :max="doubleRooms"
             :value="inputDoubleRooms"
           />
-          <InputNumber
+        <!--  <InputNumber
             v-if="room.type == 'Family'"
             v-model="inputFamilyRooms"
             showButtons
             :min="0"
             :max="familyRooms"
             :value="inputFamilyRooms"
-          />
+          />-->
         </div>
         <p v-else>Fill in dates to see available rooms</p>
       </div>

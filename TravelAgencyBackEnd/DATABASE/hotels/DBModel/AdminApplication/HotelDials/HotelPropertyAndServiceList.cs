@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace TravelAgencyBackEnd.DBModel {
 
-namespace TravelAgencyBackEnd.DBModel
-{
-    public partial class HotelPropertyAndServiceList
-    {
+    [Table("HotelPropertyAndServiceList")]
+    [Index("HotelId", "PropertyOrServiceId", Name = "IX_HotelPropertyAndServiceList", IsUnique = true)]
+    public partial class HotelPropertyAndServiceList {
+
+        [Key]
         public int Id { get; set; }
+
         public int HotelId { get; set; }
         public int PropertyOrServiceId { get; set; }
         public bool IsAvailable { get; set; }
-        public bool? ValueBit { get; set; }
         public double? Value { get; set; }
         public double? ValueRangeMin { get; set; }
         public double? ValueRangeMax { get; set; }
@@ -22,8 +22,16 @@ namespace TravelAgencyBackEnd.DBModel
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
+        [ForeignKey("HotelId")]
+        [InverseProperty("HotelPropertyAndServiceLists")]
         public virtual HotelList Hotel { get; set; }
+
+        [ForeignKey("PropertyOrServiceId")]
+        [InverseProperty("HotelPropertyAndServiceLists")]
         public virtual PropertyOrServiceTypeList PropertyOrService { get; set; }
+
+        [ForeignKey("UserId")]
+        [InverseProperty("HotelPropertyAndServiceLists")]
         public virtual UserList User { get; set; }
     }
 }

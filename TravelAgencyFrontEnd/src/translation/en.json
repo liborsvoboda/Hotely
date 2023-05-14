@@ -7,8 +7,19 @@
     "dates": "Období",
     "guestRooms": "Osoby a místnosti",
     "search": "Vyhledat",
-    "moreFilters": "More filters"
-
+    "moreFilters": "More filters",
+    "sortBy": "Sort by",
+    "searchResult": "Advertisements found",
+    "ratings": "Ratings",
+    "roomPriceFrom": "price From",
+    "seeDetail": "See detail",
+    "fee": "fee",
+    "servicesAndProperties": "Services and Amentities",
+    "back": "Back to results",
+    "info": "Info",
+    "photos": "Photos",
+    "reviews": "Reviews",
+    "rooms": "Rooms"
   },
   "user": {
     "login": "Přihlásit",

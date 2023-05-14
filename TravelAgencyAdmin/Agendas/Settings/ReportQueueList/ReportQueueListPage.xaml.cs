@@ -14,14 +14,16 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using System.Data.SqlClient;
 using System.Data.Common;
 using System.Collections.ObjectModel;
 using MahApps.Metro.Controls.Dialogs;
 using EASYTools.SqlConnectionDialog;
 using System.Net;
-using TravelAgencyAdmin.GlobalClasses;
+using GlobalClasses;
+
+
 
 
 // This is Template ListView + UserForm 
@@ -38,7 +40,7 @@ namespace TravelAgencyAdmin.Pages
         public ReportQueueListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             try
@@ -66,7 +68,7 @@ namespace TravelAgencyAdmin.Pages
 
 
         private async void LoadParameters() {
-            DgListView.RowHeight = double.Parse(await SystemFunctions.ParameterCheck("ReportSqlRowHeight"));
+            DgListView.RowHeight = double.Parse(await DataOperations.ParameterCheck("ReportSqlRowHeight"));
         }
 
         //change datasource
@@ -102,7 +104,7 @@ namespace TravelAgencyAdmin.Pages
         }
 
         // set translate columns in listView
-        private void DgListView_Translate(object sender, EventArgs ex)
+        private async void DgListView_Translate(object sender, EventArgs ex)
         {
             try { 
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
@@ -121,7 +123,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "Search") e.Visibility = Visibility.Hidden;
                     else if (headername == "RecId") e.Visibility = Visibility.Hidden;
                 });
-            } catch (Exception autoEx) {DBFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(autoEx));}
+            } catch (Exception autoEx) {DBOperations.SaveSystemFailMessage(await SystemOperations.GetExceptionMessages(autoEx));}
         }
 
         //change filter fields

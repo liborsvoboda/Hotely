@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 
@@ -32,7 +32,7 @@ namespace TravelAgencyAdmin.Pages
         public HotelActionTypeListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -53,7 +53,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 DgListView.ItemsSource = HotelActionTypeLists = await ApiCommunication.GetApiRequest<List<HotelActionTypeList>>(ApiUrls.HotelActionTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                HotelActionTypeLists.ForEach(async property => { property.Translation = await DBFunctions.DBTranslation(property.SystemName); });
+                HotelActionTypeLists.ForEach(async property => { property.Translation = await DBOperations.DBTranslation(property.SystemName); });
 
                 DgListView.ItemsSource = HotelActionTypeLists;
                 DgListView.Items.Refresh();

@@ -14,12 +14,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 using System.Windows.Input;
 using System.Diagnostics;
 using System.IO;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.Helper;
-using TravelAgencyAdmin.GlobalClasses;
+
 using MahApps.Metro.Controls;
-using TravelAgencyAdmin.SystemCoreExtensions;
+using TravelAgencyAdmin.SystemStructure;
+using GlobalClasses;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -35,7 +36,7 @@ namespace TravelAgencyAdmin.Pages
         {
             InitializeComponent();
             Language defaultLanguage = JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage);
-            _ = MediaFunctions.SetLanguageDictionary(Resources, defaultLanguage.Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, defaultLanguage.Value);
 
             ObservableCollection<UpdateVariant> UpdateVariants = new ObservableCollection<UpdateVariant>() {
                                                                 new UpdateVariant() { Name = Resources["never"].ToString(), Value = "never" },
@@ -84,7 +85,7 @@ namespace TravelAgencyAdmin.Pages
             txt_reportBuilder.Text = App.Setting.ReportBuilderPath;
             chb_activeSystemSaver.IsChecked = App.Setting.ActiveSystemSaver;
             chb_disableOnActivity.IsChecked = App.Setting.DisableOnActivity;
-            tp_timeToEnable.SelectedTime = TimeSpan.Parse(App.Setting.TimeToEnable.ToString());
+            n_timeToEnable.Value = App.Setting.TimeToEnable;
 
             cb_defaultLanguage.ItemsSource = Languages;
             cb_automaticUpdate.ItemsSource = UpdateVariants;
@@ -166,11 +167,11 @@ namespace TravelAgencyAdmin.Pages
             App.Setting.ReportBuilderPath = txt_reportBuilder.Text;
             App.Setting.ActiveSystemSaver = (bool)chb_activeSystemSaver.IsChecked;
             App.Setting.DisableOnActivity = (bool)chb_disableOnActivity.IsChecked;
-            App.Setting.TimeToEnable = tp_timeToEnable.SelectedTime.Value.Seconds;
+            App.Setting.TimeToEnable = int.Parse(n_timeToEnable.Value.ToString());
 
-            MainWindowViewModel.SaveTheme();
+            SystemWindowDataModel.SaveTheme();
 
-            if (FileFunctions.SaveSettings())
+            if (FileOperations.SaveSettings())
             {
                 tbOutputMessageBox.Foreground = Brushes.Orange;
                 tbOutputMessageBox.Text = Resources["savingSuccessfull"].ToString()
@@ -187,7 +188,7 @@ namespace TravelAgencyAdmin.Pages
         }
 
         private void BtnRestart_Click(object sender, RoutedEventArgs e) => App.AppRestart();
-        private void BtnCheckUpdate_Click(object sender, RoutedEventArgs e) => Updater.CheckUpdate(true);
+        private void BtnCheckUpdate_Click(object sender, RoutedEventArgs e) => SystemUpdater.CheckUpdate(true);
         private void BtnShowVideo_Click(object sender, RoutedEventArgs e) => new WelcomePage().Show();
         private void BtnTestConnection_Click(object sender, RoutedEventArgs e)
         {

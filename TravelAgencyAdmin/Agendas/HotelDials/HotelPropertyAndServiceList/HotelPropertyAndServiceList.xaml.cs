@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 
@@ -33,7 +33,7 @@ namespace TravelAgencyAdmin.Pages
         public HotelPropertyAndServiceListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -41,7 +41,6 @@ namespace TravelAgencyAdmin.Pages
                 lbl_hotelId.Content = Resources["accommodation"].ToString();
                 lbl_propertyOrServiceId.Content = Resources["propertyOrService"].ToString();
                 lbl_isAvailable.Content = Resources["isAvailable"].ToString();
-                lbl_valueBit.Content = Resources["valueBit"].ToString();
                 lbl_value.Content = Resources["value"].ToString();
                 lbl_valueRangeMin.Content = Resources["valueRangeMin"].ToString();
                 lbl_valueRangeMax.Content = Resources["valueRangeMax"].ToString();
@@ -75,8 +74,8 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
-                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await DBFunctions.DBTranslation(property.SystemName); });
-                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await DBFunctions.DBTranslation(propertyUnit.SystemName); });
+                propertyOrServiceTypeList.ForEach(async property => { property.Translation = await DBOperations.DBTranslation(property.SystemName); });
+                propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await DBOperations.DBTranslation(propertyUnit.SystemName); });
                 hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
 
                 //Only for Admin: Owner/UserId Selection
@@ -92,7 +91,7 @@ namespace TravelAgencyAdmin.Pages
                     room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
                     room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
                     room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
-                    room.PropertyUnit = await DBFunctions.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                    room.PropertyUnit = await DBOperations.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a=>a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgListView.ItemsSource = hotelPropertyAndServiceList;
                 DgListView.Items.Refresh();
@@ -197,7 +196,6 @@ namespace TravelAgencyAdmin.Pages
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.IsAvailable = (bool)chb_isAvailable.IsChecked;
-                selectedRecord.ValueBit = (bool?)chb_valueBit.IsChecked;
                 selectedRecord.Value = txt_value.Value;
                 selectedRecord.ValueRangeMin = txt_valueRangeMin.Value;
                 selectedRecord.ValueRangeMax = txt_valueRangeMax.Value;
@@ -258,8 +256,6 @@ namespace TravelAgencyAdmin.Pages
             if (propertyOrServiceTypeList.Count > 0 && showForm)
             {
                 lbl_propertyUnit.Content = selectedRecord.PropertyUnit;
-                chb_valueBit.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceId).IsBit;
-                chb_valueBit.IsChecked = selectedRecord.ValueBit;
 
                 txt_value.IsEnabled = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceId).IsValue && !propertyOrServiceTypeList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceId).IsRangeValue;
                 txt_value.Value = selectedRecord.Value;

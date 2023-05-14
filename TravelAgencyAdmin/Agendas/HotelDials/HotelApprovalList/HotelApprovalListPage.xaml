@@ -431,11 +431,6 @@
                 x:Name="chb_isAvailable" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" />
 
             <Label
-                x:Name="lbl_valueBit" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
-            <CheckBox
-                x:Name="chb_valueBit" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" />
-
-            <Label
                 x:Name="lbl_value" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <Controls:NumericUpDown
                 x:Name="txt_value" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,2,60,2"

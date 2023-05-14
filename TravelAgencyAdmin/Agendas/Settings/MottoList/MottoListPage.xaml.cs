@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 using SharpDX.Direct3D11;
@@ -33,7 +33,7 @@ namespace TravelAgencyAdmin.Pages
         public MottoListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -56,7 +56,7 @@ namespace TravelAgencyAdmin.Pages
                 
                 MottoList = await ApiCommunication.GetApiRequest<List<MottoList>>(ApiUrls.MottoList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
-                MottoList.ForEach(async motto => { motto.Translation = await DBFunctions.DBTranslation(motto.SystemName); });
+                MottoList.ForEach(async motto => { motto.Translation = await DBOperations.DBTranslation(motto.SystemName); });
 
                 DgListView.ItemsSource = MottoList;
                 DgListView.Items.Refresh();

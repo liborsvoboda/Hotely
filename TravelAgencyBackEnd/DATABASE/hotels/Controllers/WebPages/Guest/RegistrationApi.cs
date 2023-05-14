@@ -1,29 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using TravelAgencyBackEnd.DBModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Text.Json.Serialization;
-using TravelAgencyBackEnd.WebPages;
-using TravelAgencyBackEnd.Services;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [ApiController]
     [Route("WebApi/Guest")]
-    public class WebRegistrationApi : ControllerBase
-    {
+    public class WebRegistrationApi : ControllerBase {
 
         [HttpPost("/WebApi/Guest/WebRegistration")]
         [Consumes("application/json")]
-        public async Task<string> SaveWebRegistration([FromBody] GuestRegistration record)
-        {
+        public async Task<string> SaveWebRegistration([FromBody] GuestRegistration record) {
             try
             {
                 //check email exist
@@ -48,6 +31,5 @@ namespace TravelAgencyBackEnd.Controllers
             catch (Exception ex)
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = SystemFunctions.GetUserApiErrMessage(ex) }); }
         }
-
     }
 }

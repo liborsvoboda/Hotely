@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 
@@ -32,7 +32,7 @@ namespace TravelAgencyAdmin.Pages
         public CountryListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -54,7 +54,7 @@ namespace TravelAgencyAdmin.Pages
             try { 
                 
                 DgListView.ItemsSource = countryLists = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                countryLists.ForEach(async document => { document.CountryTranslation = await DBFunctions.DBTranslation(document.SystemName); });
+                countryLists.ForEach(async document => { document.CountryTranslation = await DBOperations.DBTranslation(document.SystemName); });
 
                 DgListView.ItemsSource = countryLists;
                 DgListView.Items.Refresh();

@@ -16,6 +16,8 @@ const store = createStore({
 
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
+        propertyList: [],
+        roomTypeList: [],
 
         searchButtonLoading: false,
         guestId: 33, // hard coded
@@ -26,7 +28,8 @@ const store = createStore({
           email: '',
           message: '',
         },
-        propertyList:[],
+        
+
         getReviews: [],
         hotels: [],
         searchString: {
@@ -36,14 +39,17 @@ const store = createStore({
         inputRooms: 0,
         dates: [],
     },
+    user: {
+        loggedIn: false,
+    },
+
+
     savedHotel: [],
     bookedHotels: [],
         searchDialList: [],
     searchResults: [],
     hotel: [],
-    user: {
-      loggedIn: false,
-    },
+
     bookingDetails: {
       hotelId: '',
       hotelName: '',
@@ -82,20 +88,22 @@ const store = createStore({
     },
     customerDetailsCheckout: {},
     orderId: '',
-    user: {
-      loggedIn: false,
-    },
   },
   mutations: {
-    setEmail(store, value) {
+      setPropertyList(store, value) {
+          store.propertyList = value
+      },
+      setRoomTypeList(store, value) {
+          store.roomTypeList = value
+      },
+
+
+      setEmail(store, value) {
       store.addReview.email = value
     },
     setMessage(store, value) {
       store.addReview.message = value
     },
-      setPropertyList(store, value) {
-          store.propertyList = value
-      },
     setSearchButtonLoadingTrue(store, value) {
       store.searchButtonLoading = true
     },
@@ -314,6 +322,19 @@ const store = createStore({
           console.log("Property",result);
           commit('setPropertyList', result)
       },
+      async getRoomTypeList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/RoomTypes/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          console.log("RoomTypes", result);
+          commit('setRoomTypeList', result)
+      },
+
     async searchHotelByName({ commit }, searchString) {
       var response = await fetch(
         this.state.apiRootUrl + '/Search/search?input=' + searchString

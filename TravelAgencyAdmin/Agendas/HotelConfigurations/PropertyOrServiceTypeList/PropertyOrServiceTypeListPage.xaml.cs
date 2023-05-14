@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 using SharpDX.Direct3D11;
@@ -37,7 +37,7 @@ namespace TravelAgencyAdmin.Pages
         public PropertyOrServiceTypeListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -81,13 +81,13 @@ namespace TravelAgencyAdmin.Pages
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
                 propertyOrServiceTypeList.ForEach(async item => {
-                    item.Translation = await DBFunctions.DBTranslation(item.SystemName);
-                    item.PropertyOrServiceUnitType = await DBFunctions.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
+                    item.Translation = await DBOperations.DBTranslation(item.SystemName);
+                    item.PropertyOrServiceUnitType = await DBOperations.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
                 });
                 DgListView.ItemsSource = propertyOrServiceTypeList;
                 DgListView.Items.Refresh();
 
-                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await DBFunctions.DBTranslation(item.SystemName); });
+                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
                 cb_unit.ItemsSource = propertyOrServiceUnitList;
             }
             catch (Exception autoEx) { App.ApplicationLogging(autoEx); }

@@ -7,53 +7,41 @@
         </div>
         <div class="col-md-8">
           <div class="row">
-            <div class="col-md-6 text-start">
-              <b>{{ hotel.name }}</b>
-              <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
-              <p>
-                Ratings:
-                <span class="badge rounded-pill bg-secondary">{{
-                  hotel.averageRating
-                }}</span>
-              </p>
-              <p>
-                Beach distance:
-                <span class="badge rounded-pill bg-secondary"
-                  >{{ hotel.beachDistance }} km
-                </span>
-              </p>
-              <p>
-                Centrum distance:
-                <span class="badge rounded-pill bg-secondary"
-                  >{{ hotel.centrumDistance }} km
-                </span>
-              </p>
-            </div>
+              <div class="col-md-6 text-start">
+                  <b>{{ hotel.name }}</b>
+                  <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
+                  <p>
+                      {{ $t('labels.ratings') }}:
+                      <span class="badge rounded-pill bg-secondary">
+                          {{ hotel.averageRating }}
+                      </span>
+                  </p>
+                  <p v-for="property in valueProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                      {{property.name}}:
+                      <span class="badge rounded-pill bg-secondary">
+                          {{ property.value }} {{ property.unit }}
+                      </span>
+                  </p>
+              </div>
+
             <div class="col-md-6 text-start">
               <h5>
-                <small>from</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
+                  <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
               </h5>
               <br />
-              <p v-if="hotel.pool"><i class="fas fa-check"></i> Pool</p>
-              <p v-if="hotel.nightEntertainment">
-                <i class="fas fa-check"></i> Night Entertainment
+
+              <p v-for="property in bitProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                  <i class="fas fa-check"></i> {{property.name}}
               </p>
-              <p v-if="hotel.childClub">
-                <i class="fas fa-check"></i> Kids club
-              </p>
-              <p v-if="hotel.restaurant">
-                <i class="fas fa-check"></i> Restaurant
-              </p>
+
             </div>
           </div>
           <router-link :to="'/hotels/' + hotel.id" class="nav-link">
-            <button
-              class="btn btn-primary"
-              for="btn-check-outlined"
-              @click="hotelDetailsClick"
-            >
-              See details</button
-            ><br />
+              <button class="btn btn-primary"
+                      for="btn-check-outlined"
+                      @click="hotelDetailsClick">
+                  {{ $t('labels.seeDetail') }}
+              </button><br />
           </router-link>
         </div>
       </div>
@@ -67,37 +55,54 @@ import Info from "../HotelViewComponents/Info.vue";
 import PhotoSlider from "../HotelViewComponents/RoomsViewComponents/PhotoSlider.vue";
 
 export default {
-  components: {
-    Info,
-    PhotoSlider,
-  },
-  computed: {
-    lowestPrice() {
-      var rooms = this.hotel.hotelRoomLists;
-      rooms.sort((a, b) => {
-        return a.price - b.price;
-      });
-      var min = rooms[0];
-      return min.price;
+    components: {
+        Info,
+        PhotoSlider,
     },
-      photos() {
-          var photos = [];
-            photos.push({ id: this.hotel.id, hotelPhoto:this.$store.state.apiRootUrl+'/Image/'+this.hotel.id+'/'+this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });
-          this.hotel.hotelImagesLists.forEach(room => {
-              photos.push({id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl+'/Image/'+this.hotel.id+'/'+room.fileName})
-          });
-        console.log("PHOTOS", photos);
-      return photos;
+    computed: {
+        lowestPrice() {
+            var rooms = this.hotel.hotelRoomLists;
+            rooms.sort((a, b) => {
+            return a.price - b.price;
+            });
+            var min = rooms[0];
+            return min.price;
+        },
+        photos() {
+            var photos = [];
+            photos.push({ id: this.hotel.id, hotelPhoto:this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });
+
+            this.hotel.hotelImagesLists.forEach(image => {
+                if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
+            });
+            return photos;
+        },
+        valueProperties() {
+            var valueProperties = [];
+            this.hotel.hotelPropertyAndServiceLists.forEach(property => {
+                var valueProperty = this.$store.state.propertyList.filter(obj => { return obj.id === property.propertyOrServiceId; })[0];
+                if (property.isAvailable && property.approved && valueProperty.isValue) { valueProperties.push({ name: valueProperty.systemName, value: property.value, unit: valueProperty.propertyOrServiceUnitType.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax }); }
+            });
+            return valueProperties;
+        },
+        bitProperties() {
+            var bitProperties = [];
+            this.hotel.hotelPropertyAndServiceLists.forEach(property => {
+                var valueProperty = this.$store.state.propertyList.filter(obj => { return obj.id === property.propertyOrServiceId; })[0];
+                if (property.isAvailable && property.approved && valueProperty.isBit) { bitProperties.push({ name: valueProperty.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax }); }
+            });
+            return bitProperties;
+        }
+
     },
-  },
-  props: {
-    hotel: {},
-  },
-  methods: {
-    hotelDetailsClick(event) {
-      this.$store.dispatch("setHotel", this.hotel);
+    props: {
+        hotel: {},
     },
-  },
+    methods: {
+        hotelDetailsClick(event) {
+            this.$store.dispatch("setHotel", this.hotel);
+        },
+    },
 };
 </script>
 

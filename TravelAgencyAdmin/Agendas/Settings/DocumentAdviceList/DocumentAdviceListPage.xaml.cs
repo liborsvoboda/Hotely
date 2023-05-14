@@ -10,12 +10,12 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
-using TravelAgencyAdmin.GlobalClasses;
+
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -30,7 +30,7 @@ namespace TravelAgencyAdmin.Pages
         public DocumentAdviceListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -64,7 +64,7 @@ namespace TravelAgencyAdmin.Pages
 
                 //set document types translation
                 documentTypeList = await ApiCommunication.GetApiRequest<List<DocumentTypeList>>(ApiUrls.DocumentTypeList, null, App.UserData.Authentification.Token);
-                documentTypeList.ForEach(async item => { item.Translation = await DBFunctions.DBTranslation(item.SystemName); });
+                documentTypeList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
                 cb_documentType.ItemsSource = documentTypeList;
 
                 documentAdviceList.ForEach(async record =>
@@ -73,7 +73,7 @@ namespace TravelAgencyAdmin.Pages
                     {
                         Id = record.Id,
                         BranchId = record.BranchId,
-                        DocumentType = await DBFunctions.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
+                        DocumentType = await DBOperations.DBTranslation(documentTypeList.Where(a => a.Id == record.DocumentTypeId).Select(a=>a.SystemName).FirstOrDefault()),
                         Prefix = record.Prefix,
                         Number = record.Number,
                         StartDate = record.StartDate,

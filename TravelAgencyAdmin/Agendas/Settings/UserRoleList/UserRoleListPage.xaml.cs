@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
@@ -29,7 +29,7 @@ namespace TravelAgencyAdmin.Pages
         public UserRoleListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -52,7 +52,7 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 userRoleLists = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                userRoleLists.ForEach(async role => { role.Translation = await DBFunctions.DBTranslation(role.SystemName); });
+                userRoleLists.ForEach(async role => { role.Translation = await DBOperations.DBTranslation(role.SystemName); });
 
                 DgListView.ItemsSource = userRoleLists;
                 DgListView.Items.Refresh();

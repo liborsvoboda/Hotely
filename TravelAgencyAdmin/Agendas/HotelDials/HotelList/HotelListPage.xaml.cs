@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
 
@@ -35,7 +35,7 @@ namespace TravelAgencyAdmin.Pages
         public HotelListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -73,10 +73,10 @@ namespace TravelAgencyAdmin.Pages
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
                 cityList.ForEach(async city => { 
-                    city.CityTranslation = await DBFunctions.DBTranslation(city.City);
-                    city.CountryTranslation = await DBFunctions.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
+                    city.CityTranslation = await DBOperations.DBTranslation(city.City);
+                    city.CountryTranslation = await DBOperations.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
                 });
-                countryList.ForEach(async country => { country.CountryTranslation = await DBFunctions.DBTranslation(country.SystemName); });
+                countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
@@ -115,6 +115,7 @@ namespace TravelAgencyAdmin.Pages
                     else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; }
                     else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; }
                     else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; }
+                    else if (headername == "AverageRating") { e.Header = Resources["averageRating"].ToString(); e.DisplayIndex = 9; }
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;

@@ -2,10 +2,9 @@
 
 
 using System.Windows.Controls;
-using TravelAgencyAdmin.ImageEffects;
-using TravelAgencyAdmin.SystemCoreExtensions;
 using MahApps.Metro.Controls;
 using System.Windows;
+using EASYTools.ImageEffectLibrary;
 
 namespace TravelAgencyAdmin.Pages
 {

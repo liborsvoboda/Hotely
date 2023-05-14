@@ -1,6 +1,6 @@
 ﻿using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalClasses;
+
 using TravelAgencyAdmin.Helper;
 using TravelAgencyAdmin.Pages;
 using log4net.Config;
@@ -13,15 +13,18 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
-using TravelAgencyAdmin.SystemCoreExtensions;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using CefSharp.Wpf;
 using CefSharp;
+using System.ComponentModel;
+using TravelAgencyAdmin.SystemStructure;
+using GlobalClasses;
+
 //using CefSharp;
 //using CefSharp.Wpf;
 
@@ -49,7 +52,7 @@ namespace TravelAgencyAdmin
         internal static string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Temp");
         internal static string galleryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Gallery");
         internal static string settingFile = "config.json";
-        public static Config Setting = FileFunctions.LoadSettings();
+        public static Config Setting = FileOperations.LoadSettings();
         internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
 
 
@@ -59,8 +62,8 @@ namespace TravelAgencyAdmin
         /// </summary>
         public App() {
 
-            MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(Setting.DefaultLanguage).Value);
-        //log4net.GlobalContext.Properties["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
+            SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(Setting.DefaultLanguage).Value);
+        //log4net.GlobalContext.SystemConfiguration["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
         //_ = XmlConfigurator.Configure();
             Dispatcher.UnhandledException += App_DispatcherUnhandledException;
             DispatcherUnhandledException += App_DispatcherUnhandledException;
@@ -89,11 +92,7 @@ namespace TravelAgencyAdmin
                 MetroWindow startupAnimation = new WelcomePage();
                 MainWindow = startupAnimation;
                 startupAnimation.Closing += StartupAnimation_Closing;
-            } else {
-                MetroWindow mainView = new MainWindow();
-                MainWindow = mainView;
-                mainView.Show(); mainView.Focus();
-            }
+            } else { StartupAnimation_Closing(new object(), new CancelEventArgs()); }
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace TravelAgencyAdmin
 
 
         public static void AppRestart() {
-            MainWindowViewModel.SaveTheme();
+            SystemWindowDataModel.SaveTheme();
             Process.Start(Assembly.GetEntryAssembly().EscapedCodeBase);
             ApplicationQuit();
             Process.GetCurrentProcess().Kill();
@@ -149,11 +148,11 @@ namespace TravelAgencyAdmin
                 Cef.ShutdownWithoutChecks();
             } catch { }
 
-            try { FileFunctions.ClearFolder(reportFolder); } catch { }
-            try { FileFunctions.ClearFolder(galleryFolder); } catch { }
-            try { FileFunctions.ClearFolder(tempFolder); } catch { }
+            try { FileOperations.ClearFolder(reportFolder); } catch { }
+            try { FileOperations.ClearFolder(galleryFolder); } catch { }
+            try { FileOperations.ClearFolder(tempFolder); } catch { }
 
-            MainWindowViewModel.SaveTheme();
+            SystemWindowDataModel.SaveTheme();
             Current.Shutdown();
         }
 
@@ -164,16 +163,19 @@ namespace TravelAgencyAdmin
         /// <param name="ex"></param>
         /// <param name="customMessage"></param>
         public static void ApplicationLogging(Exception ex, string customMessage = null) {
-            try {
-                Current?.Invoke(() => {
-                    if (Current.MainWindow.Name == "AppMainWindow" && ((MainWindow)Current.MainWindow).AppSystemTimer.Enabled && IgnoredExceptionList.FirstOrDefault(a => a.ErrorNumber == ex.HResult.ToString() && a.Active == true) == null)
+            try
+            {
+                Current?.Invoke(async () =>
+                {
+                    if (Current.MainWindow != null && Current.MainWindow.Name == "XamlMainWindow" && ((MainWindow)Current.MainWindow).AppSystemTimer.Enabled)
                     {
-                        if (string.IsNullOrWhiteSpace(customMessage)) DBFunctions.SaveSystemFailMessage(SystemFunctions.GetExceptionMessages(ex));
-                        else DBFunctions.SaveSystemFailMessage(customMessage);
+                        if (string.IsNullOrWhiteSpace(customMessage)) DBOperations.SaveSystemFailMessage(await SystemOperations.GetExceptionMessages(ex));
+                        else DBOperations.SaveSystemFailMessage(customMessage);
                         //if (Setting.WriteToLog) log.Error(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + customMessage);
                     }
                 });
-            } catch { }
+            }
+            catch { }
         }
 
 
@@ -199,6 +201,6 @@ namespace TravelAgencyAdmin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RootAppKeyDownController(object sender, KeyEventArgs e) => HardwareFunctions.ApplicationKeyboardMaping(e);
+        private void RootAppKeyDownController(object sender, KeyEventArgs e) => HardwareOperations.ApplicationKeyboardMaping(e);
     }
 }

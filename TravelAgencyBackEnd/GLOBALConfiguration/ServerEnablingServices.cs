@@ -1,18 +1,8 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.Net.WebSockets;
+namespace TravelAgencyBackEnd {
 
-namespace TravelAgencyBackEnd
-{
+    public class ServerEnablingServices {
 
-    public class ServerEnablingServices
-    {
-
-
-        internal static void EnableCors(ref IApplicationBuilder app)
-        {
+        internal static void EnableCors(ref IApplicationBuilder app) {
             /*
             app.UseCors(
                     builder =>
@@ -28,19 +18,16 @@ namespace TravelAgencyBackEnd
                 );
             */
 
-            
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-            
+
             //.AllowCredentials()
             );
         }
 
-
-        internal static void EnableEndpoints(ref IApplicationBuilder app)
-        {
+        internal static void EnableEndpoints(ref IApplicationBuilder app) {
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

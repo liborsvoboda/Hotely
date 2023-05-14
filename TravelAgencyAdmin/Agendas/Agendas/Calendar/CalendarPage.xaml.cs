@@ -16,7 +16,7 @@ using EASYTools.Calendar;
 using System.Web.UI.WebControls;
 using System.Web;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 
 namespace TravelAgencyAdmin.Pages
@@ -32,7 +32,7 @@ namespace TravelAgencyAdmin.Pages
         public CalendarPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             if (Language == "system") { Language = Thread.CurrentThread.CurrentCulture.ToString(); }
             switch (Language)

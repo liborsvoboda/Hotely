@@ -11,7 +11,7 @@
     xmlns:local="clr-namespace:TravelAgencyAdmin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    x:Name="AppMainWindow"
+    x:Name="XamlMainWindow"
     Title="TravelAgencyAdmin Application"
     MinWidth="1024"
     MinHeight="768"
@@ -397,7 +397,7 @@
                 </dragablz:TabablzControl.InterTabController>-->
 
                 <dragablz:TabablzControl.ContentTemplate>
-                    <DataTemplate DataType="{x:Type local:SystemCoreExtensions.TabContent}">
+                    <DataTemplate DataType="{x:Type local:SystemStructure.SystemTabs}">
                         <ContentControl Margin="2" Content="{Binding Content}" />
                     </DataTemplate>
                 </dragablz:TabablzControl.ContentTemplate>
@@ -430,24 +430,27 @@
                         Foreground="{DynamicResource ProgressBrush}"
                         Maximum="100" Minimum="0"
                         Value="{Binding Path=(local:MainWindow.DownloadStatus)}" />
-                    <iconPacks:PackIconMaterial
-                        x:Name="ip_calculator" Width="40" Height="30" Margin="0" HorizontalAlignment="Right"
-                        Cursor="Hand"
-                        Foreground="{DynamicResource IdealForegroundColorBrush}"
-                        Kind="Calculator" MouseLeftButtonUp="IpCalculatorClick" ToolTip="Show Calculator" />
-                    <iconPacks:PackIconMaterial
-                        x:Name="ip_keyboard" Width="40" Height="30" Margin="0" HorizontalAlignment="Right"
-                        Cursor="Hand"
-                        Foreground="{DynamicResource IdealForegroundColorBrush}"
-                        Kind="Keyboard" MouseLeftButtonUp="IpKeyboardClick" ToolTip="Show Keyboard" />
-                    <iconPacks:PackIconMaterial
-                        x:Name="ip_captureApp" Width="30" Height="30" Margin="10,0,0,0" HorizontalAlignment="Right"
-                        Cursor="Hand"
-                        Foreground="{DynamicResource IdealForegroundColorBrush}"
-                        Kind="EyePlus" MouseLeftButtonUp="IpcaptureAppClick" ToolTip="ScreenShot" />
-                    <iconPacks:PackIconMaterial
-                        x:Name="ip_rdpServer" Width="30" Height="30" Margin="10,0" HorizontalAlignment="Right"
-                        Cursor="Hand" Foreground="Red" Kind="RemoteDesktop" MouseLeftButtonUp="IpStartRdpServer" ToolTip="Open Support Connection" />
+
+                    <Button
+                        x:Name="ip_calculator" Width="30" Height="30" Margin="0" HorizontalAlignment="Right"
+                        Click="BtnCalculatorClick" ToolTip="Show Calculator">
+                        <iconPacks:PackIconMaterial Kind="Calculator" />
+                    </Button>
+                    <Button
+                        x:Name="ip_keyboard" Width="30" Height="30" Margin="5,0,0,0" HorizontalAlignment="Right"
+                        Click="BtnKeyboardClick" ToolTip="Show Keyboard">
+                        <iconPacks:PackIconMaterial Kind="Keyboard" />
+                    </Button>
+                    <Button
+                        x:Name="ip_captureApp" Width="30" Height="30" Margin="5,0,0,0" HorizontalAlignment="Right"
+                        Click="BtnCaptureAppClick" ToolTip="ScreenShot">
+                        <iconPacks:PackIconMaterial Kind="EyePlus" />
+                    </Button>
+                    <Button
+                        x:Name="ip_rdpServer" Width="30" Height="30" Margin="5,0,10,0" HorizontalAlignment="Right"
+                        Click="BtnStartRdpServerClick" Foreground="Red" ToolTip="Open Support Connection">
+                        <iconPacks:PackIconMaterial Kind="RemoteDesktop" />
+                    </Button>
                 </WrapPanel>
             </StatusBarItem>
         </StatusBar>
@@ -458,7 +461,7 @@
         <TouchKeyboard:FloatingTouchScreenKeyboard
             x:Name="TouchKeyboard" Width="900" Height="400" AreAnimationsEnabled="True" IsOpen="False"
             Placement="Relative"
-            PlacementTarget="{Binding ElementName=AppMainWindow}" />
+            PlacementTarget="{Binding ElementName=XamlMainWindow}" />
 
         <Controls:ProgressRing
             x:Name="pr_progressRing" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"

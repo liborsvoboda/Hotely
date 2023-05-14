@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
@@ -32,7 +32,7 @@ namespace TravelAgencyAdmin.Pages
         public ParameterListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -65,8 +65,8 @@ namespace TravelAgencyAdmin.Pages
                 userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
 
                 parameterList.ForEach(async param => {
-                    param.Translation = await DBFunctions.DBTranslation(param.SystemName);
-                    if (!string.IsNullOrWhiteSpace(param.UserId.ToString())) param.User = userList.FirstOrDefault(a => a.Id == param.UserId).UserName; 
+                    param.Translation = await DBOperations.DBTranslation(param.SystemName);
+                    param.User = userList.Where(a => a.Id == param.UserId).Select(a => a.UserName).FirstOrDefault();
                 });
 
                 DgListView.ItemsSource = parameterList;
@@ -232,7 +232,7 @@ namespace TravelAgencyAdmin.Pages
             try
             {
                 btn_save.IsEnabled = false;
-                var test = MathTypeFunctions.CheckTypeValue((string)cb_type.SelectedValue, txt_value.Text);
+                var test = MathTypeOperations.CheckTypeValue((string)cb_type.SelectedValue, txt_value.Text);
                 btn_save.IsEnabled = test.Item2 && ( App.UserData.Authentification.Role == "Admin" || selectedRecord.UserId == App.UserData.Authentification.Id);
                 lbl_paramCheckResult.Content = (string)test.Item1;
             }

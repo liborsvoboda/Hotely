@@ -1,26 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Transactions;
-using TravelAgencyBackEnd.CoreClasses;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using TravelAgencyBackEnd.DBModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Text.Json.Serialization;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
     [Authorize]
     [ApiController]
     [Route("PropertyOrServiceUnitList")]
-    public class PropertyOrServiceUnitListApi : ControllerBase
-    {
+    public class PropertyOrServiceUnitListApi : ControllerBase {
+
         [HttpGet("/PropertyOrServiceUnitList")]
-        public async Task<string> GetPropertyOrServiceUnitList()
-        {
+        public async Task<string> GetPropertyOrServiceUnitList() {
             List<PropertyOrServiceUnitList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -34,23 +20,21 @@ namespace TravelAgencyBackEnd.Controllers
         }
 
         [HttpGet("/PropertyOrServiceUnitList/Filter/{filter}")]
-        public async Task<string> GetPropertyOrServiceUnitListByFilter(string filter)
-        {
+        public async Task<string> GetPropertyOrServiceUnitListByFilter(string filter) {
             List<PropertyOrServiceUnitList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().PropertyOrServiceUnitLists.FromSqlRaw("SELECT * FROM PropertyOrServiceUnitList WHERE 1=1 AND " + filter.Replace("+"," ")).AsNoTracking().ToList();
+                data = new hotelsContext().PropertyOrServiceUnitLists.FromSqlRaw("SELECT * FROM PropertyOrServiceUnitList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
         [HttpGet("/PropertyOrServiceUnitList/{id}")]
-        public async Task<string> GetPropertyOrServiceUnitListKey(int id)
-        {
+        public async Task<string> GetPropertyOrServiceUnitListKey(int id) {
             PropertyOrServiceUnitList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
@@ -65,8 +49,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPut("/PropertyOrServiceUnitList")]
         [Consumes("application/json")]
-        public async Task<string> InsertPropertyOrServiceUnitList([FromBody] PropertyOrServiceUnitList record)
-        {
+        public async Task<string> InsertPropertyOrServiceUnitList([FromBody] PropertyOrServiceUnitList record) {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
@@ -83,8 +66,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpPost("/PropertyOrServiceUnitList")]
         [Consumes("application/json")]
-        public async Task<string> UpdatePropertyOrServiceUnitList([FromBody] PropertyOrServiceUnitList record)
-        {
+        public async Task<string> UpdatePropertyOrServiceUnitList([FromBody] PropertyOrServiceUnitList record) {
             try
             {
                 var data = new hotelsContext().PropertyOrServiceUnitLists.Update(record);
@@ -98,8 +80,7 @@ namespace TravelAgencyBackEnd.Controllers
 
         [HttpDelete("/PropertyOrServiceUnitList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeletePropertyOrServiceUnitList(string id)
-        {
+        public async Task<string> DeletePropertyOrServiceUnitList(string id) {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
@@ -110,7 +91,6 @@ namespace TravelAgencyBackEnd.Controllers
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });
-
             }
             catch (Exception ex)
             {

@@ -1,12 +1,6 @@
-﻿using System.Collections.Generic;
-using TravelAgencyBackEnd.CoreClasses;
-using TravelAgencyBackEnd.DBModel;
+﻿namespace TravelAgencyBackEnd.WebPages {
 
-namespace TravelAgencyBackEnd.WebPages
-{
-
-    public class WebPageRootSearchData
-    {
+    public class WebPageRootSearchData {
         public List<WebPageRootSearch> HotelList { get; set; } = new List<WebPageRootSearch>();
     }
 

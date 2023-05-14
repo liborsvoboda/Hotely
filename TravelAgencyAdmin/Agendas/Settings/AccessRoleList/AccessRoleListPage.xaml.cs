@@ -14,11 +14,12 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using MahApps.Metro.Controls.Dialogs;
 using System.Net;
-using TravelAgencyAdmin.GlobalClasses;
+
 using System.Collections.ObjectModel;
+using GlobalClasses;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -37,7 +38,7 @@ namespace TravelAgencyAdmin.Pages
         public AccessRoleListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             try
             {
@@ -59,7 +60,7 @@ namespace TravelAgencyAdmin.Pages
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                cb_tableName.ItemsSource = translatedApiList = await SystemFunctions.GetTranslatedApiList(false);
+                cb_tableName.ItemsSource = translatedApiList = await DataOperations.GetTranslatedApiList(false);
 
                 accessRoleLists = await ApiCommunication.GetApiRequest<List<AccessRoleList>>(ApiUrls.AccessRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 accessRoleLists.ForEach(async access => { access.PageTranslation = translatedApiList.FirstOrDefault(a => a.ApiTableName == access.TableName).Translate; });
@@ -68,7 +69,7 @@ namespace TravelAgencyAdmin.Pages
                 DgListView.Items.Refresh();
 
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
-                userRoleList.ForEach(async role => { role.Translation = await DBFunctions.DBTranslation(role.SystemName); });
+                userRoleList.ForEach(async role => { role.Translation = await DBOperations.DBTranslation(role.SystemName); });
                 cb_accessRole.ItemsSource = userRoleList;
             }
             catch (Exception autoEx) {App.ApplicationLogging(autoEx);}

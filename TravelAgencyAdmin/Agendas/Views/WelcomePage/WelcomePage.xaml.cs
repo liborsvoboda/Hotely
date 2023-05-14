@@ -8,7 +8,7 @@ using System.IO;
 using TravelAgencyAdmin.Classes;
 using System.Threading;
 using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 
 namespace TravelAgencyAdmin.Pages
 {
@@ -36,7 +36,7 @@ namespace TravelAgencyAdmin.Pages
 
             try
             {
-                labelMotto.Content = await DBFunctions.DBTranslation(MottoList[int.Parse(Math.Truncate(0.001 * new Random().Next(0, (MottoList.Count - 1) * 1000)).ToString())].SystemName);
+                labelMotto.Content = await DBOperations.DBTranslation(MottoList[int.Parse(Math.Truncate(0.001 * new Random().Next(0, (MottoList.Count - 1) * 1000)).ToString())].SystemName);
                 Storyboard endAnimation = (Storyboard)FindResource("ProgressAnimation");
                 BeginStoryboard(endAnimation);
                 endAnimation = (Storyboard)FindResource("ImageAnimation");

@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using TravelAgencyAdmin;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
@@ -34,7 +34,7 @@ namespace TravelAgencyAdmin.Pages
         public UserListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -66,8 +66,8 @@ namespace TravelAgencyAdmin.Pages
                 userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 userRoleList = await ApiCommunication.GetApiRequest<List<UserRoleList>>(ApiUrls.UserRoleList, null, App.UserData.Authentification.Token);
 
-                userList.ForEach(async user => { user.Translation = await DBFunctions.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
-                userRoleList.ForEach(async role => { role.Translation = await DBFunctions.DBTranslation(role.SystemName); });
+                userList.ForEach(async user => { user.Translation = await DBOperations.DBTranslation(userRoleList.First(a => a.Id == user.RoleId).SystemName); });
+                userRoleList.ForEach(async role => { role.Translation = await DBOperations.DBTranslation(role.SystemName); });
 
                 DgListView.ItemsSource = userList;
                 DgListView.Items.Refresh();
@@ -231,7 +231,7 @@ namespace TravelAgencyAdmin.Pages
             chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
             dp_timestamp.Value = selectedRecord.Timestamp;
             txt_token.Text = selectedRecord.ApiToken;
-            img_photoPath.Source = (!string.IsNullOrWhiteSpace(selectedRecord.PhotoPath)) ? MediaFunctions.ByteToImage(selectedRecord.Photo) : new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png")));
+            img_photoPath.Source = (!string.IsNullOrWhiteSpace(selectedRecord.PhotoPath)) ? MediaOperations.ByteToImage(selectedRecord.Photo) : new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png")));
             txt_photoPath.Text = null;
 
             if (showForm)
@@ -246,7 +246,7 @@ namespace TravelAgencyAdmin.Pages
             }
         }
 
-        private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        private void BtnBrowse_Click(object sender, RoutedEventArgs e)
         {
             try
             {

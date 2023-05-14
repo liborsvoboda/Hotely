@@ -9,6 +9,7 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:TravelAgencyAdmin.Pages"
     xmlns:local1="clr-namespace:TravelAgencyAdmin.GlobalClasses"
+    xmlns:local11="clr-namespace:TravelAgencyAdmin.GlobalClasses"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xceed="clr-namespace:Xceed.Wpf.AvalonDock.Themes.Controls;assembly=Xceed.Wpf.AvalonDock.Themes.Aero"
@@ -150,7 +151,7 @@
                 <MenuItem
                     x:Name="mi_imageFace" Padding="10" VerticalAlignment="Top"
                     Background="{DynamicResource MenuItemBackgroundBrush}"
-                    FontWeight="Bold" >
+                    FontWeight="Bold">
                     <MenuItem
                         x:Name="mi_mirrorHorizontally" Padding="5"
                         Background="{DynamicResource MenuItemBackgroundBrush}"
@@ -160,7 +161,7 @@
                         Background="{DynamicResource MenuItemBackgroundBrush}"
                         Click="MirrorVerticallyClick" Header="MirrorVertically" />
                 </MenuItem>
-                
+
                 <MenuItem
                     x:Name="mi_imageColor" Padding="10" VerticalAlignment="Top"
                     Background="{DynamicResource MenuItemBackgroundBrush}"
@@ -194,6 +195,26 @@
                         x:Name="mi_LaplacianFilter" Padding="5"
                         Background="{DynamicResource MenuItemBackgroundBrush}"
                         Click="LaplacianFilterClick" Header="LaplacianFilter" />
+                    <MenuItem
+                        x:Name="mi_binarize" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="BinarizeClick" Header="Binarize" />
+                    <MenuItem
+                        x:Name="mi_dilation" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="DilationClick" Header="Dilation" />
+                    <MenuItem
+                        x:Name="mi_erosion" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="ErosionClick" Header="Erosion" />
+                    <MenuItem
+                        x:Name="mi_morphologyOpen" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="MorphologyOpenClick" Header="MorphologyOpen" />
+                    <MenuItem
+                        x:Name="mi_morphologyClose" Padding="5"
+                        Background="{DynamicResource MenuItemBackgroundBrush}"
+                        Click="MorphologyCloseClick" Header="MorphologyClose" />
                 </MenuItem>
                 <MenuItem
                     x:Name="mi_imageInfo" Padding="10" VerticalAlignment="Top"
@@ -225,10 +246,11 @@
         </DockPanel>
 
         <!--  Photo Management Canvas  -->
-        <GroupBox x:Name="PhotoPart"  Grid.Row="1" Grid.Column="0">
+        <GroupBox
+            x:Name="PhotoPart" Grid.Row="1" Grid.Column="0">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <ListBox
-                    Name="PhotosListBox" IsSynchronizedWithCurrentItem="True" SelectedIndex="0" PreviewMouseLeftButtonUp="PhotoListBoxSelectClick" SelectionMode="Extended"
+                    Name="PhotosListBox" IsSynchronizedWithCurrentItem="True" PreviewMouseLeftButtonUp="PhotoListBoxSelectClick" SelectedIndex="0" SelectionMode="Extended"
                     Style="{StaticResource PhotoListBoxStyle}" />
             </ScrollViewer>
         </GroupBox>

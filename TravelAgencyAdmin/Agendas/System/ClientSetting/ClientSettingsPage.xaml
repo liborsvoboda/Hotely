@@ -191,10 +191,9 @@
                 <Label
                     x:Name="lbl_timeToEnable" Grid.Row="0" Grid.Column="3" Margin="0,0,100,0" HorizontalAlignment="Right"
                     HorizontalContentAlignment="Right" />
-                <Controls:TimePicker
-                    x:Name="tp_timeToEnable" Grid.Row="0" Grid.Column="3" Width="100" HorizontalAlignment="Right"
-                    HorizontalContentAlignment="Right" HandVisibility="Second" IsClockVisible="False" IsDropDownOpen="True" PickerVisibility="Second"
-                    SelectedTimeFormat="Long" />
+                <metro:NumericUpDown
+                    x:Name="n_timeToEnable" Grid.Row="0" Grid.Column="3" Width="100" HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right" HideUpDownButtons="False" Maximum="300" Minimum="10" NumericInputMode="Decimal" />
 
             </Grid>
 

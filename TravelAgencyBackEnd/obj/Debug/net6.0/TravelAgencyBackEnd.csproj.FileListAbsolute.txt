@@ -81,3 +81,4 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.pdb
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\TravelAgencyBackEnd.genruntimeconfig.cache
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\ref\TravelAgencyBackEnd.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\NuGet\25E16319D3C17FF656833E1A6A9EE1BC4243D3AE\MimeTypes\2.4.1\MimeTypes.cs
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\scaffoldingsettings.json

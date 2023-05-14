@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TravelAgencyBackEnd.DBModel
 {
+    [Table("HotelList")]
+    [Index("Name", "CityId", "UserId", Name = "IX_Hotels", IsUnique = true)]
     public partial class HotelList
     {
         public HotelList()
@@ -16,30 +21,56 @@ namespace TravelAgencyBackEnd.DBModel
             HotelRoomLists = new HashSet<HotelRoomList>();
         }
 
+        [Key]
         public int Id { get; set; }
         public int CountryId { get; set; }
         public int CityId { get; set; }
+        [Required]
+        [StringLength(250)]
+        [Unicode(false)]
         public string Name { get; set; }
+        [StringLength(4096)]
+        [Unicode(false)]
         public string DescriptionCz { get; set; }
+        [StringLength(4096)]
+        [Unicode(false)]
         public string DescriptionEn { get; set; }
         public int DefaultCurrencyId { get; set; }
         public bool ApproveRequest { get; set; }
         public bool Approved { get; set; }
+        [Required]
         public bool Advertised { get; set; }
         public int TotalCapacity { get; set; }
+        [Column(TypeName = "decimal(2, 2)")]
+        public decimal AverageRating { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
+        [ForeignKey("CityId")]
+        [InverseProperty("HotelLists")]
         public virtual CityList City { get; set; }
+        [ForeignKey("CountryId")]
+        [InverseProperty("HotelLists")]
         public virtual CountryList Country { get; set; }
+        [ForeignKey("DefaultCurrencyId")]
+        [InverseProperty("HotelLists")]
         public virtual CurrencyList DefaultCurrency { get; set; }
+        [ForeignKey("UserId")]
+        [InverseProperty("HotelLists")]
         public virtual UserList User { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelImagesList> HotelImagesLists { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelReservationList> HotelReservationLists { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelReservationReviewList> HotelReservationReviewLists { get; set; }
+        [InverseProperty("Hotel")]
         public virtual ICollection<HotelRoomList> HotelRoomLists { get; set; }
     }
 }

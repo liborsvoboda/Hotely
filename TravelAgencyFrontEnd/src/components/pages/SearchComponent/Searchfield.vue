@@ -30,6 +30,7 @@ export default {
     mounted() {
         this.GetSearchDialList();
         this.GetPropertyList();
+        this.GetRoomTypeList();
     },
     methods: {
         GetSearchDialList() {
@@ -37,6 +38,9 @@ export default {
         },
          GetPropertyList() {
             this.$store.dispatch("getPropertyList");
+        },
+        GetRoomTypeList() {
+            this.$store.dispatch("getRoomTypeList");
         },
         searchFieldChange() {
             this.$emit("input-changed", this.searchString);

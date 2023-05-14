@@ -360,19 +360,22 @@
     <Compile Include="Agendas\Views\WelcomePage\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GlobalClasses\SystemClasses.cs" />
-    <Compile Include="GlobalFunctions\DBFunctions.cs" />
-    <Compile Include="GlobalFunctions\HardwareFunctions.cs" />
-    <Compile Include="GlobalFunctions\MathTypeFunctions.cs" />
-    <Compile Include="GlobalFunctions\SystemFunctions.cs" />
+    <Compile Include="GlobalIOperations\DataOperations.cs" />
+    <Compile Include="GlobalIOperations\DBOperations.cs" />
+    <Compile Include="GlobalIOperations\FileOperations.cs" />
+    <Compile Include="GlobalIOperations\HardwareOperations.cs" />
+    <Compile Include="GlobalIOperations\MathTypeOperations.cs" />
+    <Compile Include="GlobalIOperations\MediaOperations.cs" />
+    <Compile Include="GlobalIOperations\SystemOperations.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
     <Compile Include="Agendas\Settings\ReportList\ReportList.cs" />
+    <Compile Include="GlobalClasses\ConcurrentObservableList.cs" />
     <Compile Include="GlobalClasses\PhotoCollectionClasses.cs" />
-    <Compile Include="TabsAndSystem\Helpers\ImageHelper.cs" />
-    <Compile Include="TabsAndSystem\Helpers\Updater.cs" />
+    <Compile Include="GlobalClasses\GlobalClasses.cs" />
+    <Compile Include="SystemCore\SystemHelpers\SystemUpdater.cs" />
     <Compile Include="Agendas\Settings\UserList\UserList.cs" />
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleList.cs" />
     <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
@@ -387,19 +390,19 @@
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleListPage.xaml.cs">
       <DependentUpon>UserRoleListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GlobalFunctions\FileFunctions.cs" />
-    <Compile Include="GlobalFunctions\MediaFunctions.cs" />
-    <Compile Include="GlobalStyles\Styles.cs" />
-    <Compile Include="TabsAndSystem\ImageEffects\TrackBall.cs" />
-    <Compile Include="TabsAndSystem\Properties\Settings.cs" />
-    <Compile Include="TabsAndSystem\Extensions\CoreModelExtensions.cs" />
+    <Compile Include="GlobalStyles\DataGridStyles.cs" />
+    <Compile Include="SystemCore\SystemConfiguration\Settings.cs" />
     <Compile Include="Agendas\System\ClientSetting\ClientSettingsPage.xaml.cs">
       <DependentUpon>ClientSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TabsAndSystem\Properties\IniFile.cs" />
-    <Compile Include="TabsAndSystem\Extensions\NewLineOnTabBehavior.cs" />
-    <Compile Include="TabsAndSystem\Extensions\Platform.cs" />
-    <Compile Include="TabsAndSystem\Extensions\TabContent.cs" />
+    <Compile Include="SystemCore\SystemConfiguration\IniFile.cs" />
+    <Compile Include="SystemCore\SystemStructure\ExtendedKeyUsageData.cs" />
+    <Compile Include="SystemCore\SystemStructure\SystemCoreExtension.cs" />
+    <Compile Include="SystemCore\SystemStructure\SystemObjectsBehaviors.cs" />
+    <Compile Include="SystemCore\SystemStructure\SystemPlatform.cs" />
+    <Compile Include="SystemCore\SystemStructure\SystemTabs.cs" />
+    <Compile Include="SystemCore\SystemStructure\SystemTheme.cs" />
+    <Compile Include="SystemCore\SystemStructure\SystemWindowDataModel.cs" />
     <Compile Include="Templates\CustomTemplates\TemplateSettingsPage.xaml.cs">
       <DependentUpon>TemplateSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -551,22 +554,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="TabsAndSystem\Extensions\AccentColorMenuData.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TabsAndSystem\Extensions\AppThemeMenuData.cs" />
-    <Compile Include="TabsAndSystem\Helpers\CrashReporterGlobalField.cs" />
-    <Compile Include="TabsAndSystem\Helpers\DelegateCommand.cs" />
-    <Compile Include="TabsAndSystem\Extensions\CoreAutoControllers.cs" />
-    <Compile Include="TabsAndSystem\Helpers\Help.cs" />
+    <Compile Include="SystemCore\SystemConfiguration\CrashReporterSettings.cs" />
+    <Compile Include="SystemCore\SystemHelpers\DelegateCommand.cs" />
+    <Compile Include="SystemCore\SystemHelpers\SystemHelp.cs" />
     <Compile Include="GlobalGenerators\IconMakerGenerator.cs" />
     <Page Include="Agendas\Views\WelcomePage\WelcomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlobalStyles\CheckComboBoxStyle.xaml">
+    <Page Include="GlobalStyles\MetroFix\MetroCheckComboBoxStyleFix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\System\SystemCoreDefaultStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\System\SystemFieldsEffects.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\System\SystemMainMenuStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\System\SystemPagesDefaultStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\System\SystemSpecificFieldsStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -579,10 +599,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GlobalStyles\MenuButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -600,7 +616,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TabsAndSystem\Extensions\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -623,6 +638,9 @@
     <Content Include="Data\AddOn\winvnc.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Data\groupware-solution300.png" />
+    <Content Include="Data\DBAdminImport.sql" />
+    <Resource Include="Data\jsonIcon.ico" />
     <Content Include="Data\no_photo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -670,6 +688,9 @@
     <Content Include="Data\AddOn\UltraVNC.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -696,28 +717,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
-      <Project>{31c3b4a7-504b-4eff-bacc-c8f2ffe5af6f}</Project>
-      <Name>EASYTools.Calendar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
-      <Project>{7696262e-45fc-4f68-a65e-468cd988cbc2}</Project>
-      <Name>EASYTools.CrashReporter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
-      <Project>{d01e86c3-5704-4d2e-ae9d-057224ba7b81}</Project>
-      <Name>EASYTools.ImageEffectLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
-      <Project>{ec61d2c4-7eab-474f-9c4f-d93de57a64f1}</Project>
-      <Name>EASYTools.SqlConnectionDialog</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj">
-      <Project>{0784cdc9-0f52-4b8b-9488-6589c11e94e2}</Project>
-      <Name>EASYTools.TouchKeyboard</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="cef.redist.x64">
@@ -883,6 +882,28 @@
     <PackageReference Include="WPFLocalizeExtension">
       <Version>3.9.4</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
+      <Project>{31c3b4a7-504b-4eff-bacc-c8f2ffe5af6f}</Project>
+      <Name>EASYTools.Calendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
+      <Project>{7696262e-45fc-4f68-a65e-468cd988cbc2}</Project>
+      <Name>EASYTools.CrashReporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
+      <Project>{ebb29b9e-5b4b-4d2c-a566-387ae8688356}</Project>
+      <Name>EASYTools.ImageEffectLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
+      <Project>{ec61d2c4-7eab-474f-9c4f-d93de57a64f1}</Project>
+      <Name>EASYTools.SqlConnectionDialog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj">
+      <Project>{0784cdc9-0f52-4b8b-9488-6589c11e94e2}</Project>
+      <Name>EASYTools.TouchKeyboard</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

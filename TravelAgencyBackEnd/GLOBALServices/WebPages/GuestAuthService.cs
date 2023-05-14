@@ -1,31 +1,23 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System;
-using TravelAgencyBackEnd.Services;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using TravelAgencyBackEnd.CoreClasses;
-using TravelAgencyBackEnd.DBModel;
-using TravelAgencyBackEnd.WebPages;
+﻿namespace TravelAgencyBackEnd.Controllers {
 
-namespace TravelAgencyBackEnd.Controllers
-{
+    /// <summary>
+    /// The web login api.
+    /// </summary>
     [ApiController]
     [Route("WebApi/Guest")]
-    public class WebLoginApi : ControllerBase
-    {
-        static Encoding ISO_8859_1_ENCODING = Encoding.GetEncoding("ISO-8859-1");
+    public class WebLoginApi : ControllerBase {
+        private static Encoding ISO_8859_1_ENCODING = Encoding.GetEncoding("ISO-8859-1");
 
+        /// <summary>
+        /// The web login.
+        /// </summary>
+        /// <param name="authorization">The authorization.</param>
+        /// <param name="language">     The language.</param>
+        /// <returns>The result.</returns>
         [AllowAnonymous]
         [HttpPost("/WebApi/Guest/WebLogin")]
         [Consumes("application/json")]
-        public IActionResult WebLogin([FromHeader] string authorization, [FromBody] PageLanguage language)
-        {
-  
+        public IActionResult WebLogin([FromHeader] string authorization, [FromBody] PageLanguage language) {
             (string email, string password) = GetUsernameAndPasswordFromAuthorizeHeader(authorization);
 
             GuestLoginResponse guest = GuestLogin(email, password);
@@ -47,8 +39,7 @@ namespace TravelAgencyBackEnd.Controllers
             return Ok(JsonSerializer.Serialize(guest));
         }
 
-        private static (string?, string?) GetUsernameAndPasswordFromAuthorizeHeader(string authorizeHeader)
-        {
+        private static (string?, string?) GetUsernameAndPasswordFromAuthorizeHeader(string authorizeHeader) {
             if (authorizeHeader == null || (!authorizeHeader.Contains("Basic ") && !authorizeHeader.Contains("Bearer "))) return (null, null);
 
             if (authorizeHeader.Contains("Basic "))
@@ -65,10 +56,13 @@ namespace TravelAgencyBackEnd.Controllers
             return (null, null);
         }
 
-        ////Auth mechanism
-        public static GuestLoginResponse? GuestLogin(string? email, string? password)
-        {
-            
+        /// <summary>
+        /// The guest login.
+        /// </summary>
+        /// <param name="email">   The email.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>The result.</returns>
+        public static GuestLoginResponse? GuestLogin(string? email, string? password) {
             if (string.IsNullOrWhiteSpace(email)) return null;
 
             var guest = new hotelsContext().GuestLists.Where(a => a.Active == true && a.Email.ToLower() == email.ToLower()).FirstOrDefault();
@@ -92,7 +86,8 @@ namespace TravelAgencyBackEnd.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            GuestLoginResponse authResponse = new() {
+            GuestLoginResponse authResponse = new()
+            {
                 Id = guest.Id,
                 FullName = guest.FullName,
                 Street = guest.Street,
@@ -102,13 +97,17 @@ namespace TravelAgencyBackEnd.Controllers
                 Phone = guest.Phone,
                 Email = guest.Email,
                 Token = tokenHandler.WriteToken(token)
-                
             };
             return authResponse;
         }
 
-        public static bool RefreshGuestToken(string username, GuestLoginResponse token)
-        {
+        /// <summary>
+        /// The refresh guest token.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="token">   The token.</param>
+        /// <returns>The result.</returns>
+        public static bool RefreshGuestToken(string username, GuestLoginResponse token) {
             var dbUser = new hotelsContext()
                 .GuestLists.Where(a => a.Active == true && a.Email == username)//.Include(b => b.Role)
                 .FirstOrDefault();
@@ -123,6 +122,5 @@ namespace TravelAgencyBackEnd.Controllers
         //        return true;
         //    else return false;
         //}
-
     }
 }

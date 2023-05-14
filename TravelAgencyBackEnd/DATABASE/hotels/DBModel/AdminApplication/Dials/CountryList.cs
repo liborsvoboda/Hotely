@@ -1,23 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace TravelAgencyBackEnd.DBModel {
 
-namespace TravelAgencyBackEnd.DBModel
-{
-    public partial class CountryList
-    {
-        public CountryList()
-        {
+    [Table("CountryList")]
+    [Index("SystemName", Name = "IX_Country", IsUnique = true)]
+    public partial class CountryList {
+
+        public CountryList() {
             CityLists = new HashSet<CityList>();
             HotelLists = new HashSet<HotelList>();
         }
 
+        [Key]
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        [Unicode(false)]
         public string SystemName { get; set; }
+
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
+        [ForeignKey("UserId")]
+        [InverseProperty("CountryLists")]
         public virtual UserList User { get; set; }
+
+        [InverseProperty("Country")]
         public virtual ICollection<CityList> CityLists { get; set; }
+
+        [InverseProperty("Country")]
         public virtual ICollection<HotelList> HotelLists { get; set; }
     }
 }

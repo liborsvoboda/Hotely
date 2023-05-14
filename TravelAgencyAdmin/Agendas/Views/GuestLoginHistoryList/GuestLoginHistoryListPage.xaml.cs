@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MahApps.Metro.Controls;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.GlobalFunctions;
+using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Api;
 using TravelAgencyAdmin.GlobalStyles;
 using System.Net;
@@ -28,7 +28,7 @@ namespace TravelAgencyAdmin.Pages
         public GuestLoginHistoryListPage()
         {
             InitializeComponent();
-            _ = MediaFunctions.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
             _ = LoadDataList();
             SetRecord();
