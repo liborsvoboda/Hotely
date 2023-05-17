@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyAdmin.SystemConfiguration {
+﻿namespace TravelAgencyAdmin.Properties {
 
     internal sealed partial class Settings {
 

@@ -3,6 +3,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
+using TravelAgencyAdmin.Properties;
 using TravelAgencyAdmin.SystemConfiguration;
 using TravelAgencyAdmin.SystemHelpers;
 

@@ -82,3 +82,15 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\TravelAgencyBackEnd.ge
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\ref\TravelAgencyBackEnd.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\NuGet\25E16319D3C17FF656833E1A6A9EE1BC4243D3AE\MimeTypes\2.4.1\MimeTypes.cs
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\scaffoldingsettings.json
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.ApplicationInsights.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.ApplicationInsights.AspNetCore.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.AI.DependencyCollector.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.AI.EventCounterCollector.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.AI.PerfCounterCollector.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.AI.WindowsServer.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.Extensions.DiagnosticAdapter.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.Extensions.Logging.ApplicationInsights.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Microsoft.Extensions.PlatformAbstractions.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\System.Diagnostics.PerformanceCounter.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll

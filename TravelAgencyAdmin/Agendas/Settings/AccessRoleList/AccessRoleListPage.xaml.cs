@@ -48,7 +48,7 @@ namespace TravelAgencyAdmin.Pages {
                 cb_tableName.ItemsSource = translatedApiList = await DataOperations.GetTranslatedApiList(false);
 
                 accessRoleLists = await ApiCommunication.GetApiRequest<List<AccessRoleList>>(ApiUrls.AccessRoleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                accessRoleLists.ForEach(async access => { access.PageTranslation = translatedApiList.FirstOrDefault(a => a.ApiTableName == access.TableName).Translate; });
+                accessRoleLists.ForEach(access => { access.PageTranslation = translatedApiList.FirstOrDefault(a => a.ApiTableName == access.TableName).Translate; });
 
                 DgListView.ItemsSource = accessRoleLists;
                 DgListView.Items.Refresh();

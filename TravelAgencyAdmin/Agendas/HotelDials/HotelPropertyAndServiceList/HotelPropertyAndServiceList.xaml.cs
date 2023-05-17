@@ -140,7 +140,8 @@ namespace TravelAgencyAdmin.Pages {
             SetRecord(true, false);
         }
 
-        public async void DeleteRecord() {
+        //disabled delete
+        public void DeleteRecord() {
             SetRecord(false);
         }
 

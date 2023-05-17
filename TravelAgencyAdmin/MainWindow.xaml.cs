@@ -24,6 +24,7 @@ using TravelAgencyAdmin.Classes;
 using TravelAgencyAdmin.GlobalOperations;
 using TravelAgencyAdmin.Helper;
 using TravelAgencyAdmin.Pages;
+using TravelAgencyAdmin.Properties;
 using TravelAgencyAdmin.SystemConfiguration;
 using TravelAgencyAdmin.SystemStructure;
 

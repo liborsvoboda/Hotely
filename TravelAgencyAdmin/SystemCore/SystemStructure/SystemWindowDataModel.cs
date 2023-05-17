@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using TravelAgencyAdmin.Pages;
+using TravelAgencyAdmin.Properties;
 using TravelAgencyAdmin.SystemConfiguration;
 
 namespace TravelAgencyAdmin.SystemStructure {
@@ -45,8 +46,8 @@ namespace TravelAgencyAdmin.SystemStructure {
                         })
                 .ToList();
 
-            AppTheme theme = ThemeManager.AppThemes.FirstOrDefault(t => t.Name.Equals(SystemConfiguration.Settings.Default.ThemeName));
-            Accent accent = ThemeManager.Accents.FirstOrDefault(a => a.Name.Equals(SystemConfiguration.Settings.Default.AccentName));
+            AppTheme theme = ThemeManager.AppThemes.FirstOrDefault(t => t.Name.Equals(Settings.Default.ThemeName));
+            Accent accent = ThemeManager.Accents.FirstOrDefault(a => a.Name.Equals(Settings.Default.AccentName));
 
             if ((theme != null) && (accent != null)) {
                 ThemeManager.ChangeAppStyle(Application.Current, accent, theme);

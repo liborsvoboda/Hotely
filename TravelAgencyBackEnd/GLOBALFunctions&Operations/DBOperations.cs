@@ -63,35 +63,36 @@
         #region Private or Online/OffLine Definitions
 
         /// <summary>
-        /// Database LanuageList for OffLine Using Definitions
+        /// Database LanuageList for Off-line Using Definitions
         /// </summary>
         /// <param name="word">    </param>
         /// <param name="language"></param>
         /// <returns></returns>
         private static string DBTranslateOffline(string word, string language = "cz") {
             string result;
-            List<LanguageList> ads = Program.ServerDBLanguageList;
+            int index = BackendServer.ServerRuntimeData.LocalDBTableList.FindIndex(a => a.GetType() == new List<LanguageList>().GetType());
+
             //Check Exist AND Insert New
-            try { result = Program.ServerDBLanguageList.FirstOrDefault(a => a.SystemName.ToLower() == word.ToLower()).DescriptionCz; }
-            catch
-            {
-                result = word;
-                LanguageList newWord = new() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
-                new hotelsContext().LanguageLists.Add(newWord).Context.SaveChanges();
-                LoadStaticDbDials(ServerLocalDbDials.LanguageList);
-                return result;
-            }
+            try {
+                if (!((List<LanguageList>)BackendServer.ServerRuntimeData.LocalDBTableList[index]).Where(a => a.SystemName.ToLower() == word.ToLower()).Any()) {
+                    result = word;
+                    LanguageList newWord = new() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
+                    new hotelsContext().LanguageLists.Add(newWord).Context.SaveChanges();
+                    LoadStaticDbDials(ServerLocalDbDials.LanguageList);
+                    return result;
+                }
+            } catch { }
 
             //Return From List
-            if (language == "cz") result = Program.ServerDBLanguageList.FirstOrDefault(a => a.SystemName.ToLower() == word.ToLower()).DescriptionCz;
-            else result = Program.ServerDBLanguageList.FirstOrDefault(a => a.SystemName.ToLower() == word.ToLower()).DescriptionEn;
+            if (language == "cz") result = ((List<LanguageList>)BackendServer.ServerRuntimeData.LocalDBTableList[index]).Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault();
+            else result = ((List<LanguageList>)BackendServer.ServerRuntimeData.LocalDBTableList[index]).Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(result)) { result = word; }
             return result;
         }
 
         /// <summary>
-        /// Database LanuageList for Online Using Definitions
+        /// Database LanuageList for On-line Using Definitions
         /// </summary>
         /// <param name="word">    </param>
         /// <param name="language"></param>
@@ -100,18 +101,18 @@
             string result;
 
             //Check Exist AND Insert New
-            try { result = new hotelsContext().LanguageLists.FirstOrDefault(a => a.SystemName.ToLower() == word.ToLower()).DescriptionCz; }
-            catch
-            {
-                result = word;
-                LanguageList newWord = new() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
-                new hotelsContext().LanguageLists.Add(newWord).Context.SaveChanges();
-                return result;
-            }
+            try {
+                if (!new hotelsContext().LanguageLists.Where(a => a.SystemName.ToLower() == word.ToLower()).Any()) {
+                    result = word;
+                    LanguageList newWord = new() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
+                    new hotelsContext().LanguageLists.Add(newWord).Context.SaveChanges();
+                    return result;
+                }
+            } catch { }
 
             //Return From List
-            if (language == "cz") result = new hotelsContext().LanguageLists.FirstOrDefault(a => a.SystemName.ToLower() == word.ToLower()).DescriptionCz;
-            else result = new hotelsContext().LanguageLists.FirstOrDefault(a => a.SystemName.ToLower() == word.ToLower()).DescriptionEn;
+            if (language == "cz") result = new hotelsContext().LanguageLists.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault();
+            else result = new hotelsContext().LanguageLists.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(result)) { result = word; }
             return result;
