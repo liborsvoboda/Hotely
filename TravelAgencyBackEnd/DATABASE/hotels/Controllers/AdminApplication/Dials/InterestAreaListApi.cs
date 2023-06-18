@@ -2,58 +2,58 @@
 
     [Authorize]
     [ApiController]
-    [Route("TemplateList")]
-    public class TemplateListApi : ControllerBase {
+    [Route("InterestAreaList")]
+    public class InterestAreaListApi : ControllerBase {
 
-        [HttpGet("/TemplateList")]
-        public async Task<string> GetTemplateList() {
-            List<TemplateList> data;
+        [HttpGet("/InterestAreaList")]
+        public async Task<string> GetInterestAreaList() {
+            List<InterestAreaList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().TemplateLists.ToList();
+                data = new hotelsContext().InterestAreaLists.ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/TemplateList/Filter/{filter}")]
-        public async Task<string> GetTemplateListByFilter(string filter) {
-            List<TemplateList> data;
+        [HttpGet("/InterestAreaList/Filter/{filter}")]
+        public async Task<string> GetInterestAreaListByFilter(string filter) {
+            List<InterestAreaList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().TemplateLists.FromSqlRaw("SELECT * FROM TemplateList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
+                data = new hotelsContext().InterestAreaLists.FromSqlRaw("SELECT * FROM InterestAreaList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/TemplateList/{id}")]
-        public async Task<string> GetTemplateListKey(int id) {
-            TemplateList data;
+        [HttpGet("/InterestAreaList/{id}")]
+        public async Task<string> GetInterestAreaListKey(int id) {
+            InterestAreaList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new hotelsContext().TemplateLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().InterestAreaLists.Where(a => a.Id == id).First();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpPut("/TemplateList")]
+        [HttpPut("/InterestAreaList")]
         [Consumes("application/json")]
-        public async Task<string> InsertTemplateList([FromBody] TemplateList record) {
+        public async Task<string> InsertInterestAreaList([FromBody] InterestAreaList record) {
             try
             {
                 record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new hotelsContext().TemplateLists.Add(record);
+                var data = new hotelsContext().InterestAreaLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });
@@ -64,12 +64,12 @@
             }
         }
 
-        [HttpPost("/TemplateList")]
+        [HttpPost("/InterestAreaList")]
         [Consumes("application/json")]
-        public async Task<string> UpdateTemplateList([FromBody] TemplateList record) {
+        public async Task<string> UpdateInterestAreaList([FromBody] InterestAreaList record) {
             try
             {
-                var data = new hotelsContext().TemplateLists.Update(record);
+                var data = new hotelsContext().InterestAreaLists.Update(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });
@@ -78,16 +78,16 @@
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = SystemFunctions.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/TemplateList/{id}")]
+        [HttpDelete("/InterestAreaList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteTemplateList(string id) {
+        public async Task<string> DeleteInterestAreaList(string id) {
             try
             {
                 if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
 
-                TemplateList record = new() { Id = int.Parse(id) };
+                InterestAreaList record = new() { Id = int.Parse(id) };
 
-                var data = new hotelsContext().TemplateLists.Remove(record);
+                var data = new hotelsContext().InterestAreaLists.Remove(record);
                 int result = await data.Context.SaveChangesAsync();
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { insertedId = record.Id, status = DBResult.success.ToString(), recordCount = result, message = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = result, message = string.Empty });

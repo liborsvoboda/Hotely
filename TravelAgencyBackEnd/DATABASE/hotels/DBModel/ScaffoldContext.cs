@@ -43,9 +43,12 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<HotelRoomList> HotelRoomLists { get; set; }
         public virtual DbSet<HotelRoomTypeList> HotelRoomTypeLists { get; set; }
         public virtual DbSet<IgnoredExceptionList> IgnoredExceptionLists { get; set; }
+        public virtual DbSet<InterestAreaCityList> InterestAreaCityLists { get; set; }
+        public virtual DbSet<InterestAreaList> InterestAreaLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
+        public virtual DbSet<PropertyGroupList> PropertyGroupLists { get; set; }
         public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
         public virtual DbSet<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
         public virtual DbSet<ReportList> ReportLists { get; set; }
@@ -475,6 +478,42 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasConstraintName("FK_IgnoredExceptionList_UserList");
             });
 
+            modelBuilder.Entity<InterestAreaCityList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.City)
+                    .WithMany(p => p.InterestAreaCityLists)
+                    .HasForeignKey(d => d.CityId)
+                    .HasConstraintName("FK_InterestAreaCityList_CityList");
+
+                entity.HasOne(d => d.Iac)
+                    .WithMany(p => p.InterestAreaCityLists)
+                    .HasForeignKey(d => d.Iacid)
+                    .HasConstraintName("FK_InterestAreaCityList_InterestAreaList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.InterestAreaCityLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_InterestAreaCityList_UserList");
+            });
+
+            modelBuilder.Entity<InterestAreaList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.InterestAreaLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_InterestAreaList_UserList");
+            });
+
             modelBuilder.Entity<LanguageList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
@@ -510,9 +549,28 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasConstraintName("FK_ParameterList_UserList");
             });
 
+            modelBuilder.Entity<PropertyGroupList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PropertyGroupLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PropertyGroupList_UserList");
+            });
+
             modelBuilder.Entity<PropertyOrServiceTypeList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.PropertyGroup)
+                    .WithMany(p => p.PropertyOrServiceTypeLists)
+                    .HasForeignKey(d => d.PropertyGroupId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_PropertyOrServiceTypeList_PropertyGroupList");
 
                 entity.HasOne(d => d.PropertyOrServiceUnitType)
                     .WithMany(p => p.PropertyOrServiceTypeLists)

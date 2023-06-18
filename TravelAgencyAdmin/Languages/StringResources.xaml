@@ -414,12 +414,12 @@
     <system:String x:Key="maxCapacity">Max. capacity</system:String>
     <system:String x:Key="extraBed">Extra bed</system:String>
     <system:String x:Key="roomsCount">Rooms count</system:String>
-    <system:String x:Key="accommodation">Accommodation</system:String>
-    <system:String x:Key="roomList">Rooms</system:String>
+    <system:String x:Key="accommodation">1 - Accommodation</system:String>
+    <system:String x:Key="roomList">4 - Rooms</system:String>
     <system:String x:Key="advertised">Advertised</system:String>
     <system:String x:Key="approved">Approved</system:String>
     <system:String x:Key="propertyOrService">Property/Service</system:String>
-    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Properties&amp;Services</system:String>
+    <system:String x:Key="propertyOrServiceList" xml:space="preserve">3 - Properties&amp;Services</system:String>
     <system:String x:Key="isAvailable">Is available</system:String>
     <system:String x:Key="valueBit">Value Yes/No</system:String>
     <system:String x:Key="valueRangeMin">Range value Min</system:String>
@@ -444,7 +444,7 @@
     <system:String x:Key="hotelApprovalList">Approving process</system:String>
     <system:String x:Key="hotelPropertyAndServiceList" xml:space="preserve">Properties&amp;Services</system:String>
     <system:String x:Key="hotelRoomList">Rooms</system:String>
-    <system:String x:Key="hotelImagesList">Gallery</system:String>
+    <system:String x:Key="hotelImagesList">2 - Gallery</system:String>
     <system:String x:Key="loadFromServer">Load from server</system:String>
     <system:String x:Key="saveToServer">Save to server</system:String>
     <system:String x:Key="images">Images</system:String>
@@ -464,4 +464,11 @@
     <system:String x:Key="timeToEnable">Time to enable</system:String>
     <system:String x:Key="averageRating">Average Rating</system:String>
     <system:String x:Key="image">Image</system:String>
+    <system:String x:Key="approval">Approval</system:String>
+    <system:String x:Key="isoCode">Iso code</system:String>
+    <system:String x:Key="countryCity">Country / City</system:String>
+    <system:String x:Key="interestAreaList">Interest Area</system:String>
+    <system:String x:Key="propertyGroupList">Property groups</system:String>
+    <system:String x:Key="propertyGroup">Property group</system:String>
+
 </ResourceDictionary>

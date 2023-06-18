@@ -20,6 +20,7 @@ namespace TravelAgencyAdmin.Pages {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static PropertyOrServiceTypeList selectedRecord = new PropertyOrServiceTypeList();
 
+        private List<PropertyGroupList> propertyGroupList = new List<PropertyGroupList>();
         private List<PropertyOrServiceTypeList> propertyOrServiceTypeList = new List<PropertyOrServiceTypeList>();
         private List<PropertyOrServiceUnitList> propertyOrServiceUnitList = new List<PropertyOrServiceUnitList>();
 
@@ -30,6 +31,7 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 lbl_id.Content = Resources["id"].ToString();
                 lbl_systemName.Content = Resources["systemName"].ToString();
+                lbl_propertyGroup.Content = Resources["propertyGroup"].ToString();
                 lbl_unit.Content = Resources["unit"].ToString();
                 gb_valueType.Header = Resources["parameterType"].ToString();
 
@@ -60,17 +62,23 @@ namespace TravelAgencyAdmin.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
+                propertyGroupList = await ApiCommunication.GetApiRequest<List<PropertyGroupList>>(ApiUrls.PropertyGroupList, null, App.UserData.Authentification.Token);
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
+                propertyGroupList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
+                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
+
                 propertyOrServiceTypeList.ForEach(async item => {
                     item.Translation = await DBOperations.DBTranslation(item.SystemName);
-                    item.PropertyOrServiceUnitType = await DBOperations.DBTranslation(propertyOrServiceUnitList.First(a => a.Id == item.PropertyOrServiceUnitTypeId).SystemName);
+                    item.PropertyGroupTranslation = propertyGroupList.Where(a => a.Id == item.PropertyGroupId).Select(a => a.Translation).FirstOrDefault();
+                    item.PropertyOrServiceUnitType = propertyOrServiceUnitList.Where(a => a.Id == item.PropertyOrServiceUnitTypeId).Select(a => a.Translation).FirstOrDefault();
                 });
                 DgListView.ItemsSource = propertyOrServiceTypeList;
                 DgListView.Items.Refresh();
 
-                propertyOrServiceUnitList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
+                
+                cb_propertyGroup.ItemsSource = propertyGroupList;
                 cb_unit.ItemsSource = propertyOrServiceUnitList;
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -80,7 +88,18 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; } else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; } else if (headername == "PropertyOrServiceUnitType") { e.Header = Resources["unit"].ToString(); e.DisplayIndex = 3; } else if (headername == "IsSearchRequired") { e.Header = Resources["searchRequired"].ToString(); e.DisplayIndex = 4; } else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 5; } else if (headername == "SearchDefaultBit") { e.Header = Resources["defaultBit"].ToString(); e.DisplayIndex = 6; } else if (headername == "IsFeeInfoRequired") { e.Header = Resources["feeInfoRequired"].ToString(); e.DisplayIndex = 7; } else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
+                    if (headername == "PropertyGroupTranslation") { e.Header = Resources["propertyGroup"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 2; } 
+                    else if (headername == "Translation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 3; } 
+                    else if (headername == "PropertyOrServiceUnitType") { e.Header = Resources["unit"].ToString(); e.DisplayIndex = 4; } 
+                    else if (headername == "IsSearchRequired") { e.Header = Resources["searchRequired"].ToString(); e.DisplayIndex = 5; } 
+                    else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 6; } 
+                    else if (headername == "SearchDefaultBit") { e.Header = Resources["defaultBit"].ToString(); e.DisplayIndex = 7; } 
+                    else if (headername == "IsFeeInfoRequired") { e.Header = Resources["feeInfoRequired"].ToString(); e.DisplayIndex = 8; }
+                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                    
+                    else if (headername == "Id") e.DisplayIndex = 0;
+                    else if (headername == "PropertyGroupId") e.Visibility = Visibility.Hidden;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "IsBit") e.Visibility = Visibility.Hidden;
                     else if (headername == "IsValue") e.Visibility = Visibility.Hidden;
@@ -104,6 +123,7 @@ namespace TravelAgencyAdmin.Pages {
                 DgListView.Items.Filter = (e) => {
                     PropertyOrServiceTypeList user = e as PropertyOrServiceTypeList;
                     return user.SystemName.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(user.PropertyGroupTranslation) && user.PropertyGroupTranslation.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.Translation) && user.Translation.ToLower().Contains(filter.ToLower());
                 };
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -152,6 +172,7 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.SystemName = txt_systemName.Text;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
+                selectedRecord.PropertyGroupId = (cb_propertyGroup.SelectedItem != null) ? (int?)((PropertyGroupList)cb_propertyGroup.SelectedItem).Id : null;
                 selectedRecord.PropertyOrServiceUnitTypeId = (cb_unit.SelectedItem != null) ? ((PropertyOrServiceUnitList)cb_unit.SelectedItem).Id : 0;
                 selectedRecord.IsService = (bool)chb_service.IsChecked;
                 selectedRecord.IsSearchRequired = (bool)chb_searchRequired.IsChecked;
@@ -160,7 +181,7 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.IsBit = (bool)chb_isBit.IsChecked;
                 selectedRecord.IsValue = (bool)chb_isValue.IsChecked;
 
-                //Rande part
+                //Range part
                 selectedRecord.IsValueRangeAllowed = (bool)chb_isValueRangeAllowed.IsChecked;
                 if (selectedRecord.IsValueRangeAllowed) {
                     selectedRecord.IsRangeValue = (bool)chb_isRangeValue.IsChecked;
@@ -205,7 +226,8 @@ namespace TravelAgencyAdmin.Pages {
             txt_systemName.Text = selectedRecord.SystemName;
             lbl_translation.Content = selectedRecord.Translation;
 
-            cb_unit.SelectedItem = propertyOrServiceUnitList.FirstOrDefault(a => a.Id == selectedRecord.PropertyOrServiceUnitTypeId);
+            cb_propertyGroup.SelectedItem = selectedRecord.PropertyGroupId == null ? null : propertyGroupList.Where(a=> a.Id == selectedRecord.PropertyGroupId).FirstOrDefault();
+            cb_unit.SelectedItem = propertyOrServiceUnitList.Where(a => a.Id == selectedRecord.PropertyOrServiceUnitTypeId).FirstOrDefault();
             chb_service.IsChecked = selectedRecord.IsService;
             chb_searchRequired.IsChecked = selectedRecord.IsSearchRequired;
 

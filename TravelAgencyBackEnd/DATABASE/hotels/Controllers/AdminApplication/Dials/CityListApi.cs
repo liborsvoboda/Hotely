@@ -15,7 +15,7 @@ namespace TravelAgencyBackEnd.Controllers {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().CityLists.ToList();
+                data = new hotelsContext().CityLists.Take(500).ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
@@ -38,12 +38,24 @@ namespace TravelAgencyBackEnd.Controllers {
         [HttpGet("/CityList/{id}")]
         public async Task<string> GetCityListKey(int id) {
             CityList data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
+                IsolationLevel = IsolationLevel.ReadUncommitted
+            })) {
+                data = new hotelsContext().CityLists.Where(a => a.Id == id).FirstOrDefault();
+            }
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
+        [HttpGet("/CityList/ByCountry/{countryId}")]
+        public async Task<string> GetCityListByCountryKey(int countryId) {
+            List<CityList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
                 IsolationLevel = IsolationLevel.ReadUncommitted
             }))
             {
-                data = new hotelsContext().CityLists.Where(a => a.Id == id).First();
+                data = new hotelsContext().CityLists.Where(a => a.CountryId == countryId).ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });

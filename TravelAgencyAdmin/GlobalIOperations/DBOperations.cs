@@ -54,10 +54,11 @@ namespace TravelAgencyAdmin.GlobalOperations {
         /// Service return translate if is possible or requested word send back CamelCase ignored
         /// </summary>
         /// <param name="systemName"></param>
+        /// <param name="notCreateNew"></param>
         /// <param name="comaList">  </param>
         /// <param name="lang">      </param>
         /// <returns></returns>
-        public static async Task<string> DBTranslation(string systemName, bool comaList = false, string lang = null) {
+        public static async Task<string> DBTranslation(string systemName, bool notCreateNew = false, bool comaList = false, string lang = null) {
             bool dictionaryUpdated = false;
             string result = "", translated = "";
             if (comaList) {
@@ -66,11 +67,13 @@ namespace TravelAgencyAdmin.GlobalOperations {
                         if (!string.IsNullOrWhiteSpace(word)) {
                             if (App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Count() == 0) {
                                 dictionaryUpdated = true;
-                                LanguageList newWord = new LanguageList() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
-                                string json = JsonConvert.SerializeObject(newWord);
-                                StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-                                _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
 
+                                if (!notCreateNew) {
+                                    LanguageList newWord = new LanguageList() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
+                                    string json = JsonConvert.SerializeObject(newWord);
+                                    StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                                    _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
+                                }
                                 result += word + ",";
                             } else {
                                 translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
@@ -84,10 +87,12 @@ namespace TravelAgencyAdmin.GlobalOperations {
                     if (App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Count() == 0) {
                         dictionaryUpdated = true;
 
-                        LanguageList newWord = new LanguageList() { SystemName = systemName, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
-                        string json = JsonConvert.SerializeObject(newWord);
-                        StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-                        _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
+                        if (!notCreateNew) {
+                            LanguageList newWord = new LanguageList() { SystemName = systemName, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
+                            string json = JsonConvert.SerializeObject(newWord);
+                            StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                            _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
+                        }
                         result = systemName;
                     } else {
                         translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
@@ -96,7 +101,7 @@ namespace TravelAgencyAdmin.GlobalOperations {
                 } catch (Exception ex) { result = systemName; }
             }
 
-            if (dictionaryUpdated) { App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token); }
+            if (dictionaryUpdated && !notCreateNew) { App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token); }
 
             return result;
         }

@@ -14,10 +14,10 @@
             }))
             {
                 if (Request.HttpContext.User.IsInRole("Admin"))
-                { data = new hotelsContext().HotelLists.ToList(); }
+                { data = new hotelsContext().HotelLists.Include(a => a.City).ToList(); }
                 else
                 {
-                    data = new hotelsContext().HotelLists.Include(a => a.User)
+                    data = new hotelsContext().HotelLists.Include(a => a.City).Include(a => a.User)
                         .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
                 }
             }
@@ -34,11 +34,12 @@
             }))
             {
                 if (Request.HttpContext.User.IsInRole("Admin"))
-                { data = new hotelsContext().HotelLists.FromSqlRaw("SELECT * FROM HotelList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                { data = new hotelsContext().HotelLists.FromSqlRaw("SELECT * FROM HotelList WHERE 1=1 AND " + filter.Replace("+", " "))
+                        .Include(a => a.City).AsNoTracking().ToList(); }
                 else
                 {
                     data = new hotelsContext().HotelLists.FromSqlRaw("SELECT * FROM HotelList WHERE 1=1 AND " + filter.Replace("+", " "))
-                        .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
+                        .Include(a => a.City).Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
                         .AsNoTracking().ToList();
                 }
             }
@@ -51,7 +52,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 data = new hotelsContext().HotelLists
-                     .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First();
+                     .Include(a => a.City).Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).First();
             }
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
@@ -60,7 +61,7 @@
         public async Task<string> GetHotelListKey(int id) {
             HotelList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            { data = new hotelsContext().HotelLists.Where(a => a.Id == id).First(); }
+            { data = new hotelsContext().HotelLists.Include(a => a.City).Where(a => a.Id == id).First(); }
             return JsonSerializer.Serialize(data);
         }
 

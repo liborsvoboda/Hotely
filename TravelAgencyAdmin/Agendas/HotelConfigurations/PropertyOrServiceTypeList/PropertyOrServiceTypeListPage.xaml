@@ -68,14 +68,21 @@
                 Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" ToolTip="Tento přeložený název je název poplatku, kteří inzerenti zadávají při nastavení ubytování" />
 
             <Label
-                x:Name="lbl_unit" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_propertyGroup" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <ComboBox
-                x:Name="cb_unit" Grid.Row="1" Grid.Column="3" Margin="0,2,0,2" HorizontalAlignment="Stretch"
+                x:Name="cb_propertyGroup" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="Translation" IsEnabled="true"
+                SelectedValuePath="Id" />
+
+            <Label
+                x:Name="lbl_unit" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <ComboBox
+                x:Name="cb_unit" Grid.Row="2" Grid.Column="3" Margin="0,2,0,2" HorizontalAlignment="Stretch"
                 VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="Translation" IsEnabled="true"
                 SelectedValuePath="Id" ToolTip="Jednotka je zobrazována ve vyhledávači" />
 
             <GroupBox
-                x:Name="gb_valueType" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="5">
+                x:Name="gb_valueType" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="5">
                 <Grid Background="{DynamicResource WhiteBrush}" Visibility="Visible">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -132,7 +139,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox
-                x:Name="gb_searchEngine" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="5"
+                x:Name="gb_searchEngine" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="5"
                 IsEnabled="False">
                 <Grid Background="{DynamicResource WhiteBrush}" Visibility="Visible">
                     <Grid.ColumnDefinitions>
@@ -166,13 +173,13 @@
                 </Grid>
             </GroupBox>
             <Label
-                x:Name="lbl_feeInfoRequired" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_feeInfoRequired" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <CheckBox
-                x:Name="chb_feeInfoRequired" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                x:Name="chb_feeInfoRequired" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" />
             <Label
-                x:Name="lbl_feeRangeAllowed" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Left" />
+                x:Name="lbl_feeRangeAllowed" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Left" />
             <CheckBox
-                x:Name="chb_feeRangeAllowed" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                x:Name="chb_feeRangeAllowed" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
             <Button
                 Name="btn_save" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Width="200"

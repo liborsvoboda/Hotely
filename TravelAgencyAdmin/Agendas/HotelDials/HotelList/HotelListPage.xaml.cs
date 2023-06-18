@@ -57,14 +57,9 @@ namespace TravelAgencyAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, null, App.UserData.Authentification.Token);
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(async city => {
-                    city.CityTranslation = await DBOperations.DBTranslation(city.City);
-                    city.CountryTranslation = await DBOperations.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
-                });
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
@@ -73,15 +68,15 @@ namespace TravelAgencyAdmin.Pages {
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
-                hotelList.ForEach(hotel => {
+                hotelList.ForEach(async hotel => {
                     hotel.CountryTranslation = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
-                    hotel.CityTranslation = cityList.First(a => a.Id == hotel.CityId).CityTranslation;
+                    hotel.CityTranslation = await DBOperations.DBTranslation(hotel.City.City);
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
                 });
+
                 DgListView.ItemsSource = hotelList;
                 DgListView.Items.Refresh();
 
-                cb_cityId.ItemsSource = cityList;
                 cb_countryId.ItemsSource = countryList;
                 cb_currencyId.ItemsSource = currencyList;
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -175,7 +170,7 @@ namespace TravelAgencyAdmin.Pages {
                 if (App.UserData.Authentification.Role == "Admin")
                     selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
-                selectedRecord.Currency = null;
+                selectedRecord.Currency = null; selectedRecord.City = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
@@ -210,7 +205,7 @@ namespace TravelAgencyAdmin.Pages {
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")
-                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+                cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
@@ -221,24 +216,22 @@ namespace TravelAgencyAdmin.Pages {
             }
         }
 
-        /// <summary>
-        /// Change Country With changed City
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">     </param>
-        private void CitySelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (cb_cityId.SelectedItem != null) {
-                cb_countryId.SelectionChanged -= CountrySelectionChanged;
-                cb_countryId.Text = ((CityList)cb_cityId.SelectedItem).CountryTranslation;
-                cb_countryId.SelectionChanged += CountrySelectionChanged;
-            }
-        }
 
-        private void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private async void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (cb_countryId.SelectedItem != null) {
-                cb_cityId.SelectionChanged -= CitySelectionChanged;
+                MainWindow.ProgressRing = Visibility.Visible;
                 cb_cityId.SelectedItem = null;
-                cb_cityId.SelectionChanged += CitySelectionChanged;
+                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, "ByCountry/" + ((CountryList)cb_countryId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token); ;
+
+                cityList.ForEach(async city => {
+                    city.CityTranslation = await DBOperations.DBTranslation(city.City, true);
+                    city.CountryTranslation = await DBOperations.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
+                });
+
+                cb_cityId.ItemsSource = cityList;
+
+                if (((CountryList)cb_countryId.SelectedItem).Id == selectedRecord.CountryId) { cb_cityId.SelectedItem = cityList.FirstOrDefault(a => a.Id == selectedRecord.CityId); }
+                MainWindow.ProgressRing = Visibility.Hidden;
             }
         }
     }

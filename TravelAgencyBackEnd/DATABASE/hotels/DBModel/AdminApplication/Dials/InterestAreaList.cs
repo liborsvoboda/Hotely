@@ -6,35 +6,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TravelAgencyBackEnd.DBModel
 {
-    [Table("CityList")]
-    [Index("City", Name = "IX_CityList", IsUnique = true)]
-    public partial class CityList
+    [Table("InterestAreaList")]
+    [Index("SystemName", Name = "IX_InterestAreaList", IsUnique = true)]
+    public partial class InterestAreaList
     {
-        public CityList()
+        public InterestAreaList()
         {
-            HotelLists = new HashSet<HotelList>();
             InterestAreaCityLists = new HashSet<InterestAreaCityList>();
         }
 
         [Key]
         public int Id { get; set; }
-        public int CountryId { get; set; }
         [Required]
-        [StringLength(250)]
+        [StringLength(150)]
         [Unicode(false)]
-        public string City { get; set; }
+        public string SystemName { get; set; }
+        [Column(TypeName = "text")]
+        public string Description { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        [ForeignKey("CountryId")]
-        [InverseProperty("CityLists")]
-        public virtual CountryList Country { get; set; }
         [ForeignKey("UserId")]
-        [InverseProperty("CityLists")]
+        [InverseProperty("InterestAreaLists")]
         public virtual UserList User { get; set; }
-        [InverseProperty("City")]
-        public virtual ICollection<HotelList> HotelLists { get; set; }
-        [InverseProperty("City")]
+        [InverseProperty("Iac")]
         public virtual ICollection<InterestAreaCityList> InterestAreaCityLists { get; set; }
     }
 }

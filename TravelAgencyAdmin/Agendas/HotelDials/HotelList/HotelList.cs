@@ -21,5 +21,7 @@ namespace TravelAgencyAdmin.Classes {
         public string CountryTranslation { get; set; }
         public string CityTranslation { get; set; }
         public string Currency { get; set; }
+
+        public CityList City { get; set; }
     }
 }

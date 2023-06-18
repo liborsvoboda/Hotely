@@ -180,7 +180,7 @@
         </member>
         <member name="M:TravelAgencyBackEnd.DBOperations.DBTranslateOffline(System.String,System.String)">
             <summary>
-            Database LanuageList for OffLine Using Definitions
+            Database LanuageList for Off-line Using Definitions
             </summary>
             <param name="word">    </param>
             <param name="language"></param>
@@ -188,7 +188,7 @@
         </member>
         <member name="M:TravelAgencyBackEnd.DBOperations.DBTranslateOnline(System.String,System.String)">
             <summary>
-            Database LanuageList for Online Using Definitions
+            Database LanuageList for On-line Using Definitions
             </summary>
             <param name="word">    </param>
             <param name="language"></param>

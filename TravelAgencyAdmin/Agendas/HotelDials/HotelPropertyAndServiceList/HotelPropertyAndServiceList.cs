@@ -20,6 +20,7 @@ namespace TravelAgencyAdmin.Classes {
         public DateTime Timestamp { get; set; }
 
         public string Accommodation { get; set; }
+        public string PropertyGroup { get; set; }
         public string PropertyOrService { get; set; }
         public bool IsSearchRequired { get; set; }
         public bool IsService { get; set; }

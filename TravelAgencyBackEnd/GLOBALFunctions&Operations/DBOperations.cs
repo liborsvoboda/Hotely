@@ -70,11 +70,11 @@
         /// <returns></returns>
         private static string DBTranslateOffline(string word, string language = "cz") {
             string result;
-            int index = BackendServer.ServerRuntimeData.LocalDBTableList.FindIndex(a => a.GetType() == new List<LanguageList>().GetType());
+            int index = Program.ServerDBLanguageList.FindIndex(a => a.GetType() == new List<LanguageList>().GetType());
 
             //Check Exist AND Insert New
             try {
-                if (!((List<LanguageList>)BackendServer.ServerRuntimeData.LocalDBTableList[index]).Where(a => a.SystemName.ToLower() == word.ToLower()).Any()) {
+                if (!Program.ServerDBLanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Any()) {
                     result = word;
                     LanguageList newWord = new() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
                     new hotelsContext().LanguageLists.Add(newWord).Context.SaveChanges();
@@ -84,8 +84,8 @@
             } catch { }
 
             //Return From List
-            if (language == "cz") result = ((List<LanguageList>)BackendServer.ServerRuntimeData.LocalDBTableList[index]).Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault();
-            else result = ((List<LanguageList>)BackendServer.ServerRuntimeData.LocalDBTableList[index]).Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
+            if (language == "cz") result = Program.ServerDBLanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault();
+            else result = Program.ServerDBLanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(result)) { result = word; }
             return result;

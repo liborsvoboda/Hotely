@@ -76,6 +76,8 @@
     <Style BasedOn="{StaticResource MetroComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="SelectedIndex" Value="0" />
+        <Setter Property="Background" Value="LightYellow" />
     </Style>
 
     <!--

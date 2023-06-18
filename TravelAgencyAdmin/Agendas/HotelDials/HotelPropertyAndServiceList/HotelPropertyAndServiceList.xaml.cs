@@ -23,6 +23,7 @@ namespace TravelAgencyAdmin.Pages {
         private List<UserList> adminUserList = new List<UserList>();
         private List<HotelList> hotelList = new List<HotelList>();
         private List<CurrencyList> currencyList = new List<CurrencyList>();
+        private List<PropertyGroupList> propertyGroupList = new List<PropertyGroupList>();
         private List<PropertyOrServiceTypeList> propertyOrServiceTypeList = new List<PropertyOrServiceTypeList>();
         private List<PropertyOrServiceUnitList> propertyOrServiceUnitList = new List<PropertyOrServiceUnitList>();
 
@@ -64,6 +65,7 @@ namespace TravelAgencyAdmin.Pages {
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
                 propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
                 propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
+                propertyGroupList = await ApiCommunication.GetApiRequest<List<PropertyGroupList>>(ApiUrls.PropertyGroupList, null, App.UserData.Authentification.Token);
 
                 propertyOrServiceTypeList.ForEach(async property => { property.Translation = await DBOperations.DBTranslation(property.SystemName); });
                 propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await DBOperations.DBTranslation(propertyUnit.SystemName); });
@@ -75,13 +77,14 @@ namespace TravelAgencyAdmin.Pages {
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
-                hotelPropertyAndServiceList.ForEach(async room => {
-                    room.Accommodation = hotelList.First(a => a.Id == room.HotelId).Name;
-                    room.PropertyOrService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).Translation;
-                    room.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsSearchRequired;
-                    room.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsService;
-                    room.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == room.PropertyOrServiceId).IsFeeInfoRequired;
-                    room.PropertyUnit = await DBOperations.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == room.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
+                hotelPropertyAndServiceList.ForEach(async item => {
+                    item.Accommodation = hotelList.First(a => a.Id == item.HotelId).Name;
+                    item.PropertyGroup = await DBOperations.DBTranslation(propertyGroupList.Where(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == item.PropertyOrServiceId).PropertyGroupId).Select(a => a.SystemName).FirstOrDefault());
+                    item.PropertyOrService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == item.PropertyOrServiceId).Translation;
+                    item.IsSearchRequired = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == item.PropertyOrServiceId).IsSearchRequired;
+                    item.IsService = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == item.PropertyOrServiceId).IsService;
+                    item.Fee = propertyOrServiceTypeList.FirstOrDefault(a => a.Id == item.PropertyOrServiceId).IsFeeInfoRequired;
+                    item.PropertyUnit = await DBOperations.DBTranslation(propertyOrServiceUnitList.FirstOrDefault(a => a.Id == propertyOrServiceTypeList.FirstOrDefault(b => b.Id == item.PropertyOrServiceId).PropertyOrServiceUnitTypeId).Translation);
                 });
                 DgListView.ItemsSource = hotelPropertyAndServiceList;
                 DgListView.Items.Refresh();
@@ -96,7 +99,12 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "IsSearchRequired") { e.Header = Resources["searchRequired"].ToString(); e.DisplayIndex = 3; } else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 1; } else if (headername == "PropertyOrService") { e.Header = Resources["propertyOrService"].ToString(); e.DisplayIndex = 2; } else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 4; } else if (headername == "IsAvailable") e.Header = Resources["isAvailable"].ToString();
+                    if (headername == "IsSearchRequired") { e.Header = Resources["searchRequired"].ToString(); e.DisplayIndex = 4; } 
+                    else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "PropertyGroup") { e.Header = Resources["propertyGroup"].ToString(); e.DisplayIndex = 2; }
+                    else if (headername == "PropertyOrService") { e.Header = Resources["propertyOrService"].ToString(); e.DisplayIndex = 3; } 
+                    else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 5; } 
+                    else if (headername == "IsAvailable") e.Header = Resources["isAvailable"].ToString();
                     else if (headername == "Fee") e.Header = Resources["fee"].ToString();
                     else if (headername == "PropertyUnit") e.Header = Resources["unit"].ToString();
                     else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
@@ -125,6 +133,7 @@ namespace TravelAgencyAdmin.Pages {
                     HotelPropertyAndServiceList user = e as HotelPropertyAndServiceList;
                     return user.Accommodation.ToLower().Contains(filter.ToLower())
                     || user.PropertyOrService.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(user.PropertyGroup) && user.PropertyGroup.ToLower().Contains(filter.ToLower())
                     ;
                 };
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -234,7 +243,7 @@ namespace TravelAgencyAdmin.Pages {
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")
-                cb_owner.Text = adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+                cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

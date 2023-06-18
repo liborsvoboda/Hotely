@@ -413,12 +413,12 @@
     <system:String x:Key="maxCapacity">Max. kapacita</system:String>
     <system:String x:Key="extraBed">Přistýlka</system:String>
     <system:String x:Key="roomsCount">Počet pokojů</system:String>
-    <system:String x:Key="accommodation">Ubyt.zařízení</system:String>
-    <system:String x:Key="roomList">Pokoje</system:String>
+    <system:String x:Key="accommodation">1 - Ubyt.zařízení</system:String>
+    <system:String x:Key="roomList">4 - Pokoje</system:String>
     <system:String x:Key="advertised">Inzerován</system:String>
     <system:String x:Key="approved">Schváleno</system:String>
     <system:String x:Key="propertyOrService">Vlastnost/Služba</system:String>
-    <system:String x:Key="propertyOrServiceList" xml:space="preserve">Vlastnosti&amp;Služby</system:String>
+    <system:String x:Key="propertyOrServiceList" xml:space="preserve">3 - Vlastnosti&amp;Služby</system:String>
     <system:String x:Key="isAvailable">Je dostupná</system:String>
     <system:String x:Key="valueBit">Hodnota Ano/Ne</system:String>
     <system:String x:Key="valueRangeMin">Hodnota rozsahu Min</system:String>
@@ -443,7 +443,7 @@
     <system:String x:Key="hotelApprovalList">Proces Schalování</system:String>
     <system:String x:Key="hotelPropertyAndServiceList" xml:space="preserve">Vlastnosti&amp;Služby</system:String>
     <system:String x:Key="hotelRoomList">Pokoje</system:String>
-    <system:String x:Key="hotelImagesList">Galerie</system:String>
+    <system:String x:Key="hotelImagesList">2 - Galerie</system:String>
     <system:String x:Key="loadFromServer">Načíst ze serveru</system:String>
     <system:String x:Key="saveToServer">Uložit na server</system:String>
     <system:String x:Key="images">Obrázky</system:String>
@@ -463,4 +463,11 @@
     <system:String x:Key="timeToEnable">Čas do zapnutí</system:String>
     <system:String x:Key="averageRating">Průměrné hodnocení</system:String>
     <system:String x:Key="image">Obrázek</system:String>
+    <system:String x:Key="approval">Schvalování</system:String>
+    <system:String x:Key="isoCode">Iso kód</system:String>
+    <system:String x:Key="countryCity">Stát / Město</system:String>
+    <system:String x:Key="interestAreaList">Oblast zájmu</system:String>
+    <system:String x:Key="propertyGroupList">Skupiny Parametrů</system:String>
+    <system:String x:Key="propertyGroup">Skupina Parametrů</system:String>
+
 </ResourceDictionary>

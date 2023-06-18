@@ -2,13 +2,14 @@
 
 namespace TravelAgencyAdmin.Classes {
 
-    public partial class CountryList {
-        public int Id { get; set; }
+    public partial class PropertyGroupList {
+        public int Id { get; set; } = 0;
         public string SystemName { get; set; }
-        public string IsoCode { get; set; }
+        public string Description { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public string CountryTranslation { get; set; }
+        public string Translation { get; set; } = null;
     }
+
 }

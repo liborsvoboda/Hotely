@@ -237,6 +237,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaList.cs" />
+    <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
+      <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupList.cs" />
+    <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml.cs">
+      <DependentUpon>PropertyGroupListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalList.cs" />
     <Compile Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml.cs">
       <DependentUpon>HotelApprovalListPage.xaml</DependentUpon>
@@ -414,6 +422,14 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\HotelDials\HotelApprovalList\HotelApprovalListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

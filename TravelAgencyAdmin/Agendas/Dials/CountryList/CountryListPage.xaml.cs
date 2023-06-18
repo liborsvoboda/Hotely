@@ -29,6 +29,7 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 lbl_id.Content = Resources["id"].ToString();
                 lbl_systemName.Content = Resources["systemName"].ToString();
+                lbl_isoCode.Content = Resources["isoCode"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -54,7 +55,10 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; } else if (headername == "CountryTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; } else if (headername == "Description") e.Header = Resources["description"].ToString();
+                    if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; } 
+                    else if (headername == "CountryTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; } 
+                    else if (headername == "IsoCode") e.Header = Resources["isoCode"].ToString();
+                    else if (headername == "Description") e.Header = Resources["description"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
@@ -68,6 +72,7 @@ namespace TravelAgencyAdmin.Pages {
                 DgListView.Items.Filter = (e) => {
                     CountryList user = e as CountryList;
                     return user.SystemName.ToLower().Contains(filter.ToLower())
+                    || user.IsoCode.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.CountryTranslation) && user.CountryTranslation.ToLower().Contains(filter.ToLower());
                 };
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -114,6 +119,7 @@ namespace TravelAgencyAdmin.Pages {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.SystemName = txt_systemName.Text;
+                selectedRecord.IsoCode = txt_isoCode.Text;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
@@ -139,6 +145,7 @@ namespace TravelAgencyAdmin.Pages {
         private void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
             txt_systemName.Text = selectedRecord.SystemName;
+            txt_isoCode.Text = selectedRecord.IsoCode;
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

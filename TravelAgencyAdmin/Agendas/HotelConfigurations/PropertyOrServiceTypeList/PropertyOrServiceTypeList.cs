@@ -5,6 +5,7 @@ namespace TravelAgencyAdmin.Classes {
     public partial class PropertyOrServiceTypeList {
         public int Id { get; set; } = 0;
         public string SystemName { get; set; } = null;
+        public int? PropertyGroupId { get; set; } = null;
         public int PropertyOrServiceUnitTypeId { get; set; }
         public bool IsSearchRequired { get; set; }
         public bool IsService { get; set; }
@@ -27,6 +28,7 @@ namespace TravelAgencyAdmin.Classes {
         /// </summary>
         public string Translation { get; set; }
 
+        public string PropertyGroupTranslation { get; set; }
         public string PropertyOrServiceUnitType { get; set; }
     }
 }
