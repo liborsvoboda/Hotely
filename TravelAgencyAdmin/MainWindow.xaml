@@ -157,8 +157,10 @@
             <DockPanel
                 x:Name="standardMenu" Width="120" Height="40" Margin="0" HorizontalAlignment="Left">
                 <ToolBar
-                    x:Name="tb_verticalMenu" Width="130" Height="34" Margin="0" Padding="0"
-                    HorizontalAlignment="Left" ToolBarTray.IsLocked="True">
+                    x:Name="tb_verticalMenu" Width="120" Height="34" Margin="0" Padding="0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource SystemMenu}"
+                    ToolBarTray.IsLocked="True">
                     <TreeViewItem
                         x:Name="tv_agendas" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
@@ -233,9 +235,25 @@
                             PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_approval" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_webAdmin" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_approvingProcess" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_holidayTipsList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_oftenQuestionList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_registrationInfoList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                      <TreeViewItem
+                            x:Name="tm_ubytkacInfoList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>

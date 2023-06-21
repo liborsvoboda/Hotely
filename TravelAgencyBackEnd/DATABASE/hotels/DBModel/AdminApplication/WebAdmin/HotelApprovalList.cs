@@ -29,5 +29,8 @@ namespace TravelAgencyBackEnd.DBModel
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public int TotalCapacity { get; set; }
+        [StringLength(250)]
+        [Unicode(false)]
+        public string City { get; set; }
     }
 }

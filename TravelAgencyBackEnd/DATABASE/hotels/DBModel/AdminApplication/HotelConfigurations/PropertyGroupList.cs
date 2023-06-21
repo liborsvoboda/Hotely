@@ -21,6 +21,7 @@ namespace TravelAgencyBackEnd.DBModel
         [StringLength(150)]
         [Unicode(false)]
         public string SystemName { get; set; }
+        public int Sequence { get; set; }
         [Column(TypeName = "text")]
         public string Description { get; set; }
         public int UserId { get; set; }

@@ -232,10 +232,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border
-                        Name="Bd" Background="Transparent" CornerRadius="0,3,3,0" SnapsToDevicePixels="true">
+                        Name="Bd" Background="Transparent" CornerRadius="3,3,3,3" SnapsToDevicePixels="true">
                         <Grid>
                             <Label
-                                Name="Arrow" Margin="10,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                                Name="Arrow" Margin="0,0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Stretch"
                                 Content="MENU" FontSize="26" FontWeight="Bold"
                                 Foreground="{DynamicResource AccentColorBrush}" />
                             <ContentPresenter />
@@ -258,7 +258,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="{x:Type ToolBar}" TargetType="{x:Type ToolBar}">
+    <Style x:Key="SystemMenu" TargetType="{x:Type ToolBar}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
@@ -271,7 +271,7 @@
                         BorderThickness="0" CornerRadius="2">
                         <DockPanel>
                             <ToggleButton
-                                Width="120" ClickMode="Press" DockPanel.Dock="Right"
+                                Width="120" ClickMode="Press" DockPanel.Dock="Left"
                                 IsChecked="{Binding Path=IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                 IsEnabled="{TemplateBinding HasOverflowItems}"
                                 Style="{StaticResource ToolBarOverflowButtonStyle}">

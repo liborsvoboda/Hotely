@@ -146,7 +146,7 @@ namespace TravelAgencyAdmin {
         public static void ApplicationLogging(Exception ex, string customMessage = null) {
             try {
                 Current?.Invoke(async () => {
-                    if (Current.MainWindow != null && Current.MainWindow.Name == "XamlMainWindow" && ((MainWindow)Current.MainWindow).AppSystemTimer.Enabled) {
+                    if (Current.MainWindow != null && Current.MainWindow.Name == "XamlMainWindow" && UserData.Authentification != null) {
                         if (string.IsNullOrWhiteSpace(customMessage)) DBOperations.SaveSystemFailMessage(await SystemOperations.GetExceptionMessages(ex));
                         else DBOperations.SaveSystemFailMessage(customMessage);
                         //if (Setting.WriteToLog) log.Error(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + customMessage);

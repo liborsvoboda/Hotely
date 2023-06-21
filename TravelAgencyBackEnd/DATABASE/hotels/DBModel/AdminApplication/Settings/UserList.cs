@@ -22,6 +22,7 @@ namespace TravelAgencyBackEnd.DBModel
             DocumentAdviceLists = new HashSet<DocumentAdviceList>();
             DocumentTypeLists = new HashSet<DocumentTypeList>();
             ExchangeRateLists = new HashSet<ExchangeRateList>();
+            HolidayTipsLists = new HashSet<HolidayTipsList>();
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
             HotelActionTypeLists = new HashSet<HotelActionTypeList>();
             HotelImagesLists = new HashSet<HotelImagesList>();
@@ -34,14 +35,17 @@ namespace TravelAgencyBackEnd.DBModel
             InterestAreaLists = new HashSet<InterestAreaList>();
             LanguageLists = new HashSet<LanguageList>();
             MottoLists = new HashSet<MottoList>();
+            OftenQuestionLists = new HashSet<OftenQuestionList>();
             ParameterLists = new HashSet<ParameterList>();
             PropertyGroupLists = new HashSet<PropertyGroupList>();
             PropertyOrServiceTypeLists = new HashSet<PropertyOrServiceTypeList>();
             PropertyOrServiceUnitLists = new HashSet<PropertyOrServiceUnitList>();
+            RegistrationInfoLists = new HashSet<RegistrationInfoList>();
             ReportLists = new HashSet<ReportList>();
             ReportQueueLists = new HashSet<ReportQueueList>();
             SystemFailLists = new HashSet<SystemFailList>();
             TemplateLists = new HashSet<TemplateList>();
+            UbytkacInfoLists = new HashSet<UbytkacInfoList>();
         }
 
         [Key]
@@ -100,6 +104,8 @@ namespace TravelAgencyBackEnd.DBModel
         [InverseProperty("User")]
         public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<HolidayTipsList> HolidayTipsLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<HotelActionTypeList> HotelActionTypeLists { get; set; }
@@ -124,6 +130,8 @@ namespace TravelAgencyBackEnd.DBModel
         [InverseProperty("User")]
         public virtual ICollection<MottoList> MottoLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<OftenQuestionList> OftenQuestionLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<ParameterList> ParameterLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<PropertyGroupList> PropertyGroupLists { get; set; }
@@ -132,6 +140,8 @@ namespace TravelAgencyBackEnd.DBModel
         [InverseProperty("User")]
         public virtual ICollection<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<RegistrationInfoList> RegistrationInfoLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<ReportList> ReportLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
@@ -139,5 +149,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<SystemFailList> SystemFailLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<TemplateList> TemplateLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<UbytkacInfoList> UbytkacInfoLists { get; set; }
     }
 }

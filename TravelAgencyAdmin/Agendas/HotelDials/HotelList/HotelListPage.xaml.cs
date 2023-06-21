@@ -87,9 +87,21 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; } else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; } else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; } else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; } else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } else if (headername == "AverageRating") { e.Header = Resources["averageRating"].ToString(); e.DisplayIndex = 9; } else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
+                    if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } 
+                    else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; } 
+                    else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; } 
+                    else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; } 
+                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; } 
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } 
+                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } 
+                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } 
+                    else if (headername == "AverageRating") { e.Header = Resources["averageRating"].ToString(); e.DisplayIndex = 9; } 
+                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+
+                    else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "CityId") e.Visibility = Visibility.Hidden;
+                    else if (headername == "City") e.Visibility = Visibility.Hidden;
                     else if (headername == "CountryId") e.Visibility = Visibility.Hidden;
                     else if (headername == "DescriptionCz") e.Visibility = Visibility.Hidden;
                     else if (headername == "DescriptionEn") e.Visibility = Visibility.Hidden;
@@ -157,8 +169,8 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.CountryId = ((cb_countryId.SelectedItem != null) ? (int?)((CountryList)cb_countryId.SelectedItem).Id : null);
                 selectedRecord.CityId = (cb_cityId.SelectedItem != null) ? (int?)((CityList)cb_cityId.SelectedItem).Id : null;
                 selectedRecord.Name = !string.IsNullOrWhiteSpace(txt_name.Text) ? txt_name.Text : null;
-                selectedRecord.DescriptionCz = txt_descriptionCz.Text;
-                selectedRecord.DescriptionEn = txt_descriptionEn.Text;
+                selectedRecord.DescriptionCz = html_descriptionCz.Text;
+                selectedRecord.DescriptionEn = html_descriptionEn.Text;
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
                 selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
@@ -195,8 +207,8 @@ namespace TravelAgencyAdmin.Pages {
             cb_cityId.SelectedItem = cityList.FirstOrDefault(a => a.Id == selectedRecord.CityId);
             cb_countryId.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
             txt_name.Text = selectedRecord.Name;
-            txt_descriptionCz.Text = selectedRecord.DescriptionCz;
-            txt_descriptionEn.Text = selectedRecord.DescriptionEn;
+            html_descriptionCz.Text = selectedRecord.DescriptionCz;
+            html_descriptionEn.Text = selectedRecord.DescriptionEn;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
             chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;

@@ -168,8 +168,8 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.HotelId = ((cb_hotelId.SelectedItem != null) ? (int?)((HotelList)cb_hotelId.SelectedItem).Id : null);
                 selectedRecord.RoomTypeId = (cb_roomTypeId.SelectedItem != null) ? (int?)((HotelRoomTypeList)cb_roomTypeId.SelectedItem).Id : null;
                 selectedRecord.Name = !string.IsNullOrWhiteSpace(txt_name.Text) ? txt_name.Text : null;
-                selectedRecord.DescriptionCz = txt_descriptionCz.Text;
-                selectedRecord.DescriptionEn = txt_descriptionEn.Text;
+                selectedRecord.DescriptionCz = html_descriptionCz.Text;
+                selectedRecord.DescriptionEn = html_descriptionEn.Text;
                 selectedRecord.Price = (double)txt_price.Value;
                 selectedRecord.MaxCapacity = (int)txt_maxCapacity.Value;
                 selectedRecord.ExtraBed = (bool)chb_extraBed.IsChecked;
@@ -209,8 +209,8 @@ namespace TravelAgencyAdmin.Pages {
             cb_hotelId.SelectedItem = hotelList.FirstOrDefault(a => a.Id == selectedRecord.HotelId);
             cb_roomTypeId.SelectedItem = hotelRoomTypeList.FirstOrDefault(a => a.Id == selectedRecord.RoomTypeId);
             txt_name.Text = selectedRecord.Name;
-            txt_descriptionCz.Text = selectedRecord.DescriptionCz;
-            txt_descriptionEn.Text = selectedRecord.DescriptionEn;
+            html_descriptionCz.Text = selectedRecord.DescriptionCz;
+            html_descriptionEn.Text = selectedRecord.DescriptionEn;
             txt_price.Value = selectedRecord.Price;
             txt_maxCapacity.Value = selectedRecord.MaxCapacity;
             chb_extraBed.IsChecked = selectedRecord.ExtraBed;

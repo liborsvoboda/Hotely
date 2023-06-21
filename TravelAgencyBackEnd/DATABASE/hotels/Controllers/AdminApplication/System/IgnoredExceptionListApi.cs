@@ -1,20 +1,10 @@
 ﻿namespace TravelAgencyBackEnd.Controllers {
 
-    /// <summary>
-    /// Universal Template For Make Any Full Backend Server One Template Has All data operation
-    /// Controls for simple copy and build ANY Backend Server
-    /// </summary>
     [ApiController]
     [Route("IgnoredExceptionList")]
-    [SwaggerTag("API Template with INSERT/UPDATE/DELETE/SELECT AND FILTERING APIs")]
     public class IgnoredExceptionListApi : ControllerBase {
 
-        /// <summary>
-        /// Operation: Select All records Standart API for return all records from DB table
-        /// </summary>
-        /// <returns></returns>
         [HttpGet("/IgnoredExceptionList")]
-        [SwaggerOperation(Summary = "Get All records", Description = "Async standard select record API", OperationId = "Select all records", Tags = new[] { "IgnoredExceptionListApi" })]
         public async Task<string> GetIgnoredExceptionList() {
             List<IgnoredExceptionList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -28,14 +18,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        /// <summary>
-        /// Operation: Select By sent SQL Where Condition Standart API for return records by Where
-        /// condition in Query from DB table
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         [HttpGet("/IgnoredExceptionList/Filter/{filter}")]
-        [SwaggerOperation(Summary = "Get records by Advanced filter", Description = "Async standard select records by advanced filter API", OperationId = "Select records by Advanced filter", Tags = new[] { "IgnoredExceptionListApi" })]
         public async Task<string> GetIgnoredExceptionListByFilter(string filter) {
             List<IgnoredExceptionList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -49,14 +32,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        /// <summary>
-        /// Operation: Select Unique record Standart API for return one record by primary Id key
-        /// from DB table
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("/IgnoredExceptionList/{id}")]
-        [SwaggerOperation(Summary = "Get Record by Id", Description = "Async standard Get record by Id API", OperationId = "Get One record", Tags = new[] { "IgnoredExceptionListApi" })]
         public async Task<string> GetIgnoredExceptionListKey(int id) {
             IgnoredExceptionList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -70,15 +46,9 @@
             return JsonSerializer.Serialize(data);
         }
 
-        /// <summary>
-        /// Operation: Insert new record Standart API for insert new record to DB table
-        /// </summary>
-        /// <param name="record"></param>
-        /// <returns></returns>
         [Authorize]
         [HttpPut("/IgnoredExceptionList")]
         [Consumes("application/json")]
-        [SwaggerOperation(Summary = "Create a new Record", Description = "Async standard Insert record API", OperationId = "Insert New Record", Tags = new[] { "IgnoredExceptionListApi" })]
         public async Task<string> InsertIgnoredExceptionList([FromBody] IgnoredExceptionList record) {
             try
             {
@@ -94,15 +64,9 @@
             }
         }
 
-        /// <summary>
-        /// Operation: Update record by unique Id key Standart API for update existing record in DB table
-        /// </summary>
-        /// <param name="record"></param>
-        /// <returns></returns>
         [Authorize]
         [HttpPost("/IgnoredExceptionList")]
         [Consumes("application/json")]
-        [SwaggerOperation(Summary = "Update Record", Description = "Async standard Update record API", OperationId = "Update Record", Tags = new[] { "IgnoredExceptionListApi" })]
         public async Task<string> UpdateIgnoredExceptionList([FromBody] IgnoredExceptionList record) {
             try
             {
@@ -115,15 +79,9 @@
             { return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = SystemFunctions.GetUserApiErrMessage(ex) }); }
         }
 
-        /// <summary>
-        /// Operation: Delete record by unique Id key Standart API for delete existing record in DB table
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [Authorize]
         [HttpDelete("/IgnoredExceptionList/{id}")]
         [Consumes("application/json")]
-        [SwaggerOperation(Summary = "Delete Record", Description = "Async standard Delete record API", OperationId = "Delete Record", Tags = new[] { "IgnoredExceptionListApi" })]
         public async Task<string> DeleteIgnoredExceptionList(string id) {
             try
             {

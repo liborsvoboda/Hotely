@@ -6,6 +6,7 @@ namespace TravelAgencyAdmin.Classes {
         public int Id { get; set; } = 0;
         public int? CountryId { get; set; } = null;
         public int? CityId { get; set; } = null;
+        public string City { get; set; } = null;
         public string Name { get; set; } = null;
         public string DescriptionCz { get; set; }
         public string DescriptionEn { get; set; }
@@ -17,8 +18,10 @@ namespace TravelAgencyAdmin.Classes {
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public string Country { get; set; }
-        public string City { get; set; }
+        public string CountryTranslation { get; set; }
+        public string CityTranslation { get; set; }
         public string Currency { get; set; }
+
+
     }
 }

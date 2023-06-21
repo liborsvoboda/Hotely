@@ -94,19 +94,19 @@
             </Border>
 
             <Label
-                x:Name="lbl_cityId" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
-            <ComboBox
-                x:Name="cb_cityId" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,2,0,2"
-                HorizontalAlignment="Stretch" VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="CityTranslation"
-                IsEnabled="true" SelectedValuePath="Id" SelectionChanged="CitySelectionChanged" />
-
-            <Label
-                x:Name="lbl_countryId" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_countryId" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
 
             <ComboBox
-                x:Name="cb_countryId" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,2,0,2"
+                x:Name="cb_countryId" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,2,0,2"
                 HorizontalAlignment="Stretch" VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="CountryTranslation"
                 IsEnabled="True" SelectedValuePath="Id" SelectionChanged="CountrySelectionChanged" />
+
+            <Label
+                x:Name="lbl_cityId" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <ComboBox
+                x:Name="cb_cityId" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,2,0,2"
+                HorizontalAlignment="Stretch" VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="CityTranslation"
+                IsEnabled="true" SelectedValuePath="Id" />
 
             <Label
                 x:Name="lbl_name" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />

@@ -470,4 +470,11 @@
     <system:String x:Key="propertyGroupList">Skupiny Parametrů</system:String>
     <system:String x:Key="propertyGroup">Skupina Parametrů</system:String>
 
+    <system:String x:Key="webAdmin">Web Administrace</system:String>
+    <system:String x:Key="holidayTipsList">Tipy na Dovolenou</system:String>
+    <system:String x:Key="oftenQuestionList">Časté Dotazy</system:String>
+    <system:String x:Key="registrationInfoList">Registrační info</system:String>
+    <system:String x:Key="ubytkacInfoList">Úbytkáč Info</system:String>
+    
+
 </ResourceDictionary>

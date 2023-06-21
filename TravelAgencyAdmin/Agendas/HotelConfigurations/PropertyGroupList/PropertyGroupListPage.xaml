@@ -38,8 +38,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="80" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -62,9 +62,15 @@
                 Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" ToolTip="" />
 
             <Label
-                x:Name="lbl_description" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_sequence" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <Controls:NumericUpDown
+                x:Name="txt_sequence" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2"
+                Controls:TextBoxHelper.ClearTextButton="False" Controls:TextBoxHelper.Watermark="" Interval="10" Minimum="0" />
+
+            <Label
+                x:Name="lbl_description" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_description" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
+                x:Name="txt_description" Grid.Row="3" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
                 Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
 
 

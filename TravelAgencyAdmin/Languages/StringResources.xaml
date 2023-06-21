@@ -471,4 +471,10 @@
     <system:String x:Key="propertyGroupList">Property groups</system:String>
     <system:String x:Key="propertyGroup">Property group</system:String>
 
+    <system:String x:Key="webAdmin">Web Administration</system:String>
+    <system:String x:Key="holidayTipsList">Holiday Tips</system:String>
+    <system:String x:Key="oftenQuestionList">Often Questions</system:String>
+    <system:String x:Key="registrationInfoList">Registration info</system:String>
+    <system:String x:Key="ubytkacInfoList">Úbytkáč Info</system:String>
+
 </ResourceDictionary>

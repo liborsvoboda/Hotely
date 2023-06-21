@@ -27,7 +27,8 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                data = new hotelsContext().HotelApprovalLists.FromSqlRaw("SELECT * FROM HotelApprovalList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
+                data = new hotelsContext().HotelApprovalLists.FromSqlRaw("SELECT * FROM HotelApprovalList WHERE 1=1 AND " + filter.Replace("+", " "))
+                    .AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });

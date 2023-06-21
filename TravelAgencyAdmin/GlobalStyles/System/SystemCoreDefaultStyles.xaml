@@ -69,7 +69,7 @@
         <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="True" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="AcceptsReturn" Value="False" />
-        <Setter Property="AcceptsTab" Value="True" />
+        <Setter Property="AcceptsTab" Value="False" />
         <Setter Property="Controls:TextBoxHelper.IsWaitingForData" Value="True" />
     </Style>
 

@@ -59,7 +59,7 @@
                 x:Name="lbl_systemName" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
                 x:Name="txt_systemName" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="true"
-                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" MaxLength="5" />
+                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" MaxLength="50" />
 
             <Label
                 x:Name="lbl_description" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />

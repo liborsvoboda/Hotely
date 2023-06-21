@@ -9,55 +9,6 @@
             Auto Updated LocalDials - in Future Can be setted as Server Configurator
             </summary>
         </member>
-        <member name="T:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi">
-            <summary>
-            Universal Template For Make Any Full Backend Server One Template Has All data operation
-            Controls for simple copy and build ANY Backend Server
-            </summary>
-        </member>
-        <member name="M:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi.GetIgnoredExceptionList">
-            <summary>
-            Operation: Select All records Standart API for return all records from DB table
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi.GetIgnoredExceptionListByFilter(System.String)">
-            <summary>
-            Operation: Select By sent SQL Where Condition Standart API for return records by Where
-            condition in Query from DB table
-            </summary>
-            <param name="filter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi.GetIgnoredExceptionListKey(System.Int32)">
-            <summary>
-            Operation: Select Unique record Standart API for return one record by primary Id key
-            from DB table
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi.InsertIgnoredExceptionList(TravelAgencyBackEnd.DBModel.IgnoredExceptionList)">
-            <summary>
-            Operation: Insert new record Standart API for insert new record to DB table
-            </summary>
-            <param name="record"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi.UpdateIgnoredExceptionList(TravelAgencyBackEnd.DBModel.IgnoredExceptionList)">
-            <summary>
-            Operation: Update record by unique Id key Standart API for update existing record in DB table
-            </summary>
-            <param name="record"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TravelAgencyBackEnd.Controllers.IgnoredExceptionListApi.DeleteIgnoredExceptionList(System.String)">
-            <summary>
-            Operation: Delete record by unique Id key Standart API for delete existing record in DB table
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="M:TravelAgencyBackEnd.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer

@@ -29,6 +29,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<GuestLoginHistoryList> GuestLoginHistoryLists { get; set; }
+        public virtual DbSet<HolidayTipsList> HolidayTipsLists { get; set; }
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
         public virtual DbSet<HotelApprovalList> HotelApprovalLists { get; set; }
@@ -47,14 +48,17 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<InterestAreaList> InterestAreaLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
+        public virtual DbSet<OftenQuestionList> OftenQuestionLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
         public virtual DbSet<PropertyGroupList> PropertyGroupLists { get; set; }
         public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
         public virtual DbSet<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
+        public virtual DbSet<RegistrationInfoList> RegistrationInfoLists { get; set; }
         public virtual DbSet<ReportList> ReportLists { get; set; }
         public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
         public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
+        public virtual DbSet<UbytkacInfoList> UbytkacInfoLists { get; set; }
         public virtual DbSet<UserList> UserLists { get; set; }
         public virtual DbSet<UserRoleList> UserRoleLists { get; set; }
 
@@ -222,6 +226,17 @@ namespace TravelAgencyBackEnd.DBModel
             modelBuilder.Entity<GuestLoginHistoryList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<HolidayTipsList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HolidayTipsLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HolidayTipsList_UserList");
             });
 
             modelBuilder.Entity<HotelAccommodationActionList>(entity =>
@@ -539,6 +554,17 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasConstraintName("FK_MottoList_UserList");
             });
 
+            modelBuilder.Entity<OftenQuestionList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.OftenQuestionLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OftenQuestionList_UserList");
+            });
+
             modelBuilder.Entity<ParameterList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -596,6 +622,17 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasConstraintName("FK_PropertyOrServiceTypeList_UserList");
             });
 
+            modelBuilder.Entity<RegistrationInfoList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.RegistrationInfoLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RegistrationInfoList_UserList");
+            });
+
             modelBuilder.Entity<ReportList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
@@ -641,6 +678,17 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TemplateList_UserList");
+            });
+
+            modelBuilder.Entity<UbytkacInfoList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UbytkacInfoLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UbytkacInfoList_UserList");
             });
 
             modelBuilder.Entity<UserList>(entity =>

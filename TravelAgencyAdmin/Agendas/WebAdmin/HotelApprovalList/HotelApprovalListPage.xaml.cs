@@ -85,14 +85,9 @@ namespace TravelAgencyAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 HotelApprovalList = await ApiCommunication.GetApiRequest<List<HotelApprovalList>>(ApiUrls.HotelApprovalList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, null, App.UserData.Authentification.Token);
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                cityList.ForEach(async city => {
-                    city.CityTranslation = await DBOperations.DBTranslation(city.City);
-                    city.CountryTranslation = await DBOperations.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
-                });
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
@@ -101,9 +96,9 @@ namespace TravelAgencyAdmin.Pages {
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
-                HotelApprovalList.ForEach(hotel => {
-                    hotel.Country = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
-                    hotel.City = cityList.First(a => a.Id == hotel.CityId).City;
+                HotelApprovalList.ForEach( async hotel => {
+                    hotel.CountryTranslation = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
+                    hotel.CityTranslation = await DBOperations.DBTranslation(hotel.City);
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
                 });
                 DgListView.ItemsSource = HotelApprovalList;
@@ -120,9 +115,20 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } else if (headername == "Country") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; } else if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; } else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; } else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; } else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
+                    if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } 
+                    else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; } 
+                    else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; } 
+                    else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; } 
+                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; } 
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } 
+                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } 
+                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } 
+                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                    
+                    else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "CityId") e.Visibility = Visibility.Hidden;
+                    else if (headername == "City") e.Visibility = Visibility.Hidden;
                     else if (headername == "CountryId") e.Visibility = Visibility.Hidden;
                     else if (headername == "DescriptionCz") e.Visibility = Visibility.Hidden;
                     else if (headername == "DescriptionEn") e.Visibility = Visibility.Hidden;
@@ -138,8 +144,8 @@ namespace TravelAgencyAdmin.Pages {
                 DgListView.Items.Filter = (e) => {
                     HotelApprovalList user = e as HotelApprovalList;
                     return user.Name.ToLower().Contains(filter.ToLower())
-                    || user.Country.ToLower().Contains(filter.ToLower())
-                    || user.City.ToLower().Contains(filter.ToLower())
+                    || user.CountryTranslation.ToLower().Contains(filter.ToLower())
+                    || user.CityTranslation.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionCz) && user.DescriptionCz.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
@@ -193,7 +199,7 @@ namespace TravelAgencyAdmin.Pages {
                 if (App.UserData.Authentification.Role == "Admin")
                     selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
-                selectedRecord.Country = selectedRecord.City = selectedRecord.Currency = null;
+                selectedRecord.CountryTranslation = selectedRecord.Currency = null; selectedRecord.City = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
@@ -236,24 +242,21 @@ namespace TravelAgencyAdmin.Pages {
             }
         }
 
-        /// <summary>
-        /// Change Country With changed City
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">     </param>
-        private void CitySelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (cb_cityId.SelectedItem != null) {
-                cb_countryId.SelectionChanged -= CountrySelectionChanged;
-                cb_countryId.Text = ((CityList)cb_cityId.SelectedItem).CountryTranslation;
-                cb_countryId.SelectionChanged += CountrySelectionChanged;
-            }
-        }
-
-        private void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private async void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (cb_countryId.SelectedItem != null) {
-                cb_cityId.SelectionChanged -= CitySelectionChanged;
+                MainWindow.ProgressRing = Visibility.Visible;
                 cb_cityId.SelectedItem = null;
-                cb_cityId.SelectionChanged += CitySelectionChanged;
+                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, "ByCountry/" + ((CountryList)cb_countryId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token); ;
+
+                cityList.ForEach(async city => {
+                    city.CityTranslation = await DBOperations.DBTranslation(city.City, true);
+                    city.CountryTranslation = await DBOperations.DBTranslation(countryList.FirstOrDefault(a => a.Id == city.CountryId).SystemName);
+                });
+
+                cb_cityId.ItemsSource = cityList;
+
+                if (((CountryList)cb_countryId.SelectedItem).Id == selectedRecord.CountryId) { cb_cityId.SelectedItem = cityList.FirstOrDefault(a => a.Id == selectedRecord.CityId); }
+                MainWindow.ProgressRing = Visibility.Hidden;
             }
         }
 
