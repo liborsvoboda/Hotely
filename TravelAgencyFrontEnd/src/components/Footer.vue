@@ -15,13 +15,13 @@
         <footer>
             <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="#"><router-link to="/">Home</router-link></a></li>
+                <li class="list-inline-item"><a href="#"><router-link to="/">{{ $t('labels.home') }}</router-link></a></li>
                 <li class="list-inline-item"><a href="#">Services</a></li>
                 <li class="list-inline-item"><router-link to="/About">About</router-link></li>
                 <li class="list-inline-item"><a href="#">Insurance</a></li>
                 <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
             </ul>
-            <p class="copyright">Ukubhuka © 2021</p>
+            <p class="copyright">CoolNET © 2023</p>
         </footer>
     </div>
 </body>

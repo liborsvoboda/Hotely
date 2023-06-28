@@ -1,4 +1,7 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿using System.Diagnostics.PerformanceData;
+using static TravelAgencyBackEnd.Controllers.PaymentIntentApiController;
+
+namespace TravelAgencyBackEnd.Controllers {
 
     [ApiController]
     [Route("WebApi/Search")]
@@ -11,6 +14,21 @@
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
+
+
+        [HttpGet("/WebApi/Search/GetSearchAreaList/{language}")]
+        public async Task<string> GetSearchAreaList(string language = "cz") {
+            List<string> data = new();
+
+            List<InterestAreaList> areaList = new List<InterestAreaList>();
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                areaList = new hotelsContext().InterestAreaLists.ToList();
+            }
+            areaList.ForEach(item => data.Add(DBOperations.DBTranslate(item.SystemName, language)));
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
 
         [HttpGet("/WebApi/Search/GetSearchInput/{searched}/{language}")]
         public async Task<string> GetSearchInput(string searched, string language = "cz") {
@@ -27,7 +45,11 @@
                     .Where(a => data.Contains(a.Id)).ToList();
             }
 
-            result.ForEach(hotel => { hotel.HotelImagesLists.ToList().ForEach(attachment => { attachment.Attachment = null; }); });
+            result.ForEach(hotel => {
+                hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
+                hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
+                hotel.HotelImagesLists.ToList().ForEach(attachment => { attachment.Attachment = null; }); 
+            });
 
             //TODO changed to old structure
             WebPageRootSearchData rootData = new();
@@ -58,7 +80,7 @@
                     joiner => joiner.Id, joined => joined.CountryId, (_joiner, _joined) => _joiner.SystemName).ToList();
 
                 cityData = _dbContext.CityLists.Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),
-                    joiner => joiner.Id, joined => joined.CountryId, (_joiner, _joined) => _joiner.City).ToList();
+                    joiner => joiner.Id, joined => joined.CityId, (_joiner, _joined) => _joiner.City).ToList();
 
                 data = _dbContext.HotelLists.Where(a => a.Approved == true && a.Advertised == true).Select(a => a.Name).ToList();
             }
@@ -75,31 +97,51 @@
         /// <param name="language"></param>
         /// <returns></returns>
         private List<int> GetSearchedIdList(string searched, string language = "cz") {
+            List<InterestAreaList> areaData;
             List<Tuple<int, string>> data;
             List<Tuple<int, string>> cityData;
             List<Tuple<int, string>> countryData;
             List<int> searchedIdList = new();
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                countryData = _dbContext.CountryLists.
-                    Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),
-                    joiner => joiner.Id, joined => joined.CountryId, (_joiner, _joined) => new Tuple<int, string>(_joined.Id, _joiner.SystemName)).ToList();
-
-                cityData = _dbContext.CityLists.Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),
-                    joiner => joiner.Id, joined => joined.CountryId, (_joiner, _joined) => new Tuple<int, string>(_joined.Id, _joiner.City)).ToList();
-
-                data = _dbContext.HotelLists.Where(a => a.Approved == true && a.Advertised == true).Select(a => new Tuple<int, string>(a.Id, a.Name)).ToList();
+                areaData = _dbContext.InterestAreaLists.ToList();
             }
-            countryData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, DBOperations.DBTranslate(item.Item2, language))));
-            cityData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, DBOperations.DBTranslate(item.Item2, language))));
-            data = data.Distinct().ToList();
-            data.Sort();
 
-            //Check Searched Value
-            data.ForEach(item =>
-            {
-                if (item.Item2.ToLower().Contains(searched.ToLower())) searchedIdList.Add(item.Item1);
+            //Insert All hotel Id from Selected Area by AreaCityId
+            areaData.ForEach( area => {
+                List<int> cityIdList;
+                if (DBOperations.DBTranslate(area.SystemName, language).ToLower() == searched.ToLower()) {
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        cityIdList = _dbContext.InterestAreaCityLists.Where(a => a.Iacid == area.Id).Select(a => a.CityId).ToList();
+                        searchedIdList = _dbContext.HotelLists.Where(a => cityIdList.Contains(a.CityId)).Select(a=> a.Id).ToList();
+                    }
+                }
             });
+
+            //Area not found fill by Other  
+            if (!searchedIdList.Any()) {
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+
+                    countryData = _dbContext.CountryLists.
+                        Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),
+                        joiner => joiner.Id, joined => joined.CountryId, (_joiner, _joined) => new Tuple<int, string>(_joined.Id, _joiner.SystemName)).ToList();
+
+                    cityData = _dbContext.CityLists.Join(_dbContext.HotelLists.Where(a => a.Advertised && a.Approved == true),
+                        joiner => joiner.Id, joined => joined.CityId, (_joiner, _joined) => new Tuple<int, string>(_joined.Id, _joiner.City)).ToList();
+
+                    data = _dbContext.HotelLists.Where(a => a.Approved == true && a.Advertised == true).Select(a => new Tuple<int, string>(a.Id, a.Name)).ToList();
+                }
+
+                countryData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, DBOperations.DBTranslate(item.Item2, language))));
+                cityData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, DBOperations.DBTranslate(item.Item2, language))));
+                data = data.Distinct().ToList();
+                data.Sort();
+
+                //Check Searched Value
+                data.ForEach(item => {
+                    if (item.Item2.ToLower().Contains(searched.ToLower())) searchedIdList.Add(item.Item1);
+                });
+            }
 
             return searchedIdList;
         }

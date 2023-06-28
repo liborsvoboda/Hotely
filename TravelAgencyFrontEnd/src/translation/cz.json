@@ -1,9 +1,15 @@
 {
   "labels": {
+    "insertSearchValue": "Zadejte Oblast, Stát nebo město...",
+    "home": "Domů",
+    "ubytkacInfo": "Co je Úbytkáč?",
+    "registrationInfo": "Jak se registrovat?",
+    "oftenQuestion": "Často kladené dotazy",
+    "holidayTips": "Tipy na dovolenou",
     "news": "Novinky",
     "touristAtractions": "Turistické atrakce",
-    "contactus": "Kontakt",
-    "locationObject": "Lokace / Objekt",
+    "contactus": "Kontaktujte nás",
+    "locationObject": "Oblast / Lokace / Objekt",
     "dates": "Období",
     "guestRooms": "Osoby a místnosti",
     "search": "Vyhledat",

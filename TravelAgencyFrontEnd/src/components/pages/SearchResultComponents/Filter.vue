@@ -1,39 +1,80 @@
 <template>
   <div class="row">
-    <div class="col-md-4">
+      <div class="col-md-4">
+          <div v-for="property in propertyList">
+              <div v-if="property.propertyGroupId != null" class="accordion accordion-flush" :id="property.propertyGroup.systemName">
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                          <button class="accordion-button collapsed"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#flush-collapseOne"
+                                  aria-expanded="false"
+                                  aria-controls="flush-collapseOne">
+                              {{ property.propertyGroup.systemName }}
+                          </button>
+                      </h2>
+                      <div id="flush-collapseOne"
+                           class="accordion-collapse collapse"
+                           aria-labelledby="flush-headingOne"
+                           :data-bs-parent="'#'+property.propertyGroup.systemName">
+                          <div class="accordion-body text-start">
+                              <div v-for="property in propertyList">
+                                  <div v-if="property.isSearchRequired == false && property.isValue">
+                                      <p>{{property.systemName}}</p>
+                                      <Slider v-model="property.searchDefaultValue"
+                                              :step="1"
+                                              :min="property.searchDefaultMin"
+                                              :max="property.searchDefaultMax"
+                                              :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
+                                      <hr />
+                                  </div>
+                                  <div v-else-if="property.isSearchRequired == false && property.isBit" class="form-check">
+                                      <input class="form-check-input"
+                                             v-model="property.searchDefaultBit"
+                                             type="checkbox"
+                                             value=""
+                                             id="flexCheckDefault"
+                                             @click="restaurant = !restaurant" />
+                                      <label class="form-check-label" for="flexCheckDefault">
+                                          {{property.systemName}}
+                                      </label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-        <div v-for="property in propertyList">
-           <div v-if="property.isSearchRequired == true && property.isValue">
-              <p>{{property.systemName}}</p>
-              <Slider
-                v-model="property.searchDefaultValue"
-                :step="0.1"
-                :min="property.searchDefaultMin"
-                :max="property.searchDefaultMax"
-                :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
-                
-              ></Slider>
-               <hr />
-           </div>
-           <div v-else-if="property.isSearchRequired == true && property.isBit" >
-                    <input
-                      class="form-check-input"
-                      v-model="property.searchDefaultBit"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                      @click="restaurant = !restaurant"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
+
+          <div v-for="property in propertyList">
+              <div v-if="property.isSearchRequired == true && property.isValue">
+                  <p>{{property.systemName}}</p>
+                  <Slider v-model="property.searchDefaultValue"
+                          :step="0.1"
+                          :min="property.searchDefaultMin"
+                          :max="property.searchDefaultMax"
+                          :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
+                  <hr />
+              </div>
+              <div v-else-if="property.isSearchRequired == true && property.isBit">
+                  <input class="form-check-input"
+                         v-model="property.searchDefaultBit"
+                         type="checkbox"
+                         value=""
+                         id="flexCheckDefault"
+                         @click="restaurant = !restaurant" />
+                  <label class="form-check-label" for="flexCheckDefault">
                       {{property.systemName}}
-                    </label>
-                     <hr />
-            </div>
-        </div>
+                  </label>
+                  <hr />
+              </div>
+          </div>
 
 
-      <div id="sliders">
-       <!-- <div>
+          <div id="sliders">
+              <!-- <div>
           <p>Price range (SEK)</p>
           <Slider
             v-model="pricerange.value"
@@ -60,128 +101,117 @@
           ></Slider>
         </div>
         <hr />-->
-        <div>
-          <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingOne">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseOne"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseOne"
-                >
-                  {{ $t('labels.moreFilters') }}
-                </button>
-              </h2>
-              <div
-                id="flush-collapseOne"
-                class="accordion-collapse collapse"
-                aria-labelledby="flush-headingOne"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div class="accordion-body text-start">
-                      <div v-for="property in propertyList">
-                       <div v-if="property.isSearchRequired == false && property.isValue">
-                          <p>{{property.systemName}}</p>
-                          <Slider
-                            v-model="property.searchDefaultValue"
-                            :step="1"
-                            :min="property.searchDefaultMin"
-                            :max="property.searchDefaultMax"
-                            :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
-                
-                          ></Slider>
-                           <hr />
-                       </div>
-                       <div v-else-if="property.isSearchRequired == false && property.isBit" class="form-check">
-                            <input
-                                class="form-check-input"
-                                v-model="property.searchDefaultBit"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                                @click="restaurant = !restaurant"
-                            />
-                            <label class="form-check-label" for="flexCheckDefault">
-                                {{property.systemName}}
-                            </label>
-                        </div>
-                    </div>
+              <div>
+                  <div class="accordion accordion-flush" id="accordionFlushExample">
+                      <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                              <button class="accordion-button collapsed"
+                                      type="button"
+                                      data-bs-toggle="collapse"
+                                      data-bs-target="#flush-collapseOne"
+                                      aria-expanded="false"
+                                      aria-controls="flush-collapseOne">
+                                  {{ $t('labels.moreFilters') }}
+                              </button>
+                          </h2>
+                          <div id="flush-collapseOne"
+                               class="accordion-collapse collapse"
+                               aria-labelledby="flush-headingOne"
+                               data-bs-parent="#accordionFlushExample">
+                              <div class="accordion-body text-start">
+                                  <div v-for="property in propertyList">
+                                      <div v-if="property.isSearchRequired == false && property.isValue">
+                                          <p>{{property.systemName}}</p>
+                                          <Slider v-model="property.searchDefaultValue"
+                                                  :step="1"
+                                                  :min="property.searchDefaultMin"
+                                                  :max="property.searchDefaultMax"
+                                                  :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
+                                          <hr />
+                                      </div>
+                                      <div v-else-if="property.isSearchRequired == false && property.isBit" class="form-check">
+                                          <input class="form-check-input"
+                                                 v-model="property.searchDefaultBit"
+                                                 type="checkbox"
+                                                 value=""
+                                                 id="flexCheckDefault"
+                                                 @click="restaurant = !restaurant" />
+                                          <label class="form-check-label" for="flexCheckDefault">
+                                              {{property.systemName}}
+                                          </label>
+                                      </div>
+                                  </div>
 
 
-<!--                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      v-model="pool"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                      @click="pool = !pool"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Pool
-                    </label>
+                                  <!--                  <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  v-model="pool"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  @click="pool = !pool"
+                                />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Pool
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  v-model="nightEntertainment"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  @click="nightEntertainment = !nightEntertainment"
+                                />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Night Entertainment
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  v-model="childClub"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  @click="childClub = !childClub"
+                                />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Kids club
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  v-model="restaurant"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  @click="restaurant = !restaurant"
+                                />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Restaurant
+                                </label>
+                              </div>-->
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      v-model="nightEntertainment"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                      @click="nightEntertainment = !nightEntertainment"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Night Entertainment
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      v-model="childClub"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                      @click="childClub = !childClub"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Kids club
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      v-model="restaurant"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                      @click="restaurant = !restaurant"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Restaurant
-                    </label>
-                  </div>-->
-                </div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
 
-    <div v-if="filteredHotels.length" class="col-md-8">
-      <Result
-        v-for="result in filteredHotels"
-        :hotel="result.hotel"
-        :key="result.hotel.id"
-      />
+        <div v-if="filteredHotels.length" class="col-md-8">
+            <Result v-for="result in filteredHotels"
+                    :hotel="result.hotel"
+                    :key="result.hotel.id" />
+        </div>
+        <!-- <div v-else class="col-md-8 float-container">
+                <Skel v-for="n in nrOfSkeletons" :key="n"></Skel>
+            </div> -->
     </div>
-    <div v-else class="col-md-8 float-container">
-      <Skel v-for="n in nrOfSkeletons" :key="n"></Skel>
-    </div>
-  </div>
 </template>
 <script>
 // code: https://www.vuescript.com/custom-range-slider/
@@ -233,9 +263,9 @@ export default {
       propertyList() {
           return this.$store.state.propertyList;
       },
-      nrOfSkeletons() {
-         return 3;
-      },
+      // nrOfSkeletons() {
+      //    return 3;
+      // },
     searchResults() {
       return this.$store.state.searchResults;
     },

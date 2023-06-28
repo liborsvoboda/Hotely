@@ -247,7 +247,7 @@ namespace TravelAgencyAdmin.Pages {
         }
 
         private void BtnDeleteCity_Click(object sender, RoutedEventArgs e) {
-            interestAreaCityList.RemoveAt(cb_city.SelectedIndex);
+            interestAreaCityList.RemoveAt(DgSubListView.SelectedIndex);
             DgSubListView.Items.Refresh();
             btn_deleteCity.IsEnabled = false;
         }

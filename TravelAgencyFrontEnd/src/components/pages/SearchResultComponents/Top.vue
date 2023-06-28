@@ -35,7 +35,7 @@
                   </p>
 
                   <br />
-                  <button class="btn btn-primary "
+                  <button class="btn btn-primary"
                           for="btn-check-outlined"
                           @click="hotelDetailsClick">
                       {{ $t('labels.seeDetail') }}
@@ -99,7 +99,7 @@ export default {
     },
     methods: {
         hotelDetailsClick(event) {
-            this.$store.state.backRoute = "/result";
+            this.$store.state.backRoute = "/";
             this.$store.dispatch("setHotel", this.hotel);
             this.$router.push('/hotels/' + this.hotel.id);
         },

@@ -10,7 +10,7 @@
                         <div class="col-md-12 buttons">
                             <ul class="nav nav-pills">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <router-link :to="'/result'">
+                                    <router-link :to="backRoute">
                                         <button class="btn btn-primary" style="height: 45px;margin-right:50px;"
                                                 for="btn-check-outlined">
                                             {{ $t('labels.back') }}
@@ -117,6 +117,9 @@ export default ({
         }
     },
     computed: {
+        backRoute() {
+            return this.$store.state.backRoute;
+        },
         photos() {
             var photos = [];
             photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });

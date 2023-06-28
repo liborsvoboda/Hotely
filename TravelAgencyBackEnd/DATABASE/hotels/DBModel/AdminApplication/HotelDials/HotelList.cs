@@ -45,6 +45,11 @@ namespace TravelAgencyBackEnd.DBModel
         public decimal AverageRating { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
+        public bool Top { get; set; }
+        public DateTime? TopDate { get; set; }
+        public int TopShown { get; set; }
+        public DateTime? LastTopShown { get; set; }
+        public int Shown { get; set; }
 
         [ForeignKey("CityId")]
         [InverseProperty("HotelLists")]

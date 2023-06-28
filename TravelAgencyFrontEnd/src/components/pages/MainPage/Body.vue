@@ -1,19 +1,20 @@
 <template>
-  <div>
-    <PopularDestinations />
-    <SelectedHotels />
-  </div>
+    <!-- <div>
+      <PopularDestinations />
+      <SelectedHotels />
+    </div> -->
 </template>
 
 <script>
-import PopularDestinations from "./PopularDestinations.vue";
-import SelectedHotels from "./SelectedHotels.vue";
+    // import PopularDestinations from "./PopularDestinations.vue";
+    // import SelectedHotels from "./SelectedHotels.vue";
 
 export default {
-  components: {
-    PopularDestinations,
-    SelectedHotels,
-  },
+  // components: {
+  //   PopularDestinations,
+  //   SelectedHotels,
+  // },
+
 };
 </script>
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace TravelAgencyBackEnd.DBModel
 {
     [Table("CityList")]
-    [Index("City", Name = "IX_CityList", IsUnique = true)]
+    [Index("CountryId", "City", Name = "IX_CityList", IsUnique = true)]
     public partial class CityList
     {
         public CityList()

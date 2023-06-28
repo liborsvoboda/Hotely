@@ -18,6 +18,14 @@ const store = createStore({
         language: 'cz',
         propertyList: [],
         roomTypeList: [],
+        ubytkacInfoList: [],
+        registrationInfoList: [],
+        oftenQuestionList: [],
+        holidayTipsList: [],
+        searchDialList: [],
+        searchAreaList: [],
+        searchResults: [],
+        backRoute: "/",
 
         searchButtonLoading: false,
         guestId: 33, // hard coded
@@ -46,8 +54,8 @@ const store = createStore({
 
     savedHotel: [],
     bookedHotels: [],
-        searchDialList: [],
-    searchResults: [],
+        
+
     hotel: [],
 
     bookingDetails: {
@@ -96,17 +104,41 @@ const store = createStore({
       setRoomTypeList(store, value) {
           store.roomTypeList = value
       },
+      setSearchDialList(store, value) {
+          store.searchDialList = value
+      },
+      setSearchAreaList(store, value) {
+          store.searchAreaList = value
+      },
+      setUbytkacInfoList(store, value) {
+          store.ubytkacInfoList = value
+      },
+      setRegistrationInfoList(store, value) {
+          store.registrationInfoList = value
+      },
+      setOftenQuestionList(store, value) {
+          store.oftenQuestionList = value
+      },
+      setHolidayTipsList(store, value) {
+          store.holidayTipsList = value
+      },
+      setTopList(store, value) {
+          store.searchResults = value
+          store.searchButtonLoading = false
+      },
 
 
       setEmail(store, value) {
       store.addReview.email = value
-    },
+      },
+
     setMessage(store, value) {
       store.addReview.message = value
     },
     setSearchButtonLoadingTrue(store, value) {
       store.searchButtonLoading = true
     },
+
     setHotelSearchResultsList(store, value) {
       store.searchResults = value
       store.searchButtonLoading = false
@@ -129,9 +161,7 @@ const store = createStore({
     setSearchString(state, value) {
       state.searchString.string = value
     },
-      setSearchDialList(store, value) {
-          store.searchDialList = value
-      },
+
     setReservationDetails(state, data) {
       state.reservation = data
     },
@@ -310,6 +340,18 @@ const store = createStore({
             router.push({ name: 'result' })
           }
       },
+
+      async getTopList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/Top/GetTopList/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          commit('setTopList', result)
+      },
       async getPropertyList({ commit }) {
           var response = await fetch(
               this.state.apiRootUrl + '/Properties/' + this.state.language, {
@@ -334,6 +376,51 @@ const store = createStore({
           console.log("RoomTypes", result);
           commit('setRoomTypeList', result)
       },
+      async getUbytkacInfoList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/UbytkacInfo/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          commit('setUbytkacInfoList', result)
+      },
+      async getRegistrationInfoList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/RegistrationInfo/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          commit('setRegistrationInfoList', result)
+      },
+      async getOftenQuestionList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/OftenQuestion/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          commit('setOftenQuestionList', result)
+      },
+      async getHolidayTipsList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/HolidayTips/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json();
+          commit('setHolidayTipsList', result)
+      },
+      
 
     async searchHotelByName({ commit }, searchString) {
       var response = await fetch(
@@ -402,6 +489,17 @@ const store = createStore({
             var result = await response.json()
           commit('setSearchDialList', result)
         },
+      async getSearchAreaList({ commit }) {
+          var response = await fetch(
+              this.state.apiRootUrl + '/Search/GetSearchAreaList/' + this.state.language, {
+              method: 'get',
+              headers: {
+                  'Content-type': 'application/json'
+              }
+          });
+          var result = await response.json()
+          commit('setSearchAreaList', result)
+      },
 
       async login({ commit }, credentials) {
           if (credentials.Email) {

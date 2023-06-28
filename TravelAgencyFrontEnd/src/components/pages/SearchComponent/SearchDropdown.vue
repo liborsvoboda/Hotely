@@ -10,7 +10,7 @@
           >
             <b>{{ inputAdult }} <i class="fas fa-user"></i></b>
             <b>{{ inputChild }} <i class="fas fa-baby"></i></b>
-            <b>{{ inputRoom }} <i class="fas fa-bed"></i></b>
+            <b>{{ inputRoom }} <i class="fas fa-door-closed"></i></b>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div class="container text-start">

@@ -7,18 +7,29 @@
 
         [HttpGet("/WebApi/Properties/{language}")]
         public async Task<string> GetProperties(string language = null) {
-            List<PropertyOrServiceTypeList> result;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+            List<PropertyOrServiceTypeList> result,resultNoGroup;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 result = new hotelsContext().PropertyOrServiceTypeLists
+                    .Include(a => a.PropertyGroup).Where(a=> a.PropertyGroup != null)
                     .Include(a => a.PropertyOrServiceUnitType)
+                    .OrderBy(a => a.PropertyGroup.Sequence)
+                    .OrderBy(a => a.PropertyGroup.Id)
                     .ToList();
             }
 
-            result.ForEach(item =>
-            {
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                resultNoGroup = new hotelsContext().PropertyOrServiceTypeLists
+                    .Include(a => a.PropertyGroup).Where(a => a.PropertyGroup == null)
+                    .Include(a => a.PropertyOrServiceUnitType)
+                    .ToList();
+            }
+            result.AddRange(resultNoGroup);
+
+            result.ForEach(item => {
+
                 item.SystemName = DBOperations.DBTranslate(item.SystemName, language);
                 item.PropertyOrServiceUnitType.SystemName = DBOperations.DBTranslate(item.PropertyOrServiceUnitType.SystemName, language);
+                if (item.PropertyGroup != null) { item.PropertyGroup.SystemName = DBOperations.DBTranslate(item.PropertyGroup.SystemName, language); }
             });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions()

@@ -9,7 +9,6 @@ import SearchResult from "../components/pages/SearchResult.vue";
 import AddReview from "../components/pages/HotelViewComponents/ReviewComponents/AddReview.vue";
 import OrderCompletedView from "../components/pages/OrderCompletedView.vue";
 import CheckoutView from "../components/pages/CheckoutView.vue";
-import Body from "../components/pages/MainPage/Body.vue";
 import { registerRuntimeCompiler } from "@vue/runtime-core";
 import Home from "/src/components/pages/Home.vue";
 import ReservationDetails from "/src/components/pages/ReservationDetails.vue";
@@ -28,8 +27,10 @@ import ProfileCustomerDetails from '../components/pages/CustomerProfile/ProfileC
 import Contact from '../components/pages/Extra pages/Contact.vue';
 import Tourism from '../components/pages/Extra pages/TouristAttraction.vue';
 import About from '../components/pages/Extra pages/About.vue';
-import News from '../components/pages/Extra pages/New.vue';
-
+import UbytkacInfo from '../components/pages/Extra pages/UbytkacInfo.vue';
+import RegistrationInfo from '../components/pages/Extra pages/RegistrationInfo.vue';
+import OftenQuestion from '../components/pages/Extra pages/OftenQuestion.vue';
+import HolidayTips from '../components/pages/Extra pages/HolidayTips.vue';
 
 const routes = [
   {
@@ -93,47 +94,63 @@ const routes = [
     name: "about",
     component: About,
   },
-  {
-    path: "/News",
-    name: "news",
-    component: News,
-  },
+    {
+        path: "/UbytkacInfo",
+        name: "ubytkacInfo",
+        component: UbytkacInfo,
+    },
+    {
+        path: "/RegistrationInfo",
+        name: "registrationInfo",
+        component: RegistrationInfo,
+    },
+    {
+        path: "/OftenQuestion",
+        name: "oftenQuestion",
+        component: OftenQuestion,
+    },
+    {
+        path: "/HolidayTips",
+        name: "holidayTips",
+        component: HolidayTips,
+    },
+    
   // {
   //   path: "/addReview",
   //   name: "addReview",
   //   component: AddReview,
   // },
-  {
-    path: "/hotels/:id",
-    name: "hotels",
-    component: HotelView,
-    children: [
-      {
-        path: "",
-        component: Info,
-      },
-      {
-        path: "rooms",
+    {
+        path: "/hotels/:id",
         name: "hotels",
-        component: Rooms,
-      },
-      {
-        path: "Photos",
-        name: "photos",
-        component: PhotoGallery,
-      },
-      {
-        path: "Reviews",
-        name: "reviews",
-        component: Reviews,
-      },
-      {
-        path: "AddReview",
-        name: "addReview",
-        component: AddReview,
-      },
-    ],
-  },
+        component: HotelView,
+        children: [
+            {
+                path: "",
+                component: Info,
+            },
+            {
+                path: "rooms",
+                name: "hotels",
+                component: Rooms,
+            },
+            {
+                path: "Photos",
+                name: "photos",
+                component: PhotoGallery,
+            },
+            {
+                path: "Reviews",
+                name: "reviews",
+                component: Reviews,
+            },
+            {
+                path: "AddReview",
+                name: "addReview",
+                component: AddReview,
+            },
+        ],
+    },
   {
     path: "/orderCompleted",
     name: "OrderCompleted",

@@ -47,3 +47,18 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
     https://codebeautify.org/base64-to-image-converter
 
 11)  pøeklad {{ $t('user.login') }} :label="$t('labels.reviews')"
+  
+12] language condition
+
+{{($store.state.language == 'cz') ? hotel.descriptionCz : hotel.descriptionEn}}
+
+
+    computed: {
+        language() {
+            return this.$store.state.language;
+        }
+    },
+
+<div v-if="language =='cz' " class="col-lg-9 col-md-9">
+                        {{ ubytkacInfo.descriptionCz }}
+                    </div>

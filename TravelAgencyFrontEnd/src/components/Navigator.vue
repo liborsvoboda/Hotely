@@ -41,11 +41,17 @@
         </div>
       </div>-->
       <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li><router-link to="/News">{{ $t('labels.news') }}</router-link></li>
-          <li><router-link to="/Tourism">{{ $t('labels.touristAtractions') }}</router-link></li>
-          <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
-        </ul>
+          <ul class="nav-menu">
+              <li><router-link to="/">{{ $t('labels.home') }}</router-link></li>
+              <li><router-link to="/UbytkacInfo">{{ $t('labels.ubytkacInfo') }}</router-link></li>
+              <li><router-link to="/RegistrationInfo">{{ $t('labels.registrationInfo') }}</router-link></li>
+              <li><router-link to="/OftenQuestion">{{ $t('labels.oftenQuestion') }}</router-link></li>
+              <li><router-link to="/HolidayTips">{{ $t('labels.holidayTips') }}</router-link></li>
+              
+
+              <!--<li><router-link to="/Tourism">{{ $t('labels.touristAtractions') }}</router-link></li> -->
+              <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
+          </ul>
       </nav>
       <!-- #nav-menu-container -->
     </div>

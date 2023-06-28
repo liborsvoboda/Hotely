@@ -1,14 +1,14 @@
 <template>
     <div>
-        <!-- <h1 id="welcome">Welcome to Africa Motherfucker!</h1> -->
-        
+        <Top />
     </div>
 </template>
 <script>
-import Body from "./MainPage/Body.vue";
+    import Top from "./TopResult.vue";
+
 export default {
     components:{
-        Body
+        Top
     }
 }
 </script>
