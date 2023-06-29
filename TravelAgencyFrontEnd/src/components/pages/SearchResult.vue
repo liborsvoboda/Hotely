@@ -44,13 +44,13 @@ export default ({
             this.nrOfSearchResults = count;
         },
         sortListByPrice(){
-            this.searchResultList = this.$store.state.searchResults
+            this.searchResultList = this.$store.state.filteredResults
             return this.searchResultList.sort((a, b) => 
                 a.hotel.hotelRoomLists[0].price - b.hotel.hotelRoomLists[0].price 
                 );
         },
         sortListByRating(){
-            this.searchResultList = this.$store.state.searchResults
+            this.searchResultList = this.$store.state.filteredResults
             return this.searchResultList.sort((a, b) => 
                 b.hotel.averageRating - a.hotel.averageRating 
                 );

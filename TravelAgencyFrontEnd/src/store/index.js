@@ -25,6 +25,7 @@ const store = createStore({
         searchDialList: [],
         searchAreaList: [],
         searchResults: [],
+        filteredResults: [],
         backRoute: "/",
 
         searchButtonLoading: false,
@@ -126,7 +127,11 @@ const store = createStore({
           store.searchResults = value
           store.searchButtonLoading = false
       },
-
+      setHotelSearchResultsList(store, value) {
+          store.searchResults = value
+          store.filteredResults = value
+          store.searchButtonLoading = false
+      },
 
       setEmail(store, value) {
       store.addReview.email = value
@@ -139,10 +144,7 @@ const store = createStore({
       store.searchButtonLoading = true
     },
 
-    setHotelSearchResultsList(store, value) {
-      store.searchResults = value
-      store.searchButtonLoading = false
-    },
+
     setHotel(store, value) {
       store.hotel = value
     },

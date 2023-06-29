@@ -1,43 +1,46 @@
 <template>
   <div class="row">
       <div class="col-md-4">
-          <div v-for="property in propertyList">
-              <div v-if="property.propertyGroupId != null" class="accordion accordion-flush" :id="property.propertyGroup.systemName">
+          <div v-for="property,index in propertyList">
+              <div v-if="property.propertyGroupId != null && (index -1 >= 0 && propertyList[index -1].propertyGroupId != property.propertyGroupId)" class="accordion accordion-flush" :id="'menuname'+property.propertyGroupId">
                   <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
                           <button class="accordion-button collapsed"
                                   type="button"
                                   data-bs-toggle="collapse"
-                                  data-bs-target="#flush-collapseOne"
+                                  :data-bs-target="'#menu'+property.propertyGroupId"
                                   aria-expanded="false"
-                                  aria-controls="flush-collapseOne">
+                                  :aria-controls="'menu'+property.propertyGroupId">
                               {{ property.propertyGroup.systemName }}
                           </button>
                       </h2>
-                      <div id="flush-collapseOne"
+                      <div :id="'menu'+property.propertyGroupId"
                            class="accordion-collapse collapse"
                            aria-labelledby="flush-headingOne"
-                           :data-bs-parent="'#'+property.propertyGroup.systemName">
+                           :data-bs-parent="'#menuname'+property.propertyGroupId">
                           <div class="accordion-body text-start">
-                              <div v-for="property in propertyList">
-                                  <div v-if="property.isSearchRequired == false && property.isValue">
-                                      <p>{{property.systemName}}</p>
-                                      <Slider v-model="property.searchDefaultValue"
+
+                              <div v-for="subproperty in propertyList">
+                                  <div v-if="subproperty.propertyGroupId == property.propertyGroupId && subproperty.isValue">
+                                      <p>{{subproperty.systemName}}</p>
+                                      <Slider v-model="subproperty.searchDefaultValue"
+                                              :id="'prop'+subproperty.id"
                                               :step="1"
-                                              :min="property.searchDefaultMin"
-                                              :max="property.searchDefaultMax"
-                                              :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
+                                              :min="subproperty.searchDefaultMin"
+                                              :max="subproperty.searchDefaultMax"
+                                              :format="(subproperty.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
+                                      
+                                              ></Slider>
                                       <hr />
                                   </div>
-                                  <div v-else-if="property.isSearchRequired == false && property.isBit" class="form-check">
+                                  <div v-else-if="subproperty.propertyGroupId == property.propertyGroupId && subproperty.isBit" class="form-check">
                                       <input class="form-check-input"
-                                             v-model="property.searchDefaultBit"
+                                             v-model="subproperty.searchDefaultBit"
                                              type="checkbox"
-                                             value=""
-                                             id="flexCheckDefault"
-                                             @click="restaurant = !restaurant" />
-                                      <label class="form-check-label" for="flexCheckDefault">
-                                          {{property.systemName}}
+                                             :id="'prop'+subproperty.id"
+                                             @click="checkFilters(subproperty.id,subproperty.searchDefaultBit)" />
+                                      <label class="form-check-label">
+                                          {{subproperty.systemName}}
                                       </label>
                                   </div>
                               </div>
@@ -46,32 +49,6 @@
                   </div>
               </div>
           </div>
-
-
-          <div v-for="property in propertyList">
-              <div v-if="property.isSearchRequired == true && property.isValue">
-                  <p>{{property.systemName}}</p>
-                  <Slider v-model="property.searchDefaultValue"
-                          :step="0.1"
-                          :min="property.searchDefaultMin"
-                          :max="property.searchDefaultMax"
-                          :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
-                  <hr />
-              </div>
-              <div v-else-if="property.isSearchRequired == true && property.isBit">
-                  <input class="form-check-input"
-                         v-model="property.searchDefaultBit"
-                         type="checkbox"
-                         value=""
-                         id="flexCheckDefault"
-                         @click="restaurant = !restaurant" />
-                  <label class="form-check-label" for="flexCheckDefault">
-                      {{property.systemName}}
-                  </label>
-                  <hr />
-              </div>
-          </div>
-
 
           <div id="sliders">
               <!-- <div>
@@ -120,23 +97,24 @@
                                data-bs-parent="#accordionFlushExample">
                               <div class="accordion-body text-start">
                                   <div v-for="property in propertyList">
-                                      <div v-if="property.isSearchRequired == false && property.isValue">
+                                      <div v-if="property.isValue && property.propertyGroupId == null">
                                           <p>{{property.systemName}}</p>
                                           <Slider v-model="property.searchDefaultValue"
+                                                  :id="'prop'+subproperty.id"
                                                   :step="1"
                                                   :min="property.searchDefaultMin"
                                                   :max="property.searchDefaultMax"
                                                   :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
                                           <hr />
                                       </div>
-                                      <div v-else-if="property.isSearchRequired == false && property.isBit" class="form-check">
+                                      <div v-else-if="property.isBit && property.propertyGroupId == null" class="form-check">
                                           <input class="form-check-input"
                                                  v-model="property.searchDefaultBit"
                                                  type="checkbox"
                                                  value=""
-                                                 id="flexCheckDefault"
-                                                 @click="restaurant = !restaurant" />
-                                          <label class="form-check-label" for="flexCheckDefault">
+                                                 :id="'prop'+subproperty.id"
+                                                 @click="checkFilters(property.id,property.searchDefaultBit)" />
+                                          <label class="form-check-label">
                                               {{property.systemName}}
                                           </label>
                                       </div>
@@ -208,9 +186,6 @@
                     :hotel="result.hotel"
                     :key="result.hotel.id" />
         </div>
-        <!-- <div v-else class="col-md-8 float-container">
-                <Skel v-for="n in nrOfSkeletons" :key="n"></Skel>
-            </div> -->
     </div>
 </template>
 <script>
@@ -221,103 +196,81 @@ import Result from "./Result.vue";
 import Skel from "./Skel.vue";
 import Card from "primevue/card";
 export default {
-  components: {
-    Slider,
-    Info,
-    Result,
-    Skel,
-    Card,
-  },
-  data() {
-    return {
-        kmFormat:{
-          decimals: 1,
-          suffix: " Km",
-        },
-      pricerange: {
-        value: [0, 2000],
-      },
-      beachDistance: {
-        value: 7,
-        step: -1,
-        format: {
-          decimals: 1,
-          suffix: " km",
-        },
-      },
-      centrumDistance: {
-        value: 10,
-        step: -1,
-        format: {
-          decimals: 1,
-          suffix: " km",
-        },
-      },
-      pool: false,
-      nightEntertainment: false,
-      childClub: false,
-      restaurant: false,
-    };
-  },
-  computed: {
-      propertyList() {
-          return this.$store.state.propertyList;
-      },
-      // nrOfSkeletons() {
-      //    return 3;
-      // },
-    searchResults() {
-      return this.$store.state.searchResults;
+    components: {
+        Slider,
+        Info,
+        Result,
+        Skel,
+        Card,
     },
-    hotelsCount() {
-      return this.filteredHotels.length;
+    data() {
+        return {
+            kmFormat: {
+                decimals: 1,
+                suffix: " Km",
+            },
+            pricerange: {
+                value: [0, 2000],
+            },
+            // beachDistance: {
+            //   value: 7,
+            //   step: -1,
+            //   format: {
+            //     decimals: 1,
+            //     suffix: " km",
+            //   },
+            // },
+        };
     },
-    filteredHotels() {
-      if (this.searchResults.length) {
-        //filter price
-        let result = this.searchResults.filter(
-          (res) =>
-            this.pricerange.value[0] <= res.hotel.hotelRoomLists[0].price &&
-            res.hotel.hotelRoomLists[0].price <= this.pricerange.value[1]
-        );
-
-/*
-        result = result.filter(
-          (res) => res.hotel.beachDistance <= this.beachDistance.value
-        );
-
-        result = result.filter(
-          (res) => res.hotel.centrumDistance <= this.centrumDistance.value
-        );
-
-        if (this.pool) {
-          result = result.filter((res) => res.hotel.pool == this.pool);
-        }
-
-        if (this.nightEntertainment) {
-          result = result.filter(
-            (res) => res.hotel.nightEntertainment == this.nightEntertainment
-          );
-        }
-
-        if (this.childClub) {
-          result = result.filter(
-            (res) => res.hotel.childClub == this.childClub
-          );
-        }
-
-        if (this.restaurant) {
-          result = result.filter(
-            (res) => res.hotel.restaurant == this.restaurant
-          );
-        }
-    */
-        this.$emit("updateNrOfHotels", result.length);
-        return result;
-      }
-      return 0;
+    computed: {
+        propertyList() {
+            return this.$store.state.propertyList;
+        },
+        filteredResults() {
+            return this.$store.state.filteredResults;
+        },
+        hotelsCount() {
+            return this.filteredHotels.length;
+        },
+        filteredHotels() {
+            if (this.filteredResults.length) {
+                this.$emit("updateNrOfHotels", this.filteredResults.length);
+                return this.filteredResults;
+            }
+            this.$emit("updateNrOfHotels", 0);
+            return 0;
+        },
     },
-  },
+    methods: {
+        checkFilters(id,value) {
+            this.$store.state.filteredResults = [];
+
+            let property = JSON.parse(JSON.stringify(this.propertyList));
+            console.log(id, value,this.propertyList, property);
+            
+            this.$store.state.searchResults.forEach(hotel => {
+                let allowed = true;
+
+                this.propertyList.forEach(prop => {
+
+                    //check enabled bit properties
+                    if (prop.isBit && ((prop.id != id && prop.searchDefaultBit) || (prop.id == id && !prop.searchDefaultBit))  ) {
+                        allowed = false;
+                        hotel.hotel.hotelPropertyAndServiceLists.forEach(hotelProp => {
+                            if (prop.id == hotelProp.propertyOrServiceId && hotelProp.isAvailable) { allowed = true; }
+                        });
+                    }
+
+                    //check enabled value properties
+                    //TODO
+                });
+
+                console.log("pushing now", allowed);
+                if (allowed) { this.$store.state.filteredResults.push(hotel); }
+            });
+        }
+    }
+
 };
 </script>
 
