@@ -13,7 +13,6 @@
                     .Include(a => a.PropertyGroup).Where(a=> a.PropertyGroup != null)
                     .Include(a => a.PropertyOrServiceUnitType)
                     .OrderBy(a => a.PropertyGroup.Sequence)
-                    .OrderBy(a => a.PropertyGroup.Id)
                     .ToList();
             }
 
@@ -29,7 +28,11 @@
 
                 item.SystemName = DBOperations.DBTranslate(item.SystemName, language);
                 item.PropertyOrServiceUnitType.SystemName = DBOperations.DBTranslate(item.PropertyOrServiceUnitType.SystemName, language);
-                if (item.PropertyGroup != null) { item.PropertyGroup.SystemName = DBOperations.DBTranslate(item.PropertyGroup.SystemName, language); }
+                if (item.PropertyGroup != null) { 
+                    item.PropertyGroup.SystemName = DBOperations.DBTranslate(item.PropertyGroup.SystemName, language);
+                    item.PropertyGroup.PropertyOrServiceTypeLists = null;
+                    item.PropertyOrServiceUnitType.PropertyOrServiceTypeLists = null;
+                }
             });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions()

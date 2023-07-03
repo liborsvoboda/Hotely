@@ -25,6 +25,7 @@ namespace TravelAgencyAdmin.Pages {
         private List<PropertyOrServiceUnitList> propertyOrServiceUnitList = new List<PropertyOrServiceUnitList>();
 
         public PropertyOrServiceTypeListPage() {
+            dataViewSupport = new DataViewSupport();
             InitializeComponent();
             _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 

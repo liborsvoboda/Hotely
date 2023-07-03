@@ -115,14 +115,14 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } 
-                    else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; } 
-                    else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; } 
-                    else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; } 
-                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; } 
-                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } 
-                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } 
-                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } 
+                    if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 4; }
+                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 2; }
+                    else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 3; } 
+                    else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 5; } 
+                    else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 6; } 
+                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 7; } 
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 7; } 
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -320,11 +320,15 @@ namespace TravelAgencyAdmin.Pages {
         private void DgRoomListView_Translate(object sender, EventArgs ex) {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
-                if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 1; } else if (headername == "RoomType") { e.Header = Resources["roomType"].ToString(); e.DisplayIndex = 2; } else if (headername == "Price") { e.Header = Resources["price"].ToString(); e.DisplayIndex = 4; } else if (headername == "MaxCapacity") e.Header = Resources["maxCapacity"].ToString();
+                if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 5; }
+                else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 1; }
+                else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 2; }
+                else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 3; } 
+                else if (headername == "RoomType") { e.Header = Resources["roomType"].ToString(); e.DisplayIndex = 4; } 
+                else if (headername == "Price") { e.Header = Resources["price"].ToString(); e.DisplayIndex = 6; } 
+                else if (headername == "MaxCapacity") e.Header = Resources["maxCapacity"].ToString();
                 else if (headername == "ExtraBed") e.Header = Resources["extraBed"].ToString();
                 else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
-                else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
-                else if (headername == "Approved") e.Header = Resources["approved"].ToString();
                 else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 else if (headername == "HotelId") e.Visibility = Visibility.Hidden;
@@ -446,12 +450,16 @@ namespace TravelAgencyAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "IsSearchRequired") { e.Header = Resources["searchRequired"].ToString(); e.DisplayIndex = 3; } else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 1; } else if (headername == "PropertyOrService") { e.Header = Resources["propertyOrService"].ToString(); e.DisplayIndex = 2; } else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 4; } else if (headername == "IsAvailable") e.Header = Resources["isAvailable"].ToString();
+                    if (headername == "IsSearchRequired") { e.Header = Resources["searchRequired"].ToString(); e.DisplayIndex = 5; }
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 2; }
+                    else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 3; } 
+                    else if (headername == "PropertyOrService") { e.Header = Resources["propertyOrService"].ToString(); e.DisplayIndex = 4; } 
+                    else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 6; } 
+                    else if (headername == "IsAvailable") e.Header = Resources["isAvailable"].ToString();
                     else if (headername == "Fee") e.Header = Resources["fee"].ToString();
                     else if (headername == "PropertyUnit") e.Header = Resources["unit"].ToString();
                     else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
-                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
-                    else if (headername == "Approved") e.Header = Resources["approved"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "HotelId") e.Visibility = Visibility.Hidden;

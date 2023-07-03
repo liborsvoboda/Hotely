@@ -2,7 +2,7 @@
   <div class="row">
       <div class="col-md-4">
           <div v-for="property,index in propertyList">
-              <div v-if="property.propertyGroupId != null && (index -1 >= 0 && propertyList[index -1].propertyGroupId != property.propertyGroupId)" class="accordion accordion-flush" :id="'menuname'+property.propertyGroupId">
+              <div v-if="property.propertyGroupId != null &&(index -1 == -1 || ((index -1 >= 0 && propertyList[index -1].propertyGroupId != property.propertyGroupId)))" class="accordion accordion-flush" :id="'menuname'+property.propertyGroupId">
                   <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
                           <button class="accordion-button collapsed"
@@ -25,12 +25,12 @@
                                       <p>{{subproperty.systemName}}</p>
                                       <Slider v-model="subproperty.searchDefaultValue"
                                               :id="'prop'+subproperty.id"
-                                              :step="1"
+                                              :step="0.1"
                                               :min="subproperty.searchDefaultMin"
                                               :max="subproperty.searchDefaultMax"
                                               :format="(subproperty.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
-                                      
-                                              ></Slider>
+                                              @change="checkFilters(subproperty.id,subproperty.searchDefaultValue)">
+                                      </Slider>
                                       <hr />
                                   </div>
                                   <div v-else-if="subproperty.propertyGroupId == property.propertyGroupId && subproperty.isBit" class="form-check">
@@ -101,10 +101,11 @@
                                           <p>{{property.systemName}}</p>
                                           <Slider v-model="property.searchDefaultValue"
                                                   :id="'prop'+subproperty.id"
-                                                  :step="1"
+                                                  :step="0.1"
                                                   :min="property.searchDefaultMin"
                                                   :max="property.searchDefaultMax"
-                                                  :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"></Slider>
+                                                  :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
+                                                  @change="checkFilters(subproperty.id,subproperty.searchDefaultValue)"></Slider>
                                           <hr />
                                       </div>
                                       <div v-else-if="property.isBit && property.propertyGroupId == null" class="form-check">
@@ -245,16 +246,17 @@ export default {
         checkFilters(id,value) {
             this.$store.state.filteredResults = [];
 
-            let property = JSON.parse(JSON.stringify(this.propertyList));
-            console.log(id, value,this.propertyList, property);
+            //bit value paradox 
+            //let property = JSON.parse(JSON.stringify(this.propertyList));
+            //console.log(id, value,this.propertyList,property);
             
             this.$store.state.searchResults.forEach(hotel => {
                 let allowed = true;
 
                 this.propertyList.forEach(prop => {
 
-                    //check enabled bit properties
-                    if (prop.isBit && ((prop.id != id && prop.searchDefaultBit) || (prop.id == id && !prop.searchDefaultBit))  ) {
+                    //check enabled bit properties - bit value paradox clicked value sending oposite value
+                    if (allowed && prop.isBit && ((prop.id != id && prop.searchDefaultBit) || (prop.id == id && !prop.searchDefaultBit))) {
                         allowed = false;
                         hotel.hotel.hotelPropertyAndServiceLists.forEach(hotelProp => {
                             if (prop.id == hotelProp.propertyOrServiceId && hotelProp.isAvailable) { allowed = true; }
@@ -262,10 +264,16 @@ export default {
                     }
 
                     //check enabled value properties
-                    //TODO
+                    if (allowed && prop.isValue && prop.searchDefaultValue > 0) {
+                        allowed = false;
+                        hotel.hotel.hotelPropertyAndServiceLists.forEach(hotelProp => {
+                            if (prop.id == hotelProp.propertyOrServiceId && hotelProp.isAvailable && hotelProp.value != null && prop.searchDefaultValue < hotelProp.value) { allowed = true; }
+                        });
+                    }
+                    
                 });
 
-                console.log("pushing now", allowed);
+                // console.log("pushing now", allowed);
                 if (allowed) { this.$store.state.filteredResults.push(hotel); }
             });
         }

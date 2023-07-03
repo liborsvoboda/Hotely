@@ -252,7 +252,7 @@
                             x:Name="tm_registrationInfoList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
-                      <TreeViewItem
+                        <TreeViewItem
                             x:Name="tm_ubytkacInfoList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />

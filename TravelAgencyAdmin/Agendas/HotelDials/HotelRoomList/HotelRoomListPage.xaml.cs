@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -238,13 +239,17 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_defaultPriceUnit.Content = ((HotelList)cb_hotelId.SelectedItem).Currency;
         }
 
-        private void BtnBrowse_Click(object sender, RoutedEventArgs e) {
+        private async void BtnBrowse_Click(object sender, RoutedEventArgs e) {
             try {
                 OpenFileDialog dlg = new OpenFileDialog() { DefaultExt = ".png", Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) {
-                    img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
-                    selectedRecord.ImageName = dlg.SafeFileName;
-                    selectedRecord.Image = File.ReadAllBytes(dlg.FileName);
+                    if (!MimeMapping.GetMimeMapping(dlg.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
+                    else if (new FileInfo(dlg.FileName).Length > 150 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "150KB"); }
+                    else {
+                        img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
+                        selectedRecord.ImageName = dlg.SafeFileName;
+                        selectedRecord.Image = File.ReadAllBytes(dlg.FileName);
+                    }
                 }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }

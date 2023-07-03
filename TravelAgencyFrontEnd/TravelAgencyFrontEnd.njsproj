@@ -56,6 +56,7 @@
     <Content Include="public\favicon.ico" />
     <Content Include="README.md" />
     <Content Include="src\App.vue" />
+    <Content Include="src\assets\css\bootstrap5.0.0.min.css" />
     <Content Include="src\assets\img\Hotels\Hotel Copenhagen\FrontCo.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Copenhagen\InteriorCo.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Copenhagen\Room1Co.jpg" />
@@ -104,6 +105,11 @@
     <Content Include="src\assets\img\Profile\REDACTED.jpg" />
     <Content Include="src\assets\img\Profile\Smiliez.jpg" />
     <Content Include="src\assets\img\Profile\ThuggiBoi.jpg" />
+    <Content Include="src\assets\js\bootstrap5.0.0.bundle.min.js" />
+    <Content Include="src\assets\js\fontawesome.js" />
+    <Content Include="src\assets\js\jquery-3.6.0.min.js" />
+    <Content Include="src\assets\js\js.cookie.min.js" />
+    <Content Include="src\assets\js\js.stripe.com_v3.js" />
     <Content Include="src\assets\logo.png" />
     <Content Include="src\assets\Logo5_cropped.png" />
     <Content Include="src\assets\Media\Toto.mp3" />
@@ -180,6 +186,7 @@
     <Folder Include="src\" />
     <Folder Include="public\" />
     <Folder Include="src\assets\" />
+    <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\img\" />
     <Folder Include="src\assets\img\Hotels\" />
     <Folder Include="src\assets\img\Hotels\Hotel Copenhagen\" />
@@ -190,6 +197,7 @@
     <Folder Include="src\assets\img\Hotels\Hotel The table Bay\" />
     <Folder Include="src\assets\img\Hotels\Hotel Three Dolphins\" />
     <Folder Include="src\assets\img\Profile\" />
+    <Folder Include="src\assets\js\" />
     <Folder Include="src\assets\Media\" />
     <Folder Include="src\components\" />
     <Folder Include="src\components\pages\" />

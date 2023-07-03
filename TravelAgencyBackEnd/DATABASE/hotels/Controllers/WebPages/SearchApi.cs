@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.PerformanceData;
-using static TravelAgencyBackEnd.Controllers.PaymentIntentApiController;
-
-namespace TravelAgencyBackEnd.Controllers {
+﻿namespace TravelAgencyBackEnd.Controllers {
 
     [ApiController]
     [Route("WebApi/Search")]

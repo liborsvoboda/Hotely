@@ -6,7 +6,7 @@
                         <h1>{{ $t('labels.searchResult') }}: {{nrOfSearchResults}}</h1>
                     </div>
                     <div class="col-md-6">
-                        <div class="dropdown">
+                        <div class="dropdown" style="margin-top:10px;">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ $t('labels.sortBy') }}
                             </button>

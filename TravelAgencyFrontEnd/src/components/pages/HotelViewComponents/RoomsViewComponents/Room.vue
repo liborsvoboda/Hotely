@@ -2,7 +2,7 @@
   <div class="p-4 rounded shadow-sm">
     <div class="row">
       <div class="col">
-        <img :src="room.img" alt="" width="250" height="150" />
+          <img :src="imageApi + room.id" alt="" width="250" height="150" />
       </div>
       <div class="col">
         <h3>{{ room.type }}</h3>
@@ -61,84 +61,86 @@
 import InputNumber from "primevue/inputnumber";
 
 export default {
-  components: {
-    InputNumber,
-  },
-  data() {
-    return {
-      array: [],
-      arrayIndex: null,
-      singleRooms: null,
-      doubleRooms: null,
-      familyRooms: null,
-    };
-  },
-  props: {
-    room: {},
-  },
-  mounted() {
-    if (this.$store.state.searchResults.length) {
-      this.array = this.$store.state.searchResults;
-      this.arrayIndex = this.array.findIndex(
-        (i) => i.hotel.id == this.$route.params.id
-      );
-      if (this.array[this.arrayIndex].roomList) {
-        this.singleRooms = this.array[this.arrayIndex].roomList.singleRooms;
-        this.doubleRooms = this.array[this.arrayIndex].roomList.doubleRooms;
-        this.familyRooms = this.array[this.arrayIndex].roomList.familyRooms;
-      }
-    }
-  },
-  computed: {
-    inputSingleRooms: {
-      get() {
-        return this.$store.state.bookingDetails.noOfSingleRooms;
-      },
-      set(noOfUnit) {
-        if (this.room.type == "Single") {
-          let unitPrice = this.room.price;
-          let roomId = this.room.id;
-          this.$store.dispatch("setSingleRooms", {
-            noOfUnit,
-            unitPrice,
-            roomId,
-          });
-        }
-      },
+    components: {
+        InputNumber,
     },
-    inputDoubleRooms: {
-      get() {
-        return this.$store.state.bookingDetails.noOfDoubleRooms;
-      },
-      set(noOfUnit) {
-        if (this.room.type == "Double") {
-          let unitPrice = this.room.price;
-          let roomId = this.room.id;
-          this.$store.dispatch("setDoubleRooms", {
-            noOfUnit,
-            unitPrice,
-            roomId,
-          });
-        }
-      },
+    data() {
+        return {
+            array: [],
+            arrayIndex: null,
+            singleRooms: null,
+            doubleRooms: null,
+            familyRooms: null,
+        };
     },
-    inputFamilyRooms: {
-      get() {
-        return this.$store.state.bookingDetails.noOfFamilyRooms;
-      },
-      set(noOfUnit) {
-        if (this.room.type == "Family") {
-          let unitPrice = this.room.price;
-          let roomId = this.room.id;
-          this.$store.dispatch("setFamilyRooms", {
-            noOfUnit,
-            unitPrice,
-            roomId,
-          });
-        }
-      },
+    props: {
+        room: {},
     },
-  },
+    mounted() {
+        if (this.$store.state.searchResults.length) {
+            this.array = this.$store.state.searchResults;
+            this.arrayIndex = this.array.findIndex((i) => i.hotel.id == this.$route.params.id);
+
+            if (this.array[this.arrayIndex].roomList) {
+                this.singleRooms = this.array[this.arrayIndex].roomList.singleRooms;
+                this.doubleRooms = this.array[this.arrayIndex].roomList.doubleRooms;
+                this.familyRooms = this.array[this.arrayIndex].roomList.familyRooms;
+            }
+        }
+    },
+    computed: {
+        imageApi() {
+            return this.$store.state.apiRootUrl + '/RoomImage/';
+        },
+        inputSingleRooms: {
+            get() {
+                return this.$store.state.bookingDetails.noOfSingleRooms;
+            },
+            set(noOfUnit) {
+                if (this.room.type == "Single") {
+                    let unitPrice = this.room.price;
+                    let roomId = this.room.id;
+                    this.$store.dispatch("setSingleRooms", {
+                    noOfUnit,
+                    unitPrice,
+                    roomId,
+                    });
+                }
+            },
+        },
+        inputDoubleRooms: {
+            get() {
+                return this.$store.state.bookingDetails.noOfDoubleRooms;
+            },
+            set(noOfUnit) {
+                if (this.room.type == "Double") {
+                    let unitPrice = this.room.price;
+                    let roomId = this.room.id;
+                    this.$store.dispatch("setDoubleRooms", {
+                    noOfUnit,
+                    unitPrice,
+                    roomId,
+                    });
+                }
+            },
+        },
+        inputFamilyRooms: {
+            get() {
+            return this.$store.state.bookingDetails.noOfFamilyRooms;
+            },
+            set(noOfUnit) {
+                if (this.room.type == "Family") {
+                    let unitPrice = this.room.price;
+                    let roomId = this.room.id;
+                    this.$store.dispatch("setFamilyRooms", {
+                    noOfUnit,
+                    unitPrice,
+                    roomId,
+                    });
+                }
+            },
+        },
+    },
 };
 </script>
 

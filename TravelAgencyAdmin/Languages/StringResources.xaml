@@ -476,5 +476,6 @@
     <system:String x:Key="oftenQuestionList">Often Questions</system:String>
     <system:String x:Key="registrationInfoList">Registration info</system:String>
     <system:String x:Key="ubytkacInfoList">Úbytkáč Info</system:String>
+    <system:String x:Key="fileIsBiggerThan">File size is bigger than</system:String>
 
 </ResourceDictionary>

@@ -3,7 +3,7 @@
     <div class="row">
       <!-- left column -->
       <div class="col-md-6">
-        <Room v-for="room in hotelInfo.rooms" :room="room" :key="room.id" />
+          <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :key="room.id" />
       </div>
 
       <!-- right column -->
@@ -40,59 +40,61 @@ import Room from "./RoomsViewComponents/Room.vue";
 import Options from "./RoomsViewComponents/Option.vue";
 import SelectButton from 'primevue/selectbutton';
 export default {
-  components: {
-    Room,
-    Options,
-    SelectButton
-  },
-  data(){
-    return{
-      value: null,
-      serviceTypes: ['Self service', 'Half board', 'Full board', 'All inclusive'],
-    }
-  },
-  computed: {
-    hotelInfo() {
-      return this.$store.state.hotel;
+    components: {
+        Room,
+        Options,
+        SelectButton
     },
-    totalprice() {
-      if(this.$store.state.searchString.dates[1] != null){
-        this.$store.dispatch('getTotalPrice');
-        return this.$store.state.bookingDetails.totalprice;
-      }
+    data(){
+        return{
+            value: null,
+            serviceTypes: ['Self service', 'Half board', 'Full board', 'All inclusive'],
+        }
     },
-    CanBook(){
-      var single = this.$store.state.bookingDetails.noOfSingleRooms > 0;
-      var double = this.$store.state.bookingDetails.noOfDoubleRooms > 0;
-      var family = this.$store.state.bookingDetails.noOfFamilyRooms > 0;
-      if(this.value != null && (single || double || family)) {
-        return true;
-      }
-      return false;
+    computed: {
+        hotelInfo() {
+            console.log("rooms", this.$store.state.hotel.hotelRoomLists);
+        
+            return this.$store.state.hotel;
+        },
+        totalprice() {
+            if(this.$store.state.searchString.dates[1] != null){
+                this.$store.dispatch('getTotalPrice');
+                return this.$store.state.bookingDetails.totalprice;
+            }
+        },
+        CanBook(){
+            var single = this.$store.state.bookingDetails.noOfSingleRooms > 0;
+            var double = this.$store.state.bookingDetails.noOfDoubleRooms > 0;
+            var family = this.$store.state.bookingDetails.noOfFamilyRooms > 0;
+            if(this.value != null && (single || double || family)) {
+                return true;
+            }
+            return false;
+        },
     },
-  },
-  methods: {
-    setExtraBedFee() {
-      this.$store.dispatch('setExtraBedFee', this.hotelInfo.extraBedFee);
-    },
-    getServicetype(value) {
-      this.serviceType = value.path[0].innerText;
-      this.$store.dispatch('setServiceType', this.serviceType);
+    methods: {
+        setExtraBedFee() {
+            this.$store.dispatch('setExtraBedFee', this.hotelInfo.extraBedFee);
+        },
+        getServicetype(value) {
+            this.serviceType = value.path[0].innerText;
+            this.$store.dispatch('setServiceType', this.serviceType);
 
-      let id = this.$route.params.id;
-      this.$store.dispatch('setServiceFee', { id: id, type: this.serviceType });
+            let id = this.$route.params.id;
+            this.$store.dispatch('setServiceFee', { id: id, type: this.serviceType });
+        },
+        Book() {
+            this.$store.dispatch('setHotelName', this.hotelInfo.name)
+            this.$store.dispatch('setHotelId', this.hotelInfo.id)
+            window.scrollTo(0,0)
+        },
     },
-    Book() {
-      this.$store.dispatch('setHotelName', this.hotelInfo.name)
-      this.$store.dispatch('setHotelId', this.hotelInfo.id)
-      window.scrollTo(0,0)
-    },
-  },
-  created(){
-    if(this.$store.state.bookingDetails.serviceType !== ''){
-      this.value = this.$store.state.bookingDetails.serviceType;
+    created(){
+        if(this.$store.state.bookingDetails.serviceType !== ''){
+            this.value = this.$store.state.bookingDetails.serviceType;
+        }
     }
-  }
 };
 </script>
 
