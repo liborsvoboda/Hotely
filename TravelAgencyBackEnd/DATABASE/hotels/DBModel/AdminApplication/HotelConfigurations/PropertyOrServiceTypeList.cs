@@ -21,6 +21,7 @@ namespace TravelAgencyBackEnd.DBModel
         [StringLength(50)]
         [Unicode(false)]
         public string SystemName { get; set; }
+        public int Sequence { get; set; }
         public int? PropertyGroupId { get; set; }
         public int PropertyOrServiceUnitTypeId { get; set; }
         public bool IsSearchRequired { get; set; }

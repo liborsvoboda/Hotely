@@ -288,59 +288,22 @@ const store = createStore({
       commit('setCustomerDetailsCheckout', data)
     },
     async searchHotels({ commit }, searchString) {
-          router.push({ name: 'result' })
-          let startDate
-          let endDate
-          if (this.state.searchString.dates.length) {
-            startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE')
-            endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE')
-          }
-          //search with all values but no string
-          if (searchString === null || searchString == '') {
-            var response = await fetch(
-              this.state.apiRootUrl + '/Search/search?startDate=' +
-                startDate +
-                '&endDate=' +
-                endDate +
-                '&rooms=' +
-                this.state.searchString.inputRooms +
-                '&people=' +
-                (this.state.searchString.inputAdult +
-                  this.state.searchString.inputChild)
-            )
-            //search with only string
-          } else if (!this.state.searchString.dates.length) {
-            var response = await fetch(
-                this.state.apiRootUrl + '/Search/GetSearchInput/' + searchString + '/' + this.state.language, {
-                method: 'get',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-            //search with all values
-          } else {
-            var response = await fetch(
-              this.state.apiRootUrl + '/Search/search?startDate=' +
-                startDate +
-                '&endDate=' +
-                endDate +
-                '&rooms=' +
-                this.state.searchString.inputRooms +
-                '&people=' +
-                (this.state.searchString.inputAdult +
-                  this.state.searchString.inputChild) +
-                '&input=' +
-                searchString
-            )
-          }
+        if (searchString === null || searchString == '') { searchString = "null"; }
 
+        var response = await fetch(
+            this.state.apiRootUrl + '/Search/GetSearchInput/' + searchString + '/' + this.state.language, {
+            method: 'get',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
         var result = await response.json();
         console.log("hotels", result);
 
-          commit('setHotelSearchResultsList', result.hotelList)
-          if (result) {
+        commit('setHotelSearchResultsList', result.hotelList)
+        if (result) {
             router.push({ name: 'result' })
-          }
+        }
       },
 
       async getTopList({ commit }) {

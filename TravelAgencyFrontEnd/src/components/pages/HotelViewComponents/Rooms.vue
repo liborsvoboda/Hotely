@@ -2,22 +2,22 @@
   <div class="container">
     <div class="row">
       <!-- left column -->
-      <div class="col-md-6">
-          <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :key="room.id" />
+      <div class="col-md-10">
+          <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :hotel="hotelInfo" :key="room.id" />
       </div>
 
       <!-- right column -->
-      <div class="col-md-6 rounded shadow-sm" id="rightCard">
-        <Options @checked="setExtraBedFee" />
+      <div class="col-md-2 rounded shadow-sm" id="rightCard">
+        <!-- <Options @checked="setExtraBedFee" /> -->
 
         <!-- Pension type -->
-        <div class="row">
+<!--         <div class="row">
           <SelectButton @click="getServicetype" v-model="value" :options="serviceTypes" />
-        </div>
+        </div> -->
 
         <div class="row pt-5">
           <div class="col-md-6">
-            <b>Total price: {{ totalprice }} SEK</b>
+              <b>Total price: {{ totalprice }} {{hotelInfo.defaultCurrency.name}}</b>
           </div>
           <div class="col-md-6">
             <div v-if="CanBook">
@@ -53,6 +53,7 @@ export default {
     },
     computed: {
         hotelInfo() {
+            console.log("hotel", this.$store.state.hotel);
             console.log("rooms", this.$store.state.hotel.hotelRoomLists);
         
             return this.$store.state.hotel;

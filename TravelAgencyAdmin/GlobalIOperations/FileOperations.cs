@@ -1,5 +1,4 @@
-﻿using CefSharp.DevTools.SystemInfo;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Text;
@@ -197,15 +196,20 @@ namespace TravelAgencyAdmin.GlobalOperations {
             } catch (Exception ex) { return false; }
         }
 
-        public void CreateImageFile(FileStream file, BitmapFrame frame, ImageType type) {
+        public void CreateImageFile(FileStream file, BitmapFrame frame, string fileType) {
             if (file == null) return;
             BitmapEncoder encoder = null;
-            switch (type) {
-                //case ImageType.Bmp: encoder = new BmpBitmapEncoder(); break;
-                case ImageType.Jpeg: encoder = new JpegBitmapEncoder() { QualityLevel = 100 }; break;
-                case ImageType.Unknown: encoder = new PngBitmapEncoder(); break;
-                    //case ImageType.Gif: encoder = new GifBitmapEncoder(); break;
-                    //case ImageType.Tiff: encoder = new TiffBitmapEncoder() { Compression = TiffCompressOption.Default }; break;
+            switch (fileType.ToLower()) {
+                case "bmp": encoder = new BmpBitmapEncoder(); break;
+                case "gif": encoder = new GifBitmapEncoder(); break;
+                case "tiff":
+                case "tif":
+                    encoder = new TiffBitmapEncoder() { Compression = TiffCompressOption.Default }; break;
+                case "jpg":
+                case "jpeg":
+                    encoder = new JpegBitmapEncoder() { QualityLevel = 100 }; break;
+                default:
+                    encoder = new PngBitmapEncoder(); break;
             }
             encoder.Frames.Add(frame);
             encoder.Save(file);

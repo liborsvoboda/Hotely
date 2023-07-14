@@ -20,7 +20,7 @@
     AllowDrop="False"
     AllowsTransparency="False"
     GlowBrush="{DynamicResource GlyphBrush}"
-    Icon="Data\lama.ico"
+    Icon="Data\favicon.ico"
     NonActiveGlowBrush="#CDFF0000"
     ResizeMode="CanResizeWithGrip"
     SaveWindowPosition="True"
@@ -190,6 +190,10 @@
                             x:Name="tm_interestAreaList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_countryAreaList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
                         x:Name="tv_accommodationConfiguration" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
@@ -327,8 +331,6 @@
                             x:Name="tm_ignoredExceptionList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
-                        <TreeViewItem
-                            x:Name="tm_serverApiDocs" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_systemFailList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"

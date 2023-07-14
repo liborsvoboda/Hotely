@@ -477,5 +477,6 @@
     <system:String x:Key="registrationInfoList">Registration info</system:String>
     <system:String x:Key="ubytkacInfoList">Úbytkáč Info</system:String>
     <system:String x:Key="fileIsBiggerThan">File size is bigger than</system:String>
+    <system:String x:Key="countryAreaList">Country Areas</system:String>
 
 </ResourceDictionary>

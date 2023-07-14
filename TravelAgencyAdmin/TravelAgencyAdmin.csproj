@@ -232,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\Dials\CountryAreaList\CountryAreaList.cs" />
+    <Compile Include="Agendas\Dials\CountryAreaList\CountryAreaListPage.xaml.cs">
+      <DependentUpon>CountryAreaListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaList.cs" />
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
       <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
@@ -343,9 +347,6 @@
     <Compile Include="Agendas\Views\ScreenSaverPage\ScreenSaverPage.xaml.cs">
       <DependentUpon>ScreenSaverPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Views\ServerApiDocs\ServerApiDocsPage.xaml.cs">
-      <DependentUpon>ServerApiDocsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Agendas\WebAdmin\OftenQuestionList\OftenQuestionList.cs" />
     <Compile Include="Agendas\WebAdmin\OftenQuestionList\OftenQuestionListPage.xaml.cs">
       <DependentUpon>OftenQuestionListPage.xaml</DependentUpon>
@@ -433,6 +434,10 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\Dials\CountryAreaList\CountryAreaListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -565,10 +570,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Views\ServerApiDocs\ServerApiDocsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Agendas\Views\Support\SupportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -672,18 +673,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Data\welcome.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="lama.ico" />
-    <Resource Include="Data\cbn.png" />
-    <Resource Include="Data\CMS.png" />
-    <Resource Include="Data\ERP.png" />
-    <Resource Include="Data\formbuilder.png" />
-    <Resource Include="Data\images.png" />
     <Content Include="Data\AddOn\winvnc.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Data\groupware-solution300.png" />
-    <Content Include="Data\DBAdminImport.sql" />
-    <Resource Include="Data\jsonIcon.ico" />
     <Content Include="Data\no_photo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -702,26 +698,7 @@
     <Content Include="Data\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\lama.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Lama.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\lama.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Data\system.png" />
-    <Resource Include="Data\w10.png" />
-    <Resource Include="Data\w11.png" />
-    <Resource Include="Data\w2000.png" />
-    <Resource Include="Data\w7.png" />
-    <Resource Include="Data\w8.png" />
-    <Resource Include="Data\wXP.png" />
     <Resource Include="Agendas\Views\ScreenSaverPage\roundcornersheet.png" />
-    <Content Include="Data\xpsDocument.xps">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Data\Mottos">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -759,18 +736,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="cef.redist.x64">
-      <Version>114.2.10</Version>
-    </PackageReference>
-    <PackageReference Include="cef.redist.x86">
-      <Version>114.2.10</Version>
-    </PackageReference>
-    <PackageReference Include="CefSharp.Common">
-      <Version>114.2.100</Version>
-    </PackageReference>
-    <PackageReference Include="CefSharp.Wpf">
-      <Version>114.2.100</Version>
-    </PackageReference>
     <PackageReference Include="ControlzEx">
       <Version>3.0.2.4</Version>
     </PackageReference>

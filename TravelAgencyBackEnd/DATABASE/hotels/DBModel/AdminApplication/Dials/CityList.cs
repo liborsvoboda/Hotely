@@ -12,6 +12,7 @@ namespace TravelAgencyBackEnd.DBModel
     {
         public CityList()
         {
+            CountryAreaCityLists = new HashSet<CountryAreaCityList>();
             HotelLists = new HashSet<HotelList>();
             InterestAreaCityLists = new HashSet<InterestAreaCityList>();
         }
@@ -32,6 +33,8 @@ namespace TravelAgencyBackEnd.DBModel
         [ForeignKey("UserId")]
         [InverseProperty("CityLists")]
         public virtual UserList User { get; set; }
+        [InverseProperty("City")]
+        public virtual ICollection<CountryAreaCityList> CountryAreaCityLists { get; set; }
         [InverseProperty("City")]
         public virtual ICollection<HotelList> HotelLists { get; set; }
         [InverseProperty("City")]

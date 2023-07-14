@@ -207,11 +207,12 @@ namespace TravelAgencyAdmin {
                 tm_accommodation.Header = Resources["accommodation"].ToString(); tm_roomList.Header = Resources["roomList"].ToString();
                 tm_propertyOrServiceList.Header = Resources["propertyOrServiceList"].ToString(); tm_approvingProcess.Header = Resources["approvingProcess"].ToString();
                 tm_guestLoginHistoryList.Header = Resources["guestLoginHistoryList"].ToString(); tm_mottoList.Header = Resources["mottoList"].ToString();
-                tm_guestList.Header = Resources["guestList"].ToString(); tm_serverApiDocs.Header = Resources["serverApiDocs"].ToString();
+                tm_guestList.Header = Resources["guestList"].ToString();
                 tm_hotelImagesList.Header = Resources["hotelImagesList"].ToString(); tm_propertyGroupList.Header = Resources["propertyGroupList"].ToString();
 
                 tm_holidayTipsList.Header = Resources["holidayTipsList"].ToString(); tm_oftenQuestionList.Header = Resources["oftenQuestionList"].ToString();
                 tm_registrationInfoList.Header = Resources["registrationInfoList"].ToString(); tm_ubytkacInfoList.Header = Resources["ubytkacInfoList"].ToString();
+                tm_countryAreaList.Header = Resources["countryAreaList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -714,18 +715,6 @@ namespace TravelAgencyAdmin {
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelApprovalList", App.UserData.Authentification.Token);
                             break;
 
-                        case "tm_cityList":
-                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CityListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
-                            StringToFilter(cb_filter, "");
-                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CityList", App.UserData.Authentification.Token);
-                            break;
-
-                        case "tm_countryList":
-                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CountryListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
-                            StringToFilter(cb_filter, "");
-                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CountryList", App.UserData.Authentification.Token);
-                            break;
-
                         case "tm_accessRoleList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new AccessRoleListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
@@ -750,10 +739,27 @@ namespace TravelAgencyAdmin {
                             cb_printReports.ItemsSource = null;
                             break;
 
+                        case "tm_cityList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CityListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CityList", App.UserData.Authentification.Token);
+                            break;
+
                         case "tm_clientSettings":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ClientSettingsPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = null;
+                            break;
+
+                        case "tm_countryList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CountryListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CountryList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_countryAreaList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CountryAreaListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CountryAreaList", App.UserData.Authentification.Token);
                             break;
 
                         case "tm_currencyList":
@@ -903,12 +909,6 @@ namespace TravelAgencyAdmin {
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelRoomListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelRoomList", App.UserData.Authentification.Token);
-                            break;
-
-                        case "tm_serverApiDocs":
-                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new ServerApiDocsPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
-                            StringToFilter(cb_filter, "");
-                            cb_printReports.ItemsSource = null;
                             break;
 
                         case "tm_support":

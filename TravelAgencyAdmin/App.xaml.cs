@@ -1,5 +1,4 @@
-﻿using CefSharp;
-using GlobalClasses;
+﻿using GlobalClasses;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
@@ -122,11 +121,6 @@ namespace TravelAgencyAdmin {
                 MainWindow mainWindow = (MainWindow)Current.MainWindow;
                 mainWindow.AppSystemTimer.Enabled = false;
                 if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
-            } catch { }
-
-            try {
-                Cef.PreShutdown();
-                Cef.ShutdownWithoutChecks();
             } catch { }
 
             try { FileOperations.ClearFolder(reportFolder); } catch { }

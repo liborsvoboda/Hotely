@@ -1,5 +1,10 @@
 {
   "labels": {
+    "maxCapacity": "Max. kapacita",
+    "price": "Cena",
+    "fillDateMessage": "Vyplňte období pro vytvoření poptávky",
+    "totalRoomsCount": "Počet pokojů celkem",
+    "availableRoomsCount": "Počet volných pokojů",
     "insertSearchValue": "Zadejte Oblast, Stát nebo město...",
     "home": "Domů",
     "ubytkacInfo": "Co je Úbytkáč?",

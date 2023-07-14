@@ -17,6 +17,8 @@ namespace TravelAgencyBackEnd.DBModel
             BranchLists = new HashSet<BranchList>();
             Calendars = new HashSet<Calendar>();
             CityLists = new HashSet<CityList>();
+            CountryAreaCityLists = new HashSet<CountryAreaCityList>();
+            CountryAreaLists = new HashSet<CountryAreaList>();
             CountryLists = new HashSet<CountryList>();
             CurrencyLists = new HashSet<CurrencyList>();
             DocumentAdviceLists = new HashSet<DocumentAdviceList>();
@@ -93,6 +95,10 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<Calendar> Calendars { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<CityList> CityLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<CountryAreaCityList> CountryAreaCityLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<CountryAreaList> CountryAreaLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<CountryList> CountryLists { get; set; }
         [InverseProperty("User")]

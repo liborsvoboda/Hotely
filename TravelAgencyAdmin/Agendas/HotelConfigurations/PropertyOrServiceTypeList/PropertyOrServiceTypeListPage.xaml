@@ -68,10 +68,17 @@
                 Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" ToolTip="Tento přeložený název je název poplatku, kteří inzerenti zadávají při nastavení ubytování" />
 
             <Label
+                x:Name="lbl_sequence" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <Controls:NumericUpDown
+                x:Name="txt_sequence" Grid.Row="1" Grid.Column="3" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="False"
+                Controls:TextBoxHelper.Watermark="" Interval="10" Minimum="0" />
+
+
+            <Label
                 x:Name="lbl_propertyGroup" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <ComboBox
                 x:Name="cb_propertyGroup" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"
-                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="Translation" IsEnabled="true"
+                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="Translation" IsEnabled="true"
                 SelectedValuePath="Id" />
 
             <Label

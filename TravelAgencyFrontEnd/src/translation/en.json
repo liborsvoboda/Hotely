@@ -1,5 +1,10 @@
 {
   "labels": {
+    "maxCapacity": "Max. capacity",
+    "price": "Price",
+    "fillDateMessage": "Fill in dates to create the demand",
+    "totalRoomsCount": "Total rooms count",
+    "availableRoomsCount": "Available rooms count",
     "insertSearchValue": "Insert Area, State or city...",
     "home": "Home",
     "ubytkacInfo": "What is Úbytkáč?",

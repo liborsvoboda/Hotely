@@ -12,6 +12,8 @@
         BackendCheck,
         BranchList,
         CityList,
+        CountryAreaList,
+        CountryAreaCityList,
         CountryList,
         CurrencyList,
         Calendar,

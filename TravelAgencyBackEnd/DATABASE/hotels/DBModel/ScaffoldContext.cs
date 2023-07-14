@@ -22,6 +22,8 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<BranchList> BranchLists { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CityList> CityLists { get; set; }
+        public virtual DbSet<CountryAreaCityList> CountryAreaCityLists { get; set; }
+        public virtual DbSet<CountryAreaList> CountryAreaLists { get; set; }
         public virtual DbSet<CountryList> CountryLists { get; set; }
         public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
         public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
@@ -137,6 +139,47 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_City_UserList");
+            });
+
+            modelBuilder.Entity<CountryAreaCityList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.City)
+                    .WithMany(p => p.CountryAreaCityLists)
+                    .HasForeignKey(d => d.CityId)
+                    .HasConstraintName("FK_CountryAreaCityList_CityList");
+
+                entity.HasOne(d => d.Icac)
+                    .WithMany(p => p.CountryAreaCityLists)
+                    .HasForeignKey(d => d.Icacid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CountryAreaCityList_CountryAreaList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CountryAreaCityLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CountryAreaCityList_UserList");
+            });
+
+            modelBuilder.Entity<CountryAreaList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.CountryAreaLists)
+                    .HasForeignKey(d => d.CountryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CountryAreaList_CountryList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CountryAreaLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CountryAreaList_UserList");
             });
 
             modelBuilder.Entity<CountryList>(entity =>

@@ -267,7 +267,7 @@ export default {
                     if (allowed && prop.isValue && prop.searchDefaultValue > 0) {
                         allowed = false;
                         hotel.hotel.hotelPropertyAndServiceLists.forEach(hotelProp => {
-                            if (prop.id == hotelProp.propertyOrServiceId && hotelProp.isAvailable && hotelProp.value != null && prop.searchDefaultValue < hotelProp.value) { allowed = true; }
+                            if (prop.id == hotelProp.propertyOrServiceId && hotelProp.isAvailable && hotelProp.value != null && prop.searchDefaultValue >= hotelProp.value) { allowed = true; }
                         });
                     }
                     

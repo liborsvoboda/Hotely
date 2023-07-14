@@ -62,3 +62,20 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
 <div v-if="language =='cz' " class="col-lg-9 col-md-9">
                         {{ ubytkacInfo.descriptionCz }}
                     </div>
+
+13) show html content
+
+<div class="col-lg-12 col-md-12" v-html="($store.state.language == 'cz') ? hotel.descriptionCz : hotel.descriptionEn" />
+
+14) search date to cz format
+ //let startDate
+          //let endDate
+          //if (this.state.searchString.dates.length) {
+          //    startDate = this.state.searchString.dates[0].toLocaleDateString('cs-CZ')
+          //    endDate = this.state.searchString.dates[1].toLocaleDateString('cs-CZ')
+          //}
+
+15] scrolování na obrazovce
+window.scrollTo(0,0)
+
+
