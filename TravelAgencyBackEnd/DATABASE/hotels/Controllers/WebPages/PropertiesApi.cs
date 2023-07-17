@@ -62,5 +62,22 @@
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
         }
+
+        [HttpGet("/WebApi/StateArea/{searchArea}/{language}")]
+        public async Task<string> GetRoomTypes(string searchArea, string language = null) {
+            List<HotelRoomTypeList> result;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                result = new hotelsContext().HotelRoomTypeLists.ToList();
+            }
+
+            result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });
+
+            return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        }
     }
 }
