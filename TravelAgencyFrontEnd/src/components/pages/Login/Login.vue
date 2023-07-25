@@ -8,7 +8,7 @@
     </head>
 
     <div class="main">
-        <p class="sign" align="center">Log in</p>
+        <p class="sign" align="center">{{ $t('user.logIn') }}</p>
         <form class="form1" @submit.prevent="guestLogin">
             <input class="un"
                    type="text"
@@ -22,9 +22,7 @@
                    placeholder="Password"
                    required
                    v-model="Password" />
-            <button class="submit">Sign in</button>
-            <p class="text"></p>
-
+            <button class="submit">{{ $t('user.signIn') }}</button>
             <p class="forgot" align="center"><a href="#">Sign up?</a></p>
             <p class="forgot" align="center"><a href="#">Forgot password</a></p>
         </form>
@@ -50,7 +48,6 @@ export default {
             return this.$store.state.user
         },
     },
-
     methods: {
         async guestLogin() {
             let credentials = {

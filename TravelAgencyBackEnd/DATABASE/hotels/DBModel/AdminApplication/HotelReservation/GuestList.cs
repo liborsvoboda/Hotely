@@ -12,6 +12,7 @@ namespace TravelAgencyBackEnd.DBModel
     {
         public GuestList()
         {
+            GuestFavoriteLists = new HashSet<GuestFavoriteList>();
             HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
             HotelReservationLists = new HashSet<HotelReservationList>();
             HotelReservationReviewLists = new HashSet<HotelReservationReviewList>();
@@ -59,6 +60,8 @@ namespace TravelAgencyBackEnd.DBModel
         public bool Active { get; set; }
         public DateTime Timestamp { get; set; }
 
+        [InverseProperty("Guest")]
+        public virtual ICollection<GuestFavoriteList> GuestFavoriteLists { get; set; }
         [InverseProperty("Guest")]
         public virtual ICollection<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
         [InverseProperty("Guest")]

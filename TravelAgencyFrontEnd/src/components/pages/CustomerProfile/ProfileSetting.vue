@@ -94,13 +94,13 @@
                     <h6 class="mt-3 mb-2 text-primary">{{ $t('user.actualOrNewPassword') }}</h6>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label for="sTate">{{ $t('labels.password') }}</label>
+                    <label for="password">{{ $t('labels.password') }}</label>
                     <div class="input-group flex-nowrap form-group">
                         <input type="password" id="password" class="form-control" v-model="guest.Password">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label for="zIp">{{ $t('user.repeatPassword') }}</label>
+                    <label for="password">{{ $t('user.repeatPassword') }}</label>
                     <div class="input-group flex-nowrap form-group">
                         <input type="password" id="RePassword" class="form-control" v-model="guest.confirmPassword">
                     </div>
@@ -108,7 +108,6 @@
             </div>
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <p class="text"></p>
                     <div class="text-right">
                         <button type="button"
                                 id="cancel"
@@ -164,9 +163,8 @@ export default {
     methods: {
         checkPasswords() {
             if (this.guest.Password != this.guest.confirmPassword) {
-                document.querySelector(".text").innerHTML = this.$i18n.t("messages.passwordsNotMatch");
+                this.$store.state.toastErrorMessage = this.$i18n.t("messages.passwordsNotMatch");
             } else if (this.guest.Password === this.guest.confirmPassword) {
-                document.querySelector(".text").innerHTML = "";
                 this.updateGuest();
             }
         },
@@ -189,7 +187,6 @@ export default {
                 method: "POST",
                 headers: {
                     "Authorization": 'Bearer ' + this.user.Token,
-                    "Accept": "application/json",
                     "Content-type": "application/json",
                 },
 
@@ -199,19 +196,22 @@ export default {
                 }),
             });
 
+            this.$store.state.toastSuccessMessage = this.$i18n.t("messages.dataSaved");
+
             //ReLogin after Update 
             let credentials = {
                 Email: this.guest.Email,
                 Password: this.guest.Password
                 }
-            this.$store.dispatch('login', credentials)
+            this.$store.dispatch('login', credentials);
         },
         resetForm() {
             document.querySelector(".form1").reset();
         },
         deleteAccout() {
             if (confirm(this.$i18n.t("user.doYouReallyDeleteAccount"))) {
-                this.$store.dispatch("deleteRegistration", this.user.id);
+                this.$store.dispatch("deleteRegistration", this.user.Id);
+                this.$store.state.toastSuccessMessage = this.$i18n.t("messages.accountWasDeleted");
             }
         },
     },

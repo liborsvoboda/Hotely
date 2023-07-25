@@ -70,9 +70,18 @@
     "cancelChanges": "Cancel Changes",
     "repeatPassword": "Repeat Password",
     "actualOrNewPassword": "Actual or New Password",
-    "doYouReallyDeleteAccount": "Do you really want to delete your account?"
+    "doYouReallyDeleteAccount": "Do you really want to delete your account?",
+    "signIn": "Sign in",
+    "logIn": "Log in"
   },
   "messages": {
-    "passwordsNotMatch": "Passwords not match"
+    "passwordsNotMatch": "Passwords not match",
+    "dataSaved": "Data saved",
+    "accountWasDeleted": "Account was Deleted",
+    "addedToFavorite": "Added do Favorites",
+    "removedFromFavorite": "Removed from Favorites",
+    "forSaveToFavoriteYouMustBeLogged": "For save to Favorite You must be Logged",
+    "anyFavoritefound": "No saved hotels found.",
+    "anyFavoritefound1": "Click the heart at the hotel page for them to show up here!"
   }
 }

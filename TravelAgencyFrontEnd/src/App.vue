@@ -37,73 +37,101 @@ import Body from "/src/components/pages/MainPage/Body.vue";
 import Searcher from './components/pages/SearchComponent/Search.vue'
 
 export default {
-  name: "App",
-  components: {
-    Dialog,
-    ColorPicker,
-    InputText,
-    Button,
-    Menu,
-    Navigator,
-    Footer,
-    Body,
-    Searcher,
-  },
-  data() {
+    name: "App",
+    components: {
+        Dialog,
+        ColorPicker,
+        InputText,
+        Button,
+        Menu,
+        Navigator,
+        Footer,
+        Body,
+        Searcher,
+    },
+    data() {
         return {
-          searchString: '',
+            searchString: '',
             color2: '1976D2',
             items: [
-            {
-              label: 'Update',
-              icon: 'pi pi-refresh',
-              command: () => {
-                this.$toast.add({severity:'success', summary:'Updated', detail:'Data Updated', life: 3000});
-              }
-            },
-            {
-              label: 'Delete',
-              icon: 'pi pi-times',
-              command: () => {
-                this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000});
-              }
-            },
-            {
-              label: 'Vue Website',
-              icon: 'pi pi-external-link',
-              url: 'https://vuejs.org/'
-            },
-            {
-              label: 'Router',
-              icon: 'pi pi-upload',
-              to: '/fileupload'
+                {
+                    label: 'Update',
+                    icon: 'pi pi-refresh',
+                    command: () => {
+                        this.$toast.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated', life: 3000 });
+                    }
+                },
+                {
+                    label: 'Delete',
+                    icon: 'pi pi-times',
+                    command: () => {
+                        this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
+                    }
+                },
+                {
+                    label: 'Vue Website',
+                    icon: 'pi pi-external-link',
+                    url: 'https://vuejs.org/'
+                },
+                {
+                    label: 'Router',
+                    icon: 'pi pi-upload',
+                    to: '/fileupload'
+                }
+            ]
+        }
+    },
+    watch: {
+        'detectErrorMessage': function (newValue) {
+            if (newValue) {
+                this.$toast.open({ type: 'error', message: newValue, duration: 5000 });
+                this.$store.state.toastErrorMessage = null;
             }
-			    ]
+        },
+        'detectSuccessMessage': function (newValue) {
+            if (newValue) {
+                this.$toast.open({ type: 'success', message: newValue, duration: 3000 });
+                this.$store.state.toastSuccessMessage = null;
+            }
+        },
+        'detectInfoMessage': function (newValue) {
+            if (newValue) {
+                this.$toast.open({ type: 'warning', message: newValue, duration: 5000 });
+                this.$store.state.toastInfoMessage = null;
+            }
         }
     },
-    methods:{
-      toggle(event) {
-        this.$refs.menu.toggle(event);
-      },
-      Search(event){
-        this.$store.state.searchButtonLoading = true;
-
-        this.$store.dispatch('searchHotels', this.searchString);
-      }
-    },
-    computed:{
-      isLoading(){
-        return this.$store.state.searchButtonLoading;
-      },
-      showBody(){
-        return this.$route.path == '/' ? true : false;
-      }
-    },
-    created(){
-      if(Cookies.get('login')){
-          this.$store.dispatch('checkLoggedInUser')
+    methods: {
+        toggle(event) {
+            this.$refs.menu.toggle(event);
+        },
+        Search(event) {
+            this.$store.state.searchButtonLoading = true;
+            this.$store.dispatch('searchHotels', this.searchString);
         }
-      },
+    },
+    computed: {
+        detectErrorMessage() {
+            return this.$store.state.toastErrorMessage;
+        },
+        detectSuccessMessage() {
+            return this.$store.state.toastSuccessMessage;
+        },
+        detectInfoMessage() {
+            return this.$store.state.toastInfoMessage;
+        },
+        isLoading() {
+            return this.$store.state.searchButtonLoading;
+        },
+        showBody() {
+            return this.$route.path == '/' ? true : false;
+        }
+    },
+    created() {
+        // if(Cookies.get('login')){
+        //     this.$store.dispatch('checkLoggedInUser')
+        //   }
+    },
 }
 
 

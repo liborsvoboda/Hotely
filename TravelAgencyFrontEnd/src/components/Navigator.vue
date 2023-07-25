@@ -94,7 +94,6 @@ export default {
 
 nav#nav-menu-container {
   display: inline-block;
-  padding-top: 10px;
 }
 
 ol,

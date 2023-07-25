@@ -27,12 +27,10 @@
                     <button class="submit" :onclick="sendVerifyEmail" align="center">{{ $t('user.sendVerifyEmail') }}</button>
                 </li>
             </ul>
-            <p class="verifyText" style="color:darkorange;font-weight:bold;"></p>
             <input v-if="verifySent && !verified" class="un" type="text" align="center" :placeholder="$t('labels.verifyCode')" required v-model="Verifycode" @input="checkVerify()">
 
             <input v-if="verified" class="password" type="password" align="center" :placeholder="$t('labels.password')" required v-model="guest.Password">
             <input v-if="verified" class="confirmPassword" type="password" align="center" :placeholder="$t('labels.retypePassword')" required v-model="guest.ConfirmPassword">
-            <p v-if="verified" class="text"></p>
 
             <ul v-if="verified" class="ul">
                 <li>
@@ -85,7 +83,7 @@ export default {
 
                 var def = $.ajax({
                     global: false, type: "POST",
-                    url: this.$store.state.apiRootUrl + "/SendVerifyCode",
+                    url: this.$store.state.apiRootUrl + "/Guest/SendVerifyCode",
                     dataType: 'json', contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ EmailAddress: this.guest.Email, Language: this.$store.state.language })
                 });
@@ -93,24 +91,13 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
-                    console.log("data", data.responseJSON.ErrorMessage);
-                    document.querySelector('.verifyText').innerHTML = data.responseJSON.ErrorMessage;
-
-                    setTimeout(function (that) {
-                        document.querySelector('.verifyText').innerHTML = "";
-                    }, 5000, this);
-
+                    that.$store.state.toastErrorMessage = data.responseJSON.ErrorMessage;
                 });
 
                 def.done(function (data) {
                     that.ApiVerificationCode = data.verifyCode;
                     that.verifySent = true;
-                    document.querySelector('.verifyText').innerHTML = that.$i18n.t('user.verifyEmailWasSent');
-
-                    setTimeout(function (that) {
-                        document.querySelector('.verifyText').innerHTML = "";
-                    }, 3000, this);
-
+                    that.$store.state.toastInfoMessage = that.$i18n.t('user.verifyEmailWasSent');
                 });
             }
         },
@@ -123,9 +110,8 @@ export default {
         checkPasswords() {
             if (this.guest.ConfirmPassword.length > 0) {
                 if (this.guest.ConfirmPassword != this.guest.Password) {
-                    document.querySelector('.text').innerHTML = this.$i18n.t("messages.passwordsNotMatch");
+                    this.$store.state.toastErrorMessage = this.$i18n.t("messages.passwordsNotMatch");
                 } else if (this.guest.ConfirmPassword == this.guest.Password) {
-                    document.querySelector('.text').innerHTML = "";
                     this.guestRegistration();
                 }
             }
@@ -147,21 +133,20 @@ export default {
 
             await this.$store.dispatch('registration', regInfo).then(() => {
                 if (this.$store.state.tempVariables.registrationStatus.Status == "emailExist") {
-                    document.querySelector('.text').innerHTML = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
+                    this.$store.state.toastErrorMessage = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
                 } else if (this.$store.state.tempVariables.registrationStatus.Status == "loginInfoSentToEmail") {
                     this.resetForm();
                     document.querySelector('.form1').innerHTML = '<p class="text"></p>';
-                    document.querySelector('.main').style.height = "250px";
-                    document.querySelector('.text').innerHTML = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
+                    document.querySelector('.main').style.height = "150px";
+                    this.$store.state.toastSuccessMessage = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
 
                     //Login after registration 
-                    setTimeout(function (that) {
-                        let credentials = {
-                            Email: that.guest.Email,
-                            Password: that.guest.Password
-                        }
-                        that.$store.dispatch('login', credentials)
-                    }, 5000, this);
+                    let credentials = {
+                        Email: that.guest.Email,
+                        Password: that.guest.Password
+                    }
+                    this.$store.dispatch('login', credentials)
+
                 }
             });
 
@@ -195,7 +180,7 @@ a:active {
 .main {
     background-color: #ffffff;
     width: 400px;
-    height: 330px;
+    height: 300px;
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);

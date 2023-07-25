@@ -30,6 +30,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
         public virtual DbSet<EmailTemplateList> EmailTemplateLists { get; set; }
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
+        public virtual DbSet<GuestFavoriteList> GuestFavoriteLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<GuestLoginHistoryList> GuestLoginHistoryLists { get; set; }
         public virtual DbSet<HolidayTipsList> HolidayTipsLists { get; set; }
@@ -268,6 +269,17 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ExchangeRateList_UserList");
+            });
+
+            modelBuilder.Entity<GuestFavoriteList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Guest)
+                    .WithMany(p => p.GuestFavoriteLists)
+                    .HasForeignKey(d => d.GuestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GuestFavoriteList_GuestList");
             });
 
             modelBuilder.Entity<GuestList>(entity =>

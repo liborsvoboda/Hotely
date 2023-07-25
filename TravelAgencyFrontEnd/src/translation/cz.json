@@ -72,9 +72,18 @@
     "cancelChanges": "Zrušit Změny",
     "repeatPassword": "Opakujte Heslo",
     "actualOrNewPassword": "Aktuální nebo Nové heslo",
-    "doYouReallyDeleteAccount": "Opravdu chcete smazat účet?"
+    "doYouReallyDeleteAccount": "Opravdu chcete smazat účet?",
+    "signIn": "Přihlásit",
+    "logIn": "Přihlášení"
   },
   "messages": {
-    "passwordsNotMatch": "Hesla nesouhlasí"
+    "passwordsNotMatch": "Hesla nesouhlasí",
+    "dataSaved": "Data uložena",
+    "accountWasDeleted": "Účet byl Vymazán",
+    "addedToFavorite": "Vloženo do oblíbených",
+    "removedFromFavorite": "Odebráno z oblíbených",
+    "forSaveToFavoriteYouMustBeLogged": "Pro uložení do oblíbených musíte být přihlášeni",
+    "anyFavoritefound": "Nemáte uložen žádný oblíbnený hotel.",
+    "anyFavoritefound1": "Klikněte na Srdíčko v Info Hotelu pro vložení do oblíbených!"
   }
 }

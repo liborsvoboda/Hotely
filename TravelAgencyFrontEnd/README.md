@@ -79,3 +79,12 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
 window.scrollTo(0,0)
 
 
+16] toast 
+https://www.npmjs.com/package/vue-toast-notification
+this.$toast.open({ type: 'success', message: this.$i18n.t("messages.dataSaved"), duration: 3000 });
+
+        in store these variables are shown on content detection over Watch in App.vue
+        toastErrorMessage: null,
+        toastSuccessMessage: null,
+        this.$store.state.toastSuccessMessage = this.$i18n.t("messages.accountWasDeleted");
+17]

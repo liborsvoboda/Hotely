@@ -6,6 +6,9 @@ import store from "./store/index"
 import PrimeVue from 'primevue/config';
 import VueCookies from 'vue3-cookies'
 
+import ToastPlugin from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-bootstrap.css';
+
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
@@ -40,4 +43,5 @@ createApp(App)
     .use(ConfirmationService)
     .use(VueCookies)
     .use(i18n)
+    .use(ToastPlugin)
     .mount('#app')

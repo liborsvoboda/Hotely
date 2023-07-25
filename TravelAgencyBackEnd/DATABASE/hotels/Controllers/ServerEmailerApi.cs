@@ -8,7 +8,7 @@ namespace EASYDATACenter.ServerCoreDBSettings {
     /// <seealso cref="ControllerBase"/>
     [Authorize]
     [ApiController]
-    //[ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerEmailerApi : ControllerBase {
 
 

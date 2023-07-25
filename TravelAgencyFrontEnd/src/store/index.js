@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import router from '../router/index';
 import { encode } from "base-64";
-
+import AppVue from '../App.vue';
 
 /*
 APiRoots Urls
@@ -10,6 +10,10 @@ http://localhost:5000/WebApi
 */
 const store = createStore({
     state: {
+        toastErrorMessage: null,
+        toastSuccessMessage: null,
+        toastInfoMessage: null,
+
         tempVariables: {
             registrationStatus: null
         },
@@ -25,6 +29,8 @@ const store = createStore({
         holidayTipsList: [],
         searchDialList: [],
         searchAreaList: [],
+        favoriteList: [],
+        favoriteHotelList: [],
         searchResults: [],
         filteredResults: [],
         backRoute: "/",
@@ -91,6 +97,13 @@ const store = createStore({
     orderId: '',
   },
     mutations: {
+        setFavoriteHotelList(store, value) {
+            store.favoriteHotelList = value;
+            console.log("favorite", store.favoriteHotelList);
+        },
+        setFavoriteList(store, value) {
+            store.favoriteList = value;
+        },
         setReservedRoomList(store, value) {
             store.reservedRoomList = value
         },
@@ -198,9 +211,6 @@ const store = createStore({
     setBookedHotels(state, value) {
       state.bookedHotels = value
     },
-    setSavedHotels(state, data) {
-      state.savedHotels = data
-    },
     setOrderId(state, value) {
       state.orderId = value
     },
@@ -208,185 +218,183 @@ const store = createStore({
     //  state.bookingDetails.hotelId = value
     //},
   },
-  actions: {
-      saveCustomerDetailsCheckout({ commit }, data) {
-      commit('setCustomerDetailsCheckout', data)
-      },
-
-      async searchHotels({ commit }, searchString) {
-          if (searchString === null || searchString == '') { searchString = "null"; }
-
-          var response = await fetch(
-              this.state.apiRootUrl + '/Search/GetSearchInput/' + searchString + '/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          console.log("hotels", result);
-
-          commit('setHotelSearchResultsList', result.hotelList)
-          if (result) {
-              router.push({ name: 'result' })
-          }
-      },
-      async getReservedRoomList({ commit }, hotelId) {
-          //this.state.hotel.id
-          let startDate; let endDate;
-          if (this.state.searchString.dates.length) {
-              startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE');
-              endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE');
-          }
-
-          var response = await fetch(
-              this.state.apiRootUrl + '/ReservedRoomList/' + hotelId + '/' + startDate + '/' + endDate + '/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          commit('setReservedRoomList', result)
-      },
-      async getTopList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/Top/GetTopList/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          commit('setTopList', result)
-      },
-      async getPropertyList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/Properties/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          console.log("Property",result);
-          commit('setPropertyList', result)
-      },
-      async getRoomTypeList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/RoomTypes/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          console.log("RoomTypes", result);
-          commit('setRoomTypeList', result)
-      },
-      async getUbytkacInfoList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/UbytkacInfo/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          commit('setUbytkacInfoList', result)
-      },
-      async getRegistrationInfoList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/RegistrationInfo/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          commit('setRegistrationInfoList', result)
-      },
-      async getOftenQuestionList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/OftenQuestion/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          commit('setOftenQuestionList', result)
-      },
-      async getHolidayTipsList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/HolidayTips/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json();
-          commit('setHolidayTipsList', result)
-      },
-      
-
-    async searchHotelByName({ commit }, searchString) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Search/search?input=' + searchString
-      ) // Default is GET
-      var result = await response.json()
-        if (result) {
-        commit('setHotelSearchResultsList', result)
-        router.push({ name: 'result' })
-      }
-    },
-    async getHotelById({ commit }, hotelId) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Hotel/GetById/' + hotelId
-      ) // Default is GET
-      var result = await response.json()
-      commit('setHotel', result)
-    },
-    async setHotel({ commit }, hotel) {
-      commit('setHotel', hotel)
-    },
-    async getReservationById({ commit }, reservationId) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Booking/' + reservationId
-      )
-      var result = await response.json()
-      commit('setReservationDetails', result)
-    },
-    async searchHotelByCity({ commit }, searchString) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Search/GetHotelByCity?input=' +
-          searchString
-      ) // Default is GET
-      var result = await response.json()
-      if (result) {
-        commit('setHotelSearchResultsList', result)
-        router.push({ name: 'result' })
-      }
-    },
-    async searchSpecific({ commit }, payload) {
-      window.scrollTo(0, 0)
-      commit('setSearchString', payload.searchString)
-      commit('setSearchButtonLoadingTrue', null)
-      setTimeout(
-        function (that) {
-          // Timeout resolves inconsistent scroll behaviour between scrollTo and router.push
-          if (payload.type === 'city') {
-            that.dispatch('searchHotelByCity', payload.searchString)
-          } else {
-            that.dispatch('searchHotelByName', payload.searchString)
-          }
+    actions: {
+        saveCustomerDetailsCheckout({ commit }, data) {
+            commit('setCustomerDetailsCheckout', data)
         },
-        500,
-        this
-      )
-    },
 
-      async getSearchDialList({ commit }) {
+        async searchHotels({ commit }, searchString) {
+            if (searchString === null || searchString == '') { searchString = "null"; }
+
+            var response = await fetch(
+                this.state.apiRootUrl + '/Search/GetSearchInput/' + searchString + '/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            console.log("hotels", result);
+
+            commit('setHotelSearchResultsList', result.hotelList)
+            if (result) {
+                router.push({ name: 'result' })
+            }
+        },
+        async getReservedRoomList({ commit }, hotelId) {
+            let startDate; let endDate;
+            if (this.state.searchString.dates.length) {
+                startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE');
+                endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE');
+            }
+
+            var response = await fetch(
+                this.state.apiRootUrl + '/ReservedRoomList/' + hotelId + '/' + startDate + '/' + endDate + '/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setReservedRoomList', result)
+        },
+        async getTopList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Top/GetTopList/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setTopList', result)
+        },
+        async getPropertyList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Properties/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            console.log("Property", result);
+            commit('setPropertyList', result)
+        },
+        async getRoomTypeList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/RoomTypes/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setRoomTypeList', result)
+        },
+        async getUbytkacInfoList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/UbytkacInfo/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setUbytkacInfoList', result)
+        },
+        async getRegistrationInfoList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/RegistrationInfo/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setRegistrationInfoList', result)
+        },
+        async getOftenQuestionList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/OftenQuestion/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setOftenQuestionList', result)
+        },
+        async getHolidayTipsList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/HolidayTips/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            commit('setHolidayTipsList', result)
+        },
+
+
+        async searchHotelByName({ commit }, searchString) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Search/search?input=' + searchString
+            ) // Default is GET
+            var result = await response.json()
+            if (result) {
+                commit('setHotelSearchResultsList', result)
+                router.push({ name: 'result' })
+            }
+        },
+        async getHotelById({ commit }, hotelId) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Hotel/GetById/' + hotelId
+            ) // Default is GET
+            var result = await response.json()
+            commit('setHotel', result)
+        },
+        async setHotel({ commit }, hotel) {
+            commit('setHotel', hotel)
+        },
+        async getReservationById({ commit }, reservationId) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Booking/' + reservationId
+            )
+            var result = await response.json()
+            commit('setReservationDetails', result)
+        },
+        async searchHotelByCity({ commit }, searchString) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Search/GetHotelByCity?input=' +
+                searchString
+            ) // Default is GET
+            var result = await response.json()
+            if (result) {
+                commit('setHotelSearchResultsList', result)
+                router.push({ name: 'result' })
+            }
+        },
+        async searchSpecific({ commit }, payload) {
+            window.scrollTo(0, 0)
+            commit('setSearchString', payload.searchString)
+            commit('setSearchButtonLoadingTrue', null)
+            setTimeout(
+                function (that) {
+                    // Timeout resolves inconsistent scroll behaviour between scrollTo and router.push
+                    if (payload.type === 'city') {
+                        that.dispatch('searchHotelByCity', payload.searchString)
+                    } else {
+                        that.dispatch('searchHotelByName', payload.searchString)
+                    }
+                },
+                500,
+                this
+            )
+        },
+
+        async getSearchDialList({ commit }) {
             var response = await fetch(
                 this.state.apiRootUrl + '/Search/GetSearchDialList/' + this.state.language, {
                 method: 'get',
@@ -395,122 +403,86 @@ const store = createStore({
                 }
             });
             var result = await response.json()
-          commit('setSearchDialList', result)
+            commit('setSearchDialList', result)
         },
-      async getSearchAreaList({ commit }) {
-          var response = await fetch(
-              this.state.apiRootUrl + '/Search/GetSearchAreaList/' + this.state.language, {
-              method: 'get',
-              headers: {
-                  'Content-type': 'application/json'
-              }
-          });
-          var result = await response.json()
-          commit('setSearchAreaList', result)
-      },
+        async getSearchAreaList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Search/GetSearchAreaList/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json()
+            commit('setSearchAreaList', result)
+        },
+        async login({ commit }, credentials) {
+            if (credentials.Email) {
+                let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {
+                    method: 'post',
+                    headers: {
+                        'Authorization': 'Basic ' + encode(credentials.Email + ":" + credentials.Password),
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ language: this.state.language })
+                });
 
-      async login({ commit }, credentials) {
-          if (credentials.Email) {
-              let response = await fetch(this.state.apiRootUrl + '/Guest/WebLogin', {
-                  method: 'post',
-                  headers: {
-                      'Authorization': 'Basic ' + encode(credentials.Email + ":" + credentials.Password),
-                      'Content-type': 'application/json'
-                  },
-                  body: JSON.stringify({ language: this.state.language })
-              });
+                let result = await response.json()
 
-              let result = await response.json()
+                if (result.message) {
+                    this.state.toastErrorMessage = result.message;
+                } else {
+                    commit('setUser', result)
 
-              if (result.message) {
-                  document.querySelector('.text').innerHTML = result.message
-                  router.push('/')
-              } else {
-                  commit('setUser', result)
-                  Cookies.set('login', 'true')
-                  Cookies.set('userId', result.id)
-                  Cookies.set('token', result.token)
-                  router.push('/profile')
-              }
+                    //Load Favorites
+                    response = await fetch(this.state.apiRootUrl + '/Guest/GetFavoriteList', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + this.state.user.Token,
+                            'Content-type': 'application/json',
+                        }
+                    });
+                    result = await response.json();
+                    commit('setFavoriteList', result);
+                    router.push('/profile');
+                }
 
-          } else { // remove login on Refresh page
-              Cookies.remove('userId')
-              Cookies.remove('login')
-              commit('logOutUser')
-              router.push('/')
-          }
+            } else { // remove login on Refresh page
+                commit('logOutUser')
+                router.push('/')
+            }
         },
 
-      async registration({ commit }, regInfo) {
-          let response = await fetch(this.state.apiRootUrl + '/Guest/WebRegistration', {
-              method: 'post',
-              headers: {
-                  'Content-type': 'application/json'
-              },
-              body: JSON.stringify({ User: regInfo, Language: this.state.language })
-          });
-          this.state.tempVariables.registrationStatus = await response.json();
-      },
-      setBookedTotalPrice({ commit }) {
-          commit('setBookedTotalPrice');
-      },
-      checkLoggedInUser({ commit }) {
-          var myCookie = Cookies.get('login')
-          if (myCookie) {
-              this.dispatch('login', {
-                  Email: '',
-                  Password: '',
-                  UserID: Cookies.get('userId'),
-              })
-          }
-      },
-      async logout({ commit }) {
-          Cookies.remove('userId')
-          Cookies.remove('login')
-          commit('logOutUser')
-          router.push('/')
-      },
-    async getSavedHotelsInfo({ commit }) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Hotel/SavedHotelsInfo?id=' +
-          this.state.user.id
-      )
-      var result = await response.json()
-      if (result) {
-        commit('setSavedHotels', result)
-      }
-      else{
-        commit("setSavedHotels", []);
-      }
-    },
-    async addFavouriteHotel({ commit }, hotelId) {
-      fetch(this.state.apiRootUrl + '/Guest/saveFavoriteHotel', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ hotelID: hotelId, guestID: this.state.user.id }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data)
-        })
-        .catch((error) => {
-          console.error('Error:', error)
-        })
-    },
-    async removeFavouriteHotel({ commit }, hotelId) {
-      fetch(this.state.apiRootUrl + '/Guest/removeFavoriteHotel', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ hotelID: hotelId, guestID: this.state.user.id }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data)
-        })
-        .catch((error) => {
-          console.error('Error:', error)
-        })
-    },
+        async registration({ commit }, regInfo) {
+            let response = await fetch(this.state.apiRootUrl + '/Guest/WebRegistration', {
+                method: 'post',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ User: regInfo, Language: this.state.language })
+            });
+            this.state.tempVariables.registrationStatus = await response.json();
+        },
+        setBookedTotalPrice({ commit }) {
+            commit('setBookedTotalPrice');
+        },
+        async logout({ commit }) {
+            commit('logOutUser')
+            router.push('/')
+        },
+        async getFavoriteHotelList({ commit }) {
+
+            var response = await fetch(
+                this.state.apiRootUrl + '/Guest/GetFavoriteList/' + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            var result = await response.json()
+            commit('setFavoriteHotelList', result.hotelList)
+        },
 
     async getReviews({ commit }, hotelId) {
       var response = await fetch(
@@ -520,33 +492,25 @@ const store = createStore({
       commit('getReviews', result)
     },
 
-
-
-    async setServiceFee({ commit }, payload) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Hotel/GetAccomodationFee?id=' +
-          payload.id +
-          '&type=' +
-          payload.type
-      )
-      var result = await response.json()
-      commit('setServiceFee', result)
-    },
       deleteRegistration({ commit }, Id) {
-          fetch(this.state.apiRootUrl + '/Guest/DeleteRegistration/' + Id, {
+          fetch(this.state.apiRootUrl + '/Guest/DeleteRegistration', {
               method: 'DELETE',
               headers: {
-                  "Authorization": 'Bearer ' + this.user.Token,
-                  "Accept": "application/json",
+                  "Authorization": 'Bearer ' + this.state.user.Token,
                   "Content-type": "application/json",
               },
-              
-          })
-          Cookies.remove('userId')
-          Cookies.remove('login')
-          commit('logOutUser')
-          router.push('/')
+
+          });
+          commit('logOutUser');
+          router.push('/');
       },
+      setDates({ commit }, date) {
+          commit('setDates', date);
+      },
+      setFavoriteList({ commit }, value) {
+          commit('setFavoriteList', value);
+      },
+
     async getBookings({ commit }) {
       var response = await fetch(
         this.state.apiRootUrl + '/Booking/guest/' + this.state.user.id

@@ -235,7 +235,7 @@
         </member>
         <member name="T:EASYDATACenter.ServerCoreDBSettings.ServerEmailerApi">
             <summary>
-            Server Email sender Api
+            Server Email sender Api for logged Communication
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>

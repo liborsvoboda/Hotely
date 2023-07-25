@@ -191,8 +191,8 @@
     <Content Include="src\components\pages\CustomerProfile\ProfileMain.vue" />
     <Content Include="src\components\pages\CustomerProfile\ProfilePage.vue" />
     <Content Include="src\components\pages\CustomerProfile\ProfileSetting.vue" />
-    <Content Include="src\components\pages\CustomerProfile\SavedHotel.vue" />
-    <Content Include="src\components\pages\CustomerProfile\SavedHotels.vue" />
+    <Content Include="src\components\pages\CustomerProfile\FavoriteHotel.vue" />
+    <Content Include="src\components\pages\CustomerProfile\FavoriteHotelList.vue" />
     <Content Include="src\components\pages\Extra pages\About.vue" />
     <Content Include="src\components\pages\Extra pages\Contact.vue" />
     <Content Include="src\components\pages\Extra pages\New.vue" />

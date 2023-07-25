@@ -23,9 +23,9 @@
                                     <Button id="menuButton"  :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
                                 </div>
 
-                                <li class="nav-item" v-if="loggedIn">
-                                    <button class="btn" @click="ToggleStar" id="starBtn">
-                                        <i :class="star ? 'fas fa-heart fa-2x' : 'far fa-heart fa-2x'" style="color: red;"></i>
+                                <li class="nav-item">
+                                    <button class="btn" @click="SetFavorite" id="starBtn">
+                                        <i :class="isFavorite ? 'fas fa-heart fa-2x' : 'far fa-heart fa-2x'" style="color: red;"></i>
                                     </button>
                                 </li>
                             </ul>
@@ -58,11 +58,13 @@ export default ({
     },
     data(){
         return{
-            hotelInfo:{},
-            star: false
+            hotelInfo:{}
         }
     },
     computed: {
+        isFavorite() {
+            return this.$store.state.favoriteList.filter(obj => { return obj.hotelId === this.hotel.id; }).length > 0;
+        },
         backRoute() {
             return this.$store.state.backRoute;
         },
@@ -83,17 +85,20 @@ export default ({
         }
     },
     methods:{
-        ToggleStar(){
-            if(this.star === false){
-                // Set fav
-                this.$store.dispatch('addFavouriteHotel', this.hotel.id)
-                this.star = !this.star;
-            }
-            else{
-                // Remove fav
-                this.$store.dispatch('removeFavouriteHotel', this.hotel.id)
-                this.star = !this.star;
-            }
+        async SetFavorite() {
+            if (this.loggedIn) {
+                let response = await fetch(this.$store.state.apiRootUrl + '/Guest/SetFavorite/' + this.hotel.id, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": 'Bearer ' + this.$store.state.user.Token,
+                        "Content-type": "application/json",
+                    }
+                });
+
+                let result = await response.json();
+                this.$store.dispatch('setFavoriteList', result);
+                this.$store.state.toastSuccessMessage = this.isFavorite ? this.$i18n.t("messages.addedToFavorite") : this.$i18n.t("messages.removedFromFavorite");
+            } else { this.$store.state.toastInfoMessage = this.$i18n.t("messages.forSaveToFavoriteYouMustBeLogged") }
         },
     },
     created() {
