@@ -212,7 +212,7 @@ namespace TravelAgencyAdmin {
 
                 tm_holidayTipsList.Header = Resources["holidayTipsList"].ToString(); tm_oftenQuestionList.Header = Resources["oftenQuestionList"].ToString();
                 tm_registrationInfoList.Header = Resources["registrationInfoList"].ToString(); tm_ubytkacInfoList.Header = Resources["ubytkacInfoList"].ToString();
-                tm_countryAreaList.Header = Resources["countryAreaList"].ToString();
+                tm_countryAreaList.Header = Resources["countryAreaList"].ToString(); tm_emailTemplateList.Header = Resources["emailTemplateList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -223,12 +223,12 @@ namespace TravelAgencyAdmin {
 
                 cb_filter.SelectedIndex = 0;
 
-                ///Core Startup / Closing handlers
+                //Core Startup / Closing handlers
                 Loaded += MainWindow_Loaded;
                 KeyDown += MainWindow_KeyDown;
                 Closing += MainWindow_Closing;
 
-                ///User Activity Handlers
+                //User Activity Handlers
                 PreviewMouseDown += MainWindow_MouseLeave;
                 PreviewKeyDown += MainWindow_PreviewKeyDown;
                 PreviewMouseMove += MainWindow_PreviewMouseMove;
@@ -320,7 +320,7 @@ namespace TravelAgencyAdmin {
                         mi_logout.Header = UserLogged ? Resources["logout"].ToString() : Resources["logon"].ToString();
 
                         //Load All startup DB Settings
-                        if (!App.LanguageList.Any()) DBOperations.LoadStartupDBData();
+                        if (App.ParameterList == null || !App.ParameterList.Any()) DBOperations.LoadStartupDBData();
 
                         //ONETime Update
                         if (ServiceRunning && !updateChecked && UserLogged) { this.Invoke(() => { if (App.Setting.AutomaticUpdate != "never") { SystemUpdater.CheckUpdate(false); } updateChecked = true; }); }
@@ -778,6 +778,12 @@ namespace TravelAgencyAdmin {
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new DocumentTypeListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/DocumentTypeList", App.UserData.Authentification.Token);
+                            break;
+
+                        case "tm_emailTemplateList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new EmailTemplateListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/EmailTemplateList", App.UserData.Authentification.Token);
                             break;
 
                         case "tm_hotelImagesList":

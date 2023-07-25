@@ -19,6 +19,7 @@
         Calendar,
         DocumentAdviceList,
         DocumentTypeList,
+        EmailTemplateList,
         ExchangeRateList,
         GuestList,
         GuestLoginHistoryList,
@@ -55,9 +56,9 @@
     /// Definition of Result API calls for Insert / Update / Delete
     /// </summary>
     public class DBResultMessage {
-        public int insertedId { get; set; } = 0;
-        public string status { get; set; }
-        public int recordCount { get; set; } = -1;
+        public int InsertedId { get; set; } = 0;
+        public string Status { get; set; }
+        public int RecordCount { get; set; } = -1;
         public string ErrorMessage { get; set; }
     }
 }

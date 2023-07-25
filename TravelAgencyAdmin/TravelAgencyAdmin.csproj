@@ -244,6 +244,10 @@
     <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml.cs">
       <DependentUpon>PropertyGroupListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\Settings\EmailTemplateList\EmailTemplateList.cs" />
+    <Compile Include="Agendas\Settings\EmailTemplateList\EmailTemplateListPage.xaml.cs">
+      <DependentUpon>EmailTemplateListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsList.cs" />
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsListPage.xaml.cs">
       <DependentUpon>HolidayTipsListPage.xaml</DependentUpon>
@@ -443,6 +447,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Settings\EmailTemplateList\EmailTemplateListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

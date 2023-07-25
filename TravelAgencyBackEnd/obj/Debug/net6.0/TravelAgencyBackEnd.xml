@@ -145,6 +145,29 @@
             <param name="language"></param>
             <returns></returns>
         </member>
+        <member name="M:TravelAgencyBackEnd.Functions.RandomString(System.Int32)">
+            <summary>
+            Randoms the string.
+            </summary>
+            <param name="length">The length.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TravelAgencyBackEnd.SystemFunctions.SendMassEmail(System.Collections.Generic.List{TravelAgencyBackEnd.CoreClasses.MailRequest})">
+            <summary>
+            Sends the mass mail.
+            </summary>
+            <param name="mailRequests">The mail requests.</param>
+        </member>
+        <member name="M:TravelAgencyBackEnd.SystemFunctions.SendEmail(TravelAgencyBackEnd.CoreClasses.MailRequest)">
+            <summary>
+            System Mailer sending Emails To service email with detected fail for analyze and
+            corrections on the Way provide better services every time !!! This You can implement
+            everywhere, !!! In Debug mode is written to Console, in Release will be sent email
+            Empty Sender And Recipients set email for Service Recipient
+            </summary>
+            <param name="mailRequest"></param>
+            <param name="sendImmediately"></param>
+        </member>
         <member name="F:TravelAgencyBackEnd.Program.ServerDBLanguageList">
             <summary>
             Local DB dials: LanguageList
@@ -209,6 +232,12 @@
             </summary>
             <param name="fileName">The name of the file.</param>
             <returns>The MIME-type for the given file name.</returns>
+        </member>
+        <member name="T:EASYDATACenter.ServerCoreDBSettings.ServerEmailerApi">
+            <summary>
+            Server Email sender Api
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>
     </members>
 </doc>

@@ -1,15 +1,15 @@
 <template>
-  <div>
-      <input class="form-control"
-             id="searchInput"
-             :placeholder="$t('labels.insertSearchValue')"
-             @input="searchFieldChange"
-             v-model="searchString"
-             minlength="1" />
-    <datalist id="datalistOptions">
-        <option :value="item" v-for="item in searchList" :key="item.id" />
-    </datalist>
-  </div>
+    <div>
+        <input class="form-control"
+               id="searchInput"
+               :placeholder="$t('labels.insertSearchValue')"
+               @input="searchFieldChange"
+               v-model="searchString"
+               minlength="1" />
+        <datalist id="datalistOptions">
+            <option :value="item" v-for="item in searchList" :key="item.id" />
+        </datalist>
+    </div>
 </template>
 
 <script>

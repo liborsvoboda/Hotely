@@ -105,7 +105,7 @@ namespace TravelAgencyAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CurrencyList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -149,7 +149,7 @@ namespace TravelAgencyAdmin.Pages {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CurrencyList, httpContent, null, App.UserData.Authentification.Token);
                 } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.CurrencyList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0) {
+                if (dBResult.RecordCount > 0) {
                     selectedRecord = new CurrencyList();
                     await LoadDataList();
                     SetRecord(false);

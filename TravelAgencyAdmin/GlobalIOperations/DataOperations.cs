@@ -54,15 +54,18 @@ namespace TravelAgencyAdmin.GlobalOperations {
         /// <returns></returns>
         public static async Task<string> ParameterCheck(string parameterName) {
             string result = null;
-            try { result = App.ParameterList.Where(a => a.SystemName.ToLower() == parameterName.ToLower() && a.UserId == App.UserData.Authentification.Id).Select(a => a.Value).FirstOrDefault(); } catch (Exception Ex) { App.ApplicationLogging(Ex); }
+            if (App.ParameterList.Any()) {
+                try { result = App.ParameterList.Where(a => a.SystemName.ToLower() == parameterName.ToLower() && a.UserId == App.UserData.Authentification.Id).Select(a => a.Value).FirstOrDefault(); } catch (Exception Ex) { }
 
-            try {
-                if (result == null) {
-                    result = App.ParameterList.Where(a => a.SystemName.ToLower() == parameterName.ToLower() && a.UserId == null).Select(a => a.Value).FirstOrDefault();
-                    if (result == null) App.ApplicationLogging(new Exception(), $"{await DBOperations.DBTranslation("Missing Server Parameter")}: {parameterName}");
-                }
-                return result;
-            } catch (Exception Ex) { return result; }
+                try {
+                    if (result == null) {
+                        result = App.ParameterList.Where(a => a.SystemName.ToLower() == parameterName.ToLower() && a.UserId == null).Select(a => a.Value).FirstOrDefault();
+                        if (result == null) App.ApplicationLogging(new Exception(), $"{await DBOperations.DBTranslation("Missing Server Parameter")}: {parameterName}");
+                    }
+                    return result;
+                } catch (Exception Ex) { return result; }
+            }
+            return result;
         }
     }
 }

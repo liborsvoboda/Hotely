@@ -39,7 +39,7 @@ namespace TravelAgencyAdmin.Api {
                     DBResultMessage result = JsonConvert.DeserializeObject<DBResultMessage>(await json.Content.ReadAsStringAsync());
                     if (result.ErrorMessage == null) { result.ErrorMessage = await json.Content.ReadAsStringAsync(); }
                     return result;
-                } catch (Exception ex) { return new DBResultMessage() { recordCount = 0, ErrorMessage = ex.Message + Environment.NewLine + ex.StackTrace, status = "error" }; }
+                } catch (Exception ex) { return new DBResultMessage() { RecordCount = 0, ErrorMessage = ex.Message + Environment.NewLine + ex.StackTrace, Status = "error" }; }
             }
         }
 
@@ -51,7 +51,7 @@ namespace TravelAgencyAdmin.Api {
                     DBResultMessage result = JsonConvert.DeserializeObject<DBResultMessage>(await json.Content.ReadAsStringAsync());
                     if (result.ErrorMessage == null) { result.ErrorMessage = await json.Content.ReadAsStringAsync(); }
                     return result;
-                } catch (Exception ex) { return new DBResultMessage() { recordCount = 0, ErrorMessage = ex.Message + Environment.NewLine + ex.StackTrace, status = "error" }; }
+                } catch (Exception ex) { return new DBResultMessage() { RecordCount = 0, ErrorMessage = ex.Message + Environment.NewLine + ex.StackTrace, Status = "error" }; }
             }
         }
 
@@ -61,7 +61,7 @@ namespace TravelAgencyAdmin.Api {
                     if (token != null) { httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token); }
                     HttpResponseMessage json = await httpClient.DeleteAsync(App.Setting.ApiAddress + "/" + apiUrl + (!string.IsNullOrWhiteSpace(key) ? "/" + key : ""));
                     return JsonConvert.DeserializeObject<DBResultMessage>(await json.Content.ReadAsStringAsync());
-                } catch (Exception ex) { return new DBResultMessage() { recordCount = 0, ErrorMessage = ex.Message + Environment.NewLine + ex.StackTrace, status = "error" }; }
+                } catch (Exception ex) { return new DBResultMessage() { RecordCount = 0, ErrorMessage = ex.Message + Environment.NewLine + ex.StackTrace, Status = "error" }; }
             }
         }
 

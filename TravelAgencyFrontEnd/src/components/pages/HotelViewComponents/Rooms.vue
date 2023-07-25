@@ -1,37 +1,34 @@
 <template>
   <div class="container">
-    <div class="row">
-      <!-- left column -->
-      <div class="col-md-10">
-          <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :hotel="hotelInfo" :key="room.id" />
-      </div>
-
-      <!-- right column -->
-      <div class="col-md-2 rounded shadow-sm" id="rightCard">
-        <!-- <Options @checked="setExtraBedFee" /> -->
-
-        <!-- Pension type -->
-<!--         <div class="row">
-          <SelectButton @click="getServicetype" v-model="value" :options="serviceTypes" />
-        </div> -->
-
-        <div class="row pt-5">
-          <div class="col-md-6">
-              <b>Total price: {{ totalprice }} {{hotelInfo.defaultCurrency.name}}</b>
+      <div class="row">
+          <!-- left column -->
+          <div class="col-md-10">
+              <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :hotel="hotelInfo" :key="room.id" />
           </div>
-          <div class="col-md-6">
-            <div v-if="CanBook">
-            <router-link to="/checkout" class="btn btn-primary" @click="Book"
-              ><span class="far fa-bookmark"></span> Book</router-link
-            >
-            </div>
-            <div v-else>
-              <b>Select service type and rooms to proceed to booking</b>
-            </div>    
+
+
+          <!-- right column -->
+          <div class="col-md-2 rounded shadow-sm" id="rightCard">
+              <div class="row pt-5">
+                  <div class="col-md-12">
+                      <b>
+                          {{ $t('labels.totalPrice')}}
+                          <br />
+                          {{ totalprice }} {{hotelInfo.defaultCurrency.name}}
+                      </b>
+                  </div>
+
+                  <div class="col-md-12 pt-5">
+                      <div v-if="CanBook">
+                          <router-link to="/checkout" class="btn btn-primary" @click="Book"><span class="far fa-bookmark"></span> {{ $t('labels.demandReservation')}} </router-link>
+                      </div>
+                      <div v-else>
+                          <b>{{ $t('labels.insertRoomsCount')}}</b>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -47,8 +44,7 @@ export default {
     },
     data(){
         return{
-            value: null,
-            serviceTypes: ['Self service', 'Half board', 'Full board', 'All inclusive'],
+            
         }
     },
     computed: {
@@ -59,42 +55,44 @@ export default {
             return this.$store.state.hotel;
         },
         totalprice() {
-            if(this.$store.state.searchString.dates[1] != null){
-                this.$store.dispatch('getTotalPrice');
-                return this.$store.state.bookingDetails.totalprice;
-            }
+            return this.$store.state.bookingDetail.totalPrice;
         },
         CanBook(){
-            var single = this.$store.state.bookingDetails.noOfSingleRooms > 0;
-            var double = this.$store.state.bookingDetails.noOfDoubleRooms > 0;
-            var family = this.$store.state.bookingDetails.noOfFamilyRooms > 0;
-            if(this.value != null && (single || double || family)) {
+            if (this.$store.state.bookingDetail.totalPrice > 0) {
                 return true;
             }
             return false;
         },
     },
+    mounted() {
+        //Cleared Booked Rooms
+        this.$store.state.bookingDetail.rooms = [];
+        this.$store.state.hotel.hotelRoomLists.forEach(room => {
+            this.$store.state.bookingDetail.rooms.push({
+                id: room.id, 
+                typeId: room.roomTypeId,
+                name: room.name, 
+                price: room.price,
+                booked: 0
+            });
+        });
+        this.$store.state.bookingDetail.totalPrice = 0;
+    },
     methods: {
-        setExtraBedFee() {
-            this.$store.dispatch('setExtraBedFee', this.hotelInfo.extraBedFee);
-        },
-        getServicetype(value) {
-            this.serviceType = value.path[0].innerText;
-            this.$store.dispatch('setServiceType', this.serviceType);
-
-            let id = this.$route.params.id;
-            this.$store.dispatch('setServiceFee', { id: id, type: this.serviceType });
-        },
         Book() {
-            this.$store.dispatch('setHotelName', this.hotelInfo.name)
-            this.$store.dispatch('setHotelId', this.hotelInfo.id)
-            window.scrollTo(0,0)
+            this.$store.state.bookingDetail.hotelId = this.$store.state.hotel.id;
+            this.$store.state.bookingDetail.hotelName = this.$store.state.hotel.name;
+            this.$store.state.bookingDetail.startDate = this.$store.state.searchString.dates[0];
+            this.$store.state.bookingDetail.endDate = this.$store.state.searchString.dates[1];
+
+            this.$store.state.bookingDetail.adultInput = this.$store.state.searchString.inputAdult;
+            this.$store.state.bookingDetail.childrenInput = this.$store.state.searchString.inputChild;
+            this.$store.state.bookingDetail.roomsInput = this.$store.state.searchString.inputRooms;
+
+            window.scrollTo(0, 0);
         },
     },
     created(){
-        if(this.$store.state.bookingDetails.serviceType !== ''){
-            this.value = this.$store.state.bookingDetails.serviceType;
-        }
     }
 };
 </script>
@@ -102,27 +100,26 @@ export default {
 
 <style scoped>
 
-  .p-buttonset .p-button.p-highlight {
-    background:#53c16e !important;
-    border-color:#1bc541 !important;
-  }
+.p-buttonset .p-button.p-highlight {
+    background: #53c16e !important;
+    border-color: #1bc541 !important;
+}
 
-  .p-buttonset .p-button.p-highlight:hover{
-    background:#53c16e !important;
-    border-color:#1bc541 !important;
-  }
+    .p-buttonset .p-button.p-highlight:hover {
+        background: #53c16e !important;
+        border-color: #1bc541 !important;
+    }
 
-  .btn.btn-primary{
-    background-color:#53c16e;
-    border-color:#1bc541;
-  }
+.btn.btn-primary {
+    background-color: #53c16e;
+    border-color: #1bc541;
+}
 
-  .container {
+.container {
     padding-top: 20px;
-  }
+}
 
-  #rightCard {
+#rightCard {
     margin-bottom: 15px;
-  }
-
+}
 </style>

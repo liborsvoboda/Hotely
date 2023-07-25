@@ -11,6 +11,7 @@ namespace TravelAgencyAdmin.Classes {
         public DateTime TimeStamp { get; set; }
 
         public string AreaTranslation { get; set; }
+        public string CountryTranslation { get; set; }
     }
 
     public partial class CountryAreaCityList {

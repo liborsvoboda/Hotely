@@ -9,17 +9,18 @@
         public async Task<string> GetProperties(string language = null) {
             List<PropertyOrServiceTypeList> result,resultNoGroup;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                result = new hotelsContext().PropertyOrServiceTypeLists
+                result = _dbContext.PropertyOrServiceTypeLists
                     .Include(a => a.PropertyGroup).Where(a=> a.PropertyGroup != null)
                     .Include(a => a.PropertyOrServiceUnitType)
-                    .OrderBy(a => a.PropertyGroup.Sequence)
-                    .ToList();
+                    .OrderBy(a => a.Sequence).ToList()
+                    .OrderBy(a => a.PropertyGroup.Sequence).ToList();
             }
 
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                resultNoGroup = new hotelsContext().PropertyOrServiceTypeLists
+                resultNoGroup = _dbContext.PropertyOrServiceTypeLists
                     .Include(a => a.PropertyGroup).Where(a => a.PropertyGroup == null)
                     .Include(a => a.PropertyOrServiceUnitType)
+                    .OrderBy(a => a.Sequence)
                     .ToList();
             }
             result.AddRange(resultNoGroup);
@@ -49,7 +50,7 @@
             List<HotelRoomTypeList> result;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                result = new hotelsContext().HotelRoomTypeLists.ToList();
+                result = _dbContext.HotelRoomTypeLists.ToList();
             }
 
             result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });
@@ -63,14 +64,28 @@
             });
         }
 
+
         [HttpGet("/WebApi/StateArea/{searchArea}/{language}")]
         public async Task<string> GetRoomTypes(string searchArea, string language = null) {
-            List<HotelRoomTypeList> result;
+            List<HotelList> check;
+            List<CountryAreaList> result = new();
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                result = new hotelsContext().HotelRoomTypeLists.ToList();
+                check = _dbContext.HotelLists
+                    .Include(a=> a.Country)
+                    .ToList();
             }
 
-            result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });
+            check.ForEach(item => {
+                if (DBOperations.DBTranslate(item.Country.SystemName, language).ToLower() == searchArea.ToLower()) {
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        result = _dbContext.CountryAreaLists
+                                .Where(a=> a.CountryId == item.CountryId).ToList();
+                    }
+                    result.ForEach(item => {
+                        item.SystemName = DBOperations.DBTranslate(item.SystemName, language);
+                    });
+                }
+            });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,

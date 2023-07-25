@@ -198,7 +198,7 @@ namespace TravelAgencyAdmin.Pages {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token);
                 } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0) {
+                if (dBResult.RecordCount > 0) {
                     selectedRecord = new HotelPropertyAndServiceList();
                     await LoadDataList();
                     SetRecord(false);

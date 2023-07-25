@@ -1,226 +1,228 @@
 <template>
-  <form class="form1" @submit.prevent="checkPasswords">
-    <div class="card-body">
-      <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mb-2 text-primary">Personal Details</h6>
+    <form class="form1" @submit.prevent="checkPasswords">
+        <div class="card-body">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="FirstName">{{ $t('labels.firstname') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="FirstName"
+                               :placeholder="user.FirstName"
+                               v-model="guest.FirstName" />
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="LastName">{{ $t('labels.lastname') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="LastName"
+                               :placeholder="user.LastName"
+                               v-model="guest.LastName" />
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Email">{{ $t('labels.email') }}</label>
+                        <input type="email"
+                               class="form-control"
+                               id="Email"
+                               :placeholder="user.Email"
+                               v-model="guest.Email" />
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Phone">{{ $t('labels.phone') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="Phone"
+                               :placeholder="user.Phone"
+                               v-model="guest.Phone" />
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('user.address') }}</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Street">{{ $t('labels.street') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="Street"
+                               :placeholder="user.Street"
+                               v-model="guest.Street" />
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="City">{{ $t('labels.city') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="City"
+                               :placeholder="user.City"
+                               v-model="guest.City" />
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="ZipCode">{{ $t('labels.zipCode') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="ZipCode"
+                               :placeholder="user.ZipCode"
+                               v-model="guest.ZipCode" />
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Country">{{ $t('labels.country') }}</label>
+                        <input type="text"
+                               class="form-control"
+                               id="Country"
+                               :placeholder="user.Country"
+                               v-model="guest.Country" />
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('user.actualOrNewPassword') }}</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label for="sTate">{{ $t('labels.password') }}</label>
+                    <div class="input-group flex-nowrap form-group">
+                        <input type="password" id="password" class="form-control" v-model="guest.Password">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <label for="zIp">{{ $t('user.repeatPassword') }}</label>
+                    <div class="input-group flex-nowrap form-group">
+                        <input type="password" id="RePassword" class="form-control" v-model="guest.confirmPassword">
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <p class="text"></p>
+                    <div class="text-right">
+                        <button type="button"
+                                id="cancel"
+                                name="cancel"
+                                class="btn btn-secondary mr-1"
+                                @click="resetForm()">
+                            {{ $t('user.cancelChanges') }}
+                        </button>
+                        <button type="button"
+                                id="update"
+                                name="update"
+                                class="btn btn-primary mr-1"
+                                @click="checkPasswords()">
+                            {{ $t('user.saveChanges') }}
+                        </button>
+                        <button type="button"
+                                id="submit"
+                                name="submit"
+                                class="btn btn-danger"
+                                @click="deleteAccout()">
+                            {{ $t('user.deleteAccount') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="fullName"
-              :placeholder="user.fullName"
-              v-model="guest.Fullname"
-            />
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"></div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="website">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="website"
-              :placeholder="user.email"
-              v-model="guest.Email"
-            />
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input
-              type="text"
-              class="form-control"
-              id="phone"
-              :placeholder="user.phone"
-              v-model="guest.Phone"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mt-3 mb-2 text-primary">Address</h6>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="Street">Street</label>
-            <input
-              type="text"
-              class="form-control"
-              id="Street"
-              :placeholder="user.street"
-              v-model="guest.Street"
-            />
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="ciTy">City</label>
-            <input
-              type="text"
-              class="form-control"
-              id="ciTy"
-              :placeholder="user.city"
-              v-model="guest.City"
-            />
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="zIp">Zip Code</label>
-            <input
-              type="text"
-              class="form-control"
-              id="zIp"
-              :placeholder="user.zipCode"
-              v-model="guest.Zipcode"
-            />
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <div class="form-group">
-            <label for="country">Country</label>
-            <input
-              type="text"
-              class="form-control"
-              id="country"
-              :placeholder="user.country"
-              v-model="guest.Country"
-            />
-          </div>
-        </div>
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <h6 class="mt-3 mb-2 text-primary">Password</h6>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-            <label for="sTate"> New Password</label>
-          <div class="input-group flex-nowrap form-group">
-            <input type="password" id="password" class="form-control" placeholder="Enter New Password" v-model="guest.Password">
-          </div>
-        </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-          <label for="zIp"> Verify Password</label>
-          <div class="input-group flex-nowrap form-group">
-            <input type="password" id="RePassword" class="form-control" placeholder="Re-enter Password" v-model="guest.confirmPassword">
-          </div>
-        </div>
-      </div>
-      <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-          <p class="text"></p>
-          <div class="text-right">
-            <button
-              type="button"
-              id="cancel"
-              name="cancel"
-              class="btn btn-secondary mr-1"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              id="update"
-              name="update"
-              class="btn btn-primary mr-1"
-              @click="checkPasswords()"
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              id="submit"
-              name="submit"
-              class="btn btn-danger"
-              @click="deleteAccout()"
-            >
-              Delete your account
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+    </form>
 </template>
 
 <script>
 export default {
-  components: {},
-  data() {
-    return {
-      guest: {
-        Fullname: "",
-        Street: "",
-        Zipcode: "",
-        City: "",
-        Country: "",
-        Phone: "",
-        Email: "",
-        Password: "",
-        confirmPassword: "",
-        id:''
-      },
-    };
-  },
-  async mounted() {},
-  methods: {
-    checkPasswords() {
-      var password = this.guest.Password;
-      var confirmPassword = this.guest.confirmPassword;
-
-      if (confirmPassword != password) {
-        document.querySelector(".text").innerHTML = "Passwords dont match";
-      } else if (password === confirmPassword) {
-        document.querySelector(".text").innerHTML = "";
-        this.updateGuest();
-      }
+    components: {},
+    data() {
+        return {
+            guest: {
+                FirstName: "",
+                LastName: "",
+                Street: "",
+                ZipCode: "",
+                City: "",
+                Country: "",
+                Phone: "",
+                Email: "",
+                Password: "",
+                confirmPassword: "",
+                id: ''
+            },
+        };
     },
-    async updateGuest() {
-      var id = this.user.id;
-      await fetch("http://nomad.ubytkac.cz:5000/api/Guest/updateGuest", {
-        method: "Post",
-        headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
+    async mounted() {
+
+    },
+    methods: {
+        checkPasswords() {
+            if (this.guest.Password != this.guest.confirmPassword) {
+                document.querySelector(".text").innerHTML = this.$i18n.t("messages.passwordsNotMatch");
+            } else if (this.guest.Password === this.guest.confirmPassword) {
+                document.querySelector(".text").innerHTML = "";
+                this.updateGuest();
+            }
         },
+        async updateGuest() {
+            let user = {
+                Id: this.user.Id,
+                FirstName: this.guest.FirstName ? this.guest.FirstName : this.user.FirstName,
+                LastName: this.guest.LastName ? this.guest.LastName : this.user.LastName,
+                Street: this.guest.Street ? this.guest.Street : this.user.Street,
+                ZipCode: this.guest.ZipCode ? this.guest.ZipCode : this.user.ZipCode,
+                City: this.guest.City ? this.guest.City : this.user.City,
+                Country: this.guest.Country ? this.guest.Country : this.user.Country,
+                Phone: this.guest.Phone ? this.guest.Phone : this.user.Phone,
+                Email: this.guest.Email ? this.guest.Email : this.user.Email,
+                Password: this.guest.Password ? this.guest.Password : this.user.Password,
+                Active: true
+            }
 
-        body: JSON.stringify({
-          Id: id,
-          Fullname: this.guest.Fullname,
-          Street: this.guest.Street,
-          Zipcode: this.guest.Zipcode,
-          City: this.guest.City,
-          Country: this.guest.Country,
-          Phone: this.guest.Phone,
-          Email: this.guest.Email,
-          Password: this.guest.Password,
-        }),
-      });
-      this.$router.go()
+            await fetch(this.$store.state.apiRootUrl + '/Guest/UpdateRegistration', {
+                method: "POST",
+                headers: {
+                    "Authorization": 'Bearer ' + this.user.Token,
+                    "Accept": "application/json",
+                    "Content-type": "application/json",
+                },
+
+                body: JSON.stringify({
+                    User: user,
+                    Language: this.$store.state.language 
+                }),
+            });
+
+            //ReLogin after Update 
+            let credentials = {
+                Email: this.guest.Email,
+                Password: this.guest.Password
+                }
+            this.$store.dispatch('login', credentials)
+        },
+        resetForm() {
+            document.querySelector(".form1").reset();
+        },
+        deleteAccout() {
+            if (confirm(this.$i18n.t("user.doYouReallyDeleteAccount"))) {
+                this.$store.dispatch("deleteRegistration", this.user.id);
+            }
+        },
     },
-    resetForm() {
-      document.querySelector(".form1").reset();
+    computed: {
+        loggedIn() {
+            return this.$store.state.user.loggedIn;
+        },
+        user() {
+            return this.$store.state.user;
+        },
     },
-    deleteAccout() {
-      let credentials = this.user.id;
-      if (confirm("Do you really want to delete your account?")) {
-        this.$store.dispatch("deleteGuestAccount", credentials);
-      }
-    },
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.user.loggedIn;
-    },
-    user() {
-      return this.$store.state.user;
-    },
-  },
 };
 </script>
 

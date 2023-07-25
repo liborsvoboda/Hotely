@@ -478,5 +478,14 @@
     <system:String x:Key="ubytkacInfoList">Úbytkáč Info</system:String>
     <system:String x:Key="fileIsBiggerThan">File size is bigger than</system:String>
     <system:String x:Key="countryAreaList">Country Areas</system:String>
+    <system:String x:Key="emailTemplateList">Email templates</system:String>
+    <system:String x:Key="templateName">Template name</system:String>
+    <system:String x:Key="verificationEmail">Verification</system:String>
+    <system:String x:Key="registration">Registration</system:String>
+    <system:String x:Key="subjectCz">Subject CZ</system:String>
+    <system:String x:Key="subjectEn">Subject EN</system:String>
+    <system:String x:Key="emailCz">Email CZ</system:String>
+    <system:String x:Key="emailEn">Email EN</system:String>
+    <system:String x:Key="itemAlreadyExists">Item already exists</system:String>
 
 </ResourceDictionary>

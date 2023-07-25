@@ -144,7 +144,7 @@ namespace TravelAgencyAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
         }
@@ -189,7 +189,7 @@ namespace TravelAgencyAdmin.Pages {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token);
                 } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0) {
+                if (dBResult.RecordCount > 0) {
                     selectedRecord = new HotelList();
                     await LoadDataList();
                     SetRecord(false);

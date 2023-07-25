@@ -85,7 +85,7 @@ namespace TravelAgencyAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.IgnoredExceptionList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
         }
@@ -119,7 +119,7 @@ namespace TravelAgencyAdmin.Pages {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.IgnoredExceptionList, httpContent, null, App.UserData.Authentification.Token);
                 } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.IgnoredExceptionList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0) {
+                if (dBResult.RecordCount > 0) {
                     // Refresh IgnoredExceptionList
                     App.IgnoredExceptionList = await ApiCommunication.GetApiRequest<List<IgnoredExceptionList>>(ApiUrls.IgnoredExceptionList, null, null);
 

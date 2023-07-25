@@ -89,7 +89,8 @@
             GuestLoginResponse authResponse = new()
             {
                 Id = guest.Id,
-                FullName = guest.FullName,
+                FirstName = guest.FirstName,
+                LastName = guest.LastName,
                 Street = guest.Street,
                 ZipCode = guest.ZipCode,
                 City = guest.City,
@@ -122,5 +123,7 @@
         //        return true;
         //    else return false;
         //}
+
+
     }
 }

@@ -1,12 +1,8 @@
-﻿using System.Diagnostics.PerformanceData;
-using static TravelAgencyBackEnd.Controllers.PaymentIntentApiController;
-
-namespace TravelAgencyBackEnd.Controllers {
+﻿namespace TravelAgencyBackEnd.Controllers {
 
     [ApiController]
     [Route("WebApi/Top")]
     public class TopApi : ControllerBase {
-        private readonly hotelsContext _dbContext = new();
 
         [HttpGet("/WebApi/Top/GetTopList/{language}")]
         public async Task<string> GetTopList(string language = "cz") {
@@ -48,19 +44,23 @@ namespace TravelAgencyBackEnd.Controllers {
             List<int> otherData;
 
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                searchedIdList = _dbContext.HotelLists.Where(a => a.Top).OrderByDescending(a=> a.TopDate).Select(a => a.Id).ToList();
+                searchedIdList = new hotelsContext().HotelLists.Where(a => a.Top)
+                    .Where(a => a.Approved && a.Advertised && a.TotalCapacity > 0)
+                    .OrderByDescending(a=> a.TopDate).Select(a => a.Id).ToList();
             }
 
             if (searchedIdList.Count < 20) {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    otherData = _dbContext.HotelLists.Where(a => !a.Top).OrderBy(a => a.LastTopShown).Select(a => a.Id).Take(20 - searchedIdList.Count).ToList();
+                    otherData = new hotelsContext().HotelLists.Where(a => !a.Top)
+                        .Where(a => a.Approved && a.Advertised && a.TotalCapacity > 0)
+                        .OrderBy(a => a.LastTopShown).Select(a => a.Id).Take(20 - searchedIdList.Count).ToList();
                 }
                 searchedIdList.AddRange(otherData);
             }
 
 
             List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter { ParameterName = "@IdList", Value = string.Join(";", searchedIdList) } };
-            _dbContext.Database.ExecuteSqlRaw("exec SetTopShown @IdList", parameters.ToArray());
+            new hotelsContext().Database.ExecuteSqlRaw("exec SetTopShown @IdList", parameters.ToArray());
 
             return searchedIdList;
         }

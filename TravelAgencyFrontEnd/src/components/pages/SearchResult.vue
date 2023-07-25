@@ -1,26 +1,26 @@
 <template>
-        <Card id="test3">
-            <template #content>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1>{{ $t('labels.searchResult') }}: {{nrOfSearchResults}}</h1>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="dropdown" style="margin-top:10px;">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ $t('labels.sortBy') }}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" v-on:click="sortListByPrice">Price: Lowest first</a></li>
-                                <li><a class="dropdown-item" v-on:click="sortListByRating">Rating: Highest first</a></li>
-                            </ul>
-                        </div>
+    <Card id="test3">
+        <template #content>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{{ $t('labels.searchResult') }}: {{nrOfSearchResults}}</h1>
+                </div>
+                <div class="col-md-6">
+                    <div class="dropdown" style="margin-top:10px;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ $t('labels.sortBy') }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" v-on:click="sortListByPrice">Price: Lowest first</a></li>
+                            <li><a class="dropdown-item" v-on:click="sortListByRating">Rating: Highest first</a></li>
+                        </ul>
                     </div>
                 </div>
-                <hr>
-                <Filter @updateNrOfHotels="updateHotelsCount"/> 
-            </template>     
-        </Card>
+            </div>
+            <hr>
+            <Filter @updateNrOfHotels="updateHotelsCount" />
+        </template>
+    </Card>
 </template>
 
 <script>
@@ -60,21 +60,21 @@ export default ({
 </script>
 
 <style scoped>
-    
-    #test3{
-        border-radius:20px;
-        margin-top:20px;
-    }
 
-    .dropdown{
-        margin-top: 35px;
-    }
-    
-    div.dropdown{
-        margin-left:7cm;
-    }
+#test3 {
+    border-radius: 20px;
+    margin-top: 20px;
+}
 
-    a.dropdown-item{
-        color:black !important;
-    }
+.dropdown {
+    margin-top: 35px;
+}
+
+div.dropdown {
+    margin-left: 7cm;
+}
+
+a.dropdown-item {
+    color: black !important;
+}
 </style>

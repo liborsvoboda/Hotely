@@ -204,7 +204,7 @@ namespace TravelAgencyAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                 dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token);
-                if (dBResult.recordCount > 0) { await MainWindow.ShowMessage(false, Resources["changesSaved"].ToString()); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                if (dBResult.RecordCount > 0) { await MainWindow.ShowMessage(false, Resources["changesSaved"].ToString()); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
@@ -409,7 +409,7 @@ namespace TravelAgencyAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelRoomList, httpContent, null, App.UserData.Authentification.Token);
 
-                if (dBResult.recordCount > 0) { LoadRoomDataList(); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                if (dBResult.RecordCount > 0) { LoadRoomDataList(); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
@@ -554,7 +554,7 @@ namespace TravelAgencyAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token);
 
-                if (dBResult.recordCount > 0) { LoadPropertyDataList(); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                if (dBResult.RecordCount > 0) { LoadPropertyDataList(); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 

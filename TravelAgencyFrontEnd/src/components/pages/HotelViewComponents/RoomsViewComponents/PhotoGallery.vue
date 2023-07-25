@@ -1,25 +1,25 @@
 <template>
-<div class="container">
-  <div class="row">
-      <a v-for="photo in photos" :href="photo.hotelPhoto" data-toggle="lightbox" data-gallery="gallery" class="col-md-4" target="_blank">
-          <img :src="photo.hotelPhoto" class="img-fluid rounded">
-      </a>
-  </div>
-</div>
+    <div class="container">
+        <div class="row">
+            <a v-for="photo in photos" :href="photo.hotelPhoto" data-toggle="lightbox" data-gallery="gallery" class="col-md-4" target="_blank">
+                <img :src="photo.hotelPhoto" class="img-fluid rounded">
+            </a>
+        </div>
+    </div>
 </template>
 
 
 
 <style scoped>
 .row {
-  margin: 15px;
+    margin: 15px;
 }
 </style>
 
 
 <script>
- export default {
-     data(){
+export default {
+    data() {
 
     },
     computed: {
@@ -36,13 +36,7 @@
             return this.$store.state.hotel;
         }
     },
-     //method: {
-     //    $(document).on("click", '[data-toggle="lightbox"]', function(event) {
-     //    event.preventDefault();
-     //    $(this).ekkoLightbox();
-     //    });
-     //}
- }
+}
 </script>
 
 

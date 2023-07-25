@@ -100,12 +100,12 @@
                                       <div v-if="property.isValue && property.propertyGroupId == null">
                                           <p>{{property.systemName}}</p>
                                           <Slider v-model="property.searchDefaultValue"
-                                                  :id="'prop'+subproperty.id"
+                                                  :id="'prop'+property.id"
                                                   :step="0.1"
                                                   :min="property.searchDefaultMin"
                                                   :max="property.searchDefaultMax"
                                                   :format="(property.propertyOrServiceUnitType.systemName == 'Km') ? kmFormat: null"
-                                                  @change="checkFilters(subproperty.id,subproperty.searchDefaultValue)"></Slider>
+                                                  @change="checkFilters(property.id,property.searchDefaultValue)"></Slider>
                                           <hr />
                                       </div>
                                       <div v-else-if="property.isBit && property.propertyGroupId == null" class="form-check">
@@ -113,7 +113,7 @@
                                                  v-model="property.searchDefaultBit"
                                                  type="checkbox"
                                                  value=""
-                                                 :id="'prop'+subproperty.id"
+                                                 :id="'prop'+property.id"
                                                  @click="checkFilters(property.id,property.searchDefaultBit)" />
                                           <label class="form-check-label">
                                               {{property.systemName}}

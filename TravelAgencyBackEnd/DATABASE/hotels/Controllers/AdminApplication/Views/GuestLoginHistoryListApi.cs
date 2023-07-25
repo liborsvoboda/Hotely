@@ -33,7 +33,7 @@
         [HttpPost("/GuestLoginHistoryList")]
         [Consumes("application/json")] // ([FromBody] int Id) Body is only 17 ([FromBody] IdFilter id) Body is {"Id":17}
         public async Task<string> GetGuestLoginHistoryListId([FromBody] IdFilter id) {
-            if (!int.TryParse(id.Id.ToString(), out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is not set" });
+            if (!int.TryParse(id.Id.ToString(), out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
             GuestLoginHistoryList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -47,7 +47,7 @@
             [Consumes("application/json")]//([FromBody] string Name) Body is only "tester" ([FromBody] NameFilter Name) Body is {"Name":"tester"}
             public async Task<string> GetLoginHistoryName([FromBody] NameFilter Name)
             {
-                if (string.IsNullOrWhiteSpace(Name.Name)) return JsonSerializer.Serialize(new DBResultMessage() { status = DBResult.error.ToString(), recordCount = 0, message = "Id is null" });
+                if (string.IsNullOrWhiteSpace(Name.Name)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is null" });
 
                 List<LoginHistory> data;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions

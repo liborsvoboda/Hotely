@@ -28,6 +28,7 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
         public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
+        public virtual DbSet<EmailTemplateList> EmailTemplateLists { get; set; }
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<GuestLoginHistoryList> GuestLoginHistoryLists { get; set; }
@@ -155,7 +156,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasOne(d => d.Icac)
                     .WithMany(p => p.CountryAreaCityLists)
                     .HasForeignKey(d => d.Icacid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CountryAreaCityList_CountryAreaList");
 
                 entity.HasOne(d => d.User)
@@ -240,6 +240,17 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentTypeList_UserList");
+            });
+
+            modelBuilder.Entity<EmailTemplateList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.EmailTemplateLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmailTemplateList_UserList");
             });
 
             modelBuilder.Entity<ExchangeRateList>(entity =>
@@ -428,7 +439,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasOne(d => d.HotelAccommodationAction)
                     .WithMany(p => p.HotelReservationLists)
                     .HasForeignKey(d => d.HotelAccommodationActionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelReservationList_HotelAccomodationActionList");
 
                 entity.HasOne(d => d.Hotel)
@@ -436,6 +446,12 @@ namespace TravelAgencyBackEnd.DBModel
                     .HasForeignKey(d => d.HotelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reservations_HotelList");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.HotelReservationLists)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelReservationList_HotelReservationStatusList");
             });
 
             modelBuilder.Entity<HotelReservationReviewList>(entity =>

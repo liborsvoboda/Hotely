@@ -58,13 +58,19 @@ namespace TravelAgencyAdmin.Pages {
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
+                CountryAreaList.ForEach(area => {
+                    area.CountryTranslation = countryList.FirstOrDefault(a => a.Id == area.CountryId).CountryTranslation;
+                });
+                
+
                 DgListView.ItemsSource = CountryAreaList;
                 DgListView.Items.Refresh();
 
                 cb_country.ItemsSource = countryList;
 
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
-            MainWindow.ProgressRing = Visibility.Hidden; return true;
+            //MainWindow.ProgressRing = Visibility.Hidden; 
+            return true;
         }
 
         // set translate columns in listView
@@ -72,7 +78,8 @@ namespace TravelAgencyAdmin.Pages {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
                 if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; } 
-                else if (headername == "AreaTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; } 
+                else if (headername == "AreaTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
+                else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 3; }
                 else if (headername == "Description") e.Header = Resources["description"].ToString();
                 else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                 else if (headername == "Id") e.DisplayIndex = 0;
@@ -113,7 +120,7 @@ namespace TravelAgencyAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CountryAreaList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -150,14 +157,14 @@ namespace TravelAgencyAdmin.Pages {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CountryAreaList, httpContent, null, App.UserData.Authentification.Token);
                 } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.CountryAreaList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0) {
+                if (dBResult.RecordCount > 0) {
 
                     //SaveItem
-                    countryAreaCityList.ForEach(item => { item.Id = 0; item.Icacid = dBResult.insertedId; item.UserId = App.UserData.Authentification.Id; });
-                    dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CountryAreaCityList, dBResult.insertedId.ToString(), App.UserData.Authentification.Token);
+                    countryAreaCityList.ForEach(item => { item.Id = 0; item.Icacid = dBResult.InsertedId; item.UserId = App.UserData.Authentification.Id; });
+                    dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CountryAreaCityList, dBResult.InsertedId.ToString(), App.UserData.Authentification.Token);
                     json = JsonConvert.SerializeObject(countryAreaCityList); httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CountryAreaCityList, httpContent, null, App.UserData.Authentification.Token);
-                    if (dBResult.recordCount != countryAreaCityList.Count()) {
+                    if (dBResult.RecordCount != countryAreaCityList.Count()) {
                         await MainWindow.ShowMessage(true, Resources["itemsDBError"].ToString() + Environment.NewLine + dBResult.ErrorMessage);
                     }
                     else {
@@ -179,6 +186,7 @@ namespace TravelAgencyAdmin.Pages {
         private async void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
             txt_systemName.Text = selectedRecord.SystemName;
+            cb_country.SelectedItem = txt_id.Value == 0 ? null : countryList.FirstOrDefault(x => x.Id == selectedRecord.CountryId);
             tb_description.Text = selectedRecord.Description;
 
 
@@ -200,14 +208,17 @@ namespace TravelAgencyAdmin.Pages {
                 foreach (CountryAreaCityList item in countryAreaCityList) {
                     item.CityTranslation = await DBOperations.DBTranslation((await ApiCommunication.GetApiRequest<CityList>(ApiUrls.CityList, item.CityId.ToString(), App.UserData.Authentification.Token)).City, true);
                 }
-                if (countryAreaCityList.Count > 0) {
-                    cb_country.SelectedItem = countryList.FirstOrDefault(a=> a.Id == selectedRecord.CountryId);
-                    cb_country.IsEnabled = false;
-                } else { cb_country.IsEnabled = true; }
-
+                
                 DgSubListView.ItemsSource = countryAreaCityList;
                 DgSubListView.Items.Refresh();
-            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
+
+                if (countryAreaCityList.Count > 0) {
+                    cb_country.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
+                    cb_country.IsEnabled = false;
+                }
+                else { cb_country.IsEnabled = true; }
+            } 
+            catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden;
             return true;
         }
@@ -241,14 +252,16 @@ namespace TravelAgencyAdmin.Pages {
             }
         }
 
-        private void BtnSaveCity_Click(object sender, RoutedEventArgs e) {
+        private async void BtnSaveCity_Click(object sender, RoutedEventArgs e) {
             CountryAreaCityList countryAreaCity = new CountryAreaCityList() {
                 CityId = ((CityList)cb_city.SelectedItem).Id,
                 CityTranslation = ((CityList)cb_city.SelectedItem).CityTranslation,
                 UserId = App.UserData.Authentification.Id,
                 Timestamp = DateTimeOffset.Now.DateTime
             };
-            countryAreaCityList.Add(countryAreaCity);
+            if (countryAreaCityList.Where(a => a.CityId == ((CityList)cb_city.SelectedItem).Id).Any()) {
+                await MainWindow.ShowMessage(false, Resources["itemAlreadyExists"].ToString());
+            } else { countryAreaCityList.Add(countryAreaCity); }
             DgSubListView.Items.Refresh();
             if (countryAreaCityList.Count > 0 ) { cb_country.IsEnabled = false; } else { cb_country.IsEnabled = true; }
         }

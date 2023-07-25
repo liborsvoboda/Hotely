@@ -1,45 +1,35 @@
 <template>
-  <html>
+    <html>
     <head>
-      <link
-        href="https://fonts.googleapis.com/css?family=Ubuntu"
-        rel="stylesheet"
-      />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link
-        rel="stylesheet"
-        href="path/to/font-awesome/css/font-awesome.min.css"
-      />
-      <title>Log in</title>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/src/assets/css/font-awesome.min.css">
+        <title>Log in</title>
     </head>
 
     <div class="main">
-      <p class="sign" align="center">Log in</p>
-      <form class="form1" @submit.prevent="guestLogin">
-        <input
-          class="un"
-          type="text"
-          align="center"
-          placeholder="Email"
-          required
-          v-model="Email"
-        />
-        <input
-          class="pass"
-          type="password"
-          align="center"
-          placeholder="Password"
-          required
-          v-model="Password"
-        />
-        <button class="submit">Sign in</button>
-        <p class="text"></p>
+        <p class="sign" align="center">Log in</p>
+        <form class="form1" @submit.prevent="guestLogin">
+            <input class="un"
+                   type="text"
+                   align="center"
+                   placeholder="Email"
+                   required
+                   v-model="Email" />
+            <input class="pass"
+                   type="password"
+                   align="center"
+                   placeholder="Password"
+                   required
+                   v-model="Password" />
+            <button class="submit">Sign in</button>
+            <p class="text"></p>
 
-        <p class="forgot" align="center"><a href="#">Sign up?</a></p>
-        <p class="forgot" align="center"><a href="#">Forgot password</a></p>
-      </form>
+            <p class="forgot" align="center"><a href="#">Sign up?</a></p>
+            <p class="forgot" align="center"><a href="#">Forgot password</a></p>
+        </form>
     </div>
-  </html>
+</html>
 </template>
 
 <script>

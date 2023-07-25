@@ -1,62 +1,60 @@
 <template>
-  <header id="header">
-    <div class="header-top">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 col-sm-6 col-6 header-top-left"></div>
-          <div class="col-lg-6 col-sm-6 col- header-top-right">
-            <div class="nav-menu">
-              <div v-if="!loggedIn">
-                <a href=""><router-link to="/login">{{ $t('user.login') }}</router-link></a>
-                <a href="#"
-                  ><router-link to="/registration">{{ $t('user.register') }}</router-link></a
-                >
-              </div>
-              <div v-if="loggedIn">
-                <a href="" @click="logout()">{{ $t('user.logout') }}</a>
-                <a href=""><router-link to="/Profile">{{ $t('user.profile') }}</router-link></a>
-              </div>
+    <header id="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-sm-6 col-6 header-top-left"></div>
+                    <div class="col-lg-6 col-sm-6 col- header-top-right">
+                        <div class="nav-menu">
+                            <div v-if="!loggedIn">
+                                <a href=""><router-link to="/login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#"><router-link to="/registration">{{ $t('user.register') }}</router-link></a>
+                            </div>
+                            <div v-if="loggedIn">
+                                <a href="" @click="logout()">{{ $t('user.logout') }}</a>
+                                <a href=""><router-link to="/Profile">{{ $t('user.profile') }}</router-link></a>
+                            </div>
+                        </div>
+                        <div id="user" v-if="loggedIn">
+                            <ul>
+                                <li>
+                                    <a>{{ user.email }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="user" v-if="loggedIn">
-              <ul>
-                <li>
-                  <a>{{ user.email }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="main-menu">
-<!--      <div class="row align-items-center justify-content-between d-flex">
-        <div id="logo">
-          <router-link to="/"
-            ><img
-              src="/src/assets/Logo5_cropped.png"
-              alt=""
-              title=""
-              height="80"
-          /></router-link>
-        </div>
-      </div>-->
-      <nav id="nav-menu-container">
-          <ul class="nav-menu">
-              <li><router-link to="/">{{ $t('labels.home') }}</router-link></li>
-              <li><router-link to="/UbytkacInfo">{{ $t('labels.ubytkacInfo') }}</router-link></li>
-              <li><router-link to="/RegistrationInfo">{{ $t('labels.registrationInfo') }}</router-link></li>
-              <li><router-link to="/OftenQuestion">{{ $t('labels.oftenQuestion') }}</router-link></li>
-              <li><router-link to="/HolidayTips">{{ $t('labels.holidayTips') }}</router-link></li>
-              
+        <div class="main-menu">
+            <!--      <div class="row align-items-center justify-content-between d-flex">
+                    <div id="logo">
+                      <router-link to="/"
+                        ><img
+                          src="/src/assets/Logo5_cropped.png"
+                          alt=""
+                          title=""
+                          height="80"
+                      /></router-link>
+                    </div>
+                  </div>-->
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li><router-link to="/">{{ $t('labels.home') }}</router-link></li>
+                    <li><router-link to="/UbytkacInfo">{{ $t('labels.ubytkacInfo') }}</router-link></li>
+                    <li><router-link to="/RegistrationInfo">{{ $t('labels.registrationInfo') }}</router-link></li>
+                    <li><router-link to="/OftenQuestion">{{ $t('labels.oftenQuestion') }}</router-link></li>
+                    <li><router-link to="/HolidayTips">{{ $t('labels.holidayTips') }}</router-link></li>
 
-              <!--<li><router-link to="/Tourism">{{ $t('labels.touristAtractions') }}</router-link></li> -->
-              <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
-          </ul>
-      </nav>
-      <!-- #nav-menu-container -->
-    </div>
-  </header>
-  <!-- #header -->
+
+                    <!--<li><router-link to="/Tourism">{{ $t('labels.touristAtractions') }}</router-link></li> -->
+                    <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
+                </ul>
+            </nav>
+            <!-- #nav-menu-container -->
+        </div>
+    </header>
+    <!-- #header -->
 </template>
 
 <script>
@@ -64,26 +62,26 @@
 
 
 export default {
-  components: {},
-  data() {
-    return {
-      userInfo: {},
-    };
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.user.loggedIn;
+    components: {},
+    data() {
+        return {
+            userInfo: {},
+        };
     },
-    user() {
-      return this.$store.state.user;
+    computed: {
+        loggedIn() {
+            return this.$store.state.user.loggedIn;
+        },
+        user() {
+            return this.$store.state.user;
+        },
     },
-  },
-  created() {},
-  methods: {
-    logout() {
-      this.$store.dispatch("logout");
+    created() { },
+    methods: {
+        logout() {
+            this.$store.dispatch("logout");
+        },
     },
-  },
 };
 </script>
 

@@ -160,7 +160,7 @@ namespace TravelAgencyAdmin.Pages {
                             dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
                         } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
-                        if (dBResult.recordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                        if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
                     }
                 } else {  // Save Last image only
                     Photo selectedPhoto = Photos.First(a => a.DbId == onlyThis);
@@ -181,7 +181,7 @@ namespace TravelAgencyAdmin.Pages {
                         dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
                     } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
-                    if (dBResult.recordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
+                    if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
                 }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); return false; }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -207,7 +207,7 @@ namespace TravelAgencyAdmin.Pages {
             DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelImagesList, dbId.ToString(), App.UserData.Authentification.Token);
             MainWindow.ProgressRing = Visibility.Hidden;
 
-            if (dBResult.recordCount > 0) { return true; } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
+            if (dBResult.RecordCount > 0) { return true; } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
         }
 
         private async void DeleteSelectedClick(object sender, RoutedEventArgs e) {

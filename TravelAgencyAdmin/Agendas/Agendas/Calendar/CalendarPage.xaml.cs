@@ -88,7 +88,7 @@ namespace TravelAgencyAdmin.Pages {
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.Calendar, httpContent, null, App.UserData.Authentification.Token);
-            if (dBResult.recordCount == 0) {
+            if (dBResult.RecordCount == 0) {
                 await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
             }
         }

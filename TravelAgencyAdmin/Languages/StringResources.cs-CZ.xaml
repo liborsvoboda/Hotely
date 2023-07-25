@@ -477,6 +477,14 @@
     <system:String x:Key="ubytkacInfoList">Úbytkáč Info</system:String>
     <system:String x:Key="fileIsBiggerThan">Velikost souboru je větší než</system:String>
     <system:String x:Key="countryAreaList">Oblasti států</system:String>
-
+    <system:String x:Key="emailTemplateList">Šablony emailů</system:String>
+    <system:String x:Key="templateName">Název Šablony</system:String>
+    <system:String x:Key="verification">Ověření</system:String>
+    <system:String x:Key="registration">Registrace</system:String>
+    <system:String x:Key="subjectCz">Předmět CZ</system:String>
+    <system:String x:Key="subjectEn">Předmět EN</system:String>
+    <system:String x:Key="emailCz">Email CZ</system:String>
+    <system:String x:Key="emailEn">Email EN</system:String>
+    <system:String x:Key="itemAlreadyExists">Položka již existuje</system:String>
 
 </ResourceDictionary>

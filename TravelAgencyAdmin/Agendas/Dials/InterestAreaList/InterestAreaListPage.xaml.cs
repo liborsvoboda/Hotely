@@ -112,7 +112,7 @@ namespace TravelAgencyAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.InterestAreaList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.recordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -149,14 +149,14 @@ namespace TravelAgencyAdmin.Pages {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.InterestAreaList, httpContent, null, App.UserData.Authentification.Token);
                 } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.InterestAreaList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.recordCount > 0) {
+                if (dBResult.RecordCount > 0) {
 
                     //SaveItem
-                    interestAreaCityList.ForEach(item => { item.Id = 0; item.Iacid = dBResult.insertedId; item.UserId = App.UserData.Authentification.Id; });
-                    dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.InterestAreaCityList, dBResult.insertedId.ToString(), App.UserData.Authentification.Token);
+                    interestAreaCityList.ForEach(item => { item.Id = 0; item.Iacid = dBResult.InsertedId; item.UserId = App.UserData.Authentification.Id; });
+                    dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.InterestAreaCityList, dBResult.InsertedId.ToString(), App.UserData.Authentification.Token);
                     json = JsonConvert.SerializeObject(interestAreaCityList); httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.InterestAreaCityList, httpContent, null, App.UserData.Authentification.Token);
-                    if (dBResult.recordCount != interestAreaCityList.Count()) {
+                    if (dBResult.RecordCount != interestAreaCityList.Count()) {
                         await MainWindow.ShowMessage(true, Resources["itemsDBError"].ToString() + Environment.NewLine + dBResult.ErrorMessage);
                     }
                     else {

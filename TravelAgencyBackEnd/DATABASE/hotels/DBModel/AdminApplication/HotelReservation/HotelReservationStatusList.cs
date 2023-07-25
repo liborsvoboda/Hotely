@@ -1,22 +1,33 @@
-﻿namespace TravelAgencyBackEnd.DBModel {
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
+namespace TravelAgencyBackEnd.DBModel
+{
     [Table("HotelReservationStatusList")]
     [Index("SystemName", Name = "IX_ReservationStatusList", IsUnique = true)]
-    public partial class HotelReservationStatusList {
+    public partial class HotelReservationStatusList
+    {
+        public HotelReservationStatusList()
+        {
+            HotelReservationLists = new HashSet<HotelReservationList>();
+        }
 
         [Key]
         public int Id { get; set; }
-
         [Required]
         [StringLength(50)]
         [Unicode(false)]
         public string SystemName { get; set; }
-
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("HotelReservationStatusLists")]
         public virtual UserList User { get; set; }
+        [InverseProperty("Status")]
+        public virtual ICollection<HotelReservationList> HotelReservationLists { get; set; }
     }
 }

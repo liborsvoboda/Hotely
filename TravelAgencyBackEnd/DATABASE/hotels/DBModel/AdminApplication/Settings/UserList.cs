@@ -23,6 +23,7 @@ namespace TravelAgencyBackEnd.DBModel
             CurrencyLists = new HashSet<CurrencyList>();
             DocumentAdviceLists = new HashSet<DocumentAdviceList>();
             DocumentTypeLists = new HashSet<DocumentTypeList>();
+            EmailTemplateLists = new HashSet<EmailTemplateList>();
             ExchangeRateLists = new HashSet<ExchangeRateList>();
             HolidayTipsLists = new HashSet<HolidayTipsList>();
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
@@ -107,6 +108,8 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<DocumentTypeList> DocumentTypeLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<EmailTemplateList> EmailTemplateLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
         [InverseProperty("User")]

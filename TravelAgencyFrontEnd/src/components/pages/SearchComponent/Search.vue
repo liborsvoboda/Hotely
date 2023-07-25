@@ -1,26 +1,26 @@
 <template>
  <Card id="test3">
    <template #content>
-    <div class="p-grid">
-      <div class="p-col-12 p-md-6 p-lg-4">
-        <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label>
-        <Searchfield @input-changed="setSearchText"/>
-      </div>
-      <div class="p-col-12 p-md-6 p-lg-4">
-        <label for="range" id="range">{{ $t('labels.dates') }}</label>
+       <div class="p-grid">
+           <div class="p-col-12 p-md-6 p-lg-4">
+               <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label>
+               <Searchfield @input-changed="setSearchText" />
+           </div>
+           <div class="p-col-12 p-md-6 p-lg-4">
+               <label for="range" id="range">{{ $t('labels.dates') }}</label>
 
-        <div class="p-fluid" id="calendar">
-          <Calendar />
-        </div>
-      </div>
-      <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
-        <label for="guest">{{ $t('labels.guestRooms') }}</label>
-        <SearchDropdown />
-      </div>
-      <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
-          <Button  class="" :label="$t('labels.search')" @click="Search" :loading="isLoading"/>
-      </div>
-    </div>
+               <div class="p-fluid" id="calendar">
+                   <Calendar />
+               </div>
+           </div>
+           <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
+               <label for="guest">{{ $t('labels.guestRooms') }}</label>
+               <SearchDropdown />
+           </div>
+           <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
+               <Button class="" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
+           </div>
+       </div>
    </template>
  </Card>
 </template>
@@ -33,32 +33,32 @@ import Searchfield from "./Searchfield.vue";
 import Card from 'primevue/card';
 
 export default {
-  data(){
-    return{
-      searchString: ''
-    }
-  },
-  components: {
-    Searchfield,
-    Button,
-    Calendar,
-    SearchDropdown,
-    Card,
-  },
-  methods: {
-    onSubmit() {},
-    Search(event){
-        this.$store.state.searchButtonLoading = true;
-        this.$store.dispatch('searchHotels', this.searchString);
-      },
-      setSearchText(value){
-          this.searchString = value;
-      }
-  },
-  computed:{
-      isLoading(){
-        return this.$store.state.searchButtonLoading;
-      }
+    data() {
+        return {
+            searchString: ''
+        }
+    },
+    components: {
+        Searchfield,
+        Button,
+        Calendar,
+        SearchDropdown,
+        Card,
+    },
+    methods: {
+        onSubmit() { },
+        Search(event) {
+            this.$store.state.searchButtonLoading = true;
+            this.$store.dispatch('searchHotels', this.searchString);
+        },
+        setSearchText(value) {
+            this.searchString = value;
+        }
+    },
+    computed: {
+        isLoading() {
+            return this.$store.state.searchButtonLoading;
+        }
     }
 };
 </script>

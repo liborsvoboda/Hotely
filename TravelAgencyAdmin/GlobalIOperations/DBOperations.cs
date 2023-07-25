@@ -31,8 +31,8 @@ namespace TravelAgencyAdmin.GlobalOperations {
         /// </summary>
         public static async void LoadOrRefreshUserData() {
             App.IgnoredExceptionList = await ApiCommunication.GetApiRequest<List<IgnoredExceptionList>>(ApiUrls.IgnoredExceptionList, null, App.UserData.Authentification.Token);
-            App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token);
             App.ParameterList = await ApiCommunication.GetApiRequest<List<ParameterList>>(ApiUrls.ParameterList, App.UserData.Authentification.Id.ToString(), App.UserData.Authentification.Token);
+            App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token);
         }
 
         /// <summary>

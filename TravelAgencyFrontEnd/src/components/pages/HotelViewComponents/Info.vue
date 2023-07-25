@@ -44,7 +44,13 @@ export default {
             });
             return bitProperties;
         }
-    }
+    },
+    mounted() {
+        if (this.$store.state.searchString.dates.length && this.$store.state.searchString.dates[1] != null) { 
+            this.$store.dispatch("getReservedRoomList", this.hotel.id);
+        }
+        
+    },
 };
 </script>
 

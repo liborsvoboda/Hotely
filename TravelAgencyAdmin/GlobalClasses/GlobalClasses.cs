@@ -41,46 +41,6 @@ namespace GlobalClasses {
         public string Value { get; set; }
     }
 
-    //public class Parameter {
-    //    public string Value { get; set; } = string.Empty;
-    //    public bool Correct { get; set; } = false;
-    //}
-
-    /// <summary>
-    /// Tilt Document Types Definitions
-    /// </summary>
-    public enum TiltTargets {
-        None,
-        InvoiceToCredit,
-        InvoiceToReceipt,
-        OfferToOrder,
-        OrderToInvoice,
-        OfferToInvoice,
-
-        ShowCredit,
-        ShowReceipt
-    }
-
-    /// <summary>
-    /// Univessal Document List (Item) for Offer,Order,Invoice
-    /// </summary>
-    public partial class DocumentItemList {
-        public int Id { get; set; } = 0;
-        public string DocumentNumber { get; set; } = null;
-
-        public string PartNumber { get; set; } = null;
-        public string Name { get; set; } = null;
-        public string Unit { get; set; } = null;
-        public decimal PcsPrice { get; set; } = 0;
-        public decimal Count { get; set; } = 1;
-        public decimal TotalPrice { get; set; }
-        public decimal Vat { get; set; }
-        public decimal TotalPriceWithVat { get; set; }
-
-        public int UserId { get; set; }
-        public DateTime TimeStamp { get; set; }
-    }
-
     /// <summary>
     /// Class for Using as customized list the List of API urls for Central using in the system One
     /// Api is One: Dataview / Right / Report Posibility / Menu Item / Page Exist rules for

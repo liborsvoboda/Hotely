@@ -322,6 +322,10 @@
                             x:Name="tm_userRoleList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_emailTemplateList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
                         x:Name="tv_system" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
