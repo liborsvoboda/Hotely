@@ -19,15 +19,15 @@
     <system:String x:Key="closeAppQuestion">"Opravdu chcete ukončit aplikaci?"</system:String>
     <system:String x:Key="end">Ukončit</system:String>
     <system:String x:Key="cancel">Zrušit</system:String>
-    <system:String x:Key="appName">TravelAgencyAdmin Application</system:String>
-    <system:String x:Key="appDescription">TravelAgencyAdmin Application</system:String>
+    <system:String x:Key="appName">Úbytkáč Administrace</system:String>
+    <system:String x:Key="appDescription">Úbytkáč Administrace</system:String>
     <system:String x:Key="version">Verze:</system:String>
     <system:String x:Key="author">Autor: GroupWare-Solution.eu</system:String>
     <system:String x:Key="yes">Ano</system:String>
     <system:String x:Key="no">Ne</system:String>
     <system:String x:Key="apiAddress">API Adresa IP:PORT</system:String>
     <system:String x:Key="configuration">Nastavení</system:String>
-    <system:String x:Key="apiError">TravelAgencyAdmin BackendAPI Server není dostupný</system:String>
+    <system:String x:Key="apiError">Úbytkáč BackendAPI Server není dostupný</system:String>
     <system:String x:Key="logging">Stavy aplikace zapisovat do logu</system:String>
     <system:String x:Key="btn_cancel">Zrušit</system:String>
     <system:String x:Key="btn_save">Uložit</system:String>
@@ -414,7 +414,7 @@
     <system:String x:Key="extraBed">Přistýlka</system:String>
     <system:String x:Key="roomsCount">Počet pokojů</system:String>
     <system:String x:Key="accommodation">1 - Ubyt.zařízení</system:String>
-    <system:String x:Key="roomList">4 - Pokoje</system:String>
+    <system:String x:Key="roomList">4 - Pronájem</system:String>
     <system:String x:Key="advertised">Inzerován</system:String>
     <system:String x:Key="approved">Schváleno</system:String>
     <system:String x:Key="propertyOrService">Vlastnost/Služba</system:String>
@@ -486,5 +486,6 @@
     <system:String x:Key="emailCz">Email CZ</system:String>
     <system:String x:Key="emailEn">Email EN</system:String>
     <system:String x:Key="itemAlreadyExists">Položka již existuje</system:String>
-
+    <system:String x:Key="resetPassword">Změna hesla</system:String>
+    
 </ResourceDictionary>

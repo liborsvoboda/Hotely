@@ -48,32 +48,34 @@
             <Label
                 x:Name="lbl_id" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <Controls:NumericUpDown
-                x:Name="txt_id" Grid.Row="0" Grid.Column="0" Width="200" Margin="0,2,0,2" HorizontalContentAlignment="Left"
-                Controls:TextBoxHelper.ClearTextButton="False" Controls:TextBoxHelper.Watermark="" HideUpDownButtons="True" IsEnabled="False" ToolTip="This unique identificator is read only value which is filled automatically by system" />
+                x:Name="txt_id" Grid.Row="0" Grid.Column="0" Width="200" Margin="0,2,0,2"
+                HorizontalContentAlignment="Left" Controls:TextBoxHelper.ClearTextButton="False" Controls:TextBoxHelper.Watermark="" HideUpDownButtons="True" IsEnabled="False"
+                ToolTip="This unique identificator is read only value which is filled automatically by system" />
 
             <Label
                 x:Name="lbl_templateName" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <ComboBox
-                Name="cb_templateName" Grid.Row="0" Grid.Column="1" Margin="200,2,0,2" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                Controls:TextBoxHelper.ClearTextButton="false" DisplayMemberPath="Name" IsEnabled="true" SelectedValuePath="Value" SelectionChanged="TemplateNameChanged" />
+                Name="cb_templateName" Grid.Row="0" Grid.Column="1" Margin="200,2,0,2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" DisplayMemberPath="Name" IsEnabled="true" SelectedValuePath="Value"
+                SelectionChanged="TemplateNameChanged" />
 
-            
+
             <Label
                 x:Name="lbl_variables" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_variables" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"  
+                x:Name="txt_variables" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"
                 Controls:TextBoxHelper.ClearTextButton="False" IsReadOnly="True" />
 
             <Label
                 x:Name="lbl_subjectCz" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <TextBox
-                x:Name="txt_subjectCz" Grid.Row="2" Grid.Column="0" Margin="200,2,0,2" HorizontalAlignment="Stretch"  
+                x:Name="txt_subjectCz" Grid.Row="2" Grid.Column="0" Margin="200,2,0,2" HorizontalAlignment="Stretch"
                 Controls:TextBoxHelper.ClearTextButton="True" />
 
             <Label
                 x:Name="lbl_subjectEn" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <TextBox
-                x:Name="txt_subjectEn" Grid.Row="2" Grid.Column="1" Margin="200,2,0,2" HorizontalAlignment="Stretch"  
+                x:Name="txt_subjectEn" Grid.Row="2" Grid.Column="1" Margin="200,2,0,2" HorizontalAlignment="Stretch"
                 Controls:TextBoxHelper.ClearTextButton="True" />
 
             <Label

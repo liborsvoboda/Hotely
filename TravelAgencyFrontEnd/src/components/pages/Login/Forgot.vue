@@ -1,5 +1,5 @@
 <template>
-    <html>
+<html>
     <head>
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,32 +9,13 @@
 
 
     <div class="main">
-        <p class="sign" align="center">{{ $t('labels.registration')}}</p>
+        <p class="sign" align="center">{{ $t('user.forgotPassword')}}</p>
 
-        <form class="form1" @submit.prevent="checkPasswords">
-
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.firstname')" required v-model="guest.Firstname">
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.lastname')" required v-model="guest.Lastname">
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.street')" required v-model="guest.Street">
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.zipCode')" required v-model="guest.Zipcode">
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.city')" required v-model="guest.City">
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.country')" required v-model="guest.Country">
-            <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.phone')" required v-model="guest.Phone">
-
+        <form class="form1" @submit.prevent="sendNewPassword">
             <input class="un" type="email" align="center" :placeholder="$t('labels.email')" required v-model="guest.Email">
             <ul v-if="!verified" class="ul">
                 <li>
-                    <button class="submit" :onclick="sendVerifyEmail" align="center">{{ $t('user.sendVerifyEmail') }}</button>
-                </li>
-            </ul>
-            <input v-if="verifySent && !verified" class="un" type="text" align="center" :placeholder="$t('labels.verifyCode')" required v-model="Verifycode" @input="checkVerify()">
-
-            <input v-if="verified" class="password" type="password" align="center" :placeholder="$t('labels.password')" required v-model="guest.Password">
-            <input v-if="verified" class="confirmPassword" type="password" align="center" :placeholder="$t('labels.retypePassword')" required v-model="guest.ConfirmPassword">
-
-            <ul v-if="verified" class="ul">
-                <li>
-                    <button class="submit" align="center">{{ $t('user.register') }}</button>
+                    <button class="submit" align="center">{{ $t('user.sendNewPassword') }}</button>
                 </li>
             </ul>
         </form>
@@ -56,8 +37,6 @@ export default {
     },
     data() {
         return {
-            verifySent: false,
-            Verifycode: null,
             ApiVerificationCode: null,
             verified: false,
             guest: {
@@ -78,12 +57,12 @@ export default {
 
     },
     methods: {
-        sendVerifyEmail() {
+        sendNewPassword() {
             if (this.guest.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
 
                 var def = $.ajax({
                     global: false, type: "POST",
-                    url: this.$store.state.apiRootUrl + "/Guest/SendVerifyCode",
+                    url: this.$store.state.apiRootUrl + "/Guest/ResetPassword",
                     dataType: 'json', contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ EmailAddress: this.guest.Email, Language: this.$store.state.language })
                 });
@@ -95,61 +74,9 @@ export default {
                 });
 
                 def.done(function (data) {
-                    that.ApiVerificationCode = data.verifyCode;
-                    that.verifySent = true;
-                    that.$store.state.toastInfoMessage = that.$i18n.t('user.verifyEmailWasSent');
+                    that.$store.state.toastInfoMessage = that.$i18n.t('user.resetPasswordEmailWasSent');
                 });
             }
-        },
-        checkVerify() {
-            if (this.Verifycode == this.ApiVerificationCode) {
-                document.querySelector('.main').style.height = "950px";
-                this.verified = true;
-            }
-        },
-        checkPasswords() {
-            if (this.guest.ConfirmPassword.length > 0) {
-                if (this.guest.ConfirmPassword != this.guest.Password) {
-                    this.$store.state.toastErrorMessage = this.$i18n.t("messages.passwordsNotMatch");
-                } else if (this.guest.ConfirmPassword == this.guest.Password) {
-                    this.guestRegistration();
-                }
-            }
-        },
-
-        async guestRegistration() {
-            let regInfo = {
-                Firstname: this.guest.Firstname,
-                Lastname: this.guest.Lastname,
-                Street: this.guest.Street,
-                Zipcode: this.guest.Zipcode,
-                City: this.guest.City,
-                Country: this.guest.Country,
-                Phone: this.guest.Phone,
-                Email: this.guest.Email,
-                Password: this.guest.Password,
-                Active: true
-            }
-
-            await this.$store.dispatch('registration', regInfo).then(() => {
-                if (this.$store.state.tempVariables.registrationStatus.Status == "emailExist") {
-                    this.$store.state.toastErrorMessage = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
-                } else if (this.$store.state.tempVariables.registrationStatus.Status == "loginInfoSentToEmail") {
-                    this.resetForm();
-                    document.querySelector('.form1').innerHTML = '<p class="text"></p>';
-                    document.querySelector('.main').style.height = "150px";
-                    this.$store.state.toastSuccessMessage = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
-
-                    //Login after registration 
-                    let credentials = {
-                        Email: this.guest.Email,
-                        Password: this.guest.Password
-                    }
-                    this.$store.dispatch('login', credentials)
-
-                }
-            });
-
         },
         resetForm() {
             document.querySelector('.form1').reset()

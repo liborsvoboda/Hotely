@@ -166,6 +166,7 @@ namespace TravelAgencyAdmin {
             try {
                 InitializeComponent();
                 SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+                Title = Resources["appName"].ToString();
 
                 if (_hackyIsFirstWindow) {
                     ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(int.MaxValue));

@@ -23,8 +23,8 @@
                    required
                    v-model="Password" />
             <button class="submit">{{ $t('user.signIn') }}</button>
-            <p class="forgot" align="center"><a href="#">Sign up?</a></p>
-            <p class="forgot" align="center"><a href="#">Forgot password</a></p>
+            <p class="forgot" align="center"><a href="/forgot">{{ $t('user.forgotPassword') }}</a></p>
+            <p class="forgot" align="center"><a href="/registration">{{ $t('labels.registration') }}</a></p>
         </form>
     </div>
 </html>

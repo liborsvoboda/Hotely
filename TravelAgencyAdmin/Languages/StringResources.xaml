@@ -19,15 +19,15 @@
     <system:String x:Key="closeAppQuestion">"Do you really close Application?"</system:String>
     <system:String x:Key="end">End</system:String>
     <system:String x:Key="cancel">Cancel</system:String>
-    <system:String x:Key="appName">TravelAgencyAdmin Application</system:String>
-    <system:String x:Key="appDescription">TravelAgencyAdmin Application</system:String>
+    <system:String x:Key="appName">Úbytkáč Administration</system:String>
+    <system:String x:Key="appDescription">Úbytkáč Administration</system:String>
     <system:String x:Key="version">Version:</system:String>
     <system:String x:Key="author">Author: GroupWare-Solution.eu</system:String>
     <system:String x:Key="yes">Yes</system:String>
     <system:String x:Key="no">No</system:String>
     <system:String x:Key="apiAddress">API Address IP:PORT</system:String>
     <system:String x:Key="configuration">Configuration</system:String>
-    <system:String x:Key="apiError">TravelAgencyAdmin BackendAPI Server is not accessible</system:String>
+    <system:String x:Key="apiError">Úbytkáč BackendAPI Server is not accessible</system:String>
     <system:String x:Key="logging">Application status write to log</system:String>
     <system:String x:Key="btn_cancel">Cancel</system:String>
     <system:String x:Key="btn_save">Save</system:String>
@@ -415,7 +415,7 @@
     <system:String x:Key="extraBed">Extra bed</system:String>
     <system:String x:Key="roomsCount">Rooms count</system:String>
     <system:String x:Key="accommodation">1 - Accommodation</system:String>
-    <system:String x:Key="roomList">4 - Rooms</system:String>
+    <system:String x:Key="roomList">4 - Lease</system:String>
     <system:String x:Key="advertised">Advertised</system:String>
     <system:String x:Key="approved">Approved</system:String>
     <system:String x:Key="propertyOrService">Property/Service</system:String>
@@ -487,5 +487,6 @@
     <system:String x:Key="emailCz">Email CZ</system:String>
     <system:String x:Key="emailEn">Email EN</system:String>
     <system:String x:Key="itemAlreadyExists">Item already exists</system:String>
+    <system:String x:Key="resetPassword">Reset password</system:String>
 
 </ResourceDictionary>

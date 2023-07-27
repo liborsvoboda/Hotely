@@ -188,11 +188,10 @@ namespace TravelAgencyAdmin.Pages {
         }
 
         private async void InsertNewClick(object sender, RoutedEventArgs e) {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Images|*.jpg; *.jpeg; *.png; *.tiff; *.bmp|All files (*.*)|*.*";
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
             if (openFileDialog.ShowDialog() == true) {
                 if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
-                else if (new FileInfo(openFileDialog.FileName).Length > 150 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "150KB"); } 
+                else if (new FileInfo(openFileDialog.FileName).Length > 250 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); } 
                 else { 
                     try { FileOperations.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
                     Photos.Add(openFileDialog.FileName, 0, false);

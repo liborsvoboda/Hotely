@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        Checkout
+                        {{ $t('labels.recapitulation') }}
                     </h3>
                 </div>
             </div>

@@ -20,7 +20,6 @@ namespace TravelAgencyBackEnd.DBModel
         [Required]
         [Column(TypeName = "text")]
         public string DescriptionCz { get; set; }
-        [Required]
         [Column(TypeName = "text")]
         public string DescriptionEn { get; set; }
         public int UserId { get; set; }

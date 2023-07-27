@@ -81,14 +81,16 @@
                 Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" />
 
             <Label
-                x:Name="lbl_descriptionCz" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_descriptionCz" Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right" />
             <html:RichTextEditor
-                x:Name="html_descriptionCz" Grid.Row="4" Grid.Column="1" Margin="0,2,0,2" BorderThickness="0.5" />
+                x:Name="html_descriptionCz" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="0,2,0,2"
+                BorderThickness="0.5" />
 
-            <Label
+            <!--<Label
                 x:Name="lbl_descriptionEn" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <html:RichTextEditor
-                x:Name="html_descriptionEn" Grid.Row="5" Grid.Column="1" Margin="0,2,0,2" BorderThickness="0.5" />
+                x:Name="html_descriptionEn" Grid.Row="5" Grid.Column="1" Margin="0,2,0,2" BorderThickness="0.5" />-->
 
             <Label
                 x:Name="lbl_currencyId" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />

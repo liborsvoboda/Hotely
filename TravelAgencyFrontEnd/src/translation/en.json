@@ -50,7 +50,10 @@
     "info": "Info",
     "photos": "Photos",
     "reviews": "Reviews",
-    "rooms": "Rooms"
+    "rooms": "Rooms",
+    "priceFromLovest": "Price from lovest",
+    "ratingFromHighest": "Rating from Highest",
+    "recapitulation": "Rekapitulace"
   },
   "user": {
     "login": "Přihlásit",
@@ -72,7 +75,10 @@
     "actualOrNewPassword": "Actual or New Password",
     "doYouReallyDeleteAccount": "Do you really want to delete your account?",
     "signIn": "Sign in",
-    "logIn": "Log in"
+    "logIn": "Log in",
+    "forgotPassword": "Forgot password",
+    "sendNewPassword": "Send new password",
+    "resetPasswordEmailWasSent": "Email with new Password was sent"
   },
   "messages": {
     "passwordsNotMatch": "Passwords not match",
@@ -82,6 +88,7 @@
     "removedFromFavorite": "Removed from Favorites",
     "forSaveToFavoriteYouMustBeLogged": "For save to Favorite You must be Logged",
     "anyFavoritefound": "No saved hotels found.",
-    "anyFavoritefound1": "Click the heart at the hotel page for them to show up here!"
+    "anyFavoritefound1": "Click the heart at the hotel page for them to show up here!",
+    "passwordsEmptyOrNotMatch": "Passwords is empty Or not match"
   }
 }

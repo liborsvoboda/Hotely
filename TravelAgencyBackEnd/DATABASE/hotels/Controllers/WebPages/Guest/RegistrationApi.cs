@@ -6,6 +6,62 @@ namespace TravelAgencyBackEnd.Controllers {
     [Route("WebApi/Guest")]
     public class WebRegistrationApi : ControllerBase {
 
+        [HttpPost("/WebApi/Guest/ResetPassword")]
+        [Consumes("application/json")]
+        public IActionResult PostResetPassword([FromBody] AutoGenEmailAddress record) {
+            try {
+                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && Functions.IsValidEmail(record.EmailAddress)) {
+                    string newPassword = Functions.RandomString(10);
+
+                    //check email exist
+                    GuestList data;
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        data = new hotelsContext().GuestLists.Where(a => a.Email == record.EmailAddress && a.Active).FirstOrDefault();
+                    }
+                    if (data == null) {
+                        return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
+                            Status = DBWebApiResponses.emailNotExist.ToString(),
+                            ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.emailNotExist.ToString(), record.Language)
+                        }));
+                    }
+
+                    //Set new Password
+                    data.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                    var dbdata = new hotelsContext().GuestLists.Update(data);
+                    dbdata.Context.SaveChanges();
+
+
+                    //Send ResetPassword Email
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "resetPassword").FirstOrDefault();
+                    MailRequest mailRequest = new MailRequest();
+                    if (template != null) {
+                        mailRequest = new MailRequest() {
+                            Subject = (record.Language == "cz" ? template.SubjectCz : template.SubjectEn)
+                            .Replace("[firstname]", data.FirstName).Replace("[lastname]", data.LastName)
+                            .Replace("[password]", newPassword).Replace("[email]", record.EmailAddress),
+                            Recipients = new List<string>() { record.EmailAddress },
+                            Content = (record.Language == "cz" ? template.EmailCz : template.EmailEn)
+                            .Replace("[firstname]", data.FirstName).Replace("[lastname]", data.LastName)
+                            .Replace("[password]", newPassword).Replace("[email]", record.EmailAddress)
+                        };
+                    }
+                    else {
+                        mailRequest = new() {
+                            Subject = "Úbytkač New Password Email",
+                            Recipients = new() { record.EmailAddress },
+                            Content = "Your new password for login is: " + newPassword + Environment.NewLine
+                        };
+                    }
+                    string result = SystemFunctions.SendEmail(mailRequest);
+
+
+                    if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { message = DBResult.success.ToString() })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
+                }
+                else { return BadRequest(new { message = DBOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
+            } catch { }
+            return BadRequest(new { message = DBOperations.DBTranslate("EmailCannotBeSend", record.Language) });
+        }
+
         [HttpPost("/WebApi/Guest/SendVerifyCode")]
         [Consumes("application/json")]
         public IActionResult PostSendVerifyCode([FromBody] AutoGenEmailAddress record) {

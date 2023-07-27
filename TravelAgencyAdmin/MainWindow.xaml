@@ -12,7 +12,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Name="XamlMainWindow"
-    Title="TravelAgencyAdmin Application"
     MinWidth="1024"
     MinHeight="768"
     d:DesignHeight="768"

@@ -45,8 +45,6 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_feeValueRangeMax.Content = Resources["feeValueRangeMax"].ToString();
 
                 lbl_owner.Content = Resources["owner"].ToString();
-                lbl_approveRequest.Content = Resources["approveRequest"].ToString();
-                lbl_approved.Content = Resources["approved"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -180,9 +178,6 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.FeeRangeMin = txt_feeValueRangeMin.Value;
                 selectedRecord.FeeRangeMax = txt_feeValueRangeMax.Value;
 
-                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
-                selectedRecord.Approved = (bool)chb_approved.IsChecked;
-
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
@@ -237,9 +232,6 @@ namespace TravelAgencyAdmin.Pages {
                 txt_feeValueRangeMin.Value = selectedRecord.FeeRangeMin;
                 txt_feeValueRangeMax.Value = selectedRecord.FeeRangeMax;
             }
-
-            chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
-            chb_approved.IsChecked = false;
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")

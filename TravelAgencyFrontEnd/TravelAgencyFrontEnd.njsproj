@@ -215,6 +215,7 @@
     <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\PhotoSlider.vue" />
     <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\Room.vue" />
     <Content Include="src\components\pages\Login\Login.vue" />
+    <Content Include="src\components\pages\Login\Forgot.vue" />
     <Content Include="src\components\pages\Login\Registration.vue" />
     <Content Include="src\components\pages\MainPage\Body.vue" />
     <Content Include="src\components\pages\MainPage\Destination.vue" />

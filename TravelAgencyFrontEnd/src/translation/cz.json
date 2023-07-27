@@ -50,8 +50,10 @@
     "info": "Info",
     "photos": "Fotky",
     "reviews": "Hodnocení",
-    "rooms": "Místnosti"
-
+    "rooms": "Místnosti",
+    "priceFromLovest": "Ceny od nejnižší",
+    "ratingFromHighest": "Hodnocení od nejvyšší",
+    "recapitulation": "Rekapitulace"
 
   },
   "user": {
@@ -74,7 +76,11 @@
     "actualOrNewPassword": "Aktuální nebo Nové heslo",
     "doYouReallyDeleteAccount": "Opravdu chcete smazat účet?",
     "signIn": "Přihlásit",
-    "logIn": "Přihlášení"
+    "logIn": "Přihlášení",
+    "forgotPassword": "Zapomenuté heslo",
+    "sendNewPassword": "Odeslat nové heslo",
+    "resetPasswordEmailWasSent": "Email s novým heslem byl odeslán"
+
   },
   "messages": {
     "passwordsNotMatch": "Hesla nesouhlasí",
@@ -84,6 +90,7 @@
     "removedFromFavorite": "Odebráno z oblíbených",
     "forSaveToFavoriteYouMustBeLogged": "Pro uložení do oblíbených musíte být přihlášeni",
     "anyFavoritefound": "Nemáte uložen žádný oblíbnený hotel.",
-    "anyFavoritefound1": "Klikněte na Srdíčko v Info Hotelu pro vložení do oblíbených!"
+    "anyFavoritefound1": "Klikněte na Srdíčko v Info Hotelu pro vložení do oblíbených!",
+    "passwordsEmptyOrNotMatch": "Heslo je prázdné nebo nesouhlasí"
   }
 }

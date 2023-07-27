@@ -19,6 +19,7 @@ import OrderConfirmed from '/src/components/pages/CheckoutViewComponents/OrderCo
 import ProfileMain from "../components/pages/CustomerProfile/ProfileMain.vue";
 import Login from "../components/pages/Login/Login.vue"
 import Registration from "../components/pages/Login/Registration.vue";
+import Forgot from "../components/pages/Login/Forgot.vue";
 import Profile from '../components/pages/CustomerProfile/ProfilePage.vue'
 import Bookings from '../components/pages/CustomerProfile/Bookings.vue'
 import FavoriteHotelList from '/src/components/pages/CustomerProfile/FavoriteHotelList.vue';
@@ -78,6 +79,11 @@ const routes = [
         path: "/registration",
         name: "registration",
         component: Registration,
+    },
+    {
+        path: "/forgot",
+        name: "forgot",
+        component: Forgot,
     },
     {
         path: "/Contact",

@@ -162,8 +162,8 @@ export default {
     },
     methods: {
         checkPasswords() {
-            if (this.guest.Password != this.guest.confirmPassword) {
-                this.$store.state.toastErrorMessage = this.$i18n.t("messages.passwordsNotMatch");
+            if (this.guest.Password.length == 0 || this.guest.Password != this.guest.confirmPassword) {
+                this.$store.state.toastErrorMessage = this.$i18n.t("messages.passwordsEmptyOrNotMatch");
             } else if (this.guest.Password === this.guest.confirmPassword) {
                 this.updateGuest();
             }

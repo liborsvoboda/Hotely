@@ -29,11 +29,10 @@ namespace TravelAgencyBackEnd.DBModel
         [StringLength(250)]
         [Unicode(false)]
         public string Name { get; set; }
-        [StringLength(4096)]
-        [Unicode(false)]
+        [Required]
+        [Column(TypeName = "text")]
         public string DescriptionCz { get; set; }
-        [StringLength(4096)]
-        [Unicode(false)]
+        [Column(TypeName = "text")]
         public string DescriptionEn { get; set; }
         public int DefaultCurrencyId { get; set; }
         public bool ApproveRequest { get; set; }

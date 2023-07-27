@@ -1,51 +1,51 @@
 <template>
-  <div class="p-4 rounded shadow-sm">
-    <div id="testOmega">
-      <div class="row">
-        <div class="col-md-4">
-          <PhotoSlider :photos="photos" :width="'210px'" :height="'150px'" :key="hotel.id"/>
+    <div class="p-4 rounded shadow-sm">
+        <div id="testOmega">
+            <div class="row">
+                <div class="col-md-4">
+                    <PhotoSlider :photos="photos" :width="'210px'" :height="'150px'" :key="hotel.id" />
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6 text-start">
+                            <b>{{ hotel.name }}</b>
+                            <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
+                            <p>
+                                {{ $t('labels.ratings') }}:
+                                <span class="badge rounded-pill bg-secondary">
+                                    {{ hotel.averageRating }}
+                                </span>
+                            </p>
+                            <p v-for="property in valueProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                                {{property.name}}:
+                                <span class="badge rounded-pill bg-secondary">
+                                    {{ property.value }} {{ property.unit }}
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6 text-start">
+                            <h5>
+                                <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
+                            </h5>
+                            <br />
+
+                            <p v-for="property in bitProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                                <i class="fas fa-check"></i> {{property.name}}
+                            </p>
+
+                            <br />
+                            <button class="btn btn-primary"
+                                    for="btn-check-outlined"
+                                    @click="hotelDetailsClick">
+                                {{ $t('labels.seeDetail') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-8">
-          <div class="row">
-              <div class="col-md-6 text-start">
-                  <b>{{ hotel.name }}</b>
-                  <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
-                  <p>
-                      {{ $t('labels.ratings') }}:
-                      <span class="badge rounded-pill bg-secondary">
-                          {{ hotel.averageRating }}
-                      </span>
-                  </p>
-                  <p v-for="property in valueProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                      {{property.name}}:
-                      <span class="badge rounded-pill bg-secondary">
-                          {{ property.value }} {{ property.unit }}
-                      </span>
-                  </p>
-              </div>
-
-              <div class="col-md-6 text-start">
-                  <h5>
-                      <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
-                  </h5>
-                  <br />
-
-                  <p v-for="property in bitProperties" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                      <i class="fas fa-check"></i> {{property.name}}
-                  </p>
-
-                  <br />
-                  <button class="btn btn-primary"
-                          for="btn-check-outlined"
-                          @click="hotelDetailsClick">
-                      {{ $t('labels.seeDetail') }}
-                  </button>
-              </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 
 

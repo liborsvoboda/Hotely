@@ -36,7 +36,7 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_countryId.Content = Resources["country"].ToString();
                 lbl_name.Content = Resources["fname"].ToString();
                 lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
-                lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
+                //lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
                 lbl_currencyId.Content = Resources["currency"].ToString();
 
                 lbl_owner.Content = Resources["owner"].ToString();
@@ -170,7 +170,7 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.CityId = (cb_cityId.SelectedItem != null) ? (int?)((CityList)cb_cityId.SelectedItem).Id : null;
                 selectedRecord.Name = !string.IsNullOrWhiteSpace(txt_name.Text) ? txt_name.Text : null;
                 selectedRecord.DescriptionCz = html_descriptionCz.Text;
-                selectedRecord.DescriptionEn = html_descriptionEn.Text;
+                //selectedRecord.DescriptionEn = html_descriptionEn.Text;
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
                 selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
@@ -208,7 +208,7 @@ namespace TravelAgencyAdmin.Pages {
             cb_countryId.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
             txt_name.Text = selectedRecord.Name;
             html_descriptionCz.Text = selectedRecord.DescriptionCz;
-            html_descriptionEn.Text = selectedRecord.DescriptionEn;
+            //html_descriptionEn.Text = selectedRecord.DescriptionEn;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
             chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;

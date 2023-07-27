@@ -278,7 +278,6 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.GuestFavoriteLists)
                     .HasForeignKey(d => d.GuestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GuestFavoriteList_GuestList");
             });
 

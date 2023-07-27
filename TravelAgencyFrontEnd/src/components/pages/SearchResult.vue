@@ -11,8 +11,8 @@
                             {{ $t('labels.sortBy') }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" v-on:click="sortListByPrice">Price: Lowest first</a></li>
-                            <li><a class="dropdown-item" v-on:click="sortListByRating">Rating: Highest first</a></li>
+                            <li><a class="dropdown-item" v-on:click="sortListByPrice">{{ $t('labels.priceFromLovest') }}</a></li>
+                            <li><a class="dropdown-item" v-on:click="sortListByRating">{{ $t('labels.ratingFromHighest') }}</a></li>
                         </ul>
                     </div>
                 </div>

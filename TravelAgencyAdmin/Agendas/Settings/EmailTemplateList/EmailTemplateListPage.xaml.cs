@@ -31,7 +31,8 @@ namespace TravelAgencyAdmin.Pages {
 
             ObservableCollection<UpdateVariant> Templates = new ObservableCollection<UpdateVariant>() {
                                                                 new UpdateVariant() { Name = Resources["verification"].ToString(), Value = "verification" },
-                                                                new UpdateVariant() { Name = Resources["registration"].ToString(), Value = "registration"}
+                                                                new UpdateVariant() { Name = Resources["registration"].ToString(), Value = "registration"},
+                                                                new UpdateVariant() { Name = Resources["resetPassword"].ToString(), Value = "resetPassword"}
                                                              };
 
             try {
@@ -205,8 +206,10 @@ namespace TravelAgencyAdmin.Pages {
                 case "verification":
                     txt_variables.Text = "[verifyCode]";
                     break;
-
                 case "registration":
+                    txt_variables.Text = "[firstname],[lastname],[email],[password]";
+                    break;
+                case "resetPassword":
                     txt_variables.Text = "[firstname],[lastname],[email],[password]";
                     break;
                 default:

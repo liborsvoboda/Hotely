@@ -40,7 +40,7 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_roomTypeId.Content = Resources["roomType"].ToString();
                 lbl_name.Content = Resources["fname"].ToString();
                 lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
-                lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
+                //lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
                 lbl_price.Content = Resources["price"].ToString();
                 lbl_maxCapacity.Content = Resources["maxCapacity"].ToString();
                 lbl_extraBed.Content = Resources["extraBed"].ToString();
@@ -170,7 +170,7 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.RoomTypeId = (cb_roomTypeId.SelectedItem != null) ? (int?)((HotelRoomTypeList)cb_roomTypeId.SelectedItem).Id : null;
                 selectedRecord.Name = !string.IsNullOrWhiteSpace(txt_name.Text) ? txt_name.Text : null;
                 selectedRecord.DescriptionCz = html_descriptionCz.Text;
-                selectedRecord.DescriptionEn = html_descriptionEn.Text;
+                //selectedRecord.DescriptionEn = html_descriptionEn.Text;
                 selectedRecord.Price = (double)txt_price.Value;
                 selectedRecord.MaxCapacity = (int)txt_maxCapacity.Value;
                 selectedRecord.ExtraBed = (bool)chb_extraBed.IsChecked;
@@ -211,7 +211,7 @@ namespace TravelAgencyAdmin.Pages {
             cb_roomTypeId.SelectedItem = hotelRoomTypeList.FirstOrDefault(a => a.Id == selectedRecord.RoomTypeId);
             txt_name.Text = selectedRecord.Name;
             html_descriptionCz.Text = selectedRecord.DescriptionCz;
-            html_descriptionEn.Text = selectedRecord.DescriptionEn;
+            //html_descriptionEn.Text = selectedRecord.DescriptionEn;
             txt_price.Value = selectedRecord.Price;
             txt_maxCapacity.Value = selectedRecord.MaxCapacity;
             chb_extraBed.IsChecked = selectedRecord.ExtraBed;
@@ -241,10 +241,10 @@ namespace TravelAgencyAdmin.Pages {
 
         private async void BtnBrowse_Click(object sender, RoutedEventArgs e) {
             try {
-                OpenFileDialog dlg = new OpenFileDialog() { DefaultExt = ".png", Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
+                OpenFileDialog dlg = new OpenFileDialog() { Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) {
                     if (!MimeMapping.GetMimeMapping(dlg.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
-                    else if (new FileInfo(dlg.FileName).Length > 150 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "150KB"); }
+                    else if (new FileInfo(dlg.FileName).Length > 250 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); }
                     else {
                         img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
                         selectedRecord.ImageName = dlg.SafeFileName;

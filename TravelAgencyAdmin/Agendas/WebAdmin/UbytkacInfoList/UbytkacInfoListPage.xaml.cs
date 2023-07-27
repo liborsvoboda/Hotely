@@ -31,7 +31,7 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_name.Content = Resources["fname"].ToString();
                 lbl_sequence.Content = Resources["sequence"].ToString();
                 lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
-                lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
+                //lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -126,7 +126,7 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.Name = txt_name.Text;
                 selectedRecord.Sequence = int.Parse(txt_sequence.Value.ToString());
                 selectedRecord.DescriptionCz = html_descriptionCz.Text;
-                selectedRecord.DescriptionEn = html_descriptionEn.Text;
+                //selectedRecord.DescriptionEn = html_descriptionEn.Text;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
@@ -156,7 +156,7 @@ namespace TravelAgencyAdmin.Pages {
             txt_sequence.Value = (txt_id.Value == 0) ? UbytkacInfoList.Any() ? UbytkacInfoList.Max(a => a.Sequence) + 10 : 10 : selectedRecord.Sequence;
 
             html_descriptionCz.Text = selectedRecord.DescriptionCz;
-            html_descriptionEn.Text = selectedRecord.DescriptionEn;
+            //html_descriptionEn.Text = selectedRecord.DescriptionEn;
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
