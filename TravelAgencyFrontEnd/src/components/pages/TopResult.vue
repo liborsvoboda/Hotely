@@ -10,15 +10,23 @@
             </div>
         </template>
     </Card>
+    <div v-else style="border-radius: 20px; margin-top: 20px;">
+        <div class="row">
+            <ProgressSpinner />
+        </div>
+    </div>
 </template>
 
 <script>
-import Top from './SearchResultComponents/Top.vue'
-import Card from 'primevue/card';
+    import Top from './SearchResultComponents/Top.vue'
+    import ProgressSpinner from 'primevue/progressspinner';
+    import Card from 'primevue/card';
+
 export default ({
     components:{
         Top,
-        Card
+        Card,
+        ProgressSpinner
     },
     data(){
         return{

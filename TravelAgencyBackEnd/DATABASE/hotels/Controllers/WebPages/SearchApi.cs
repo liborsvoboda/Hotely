@@ -39,7 +39,7 @@
                     .Include(a => a.City)
                     .Include(a => a.Country)
                     .Include(a => a.DefaultCurrency)
-                    .Include(a => a.HotelPropertyAndServiceLists)
+                    .Include(a => a.HotelPropertyAndServiceLists.Where(a => a.IsAvailable))
                     .Include(a => a.HotelImagesLists)
                     .Where(a => data.Contains(a.Id)).ToList();
             }

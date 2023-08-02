@@ -19,7 +19,6 @@
     AllowDrop="False"
     AllowsTransparency="False"
     GlowBrush="{DynamicResource GlyphBrush}"
-    Icon="Data\favicon.ico"
     NonActiveGlowBrush="#CDFF0000"
     ResizeMode="CanResizeWithGrip"
     SaveWindowPosition="True"
@@ -33,7 +32,7 @@
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Image
-                x:Key="GroupwareSolution" x:Name="GroupwareSolution" Source="Data\lama.png" />
+                x:Key="GroupwareSolution" x:Name="GroupwareSolution" Source="Data\groupware-solution.png" />
             <Rectangle
                 x:Key="AppThemeMenuIcon" Width="16" Height="16" x:Shared="False"
                 Fill="{Binding ColorBrush, Mode=OneWay}"
@@ -115,7 +114,7 @@
                 Width="{TemplateBinding Width}"
                 Height="{TemplateBinding Height}"
                 Margin="4" Background="Transparent" RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased">
-                <Image Source="Data\lama.ico" />
+                <Image Source="Data\favicon.ico" />
             </Grid>
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>

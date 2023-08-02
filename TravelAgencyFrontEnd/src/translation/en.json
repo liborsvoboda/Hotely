@@ -1,5 +1,6 @@
 {
   "labels": {
+    "verify": "Verify",
     "maxCapacity": "Max. capacity",
     "reserv": "Book",
     "price": "Price",
@@ -14,6 +15,7 @@
     "registration": "Registration",
     "firstname": "Firstname",
     "lastname": "Lastname",
+    "fullName": "Full Name",
     "street": "Street",
     "zipCode": "Zipcode",
     "city": "City",
@@ -53,7 +55,22 @@
     "rooms": "Rooms",
     "priceFromLovest": "Price from lovest",
     "ratingFromHighest": "Rating from Highest",
-    "recapitulation": "Rekapitulace"
+    "recapitulation": "Rekapitulace",
+    "showNews": "Show News",
+    "show": "show",
+    "fiveNewest": "5 newest",
+    "fiveCheapest": "5 cheapest",
+    "fiveFavoritest": "5 favoritest",
+    "previous": "previous",
+    "next": "next",
+    "lease": "Lease",
+    "personCount": "Person count",
+    "customer": "Customer",
+    "noticeToTenants": "Zpráva pro Pronájemce",
+    "fromDate": "From date",
+    "toDate": "To date",
+    "editLease": "Lease edit",
+    "sendBookingRequest": "Send booking request"
   },
   "user": {
     "login": "Přihlásit",
@@ -78,7 +95,9 @@
     "logIn": "Log in",
     "forgotPassword": "Forgot password",
     "sendNewPassword": "Send new password",
-    "resetPasswordEmailWasSent": "Email with new Password was sent"
+    "resetPasswordEmailWasSent": "Email with new Password was sent",
+    "reservationInfo": "Rezervation Info",
+    "accommodationName": "Accommodation name"
   },
   "messages": {
     "passwordsNotMatch": "Passwords not match",
@@ -89,6 +108,12 @@
     "forSaveToFavoriteYouMustBeLogged": "For save to Favorite You must be Logged",
     "anyFavoritefound": "No saved hotels found.",
     "anyFavoritefound1": "Click the heart at the hotel page for them to show up here!",
-    "passwordsEmptyOrNotMatch": "Passwords is empty Or not match"
+    "passwordsEmptyOrNotMatch": "Passwords is empty Or not match",
+    "loginSuccess": "You was successfully logged",
+    "reservationWasSent": "The booking request has been sent",
+    "reservationInfo": "List wist Requests and Reservations you can find in your profile",
+    "verifyNotMatch": "Verifikační kód nesouhlasí",
+    "emailVerified": "Email was verified."
+
   }
 }

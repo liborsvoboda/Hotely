@@ -14,7 +14,7 @@
                </div>
            </div>
            <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
-               <label for="guest">{{ $t('labels.guestRooms') }}</label>
+               <label for="guest">{{ $t('labels.personCount') }}</label>
                <SearchDropdown />
            </div>
            <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
@@ -48,6 +48,8 @@ export default {
     methods: {
         onSubmit() { },
         Search(event) {
+            this.$store.dispatch('clearBooking'); 
+            this.$router.push('/');
             this.$store.state.searchButtonLoading = true;
             this.$store.dispatch('searchHotels', this.searchString);
         },

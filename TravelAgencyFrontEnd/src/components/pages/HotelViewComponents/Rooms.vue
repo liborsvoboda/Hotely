@@ -49,9 +49,6 @@ export default {
     },
     computed: {
         hotelInfo() {
-            console.log("hotel", this.$store.state.hotel);
-            console.log("rooms", this.$store.state.hotel.hotelRoomLists);
-        
             return this.$store.state.hotel;
         },
         totalprice() {
@@ -82,13 +79,9 @@ export default {
         Book() {
             this.$store.state.bookingDetail.hotelId = this.$store.state.hotel.id;
             this.$store.state.bookingDetail.hotelName = this.$store.state.hotel.name;
-            this.$store.state.bookingDetail.startDate = this.$store.state.searchString.dates[0];
-            this.$store.state.bookingDetail.endDate = this.$store.state.searchString.dates[1];
-
-            this.$store.state.bookingDetail.adultInput = this.$store.state.searchString.inputAdult;
-            this.$store.state.bookingDetail.childrenInput = this.$store.state.searchString.inputChild;
-            this.$store.state.bookingDetail.roomsInput = this.$store.state.searchString.inputRooms;
-
+            this.$store.state.bookingDetail.currency = this.$store.state.hotel.defaultCurrency.name;
+            this.$store.state.bookingDetail.startDate = this.$store.state.searchString.dates[0].toLocaleDateString('sv-SE');
+            this.$store.state.bookingDetail.endDate = this.$store.state.searchString.dates[1].toLocaleDateString('sv-SE');
             window.scrollTo(0, 0);
         },
     },

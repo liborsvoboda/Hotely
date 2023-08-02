@@ -88,3 +88,26 @@ this.$toast.open({ type: 'success', message: this.$i18n.t("messages.dataSaved"),
         toastSuccessMessage: null,
         this.$store.state.toastSuccessMessage = this.$i18n.t("messages.accountWasDeleted");
 17]
+calendar
+https://primevue.org/calendar/
+
+18]
+settimeout
+            setTimeout(
+                function (that) {
+                    // Timeout resolves inconsistent scroll behaviour between scrollTo and router.push
+                    if (payload.type === 'city') {
+                        that.dispatch('searchHotelByCity', payload.searchString)
+                    } else {
+                        that.dispatch('searchHotelByName', payload.searchString)
+                    }
+                },
+                500,
+                this
+            )
+
+19]
+PrimeVue FULL Help Theming, Components ETC
+https://primevue.org/theming/
+
+

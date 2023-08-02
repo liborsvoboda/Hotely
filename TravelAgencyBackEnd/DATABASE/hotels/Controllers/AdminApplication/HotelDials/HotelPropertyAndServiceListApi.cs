@@ -13,14 +13,25 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("Admin"))
-                { data = new hotelsContext().HotelPropertyAndServiceLists.ToList(); }
-                else
-                {
+                if (Request.HttpContext.User.IsInRole("Admin")) {
+                    data = new hotelsContext().HotelPropertyAndServiceLists
+                        .Include(a=> a.PropertyOrService)
+                        .OrderBy(a => a.PropertyOrService.PropertyGroupId)
+                        .ToList()
+                        .OrderBy(a => a.HotelId).ToList()
+                        ; 
+                } else {
                     data = new hotelsContext().HotelPropertyAndServiceLists.Include(a => a.User)
-                        .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
+                        .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
+                        .Include(a => a.PropertyOrService)
+                        .OrderBy(a => a.PropertyOrService.PropertyGroupId)
+                        .ToList()
+                        .OrderBy(a => a.HotelId).ToList()
+                        ;
                 }
             }
+
+            data.ForEach(item => { item.PropertyOrService = null; });
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }

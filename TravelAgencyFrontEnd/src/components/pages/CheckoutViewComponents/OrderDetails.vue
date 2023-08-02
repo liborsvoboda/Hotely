@@ -5,14 +5,14 @@
             <div class="col">
                 <Card style="">
                     <template #title>
-                    Personal Details
+                        {{ $t('user.personalDetails') }}
                     </template>
                     <template #content>
-                        <ul class="list-group list-group-flush" >
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-user"></span><b> Full name:</b> {{Details.firstName}} {{Details.lastName}}</li>
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-at"></span><b> Email:</b> {{Details.email}}</li>
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-phone"></span><b> Phone:</b> {{Details.phoneNumber}}</li>
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-address-book"></span><b> Address:</b> {{Details.street}}, {{Details.zipCode}}, {{Details.city}}</li>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-user"></span> <b>{{ $t('labels.fullName') }}:</b> {{BookingDetail.user.firstName}} {{BookingDetail.user.lastName}}</li>
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-at"></span> <b> {{ $t('labels.email') }}:</b> {{BookingDetail.user.email}}</li>
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-phone"></span> <b> {{ $t('labels.phone') }}:</b> {{BookingDetail.user.phone}}</li>
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-address-book"></span> <b> {{ $t('user.address') }}:</b> {{BookingDetail.user.street}}, {{BookingDetail.user.zipCode}}, {{BookingDetail.user.city}}</li>
                         </ul>
                     </template>
                 </Card>
@@ -20,20 +20,18 @@
             <div class="col">
                 <Card style="">
                     <template #title>
-                    Booking Details
+                        {{ $t('user.reservationInfo') }}
                     </template>
                     <template #content>
                         <ul class="list-group list-group-flush" >
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-hotel"></span><b> Hotel name:</b> {{BookingDetails.hotelName}}</li>
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-check-square"></span><b> Check in:</b> {{checkinDate}}</li>
-                            <li class="list-group-item leftTexAlignt"><span class="far fa-check-square"></span><b> Check out:</b> {{checkoutDate}}</li>
-                            <li v-if="SearchString.inputChild > 0" class="list-group-item leftTexAlignt"><span class="fas fa-users"></span><b> Number of people:</b> {{SearchString.inputAdult}} adults, {{SearchString.inputChild}} children</li>
-                            <li v-else class="list-group-item leftTexAlignt"><span class="fas fa-users"></span><b> Number of people:</b> {{SearchString.inputAdult}} adults</li>
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-concierge-bell"></span><b> Service type:</b> {{BookingDetails.serviceType}}</li>
-                            <li v-if="BookingDetails.extraBed" class="list-group-item leftTexAlignt"><span class="fas fa-bed"></span> <b>Extra bed:</b> Yes</li>
-                            <li class="list-group-item leftTexAlignt"><span class="fas fa-money-check-alt"></span><b> Total price:</b> {{BookingDetails.totalprice}} SEK</li>
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-hotel"></span> <b> {{ $t('user.accommodationName') }}:</b> {{BookingDetail.hotelName}}</li>
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-check-square"></span> <b> {{ $t('labels.fromDate') }}:</b> {{new Date(BookingDetail.startDate).toLocaleDateString('cs-CZ')}}</li>
+                            <li class="list-group-item leftTexAlignt"><span class="far fa-check-square"></span> <b> {{ $t('labels.toDate') }}:</b> {{new Date(BookingDetail.endDate).toLocaleDateString('cs-CZ')}}</li>
+
+                            <li class="list-group-item leftTexAlignt" :class="(checkPersons ? 'error' : '')"><span class="fas fa-users"></span> <b> {{ $t('labels.personCount') }}:</b> {{BookingDetail.adultInput}} {{ $t('labels.adults') }}, {{BookingDetail.childrenInput}} {{ $t('labels.children') }}</li>
+                            <li class="list-group-item leftTexAlignt"><span class="fas fa-money-check-alt"></span> <b> {{ $t('labels.totalPrice') }}:</b> {{BookingDetail.totalPrice}} {{BookingDetail.currency}}</li>
                         </ul>
-                        <Button  label="Edit Booking" icon="pi pi-user-edit" @click="$router.push('/hotels/' + $store.state.bookingDetails.hotelId + '/rooms')"></Button>
+                        <Button :label="$t('labels.editLease')" icon="pi pi-user-edit" @click="$router.push('/hotels/' + BookingDetail.hotelId + '/rooms')"></Button>
                     </template>
                 </Card>
             </div>
@@ -52,36 +50,29 @@ export default {
      },
      data(){
         return{
-            Details:{},
-            BookingDetails: {},
-            SearchString: {},
-            link: '/hotels/' + this.$store.state.bookingDetails.hotelId + '/rooms'
         }
     },
-    computed:{
-        checkinDate(){
-            if(this.$store.state.searchString.dates[0] !== undefined){
-                return this.$store.state.searchString.dates[0].toLocaleDateString('sv-SE');
-            }else{
-                return "not specified"
-            }
+    computed: {
+        BookingDetail() {
+            return this.$store.state.bookingDetail;
         },
-        checkoutDate(){
-           if(this.$store.state.searchString.dates[1]  !== undefined){
-                return this.$store.state.searchString.dates[1].toLocaleDateString('sv-SE');
-            }else{
-                return "not specified"
-            }
+        checkPersons() {
+            if (this.$store.state.bookingDetail.adultInput == 0) { return true; } else { return false; }
         }
+    },
+    methods: {
     },
     created(){
-        this.Details = this.$store.state.customerDetailsCheckout;
-        this.BookingDetails = this.$store.state.bookingDetails;
-        this.SearchString = this.$store.state.searchString;
     },
 }
 </script>
 <style scoped>
+
+.error {
+    color: red;
+}
+
+
     .leftTexAlignt{
         text-align: left;
     }

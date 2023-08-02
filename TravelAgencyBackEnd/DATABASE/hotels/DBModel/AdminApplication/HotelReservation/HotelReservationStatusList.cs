@@ -12,7 +12,9 @@ namespace TravelAgencyBackEnd.DBModel
     {
         public HotelReservationStatusList()
         {
+            HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
             HotelReservationLists = new HashSet<HotelReservationList>();
+            HotelReservedRoomLists = new HashSet<HotelReservedRoomList>();
         }
 
         [Key]
@@ -28,6 +30,10 @@ namespace TravelAgencyBackEnd.DBModel
         [InverseProperty("HotelReservationStatusLists")]
         public virtual UserList User { get; set; }
         [InverseProperty("Status")]
+        public virtual ICollection<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
+        [InverseProperty("Status")]
         public virtual ICollection<HotelReservationList> HotelReservationLists { get; set; }
+        [InverseProperty("Status")]
+        public virtual ICollection<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
     }
 }

@@ -487,5 +487,5 @@
     <system:String x:Key="emailEn">Email EN</system:String>
     <system:String x:Key="itemAlreadyExists">Položka již existuje</system:String>
     <system:String x:Key="resetPassword">Změna hesla</system:String>
-    
+
 </ResourceDictionary>

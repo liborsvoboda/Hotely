@@ -1,5 +1,6 @@
 {
   "labels": {
+    "verify": "Ověřit",
     "maxCapacity": "Max. kapacita",
     "reserv": "Rezervovat",
     "price": "Cena",
@@ -14,6 +15,7 @@
     "registration": "Registrace",
     "firstname": "Jméno",
     "lastname": "Příjmení",
+    "fullName": "Celé jméno",
     "street": "Ulice",
     "zipCode": "PSČ",
     "city": "Město",
@@ -53,8 +55,22 @@
     "rooms": "Místnosti",
     "priceFromLovest": "Ceny od nejnižší",
     "ratingFromHighest": "Hodnocení od nejvyšší",
-    "recapitulation": "Rekapitulace"
-
+    "recapitulation": "Rekapitulace",
+    "showNews": "Zobrazit Novinky",
+    "show": "zobrazit",
+    "fiveNewest": "5 nejnovějších",
+    "fiveCheapest": "5 nejlevnějších",
+    "fiveFavoritest": "5 nejoblíbenějších",
+    "previous": "předchozí",
+    "next": "další",
+    "lease": "Pronájem",
+    "personCount": "Počet Osob",
+    "customer": "Zákazník",
+    "noticeToTenants": "Zpráva pro Pronájemce",
+    "fromDate": "Od data",
+    "toDate": "Do data",
+    "editLease": "Editace pronájmu",
+    "sendBookingRequest": "Odeslaní poptávky"
   },
   "user": {
     "login": "Přihlásit",
@@ -79,8 +95,9 @@
     "logIn": "Přihlášení",
     "forgotPassword": "Zapomenuté heslo",
     "sendNewPassword": "Odeslat nové heslo",
-    "resetPasswordEmailWasSent": "Email s novým heslem byl odeslán"
-
+    "resetPasswordEmailWasSent": "Email s novým heslem byl odeslán",
+    "reservationInfo": "Poptávka rezervace",
+    "accommodationName": "Název zařízení"
   },
   "messages": {
     "passwordsNotMatch": "Hesla nesouhlasí",
@@ -91,6 +108,11 @@
     "forSaveToFavoriteYouMustBeLogged": "Pro uložení do oblíbených musíte být přihlášeni",
     "anyFavoritefound": "Nemáte uložen žádný oblíbnený hotel.",
     "anyFavoritefound1": "Klikněte na Srdíčko v Info Hotelu pro vložení do oblíbených!",
-    "passwordsEmptyOrNotMatch": "Heslo je prázdné nebo nesouhlasí"
+    "passwordsEmptyOrNotMatch": "Heslo je prázdné nebo nesouhlasí",
+    "loginSuccess": "Byl jste úspěšně přihlášen",
+    "reservationWasSent": "Poptávka rezervace byla odeslána",
+    "reservationInfo": "přehled Poptávek a Rezervací najdete ve svém profilu",
+    "verifyNotMatch": "Verifikační kód nesouhlasí",
+    "emailVerified": "Email byl ověřen"
   }
 }

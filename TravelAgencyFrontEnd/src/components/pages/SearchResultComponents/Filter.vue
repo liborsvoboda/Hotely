@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
           <div v-for="property,index in propertyList">
               <div v-if="property.propertyGroupId != null &&(index -1 == -1 || ((index -1 >= 0 && propertyList[index -1].propertyGroupId != property.propertyGroupId)))" class="accordion accordion-flush" :id="'menuname'+property.propertyGroupId">
                   <div class="accordion-item">
@@ -182,7 +182,7 @@
           </div>
       </div>
 
-        <div v-if="filteredHotels.length" class="col-md-8">
+        <div v-if="filteredHotels.length" class="col-md-9">
             <Result v-for="result in filteredHotels"
                     :hotel="result.hotel"
                     :key="result.hotel.id" />
@@ -194,14 +194,12 @@
 import Slider from "/node_modules/@vueform/slider";
 import Info from "../HotelViewComponents/Info.vue";
 import Result from "./Result.vue";
-import Skel from "./Skel.vue";
 import Card from "primevue/card";
 export default {
     components: {
         Slider,
         Info,
         Result,
-        Skel,
         Card,
     },
     data() {
@@ -246,10 +244,6 @@ export default {
         checkFilters(id,value) {
             this.$store.state.filteredResults = [];
 
-            //bit value paradox 
-            //let property = JSON.parse(JSON.stringify(this.propertyList));
-            //console.log(id, value,this.propertyList,property);
-            
             this.$store.state.searchResults.forEach(hotel => {
                 let allowed = true;
 
@@ -273,7 +267,6 @@ export default {
                     
                 });
 
-                // console.log("pushing now", allowed);
                 if (allowed) { this.$store.state.filteredResults.push(hotel); }
             });
         }

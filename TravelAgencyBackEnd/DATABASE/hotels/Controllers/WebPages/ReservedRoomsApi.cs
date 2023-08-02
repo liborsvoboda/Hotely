@@ -14,10 +14,11 @@ namespace TravelAgencyBackEnd.Controllers {
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 result = new hotelsContext().HotelReservedRoomLists
                     .Where(a => 
-                    (a.StartDate <= startDate && a.EndDate > startDate) 
+                    a.HotelId == hotelId && a.StatusId == 2 &&
+                    ((a.StartDate <= startDate && a.EndDate > startDate) 
                     || (a.StartDate >= startDate && a.EndDate <= endDate)
                     || (a.StartDate < endDate && a.EndDate >= endDate)
-                    )
+                    ))
                     .ToList();
             }
 

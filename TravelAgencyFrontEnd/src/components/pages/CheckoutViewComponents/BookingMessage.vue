@@ -1,6 +1,6 @@
 <template >
     <div>
-        <div class="row g-3">
+        <div class="row g-4">
             <textarea v-model="message" type="text" class="" id="MessageToHotel" @input="updateMessage" />   
         </div>
     </div>
@@ -18,13 +18,13 @@ export default {
         }
     },
     created(){
-        this.message = this.$store.state.customerDetailsCheckout.Message;
+        this.message = this.$store.state.bookingDetail.message;
     }
 }
 </script>
 <style >
     #MessageToHotel{
-        width: 75%;
+        width: 98%;
         margin: 0 auto;
         margin-top: 30px;
     }

@@ -62,10 +62,11 @@
                 Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" ToolTip="" />
 
             <Label
-                x:Name="lbl_descriptionCz" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_descriptionCz" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_descriptionCz" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
+                x:Name="txt_descriptionCz" Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Margin="0,2,0,2"
+                Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
 
             <!--<Label
                 x:Name="lbl_descriptionEn" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />

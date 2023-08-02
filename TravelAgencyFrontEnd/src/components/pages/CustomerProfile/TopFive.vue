@@ -35,7 +35,7 @@
                             </p>
 
                             <br />
-                            <button class="btn btn-primary "
+                            <button class="btn btn-primary"
                                     for="btn-check-outlined"
                                     @click="hotelDetailsClick">
                                 {{ $t('labels.seeDetail') }}
@@ -50,26 +50,27 @@
 
 
 <script>
-import Info from "../HotelViewComponents/Info.vue";
 import PhotoSlider from "../HotelViewComponents/RoomsViewComponents/PhotoSlider.vue";
 
 export default {
     components: {
-        Info,
         PhotoSlider,
+    },
+    props: {
+        hotel: {},
     },
     computed: {
         lowestPrice() {
             var rooms = this.hotel.hotelRoomLists;
             rooms.sort((a, b) => {
-            return a.price - b.price;
+                return a.price - b.price;
             });
             var min = rooms[0];
             return min.price;
         },
         photos() {
             var photos = [];
-            photos.push({ id: this.hotel.id, hotelPhoto:this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });
+            photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + this.hotel.hotelImagesLists.filter(obj => { return obj.isPrimary === true; })[0].fileName });
 
             this.hotel.hotelImagesLists.forEach(image => {
                 if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
@@ -94,12 +95,9 @@ export default {
         }
 
     },
-    props: {
-        hotel: {},
-    },
     methods: {
         hotelDetailsClick(event) {
-            this.$store.state.backRoute = "/result";
+            this.$store.state.backRoute = "/profile";
             this.$store.dispatch("setHotel", this.hotel);
             this.$router.push('/hotels/' + this.hotel.id);
         },
@@ -108,21 +106,21 @@ export default {
 </script>
 
 <style scoped>
-#testOmega {
-  opacity: 100% !important;
-}
+    #testOmega {
+        opacity: 100% !important;
+    }
 
-.btn.btn-primary{
-    background-color:#53c16e;
-    border-color:#1bc541;
-  }
+    .btn.btn-primary {
+        background-color: #53c16e;
+        border-color: #1bc541;
+    }
 
-a.nav-link {
-  margin-left: 35mm;
-}
+    a.nav-link {
+        margin-left: 35mm;
+    }
 
-.p-4 {
-  margin-top: 15px;
-  background-color: rgb(241, 241, 241);
-}
+    .p-4 {
+        margin-top: 15px;
+        background-color: rgb(241, 241, 241);
+    }
 </style>

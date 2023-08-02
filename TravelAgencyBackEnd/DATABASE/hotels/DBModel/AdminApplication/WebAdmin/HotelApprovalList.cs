@@ -16,10 +16,9 @@ namespace TravelAgencyBackEnd.DBModel
         [StringLength(250)]
         [Unicode(false)]
         public string Name { get; set; }
-        [StringLength(4096)]
+        [Required]
         [Unicode(false)]
         public string DescriptionCz { get; set; }
-        [StringLength(4096)]
         [Unicode(false)]
         public string DescriptionEn { get; set; }
         public int DefaultCurrencyId { get; set; }

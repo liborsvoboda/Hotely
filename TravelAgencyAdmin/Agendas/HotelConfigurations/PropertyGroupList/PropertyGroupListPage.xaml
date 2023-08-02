@@ -64,8 +64,8 @@
             <Label
                 x:Name="lbl_sequence" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <Controls:NumericUpDown
-                x:Name="txt_sequence" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2"
-                Controls:TextBoxHelper.ClearTextButton="False" Controls:TextBoxHelper.Watermark="" Interval="10" Minimum="0" />
+                x:Name="txt_sequence" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="False"
+                Controls:TextBoxHelper.Watermark="" Interval="10" Minimum="0" />
 
             <Label
                 x:Name="lbl_description" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />

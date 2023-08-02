@@ -7,14 +7,12 @@ import PhotoGallery from "../components/pages/HotelViewComponents/RoomsViewCompo
 import Reviews from "../components/pages/HotelViewComponents/Reviews.vue";
 import SearchResult from "../components/pages/SearchResult.vue";
 import AddReview from "../components/pages/HotelViewComponents/ReviewComponents/AddReview.vue";
-import OrderCompletedView from "../components/pages/OrderCompletedView.vue";
 import CheckoutView from "../components/pages/CheckoutView.vue";
 import { registerRuntimeCompiler } from "@vue/runtime-core";
 import Home from "/src/components/pages/Home.vue";
 import ReservationDetails from "/src/components/pages/ReservationDetails.vue";
 import CustomerDetails from '/src/components/pages/CheckoutViewComponents/CustomerDetails.vue'
 import OrderDetails from '/src/components/pages/CheckoutViewComponents/OrderDetails.vue'
-import StripePayment from '/src/components/pages/CheckoutViewComponents/StripePayment.vue'
 import OrderConfirmed from '/src/components/pages/CheckoutViewComponents/OrderConfirmed.vue'
 import ProfileMain from "../components/pages/CustomerProfile/ProfileMain.vue";
 import Login from "../components/pages/Login/Login.vue"
@@ -26,7 +24,6 @@ import FavoriteHotelList from '/src/components/pages/CustomerProfile/FavoriteHot
 import ProfileSetting from '../components/pages/CustomerProfile/ProfileSetting.vue'
 import ProfileCustomerDetails from '../components/pages/CustomerProfile/ProfileCustomerDetails.vue'
 import Contact from '../components/pages/Extra pages/Contact.vue';
-import Tourism from '../components/pages/Extra pages/TouristAttraction.vue';
 import About from '../components/pages/Extra pages/About.vue';
 import UbytkacInfo from '../components/pages/Extra pages/UbytkacInfo.vue';
 import RegistrationInfo from '../components/pages/Extra pages/RegistrationInfo.vue';
@@ -91,11 +88,6 @@ const routes = [
         component: Contact,
     },
     {
-        path: "/Tourism",
-        name: "tourism",
-        component: Tourism,
-    },
-    {
         path: "/About",
         name: "about",
         component: About,
@@ -158,11 +150,6 @@ const routes = [
         ],
     },
     {
-        path: "/orderCompleted",
-        name: "OrderCompleted",
-        component: OrderCompletedView,
-    },
-    {
         path: "/checkout",
         name: "Checkout",
         component: CheckoutView,
@@ -178,11 +165,6 @@ const routes = [
                 component: OrderDetails,
             },
             {
-                path: "payment",
-                name: "Payment",
-                component: StripePayment,
-            },
-            {
                 path: "orderConfirmed",
                 name: "OrderConfirmed",
                 component: OrderConfirmed,
@@ -194,12 +176,6 @@ const routes = [
         name: "reservationdetails",
         component: ReservationDetails,
     },
-    //{
-    //    path: "/savedHotels",
-    //    name: "SavedHotels",
-    //    component: FavoriteHotelList,
-    //},
-
 ];
 const router = createRouter({
     history: createWebHistory(),

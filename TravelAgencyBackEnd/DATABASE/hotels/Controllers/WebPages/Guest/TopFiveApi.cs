@@ -4,18 +4,34 @@ namespace TravelAgencyBackEnd.Controllers {
 
     [ApiController]
     [Route("WebApi/Guest")]
-    public class BestFiveApi : ControllerBase {
+    public class TopFiveApi : ControllerBase {
 
 
         [Authorize]
-        [HttpGet("/WebApi/Guest/GetBestFiveList/{type}/{language}")]
-        public async Task<string> GetBestFiveList(string type = "cz", string language = "cz") {
+        [HttpGet("/WebApi/Guest/GetTopFiveList/{type}/{language}")]
+        public async Task<string> GetTopFiveList(string type, string language = "cz") {
 
-            string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
-            List<int> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().GuestFavoriteLists
-                    .Where(a => a.GuestId == int.Parse(authId)).OrderByDescending(a => a.TimeStamp).Select(a => a.HotelId).ToList();
+            List<int> data = new();
+
+            switch (type) {
+                case "newest":
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        data = new hotelsContext().HotelLists.Where(a=>a.Approved && a.Advertised)
+                            .OrderByDescending(a => a.Timestamp).Select(a => a.Id).Take(5).ToList();
+                    }
+                    break;
+                case "cheapest":
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        data = new hotelsContext().HotelRoomLists
+                            .Where(a=> a.Approved && a.Hotel.Approved && a.Hotel.Advertised)
+                            .OrderBy(a => a.Price).Select(a=>a.HotelId).Distinct().Take(5).ToList();
+                    }
+                    break;
+                case "favoritest":
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        data = new hotelsContext().GetTopFiveFavoriteLists.Select(a=> a.Id).ToList();
+                    }
+                    break;
             }
 
             List<HotelList> result;
@@ -25,7 +41,7 @@ namespace TravelAgencyBackEnd.Controllers {
                     .Include(a => a.City)
                     .Include(a => a.Country)
                     .Include(a => a.DefaultCurrency)
-                    .Include(a => a.HotelPropertyAndServiceLists)
+                    .Include(a => a.HotelPropertyAndServiceLists.Where(a => a.IsAvailable))
                     .Include(a => a.HotelImagesLists)
                     .Where(a => data.Contains(a.Id)).ToList();
             }

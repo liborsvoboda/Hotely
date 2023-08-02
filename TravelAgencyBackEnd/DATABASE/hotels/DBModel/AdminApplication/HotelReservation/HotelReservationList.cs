@@ -32,11 +32,14 @@ namespace TravelAgencyBackEnd.DBModel
         public double TotalPrice { get; set; }
         public int Adult { get; set; }
         public int Children { get; set; }
-        public int Rooms { get; set; }
         [Required]
         [StringLength(255)]
         [Unicode(false)]
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        [Required]
+        [StringLength(255)]
+        [Unicode(false)]
+        public string LastName { get; set; }
         [Required]
         [StringLength(255)]
         [Unicode(false)]

@@ -73,9 +73,16 @@ export default {
             this.$store.dispatch('setBookedTotalPrice');
         },
         getAvailableRoomsCount(typeId) {
-            //TODO get count - booked
+            let availableRooms = 0;
+            this.hotel.hotelRoomLists.forEach(room => {
+                if (room.roomTypeId == typeId) { availableRooms = room.roomsCount; }
+            });
 
-            return 5;
+            this.$store.state.reservedRoomList.forEach(resRoom => { 
+                if (resRoom.roomTypeId == typeId) { availableRooms = availableRooms - resRoom.count; }
+            });
+
+            return availableRooms;
         }
     }
 };

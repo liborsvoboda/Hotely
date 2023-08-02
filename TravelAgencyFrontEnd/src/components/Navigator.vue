@@ -15,13 +15,13 @@
                                 <a href=""><router-link to="/Profile">{{ $t('user.profile') }}</router-link></a>
                             </div>
                         </div>
-                        <div id="user" v-if="loggedIn">
+                       <!--  <div id="user" v-if="loggedIn">
                             <ul>
                                 <li>
-                                    <a>{{ user.email }}</a>
+                                    <a>{{ user.Email }}</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -45,16 +45,11 @@
                     <li><router-link to="/RegistrationInfo">{{ $t('labels.registrationInfo') }}</router-link></li>
                     <li><router-link to="/OftenQuestion">{{ $t('labels.oftenQuestion') }}</router-link></li>
                     <li><router-link to="/HolidayTips">{{ $t('labels.holidayTips') }}</router-link></li>
-
-
-                    <!--<li><router-link to="/Tourism">{{ $t('labels.touristAtractions') }}</router-link></li> -->
                     <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
                 </ul>
             </nav>
-            <!-- #nav-menu-container -->
         </div>
     </header>
-    <!-- #header -->
 </template>
 
 <script>
@@ -180,7 +175,8 @@ a {
 }
 
 #header {
-  position: absolute;
+  position: fixed;
+  /* position: absolute; */
   left: 0;
   top: 0;
   right: 0;

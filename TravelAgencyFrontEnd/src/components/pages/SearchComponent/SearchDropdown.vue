@@ -8,7 +8,7 @@
                 aria-expanded="false">
             <b>{{ inputAdult }} <i class="fas fa-user"></i></b>
             <b>{{ inputChild }} <i class="fas fa-baby"></i></b>
-            <b>{{ inputRoom }} <i class="fas fa-door-closed"></i></b>
+<!--             <b>{{ inputRoom }} <i class="fas fa-door-closed"></i></b> -->
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div class="container text-start">
@@ -28,14 +28,14 @@
                                  :max="100"
                                  value="0" />
                 </p>
-                <p>
+<!--                 <p>
                     {{ $t('labels.roomss') }}
                     <InputNumber v-model="inputRoom"
                                  showButtons
                                  :min="0"
                                  :max="100"
                                  value="0" />
-                </p>
+                </p> -->
             </div>
         </ul>
     </div>
@@ -51,28 +51,28 @@ export default {
     computed: {
         inputAdult: {
             get() {
-                return this.$store.state.searchString.inputAdult;
+                return this.$store.state.bookingDetail.adultInput;
             },
             set(value) {
-                this.$store.dispatch("updateAdults", value);
+                this.$store.state.bookingDetail.adultInput = value;
             },
         },
         inputChild: {
             get() {
-                return this.$store.state.searchString.inputChild;
+                return this.$store.state.bookingDetail.childrenInput;
             },
             set(value) {
-                this.$store.dispatch("updateChild", value);
+                this.$store.state.bookingDetail.childrenInput = value;
             },
         },
-        inputRoom: {
-            get() {
-                return this.$store.state.searchString.inputRooms;
-            },
-            set(value) {
-                this.$store.dispatch("updateRoom", value);
-            },
-        },
+        // inputRoom: {
+        //     get() {
+        //         return this.$store.state.searchString.inputRooms;
+        //     },
+        //     set(value) {
+        //         this.$store.dispatch("updateRoom", value);
+        //     },
+        // },
     }
 }
 

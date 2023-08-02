@@ -10,6 +10,7 @@ import ToastPlugin from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-bootstrap.css';
 
 import 'primevue/resources/themes/saga-blue/theme.css'
+import './index.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css';

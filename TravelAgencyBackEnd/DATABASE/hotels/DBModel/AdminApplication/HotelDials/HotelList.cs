@@ -18,6 +18,7 @@ namespace TravelAgencyBackEnd.DBModel
             HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
             HotelReservationLists = new HashSet<HotelReservationList>();
             HotelReservationReviewLists = new HashSet<HotelReservationReviewList>();
+            HotelReservedRoomLists = new HashSet<HotelReservedRoomList>();
             HotelRoomLists = new HashSet<HotelRoomList>();
         }
 
@@ -30,9 +31,9 @@ namespace TravelAgencyBackEnd.DBModel
         [Unicode(false)]
         public string Name { get; set; }
         [Required]
-        [Column(TypeName = "text")]
+        [Unicode(false)]
         public string DescriptionCz { get; set; }
-        [Column(TypeName = "text")]
+        [Unicode(false)]
         public string DescriptionEn { get; set; }
         public int DefaultCurrencyId { get; set; }
         public bool ApproveRequest { get; set; }
@@ -74,6 +75,8 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<HotelReservationList> HotelReservationLists { get; set; }
         [InverseProperty("Hotel")]
         public virtual ICollection<HotelReservationReviewList> HotelReservationReviewLists { get; set; }
+        [InverseProperty("Hotel")]
+        public virtual ICollection<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
         [InverseProperty("Hotel")]
         public virtual ICollection<HotelRoomList> HotelRoomLists { get; set; }
     }

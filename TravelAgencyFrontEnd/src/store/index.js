@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import router from '../router/index';
 import { encode } from "base-64";
-import AppVue from '../App.vue';
+//import AppVue from '../App.vue';
 
 /*
 APiRoots Urls
@@ -31,12 +31,12 @@ const store = createStore({
         searchAreaList: [],
         favoriteList: [],
         favoriteHotelList: [],
+        topFiveList: [],
         searchResults: [],
         filteredResults: [],
         backRoute: "/",
         reservedRoomList: [],
         searchButtonLoading: false,
-        hotels: [],
         searchString: {
             string: '',
             inputAdult: 0,
@@ -45,13 +45,26 @@ const store = createStore({
             dates: [],
         },
         bookingDetail: {
+            /*cleared by clearBooking*/
             hotelId: null,
             hotelName: null,
+            currency: null,
             startDate: null,
             endDate: null,
             adultInput: 0,
             childrenInput: 0,
-            roomsInput: 0,
+            message: null,
+            verified: false,
+            user: {
+                firstName : null,
+                lastName : null,
+                email: null,
+                street: null,
+                phone: null,
+                city: null,
+                country: null,
+                zipCode: null
+            },
             rooms: [],
             totalPrice: 0
         },
@@ -61,168 +74,146 @@ const store = createStore({
         },
 
 
-        guestId: 33, // hard coded
-        home: { title: 'store name' },
-        name: 'Vue',
-        addReview: {
-          name: '',
-          email: '',
-          message: '',
-        },
-        
-
-        getReviews: [],
-
-    savedHotel: [],
-    bookedHotels: [],
-        
-    reservation: {
-      fullName: 'sadas',
-      hotelName: 'sds',
-      startDate: '',
-      endDate: '',
-      adults: '',
-      children: '',
-      customerMessage: '',
-      type: '',
-      totalPrice: '',
-      extraBed: null,
-      hotelRoomsViewModel: {
-        singleRooms: '2',
-        doubleRooms: '2',
-        familyRooms: '2',
-      },
+        //guestId: 33, // hard coded
+        //home: { title: 'store name' },
+        //name: 'Vue',
+        //addReview: {
+        //  name: '',
+        //  email: '',
+        //  message: '',
+        //},
+        //getReviews: [],
+        //savedHotel: [],
+        //bookedHotels: [],
+        //reservation: {
+        //  fullName: 'sadas',
+        //  hotelName: 'sds',
+        //  startDate: '',
+        //  endDate: '',
+        //  adults: '',
+        //  children: '',
+        //  customerMessage: '',
+        //  type: '',
+        //  totalPrice: '',
+        //  extraBed: null,
+        //  hotelRoomsViewModel: {
+        //    singleRooms: '2',
+        //    doubleRooms: '2',
+        //    familyRooms: '2',
+        //  },
+        //},
+        //orderId: '',
     },
-    customerDetailsCheckout: {},
-    orderId: '',
-  },
     mutations: {
+        setHotel(store, value) {
+            store.hotel = value
+        },
+        setTopFiveList(store, value) {
+            store.topFiveList = value;
+        },
         setFavoriteHotelList(store, value) {
             store.favoriteHotelList = value;
-            console.log("favorite", store.favoriteHotelList);
         },
         setFavoriteList(store, value) {
             store.favoriteList = value;
         },
         setReservedRoomList(store, value) {
-            store.reservedRoomList = value
+            store.reservedRoomList = value;
         },
         setPropertyList(store, value) {
-            store.propertyList = value
+            store.propertyList = value;
         },
         setRoomTypeList(store, value) {
-            store.roomTypeList = value
+            store.roomTypeList = value;
         },
         setSearchDialList(store, value) {
-            store.searchDialList = value
+            store.searchDialList = value;
         },
         setSearchAreaList(store, value) {
-            store.searchAreaList = value
+            store.searchAreaList = value;
         },
         setUbytkacInfoList(store, value) {
-            store.ubytkacInfoList = value
+            store.ubytkacInfoList = value;
         },
         setRegistrationInfoList(store, value) {
-            store.registrationInfoList = value
+            store.registrationInfoList = value;
         },
         setOftenQuestionList(store, value) {
-            store.oftenQuestionList = value
+            store.oftenQuestionList = value;
         },
         setHolidayTipsList(store, value) {
-            store.holidayTipsList = value
+            store.holidayTipsList = value;
         },
         setTopList(store, value) {
-            store.searchResults = value
-            store.searchButtonLoading = false
+            store.searchResults = value;
+            store.searchButtonLoading = false;
         },
         setHotelSearchResultsList(store, value) {
-            store.searchResults = value
-            store.filteredResults = value
-            store.searchButtonLoading = false
+            store.searchResults = value;
+            store.filteredResults = value;
+            store.searchButtonLoading = false;
         },
         setSearchButtonLoadingTrue(store, value) {
-            store.searchButtonLoading = true
-        },
-        updateAdults(state, value) {
-            state.searchString.inputAdult = value
-        },
-        updateChild(state, value) {
-            state.searchString.inputChild = value
-        },
-        updateRoom(state, value) {
-            state.searchString.inputRooms = value
+            store.searchButtonLoading = true;
         },
         setDates(state, date) {
-            state.searchString.dates = date
+            state.searchString.dates = date;
         },
         setSearchString(state, value) {
-            state.searchString.string = value
+            state.searchString.string = value;
         },
 
-      setEmail(store, value) {
-      store.addReview.email = value
-      },
 
-    setMessage(store, value) {
-      store.addReview.message = value
-    },
+        //  setEmail(store, value) {
+        //  store.addReview.email = value
+        //  },
+        //setMessage(store, value) {
+        //  store.addReview.message = value
+        //},
+        //setReservationDetails(state, data) {
+        //  state.reservation = data
+        //},
+        //getReviews(state, data) {
+        //  state.getReviews = data
+        //},
 
-
-
-    setHotel(store, value) {
-      store.hotel = value
-    },
-
-
-    setReservationDetails(state, data) {
-      state.reservation = data
-    },
-    getReviews(state, data) {
-      state.getReviews = data
-    },
-
-    setBookedTotalPrice(state) {
-        var days = Math.floor(
-        (Date.parse(state.searchString.dates[1].toLocaleDateString('sv-SE')) -
-            Date.parse(state.searchString.dates[0].toLocaleDateString('sv-SE'))) /
-            86400000
-        )
-        state.bookingDetail.totalPrice = 0;
-        state.bookingDetail.rooms.forEach(room => {
-            if (room.booked > 0) { state.bookingDetail.totalPrice += days * room.price * room.booked; }
-        });
+        setBookedTotalPrice(state) {
+            var days = Math.floor(
+            (Date.parse(state.searchString.dates[1].toLocaleDateString('sv-SE')) -
+                Date.parse(state.searchString.dates[0].toLocaleDateString('sv-SE'))) /
+                86400000
+            )
+            state.bookingDetail.totalPrice = 0;
+            state.bookingDetail.rooms.forEach(room => {
+                if (room.booked > 0) { state.bookingDetail.totalPrice += days * room.price * room.booked; }
+            });
         
-    },
-    setUser(state, data) {
-        state.user = data
-        state.user.loggedIn = true
-        console.log("user", state.user);
-    },
-    logOutUser(state) {
-        state.user.loggedIn = false
-    },
-
-    setEmail(state, value) {
-      state.user.Email = value
-    },
-    setPassword(state, value) {
-      state.user.Password = value
-    },
-    setBookedHotels(state, value) {
-      state.bookedHotels = value
-    },
-    setOrderId(state, value) {
-      state.orderId = value
-    },
-    //setHotelId(state, value) {
-    //  state.bookingDetails.hotelId = value
-    //},
-  },
-    actions: {
-        saveCustomerDetailsCheckout({ commit }, data) {
-            commit('setCustomerDetailsCheckout', data)
+        },
+        setUser(state, data) {
+            state.user = data
+            state.user.loggedIn = true
+            console.log("user", state.user);
+        },
+        logOutUser(state) {
+            state.user = {
+                loggedIn: false,
+            }
         },
 
+    //setEmail(state, value) {
+    //  state.user.Email = value
+    //},
+    //setPassword(state, value) {
+    //  state.user.Password = value
+    //},
+    //setBookedHotels(state, value) {
+    //  state.bookedHotels = value
+    //},
+    //setOrderId(state, value) {
+    //  state.orderId = value
+    //}
+    },
+    actions: {
         async searchHotels({ commit }, searchString) {
             if (searchString === null || searchString == '') { searchString = "null"; }
 
@@ -234,7 +225,7 @@ const store = createStore({
                 }
             });
             var result = await response.json();
-            console.log("hotels", result);
+            console.log("hotellist", result);
 
             commit('setHotelSearchResultsList', result.hotelList)
             if (result) {
@@ -338,61 +329,61 @@ const store = createStore({
         },
 
 
-        async searchHotelByName({ commit }, searchString) {
-            var response = await fetch(
-                this.state.apiRootUrl + '/Search/search?input=' + searchString
-            ) // Default is GET
-            var result = await response.json()
-            if (result) {
-                commit('setHotelSearchResultsList', result)
-                router.push({ name: 'result' })
-            }
-        },
-        async getHotelById({ commit }, hotelId) {
-            var response = await fetch(
-                this.state.apiRootUrl + '/Hotel/GetById/' + hotelId
-            ) // Default is GET
-            var result = await response.json()
-            commit('setHotel', result)
-        },
+        //async searchHotelByName({ commit }, searchString) {
+        //    var response = await fetch(
+        //        this.state.apiRootUrl + '/Search/search?input=' + searchString
+        //    ) // Default is GET
+        //    var result = await response.json()
+        //    if (result) {
+        //        commit('setHotelSearchResultsList', result)
+        //        router.push({ name: 'result' })
+        //    }
+        //},
+        //async getHotelById({ commit }, hotelId) {
+        //    var response = await fetch(
+        //        this.state.apiRootUrl + '/Hotel/GetById/' + hotelId
+        //    ) // Default is GET
+        //    var result = await response.json()
+        //    commit('setHotel', result)
+        //},
         async setHotel({ commit }, hotel) {
             commit('setHotel', hotel)
         },
-        async getReservationById({ commit }, reservationId) {
-            var response = await fetch(
-                this.state.apiRootUrl + '/Booking/' + reservationId
-            )
-            var result = await response.json()
-            commit('setReservationDetails', result)
-        },
-        async searchHotelByCity({ commit }, searchString) {
-            var response = await fetch(
-                this.state.apiRootUrl + '/Search/GetHotelByCity?input=' +
-                searchString
-            ) // Default is GET
-            var result = await response.json()
-            if (result) {
-                commit('setHotelSearchResultsList', result)
-                router.push({ name: 'result' })
-            }
-        },
-        async searchSpecific({ commit }, payload) {
-            window.scrollTo(0, 0)
-            commit('setSearchString', payload.searchString)
-            commit('setSearchButtonLoadingTrue', null)
-            setTimeout(
-                function (that) {
-                    // Timeout resolves inconsistent scroll behaviour between scrollTo and router.push
-                    if (payload.type === 'city') {
-                        that.dispatch('searchHotelByCity', payload.searchString)
-                    } else {
-                        that.dispatch('searchHotelByName', payload.searchString)
-                    }
-                },
-                500,
-                this
-            )
-        },
+        //async getReservationById({ commit }, reservationId) {
+        //    var response = await fetch(
+        //        this.state.apiRootUrl + '/Booking/' + reservationId
+        //    )
+        //    var result = await response.json()
+        //    commit('setReservationDetails', result)
+        //},
+        //async searchHotelByCity({ commit }, searchString) {
+        //    var response = await fetch(
+        //        this.state.apiRootUrl + '/Search/GetHotelByCity?input=' +
+        //        searchString
+        //    ) // Default is GET
+        //    var result = await response.json()
+        //    if (result) {
+        //        commit('setHotelSearchResultsList', result)
+        //        router.push({ name: 'result' })
+        //    }
+        //},
+        //async searchSpecific({ commit }, payload) {
+        //    window.scrollTo(0, 0)
+        //    commit('setSearchString', payload.searchString)
+        //    commit('setSearchButtonLoadingTrue', null)
+        //    setTimeout(
+        //        function (that) {
+        //            // Timeout resolves inconsistent scroll behaviour between scrollTo and router.push
+        //            if (payload.type === 'city') {
+        //                that.dispatch('searchHotelByCity', payload.searchString)
+        //            } else {
+        //                that.dispatch('searchHotelByName', payload.searchString)
+        //            }
+        //        },
+        //        500,
+        //        this
+        //    )
+        //},
 
         async getSearchDialList({ commit }) {
             var response = await fetch(
@@ -483,52 +474,88 @@ const store = createStore({
             var result = await response.json()
             commit('setFavoriteHotelList', result.hotelList)
         },
+        async getTopFiveList({ commit }, type) {
 
-    async getReviews({ commit }, hotelId) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Hotel/GetReviews/' + hotelId
-      )
-      var result = await response.json()
-      commit('getReviews', result)
-    },
+            var response = await fetch(
+                this.state.apiRootUrl + '/Guest/GetTopFiveList/' + type +'/' + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            var result = await response.json()
+            commit('setTopFiveList', result.hotelList)
+        },
+        async getReviews({ commit }, hotelId) {
+          var response = await fetch(
+            this.state.apiRootUrl + '/Hotel/GetReviews/' + hotelId
+          )
+          var result = await response.json()
+          commit('getReviews', result)
+        },
 
-      deleteRegistration({ commit }, Id) {
-          fetch(this.state.apiRootUrl + '/Guest/DeleteRegistration', {
-              method: 'DELETE',
-              headers: {
-                  "Authorization": 'Bearer ' + this.state.user.Token,
-                  "Content-type": "application/json",
-              },
+        deleteRegistration({ commit }, Id) {
+            fetch(this.state.apiRootUrl + '/Guest/DeleteRegistration', {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": 'Bearer ' + this.state.user.Token,
+                    "Content-type": "application/json",
+                },
 
-          });
-          commit('logOutUser');
-          router.push('/');
-      },
-      setDates({ commit }, date) {
-          commit('setDates', date);
-      },
-      setFavoriteList({ commit }, value) {
-          commit('setFavoriteList', value);
-      },
+            });
+            commit('logOutUser');
+            router.push('/');
+        },
+        setDates({ commit }, date) {
+            commit('setDates', date);
+        },
+        setFavoriteList({ commit }, value) {
+            commit('setFavoriteList', value);
+        },
+        clearBooking() {
+            this.state.bookingDetail = {
+                hotelId: null,
+                hotelName: null,
+                currency: null,
+                startDate: null,
+                endDate: null,
+                adultInput: 0,
+                childrenInput: 0,
+                message: null,
+                verified: false,
+                user: {
+                    firstName: null,
+                    lastName: null,
+                    email: null,
+                    street: null,
+                    phone: null,
+                    city: null,
+                    country: null,
+                    zipCode: null
+                },
+                rooms: [],
+                totalPrice: 0
+            }
+        },
 
-    async getBookings({ commit }) {
-      var response = await fetch(
-        this.state.apiRootUrl + '/Booking/guest/' + this.state.user.id
-      )
-      var result = await response.json()
-      commit('setBookedHotels', result)
-    },
-    async setOrderId({ commit }, value) {
-      commit('setOrderId', value)
-    },
 
-    //clearCart({ commit }) {
-    //  commit('clearBookingDetails')
+
+    //async getBookings({ commit }) {
+    //  var response = await fetch(
+    //    this.state.apiRootUrl + '/Booking/guest/' + this.state.user.id
+    //  )
+    //  var result = await response.json()
+    //  commit('setBookedHotels', result)
     //},
-    setHotelId({ commit }, value) {
-      commit('setHotelId', value)
+    //async setOrderId({ commit }, value) {
+    //  commit('setOrderId', value)
+    //},
+
+    //setHotelId({ commit }, value) {
+    //  commit('setHotelId', value)
+    //},
     },
-  },
 })
 
 export default store

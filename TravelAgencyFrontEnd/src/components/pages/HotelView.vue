@@ -5,7 +5,7 @@
 
                 <h1>{{hotel.name}}</h1>
                 <div class="container-fluid">
-                    <PhotoG :photos="photos"></PhotoG>
+                    <!-- <PhotoG :photos="photos"></PhotoG> -->
                     <div class="row">
                         <div class="col-md-12 buttons">
                             <ul class="nav nav-pills">
@@ -19,7 +19,7 @@
 
                                     <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')"></Button>
                                     <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
-                                    <Button id="menuButton" :label="$t('labels.rooms')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.lease')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
                                     <Button id="menuButton"  :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
                                 </div>
 

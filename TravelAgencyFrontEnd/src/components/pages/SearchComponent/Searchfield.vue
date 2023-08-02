@@ -34,7 +34,7 @@ export default {
         this.GetSearchAreaList();
         this.GetSearchDialList();
         this.GetPropertyList();
-        this.GetRoomTypeList();
+        //this.GetRoomTypeList();
         this.searchFieldChange();
     },
     methods: {

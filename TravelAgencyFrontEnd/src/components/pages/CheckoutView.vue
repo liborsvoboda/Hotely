@@ -12,8 +12,8 @@
                 <Steps :model="items" />
             </div>
             <router-view class="" @payment-confirmed="confirmed"/>
-            <Button v-if="notAtStart" @click="prevPage" label="Prev" class="p-button-raised p-button-rounded mt-3" />
-            <Button v-if="notAtEnd" @click="nextPage" label="Next" class="p-button-raised p-button-rounded mt-3" />
+            <Button v-if="notAtStart" @click="prevPage" :label="$t('labels.previous')" class="p-button-raised p-button-rounded mt-3 mr-3" />
+            <Button v-if="notAtEnd" @click="nextPage" :label="$t('labels.next')" class="p-button-raised p-button-rounded mt-3" />
         </div>
     </div>
 </template>
@@ -30,41 +30,43 @@ export default {
         Steps,
         Button
     },
-    computed:{
+    computed: {
+        loggedIn() {
+            return this.$store.state.user.loggedIn;
+        },
         notAtStart(){
-            return this.page > 0 ? true : false;
+            return this.page > 0 && this.page != this.items.length - 1 ? true : false;
         },
-        notAtEnd(){
-            return this.page < this.items.length - 2 ? true : false;
+        notAtEnd() {
+            return this.page < this.items.length - 1 && (this.page != 1 || this.page == 1 && !this.checkPersons) && (this.loggedIn || this.$store.state.bookingDetail.verified) ? true : false;
         },
+        checkPersons() {
+            if (this.$store.state.bookingDetail.adultInput == 0) { return true; } else { return false; }
+        }
     },
     data() {
 		return {
-			items: [{
-                label: 'Customer Information',
+            items: [
+                {
+                label: this.$i18n.t("labels.customer"),
                 to: '/checkout'
-            },
-            {
-                label: 'Order Details',
-                to: '/checkout/orderDetails'
-            },
-            {
-                label: 'Payment',
-                to: '/checkout/payment'
-            },
-            {
-                label: 'Order Confirmed',
-                to: '/checkout/OrderConfirmed'
-            },
+                },
+                {
+                    label: this.$i18n.t('user.reservationInfo'),
+                    to: '/checkout/orderDetails'
+                },
+                {
+                    label: this.$i18n.t("labels.sendBookingRequest"),
+                    to: '/checkout/OrderConfirmed'
+                },
             ],
             page: 0
 		}
 	},
     methods:{
         nextPage() {
-            if(this.page <= this.items.length - 2){
+            if(this.page < this.items.length - 1){
                 this.page++;
-                var orderId;
                 this.$router.push(this.items[this.page].to);
             }
         },
@@ -75,8 +77,6 @@ export default {
             }
         },
         confirmed(id){
-            // Set id in vuex
-            this.$store.dispatch('setOrderId', id);
             this.nextPage();
         }
     }
@@ -84,6 +84,7 @@ export default {
 </script>
 
 <style scoped>
+
     .h3, h3{
         padding-top: 20px;
     }
