@@ -70,7 +70,13 @@
     "fromDate": "Od data",
     "toDate": "Do data",
     "editLease": "Editace pronájmu",
-    "sendBookingRequest": "Odeslaní poptávky"
+    "sendBookingRequest": "Odeslaní poptávky",
+    "cancelBooking": "Zrušení rezervace",
+    "reservationNumber": "Číslo rezervace",
+    "messagesHistory": "Historie zpráv",
+    "status": "Status",
+    "reservationDetail": "Detail rezervace",
+    "searchAccomodation": "Vyhledat ubytování"
   },
   "user": {
     "login": "Přihlásit",
@@ -113,6 +119,11 @@
     "reservationWasSent": "Poptávka rezervace byla odeslána",
     "reservationInfo": "přehled Poptávek a Rezervací najdete ve svém profilu",
     "verifyNotMatch": "Verifikační kód nesouhlasí",
-    "emailVerified": "Email byl ověřen"
+    "emailVerified": "Email byl ověřen",
+    "anyReservationExist": "Nemáte žádnou Rezervaci. Všechny vaše poptávky, rezervace a jejich komunikaci uvidíte zde.",
+    "thisBookingIsCancelled": "Tato rezervace je zrušená",
+    "bookingWasCancelled": "Rezervace byla zrušena",
+    "doYouReallyCancelBooking": "Opravdu chcete zrušit rezervaci:",
+    "writeCancelReason": "\r\nNapište důvod zrušení:"
   }
 }

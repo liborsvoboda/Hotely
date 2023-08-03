@@ -10,7 +10,7 @@ import AddReview from "../components/pages/HotelViewComponents/ReviewComponents/
 import CheckoutView from "../components/pages/CheckoutView.vue";
 import { registerRuntimeCompiler } from "@vue/runtime-core";
 import Home from "/src/components/pages/Home.vue";
-import ReservationDetails from "/src/components/pages/ReservationDetails.vue";
+//import ReservationDetails from "/src/components/pages/ReservationDetails.vue";
 import CustomerDetails from '/src/components/pages/CheckoutViewComponents/CustomerDetails.vue'
 import OrderDetails from '/src/components/pages/CheckoutViewComponents/OrderDetails.vue'
 import OrderConfirmed from '/src/components/pages/CheckoutViewComponents/OrderConfirmed.vue'
@@ -22,7 +22,7 @@ import Profile from '../components/pages/CustomerProfile/ProfilePage.vue'
 import Bookings from '../components/pages/CustomerProfile/Bookings.vue'
 import FavoriteHotelList from '/src/components/pages/CustomerProfile/FavoriteHotelList.vue';
 import ProfileSetting from '../components/pages/CustomerProfile/ProfileSetting.vue'
-import ProfileCustomerDetails from '../components/pages/CustomerProfile/ProfileCustomerDetails.vue'
+//import ProfileCustomerDetails from '../components/pages/CustomerProfile/ProfileCustomerDetails.vue'
 import Contact from '../components/pages/Extra pages/Contact.vue';
 import About from '../components/pages/Extra pages/About.vue';
 import UbytkacInfo from '../components/pages/Extra pages/UbytkacInfo.vue';
@@ -171,11 +171,11 @@ const routes = [
             }
         ]
     },
-    {
-        path: "/reservationdetails/:id",
-        name: "reservationdetails",
-        component: ReservationDetails,
-    },
+    //{
+    //    path: "/reservationdetails/:id",
+    //    name: "reservationdetails",
+    //    component: ReservationDetails,
+    //},
 ];
 const router = createRouter({
     history: createWebHistory(),

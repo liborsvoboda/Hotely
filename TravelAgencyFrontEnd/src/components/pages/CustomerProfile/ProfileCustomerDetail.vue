@@ -85,7 +85,7 @@ export default {
     },
     computed:{
         info(){
-            return this.hotel.guestDetails;
+            return this.hotel;
         }
     },
     methods:{

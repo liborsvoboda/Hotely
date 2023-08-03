@@ -21,6 +21,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        bookingList: [],
         propertyList: [],
         roomTypeList: [],
         ubytkacInfoList: [],
@@ -48,6 +49,7 @@ const store = createStore({
             /*cleared by clearBooking*/
             hotelId: null,
             hotelName: null,
+            currencyId: null,
             currency: null,
             startDate: null,
             endDate: null,
@@ -105,6 +107,10 @@ const store = createStore({
         //orderId: '',
     },
     mutations: {
+        setBookingList(store, value) {
+            store.bookingList = value;
+            console.log("bookingList", store.bookingList);
+        },
         setHotel(store, value) {
             store.hotel = value
         },
@@ -192,7 +198,6 @@ const store = createStore({
         setUser(state, data) {
             state.user = data
             state.user.loggedIn = true
-            console.log("user", state.user);
         },
         logOutUser(state) {
             state.user = {
@@ -461,6 +466,19 @@ const store = createStore({
             commit('logOutUser')
             router.push('/')
         },
+        async getBookingList({ commit }) {
+
+            var response = await fetch(
+                this.state.apiRootUrl + '/Guest/Booking/GetBookingList/' + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            var result = await response.json();
+            commit('setBookingList', result);
+        },
         async getFavoriteHotelList({ commit }) {
 
             var response = await fetch(
@@ -517,6 +535,7 @@ const store = createStore({
             this.state.bookingDetail = {
                 hotelId: null,
                 hotelName: null,
+                currencyId: null,
                 currency: null,
                 startDate: null,
                 endDate: null,

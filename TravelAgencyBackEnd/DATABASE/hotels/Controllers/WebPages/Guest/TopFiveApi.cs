@@ -16,15 +16,15 @@ namespace TravelAgencyBackEnd.Controllers {
             switch (type) {
                 case "newest":
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                        data = new hotelsContext().HotelLists.Where(a=>a.Approved && a.Advertised)
+                        data = new hotelsContext().HotelLists.Where(a => a.Approved && a.Advertised)
                             .OrderByDescending(a => a.Timestamp).Select(a => a.Id).Take(5).ToList();
                     }
                     break;
                 case "cheapest":
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         data = new hotelsContext().HotelRoomLists
-                            .Where(a=> a.Approved && a.Hotel.Approved && a.Hotel.Advertised)
-                            .OrderBy(a => a.Price).Select(a=>a.HotelId).Distinct().Take(5).ToList();
+                            .Where(a => a.Approved && a.Hotel.Approved && a.Hotel.Advertised)
+                            .OrderBy(a => a.Price).Select(a => a.HotelId).Distinct().Take(5).ToList();
                     }
                     break;
                 case "favoritest":
@@ -53,7 +53,23 @@ namespace TravelAgencyBackEnd.Controllers {
                     hotelRoom.DescriptionCz = hotelRoom.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
                     hotelRoom.DescriptionEn = hotelRoom.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
                 });
-                hotel.HotelImagesLists.ToList().ForEach(attachment => { attachment.Attachment = null; });
+                hotel.HotelImagesLists.ToList().ForEach(attachment => {
+                    attachment.Hotel = null;
+                    attachment.Attachment = null;
+                });
+
+                hotel.City.HotelLists = null;
+                hotel.City.Country = null;
+                hotel.Country.CityLists = null;
+                hotel.Country.HotelLists = null;
+                hotel.DefaultCurrency.HotelLists = null;
+                hotel.HotelPropertyAndServiceLists.ToList().ForEach(property => {
+                    property.Hotel = null;
+                });
+                hotel.HotelRoomLists.ToList().ForEach(room => {
+                    room.Image = null;
+                    room.Hotel = null;
+                });
             });
 
             //TODO changed to old structure

@@ -79,6 +79,7 @@ export default {
         Book() {
             this.$store.state.bookingDetail.hotelId = this.$store.state.hotel.id;
             this.$store.state.bookingDetail.hotelName = this.$store.state.hotel.name;
+            this.$store.state.bookingDetail.currencyId = this.$store.state.hotel.defaultCurrency.id;
             this.$store.state.bookingDetail.currency = this.$store.state.hotel.defaultCurrency.name;
             this.$store.state.bookingDetail.startDate = this.$store.state.searchString.dates[0].toLocaleDateString('sv-SE');
             this.$store.state.bookingDetail.endDate = this.$store.state.searchString.dates[1].toLocaleDateString('sv-SE');

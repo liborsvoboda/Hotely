@@ -186,8 +186,9 @@
     <Content Include="src\components\pages\CheckoutViewComponents\OrderDetails.vue" />
     <Content Include="src\components\pages\CustomerProfile\BookedHotel.vue" />
     <Content Include="src\components\pages\CustomerProfile\Bookings.vue" />
+    <Content Include="src\components\pages\CustomerProfile\ReservationDetail.vue" />
     <Content Include="src\components\pages\CustomerProfile\TopFive.vue" />
-    <Content Include="src\components\pages\CustomerProfile\ProfileCustomerDetails.vue" />
+    <Content Include="src\components\pages\CustomerProfile\ProfileCustomerDetail.vue" />
     <Content Include="src\components\pages\CustomerProfile\ProfileMain.vue" />
     <Content Include="src\components\pages\CustomerProfile\ProfilePage.vue" />
     <Content Include="src\components\pages\CustomerProfile\ProfileSetting.vue" />
@@ -218,7 +219,6 @@
     <Content Include="src\components\pages\MainPage\Destination.vue" />
     <Content Include="src\components\pages\MainPage\PopularDestinations.vue" />
     <Content Include="src\components\pages\MainPage\SelectedHotels.vue" />
-    <Content Include="src\components\pages\ReservationDetails.vue" />
     <Content Include="src\components\pages\SearchComponent\Datepicker.vue" />
     <Content Include="src\components\pages\SearchComponent\Search.vue" />
     <Content Include="src\components\pages\SearchComponent\SearchDropdown.vue" />

@@ -17,6 +17,10 @@ namespace TravelAgencyBackEnd.DBModel
         public int ReservationId { get; set; }
         public int RoomTypeId { get; set; }
         public int StatusId { get; set; }
+        [Required]
+        [StringLength(50)]
+        [Unicode(false)]
+        public string Name { get; set; }
         public int Count { get; set; }
         [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }

@@ -24,6 +24,7 @@ namespace TravelAgencyBackEnd.DBModel
         public int HotelId { get; set; }
         public int GuestId { get; set; }
         public int StatusId { get; set; }
+        public int CurrencyId { get; set; }
         public int? HotelAccommodationActionId { get; set; }
         [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
@@ -66,6 +67,9 @@ namespace TravelAgencyBackEnd.DBModel
         public string Email { get; set; }
         public DateTime Timestamp { get; set; }
 
+        [ForeignKey("CurrencyId")]
+        [InverseProperty("HotelReservationLists")]
+        public virtual CurrencyList Currency { get; set; }
         [ForeignKey("GuestId")]
         [InverseProperty("HotelReservationLists")]
         public virtual GuestList Guest { get; set; }

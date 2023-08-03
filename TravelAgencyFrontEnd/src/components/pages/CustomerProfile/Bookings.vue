@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div v-if="!bookedHotels.length && !errorText">
+        <div v-if="!bookingList.length && !errorText">
             <ProgressSpinner />
         </div>
         <div v-if="errorText">
-            <p>No bookings have been loaded. Try refreshing or create a booking for them to show up here!</p>
+            <p>{{ $t('messages.anyReservationExist') }}</p>
         </div>
-        <BookedHotel v-for="hotel in bookedHotels" :hotel="hotel" :key="hotel.reservationId"></BookedHotel>
-        <ConfirmDialog></ConfirmDialog>
+        <BookedHotel v-for="hotel in bookingList" :hotel="hotel" :key="hotel.id"></BookedHotel>
+        <!-- <ConfirmDialog></ConfirmDialog> -->
     </div>
 </template>
 <script>
@@ -26,17 +26,16 @@ export default {
         ProgressSpinner
     },
     async created(){
-        // Get booked hotels
-        await this.$store.dispatch('getBookings');
+        await this.$store.dispatch('getBookingList');
         
-        if(!this.bookedHotels.length){
+        if (!this.bookingList.length){
             this.errorText = true;
         }
         
     },
     computed:{
-        bookedHotels(){
-            return this.$store.state.bookedHotels;
+        bookingList(){
+            return this.$store.state.bookingList;
         }
     }
 }

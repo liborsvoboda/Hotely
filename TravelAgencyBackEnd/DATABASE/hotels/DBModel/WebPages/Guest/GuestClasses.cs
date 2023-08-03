@@ -34,6 +34,7 @@
     public class BookingDetail {
         public int HotelId { get; set; }
         public string HotelName { get; set; }
+        public int CurrencyId { get; set; }
         public string Currency { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -59,6 +60,13 @@
     public class BookingRoomList {
         public int Id { get; set; }
         public int TypeId { get; set; }
+        public string Name { get; set; }
         public int Booked { get; set; }
+    }
+
+    public class BookingCancel {
+        public int ReservationId { get; set; }
+        public string Message { get; set; }
+        public string Language { get; set; }
     }
 }

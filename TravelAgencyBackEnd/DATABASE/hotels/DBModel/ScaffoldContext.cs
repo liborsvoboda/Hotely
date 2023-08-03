@@ -424,7 +424,15 @@ namespace TravelAgencyBackEnd.DBModel
 
             modelBuilder.Entity<HotelReservationDetailList>(entity =>
             {
+                entity.Property(e => e.CurrencyId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.HotelReservationDetailLists)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelReservationDetailList_CurrencyList");
 
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.HotelReservationDetailLists)
@@ -453,7 +461,15 @@ namespace TravelAgencyBackEnd.DBModel
 
             modelBuilder.Entity<HotelReservationList>(entity =>
             {
+                entity.Property(e => e.CurrencyId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.HotelReservationLists)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HotelReservationList_CurrencyList");
 
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.HotelReservationLists)

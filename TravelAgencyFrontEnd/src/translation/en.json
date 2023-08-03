@@ -70,7 +70,13 @@
     "fromDate": "From date",
     "toDate": "To date",
     "editLease": "Lease edit",
-    "sendBookingRequest": "Send booking request"
+    "sendBookingRequest": "Send booking request",
+    "cancelBooking": "Cancel booking",
+    "reservationNumber": "Reservation number",
+    "messagesHistory": "Messages history",
+    "status": "Status",
+    "reservationDetail": "Reservation detail",
+    "searchAccomodation": "Search accomodation"
   },
   "user": {
     "login": "Přihlásit",
@@ -113,7 +119,11 @@
     "reservationWasSent": "The booking request has been sent",
     "reservationInfo": "List wist Requests and Reservations you can find in your profile",
     "verifyNotMatch": "Verifikační kód nesouhlasí",
-    "emailVerified": "Email was verified."
-
+    "emailVerified": "Email was verified.",
+    "anyReservationExist": "You have no Reservation. You will see all your requests, reservations and their communications here.",
+    "thisBookingIsCancelled": "This booking is cancelled",
+    "bookingWasCancelled": "This booking was cancelled",
+    "doYouReallyCancelBooking": "Do you really cancel booking:",
+    "writeCancelReason": "\r\nWrite the reason of Cancel:"
   }
 }

@@ -22,7 +22,24 @@
             result.ForEach(hotel => { 
                 hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
                 hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
-                hotel.HotelImagesLists.ToList().ForEach(attachment => { attachment.Attachment = null; }); 
+
+                hotel.HotelImagesLists.ToList().ForEach(attachment => {
+                    attachment.Hotel = null;
+                    attachment.Attachment = null;
+                });
+
+                hotel.City.HotelLists = null;
+                hotel.City.Country = null;
+                hotel.Country.CityLists = null;
+                hotel.Country.HotelLists = null;
+                hotel.DefaultCurrency.HotelLists = null;
+                hotel.HotelPropertyAndServiceLists.ToList().ForEach(property => {
+                    property.Hotel = null;
+                });
+                hotel.HotelRoomLists.ToList().ForEach(room => {
+                    room.Image = null;
+                    room.Hotel = null;
+                });
             });
 
             //TODO changed to old structure

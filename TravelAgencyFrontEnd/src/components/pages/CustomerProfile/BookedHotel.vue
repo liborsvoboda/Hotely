@@ -1,115 +1,130 @@
 <template>
-  <div class="card mb-3">
-    <!-- style="max-width: 540px;" (in style)-->
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img
-          :src="hotel.hotelImg"
-          alt="..."
-          class="img-fluid"
-        />
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{ hotel.hotelName }}</h5>
-          <div class="textB">
-            <p>{{ hotel.fullName }}</p>
-            <p>{{ startDate }} - {{ endDate }}</p>
-            <p>More information about the booking</p>
-          </div>
-          <!-- Button trigger modal -->
-          <div v-if="hotel.status != 'Cancelled' && !canceled">
-            <router-link :to="'/reservationDetails/' + hotel.reservationId">
-                <Button id="buttonG" class="p-button-info mr-1" label="Order details"></Button>
-            </router-link>
-            <Button id="buttonG" @click="toggleEdit" class="p-button-info mr-1" label="Edit Booking"></Button>
+    <div class="card mb-3">
+        <!-- style="max-width: 540px;" (in style)-->
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="img-fluid ml-3 mt-3 mb-3"
+                     style="cursor:pointer" :title="$t('labels.searchAccomodation')" @click="openAccomodation(hotel.hotel.id)" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <h5 class="card-title text-left">{{ hotel.reservationNumber }}</h5>
+                            <div class="textB">
+                                <div class="text-left">{{ hotel.firstName }} {{ hotel.lastName }}</div>
+                                <div class="text-left">{{ startDate }} - {{ endDate }}</div>
+                                <div class="text-left">{{ hotel.adult }} {{ $t('labels.adults') }}, {{ hotel.children }} {{ $t('labels.children') }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="card-title text-right">{{ hotel.hotel.name }}</h5>
+                            <div class="textB">
+                                <div class="text-right">{{ hotel.status.systemName }}</div>
+                                <div v-for="room in hotel.hotelReservedRoomLists" class="text-right">
+                                    {{ room.name }} x {{ room.count }}
+                                </div>
+                                <div class="text-right">{{ hotel.totalPrice }} {{ hotel.currency.name }}</div>
+                            </div>
+                        </div>
+                    </div>
 
-            <Button  @click="cancel" class="p-button-danger" label="Cancel booking"></Button>
-          </div>
-          <div v-else>
-            <p style="color: red">This booking is cancelled</p>
-          </div>
+                    <div v-if="hotel.statusId != 3" class="text-center mb-3" style="top: 20px !important; position: relative;">
+                        <Button id="buttonG" class="p-button-info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
+                        <Button id="buttonG" :disabled="notEdit" @click="toggleEdit" class="p-button-info mr-1">{{ $t('labels.editLease') }}</Button>
+                        <Button :disabled="notEdit" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button-danger">{{ $t('labels.cancelBooking') }}</Button>
+                    </div>
+                    <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: 0px !important; position: absolute;">
+                        <Button id="buttonG" class="p-button-info mr-4" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
+                        <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
+                    </div>
 
+                </div>
+            </div>
         </div>
-      </div>
+        <div v-if="edit">
+            <ProfileCustomerDetail :hotel="hotel" />
+        </div>
+        <div v-if="detail">
+            <ReservationDetail :hotel="hotel" />
+        </div>
     </div>
-    <div v-if="edit">
-      <ProfileCustomerDetails :hotel="hotel" />
-    </div>
-  </div>
 </template>
 
 <script>
-import ProfileCustomerDetails from "/src/components/pages/CustomerProfile/ProfileCustomerDetails.vue";
-
-import Button from "primevue/button";
+    import ProfileCustomerDetail from "/src/components/pages/CustomerProfile/ProfileCustomerDetail.vue";
+    import ReservationDetail from "/src/components/pages/CustomerProfile/ReservationDetail.vue";
+    import Button from "primevue/button";
 export default {
-  components: {
-    ProfileCustomerDetails,
-    Button,
-  },
-  props: {
-    hotel: {},
-  },
-  data() {
-    return {
-      edit: false,
-      canceled: false,
-    };
-  },
-  computed: {
-    startDate() {
-      if(this.hotel.startDate === undefined){
-        return 'Not available'
-      }
-      return this.hotel.startDate.split("T")[0];
+    components: {
+        ProfileCustomerDetail,
+        ReservationDetail,
+        Button,
     },
-    endDate() {
-      if(this.hotel.endDate === undefined){
-        return 'Not available'
-      }
-      return this.hotel.endDate.split("T")[0];
+    props: {
+        hotel: {},
     },
-  },
-  methods: {
-    toggleEdit() {
-      this.edit = !this.edit;
+    data() {
+        return {
+            edit: false,
+            detail: false
+        };
     },
-    CancelBooking() {
-      fetch(
-        "http://nomad.ubytkac.cz:5000/api/Booking/CancelBooking?id=" +
-          this.hotel.reservationId,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(this.hotel.reservationId),
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          this.canceled = true;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    },
-    cancel() {
-      this.$confirm.require({
-        message: "Are you sure you want to cancel your booking?",
-        header: "Confirmation",
-        icon: "pi pi-exclamation-triangle",
-        acceptClass: 'p-button-danger',
-        accept: () => {
-          //callback to execute when user confirms the action
-          this.CancelBooking();
+    computed: {
+        imageApi() {
+            return this.$store.state.apiRootUrl + '/Image/';
         },
-        reject: () => {
-          //callback to execute when user rejects the action
+        notEdit() {
+            return new Date(this.hotel.startDate) < new Date();
         },
-      });
+        startDate() {
+            if (this.hotel.startDate === undefined) {
+                return 'Not available'
+            }
+            return new Date(this.hotel.startDate).toLocaleDateString('cs-CZ');
+        },
+        endDate() {
+            if (this.hotel.endDate === undefined) {
+                return 'Not available'
+            }
+            return new Date(this.hotel.endDate).toLocaleDateString('cs-CZ');
+        },
     },
-  },
+    methods: {
+        openAccomodation() {
+            this.$store.dispatch('clearBooking');
+            this.$router.push('/');
+            this.$store.state.searchButtonLoading = true;
+            this.$store.dispatch('searchHotels', this.hotel.hotel.name);
+        },
+        toggleEdit() {
+            this.edit = !this.edit;
+        },
+        showDetail() {
+            this.detail = !this.detail;
+        },
+    
+        async cancel(bookingNr ,id) {
+            let message = prompt(this.$i18n.t("messages.doYouReallyCancelBooking") + ' ' + bookingNr + this.$i18n.t("messages.writeCancelReason"));
+            
+            if (message == null || message == "") {
+
+            } else {
+                var response = await fetch(
+                    this.$store.state.apiRootUrl + '/Guest/Booking/CancelBooking', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + this.$store.state.user.Token,
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({ ReservationId: id, Message: message, Language: this.$store.state.language })
+                });
+                var result = await response.json()
+                await this.$store.dispatch('getBookingList');
+                this.$store.state.toastSuccessMessage = this.$i18n.t("messages.bookingWasCancelled");
+            }
+        },
+    },
 };
 </script>
 

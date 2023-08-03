@@ -84,7 +84,7 @@ namespace TravelAgencyBackEnd.Controllers {
                     ReservationNumber = documentAdviceList.Prefix + (int.Parse(documentAdviceList.Number) + 1).ToString("D" + documentAdviceList.Number.Length.ToString()),
                     GuestId = int.Parse(authId), StatusId = 1, HotelAccommodationActionId = null,
                     StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
-                    TotalPrice = record.Booking.TotalPrice, Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
+                    TotalPrice = record.Booking.TotalPrice, CurrencyId = record.Booking.CurrencyId, Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
                     FirstName = record.Booking.User.FirstName, LastName = record.Booking.User.LastName, Street = record.Booking.User.Street, Zipcode = record.Booking.User.ZipCode,
                     City = record.Booking.User.City, Country = record.Booking.User.Country, Phone = record.Booking.User.Phone, Email = record.Booking.User.Email,
                     Timestamp = DateTimeOffset.Now.DateTime
@@ -105,8 +105,8 @@ namespace TravelAgencyBackEnd.Controllers {
                     HotelReservationDetailList hotelReservationDetailList = new HotelReservationDetailList() {
                         GuestId = int.Parse(authId), HotelId = record.Booking.HotelId, ReservationId = hotelReservationList.Id, StatusId = 1, HotelAccommodationActionId = null,
                         StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
-                        TotalPrice = record.Booking.TotalPrice, Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
-                        Message = record.Booking.Message,GuestSender = false,Shown = false,
+                        TotalPrice = record.Booking.TotalPrice, CurrencyId = record.Booking.CurrencyId, Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
+                        Message = record.Booking.Message,GuestSender = true,Shown = false,
                         Timestamp = DateTimeOffset.Now.DateTime
                     };
                     var data2 = new hotelsContext().HotelReservationDetailLists.Add(hotelReservationDetailList);
@@ -119,7 +119,7 @@ namespace TravelAgencyBackEnd.Controllers {
 
                     record.Booking.Rooms.ForEach(room => {
                         HotelReservedRoomList hotelReservedRoomList = new() {
-                            HotelId = record.Booking.HotelId, HotelRoomId = room.Id, ReservationId = hotelReservationList.Id, RoomTypeId = room.TypeId, StatusId = 1,
+                            HotelId = record.Booking.HotelId, HotelRoomId = room.Id, Name = room.Name, ReservationId = hotelReservationList.Id, RoomTypeId = room.TypeId, StatusId = 1,
                             StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
                             Count = room.Booked, Timestamp = DateTimeOffset.Now.DateTime
                         };
@@ -242,7 +242,7 @@ namespace TravelAgencyBackEnd.Controllers {
                     ReservationNumber = documentAdviceList.Prefix + (int.Parse(documentAdviceList.Number) + 1).ToString("D" + documentAdviceList.Number.Length.ToString()),
                     GuestId = int.Parse(authId), StatusId = 1, HotelAccommodationActionId = null,
                     StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
-                    TotalPrice = record.Booking.TotalPrice, Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
+                    TotalPrice = record.Booking.TotalPrice, CurrencyId = record.Booking.CurrencyId, Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
                     FirstName = record.Booking.User.FirstName, LastName = record.Booking.User.LastName,
                     Street = record.Booking.User.Street, Zipcode = record.Booking.User.ZipCode, City = record.Booking.User.City, Country = record.Booking.User.Country,
                     Phone = record.Booking.User.Phone, Email = record.Booking.User.Email, Timestamp = DateTimeOffset.Now.DateTime
@@ -262,20 +262,13 @@ namespace TravelAgencyBackEnd.Controllers {
                 //Save Reservation Detail
                 if (result > 0) {
                     HotelReservationDetailList hotelReservationDetailList = new HotelReservationDetailList() {
-                        GuestId = int.Parse(authId),
-                        HotelId = record.Booking.HotelId,
-                        ReservationId = hotelReservationList.Id,
-                        StatusId = 1,
-                        HotelAccommodationActionId = null,
-                        StartDate = record.Booking.StartDate,
-                        EndDate = record.Booking.EndDate,
-                        TotalPrice = record.Booking.TotalPrice,
-                        Adult = record.Booking.AdultInput,
-                        Children = record.Booking.ChildrenInput,
-                        Message = record.Booking.Message,
-                        GuestSender = false,
-                        Shown = false,
-                        Timestamp = DateTimeOffset.Now.DateTime
+                        GuestId = int.Parse(authId), HotelId = record.Booking.HotelId, ReservationId = hotelReservationList.Id,
+                        StatusId = 1, HotelAccommodationActionId = null,
+                        StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
+                        TotalPrice = record.Booking.TotalPrice, CurrencyId = record.Booking.CurrencyId,
+                        Adult = record.Booking.AdultInput, Children = record.Booking.ChildrenInput,
+                        Message = record.Booking.Message, GuestSender = true,
+                        Shown = false, Timestamp = DateTimeOffset.Now.DateTime
                     };
                     var data2 = new hotelsContext().HotelReservationDetailLists.Add(hotelReservationDetailList);
                     result = data2.Context.SaveChanges();
@@ -287,15 +280,10 @@ namespace TravelAgencyBackEnd.Controllers {
 
                     record.Booking.Rooms.ForEach(room => {
                         HotelReservedRoomList hotelReservedRoomList = new() {
-                            HotelId = record.Booking.HotelId,
-                            HotelRoomId = room.Id,
-                            ReservationId = hotelReservationList.Id,
-                            RoomTypeId = room.TypeId,
-                            StatusId = 1,
-                            StartDate = record.Booking.StartDate,
-                            EndDate = record.Booking.EndDate,
-                            Count = room.Booked,
-                            Timestamp = DateTimeOffset.Now.DateTime
+                            HotelId = record.Booking.HotelId, HotelRoomId = room.Id, Name = room.Name,
+                            ReservationId = hotelReservationList.Id, RoomTypeId = room.TypeId, StatusId = 1,
+                            StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
+                            Count = room.Booked, Timestamp = DateTimeOffset.Now.DateTime
                         };
                         var data3 = new hotelsContext().HotelReservedRoomLists.Add(hotelReservedRoomList);
                         result = data3.Context.SaveChanges();
