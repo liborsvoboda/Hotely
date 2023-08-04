@@ -1,7 +1,6 @@
 import { createStore } from 'vuex';
 import router from '../router/index';
 import { encode } from "base-64";
-//import AppVue from '../App.vue';
 
 /*
 APiRoots Urls
@@ -21,6 +20,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        propertyGroupList: [],
         bookingList: [],
         propertyList: [],
         roomTypeList: [],
@@ -74,42 +74,13 @@ const store = createStore({
         user: {
             loggedIn: false,
         },
-
-
-        //guestId: 33, // hard coded
-        //home: { title: 'store name' },
-        //name: 'Vue',
-        //addReview: {
-        //  name: '',
-        //  email: '',
-        //  message: '',
-        //},
-        //getReviews: [],
-        //savedHotel: [],
-        //bookedHotels: [],
-        //reservation: {
-        //  fullName: 'sadas',
-        //  hotelName: 'sds',
-        //  startDate: '',
-        //  endDate: '',
-        //  adults: '',
-        //  children: '',
-        //  customerMessage: '',
-        //  type: '',
-        //  totalPrice: '',
-        //  extraBed: null,
-        //  hotelRoomsViewModel: {
-        //    singleRooms: '2',
-        //    doubleRooms: '2',
-        //    familyRooms: '2',
-        //  },
-        //},
-        //orderId: '',
     },
     mutations: {
+        setPropertyGroupList(store, value) {
+            store.propertyGroupList = value;
+        },
         setBookingList(store, value) {
             store.bookingList = value;
-            console.log("bookingList", store.bookingList);
         },
         setHotel(store, value) {
             store.hotel = value
@@ -168,21 +139,6 @@ const store = createStore({
         setSearchString(state, value) {
             state.searchString.string = value;
         },
-
-
-        //  setEmail(store, value) {
-        //  store.addReview.email = value
-        //  },
-        //setMessage(store, value) {
-        //  store.addReview.message = value
-        //},
-        //setReservationDetails(state, data) {
-        //  state.reservation = data
-        //},
-        //getReviews(state, data) {
-        //  state.getReviews = data
-        //},
-
         setBookedTotalPrice(state) {
             var days = Math.floor(
             (Date.parse(state.searchString.dates[1].toLocaleDateString('sv-SE')) -
@@ -204,19 +160,6 @@ const store = createStore({
                 loggedIn: false,
             }
         },
-
-    //setEmail(state, value) {
-    //  state.user.Email = value
-    //},
-    //setPassword(state, value) {
-    //  state.user.Password = value
-    //},
-    //setBookedHotels(state, value) {
-    //  state.bookedHotels = value
-    //},
-    //setOrderId(state, value) {
-    //  state.orderId = value
-    //}
     },
     actions: {
         async searchHotels({ commit }, searchString) {
@@ -274,9 +217,22 @@ const store = createStore({
                 }
             });
             var result = await response.json();
-            console.log("Property", result);
+            //console.log("Property", result);
             commit('setPropertyList', result)
         },
+        async getPropertyGroupList({ commit }) {
+            var response = await fetch(
+                this.state.apiRootUrl + '/Properties/GetPropertyGroupList/' + this.state.language, {
+                method: 'get',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            var result = await response.json();
+            console.log("PropertyGroup", result);
+            commit('setPropertyGroupList', result)
+        },
+        
         async getRoomTypeList({ commit }) {
             var response = await fetch(
                 this.state.apiRootUrl + '/RoomTypes/' + this.state.language, {
@@ -332,63 +288,9 @@ const store = createStore({
             var result = await response.json();
             commit('setHolidayTipsList', result)
         },
-
-
-        //async searchHotelByName({ commit }, searchString) {
-        //    var response = await fetch(
-        //        this.state.apiRootUrl + '/Search/search?input=' + searchString
-        //    ) // Default is GET
-        //    var result = await response.json()
-        //    if (result) {
-        //        commit('setHotelSearchResultsList', result)
-        //        router.push({ name: 'result' })
-        //    }
-        //},
-        //async getHotelById({ commit }, hotelId) {
-        //    var response = await fetch(
-        //        this.state.apiRootUrl + '/Hotel/GetById/' + hotelId
-        //    ) // Default is GET
-        //    var result = await response.json()
-        //    commit('setHotel', result)
-        //},
         async setHotel({ commit }, hotel) {
             commit('setHotel', hotel)
         },
-        //async getReservationById({ commit }, reservationId) {
-        //    var response = await fetch(
-        //        this.state.apiRootUrl + '/Booking/' + reservationId
-        //    )
-        //    var result = await response.json()
-        //    commit('setReservationDetails', result)
-        //},
-        //async searchHotelByCity({ commit }, searchString) {
-        //    var response = await fetch(
-        //        this.state.apiRootUrl + '/Search/GetHotelByCity?input=' +
-        //        searchString
-        //    ) // Default is GET
-        //    var result = await response.json()
-        //    if (result) {
-        //        commit('setHotelSearchResultsList', result)
-        //        router.push({ name: 'result' })
-        //    }
-        //},
-        //async searchSpecific({ commit }, payload) {
-        //    window.scrollTo(0, 0)
-        //    commit('setSearchString', payload.searchString)
-        //    commit('setSearchButtonLoadingTrue', null)
-        //    setTimeout(
-        //        function (that) {
-        //            // Timeout resolves inconsistent scroll behaviour between scrollTo and router.push
-        //            if (payload.type === 'city') {
-        //                that.dispatch('searchHotelByCity', payload.searchString)
-        //            } else {
-        //                that.dispatch('searchHotelByName', payload.searchString)
-        //            }
-        //        },
-        //        500,
-        //        this
-        //    )
-        //},
 
         async getSearchDialList({ commit }) {
             var response = await fetch(
@@ -557,23 +459,6 @@ const store = createStore({
                 totalPrice: 0
             }
         },
-
-
-
-    //async getBookings({ commit }) {
-    //  var response = await fetch(
-    //    this.state.apiRootUrl + '/Booking/guest/' + this.state.user.id
-    //  )
-    //  var result = await response.json()
-    //  commit('setBookedHotels', result)
-    //},
-    //async setOrderId({ commit }, value) {
-    //  commit('setOrderId', value)
-    //},
-
-    //setHotelId({ commit }, value) {
-    //  commit('setHotelId', value)
-    //},
     },
 })
 

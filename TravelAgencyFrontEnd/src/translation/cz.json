@@ -76,7 +76,9 @@
     "messagesHistory": "Historie zpráv",
     "status": "Status",
     "reservationDetail": "Detail rezervace",
-    "searchAccomodation": "Vyhledat ubytování"
+    "searchAccomodation": "Vyhledat ubytování",
+    "newMessage": "Nová zpráva"
+
   },
   "user": {
     "login": "Přihlásit",
@@ -124,6 +126,7 @@
     "thisBookingIsCancelled": "Tato rezervace je zrušená",
     "bookingWasCancelled": "Rezervace byla zrušena",
     "doYouReallyCancelBooking": "Opravdu chcete zrušit rezervaci:",
-    "writeCancelReason": "\r\nNapište důvod zrušení:"
+    "writeCancelReason": "\r\nNapište důvod zrušení:",
+    "updateBookingWasSuccess": "Aktualizace rezervace byla úspěšná"
   }
 }

@@ -51,33 +51,6 @@
           </div>
 
           <div id="sliders">
-              <!-- <div>
-          <p>Price range (SEK)</p>
-          <Slider
-            v-model="pricerange.value"
-            v-bind="pricerange"
-            :max="2000"
-          ></Slider>
-        </div>
-        <hr />
-        <div>
-          <p>Distance to beach</p>
-          <Slider
-            v-model="beachDistance.value"
-            v-bind="beachDistance"
-            :max="7"
-          ></Slider>
-        </div>
-        <hr />
-        <div>
-          <p>Distance to city</p>
-          <Slider
-            v-model="centrumDistance.value"
-            v-bind="centrumDistance"
-            :max="5"
-          ></Slider>
-        </div>
-        <hr />-->
               <div>
                   <div class="accordion accordion-flush" id="accordionFlushExample">
                       <div class="accordion-item">
@@ -120,60 +93,6 @@
                                           </label>
                                       </div>
                                   </div>
-
-
-                                  <!--                  <div class="form-check">
-                                <input
-                                  class="form-check-input"
-                                  v-model="pool"
-                                  type="checkbox"
-                                  value=""
-                                  id="flexCheckDefault"
-                                  @click="pool = !pool"
-                                />
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  Pool
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input
-                                  class="form-check-input"
-                                  v-model="nightEntertainment"
-                                  type="checkbox"
-                                  value=""
-                                  id="flexCheckDefault"
-                                  @click="nightEntertainment = !nightEntertainment"
-                                />
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  Night Entertainment
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input
-                                  class="form-check-input"
-                                  v-model="childClub"
-                                  type="checkbox"
-                                  value=""
-                                  id="flexCheckDefault"
-                                  @click="childClub = !childClub"
-                                />
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  Kids club
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input
-                                  class="form-check-input"
-                                  v-model="restaurant"
-                                  type="checkbox"
-                                  value=""
-                                  id="flexCheckDefault"
-                                  @click="restaurant = !restaurant"
-                                />
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  Restaurant
-                                </label>
-                              </div>-->
                               </div>
                           </div>
                       </div>

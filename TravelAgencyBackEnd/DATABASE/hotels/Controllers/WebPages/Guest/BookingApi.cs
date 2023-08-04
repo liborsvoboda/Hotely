@@ -32,7 +32,7 @@ namespace TravelAgencyBackEnd.Controllers {
                     reservation.Status.SystemName = DBOperations.DBTranslate(reservation.Status.SystemName, language);
                     reservation.Hotel.HotelImagesLists.ToList().ForEach(image => {
                         image.Hotel = null;
-                        image.Attachment = null; 
+                        image.Attachment = null;
                     });
 
                     reservation.HotelReservationDetailLists.ToList().ForEach(reservationDetail => {
@@ -42,6 +42,10 @@ namespace TravelAgencyBackEnd.Controllers {
                         reservationDetail.Status.HotelReservedRoomLists = null;
                         reservationDetail.Status.HotelReservationDetailLists = null;
                     });
+
+                    //oposite sort of part
+                    reservation.HotelReservationDetailLists = reservation.HotelReservationDetailLists.OrderByDescending(a=>a.Timestamp).ToList();
+
                     reservation.HotelReservedRoomLists.ToList().ForEach(room => {
                         room.Hotel = null;
                         room.Reservation = null;
@@ -51,6 +55,8 @@ namespace TravelAgencyBackEnd.Controllers {
                     reservation.Hotel.HotelReservedRoomLists = null;
                     reservation.Hotel.HotelReservationDetailLists = null;
                 });
+
+                
 
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
                     ReferenceHandler = ReferenceHandler.IgnoreCycles,
@@ -96,8 +102,65 @@ namespace TravelAgencyBackEnd.Controllers {
             Status = DBResult.error.ToString(),
                 ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
+        }
 
 
+        [Authorize]
+        [HttpPost("/WebApi/Guest/Booking/UpdateBooking")]
+        [Consumes("application/json")]
+        public IActionResult UpdateBooking([FromBody] UpdateBookingData record) {
+            try {
+
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+
+                HotelReservationDetailList reservationDetailList = new HotelReservationDetailList() {
+                    GuestId = int.Parse(authId),
+                    HotelId = record.Booking.HotelId, ReservationId = record.Booking.Id,
+                    StatusId = record.Booking.StatusId, CurrencyId = record.Booking.CurrencyId,
+                    HotelAccommodationActionId = record.Booking.HotelAccommodationActionId,
+                    StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
+                    TotalPrice = record.Booking.TotalPrice,
+                    Adult = record.Booking.Adult, Children = record.Booking.Children,
+                    Message = record.Booking.Message,
+                    GuestSender = true,
+                    Shown = false,
+                    Timestamp = DateTimeOffset.Now.DateTime
+                };
+                var data = new hotelsContext().HotelReservationDetailLists.Add(reservationDetailList);
+                int result = data.Context.SaveChanges();
+
+                //update address in reservationList
+                HotelReservationList reservationList;
+
+                reservationList = new hotelsContext().HotelReservationLists.Where(a=> a.GuestId == int.Parse(authId) && a.Id == record.Booking.Id).FirstOrDefault();
+                reservationList.FirstName = record.Booking.FirstName;
+                reservationList.LastName = record.Booking.LastName;
+                reservationList.Street = record.Booking.Street;
+                reservationList.Zipcode = record.Booking.ZipCode;
+                reservationList.City = record.Booking.City;
+                reservationList.Country = record.Booking.Country;
+                reservationList.Phone = record.Booking.Phone;
+                reservationList.Email = record.Booking.Email;
+
+                var data1 = new hotelsContext().HotelReservationLists.Update(reservationList);
+                result = data1.Context.SaveChanges();
+
+                //send modified reservation email
+
+
+                if (result > 0) {
+                    return Ok(JsonSerializer.Serialize(
+                    new DBResultMessage() {
+                        Status = DBResult.success.ToString(),
+                        ErrorMessage = string.Empty
+                    }));
+                }
+
+            } catch { }
+            return BadRequest(new DBResultMessage() {
+                Status = DBResult.error.ToString(),
+                ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
+            });
         }
     }
 }

@@ -20,7 +20,7 @@
                                     <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')"></Button>
                                     <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
                                     <Button id="menuButton" :label="$t('labels.lease')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
-                                    <Button id="menuButton"  :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
                                 </div>
 
                                 <li class="nav-item">
@@ -32,7 +32,6 @@
                         </div>
                     </div>
                     <div> 
-                        <!-- tab view -->
                         <router-view></router-view>
                     </div>
                 </div>
@@ -136,7 +135,6 @@ export default ({
         border-bottom: 1px solid black;
         padding-top: 15px;
         padding-bottom: 10px;
-        margin-left: px;
         color: white;
     }
 
@@ -147,7 +145,7 @@ export default ({
 
 
     .nav.nav-pills {
-        margin-left: 8cm;
+        /* margin-left: 8cm; */
     }
 
     .nav-link {

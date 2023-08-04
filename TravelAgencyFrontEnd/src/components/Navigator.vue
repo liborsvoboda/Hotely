@@ -3,8 +3,32 @@
         <div class="header-top">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-sm-6 col-6 header-top-left"></div>
-                    <div class="col-lg-6 col-sm-6 col- header-top-right">
+                    <div class="col-lg-8 col-sm-8 col-8 header-top-left">
+                        <div class="nav-menu">
+                            <div v-if="loggedIn">
+                                <router-link :to="'/profile/'">
+                                    <i class="fas fa-user"></i>
+                                    {{ $t('labels.home') }}
+                                </router-link>
+
+                                <router-link :to="'/profile/bookings'">
+                                    <i class="fas fa-concierge-bell"></i>
+                                    {{ $t('user.bookings') }}
+                                </router-link>
+
+                                <router-link :to="'/profile/favorite'">
+                                    <i class="fas fa-hotel"></i>
+                                    {{ $t('user.favorites') }}
+                                </router-link>
+
+                                <router-link :to="'/profile/profileSetting'">
+                                    <i class="fas fa-users-cog"></i>
+                                    {{ $t('user.settings') }}
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-4 header-top-right">
                         <div class="nav-menu">
                             <div v-if="!loggedIn">
                                 <a href=""><router-link to="/login">{{ $t('user.login') }}</router-link></a>
@@ -40,7 +64,7 @@
                   </div>-->
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li><router-link to="/">{{ $t('labels.home') }}</router-link></li>
+                    <li @click="home"><router-link to="/">{{ $t('labels.home') }}</router-link></li>
                     <li><router-link to="/UbytkacInfo">{{ $t('labels.ubytkacInfo') }}</router-link></li>
                     <li><router-link to="/RegistrationInfo">{{ $t('labels.registrationInfo') }}</router-link></li>
                     <li><router-link to="/OftenQuestion">{{ $t('labels.oftenQuestion') }}</router-link></li>
@@ -73,6 +97,10 @@ export default {
     },
     created() { },
     methods: {
+        async home() {
+            await this.$store.dispatch("getTopList");
+            this.$router.push('/');
+        },
         logout() {
             this.$store.dispatch("logout");
         },

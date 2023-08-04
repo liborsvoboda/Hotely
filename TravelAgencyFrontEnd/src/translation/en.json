@@ -76,7 +76,9 @@
     "messagesHistory": "Messages history",
     "status": "Status",
     "reservationDetail": "Reservation detail",
-    "searchAccomodation": "Search accomodation"
+    "searchAccomodation": "Search accommodation",
+    "newMessage": "New message"
+
   },
   "user": {
     "login": "Přihlásit",
@@ -124,6 +126,7 @@
     "thisBookingIsCancelled": "This booking is cancelled",
     "bookingWasCancelled": "This booking was cancelled",
     "doYouReallyCancelBooking": "Do you really cancel booking:",
-    "writeCancelReason": "\r\nWrite the reason of Cancel:"
+    "writeCancelReason": "\r\nWrite the reason of Cancel:",
+    "updateBookingWasSuccess": "Booking update was success"
   }
 }

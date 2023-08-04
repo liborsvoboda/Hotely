@@ -162,7 +162,7 @@ export default {
                 this.$store.state.user = result;
                 this.$store.state.user.loggedIn = true;
                 this.$store.state.bookingDetail.verified = true;
-                this.$store.state.toastInfoMessage = this.$i18n.t("messages.loginSuccess");
+                this.$store.state.toastSuccessMessage = this.$i18n.t("messages.loginSuccess");
 
                 this.bookingUser.firstName = this.bookingUser.firstName ? this.bookingUser.firstName : this.$store.state.user.FirstName;
                 this.bookingUser.lastName = this.bookingUser.lastName ? this.bookingUser.lastName : this.$store.state.user.LastName;

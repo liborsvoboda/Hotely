@@ -69,4 +69,32 @@
         public string Message { get; set; }
         public string Language { get; set; }
     }
+
+    public class UpdateBookingData {
+        public UpdateBooking Booking { get; set; }
+        public string Language { get; set; }
+    }
+
+    public class UpdateBooking {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Street { get; set; }
+        public string Phone { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string ZipCode { get; set; }
+        public string Message { get; set; }
+
+        public int Id { get; set; }
+        public double TotalPrice { get; set; }
+        public int Adult { get; set; }
+        public int Children { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public int HotelId { get; set; }
+        public int CurrencyId { get; set; }
+        public int StatusId { get; set; }
+        public int? HotelAccommodationActionId { get; set; }
+    }
 }

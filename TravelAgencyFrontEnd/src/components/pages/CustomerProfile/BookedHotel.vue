@@ -1,10 +1,9 @@
 <template>
     <div class="card mb-3">
-        <!-- style="max-width: 540px;" (in style)-->
         <div class="row g-0">
             <div class="col-md-4">
                 <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="img-fluid ml-3 mt-3 mb-3"
-                     style="cursor:pointer" :title="$t('labels.searchAccomodation')" @click="openAccomodation(hotel.hotel.id)" />
+                     style="cursor:pointer" :title="$t('labels.searchAccomodation')" @click="openAccommodation(hotel.hotel.id)" />
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -35,7 +34,7 @@
                         <Button :disabled="notEdit" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button-danger">{{ $t('labels.cancelBooking') }}</Button>
                     </div>
                     <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: 0px !important; position: absolute;">
-                        <Button id="buttonG" class="p-button-info mr-4" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
+                        <Button id="buttonG" class="p-button-info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
                         <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
                     </div>
 
@@ -43,7 +42,7 @@
             </div>
         </div>
         <div v-if="edit">
-            <ProfileCustomerDetail :hotel="hotel" />
+            <ProfileCustomerDetail :hotel="hotel" @closeEdit="closeEdit" />
         </div>
         <div v-if="detail">
             <ReservationDetail :hotel="hotel" />
@@ -75,7 +74,7 @@ export default {
             return this.$store.state.apiRootUrl + '/Image/';
         },
         notEdit() {
-            return new Date(this.hotel.startDate) < new Date();
+            return new Date(this.hotel.startDate) < new Date() || this.hotel.statusId != 1;
         },
         startDate() {
             if (this.hotel.startDate === undefined) {
@@ -91,16 +90,21 @@ export default {
         },
     },
     methods: {
-        openAccomodation() {
+        closeEdit(status) {
+            this.edit = status;
+        },
+        openAccommodation() {
             this.$store.dispatch('clearBooking');
             this.$router.push('/');
             this.$store.state.searchButtonLoading = true;
             this.$store.dispatch('searchHotels', this.hotel.hotel.name);
         },
         toggleEdit() {
+            this.detail = false;
             this.edit = !this.edit;
         },
         showDetail() {
+            this.edit = false;
             this.detail = !this.detail;
         },
     

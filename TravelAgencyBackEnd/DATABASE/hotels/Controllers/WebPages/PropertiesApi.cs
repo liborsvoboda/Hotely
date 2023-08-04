@@ -94,5 +94,34 @@
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             });
         }
+
+        [HttpGet("/WebApi/Properties/GetPropertyGroupList/{language}")]
+        public async Task<string> GetPropertyGroupList(string language = null) {
+            List<PropertyGroupList> result, resultNoGroup;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                result = _dbContext.PropertyGroupLists
+                    .OrderBy(a => a.Sequence).ToList()
+                    ;
+            }
+
+            result.ForEach(propertyGroup => {
+                propertyGroup.SystemName = DBOperations.DBTranslate(propertyGroup.SystemName, language);
+            });
+
+            //more filters
+            //PropertyGroupList morefilter = new PropertyGroupList() { 
+            //SystemName = DBOperations.DBTranslate("moreFilters", language),
+            //};
+            //result.Add(morefilter);
+
+            return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        }
+
+
     }
 }

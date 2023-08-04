@@ -1,50 +1,22 @@
 <template>
         <div class="row profile">
-            <div class="col-md-3">
+<!--             <div class="col-md-3">
                 <div class="profile-sidebar">
-                    <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
                         <div class="text-center">
                             <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
                           </div>
                           <br>
-<!--                           <div class="container">
-                                <h6>Upload a different photo</h6>
-                            <div class="input-group mb-3">
-                            
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                <label class="custom-file-label" for="inputGroupFile01"></label>
-                            </div>
-                            </div>
-                          </div> -->
                     </div>
-                    <!-- END SIDEBAR USERPIC -->
-                    <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name">
                             <p>{{user.FirstName}} {{user.LastName}}</p>
                             <p>{{user.Email}}</p>
                         </div>
                     </div>
-                    <!-- END SIDEBAR USER TITLE -->
-                    <!-- SIDEBAR BUTTONS -->
-<!--                     <ul class="profile-userbuttons">
-                        <a class="btn btn-primary" style="background-color: #3b5998;" href="#!" role="button"
-                        ><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-primary" style="background-color: #55acee;" href="#!" role="button"
-                        ><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-primary" style="background-color: #dd4b39;" href="#!" role="button"
-                        ><i class="fab fa-google"></i></a>
-                        <a class="btn btn-primary" style="background-color: #ac2bac;" href="#!" role="button"
-                        ><i class="fab fa-instagram"></i></a>
-                    </ul> -->
-                    <!-- END SIDEBAR BUTTONS -->
-                    <!-- SIDEBAR MENU -->
                     <div class="profile-usermenu">
                         <ul class="nav">
                             <li>
-                                <!-- class="active" -->
                                 <router-link :to="'/profile/'">
                                     <i class="fas fa-user"></i>
                                     {{ $t('labels.home') }}
@@ -72,10 +44,9 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- END MENU -->
                 </div>
-            </div>
-            <div class="col-md-9">
+            </div> -->
+            <div class="col-md-12">
                 <div class="profile-content">
                     <router-view></router-view>
                 </div>
@@ -225,10 +196,10 @@ export default {
 
     /* Profile Content */
     .profile-content {
-        padding: 20px;
+        /* padding: 20px; */
         background: #fff;
-        min-height: 800px;
-        min-width: 217mm;
+/*         min-height: 800px;
+        min-width: 217mm; */
         border-radius: 30px;
     }
 </style>
