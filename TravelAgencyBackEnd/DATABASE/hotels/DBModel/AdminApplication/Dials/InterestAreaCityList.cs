@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("InterestAreaCityList")]
     [Index("Iacid", "CityId", Name = "IX_InterestAreaCityList", IsUnique = true)]

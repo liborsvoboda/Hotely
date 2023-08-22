@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.CoreClasses {
+﻿namespace UbytkacBackend.CoreClasses {
 
     public class ServerConfigSettings {
         public static string SpecialServerServiceName { get; set; } = "Úbytkáč Emailer";

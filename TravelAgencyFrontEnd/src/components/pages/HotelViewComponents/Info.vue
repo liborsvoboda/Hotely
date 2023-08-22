@@ -1,7 +1,7 @@
 <template>
     <div class="py-4">
         <div class="p-4 bg-light rounded shadow-sm">
-            <h5>{{ $t('labels.ratings') }}: <span class="badge rounded-pill bg-secondary">{{hotel.averageRating}}</span></h5>
+            <h5>{{ $t('labels.ratings') }}: <span class="rounded-pill">{{hotel.averageRating}}</span></h5>
             <div class="col-lg-12 col-md-12" v-html="($store.state.language == 'cz') ? hotel.descriptionCz : hotel.descriptionEn" />
             <h4>{{ $t('labels.servicesAndProperties') }}:</h4>
 
@@ -12,7 +12,7 @@
                     <p v-for="property in valueProperties" style="margin-bottom:0px;" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                         <span v-if="property.propertyGroupId == propertyGroup.id" style="font-size:12px;">
                             {{property.name}}:
-                            <span class="badge rounded-pill bg-secondary">
+                            <span class="rounded-pill">
                                 {{ property.value }} {{ property.unit }}
                             </span>
                         </span>

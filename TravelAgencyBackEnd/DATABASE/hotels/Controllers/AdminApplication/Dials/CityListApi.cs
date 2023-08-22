@@ -1,6 +1,6 @@
 ﻿
 
-namespace TravelAgencyBackEnd.Controllers {
+namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]

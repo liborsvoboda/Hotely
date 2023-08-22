@@ -2,18 +2,18 @@
 Description=Dotnet Core Travel Agency Backend service  
   
 [Service]  
-ExecStart=dotnet /root/TravelAgencyBackEnd/TravelAgencyBackEnd.dll  
-WorkingDirectory=/root/TravelAgencyBackEnd/
+ExecStart=dotnet /root/UbytkacBackend/UbytkacBackend.dll  
+WorkingDirectory=/root/UbytkacBackend/
 User=root  
 Group=root  
 Restart=always
 RestartSec=5   
-SyslogIdentifier=dotnet-TravelAgencyBackEnd-service  
+SyslogIdentifier=dotnet-UbytkacBackend-service  
 PrivateTemp=true  
 Environment=ASPNETCORE_ENVIRONMENT=Development
 KillSignal=SIGINT
-StandardOutput=file:/root/TravelAgencyBackEnd/AAALogs/standardOutput.log
-StandardError=file:/root/TravelAgencyBackEnd/AAALogs/standardError.log
+StandardOutput=file:/root/UbytkacBackend/AAALogs/standardOutput.log
+StandardError=file:/root/UbytkacBackend/AAALogs/standardError.log
 
 [Install]  
 WantedBy=multi-user.target  

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("OftenQuestionList")]
     [Index("Name", Name = "IX_OftenQuestionList", IsUnique = true)]

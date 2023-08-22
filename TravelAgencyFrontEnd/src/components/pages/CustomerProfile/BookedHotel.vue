@@ -1,5 +1,5 @@
 <template>
-    <div class="card mb-3">
+    <div class="card mb-3" style="margin-left: 20px;margin-right: 20px; top: 20px;width:auto;">
         <div class="row g-0">
             <div class="col-md-4">
                 <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="img-fluid ml-3 mt-3 mb-3"
@@ -33,7 +33,7 @@
                         <Button id="buttonG" :disabled="notEdit" @click="toggleEdit" class="p-button-info mr-1">{{ $t('labels.editLease') }}</Button>
                         <Button :disabled="notEdit" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button-danger">{{ $t('labels.cancelBooking') }}</Button>
                     </div>
-                    <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: 0px !important; position: absolute;">
+                    <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;top: 20px !important; position: relative;">
                         <Button id="buttonG" class="p-button-info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
                         <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
                     </div>

@@ -1,6 +1,6 @@
-﻿using TravelAgencyBackEnd.DBModel;
+﻿using UbytkacBackend.DBModel;
 
-namespace TravelAgencyBackEnd.Controllers {
+namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("WebApi/Guest")]
@@ -179,14 +179,35 @@ namespace TravelAgencyBackEnd.Controllers {
         public async Task<string> UpdateRegistration([FromBody] GuestRegistration record) {
             try {
                 if (User.Claims.First(a => a.Issuer != null).Issuer.ToLower() == record.User.Email.ToLower()) {
+                    int result = 0; UserList newUser = new();
+
+                    //insert new systemuser
+                    if (record.User.UserId == 0) {
+                        newUser = new() { UserName = record.User.Email, RoleId = 1, Password = record.User.Password, Name = record.User.FirstName, SurName = record.User.LastName, Active = true };
+                        var insData = new hotelsContext().UserLists.Add(newUser);
+                        result = await insData.Context.SaveChangesAsync();
+                    }
+
+                    //update new systemuser
+                    if (record.User.UserId > 0) {
+
+                        UserList systemUser = new hotelsContext().UserLists.Where(a => a.Id == record.User.UserId).FirstOrDefault();
+                        systemUser.Password = record.User.Password; 
+                        systemUser.Name = record.User.FirstName; 
+                        systemUser.SurName = record.User.LastName;
+                        systemUser.Active = true;
+                            var insData = new hotelsContext().UserLists.Update(systemUser);
+                            result = await insData.Context.SaveChangesAsync();
+                    }
+
+                    if (result > 0) { record.User.UserId = newUser.Id; }
 
                     record.User.Password = BCrypt.Net.BCrypt.HashPassword(record.User.Password);
                     record.User.Timestamp = DateTimeOffset.Now.DateTime;
                     var data = new hotelsContext().GuestLists.Update(record.User);
-                    int result = await data.Context.SaveChangesAsync();
+                    result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
                     else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-
                 } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = string.Empty });
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
         }
@@ -206,6 +227,14 @@ namespace TravelAgencyBackEnd.Controllers {
                 }
 
                 if (origUser != null) {
+
+                    if (origUser.UserId != null) {
+                        UserList systemUser = new hotelsContext().UserLists.Where(a => a.Id == origUser.UserId).FirstOrDefault();
+                        systemUser.Active = false;
+                        var systemData = new hotelsContext().UserLists.Update(systemUser);
+                        await systemData.Context.SaveChangesAsync();
+                    }
+
                     origUser.Active = false;
                     origUser.Timestamp = DateTimeOffset.Now.DateTime;
                     var data = new hotelsContext().GuestLists.Update(origUser);

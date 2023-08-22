@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("PropertyOrServiceTypeList")]
     [Index("SystemName", Name = "IX_PropertyOrServiceList", IsUnique = true)]

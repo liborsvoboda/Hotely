@@ -1,22 +1,25 @@
-﻿namespace TravelAgencyBackEnd.DBModel {
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
+namespace UbytkacBackend.DBModel
+{
     [Table("AccessRoleList")]
     [Index("TableName", Name = "IX_AccessRuleList", IsUnique = true)]
-    public partial class AccessRoleList {
-
+    public partial class AccessRoleList
+    {
         [Key]
         public int Id { get; set; }
-
         [Required]
         [StringLength(50)]
         [Unicode(false)]
         public string TableName { get; set; }
-
         [Required]
         [StringLength(1024)]
         [Unicode(false)]
         public string AccessRole { get; set; }
-
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 

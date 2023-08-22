@@ -1,4 +1,4 @@
-namespace TravelAgencyBackEnd {
+namespace UbytkacBackend {
 
     public class ServerModulesConfiguration {
         public static readonly string SwaggerModuleDescription = "Full Backend Server DB & API & WebSocket model";
@@ -18,14 +18,14 @@ namespace TravelAgencyBackEnd {
                 c.SchemaGeneratorOptions = new SchemaGeneratorOptions { SchemaIdSelector = type => type.FullName };
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "TravelAgencyBackEnd Server API",
+                    Title = "UbytkacBackend Server API",
                     Version = "v1",
                     Description = SwaggerModuleDescription,
                     Contact = new OpenApiContact { Name = "Libor Svoboda", Email = "Libor.Svoboda@GroupWare-Solution.Eu", Url = new Uri("https://groupware-solution.eu/contactus") },
                     License = new OpenApiLicense { Name = Program.BackendServiceName + " Server License", Url = new Uri("https://www.groupware-solution.eu/") }
                 });
 
-                var xmlFile = Path.Combine(AppContext.BaseDirectory, "TravelAgencyBackEnd.xml");
+                var xmlFile = Path.Combine(AppContext.BaseDirectory, "UbytkacBackend.xml");
                 if (System.IO.File.Exists(xmlFile)) c.IncludeXmlComments(xmlFile, true);
 
                 //c.InferSecuritySchemes();

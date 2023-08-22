@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace TravelAgencyBackEnd {
+namespace UbytkacBackend {
 
     internal class SystemFunctions {
 

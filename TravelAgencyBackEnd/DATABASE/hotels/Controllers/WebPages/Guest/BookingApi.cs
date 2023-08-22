@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
-using TravelAgencyBackEnd.DBModel;
+using UbytkacBackend.DBModel;
 
-namespace TravelAgencyBackEnd.Controllers {
+namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("WebApi/Guest")]

@@ -1,7 +1,7 @@
-namespace TravelAgencyBackEnd {
+namespace UbytkacBackend {
 
     public class Program {
-        public static readonly string BackendServiceName = "TravelAgencySystem";
+        public static readonly string BackendServiceName = "UbytkacBackend";
         public static readonly bool DebugMode = "Development" == Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         public static readonly bool UseDBLocalAutoupdatedDials = true;
 

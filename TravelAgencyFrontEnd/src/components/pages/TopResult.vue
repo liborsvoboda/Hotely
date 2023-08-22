@@ -12,7 +12,7 @@
     </Card>
     <div v-else style="border-radius: 20px; margin-top: 20px;">
         <div class="row">
-            <ProgressSpinner />
+          <!--   <ProgressSpinner /> -->
         </div>
     </div>
 </template>
@@ -31,6 +31,9 @@ export default ({
     data(){
         return{
         }
+    },
+    mounted() {
+        
     },
     computed: {
         searchResults() {

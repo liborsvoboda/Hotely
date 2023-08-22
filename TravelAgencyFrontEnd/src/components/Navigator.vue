@@ -7,23 +7,28 @@
                         <div class="nav-menu">
                             <div v-if="loggedIn">
                                 <router-link :to="'/profile/'">
-                                    <i class="fas fa-user"></i>
-                                    {{ $t('labels.home') }}
+                                    <span class="icon mif-star-full " />
+                                    {{ $t('labels.topFive') }}
                                 </router-link>
 
                                 <router-link :to="'/profile/bookings'">
-                                    <i class="fas fa-concierge-bell"></i>
+                                    <span class="icon mif-list " />
                                     {{ $t('user.bookings') }}
                                 </router-link>
 
                                 <router-link :to="'/profile/favorite'">
-                                    <i class="fas fa-hotel"></i>
+                                    <span class="icon mif-favorite " />
                                     {{ $t('user.favorites') }}
                                 </router-link>
 
                                 <router-link :to="'/profile/profileSetting'">
                                     <i class="fas fa-users-cog"></i>
                                     {{ $t('user.settings') }}
+                                </router-link>
+
+                                <router-link :to="'/profile/advertisement'" v-if="user.UserId != ''">
+                                    <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-ring ')"></span>
+                                    {{ $t('labels.accommodationAdvertisement') }}
                                 </router-link>
                             </div>
                         </div>
@@ -36,7 +41,7 @@
                             </div>
                             <div v-if="loggedIn">
                                 <a href="" @click="logout()">{{ $t('user.logout') }}</a>
-                                <a href=""><router-link to="/Profile">{{ $t('user.profile') }}</router-link></a>
+                                <!-- <a href=""><router-link to="/profile">{{ $t('user.profile') }}</router-link></a> -->
                             </div>
                         </div>
                        <!--  <div id="user" v-if="loggedIn">
@@ -93,6 +98,9 @@ export default {
         },
         user() {
             return this.$store.state.user;
+        },
+        advertisement() {
+            return this.$store.state.advertisementList;
         },
     },
     created() { },

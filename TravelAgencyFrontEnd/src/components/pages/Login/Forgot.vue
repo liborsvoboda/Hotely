@@ -8,14 +8,14 @@
     </head>
 
 
-    <div class="main">
+    <div id="checkForm" class="main">
         <p class="sign" align="center">{{ $t('user.forgotPassword')}}</p>
 
         <form class="form1" @submit.prevent="sendNewPassword">
             <input class="un" type="email" align="center" :placeholder="$t('labels.email')" required v-model="guest.Email">
             <ul v-if="!verified" class="ul">
                 <li>
-                    <button class="submit" align="center">{{ $t('user.sendNewPassword') }}</button>
+                    <button class="submit" :onclick="checkValid" align="center">{{ $t('user.sendNewPassword') }}</button>
                 </li>
             </ul>
         </form>
@@ -57,26 +57,32 @@ export default {
 
     },
     methods: {
-        sendNewPassword() {
-            if (this.guest.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-
-                var def = $.ajax({
-                    global: false, type: "POST",
-                    url: this.$store.state.apiRootUrl + "/Guest/ResetPassword",
-                    dataType: 'json', contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ EmailAddress: this.guest.Email, Language: this.$store.state.language })
-                });
-
-                var that = this;
-
-                def.fail(function (data) {
-                    that.$store.state.toastErrorMessage = data.responseJSON.ErrorMessage;
-                });
-
-                def.done(function (data) {
-                    that.$store.state.toastInfoMessage = that.$i18n.t('user.resetPasswordEmailWasSent');
-                });
+        checkValid() {
+            if (!this.guest.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                document.getElementById("checkForm").classList.add("ani-ring");
+                setTimeout(function () {
+                    document.getElementById("checkForm").classList.remove("ani-ring");
+                }, 1000);
             }
+
+        },
+        sendNewPassword() {
+            var def = $.ajax({
+                global: false, type: "POST",
+                url: this.$store.state.apiRootUrl + "/Guest/ResetPassword",
+                dataType: 'json', contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ EmailAddress: this.guest.Email, Language: this.$store.state.language })
+            });
+
+            var that = this;
+
+            def.fail(function (data) {
+                that.$store.state.toastErrorMessage = data.responseJSON.ErrorMessage;
+            });
+
+            def.done(function (data) {
+                that.$store.state.toastInfoMessage = that.$i18n.t('user.resetPasswordEmailWasSent');
+            });
         },
         resetForm() {
             document.querySelector('.form1').reset()

@@ -29,8 +29,8 @@
             </ul>
             <input v-if="verifySent && !verified" class="un" type="text" align="center" :placeholder="$t('labels.verifyCode')" required v-model="Verifycode" @input="checkVerify()">
 
-            <input v-if="verified" class="password" type="password" align="center" :placeholder="$t('labels.password')" required v-model="guest.Password">
-            <input v-if="verified" class="confirmPassword" type="password" align="center" :placeholder="$t('labels.retypePassword')" required v-model="guest.ConfirmPassword">
+            <input v-if="verified" class="password" type="password" align="center" :placeholder="$t('labels.password')" required minLength=6 v-model="guest.Password">
+            <input v-if="verified" class="confirmPassword" type="password" align="center" :placeholder="$t('labels.retypePassword')" required minLength=6 v-model="guest.ConfirmPassword">
 
             <ul v-if="verified" class="ul">
                 <li>
@@ -99,6 +99,11 @@ export default {
                     that.verifySent = true;
                     that.$store.state.toastInfoMessage = that.$i18n.t('user.verifyEmailWasSent');
                 });
+            } else {
+                document.querySelector('.main').classList.add("ani-ring");
+                setTimeout(function () {
+                    document.querySelector('.main').classList.remove("ani-ring");
+                }, 1000);
             }
         },
         checkVerify() {

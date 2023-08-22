@@ -236,4 +236,7 @@ div.col-md-4{
   color: black;
 }
 
+.collapse {
+    max-height: 100% !important;
+}
 </style>

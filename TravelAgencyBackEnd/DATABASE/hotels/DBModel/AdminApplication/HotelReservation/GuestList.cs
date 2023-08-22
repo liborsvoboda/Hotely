@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("GuestList")]
     [Index("Email", Name = "IX_GuestList")]
@@ -58,8 +58,12 @@ namespace TravelAgencyBackEnd.DBModel
         public string Phone { get; set; }
         [Required]
         public bool Active { get; set; }
+        public int? UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
+        [ForeignKey("UserId")]
+        [InverseProperty("GuestLists")]
+        public virtual UserList User { get; set; }
         [InverseProperty("Guest")]
         public virtual ICollection<GuestFavoriteList> GuestFavoriteLists { get; set; }
         [InverseProperty("Guest")]

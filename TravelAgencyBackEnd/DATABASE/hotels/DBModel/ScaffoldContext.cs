@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     public partial class ScaffoldContext : DbContext
     {
@@ -294,6 +294,11 @@ namespace TravelAgencyBackEnd.DBModel
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.GuestLists)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_GuestList_UserList");
             });
 
             modelBuilder.Entity<GuestLoginHistoryList>(entity =>

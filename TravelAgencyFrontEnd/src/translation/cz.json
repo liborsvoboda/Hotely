@@ -77,8 +77,12 @@
     "status": "Status",
     "reservationDetail": "Detail rezervace",
     "searchAccomodation": "Vyhledat ubytování",
-    "newMessage": "Nová zpráva"
-
+    "newMessage": "Nová zpráva",
+    "advertiseAsHost": "Chci inzerovat jako hostitel",
+    "accommodationAdvertisement": "Inzerce Ubytování",
+    "newAccommodationAdvertisement": "Nová inzerce Ubytování",
+    "topFive": "Top Five",
+    "servicesAndFacilitiesAvailable": "Dostupné služby a zařízení"
   },
   "user": {
     "login": "Přihlásit",
@@ -127,6 +131,7 @@
     "bookingWasCancelled": "Rezervace byla zrušena",
     "doYouReallyCancelBooking": "Opravdu chcete zrušit rezervaci:",
     "writeCancelReason": "\r\nNapište důvod zrušení:",
-    "updateBookingWasSuccess": "Aktualizace rezervace byla úspěšná"
+    "updateBookingWasSuccess": "Aktualizace rezervace byla úspěšná",
+    "anyAdvertisementExist": "Není vloženo žádné Ubytovací zařízení "
   }
 }

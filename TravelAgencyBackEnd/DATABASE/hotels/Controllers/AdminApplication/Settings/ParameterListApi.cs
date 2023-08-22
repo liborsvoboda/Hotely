@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("ParameterList")]

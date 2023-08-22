@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("UserList")]
     [Index("UserName", Name = "IX_UserList", IsUnique = true)]
@@ -25,6 +25,7 @@ namespace TravelAgencyBackEnd.DBModel
             DocumentTypeLists = new HashSet<DocumentTypeList>();
             EmailTemplateLists = new HashSet<EmailTemplateList>();
             ExchangeRateLists = new HashSet<ExchangeRateList>();
+            GuestLists = new HashSet<GuestList>();
             HolidayTipsLists = new HashSet<HolidayTipsList>();
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
             HotelActionTypeLists = new HashSet<HotelActionTypeList>();
@@ -77,7 +78,7 @@ namespace TravelAgencyBackEnd.DBModel
         [Unicode(false)]
         public string PhotoPath { get; set; }
         [Required]
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
         [StringLength(4096)]
         [Unicode(false)]
         public string ApiToken { get; set; }
@@ -112,6 +113,8 @@ namespace TravelAgencyBackEnd.DBModel
         public virtual ICollection<EmailTemplateList> EmailTemplateLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<GuestList> GuestLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<HolidayTipsList> HolidayTipsLists { get; set; }
         [InverseProperty("User")]

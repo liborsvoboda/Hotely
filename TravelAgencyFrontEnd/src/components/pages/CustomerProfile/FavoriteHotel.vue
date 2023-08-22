@@ -1,6 +1,5 @@
 <template>
-    <div class="card mb-3">
-        <!-- style="max-width: 540px;" (in style)-->
+    <div class="card mb-3" style="margin-left: 20px;margin-right: 20px; top: 20px;width:auto;">
         <div class="row g-0">
             <div class="col-md-4">
                 <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="mt-3 ml-3 mb-3 img-fluid" />
@@ -49,6 +48,8 @@ export default {
     methods: {
        hotelDetailsClick(event) {
             this.$store.state.backRoute = "/profile/favorite";
+            this.$store.state.backRouteScroll = window.scrollY;
+
             this.$store.dispatch("setHotel", this.hotel.hotel);
             this.$router.push('/hotels/' + this.hotel.hotel.id);
        },

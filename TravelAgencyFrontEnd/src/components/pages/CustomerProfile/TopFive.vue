@@ -7,33 +7,33 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-6 text-start">
+                        <div class="col-md-6 pt-0 mt-0 text-start">
                             <b>{{ hotel.name }}</b>
                             <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
                             <p>
                                 {{ $t('labels.ratings') }}:
-                                <span class="badge rounded-pill bg-secondary">
+                                <span class="rounded-pill ">
                                     {{ hotel.averageRating }}
                                 </span>
                             </p>
-                            <p v-for="property in valueProperties" style="margin-bottom:0px;" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                            <p v-for="property in valueProperties.slice(0, 2)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
+                               :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                                 {{property.name}}:
-                                <span class="badge rounded-pill bg-secondary">
+                                <span class="rounded-pill">
                                     {{ property.value }} {{ property.unit }}
                                 </span>
                             </p>
                         </div>
 
-                        <div class="col-md-6 text-start">
+                        <div class="col-md-6 pt-0 mt-0 text-start">
                             <h5>
                                 <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
-                            <br />
 
-                            <p v-for="property in bitProperties" style="margin-bottom:0px;" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
+                            <p v-for="property in bitProperties.slice(0, 4)" class="c-help" style="margin-bottom:0px;" @click="createBitInfoBox()"
+                               :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                                 <i class="fas fa-check"></i> {{property.name}}
                             </p>
-
                             <br />
                             <button class="btn btn-primary"
                                     for="btn-check-outlined"
@@ -55,6 +55,11 @@ import PhotoSlider from "../HotelViewComponents/RoomsViewComponents/PhotoSlider.
 export default {
     components: {
         PhotoSlider,
+    },
+    data() {
+        return {
+            infoBox: null,
+        };
     },
     props: {
         hotel: {},
@@ -96,6 +101,58 @@ export default {
 
     },
     methods: {
+        createBitInfoBox() {
+            if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
+
+            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5><ul class='skills'>";
+            let lineSeparator = true;
+            this.bitProperties.forEach((property) => {
+                htmlContent += lineSeparator ? "<li><div class='d-flex w-100'>" : "";
+                htmlContent += "<div class='d-flex w-50'><span>" + property.name + "</span>" +
+                    ((property.fee) ? (property.feeValue != null) ?
+                        '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        : '')
+                    + "</div>";
+
+                htmlContent += !lineSeparator ? "</div></li>" : "";
+                lineSeparator = !lineSeparator;
+            });
+            console.log("content", htmlContent);
+
+            this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
+                closeButton: true,
+                type: "info",
+                removeOnClose: true,
+                height: "auto"
+            });
+        },
+        createValueInfoBox() {
+            if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
+
+            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5><ul class='skills'>";
+            let lineSeparator = true;
+            this.valueProperties.forEach((property) => {
+                htmlContent += lineSeparator ? "<li><div class='d-flex w-100'>" : "";
+                htmlContent += "<div class='d-flex w-50'><span>" + property.name + ": <span class='rounded-pill'>" + property.value + " " + property.unit + "</span>" + "</span>" +
+                    ((property.fee) ? (property.feeValue != null) ?
+                        '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        : '')
+                    + "</div>";
+
+                htmlContent += !lineSeparator ? "</div></li>" : "";
+                lineSeparator = !lineSeparator;
+            });
+            console.log("content", htmlContent);
+
+            this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
+                closeButton: true,
+                type: "info",
+                removeOnClose: true,
+                height: "auto"
+            });
+        },
         hotelDetailsClick(event) {
             this.$store.state.backRoute = "/profile";
             this.$store.dispatch("setHotel", this.hotel);

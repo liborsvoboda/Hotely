@@ -111,3 +111,11 @@ PrimeVue FULL Help Theming, Components ETC
 https://primevue.org/theming/
 
 
+editor
+https://primevue.org/editor/
+
+form validation
+https://vee-validate.logaretm.com/v4/guide/global-validators/
+
+bootstrap item types
+https://www.w3schools.com/bootstrap5/bootstrap_collapse.php

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="FavoriteHotelList.length < 1 && !errorText">
-            <ProgressSpinner />
+            <!-- <ProgressSpinner /> -->
         </div>
         <div v-if="errorText">
             <p>{{ $t('messages.anyFavoritefound') }}</p>

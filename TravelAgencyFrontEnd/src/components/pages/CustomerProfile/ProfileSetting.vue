@@ -96,18 +96,24 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <label for="password">{{ $t('labels.password') }}</label>
                     <div class="input-group flex-nowrap form-group">
-                        <input type="password" id="password" class="form-control" v-model="guest.Password">
+                        <input type="password" id="password" required minLength=6 class="form-control" v-model="guest.Password">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <label for="password">{{ $t('user.repeatPassword') }}</label>
                     <div class="input-group flex-nowrap form-group">
-                        <input type="password" id="RePassword" class="form-control" v-model="guest.confirmPassword">
+                        <input type="password" id="RePassword" required minLength=6 class="form-control" v-model="guest.confirmPassword">
                     </div>
                 </div>
             </div>
             <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="input-group flex-nowrap form-group" style="margin-left:-20px;">
+                        <input class="" v-model="guest.UserId" type="checkbox" value="" id="userId" :disabled="user.UserId != ''" />
+                        <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="text-right">
                         <button type="button"
                                 id="cancel"
@@ -153,7 +159,8 @@ export default {
                 Email: "",
                 Password: "",
                 confirmPassword: "",
-                id: ''
+                id: '',
+                UserId: false
             },
         };
     },
@@ -180,6 +187,7 @@ export default {
                 Phone: this.guest.Phone ? this.guest.Phone : this.user.Phone,
                 Email: this.guest.Email ? this.guest.Email : this.user.Email,
                 Password: this.guest.Password ? this.guest.Password : this.user.Password,
+                UserId: this.guest.UserId && !this.user.UserId ? "0" : this.guest.UserId && this.user.UserId ? this.user.UserId: null,
                 Active: true
             }
 
@@ -207,6 +215,7 @@ export default {
         },
         resetForm() {
             document.querySelector(".form1").reset();
+            this.guest.UserId = this.user.UserId;
         },
         deleteAccout() {
             if (confirm(this.$i18n.t("user.doYouReallyDeleteAccount"))) {
@@ -220,6 +229,7 @@ export default {
             return this.$store.state.user.loggedIn;
         },
         user() {
+            this.guest.UserId = this.$store.state.user.UserId == "" ? false : true;
             return this.$store.state.user;
         },
     },

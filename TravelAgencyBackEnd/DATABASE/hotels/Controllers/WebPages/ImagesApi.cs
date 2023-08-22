@@ -1,4 +1,6 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿using UbytkacBackEnd;
+
+namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("WebApi/Image")]

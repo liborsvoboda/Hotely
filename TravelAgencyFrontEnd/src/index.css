@@ -10,3 +10,8 @@
 .router-link-active-exact {
     background: #adc0e8 !important;
 }
+
+/* dropdown conflict correction */
+.dropdown-toggle::before {
+    content:none !important;
+}

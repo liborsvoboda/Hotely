@@ -1,4 +1,4 @@
-﻿using TravelAgencyBackEnd;
+﻿using UbytkacBackend;
 
 namespace EASYDATACenter.ServerCoreDBSettings {
 

@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.WebPages {
+﻿namespace UbytkacBackend.WebPages {
 
     public class WebPageRootSearchData {
         public List<WebPageRootSearch> HotelList { get; set; } = new List<WebPageRootSearch>();

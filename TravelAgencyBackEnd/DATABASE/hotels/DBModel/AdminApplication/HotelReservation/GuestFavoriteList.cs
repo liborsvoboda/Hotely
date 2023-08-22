@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("GuestFavoriteList")]
-    [Index("HotelId", Name = "IX_GuestFavoriteList", IsUnique = true)]
+    [Index("HotelId", "GuestId", Name = "IX_GuestFavoriteList", IsUnique = true)]
     public partial class GuestFavoriteList
     {
         [Key]

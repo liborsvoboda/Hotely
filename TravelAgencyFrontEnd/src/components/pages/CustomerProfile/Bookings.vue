@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="!bookingList.length && !errorText">
-            <ProgressSpinner />
+           <!--  <ProgressSpinner /> -->
         </div>
         <div v-if="errorText">
             <p>{{ $t('messages.anyReservationExist') }}</p>

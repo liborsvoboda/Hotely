@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("WebApi/Search")]
@@ -39,12 +39,21 @@
                     .Include(a => a.City)
                     .Include(a => a.Country)
                     .Include(a => a.DefaultCurrency)
-                    .Include(a => a.HotelPropertyAndServiceLists.Where(a => a.IsAvailable))
-                    .Include(a => a.HotelImagesLists)
                     .Where(a => data.Contains(a.Id)).ToList();
             }
 
             result.ForEach(hotel => {
+
+                // load props to each hotel by include is extremelly slow
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    List<HotelImagesList> images = new hotelsContext().HotelImagesLists.Where(a => a.HotelId == hotel.Id).ToList();
+                    hotel.HotelImagesLists = images;
+
+                    List<HotelPropertyAndServiceList> props = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
+                    hotel.HotelPropertyAndServiceLists = props;
+                }
+
+                //clean datasets
                 hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
                 hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
                 hotel.HotelRoomLists.ToList().ForEach(hotelRoom => { 
@@ -62,9 +71,6 @@
                 hotel.Country.CityLists = null;
                 hotel.Country.HotelLists = null;
                 hotel.DefaultCurrency.HotelLists = null;
-                hotel.HotelPropertyAndServiceLists.ToList().ForEach(property => {
-                    property.Hotel = null;
-                });
                 hotel.HotelRoomLists.ToList().ForEach(room => {
                     room.Image = null;
                     room.Hotel = null;

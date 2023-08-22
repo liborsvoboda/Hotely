@@ -16,7 +16,7 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css';
 import 'vite/modulepreload-polyfill'
 
-import ConfirmationService from 'primevue/confirmationservice';
+/*import ConfirmationService from 'primevue/confirmationservice';*/
 import { createI18n } from 'vue-i18n';
 
 //import btoa from 'btoa';
@@ -41,7 +41,7 @@ createApp(App)
     .use(router)
     .use(store)
     .use(PrimeVue)
-    .use(ConfirmationService)
+/*    .use(ConfirmationService)*/
     .use(VueCookies)
     .use(i18n)
     .use(ToastPlugin)

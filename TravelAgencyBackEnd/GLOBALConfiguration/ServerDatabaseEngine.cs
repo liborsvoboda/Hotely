@@ -1,6 +1,6 @@
 ﻿//this is automatic solution
 
-namespace TravelAgencyBackEnd.ServerConfiguration {
+namespace UbytkacBackend.ServerConfiguration {
 
     /// <summary>
     /// Server Main Database Settings Here is Included ScaffoldContext which is connected via Visual

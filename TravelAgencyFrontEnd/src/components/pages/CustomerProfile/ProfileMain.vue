@@ -62,7 +62,7 @@ export default {
     },
     computed: {
         loggedIn() {
-            return this.$store.state.user.loggedIn
+            return this.$store.state.user.loggedIn;
         },
         user() {
             return this.$store.state.user;
@@ -198,8 +198,8 @@ export default {
     .profile-content {
         /* padding: 20px; */
         background: #fff;
-/*         min-height: 800px;
-        min-width: 217mm; */
+        min-height: 800px;
+/*         min-width: 217mm; */
         border-radius: 30px;
     }
 </style>

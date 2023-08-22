@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <div class="dropdown" style="margin-top:10px;">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ $t('labels.show') }}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -19,7 +19,7 @@
         </div>
         <hr>
         <div v-if="TopFiveList.length == 0">
-            <ProgressSpinner />
+            <!-- <ProgressSpinner /> -->
         </div>
         <TopFive v-for="result in TopFiveList"
                  :hotel="result.hotel"

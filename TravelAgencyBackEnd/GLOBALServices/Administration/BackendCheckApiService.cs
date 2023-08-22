@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace TravelAgencyBackEnd.Controllers {
+namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("BackendCheck")]

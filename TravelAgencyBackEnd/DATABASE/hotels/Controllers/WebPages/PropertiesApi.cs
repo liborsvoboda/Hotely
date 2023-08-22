@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("WebApi/Properties")]
@@ -7,10 +7,10 @@
 
         [HttpGet("/WebApi/Properties/{language}")]
         public async Task<string> GetProperties(string language = null) {
-            List<PropertyOrServiceTypeList> result,resultNoGroup;
+            List<PropertyOrServiceTypeList> result, resultNoGroup;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 result = _dbContext.PropertyOrServiceTypeLists
-                    .Include(a => a.PropertyGroup).Where(a=> a.PropertyGroup != null)
+                    .Include(a => a.PropertyGroup).Where(a => a.PropertyGroup != null)
                     .Include(a => a.PropertyOrServiceUnitType)
                     .OrderBy(a => a.Sequence).ToList()
                     .OrderBy(a => a.PropertyGroup.Sequence).ToList();
@@ -29,15 +29,14 @@
 
                 item.SystemName = DBOperations.DBTranslate(item.SystemName, language);
                 item.PropertyOrServiceUnitType.SystemName = DBOperations.DBTranslate(item.PropertyOrServiceUnitType.SystemName, language);
-                if (item.PropertyGroup != null) { 
+                if (item.PropertyGroup != null) {
                     item.PropertyGroup.SystemName = DBOperations.DBTranslate(item.PropertyGroup.SystemName, language);
                     item.PropertyGroup.PropertyOrServiceTypeLists = null;
                     item.PropertyOrServiceUnitType.PropertyOrServiceTypeLists = null;
                 }
             });
 
-            return JsonSerializer.Serialize(result, new JsonSerializerOptions()
-            {
+            return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,
                 WriteIndented = true,
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
@@ -48,15 +47,13 @@
         [HttpGet("/WebApi/RoomTypes/{language}")]
         public async Task<string> GetRoomTypes(string language = null) {
             List<HotelRoomTypeList> result;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 result = _dbContext.HotelRoomTypeLists.ToList();
             }
 
             result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });
 
-            return JsonSerializer.Serialize(result, new JsonSerializerOptions()
-            {
+            return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,
                 WriteIndented = true,
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
@@ -71,7 +68,7 @@
             List<CountryAreaList> result = new();
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 check = _dbContext.HotelLists
-                    .Include(a=> a.Country)
+                    .Include(a => a.Country)
                     .ToList();
             }
 
@@ -79,7 +76,7 @@
                 if (DBOperations.DBTranslate(item.Country.SystemName, language).ToLower() == searchArea.ToLower()) {
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         result = _dbContext.CountryAreaLists
-                                .Where(a=> a.CountryId == item.CountryId).ToList();
+                                .Where(a => a.CountryId == item.CountryId).ToList();
                     }
                     result.ForEach(item => {
                         item.SystemName = DBOperations.DBTranslate(item.SystemName, language);

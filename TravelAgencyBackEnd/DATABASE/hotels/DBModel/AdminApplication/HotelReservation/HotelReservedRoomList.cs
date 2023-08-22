@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("HotelReservedRoomList")]
     [Index("HotelRoomId", "ReservationId", Name = "IX_HotelReservedRoomList", IsUnique = true)]

@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TravelAgencyBackEnd.DBModel
+namespace UbytkacBackend.DBModel
 {
     [Table("HotelPropertyAndServiceList")]
     [Index("HotelId", "PropertyOrServiceId", Name = "IX_HotelPropertyAndServiceList", IsUnique = true)]
+    [Index("HotelId", Name = "IX_HotelPropertyAndServiceListHotel")]
     public partial class HotelPropertyAndServiceList
     {
         [Key]

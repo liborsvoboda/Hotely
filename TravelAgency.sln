@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgencyBackEnd", "TravelAgencyBackEnd\TravelAgencyBackEnd.csproj", "{2917002C-CA9B-4B51-A4DF-8FE8C4B9596B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UbytkacBackEnd", "TravelAgencyBackEnd\UbytkacBackEnd.csproj", "{2917002C-CA9B-4B51-A4DF-8FE8C4B9596B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgencyAdmin", "TravelAgencyAdmin\TravelAgencyAdmin.csproj", "{C7FB1174-C52C-4FC0-8DBE-36DE66DA0401}"
 EndProject

@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd {
+﻿namespace UbytkacBackend {
 
     /// <summary>
     /// All Server Definitions of Database Operation method

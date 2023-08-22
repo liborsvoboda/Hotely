@@ -28,8 +28,11 @@ export default {
                 return this.$store.state.searchDialList;
             }
         },
+        loggedIn() {
+            return this.$store.state.user.loggedIn;
+        },
     },
-    mounted() {
+    async mounted() {
         this.GetTopList();
         this.GetSearchAreaList();
         this.GetSearchDialList();
@@ -38,20 +41,20 @@ export default {
         this.searchFieldChange();
     },
     methods: {
-        GetTopList() {
-            this.$store.dispatch("getTopList");
+        async GetTopList() {
+            await this.$store.dispatch("getTopList");
         },
-        GetSearchAreaList() {
-            this.$store.dispatch("getSearchAreaList");
+        async GetSearchAreaList() {
+            await this.$store.dispatch("getSearchAreaList");
         },
-        GetSearchDialList() {
-            this.$store.dispatch("getSearchDialList");
+        async GetSearchDialList() {
+            await this.$store.dispatch("getSearchDialList");
         },
-         GetPropertyList() {
-            this.$store.dispatch("getPropertyList");
+        async GetPropertyList() {
+            await this.$store.dispatch("getPropertyList");
         },
-        GetRoomTypeList() {
-            this.$store.dispatch("getRoomTypeList");
+        async GetRoomTypeList() {
+            await this.$store.dispatch("getRoomTypeList");
         },
         searchFieldChange() {
             this.$emit("input-changed", this.searchString);

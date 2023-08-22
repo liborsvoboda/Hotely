@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.CoreClasses {
+﻿namespace UbytkacBackend.CoreClasses {
 
     public class ApiClassesExtension {
 
@@ -9,8 +9,9 @@
             public int RecId { get; set; } = 0;
         }
 
-        public class SimpleImageList : HotelList {
-            public bool isPrimary { get; set; }
+        public class SimpleImageList {
+            public int Id { get; set; }
+            public bool IsPrimary { get; set; }
             public string FileName { get; set; }
         }
     }

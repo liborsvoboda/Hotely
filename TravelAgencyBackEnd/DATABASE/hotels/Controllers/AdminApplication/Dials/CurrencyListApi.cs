@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]
@@ -13,15 +13,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("Admin"))
-                {
-                    data = new hotelsContext().CurrencyLists.ToList();
-                }
-                else
-                {
-                    data = new hotelsContext().CurrencyLists.Include(a => a.User)
-                        .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
-                }
+                data = new hotelsContext().CurrencyLists.ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
@@ -35,14 +27,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("Admin"))
-                { data = new hotelsContext().CurrencyLists.FromSqlRaw("SELECT * FROM CurrencyList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
-                else
-                {
-                    data = new hotelsContext().CurrencyLists.FromSqlRaw("SELECT * FROM CurrencyList WHERE 1=1 AND " + filter.Replace("+", " "))
-                        .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
-                        .AsNoTracking().ToList();
-                }
+                data = new hotelsContext().CurrencyLists.FromSqlRaw("SELECT * FROM CurrencyList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });

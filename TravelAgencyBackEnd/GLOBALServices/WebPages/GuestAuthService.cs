@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     /// <summary>
     /// The web login api.
@@ -79,6 +79,7 @@
                     new Claim(ClaimTypes.PrimarySid, guest.Id.ToString()),
                     new Claim(ClaimTypes.Email, guest.Email),
                     new Claim(ClaimTypes.NameIdentifier, guest.Id.ToString()),
+                    new Claim(ClaimTypes.GroupSid, guest.UserId.ToString()),
                 }),
                 Issuer = guest.Email,
                 //NotBefore = DateTimeOffset.Now.DateTime,
@@ -98,6 +99,7 @@
                 Country = guest.Country,
                 Phone = guest.Phone,
                 Email = guest.Email,
+                UserId = guest.UserId.ToString(),
                 Token = tokenHandler.WriteToken(token)
             };
             return authResponse;

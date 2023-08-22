@@ -1,33 +1,34 @@
 <template>
     <html>
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/src/assets/css/font-awesome.min.css">
-        <title>Log in</title>
-    </head>
+        <head>
+            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="stylesheet" href="/src/assets/css/font-awesome.min.css">
+            <title>Log in</title>
+        </head>
 
-    <div class="main">
-        <p class="sign" align="center">{{ $t('user.logIn') }}</p>
-        <form class="form1" @submit.prevent="guestLogin">
-            <input class="un"
-                   type="text"
-                   align="center"
-                   placeholder="Email"
-                   required
-                   v-model="Email" />
-            <input class="pass"
-                   type="password"
-                   align="center"
-                   placeholder="Password"
-                   required
-                   v-model="Password" />
-            <button class="submit">{{ $t('user.signIn') }}</button>
-            <p class="forgot" align="center"><a href="/forgot">{{ $t('user.forgotPassword') }}</a></p>
-            <p class="forgot" align="center"><a href="/registration">{{ $t('labels.registration') }}</a></p>
-        </form>
-    </div>
-</html>
+        <div id="loginForm" class="main">
+            <p class="sign" align="center">{{ $t('user.logIn') }}</p>
+            <form class="form1" @submit.prevent="guestLogin">
+                <input class="un"
+                       type="email"
+                       align="center"
+                       placeholder="Email"
+                       required
+                       v-model="Email" />
+                <input class="pass"
+                       type="password"
+                       align="center"
+                       placeholder="Password"
+                       required
+                       minLength=6
+                       v-model="Password" />
+                <button class="submit" :onclick="checkValid">{{ $t('user.signIn') }}</button>
+                <p class="forgot" align="center"><a href="/forgot">{{ $t('user.forgotPassword') }}</a></p>
+                <p class="forgot" align="center"><a href="/registration">{{ $t('labels.registration') }}</a></p>
+            </form>
+        </div>
+    </html>
 </template>
 
 <script>
@@ -42,22 +43,31 @@ export default {
     },
     computed: {
         loggedIn() {
-            return this.$store.state.user.loggedIn
+            return this.$store.state.user.loggedIn;
         },
         user() {
-            return this.$store.state.user
+            return this.$store.state.user;
         },
     },
     methods: {
+        async checkValid() {
+            if (!this.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+                || this.Password.length < 6) {
+                document.getElementById("loginForm").classList.add("ani-ring");
+                setTimeout(function () {
+                    document.getElementById("loginForm").classList.remove("ani-ring");
+                }, 1000);
+            }
+        },
         async guestLogin() {
             let credentials = {
                 Email: this.Email,
                 Password: this.Password
             }
-            this.$store.dispatch('login', credentials)
+            this.$store.dispatch('login', credentials);
         },
         logout() {
-            this.$store.dispatch('logout')
+            this.$store.dispatch('logout');
         },
   },
 }

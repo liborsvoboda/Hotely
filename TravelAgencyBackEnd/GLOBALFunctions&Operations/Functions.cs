@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyBackEnd {
+﻿namespace UbytkacBackend {
 
     internal class Functions {
 
