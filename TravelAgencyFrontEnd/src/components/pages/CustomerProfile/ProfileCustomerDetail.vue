@@ -112,8 +112,6 @@ export default {
             this.$emit('closeEdit', false);
             await this.$store.dispatch('getBookingList');
 
-
-
         },
         updateMessage(msg) {
             this.info.message = msg;

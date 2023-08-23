@@ -86,9 +86,11 @@ const store = createStore({
         },
         setBookingList(store, value) {
             store.bookingList = value;
+            console.log("setBookingList", store.bookingList);
         },
         setHotel(store, value) {
-            store.hotel = value
+            store.hotel = value;
+            console.log("settedHotel", store.hotel);
         },
         setTopFiveList(store, value) {
             store.topFiveList = value;

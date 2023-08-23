@@ -64,10 +64,10 @@ export default {
                 Email: this.Email,
                 Password: this.Password
             }
-            this.$store.dispatch('login', credentials);
+            await this.$store.dispatch('login', credentials);
         },
-        logout() {
-            this.$store.dispatch('logout');
+        async logout() {
+            await this.$store.dispatch('logout');
         },
   },
 }

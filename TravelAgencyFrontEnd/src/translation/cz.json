@@ -82,7 +82,13 @@
     "accommodationAdvertisement": "Inzerce Ubytování",
     "newAccommodationAdvertisement": "Nová inzerce Ubytování",
     "topFive": "Top Five",
-    "servicesAndFacilitiesAvailable": "Dostupné služby a zařízení"
+    "servicesAndFacilitiesAvailable": "Dostupné služby a zařízení",
+    "requestDate": "Datum poptávky",
+    "editAdvertisement": "Editace pronájmu",
+    "mainSettings": "Hlavní Nastavení",
+    "insertAdvertisementName": "Vložte název ubytovacího zařízení",
+    "selectCountry": "Vyberte Zemi",
+    "selectCity": "Vyberte město"
   },
   "user": {
     "login": "Přihlásit",

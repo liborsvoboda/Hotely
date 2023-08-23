@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, reactive } from 'vue'
 import App from './App.vue'
 import router from "./router/index"
 import store from "./store/index"
@@ -37,12 +37,22 @@ const i18n = createI18n({
     fallbackLocale: 'cz'
 });
 
-createApp(App)
+let app = createApp(App)
+    /*.prototype()*/
     .use(router)
     .use(store)
     .use(PrimeVue)
-/*    .use(ConfirmationService)*/
     .use(VueCookies)
     .use(i18n)
     .use(ToastPlugin)
-    .mount('#app')
+    ;
+/*    .mount('#app');*/
+
+
+app.config.globalProperties.window = window; //use by this.$LoadedGlobalWindow
+app.config.globalProperties.window.watchGlobalVariables = reactive({
+    wizardRequestCityList: null
+});
+
+
+app.mount('#app');

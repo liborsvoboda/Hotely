@@ -27,7 +27,7 @@
                                 </router-link>
 
                                 <router-link :to="'/profile/advertisement'" v-if="user.UserId != ''">
-                                    <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-ring ')"></span>
+                                    <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-shuttle ')"></span>
                                     {{ $t('labels.accommodationAdvertisement') }}
                                 </router-link>
                             </div>
@@ -44,29 +44,11 @@
                                 <!-- <a href=""><router-link to="/profile">{{ $t('user.profile') }}</router-link></a> -->
                             </div>
                         </div>
-                       <!--  <div id="user" v-if="loggedIn">
-                            <ul>
-                                <li>
-                                    <a>{{ user.Email }}</a>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="main-menu">
-            <!--      <div class="row align-items-center justify-content-between d-flex">
-                    <div id="logo">
-                      <router-link to="/"
-                        ><img
-                          src="/src/assets/Logo5_cropped.png"
-                          alt=""
-                          title=""
-                          height="80"
-                      /></router-link>
-                    </div>
-                  </div>-->
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li @click="home"><router-link to="/">{{ $t('labels.home') }}</router-link></li>

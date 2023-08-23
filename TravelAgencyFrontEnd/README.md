@@ -119,3 +119,9 @@ https://vee-validate.logaretm.com/v4/guide/global-validators/
 
 bootstrap item types
 https://www.w3schools.com/bootstrap5/bootstrap_collapse.php
+
+
+
+reactive
+https://lemonadejs.net/
+https://lemonadejs.net/docs/module

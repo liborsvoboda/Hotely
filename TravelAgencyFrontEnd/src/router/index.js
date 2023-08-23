@@ -30,7 +30,7 @@ import RegistrationInfo from '../components/pages/Extra pages/RegistrationInfo.v
 import OftenQuestion from '../components/pages/Extra pages/OftenQuestion.vue';
 import HolidayTips from '../components/pages/Extra pages/HolidayTips.vue';
 import Advertisement from '../components/pages/Advertiser/Advertisement.vue';
-
+import AdvertisementWizard from '../components/pages/Advertiser/AdvertisementWizard.vue';
 
 const routes = [
     {
@@ -42,18 +42,18 @@ const routes = [
         },
     },
     {
-        path: "/Profile",
-        name: "Profile",
+        path: "/profile",
+        name: "profile",
         component: ProfileMain,
         meta: {
-            requiresAuth: false, title: "Advertisement News"
+            requiresAuth: true, title: "Advertisement News"
         },
         children: [
             {
                 path: "",
                 component: Profile,
                 meta: {
-                    requiresAuth: false, title: "Profile"
+                    requiresAuth: true, title: "Profile"
                 },
             },
             {
@@ -61,7 +61,7 @@ const routes = [
                 name: "Bookings",
                 component: Bookings,
                 meta: {
-                    requiresAuth: false, title: "Bookings"
+                    requiresAuth: true, title: "Bookings"
                 },
             },
             {
@@ -69,7 +69,7 @@ const routes = [
                 name: "favorite",
                 component: FavoriteHotelList,
                 meta: {
-                    requiresAuth: false, title: "Favorite List"
+                    requiresAuth: true, title: "Favorite List"
                 },
             },
             {
@@ -77,7 +77,7 @@ const routes = [
                 name: "profileSetting",
                 component: ProfileSetting,
                 meta: {
-                    requiresAuth: false, title: "Profile Setting"
+                    requiresAuth: true, title: "Profile Setting"
                 },
             },
             {
@@ -85,7 +85,15 @@ const routes = [
                 name: "advertisement",
                 component: Advertisement,
                 meta: {
-                    requiresAuth: false, title: "Advertisement"
+                    requiresAuth: true, title: "Advertisement"
+                },
+            },
+            {
+                path: "advertisementWizard",
+                name: "advertisementWizard",
+                component: AdvertisementWizard,
+                meta: {
+                    requiresAuth: true, title: "Advertisement Wizard"
                 },
             },
             
@@ -273,6 +281,12 @@ const router = createRouter({
 //before change route
 router.beforeEach((to, from, next) => {
 
+    //pageLoaderRunningCounter = 0;
+    //window.hidePageLoading();
+
+    //check forgoten routes for unauthorized user
+    if (!store.state.user.loggedIn && to.meta.requiresAuth) { router.push('/'); }
+    
     //autopage reset scroling without backroute from advertisement
     if (store.state.backRoute != to.fullPath
         && to.fullPath.indexOf("/hotels/") == -1 && to.fullPath.indexOf("/profile") == -1
@@ -294,10 +308,7 @@ router.beforeEach((to, from, next) => {
     next();
 });
 
-//When routing finished
-router.options.history.listen((newRoute) => {
-    pageLoaderRunningCounter = 0;
-    window.hidePageLoading();
-});
+//Go to root page on hard reload
+if (router.options.history.state.back == null) { router.push("/"); }
 
 export default router;

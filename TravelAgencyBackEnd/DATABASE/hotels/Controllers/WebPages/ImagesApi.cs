@@ -3,7 +3,7 @@
 namespace UbytkacBackend.Controllers {
 
     [ApiController]
-    [Route("WebApi/Image")]
+    [Route("WebApi")]
     public class WebImageApi : ControllerBase {
         private readonly hotelsContext _dbContext = new();
 
@@ -33,7 +33,7 @@ namespace UbytkacBackend.Controllers {
 
 
         [HttpGet("/WebApi/RoomImage/{roomId}")]
-        public async Task<IActionResult> GetRoomImageById(int? roomId = null) {
+        public async Task<IActionResult> GetRoomImageById(int? roomId) {
             HotelRoomList data = null;
             if (int.TryParse(roomId.ToString(), out int rId)) {
                 data = _dbContext.HotelRoomLists.Where(a => a.Id == rId).FirstOrDefault();
@@ -44,7 +44,7 @@ namespace UbytkacBackend.Controllers {
         }
 
         [HttpGet("/WebApi/RoomImage/{hotelId}/{roomId}")]
-        public async Task<IActionResult> GetRoomImageByKeys(int? hotelId = null, int? roomId = null) {
+        public async Task<IActionResult> GetRoomImageByKeys(int? hotelId, int? roomId) {
             HotelRoomList data = null;
             if (int.TryParse(hotelId.ToString(), out int hId) && int.TryParse(roomId.ToString(), out int rId))
             {
@@ -54,5 +54,6 @@ namespace UbytkacBackend.Controllers {
             if (data != null) { return File(data.Image, MimeTypes.GetMimeType(data.ImageName), data.ImageName); }
             else { return BadRequest(new { message = DBOperations.DBTranslate("BadRequest", "en") }); }
         }
+
     }
 }

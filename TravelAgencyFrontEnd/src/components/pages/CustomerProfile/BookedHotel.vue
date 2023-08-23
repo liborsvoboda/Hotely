@@ -14,6 +14,7 @@
                                 <div class="text-left">{{ hotel.firstName }} {{ hotel.lastName }}</div>
                                 <div class="text-left">{{ startDate }} - {{ endDate }}</div>
                                 <div class="text-left">{{ hotel.adult }} {{ $t('labels.adults') }}, {{ hotel.children }} {{ $t('labels.children') }}</div>
+                                <div class="text-left">{{ $t('labels.requestDate') }} {{new Date(hotel.timestamp).toLocaleDateString('cs-CZ') }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -82,7 +82,13 @@
     "accommodationAdvertisement": "Accommodation Advertisement",
     "newAccommodationAdvertisement": "New Accommodation Advertisement",
     "topFive": "Top Five",
-    "servicesAndFacilitiesAvailable": "Services and Facilities available"
+    "servicesAndFacilitiesAvailable": "Services and Facilities available",
+    "requestDate": "Request Date",
+    "editAdvertisement": "Edit Advertisement",
+    "mainSettings": "Main Settings",
+    "insertAdvertisementName": "Vložte název ubytovacího zařízení",
+    "selectCountry": "Select Country",
+    "selectCity": "Select City"
   },
   "user": {
     "login": "Přihlásit",

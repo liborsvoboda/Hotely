@@ -1,13 +1,14 @@
-﻿// STARTUP Temp Variables Definitions
+﻿//const { createApp, reactive } = Vue;
+
+// STARTUP Temp Variables Definitions
 let pageLoader;
 let pageLoaderRunningCounter = 0;
 
 
 
-
 /*Definitions  of Global System Behaviors */
 function ChangeSchemeTo(n) {
-    $("#color-scheme").attr("href", "../metro/css/schemes/" + n);
+    $("#color-scheme").attr("href", "../src/assets/css/schemes/" + n);
     $("#scheme-name").html(n);
     Metro.storage.setItem('WebScheme', n);
 }
@@ -24,14 +25,11 @@ function showPageLoading() {
         overlayClickClose: true,
         /*overlayAlpha: 1*/
     });
-    //window.onload = function () {
-    //    Metro.activity.close(pageLoader);
-    //};
 }
 
 function hidePageLoading() {
     pageLoaderRunningCounter--;
-    if (pageLoaderRunningCounter <= 1) {
+    if (pageLoaderRunningCounter <= 0) {
         pageLoaderRunningCounter = 0;
         Metro.activity.close(pageLoader);
     }
@@ -55,15 +53,3 @@ function googleTranslateElementInit() {
     }
 }
 
-
-function checkPrivateZone() {
-
-    //Denied Private zone List for unlogged
-    let privateZone = [
-        "/userprofile",
-        "/logout"
-    ]
-
-    if (privateZone.includes(window.location.pathname.toLocaleLowerCase()))
-        window.location.href = "/";
-}

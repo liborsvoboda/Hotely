@@ -9,14 +9,14 @@
                     <div class="row">
                         <div class="col-md-6 pt-0 mt-0 text-start">
                             <b>{{ hotel.name }}</b>
-                            <p>{{ hotel.city.city }}, {{ hotel.country.systemName }}</p>
+                            <div>{{ hotel.city.city }}, {{ hotel.country.systemName }}</div>
                             <p>
                                 {{ $t('labels.ratings') }}:
                                 <span class="rounded-pill">
                                     {{ hotel.averageRating }}
                                 </span>
                             </p>
-                            <p v-for="property in valueProperties.slice(0, 2)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
+                            <p v-for="property in valueProperties.slice(0, 3)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
                                :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                                 {{property.name}}:
                                 <span class="rounded-pill">
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="col-md-6 pt-0 mt-0 text-start">
-                            <h5>
+                            <h5 class ="ani-heartbeat">
                                 <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
 
@@ -80,6 +80,9 @@ export default {
             this.hotel.hotelImagesLists.forEach(image => {
                 if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
             });
+            this.hotel.hotelRoomLists.forEach(room => {
+                photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/RoomImage/' + room.id })
+            });
             return photos;
         },
         valueProperties() {
@@ -121,7 +124,6 @@ export default {
                 htmlContent += !lineSeparator ? "</div></li>" : "";
                 lineSeparator = !lineSeparator;
             });
-            console.log("content", htmlContent);
 
             this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
                 closeButton: true,
@@ -147,7 +149,6 @@ export default {
                 htmlContent += !lineSeparator ? "</div></li>" : "";
                 lineSeparator = !lineSeparator;
             });
-            console.log("content", htmlContent);
 
             this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
                 closeButton: true,

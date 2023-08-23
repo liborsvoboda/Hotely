@@ -1,53 +1,7 @@
 <template>
         <div class="row profile">
-<!--             <div class="col-md-3">
-                <div class="profile-sidebar">
-                    <div class="profile-userpic">
-                        <div class="text-center">
-                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                          </div>
-                          <br>
-                    </div>
-                    <div class="profile-usertitle">
-                        <div class="profile-usertitle-name">
-                            <p>{{user.FirstName}} {{user.LastName}}</p>
-                            <p>{{user.Email}}</p>
-                        </div>
-                    </div>
-                    <div class="profile-usermenu">
-                        <ul class="nav">
-                            <li>
-                                <router-link :to="'/profile/'">
-                                    <i class="fas fa-user"></i>
-                                    {{ $t('labels.home') }}
-                                </router-link>
-
-                            </li>
-                            <li>
-                                <router-link :to="'/profile/bookings'">
-                                    <i class="fas fa-concierge-bell"></i>
-                                    {{ $t('user.bookings') }}
-                                </router-link>
-
-                            </li>
-                            <li>
-                                <router-link :to="'/profile/favorite'">
-                                    <i class="fas fa-hotel"></i> 
-                                    {{ $t('user.favorites') }}
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link :to="'/profile/profileSetting'">
-                                    <i class="fas fa-users-cog"></i>
-                                    {{ $t('user.settings') }}
-                                </router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
             <div class="col-md-12">
-                <div class="profile-content">
+                <div class=""><!-- class="profile-content" -->
                     <router-view></router-view>
                 </div>
             </div> 

@@ -12,15 +12,17 @@
     </Card>
     <div v-else style="border-radius: 20px; margin-top: 20px;">
         <div class="row">
-          <!--   <ProgressSpinner /> -->
+            <!--   <ProgressSpinner /> -->
         </div>
     </div>
+
 </template>
 
 <script>
     import Top from './SearchResultComponents/Top.vue'
     import ProgressSpinner from 'primevue/progressspinner';
     import Card from 'primevue/card';
+
 
 export default ({
     components:{
@@ -29,11 +31,10 @@ export default ({
         ProgressSpinner
     },
     data(){
-        return{
+        return {
         }
     },
     mounted() {
-        
     },
     computed: {
         searchResults() {

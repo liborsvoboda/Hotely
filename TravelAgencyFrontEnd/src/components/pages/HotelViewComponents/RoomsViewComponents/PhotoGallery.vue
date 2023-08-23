@@ -30,6 +30,9 @@ export default {
             this.hotel.hotelImagesLists.forEach(image => {
                 if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
             });
+            this.hotel.hotelRoomLists.forEach(room => {
+                photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/RoomImage/' + room.id })
+            });
             return photos;
         },
         hotel() {

@@ -1,146 +1,148 @@
 <template>
-    <form class="form1" @submit.prevent="checkPasswords">
-        <div class="card-body">
-            <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="FirstName">{{ $t('labels.firstname') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="FirstName"
-                               :placeholder="user.FirstName"
-                               v-model="guest.FirstName" />
+    <div class="profile-content">
+        <form class="form1" @submit.prevent="checkPasswords">
+            <div class="card-body">
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="FirstName">{{ $t('labels.firstname') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="FirstName"
+                                   :placeholder="user.FirstName"
+                                   v-model="guest.FirstName" />
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="LastName">{{ $t('labels.lastname') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="LastName"
+                                   :placeholder="user.LastName"
+                                   v-model="guest.LastName" />
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="Email">{{ $t('labels.email') }}</label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="Email"
+                                   :placeholder="user.Email"
+                                   v-model="guest.Email" />
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="Phone">{{ $t('labels.phone') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="Phone"
+                                   :placeholder="user.Phone"
+                                   v-model="guest.Phone" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="LastName">{{ $t('labels.lastname') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="LastName"
-                               :placeholder="user.LastName"
-                               v-model="guest.LastName" />
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.address') }}</h6>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="Street">{{ $t('labels.street') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="Street"
+                                   :placeholder="user.Street"
+                                   v-model="guest.Street" />
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="City">{{ $t('labels.city') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="City"
+                                   :placeholder="user.City"
+                                   v-model="guest.City" />
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="ZipCode">{{ $t('labels.zipCode') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="ZipCode"
+                                   :placeholder="user.ZipCode"
+                                   v-model="guest.ZipCode" />
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="Country">{{ $t('labels.country') }}</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="Country"
+                                   :placeholder="user.Country"
+                                   v-model="guest.Country" />
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.actualOrNewPassword') }}</h6>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <label for="password">{{ $t('labels.password') }}</label>
+                        <div class="input-group flex-nowrap form-group">
+                            <input type="password" id="password" required minLength=6 class="form-control" v-model="guest.Password">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <label for="password">{{ $t('user.repeatPassword') }}</label>
+                        <div class="input-group flex-nowrap form-group">
+                            <input type="password" id="RePassword" required minLength=6 class="form-control" v-model="guest.confirmPassword">
+                        </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="Email">{{ $t('labels.email') }}</label>
-                        <input type="email"
-                               class="form-control"
-                               id="Email"
-                               :placeholder="user.Email"
-                               v-model="guest.Email" />
+                <div class="row gutters">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="input-group flex-nowrap form-group" style="margin-left:-20px;">
+                            <input class="" v-model="guest.UserId" type="checkbox" value="" id="userId" :disabled="user.UserId != ''" />
+                            <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="Phone">{{ $t('labels.phone') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="Phone"
-                               :placeholder="user.Phone"
-                               v-model="guest.Phone" />
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="text-right">
+                            <button type="button"
+                                    id="cancel"
+                                    name="cancel"
+                                    class="btn btn-secondary mr-1"
+                                    @click="resetForm()">
+                                {{ $t('user.cancelChanges') }}
+                            </button>
+                            <button type="button"
+                                    id="update"
+                                    name="update"
+                                    class="btn btn-primary mr-1"
+                                    @click="checkPasswords()">
+                                {{ $t('user.saveChanges') }}
+                            </button>
+                            <button type="button"
+                                    id="submit"
+                                    name="submit"
+                                    class="btn btn-danger"
+                                    @click="deleteAccout()">
+                                {{ $t('user.deleteAccount') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mt-3 mb-2 text-primary">{{ $t('user.address') }}</h6>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="Street">{{ $t('labels.street') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="Street"
-                               :placeholder="user.Street"
-                               v-model="guest.Street" />
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="City">{{ $t('labels.city') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="City"
-                               :placeholder="user.City"
-                               v-model="guest.City" />
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="ZipCode">{{ $t('labels.zipCode') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="ZipCode"
-                               :placeholder="user.ZipCode"
-                               v-model="guest.ZipCode" />
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="Country">{{ $t('labels.country') }}</label>
-                        <input type="text"
-                               class="form-control"
-                               id="Country"
-                               :placeholder="user.Country"
-                               v-model="guest.Country" />
-                    </div>
-                </div>
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mt-3 mb-2 text-primary">{{ $t('user.actualOrNewPassword') }}</h6>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label for="password">{{ $t('labels.password') }}</label>
-                    <div class="input-group flex-nowrap form-group">
-                        <input type="password" id="password" required minLength=6 class="form-control" v-model="guest.Password">
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <label for="password">{{ $t('user.repeatPassword') }}</label>
-                    <div class="input-group flex-nowrap form-group">
-                        <input type="password" id="RePassword" required minLength=6 class="form-control" v-model="guest.confirmPassword">
-                    </div>
-                </div>
-            </div>
-            <div class="row gutters">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="input-group flex-nowrap form-group" style="margin-left:-20px;">
-                        <input class="" v-model="guest.UserId" type="checkbox" value="" id="userId" :disabled="user.UserId != ''" />
-                        <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="text-right">
-                        <button type="button"
-                                id="cancel"
-                                name="cancel"
-                                class="btn btn-secondary mr-1"
-                                @click="resetForm()">
-                            {{ $t('user.cancelChanges') }}
-                        </button>
-                        <button type="button"
-                                id="update"
-                                name="update"
-                                class="btn btn-primary mr-1"
-                                @click="checkPasswords()">
-                            {{ $t('user.saveChanges') }}
-                        </button>
-                        <button type="button"
-                                id="submit"
-                                name="submit"
-                                class="btn btn-danger"
-                                @click="deleteAccout()">
-                            {{ $t('user.deleteAccount') }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </template>
 
 <script>

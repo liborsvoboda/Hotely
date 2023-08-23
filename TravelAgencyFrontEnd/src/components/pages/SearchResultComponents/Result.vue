@@ -1,18 +1,6 @@
 <template>
     <div class="p-4 rounded shadow-sm">
 
-<!--         <div id="bitPropertyInfo" class="info-box" data-role="infobox">
-            <div class="info-box-content" data-type="info" data-width="500" data-close-button="false">
-                <h5>{{ $t('labels.servicesAndFacilitiesAvailable') }}</h5>
-                <p v-for="property in valueProperties" style="margin-bottom:0px;" :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                    {{property.name}}:
-                    <span class="rounded-pill">
-                        {{ property.value }} {{ property.unit }}
-                    </span>
-                </p>
-            </div>
-        </div> -->
-
         <div id="testOmega">
             <div class="row">
                 <div class="col-md-4">
@@ -23,14 +11,14 @@
                         <div class="col-md-6 pt-0 mt-0 text-start">
                             <b>{{ hotel.name }}</b>
                             <div>{{ hotel.city.city }}, {{ hotel.country.systemName }}</div>
-                            <div>
+                            <p>
                                 {{ $t('labels.ratings') }}:
                                 <span class="rounded-pill">
                                     {{ hotel.averageRating }}
                                 </span>
-                            </div>
-                            <br />
-                            <p v-for="property in valueProperties.slice(0, 2)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
+                            </p>
+                            
+                            <p v-for="property in valueProperties.slice(0, 3)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
                             :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                                 {{property.name}}:
                                 <span class="rounded-pill">
@@ -94,6 +82,9 @@ export default {
             this.hotel.hotelImagesLists.forEach(image => {
                 if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
             });
+            this.hotel.hotelRoomLists.forEach(room => {
+                photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/RoomImage/' + room.id })
+            });
             return photos;
         },
         valueProperties() {
@@ -135,7 +126,6 @@ export default {
                 htmlContent += !lineSeparator ? "</div></li>" : "";
                 lineSeparator = !lineSeparator;
             });
-            console.log("content", htmlContent);
 
             this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
                 closeButton: true,
@@ -161,7 +151,6 @@ export default {
                 htmlContent += !lineSeparator ? "</div></li>" : "";
                 lineSeparator = !lineSeparator;
             });
-            console.log("content", htmlContent);
 
             this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
                 closeButton: true,

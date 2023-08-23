@@ -5,8 +5,6 @@ namespace UbytkacBackend.Controllers {
     [ApiController]
     [Route("WebApi/ReservedRoomList")]
     public class ReservedRoomsApi : ControllerBase {
-        private readonly hotelsContext _dbContext = new();
-
 
         [HttpGet("/WebApi/ReservedRoomList/{hotelId}/{startDate}/{endDate}/{language}")]
         public async Task<string> GetReservedRoomsApi(int hotelId, DateTime startDate, DateTime endDate, string language = "cz") {

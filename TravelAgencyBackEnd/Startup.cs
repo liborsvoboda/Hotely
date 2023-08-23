@@ -11,7 +11,6 @@ namespace UbytkacBackend {
             ServerCoreConfiguration.ConfigureControllers(ref services);
             ServerCoreConfiguration.ConfigureAuthentication(ref services);
             services.AddEndpointsApiExplorer();
-            //StripeConfiguration.ApiKey = "51Ix5jxB3kuAuBTpumfFOUXqYLSAiDcCYrIejgIX48knYENVJdkaB42V1VdqBPIuvM9KbuWwSrkfMNxkjYSrQucx500FLoljwSC";
 
             #endregion Server Core & Security
 
