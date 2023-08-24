@@ -88,7 +88,9 @@
     "mainSettings": "Hlavní Nastavení",
     "insertAdvertisementName": "Vložte název ubytovacího zařízení",
     "selectCountry": "Vyberte Zemi",
-    "selectCity": "Vyberte město"
+    "selectCity": "Vyberte město",
+    "selectCurrency": "Vyberte Měnu",
+    "insertDescription": "Napište Popis"
   },
   "user": {
     "login": "Přihlásit",
@@ -138,6 +140,9 @@
     "doYouReallyCancelBooking": "Opravdu chcete zrušit rezervaci:",
     "writeCancelReason": "\r\nNapište důvod zrušení:",
     "updateBookingWasSuccess": "Aktualizace rezervace byla úspěšná",
-    "anyAdvertisementExist": "Není vloženo žádné Ubytovací zařízení "
+    "anyAdvertisementExist": "Není vloženo žádné Ubytovací zařízení",
+    "menuIsAvailableAfterLogin": "Menu je dostupné po přihlášení",
+    "youMustBeAdvertiser": "Pro přístup musíš být inzerent",
+    "translateAutomatically": "Automaticky Překládat"
   }
 }

@@ -47,7 +47,7 @@ import Button from 'primevue/button';
 import PhotoG from "./HotelViewComponents/RoomsViewComponents/PhotoSlider.vue"
 import Card from 'primevue/card';
 
-export default ({
+export default {
     components:{
         Info,
         Photos,
@@ -102,7 +102,7 @@ export default ({
     },
     created() {
     }
-})
+}
 </script>
 <style>
 

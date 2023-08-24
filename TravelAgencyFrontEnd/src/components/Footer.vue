@@ -21,7 +21,7 @@
                 <li class="list-inline-item"><a href="#">Insurance</a></li>
                 <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
             </ul>
-            <p class="copyright">CoolNET © 2023</p>
+            <p class="copyright">copyright CoolNET © 2023 by GroupWare-Solution.Eu used Metro4</p>
         </footer>
     </div>
 </body>
@@ -36,7 +36,7 @@
 
 <style scoped>
 .footer-basic {
-  padding:40px 0;
+  padding:10px 0;
   background-color:rgb(51, 57, 58);
   color:#f3f3f3;
 }
@@ -66,7 +66,7 @@
 
 .footer-basic .social {
   text-align:center;
-  padding-bottom:25px;
+  padding-bottom:10px;
 }
 
 .footer-basic .social > a {
@@ -88,7 +88,7 @@
 }
 
 .footer-basic .copyright {
-  margin-top:15px;
+  margin-top:5px;
   text-align:center;
   font-size:13px;
   color:#aaa;

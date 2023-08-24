@@ -19,7 +19,7 @@ import ProfileMain from "../components/pages/CustomerProfile/ProfileMain.vue";
 import Login from "../components/pages/Login/Login.vue"
 import Registration from "../components/pages/Login/Registration.vue";
 import Forgot from "../components/pages/Login/Forgot.vue";
-import Profile from '../components/pages/CustomerProfile/ProfilePage.vue'
+import TopFive from '../components/pages/CustomerProfile/ProfilePage.vue'
 import Bookings from '../components/pages/CustomerProfile/Bookings.vue'
 import FavoriteHotelList from '/src/components/pages/CustomerProfile/FavoriteHotelList.vue';
 import ProfileSetting from '../components/pages/CustomerProfile/ProfileSetting.vue'
@@ -51,9 +51,9 @@ const routes = [
         children: [
             {
                 path: "",
-                component: Profile,
+                component: TopFive,
                 meta: {
-                    requiresAuth: true, title: "Profile"
+                    requiresAuth: false, title: "Top Five"
                 },
             },
             {
@@ -281,9 +281,6 @@ const router = createRouter({
 //before change route
 router.beforeEach((to, from, next) => {
 
-    //pageLoaderRunningCounter = 0;
-    //window.hidePageLoading();
-
     //check forgoten routes for unauthorized user
     if (!store.state.user.loggedIn && to.meta.requiresAuth) { router.push('/'); }
     
@@ -307,6 +304,12 @@ router.beforeEach((to, from, next) => {
     document.title = `Ubytkac: ${to.meta.title}`;
     next();
 });
+
+//check translate after route
+router.afterEach((to, from, next) => {
+    googleTranslateElementInit();
+});
+
 
 //Go to root page on hard reload
 if (router.options.history.state.back == null) { router.push("/"); }

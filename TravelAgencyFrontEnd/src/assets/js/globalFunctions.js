@@ -3,7 +3,9 @@
 
 function WizardRequestCityList(value) {
     watchGlobalVariables.wizardRequestCityList = value;
-};
+}; 
+
+
 
 //function UserLoadConfig() {
 //    showPageLoading();

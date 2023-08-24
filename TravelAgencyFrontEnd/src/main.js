@@ -17,7 +17,7 @@ import 'primeflex/primeflex.css';
 import 'vite/modulepreload-polyfill'
 
 /*import ConfirmationService from 'primevue/confirmationservice';*/
-import { createI18n } from 'vue-i18n';
+import { createI18n, useI18n } from 'vue-i18n';
 
 //import btoa from 'btoa';
 
@@ -49,7 +49,9 @@ let app = createApp(App)
 /*    .mount('#app');*/
 
 
+//Global Variables For Vue + Metro + other.js
 app.config.globalProperties.window = window; //use by this.$LoadedGlobalWindow
+app.config.globalProperties.window.dictionary = i18n.global.t;
 app.config.globalProperties.window.watchGlobalVariables = reactive({
     wizardRequestCityList: null
 });

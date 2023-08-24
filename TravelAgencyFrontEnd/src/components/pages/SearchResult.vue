@@ -24,10 +24,11 @@
 </template>
 
 <script>
-import Filter from './SearchResultComponents/Filter.vue'
-import Result from './SearchResultComponents/Result.vue'
-import Card from 'primevue/card';
-export default ({
+    import Filter from './SearchResultComponents/Filter.vue';
+    import Result from './SearchResultComponents/Result.vue';
+    import Card from 'primevue/card';
+
+export default {
     components:{
         Filter,
         Result,
@@ -56,7 +57,7 @@ export default ({
                 );
         }
     },
-})
+}
 </script>
 
 <style scoped>

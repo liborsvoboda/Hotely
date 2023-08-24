@@ -1,7 +1,7 @@
 ﻿//const { createApp, reactive } = Vue;
 
 // STARTUP Temp Variables Definitions
-let pageLoader;
+let pageLoader = null;
 let pageLoaderRunningCounter = 0;
 
 
@@ -32,24 +32,41 @@ function hidePageLoading() {
     if (pageLoaderRunningCounter <= 0) {
         pageLoaderRunningCounter = 0;
         Metro.activity.close(pageLoader);
+        googleTranslateElementInit();
     }
 
 }
+
+$(document).ready(function () {
+    googleTranslateElementInit();
+});
+
+document.addEventListener("load", function () {
+    googleTranslateElementInit();
+});
 
 function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,cs',
-        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
-    }, 'google_translate_element');
+    console.log("checktranslate");
+    try {
+        new google.translate.TranslateElement({
+            pageLanguage: 'cs',
+            /*includedLanguages: 'en,cs',*/
+            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+        }, 'google_translate_element');
 
-    let userTranslateSetting = Metro.storage.getItem('UserConfig', null) != null && Metro.storage.getItem('UserConfig', null).UserAutoTranslate ? true : false;
-    if (userTranslateSetting) {
-        setTimeout(function () {
-            let selectElement = document.querySelector('#google_translate_element select');
-            selectElement.value = 'cs';
-            selectElement.dispatchEvent(new Event('change'));
-        }, 1000);
-    }
+        if (Metro.storage.getItem('AutomaticTranslate', null) == true && Metro.storage.getItem('WebPagesLanguage', null) != null && document.querySelector('#google_translate_element select') != null) {
+
+            console.log("translating", Metro.storage.getItem('WebPagesLanguage', null));
+            setTimeout(function () {
+                let selectElement = document.querySelector('#google_translate_element select');
+                selectElement.value = Metro.storage.getItem('WebPagesLanguage', null);
+                selectElement.dispatchEvent(new Event('change'));
+            }, 1000);
+            setTimeout(function () {
+                document.querySelector("body > div:nth-child(1)").style.display = "none";
+            }, 1000);
+        }
+    } catch (err) { }
 }
+
 

@@ -13,5 +13,42 @@
 
 /* dropdown conflict correction */
 .dropdown-toggle::before {
-    content:none !important;
+    content: none !important;
+}
+
+
+/* Summernote correction */
+.note-editor .dropdown-toggle::after {
+    all: unset;
+}
+
+.note-editor .note-dropdown-menu, .note-editor .note-modal-footer {
+    box-sizing: content-box;
+}
+
+.note-editable {
+    background: #fff;
+}
+
+.note-btn.dropdown-toggle:after {
+    content: none;
+}
+
+.note-btn[aria-label="Help"] {
+    display: none;
+}
+
+.note-editor .note-toolbar .note-color-all .note-dropdown-menu, .note-popover .popover-content .note-color-all .note-dropdown-menu {
+    min-width: 185px;
+}
+/* End Summernote correction */
+
+
+.skiptranslate {
+    /* display:none !important; */
+    zoom: 1.2;
+}
+
+body {
+    top: 0px !important;
 }

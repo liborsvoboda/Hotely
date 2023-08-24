@@ -10,7 +10,9 @@
               </div>
             </div>
         </div>
-        <figure>
+
+
+<!--         <figure>
             <figcaption></figcaption>
                 <audio
                     controls
@@ -18,7 +20,7 @@
                         Your browser does not support the
                         <code>audio</code> element.
                 </audio>
-            </figure> 
+            </figure>  -->
     </div>
         <Body v-if="showBody"/>
     <Footer/>

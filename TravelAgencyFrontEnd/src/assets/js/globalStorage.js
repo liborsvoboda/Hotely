@@ -5,7 +5,8 @@
 
 /*WebPages Language Variable*/
 if (Metro.storage.getItem('WebPagesLanguage', null ) == null) {
-    let WebPagesLanguage = (navigator.language || navigator.userLanguage).indexOf("cs") >= 0 ? "cz" : "en"; 
+    //let WebPagesLanguage = (navigator.language || navigator.userLanguage).indexOf("cs") >= 0 ? "cz" : "en"; 
+    let WebPagesLanguage = (navigator.language || navigator.userLanguage).substring(0, 1); 
     Metro.storage.setItem('WebPagesLanguage', WebPagesLanguage);
 }
 
@@ -14,6 +15,13 @@ if (Metro.storage.getItem('WebScheme', null) == null) {
     Metro.storage.setItem('WebScheme', "sky-net.min.css");
     ChangeSchemeTo(Metro.storage.getItem('WebScheme', null));
 } else { ChangeSchemeTo(Metro.storage.getItem('WebScheme', null)); }
+
+
+/*WebPages Automatic Translate*/
+if (Metro.storage.getItem('AutomaticTranslate', null) == null) {
+    Metro.storage.setItem('AutomaticTranslate', false);
+}
+
 
 
 

@@ -24,7 +24,7 @@
     import Card from 'primevue/card';
 
 
-export default ({
+export default {
     components:{
         Top,
         Card,
@@ -43,7 +43,7 @@ export default ({
     },
     methods: {
     },
-})
+}
 </script>
 
 <style scoped>
