@@ -90,7 +90,15 @@
     "selectCountry": "Vyberte Zemi",
     "selectCity": "Vyberte město",
     "selectCurrency": "Vyberte Měnu",
-    "insertDescription": "Napište Popis"
+    "insertDescription": "Napište Popis",
+    "equipmentForRent": "Zařízení k pronájmu",
+    "photoGallery": "Foto Galerie",
+    "notInsertedAnyImage": "Není vložen žádný obrázek",
+    "maxFileSize": "Maximální velikost obrázku je 250Kb. Je vynechán:",
+    "selectDefault": "Označte Výchozí",
+    "equipmentForRentName": "Název zařízení k pronájmu",
+    "selectType": "Vyberte typ",
+    "extraBed":  "Přistýlka"
   },
   "user": {
     "login": "Přihlásit",

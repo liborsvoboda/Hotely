@@ -29,8 +29,8 @@
                 }
 
                 //clean datasets
-                hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
-                hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
+                hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
 
                 hotel.HotelImagesLists.ToList().ForEach(attachment => {
                     attachment.Hotel = null;
@@ -43,6 +43,8 @@
                 hotel.Country.HotelLists = null;
                 hotel.DefaultCurrency.HotelLists = null;
                 hotel.HotelRoomLists.ToList().ForEach(room => {
+                    room.DescriptionCz = room.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                    room.DescriptionEn = room.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
                     room.Image = null;
                     room.Hotel = null;
                 });

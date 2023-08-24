@@ -1,11 +1,12 @@
 <template>
-        <div class="row profile">
-            <div class="col-md-12">
-                <div class=""><!-- class="profile-content" -->
-                    <router-view></router-view>
-                </div>
-            </div> 
+    <div class="row container d-flex align-items-center justify-content-center">
+        <div class="col-md-10">
+            <div class="">
+                <!-- class="profile-content" -->
+                <router-view></router-view>
+            </div>
         </div>
+    </div>
 </template>
 
 <script>

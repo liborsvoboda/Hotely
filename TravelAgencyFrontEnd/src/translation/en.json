@@ -90,7 +90,15 @@
     "selectCountry": "Select Country",
     "selectCity": "Select City",
     "selectCurrency": "Select Currency",
-    "insertDescription": "Insert Description"
+    "insertDescription": "Insert Description",
+    "equipmentForRent": "Equipment for Rent",
+    "photoGallery": "Photo Gallery",
+    "notInsertedAnyImage": "Not inserted any Image",
+    "maxFileSize": "Maximal image size is 250Kb. this file is ignored:",
+    "selectDefault": "Select default",
+    "equipmentForRentName": "Equipment for rent Name",
+    "selectType": "Select Type",
+    "extraBed": "ExtraBed"
   },
   "user": {
     "login": "Přihlásit",

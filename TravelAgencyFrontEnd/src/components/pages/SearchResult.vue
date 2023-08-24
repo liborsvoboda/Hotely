@@ -1,26 +1,30 @@
 <template>
-    <Card id="test3">
-        <template #content>
-            <div class="row">
-                <div class="col-md-6">
-                    <h1>{{ $t('labels.searchResult') }}: {{nrOfSearchResults}}</h1>
-                </div>
-                <div class="col-md-6">
-                    <div class="dropdown" style="margin-top:10px;">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ $t('labels.sortBy') }}
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" v-on:click="sortListByPrice">{{ $t('labels.priceFromLovest') }}</a></li>
-                            <li><a class="dropdown-item" v-on:click="sortListByRating">{{ $t('labels.ratingFromHighest') }}</a></li>
-                        </ul>
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="col-md-12">
+            <Card id="test3">
+                <template #content>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>{{ $t('labels.searchResult') }}: {{nrOfSearchResults}}</h1>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dropdown" style="margin-top:10px;">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ $t('labels.sortBy') }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" v-on:click="sortListByPrice">{{ $t('labels.priceFromLovest') }}</a></li>
+                                    <li><a class="dropdown-item" v-on:click="sortListByRating">{{ $t('labels.ratingFromHighest') }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <hr>
-            <Filter @updateNrOfHotels="updateHotelsCount" />
-        </template>
-    </Card>
+                    <hr>
+                    <Filter @updateNrOfHotels="updateHotelsCount" />
+                </template>
+            </Card>
+        </div>
+    </div>
 </template>
 
 <script>

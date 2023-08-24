@@ -1,9 +1,15 @@
 <template>
     <div class="container">
         <div class="row">
-            <a v-for="photo in photos" :href="photo.hotelPhoto" data-toggle="lightbox" data-gallery="gallery" class="col-md-4" target="_blank">
-                <img :src="photo.hotelPhoto" class="img-fluid rounded">
-            </a>
+
+            <!-- <a v-for="photo in photos" :href="photo.hotelPhoto" data-toggle="lightbox" data-gallery="gallery" class="col-md-4" target="_blank">
+                <div class="img-container drop-shadow ">
+                    <img :src="photo.hotelPhoto" class="img-fluid rounded">
+                </div>
+            </a> -->
+            <div data-role="lightbox">
+                <img v-for="photo in photos" :src="photo.hotelPhoto" :data-original="photo.hotelPhoto" class="c-pointer" style="max-width:250px;" />
+            </div>
         </div>
     </div>
 </template>

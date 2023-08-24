@@ -46,7 +46,7 @@ document.addEventListener("load", function () {
 });
 
 function googleTranslateElementInit() {
-    console.log("checktranslate");
+    
     try {
         new google.translate.TranslateElement({
             pageLanguage: 'cs',
@@ -56,7 +56,6 @@ function googleTranslateElementInit() {
 
         if (Metro.storage.getItem('AutomaticTranslate', null) == true && Metro.storage.getItem('WebPagesLanguage', null) != null && document.querySelector('#google_translate_element select') != null) {
 
-            console.log("translating", Metro.storage.getItem('WebPagesLanguage', null));
             setTimeout(function () {
                 let selectElement = document.querySelector('#google_translate_element select');
                 selectElement.value = Metro.storage.getItem('WebPagesLanguage', null);

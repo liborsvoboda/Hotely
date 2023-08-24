@@ -2,8 +2,10 @@
     <div class="card mb-3" style="margin-left: 20px;margin-right: 20px; top: 20px;width:auto;">
         <div class="row g-0">
             <div class="col-md-4">
-                <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="img-fluid ml-3 mt-3 mb-3"
-                     style="cursor:pointer" :title="$t('labels.searchAccomodation')" @click="openAccommodation(hotel.hotel.id)" />
+                <div class="img-container drop-shadow ">
+                    <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="img-fluid ml-1"
+                         style="cursor:pointer" :title="$t('labels.searchAccomodation')" @click="openAccommodation(hotel.hotel.id)" />
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="card-body">

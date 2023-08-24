@@ -78,6 +78,11 @@ All Api are called from store/index.js + HotelView.vue, Registration.vue
 15] scrolování na obrazovce
 window.scrollTo(0,0)
 
+metro
+https://metroui.org.ua/images.html
+
+metroblog
+https://github.com/olton/Metro-UI-CSS/issues/1472
 
 16] toast 
 https://www.npmjs.com/package/vue-toast-notification

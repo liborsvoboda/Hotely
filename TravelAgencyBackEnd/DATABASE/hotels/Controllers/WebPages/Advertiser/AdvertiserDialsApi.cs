@@ -1,6 +1,4 @@
-﻿using static UbytkacBackend.CoreClasses.ApiClassesExtension;
-
-namespace UbytkacBackend.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]

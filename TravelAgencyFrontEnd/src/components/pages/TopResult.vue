@@ -1,21 +1,24 @@
 <template>
-    <Card id="test3" v-if="searchResults != null">
-        <template #content>
-            <div class="row">
-                <div class="col-md-12">
-                    <Top v-for="result in searchResults"
-                         :hotel="result.hotel"
-                         :key="result.hotel.id" />
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="col-md-10">
+            <Card id="test3" v-if="searchResults != null">
+                <template #content>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <Top v-for="result in searchResults"
+                                 :hotel="result.hotel"
+                                 :key="result.hotel.id" />
+                        </div>
+                    </div>
+                </template>
+            </Card>
+            <div v-else style="border-radius: 20px; margin-top: 20px;">
+                <div class="row">
+                    <!--   <ProgressSpinner /> -->
                 </div>
             </div>
-        </template>
-    </Card>
-    <div v-else style="border-radius: 20px; margin-top: 20px;">
-        <div class="row">
-            <!--   <ProgressSpinner /> -->
         </div>
     </div>
-
 </template>
 
 <script>

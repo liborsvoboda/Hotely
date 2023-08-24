@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="col-md-6 pt-0 mt-0 text-start">
-                            <h5>
+                            <h5 class="c-pointer" @click="createRoomListBox()">
                                 <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
 
@@ -59,6 +59,7 @@ export default {
     data() {
         return {
             infoBox: null,
+            roomListBox: null,
         };
     },
     props: {
@@ -80,9 +81,9 @@ export default {
             this.hotel.hotelImagesLists.forEach(image => {
                 if (!image.isPrimary) { photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/Image/' + this.hotel.id + '/' + image.fileName }) }
             });
-            this.hotel.hotelRoomLists.forEach(room => {
-                photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/RoomImage/' + room.id })
-            });
+            // this.hotel.hotelRoomLists.forEach(room => {
+            //     photos.push({ id: this.hotel.id, hotelPhoto: this.$store.state.apiRootUrl + '/RoomImage/' + room.id })
+            // });
             return photos;
         },
         valueProperties() {
@@ -104,6 +105,24 @@ export default {
 
     },
     methods: {
+        createRoomListBox() {
+            if (this.roomListBox != null) { Metro.infobox.close(this.roomListBox); }
+            let htmlContent = "<ul class='feed-list'><li class='title'>" + this.$i18n.t('labels.equipmentForRent') + "</li>";
+            let lineSeparator = true;
+            this.hotel.hotelRoomLists.forEach((room) => {
+                htmlContent += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.id + "' >";
+                htmlContent += "<span class='label'>" + room.name + "</span>";
+                htmlContent += "<span class='second-label fg-black bold'>" + room.roomsCount + "x " + this.$i18n.t('labels.maxCapacity') + ": " + room.maxCapacity + " <i class='fas fa-user-alt'></i></span>";
+                htmlContent += "<span class='second-label fg-black bold'>" + room.price + " " + this.hotel.defaultCurrency.name + "</span></li>";
+            }); htmlContent += "</ul>";
+
+            this.infoBox = Metro.infobox.create(htmlContent, "", {
+                closeButton: true,
+                type: "info",
+                removeOnClose: true,
+                height: "auto"
+            });
+        },
         createBitInfoBox() {
             if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
 

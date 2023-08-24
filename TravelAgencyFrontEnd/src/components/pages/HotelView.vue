@@ -62,6 +62,7 @@ export default {
     },
     computed: {
         isFavorite() {
+            console
             return this.$store.state.favoriteList.filter(obj => { return obj.hotelId === this.hotel.id; }).length > 0;
         },
         backRoute() {

@@ -43,7 +43,7 @@
 }
 /* End Summernote correction */
 
-
+/* Google Bar optimize */
 .skiptranslate {
     /* display:none !important; */
     zoom: 1.2;
@@ -51,4 +51,14 @@
 
 body {
     top: 0px !important;
+}
+
+
+/* Image Grid Optimize */
+.image-grid__item-landscape {
+    width: auto !important;
+}
+
+.drop-zone {
+    padding: 20px 0;
 }
