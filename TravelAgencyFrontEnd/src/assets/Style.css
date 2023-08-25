@@ -41,4 +41,6 @@
     background: #adc0e8 !important;
 }
 
-
+forgoten-visible {
+    display: none !important;
+}

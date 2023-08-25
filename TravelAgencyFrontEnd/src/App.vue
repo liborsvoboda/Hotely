@@ -134,9 +134,15 @@ export default {
     },
     created() {
 
-        // if(Cookies.get('login')){
-        //     this.$store.dispatch('checkLoggedInUser')
-        //   }
+    
+        //Hide Google Translate Panel
+        // document.addEventListener('click', function() { 
+        //     if(document.querySelector("body > div:nth-child(1)").className == "skiptranslate"){
+        //         if (document.querySelector("body > div:nth-child(1)").style.display != "none") {
+        //             document.querySelector("body > div:nth-child(1)").style.display = "none";
+        //         }
+        //     }
+        // });
         
     },
 }

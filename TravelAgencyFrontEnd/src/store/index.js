@@ -31,7 +31,7 @@ const store = createStore({
         holidayTipsList: [],
         searchDialList: [],
         searchAreaList: [],
-        favoriteList: [],
+        lightFavoriteHotelList: [],
         favoriteHotelList: [],
         topFiveList: [],
         searchResults: [],
@@ -81,6 +81,7 @@ const store = createStore({
     mutations: {
         setAdvertisementList(store, value) {
             store.advertisementList = value;
+            console.log("setAdvertisementList", store.advertisementList);
         },
         setPropertyGroupList(store, value) {
             store.propertyGroupList = value;
@@ -96,11 +97,12 @@ const store = createStore({
         setTopFiveList(store, value) {
             store.topFiveList = value;
         },
+        setLightFavoriteHotelList(store, value) {
+            store.lightFavoriteHotelList = value;
+            console.log("Set Lightfav", store.lightFavoriteHotelList);
+        },
         setFavoriteHotelList(store, value) {
             store.favoriteHotelList = value;
-        },
-        setFavoriteList(store, value) {
-            store.favoriteList = value;
         },
         setReservedRoomList(store, value) {
             store.reservedRoomList = value;
@@ -160,10 +162,15 @@ const store = createStore({
 
         },
         setUser(state, data) {
-            state.user = data
-            state.user.loggedIn = true
+            state.user = data;
+            state.user.loggedIn = true;
         },
         logOutUser(state) {
+            state.store.advertisementList = [];
+            store.lightFavoriteHotelList = [];
+            store.favoriteHotelList = [];
+            state.store.bookingList = [];
+
             state.user = {
                 loggedIn: false,
             }
@@ -173,8 +180,8 @@ const store = createStore({
         setDates({ commit }, date) {
             commit('setDates', date);
         },
-        setFavoriteList({ commit }, value) {
-            commit('setFavoriteList', value);
+        setLightFavoriteHotelList({ commit }, value) {
+            commit('setLightFavoriteHotelList', value);
         },
         setBookedTotalPrice({ commit }) {
             commit('setBookedTotalPrice');
@@ -184,6 +191,7 @@ const store = createStore({
         },
         async logout({ commit }) {
             commit('logOutUser')
+
             router.push('/')
         },
         clearBooking() {
@@ -213,7 +221,7 @@ const store = createStore({
             }
         },
         async searchHotels({ commit }, searchString) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.searchResults == [] || !this.state.searchResults.hotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             if (searchString === null || searchString == '') { searchString = "null"; }
 
             var response = await fetch(
@@ -227,7 +235,7 @@ const store = createStore({
             console.log("hotellist", result);
 
             commit('setHotelSearchResultsList', result.hotelList);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
 
             if (result) {
                 router.push({ name: 'result' });
@@ -235,7 +243,7 @@ const store = createStore({
             
         },
         async getReservedRoomList({ commit }, hotelId) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.reservedRoomList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let startDate; let endDate;
             if (this.state.searchString.dates.length) {
                 startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE');
@@ -251,10 +259,12 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setReservedRoomList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getTopList({ commit }) {
-            window.showPageLoading();
+            console.log("topList", this.state.searchResults);
+        
+            let mainloader; if (!this.state.searchResults == [] || !this.state.searchResults.hotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/Top/GetTopList/' + this.state.language, {
                 method: 'GET',
@@ -264,39 +274,44 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setTopList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
 
         },
         async getPropertyList({ commit }) {
-            window.showPageLoading();
-            var response = await fetch(
-                this.state.apiRootUrl + '/Properties/' + this.state.language, {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            });
-            var result = await response.json();
-            //console.log("Property", result);
-            commit('setPropertyList', result);
-            window.hidePageLoading();
+            if (!this.state.propertyList.length) {
+                let mainloader; if (!this.state.propertyList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+                var response = await fetch(
+                    this.state.apiRootUrl + '/Properties/' + this.state.language, {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                });
+                var result = await response.json();
+                //console.log("Property", result);
+                commit('setPropertyList', result);
+                if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+            }
         },
         async getPropertyGroupList({ commit }) {
-            window.showPageLoading();
-            var response = await fetch(
-                this.state.apiRootUrl + '/Properties/GetPropertyGroupList/' + this.state.language, {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            });
-            var result = await response.json();
-            console.log("PropertyGroup", result);
-            commit('setPropertyGroupList', result);
-            window.hidePageLoading();
+            if (!this.state.propertyGroupList.length) {
+                let mainloader; if (!this.state.propertyGroupList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+                var response = await fetch(
+                    this.state.apiRootUrl + '/Properties/GetPropertyGroupList/' + this.state.language, {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                });
+                var result = await response.json();
+                console.log("PropertyGroup", result);
+                commit('setPropertyGroupList', result);
+                if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+            }
         },
         async getAdvertisementList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.advertisementList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+
             var response = await fetch(
                 this.state.apiRootUrl + '/Advertiser/GetAdvertisementList/' + this.state.language, {
                 method: 'GET',
@@ -308,11 +323,11 @@ const store = createStore({
             var result = await response.json();
             console.log("setAdvertisementList", result);
             commit('setAdvertisementList', result);
-            window.hidePageLoading();
+            if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
         },
 
         async getRoomTypeList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.roomTypeList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/RoomTypes/' + this.state.language, {
                 method: 'GET',
@@ -322,10 +337,10 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setRoomTypeList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getUbytkacInfoList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.ubytkacInfoList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/UbytkacInfo/' + this.state.language, {
                 method: 'GET',
@@ -335,10 +350,10 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setUbytkacInfoList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getRegistrationInfoList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.registrationInfoList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/RegistrationInfo/' + this.state.language, {
                 method: 'GET',
@@ -348,10 +363,10 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setRegistrationInfoList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getOftenQuestionList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.oftenQuestionList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/OftenQuestion/' + this.state.language, {
                 method: 'GET',
@@ -361,10 +376,10 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setOftenQuestionList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getHolidayTipsList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.holidayTipsList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/HolidayTips/' + this.state.language, {
                 method: 'GET',
@@ -374,33 +389,37 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setHolidayTipsList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getSearchDialList({ commit }) {
-            window.showPageLoading();
-            var response = await fetch(
-                this.state.apiRootUrl + '/Search/GetSearchDialList/' + this.state.language, {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            });
-            var result = await response.json();
-            commit('setSearchDialList', result);
-            window.hidePageLoading();
+            if (!this.state.searchDialList.length) {
+                let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+                var response = await fetch(
+                    this.state.apiRootUrl + '/Search/GetSearchDialList/' + this.state.language, {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                });
+                var result = await response.json();
+                commit('setSearchDialList', result);
+                if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+            }
         },
         async getSearchAreaList({ commit }) {
-            window.showPageLoading();
-            var response = await fetch(
-                this.state.apiRootUrl + '/Search/GetSearchAreaList/' + this.state.language, {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            });
-            var result = await response.json();
-            commit('setSearchAreaList', result);
-            window.hidePageLoading();
+            if (!this.state.searchAreaList.length) {
+                let mainloader; if (!this.state.searchAreaList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+                var response = await fetch(
+                    this.state.apiRootUrl + '/Search/GetSearchAreaList/' + this.state.language, {
+                    method: 'GET',
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                });
+                var result = await response.json();
+                commit('setSearchAreaList', result);
+                if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+            }
         },
         async login({ commit }, credentials) {
             window.showPageLoading();
@@ -422,17 +441,12 @@ const store = createStore({
                 } else {
                     commit('setUser', result);
 
-                    //Load Advertisement if PowerUser
-                    if (this.state.user.UserId != '') {
-                        await this.dispatch("getAdvertisementList");
-                    }
+                    //Load Light Favorites for hearts
+                    await this.dispatch("getLightFavoriteHotelList");
 
-                    //Load Favorites
-                    await this.dispatch("getFavoriteHotelList");
-                    
 
                     //path after login
-                    router.push('/profile');
+                    router.push('/');
                 }
 
             } else { // remove login on Refresh page
@@ -440,7 +454,7 @@ const store = createStore({
                 commit('logOutUser');
                 router.push('/')
             }
-            window.hidePageLoading();
+            //window.hidePageLoading();
         },
 
         async registration({ commit }, regInfo) {
@@ -456,7 +470,7 @@ const store = createStore({
             window.hidePageLoading();
         },
         async getBookingList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.bookingList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/Guest/Booking/GetBookingList/' + this.state.language, {
                 method: 'GET',
@@ -467,10 +481,28 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setBookingList', result);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
+        },
+        async getLightFavoriteHotelList({ commit }) {
+            let mainloader; if (!this.state.lightFavoriteHotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            var response = await fetch(
+                this.state.apiRootUrl + '/Guest/GetLightFavoriteList', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            var result = await response.json();
+            commit('setLightFavoriteHotelList', result);
+            if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
         },
         async getFavoriteHotelList({ commit }) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.favoriteHotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+
+            //Load Updated Light Favorites for hearts
+            await this.dispatch("getLightFavoriteHotelList");
+
             var response = await fetch(
                 this.state.apiRootUrl + '/Guest/GetFavoriteList/' + this.state.language, {
                 method: 'GET',
@@ -481,10 +513,10 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setFavoriteHotelList', result.hotelList);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getTopFiveList({ commit }, type) {
-            window.showPageLoading();
+            let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/Guest/GetTopFiveList/' + type + '/' + this.state.language, {
                 method: 'GET',
@@ -495,17 +527,17 @@ const store = createStore({
             });
             var result = await response.json();
             commit('setTopFiveList', result.hotelList);
-            window.hidePageLoading();
+            if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         //TODO 
         async getReviews({ commit }, hotelId) {
-            //window.showPageLoading();
+            //let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             var response = await fetch(
                 this.state.apiRootUrl + '/Hotel/GetReviews/' + hotelId
             )
             var result = await response.json();
             commit('getReviews', result);
-            //window.hidePageLoading();
+            //if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
 
         deleteRegistration({ commit }, Id) {

@@ -11,23 +11,24 @@
             <!--             <b>{{ inputRoom }} <i class="fas fa-door-closed"></i></b> -->
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <div class="container text-start">
-                <p>
+            <div class="container text-start" style="max-width: 130px;">
+                <div>
                     {{ $t('labels.adults') }}
                     <InputNumber v-model="inputAdult"
                                  showButtons
                                  :min="0"
                                  :max="100"
                                  value="0" />
-                </p>
-                <p>
+                </div>
+                <div>
                     {{ $t('labels.children') }}
+                    <br />
                     <InputNumber v-model="inputChild"
                                  showButtons
                                  :min="0"
                                  :max="100"
                                  value="0" />
-                </p>
+                </div>
 <!--                 <p>
                     {{ $t('labels.roomss') }}
                     <InputNumber v-model="inputRoom"

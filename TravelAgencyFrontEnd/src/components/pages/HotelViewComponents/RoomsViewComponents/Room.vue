@@ -12,10 +12,14 @@
               </div>
 
               <div class="row">
-                  <div class="col-lg-4 col-md-4">
+                  <div class="col-lg-4 col-md-4 fg-cyan">
                       <p>
                           {{ $t('labels.maxCapacity') }}: {{ room.maxCapacity }}
-                          <i class="fas fa-user-alt"></i>
+                          <i class="fas fa-user-alt fg-cyan"></i>
+                          <span v-if="room.extraBed">
+                              + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                          </span>
+
                           <br />
                           {{ $t('labels.price') }}: <span style="font-weight: bold;">{{ room.price }} {{hotel.defaultCurrency.name}}</span>
                       </p>

@@ -8,7 +8,7 @@
                 </div>
             </a> -->
             <div data-role="lightbox">
-                <img v-for="photo in photos" :src="photo.hotelPhoto" :data-original="photo.hotelPhoto" class="c-pointer" style="max-width:250px;" />
+                <img v-for="photo in photos" :src="photo.hotelPhoto" :data-original="photo.hotelPhoto" class="c-pointer drop-shadow m-2" style="max-width:250px;" />
             </div>
         </div>
     </div>

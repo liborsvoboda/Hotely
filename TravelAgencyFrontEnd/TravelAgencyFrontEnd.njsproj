@@ -208,6 +208,7 @@
     <Content Include="src\assets\js\fontawesome.js" />
     <Content Include="src\assets\js\globalBehavior.js" />
     <Content Include="src\assets\js\globalFunctions.js" />
+    <Content Include="src\assets\js\summernote-lite.min.js.map" />
     <Content Include="src\assets\js\wizardFunctions.js" />
     <Content Include="src\assets\js\globalStorage.js" />
     <Content Include="src\assets\js\highlight.pack.js" />

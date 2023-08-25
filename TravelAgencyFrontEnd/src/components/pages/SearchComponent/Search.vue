@@ -1,5 +1,5 @@
 <template>
- <Card id="test3">
+ <Card id="SearchPanel">
    <template #content>
        <div class="p-grid">
            <div class="p-col-12 p-md-6 p-lg-4">
@@ -18,7 +18,7 @@
                <SearchDropdown />
            </div>
            <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
-               <Button class="" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
+               <Button class="button info" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
            </div>
        </div>
    </template>
@@ -67,7 +67,7 @@ export default {
 
 <style scoped>
 
-#test3{
+#SearchPanel {
   margin-top: 30px;
   border-radius: 20px;
   margin-top: 36mm;
@@ -103,7 +103,7 @@ export default {
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
+/* 
 button.p-button.p-component{
   background: #53c16e;
   border:#14a04d;
@@ -114,6 +114,6 @@ button.p-button.p-component{
   background:#348047 !important;
   border-color:#14a04d;
   text-decoration: none;
-}
+} */
 
 </style>

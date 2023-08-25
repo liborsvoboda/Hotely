@@ -50,7 +50,7 @@
     "servicesAndProperties": "Služby a Vybavení",
     "back": "Zpět na výsledky",
     "info": "Info",
-    "photos": "Fotky",
+    "photos": "Galerie",
     "reviews": "Hodnocení",
     "rooms": "Místnosti",
     "priceFromLovest": "Ceny od nejnižší",
@@ -105,7 +105,10 @@
     "insertRoomImage": "Vložte obrázek zařízení",
     "showPreview": "Zobrazit náhled",
     "saveNew": "Uložit Nový",
-    "adPreview": "Náhled Inzerátu"
+    "adPreview": "Náhled Inzerátu",
+    "loadingData": "Načítám Data Prosím počkejte",
+    "loadingPartData": "Aktualizuji Data, počkejte nebo kliknutím pokračujte",
+    "fileExist": "Soubor již existuje"
   },
   "user": {
     "login": "Přihlásit",

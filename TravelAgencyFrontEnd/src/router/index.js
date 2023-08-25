@@ -51,6 +51,7 @@ const routes = [
         children: [
             {
                 path: "",
+                name: "TopFive",
                 component: TopFive,
                 meta: {
                     requiresAuth: false, title: "Top Five"
@@ -195,6 +196,7 @@ const routes = [
         children: [
             {
                 path: "",
+                name: "Info",
                 component: Info,
                 meta: {
                     requiresAuth: false, title: "Accommodation"
@@ -307,6 +309,8 @@ router.beforeEach((to, from, next) => {
 
 //check translate after route
 router.afterEach((to, from, next) => {
+
+   
     googleTranslateElementInit();
 });
 

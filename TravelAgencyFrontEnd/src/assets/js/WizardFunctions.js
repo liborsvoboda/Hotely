@@ -3,23 +3,23 @@
 
 
 //WIZARD FUNCTIONS
-let ValidationWizardStatus = false; window.ValidationWizardStatus = ValidationWizardStatus;
-let ActualValidationFormName = "hotelForm"; window.ActualValidationFormName = ActualValidationFormName;
-let ActualWizardPage = 1; window.ActualWizardPage = ActualWizardPage;
-let WizardRoomPanelCustomButton = [{ html: "<span class='mif-cancel'></span>", cls: "sys-button", onclick: "alert('You press rocket button')" }]; window.WizardRoomPanelCustomButton = WizardRoomPanelCustomButton;
+let ValidationWizardStatus = false;
+let ActualValidationFormName = "hotelForm";
+let ActualWizardPage = 1;
+let WizardRoomPanelCustomButton = [{ html:'<span class=\'mif-cancel\'></span>', cls:'sys-button', onclick:'alert(\'You press rocket button\')' }];
 
-let WizardHotel = {}; window.WizardHotel = WizardHotel;
-let WizardImageGallery = []; window.WizardImageGallery = WizardImageGallery;
-let WizardRooms = []; window.WizardRooms = WizardRooms;
-let WizardTempRoomPhoto = []; window.WizardTempRoomPhoto = WizardTempRoomPhoto;
+let WizardHotel = {};
+let WizardImageGallery = [];
+let WizardRooms = [];
+let WizardTempRoomPhoto = [];
 
 //Watches
-window.WizardRequestCityList = function WizardRequestCityList(value) {
+function WizardRequestCityList(value) {
     watchGlobalVariables.wizardRequestCityList = value;
 };
 
 //Validation
-window.ValidateForm = function ValidateForm() { console.log("validate form");
+function ValidateForm() { console.log("validate form");
     window.ValidationWizardStatus = ValidationWizardStatus = true;
 
     if (ActualWizardPage == 1 && ActualValidationFormName == "hotelForm") {
@@ -44,36 +44,46 @@ window.ValidateForm = function ValidateForm() { console.log("validate form");
 };
 
 
-window.InvalidForm = function InvalidForm() { console.log("invalid form");
+function InvalidForm() { console.log("invalid form");
     //When bo back and again to done is validate last Form from other Page
     if (ActualWizardPage > $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current)
     { $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1); }
 
-    window.ValidationWizardStatus = ValidationWizardStatus = false;
+    ValidationWizardStatus = false;
 };
 
 
 //Gallery Control
-window.WizardGallerySetPrimaryImage = function WizardGallerySetPrimaryImage(filename) {
+function WizardGallerySetPrimaryImage(filename) {
     WizardImageGallery.forEach(image => {
         if (image.FileName == filename) { image.IsPrimary = true; } else { image.IsPrimary = false; }
     });
     WizardUploadImagesCheck();
 }
-window.WizardUploadImagesCheck = function WizardUploadImagesCheck() {
+function WizardUploadImagesCheck() {
     let status = false;
     if (WizardImageGallery.length == 0) { status = false; }
     else {
-        let htmlGallery = "<div data-role='lightbox' class='m-2'>";
+
+        let htmlGallery = "<div data-role='lightbox' data-role-lightbox='false' class='m-2' data-cls-image='border border-1 bd-white' >"; 
         WizardImageGallery.forEach(image => {
             if (image.IsPrimary) { status = true; }
-            htmlGallery += "<img id='" + image.FileName + "' src='" + image.Attachment + "' :data-original='" + image.Attachment + "' class='c-pointer drop-shadow " + (image.IsPrimary ? " selected " : "") + "' style='max-width:200px;margin:10px;' title='" + window.dictionary('labels.selectDefault') +"' onclick='WizardGallerySetPrimaryImage(\"" + image.FileName + "\")' />";
+            htmlGallery += "<img id='" + image.FileName + "' src='" + image.Attachment + "' :data-original='" + image.Attachment + "' class='c-pointer drop-shadow " + (image.IsPrimary ? " selected " : "") + "' style='max-width:150px;margin:10px;' title='" + window.dictionary('labels.selectDefault') + "'/>";
         }); htmlGallery += "</div>";
-        $("#ImageGallery").html(htmlGallery);
+        $("#HotelImageGallery").html(htmlGallery);
+
+        //remove Gallery Open Function
+        WizardImageGallery.forEach(image => {
+            var old_element = document.getElementById(image.FileName);
+            var new_element = old_element.cloneNode(true);
+            new_element.onclick = function () { WizardGallerySetPrimaryImage(image.FileName); }
+            old_element.parentNode.replaceChild(new_element, old_element);
+        })
+
     }
-    window.ValidationWizardStatus = ValidationWizardStatus = status;
+    ValidationWizardStatus = status;
 }
-window.WizardUploadImages = async function WizardUploadImages(files) {
+async function WizardUploadImages(files) {
     if (files.length > 0) {
         window.showPageLoading();
 
@@ -87,16 +97,30 @@ window.WizardUploadImages = async function WizardUploadImages(files) {
                 reader.readAsDataURL(files[i]);
             });
 
+
             if (fileContent.length < 250 * 1024) {
-                WizardImageGallery.push({ hoteId: 0, IsPrimary: setprimary ? true : false, FileName: files[i].name, Attachment: fileContent, UserId: 0, timestamp: new Date() });
-                setprimary = false;
+
+                //repeat insert validation
+                let checkGallery = WizardImageGallery; let itsOk = true;
+                checkGallery.forEach(image => {
+                    setprimary = false;
+                    if (image.FileName == files[i].name) { itsOk = false; }
+                })
+
+                if (itsOk) {
+                    WizardImageGallery.push({ hoteId: 0, IsPrimary: setprimary ? true : false, FileName: files[i].name, Attachment: fileContent, UserId: 0, timestamp: new Date() });
+                } else {
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: 3000, animation: 'easeOutBounce' });
+                    notify.create(window.dictionary('labels.fileExist') + " "+ files[i].name, "Info"); notify.reset();
+                }
+                
             } else {
                 var notify = Metro.notify; notify.setup({ width: 300, duration: 3000, animation: 'easeOutBounce' });
-                notify.create(window.dictionary('labels.maxFileSize') + files[i].name, "Info"); notify.reset();
+                notify.create(window.dictionary('labels.maxFileSize') + " " + files[i].name, "Info"); notify.reset();
             }
         }
 
-        window.WizardImageGallery = WizardImageGallery;
+        WizardImageGallery;
         WizardUploadImagesCheck();
         window.hidePageLoading();
     } else {
@@ -107,7 +131,9 @@ window.WizardUploadImages = async function WizardUploadImages(files) {
 }
 
 //Rooms Control
-window.WizardRoomUploadImage = async function WizardRoomUploadImage(files) {
+async function WizardRoomUploadImage(files) {
+    console.log("wizRoomUplioad", files);
+
     if (files.length > 0) {
         window.showPageLoading();
 
@@ -134,7 +160,7 @@ window.WizardRoomUploadImage = async function WizardRoomUploadImage(files) {
         notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info"); notify.reset();
     }
 }
-window.WizardShowRoomPreview = function WizardShowRoomPreview() {
+function WizardShowRoomPreview() {
     console.log("room Preview");
 
     let htmlContent = "<ul class='feed-list'><li class='title'>" + window.dictionary('labels.adPreview') + "</li>";
@@ -152,7 +178,7 @@ window.WizardShowRoomPreview = function WizardShowRoomPreview() {
     });
 
 }
-window.WizardInsertNewRoom = function WizardInsertNewRoom() {
+function WizardInsertNewRoom() {
 }
 
 

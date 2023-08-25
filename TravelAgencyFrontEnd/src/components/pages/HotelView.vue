@@ -62,8 +62,9 @@ export default {
     },
     computed: {
         isFavorite() {
-            console
-            return this.$store.state.favoriteList.filter(obj => { return obj.hotelId === this.hotel.id; }).length > 0;
+            console.log("HotelChecking Fav store/com store/fav", this.$store.state.hotel, this.hotel.id, this.$store.state.lightFavoriteHotelList);
+
+            return this.$store.state.lightFavoriteHotelList.filter(obj => { return obj.hotelId === this.hotel.id; }).length > 0;
         },
         backRoute() {
             return this.$store.state.backRoute;
@@ -96,7 +97,7 @@ export default {
                 });
 
                 let result = await response.json();
-                this.$store.dispatch('setFavoriteList', result);
+                this.$store.dispatch('setLightFavoriteHotelList', result);
                 this.$store.state.toastSuccessMessage = this.isFavorite ? this.$i18n.t("messages.addedToFavorite") : this.$i18n.t("messages.removedFromFavorite");
             } else { this.$store.state.toastInfoMessage = this.$i18n.t("messages.forSaveToFavoriteYouMustBeLogged") }
         },

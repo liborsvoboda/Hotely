@@ -35,13 +35,14 @@ export default {
     },
     data(){
         return {
+            errorText: true
         }
     },
     mounted() {
     },
     computed: {
         searchResults() {
-            return this.$store.state.searchResults.hotelList;
+            return this.$store.state.searchResults != [] ? this.$store.state.searchResults.hotelList : [];
         },
     },
     methods: {

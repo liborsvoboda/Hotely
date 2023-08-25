@@ -3,7 +3,7 @@
         <div :id="'carouselExampleFade' + photos[0].id" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="active carousel-item">
-                    <img :src="photos[0].hotelPhoto" class="d-block w-100 photoSlider" :style="{height: height}" alt="...">
+                    <img :src="photos[0].hotelPhoto" class="d-block w-100 photoSlider drop-shadow" :style="{height: height}" alt="...">
                 </div>
                 <div class="carousel-item" v-for="(photo, index) in photos.slice(1)" :key="index">
                     <img :src="photo.hotelPhoto" class="d-block w-100 photoSlider" :style="{height: height}" alt="...">

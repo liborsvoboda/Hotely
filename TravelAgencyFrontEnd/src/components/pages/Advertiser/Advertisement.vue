@@ -9,13 +9,13 @@
             </div>
         </div>
         <hr>
-        <div v-if="advertisementList.length && !errorText">
-            <!-- <ProgressSpinner /> -->
-        </div>
+        <!--<div v-if="advertisementList.length && !errorText">
+                <ProgressSpinner />
+        </div> -->
         <div v-if="errorText" class="h2 pt-5">
             <p>{{ $t('messages.anyAdvertisementExist') }}</p>
         </div>
-        <div v-else class="">
+        <div v-if="advertisementList.length" class="">
             <AdvertisementList v-for="hotel in advertisementList" :hotel="hotel" :key="hotel.id" />
         </div>
     </div>
@@ -47,7 +47,16 @@ export default {
             return this.$store.state.advertisementList;
         }
     },
-    unmounted() {
+    async mounted() {
+        if (this.$store.state.user.UserId != '') {
+            await this.$store.dispatch("getAdvertisementList");
+            if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+        }
+    },
+    watch: {
+        advertisementList(newVal) {
+            if (this.advertisementList.length) { this.errorText = false; } else { this.errorText = true; }
+        }
     }
 }
 </script>

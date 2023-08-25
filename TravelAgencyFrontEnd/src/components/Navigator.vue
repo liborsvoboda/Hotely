@@ -115,12 +115,6 @@ export default {
         advertisement() {
             return this.$store.state.advertisementList;
         },
-        hideTranslateBar() {
-            // if (document.querySelector("body > div:nth-child(1)").className == "skiptranslate") {
-            //     document.querySelector("body > div:nth-child(1)").style.display = "none";
-            // }
-            return document.querySelector("body > div:nth-child(1)").className == "skiptranslate";
-        },
         actualRoutePath() {
             return this.$router.fullpath;
         },
@@ -181,10 +175,6 @@ export default {
     },
 
     created() {
-        //hite translate bar
-        watch(this.hideTranslateBar, async (value) => {
-            if (value) { document.querySelector("body > div:nth-child(1)").style.display = "none"; }
-        });
     },
 }
 </script>

@@ -62,7 +62,7 @@
                                     <input id="Images" type="file" data-role="file" data-mode="drop" data-on-select="WizardUploadImages" data-validate="custom=WizardUploadImagesCheck" accept=".png,.jpg,.jpeg,.tiff" multiple="multiple">
                                 </div>
 
-                                <div id="ImageGallery" class="d-flex" />
+                                <div id="HotelImageGallery" class="d-flex" />
 
                             </div>
                         </div>
@@ -75,8 +75,8 @@
                 <div class="page-content p-0 h-100">
                     <div class="page-content p-0">
 
-                        <span class="mif-eye pos-absolute mif-4x fg-blue c-pointer" style="left:5px;top:5px" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.showPreview')" onclick="WizardShowRoomPreview" />
-                        <span class="mif-stack3 pos-absolute mif-4x fg-blue c-pointer" style="left:55px;top:5px" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveNew')" onclick="WizardInsertNewRoom" />
+                        <div class="mif-eye pos-absolute mif-4x fg-blue c-pointer" style="left:5px;top:5px" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.showPreview')" :click="WizardShowRoomPreview" />
+                        <span class="mif-stack3 pos-absolute mif-4x fg-blue c-pointer" style="left:55px;top:5px" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveNew')" @click="WizardInsertNewRoom" />
                         
                         <h2 class="fg-brandColor2">{{ $t('labels.equipmentForRent') }}</h2>
                         <div class="d-block" style="height:400px;overflow-y:auto;">
@@ -138,7 +138,7 @@
                                     </div>
 
                                     <div class="form-group w-50" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertRoomImage')">
-                                        <input id="roomImage" type="file" data-role="file" data-on-select="WizardUploadRoomImage"
+                                        <input id="roomImage" type="file" data-role="file" data-on-select="WizardRoomUploadImage"
                                                data-button-title="<span class='mif-folder'></span>" accept=".png,.jpg,.jpeg,.tiff">
                                     </div>
                                 </div>
@@ -175,6 +175,7 @@
     import Button from 'primevue/button';
     import { ref, watch } from 'vue';
     import store from "../../../store/index";
+    import * as WizardFunctions from '../../../assets/js/WizardFunctions';
 
 export default {
     components: {
@@ -186,6 +187,7 @@ export default {
     },
     data() {
         return {
+           // WizardScript: document.createElement('script')
         }
     },
     computed: {
@@ -197,9 +199,8 @@ export default {
         }
     },
     mounted() {
-        let WizardScript = document.createElement('script');
-        WizardScript.setAttribute('src', window.location.origin + '/src/assets/js/wizardFunctions.js');
-        document.head.appendChild(WizardScript);
+        // this.WizardScript.setAttribute('src', window.location.origin + '/src/assets/js/wizardFunctions.js');
+        // document.head.appendChild(this.WizardScript);
 
         this.getCountryList();
         this.getCurrencyList();
@@ -282,6 +283,9 @@ export default {
             }
         });
     },
+    beforeDestroy() {
+        //document.head.removeChild(this.WizardScript);
+    }
 };
 
 

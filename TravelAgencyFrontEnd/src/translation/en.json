@@ -50,7 +50,7 @@
     "servicesAndProperties": "Services and Amentities",
     "back": "Back to results",
     "info": "Info",
-    "photos": "Photos",
+    "photos": "Gallery",
     "reviews": "Reviews",
     "rooms": "Rooms",
     "priceFromLovest": "Price from lovest",
@@ -105,7 +105,10 @@
     "insertRoomImage": "Insert Room Image",
     "showPreview": "Show preview",
     "saveNew": "Save New",
-    "adPreview": "Náhled Inzerátu"
+    "adPreview": "Náhled Inzerátu",
+    "loadingData": "Loading Data Please wait...",
+    "loadingPartData": "Updating New Data, wait or click for continue",
+    "fileExist": "File exist"
   },
   "user": {
     "login": "Přihlásit",

@@ -7,9 +7,9 @@ namespace UbytkacBackend.Controllers {
     public class FavoriteApi : ControllerBase {
 
         [Authorize]
-        [HttpGet("/WebApi/Guest/GetFavoriteList")]
+        [HttpGet("/WebApi/Guest/GetLightFavoriteList")]
         [Consumes("application/json")]
-        public async Task<string> GetFavoriteList() {
+        public async Task<string> GetLightFavoriteList() {
             try {
 
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;

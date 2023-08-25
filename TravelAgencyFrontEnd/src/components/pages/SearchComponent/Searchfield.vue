@@ -33,11 +33,18 @@ export default {
         },
     },
     async mounted() {
-        this.GetTopList();
+
+        // For searching and correct show Loaded only OneTime if []
+        this.GetPropertyList();
+        this.GetPropertyGroupList();
         this.GetSearchAreaList();
         this.GetSearchDialList();
-        this.GetPropertyList();
-        //this.GetRoomTypeList();
+
+        //Load Top If nothing loaded
+        if (this.$route.fullPath == '/' &&
+            (this.$store.state.searchResults == [] || this.$store.state.searchResults.hotelList == undefined || !this.$store.state.searchResults.hotelList.length))
+        { this.$store.dispatch("getTopList"); }
+
         this.searchFieldChange();
     },
     methods: {
@@ -49,6 +56,9 @@ export default {
         },
         async GetSearchDialList() {
             await this.$store.dispatch("getSearchDialList");
+        },
+        async GetPropertyGroupList() {
+            await this.$store.dispatch("getPropertyGroupList");
         },
         async GetPropertyList() {
             await this.$store.dispatch("getPropertyList");
