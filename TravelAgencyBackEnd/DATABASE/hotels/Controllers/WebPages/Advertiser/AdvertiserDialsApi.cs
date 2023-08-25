@@ -40,5 +40,19 @@
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
+        [HttpGet("/WebApi/Advertiser/GetRoomTypeList/{language}")]
+        public async Task<string> GetRoomTypeList(string language = null) {
+            List<HotelRoomTypeList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
+                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
+            })) {
+                data = new hotelsContext().HotelRoomTypeLists.ToList();
+            }
+
+            data.ForEach(roomType => { roomType.SystemName = DBOperations.DBTranslate(roomType.SystemName, language); });
+
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
     }
 }

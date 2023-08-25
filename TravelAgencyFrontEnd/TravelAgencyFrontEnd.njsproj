@@ -194,6 +194,7 @@
     <Content Include="src\assets\img\Hotels\Hotel Three Dolphins\InteriorTD.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Three Dolphins\Room1TD.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Three Dolphins\Room2TD.jpg" />
+    <Content Include="src\assets\img\no_photo.png" />
     <Content Include="src\assets\img\Profile\AdrenalinBoi.jpg" />
     <Content Include="src\assets\img\Profile\CuriousBoi.jpg" />
     <Content Include="src\assets\img\Profile\Hottudoggu.jpg" />
@@ -207,6 +208,7 @@
     <Content Include="src\assets\js\fontawesome.js" />
     <Content Include="src\assets\js\globalBehavior.js" />
     <Content Include="src\assets\js\globalFunctions.js" />
+    <Content Include="src\assets\js\wizardFunctions.js" />
     <Content Include="src\assets\js\globalStorage.js" />
     <Content Include="src\assets\js\highlight.pack.js" />
     <Content Include="src\assets\js\jquery-3.6.0.min.js" />

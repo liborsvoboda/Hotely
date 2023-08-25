@@ -98,7 +98,14 @@
     "selectDefault": "Select default",
     "equipmentForRentName": "Equipment for rent Name",
     "selectType": "Select Type",
-    "extraBed": "ExtraBed"
+    "extraBed": "ExtraBed",
+    "insertPrice": "Insert Price",
+    "insertMaxCapacity": "Insert Maximal Capacity",
+    "insertRoomsSameCount": "Insert Rooms Count",
+    "insertRoomImage": "Insert Room Image",
+    "showPreview": "Show preview",
+    "saveNew": "Save New",
+    "adPreview": "Náhled Inzerátu"
   },
   "user": {
     "login": "Přihlásit",

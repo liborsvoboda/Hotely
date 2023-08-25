@@ -130,3 +130,11 @@ https://www.w3schools.com/bootstrap5/bootstrap_collapse.php
 reactive
 https://lemonadejs.net/
 https://lemonadejs.net/docs/module
+
+------------------------------------------------------------
+
+nacteni hodnot formulare v JS
+$("#HotelCurrency").val()
+$("#HotelCurrency")[0].selectedOptions[0].text
+$("#Hotelsummernote").summernote('code')
+

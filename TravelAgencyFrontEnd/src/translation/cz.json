@@ -98,7 +98,14 @@
     "selectDefault": "Označte Výchozí",
     "equipmentForRentName": "Název zařízení k pronájmu",
     "selectType": "Vyberte typ",
-    "extraBed":  "Přistýlka"
+    "extraBed": "Přistýlka",
+    "insertPrice": "Zadejte Cenu",
+    "insertMaxCapacity": "Zadejte Maximální kapacitu",
+    "insertRoomsSameCount": "Zadejte Počet zařízení",
+    "insertRoomImage": "Vložte obrázek zařízení",
+    "showPreview": "Zobrazit náhled",
+    "saveNew": "Uložit Nový",
+    "adPreview": "Náhled Inzerátu"
   },
   "user": {
     "login": "Přihlásit",
