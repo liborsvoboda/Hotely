@@ -50,6 +50,8 @@ namespace UbytkacBackend.DBModel
         public int TopShown { get; set; }
         public DateTime? LastTopShown { get; set; }
         public int Shown { get; set; }
+        public bool Deactivated { get; set; }
+        public int PopularCount { get; set; }
 
         [ForeignKey("CityId")]
         [InverseProperty("HotelLists")]

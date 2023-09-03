@@ -78,7 +78,7 @@ namespace UbytkacBackend.DBModel
         [Unicode(false)]
         public string PhotoPath { get; set; }
         [Required]
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
         [StringLength(4096)]
         [Unicode(false)]
         public string ApiToken { get; set; }

@@ -1,51 +1,127 @@
 <template>
-    <div class="p-4 rounded shadow-sm">
-        <div id="testOmega">
+    <div class="p-4 rounded drop-shadow" :style="(hotel.deactivated ? 'background-color: rgb(242 214 161 / 70%);' : '')">
+        <div id="testOmega" style="opacity:1.0;">
+            <div class="row">
+                <div class="col-md-12 pt-0 mt-0">
+                    <ul class="h-menu open large pos-static bg-cyan fg-cyan" style="background-color:transparent !important;">
+                        <li :title="$t('labels.editLease')" @click="editAdvertisement(hotel.id)"><a href="#" class="p-2"><span class="mif-description icon mif-2"></span></a></li>
+                        <li :title="$t('labels.requestOfApproval')" @click="setApprovalRequest(hotel.id)" :class="(hotel.approved ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-traff icon"></span></a></li>
+                        <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li>
+                        <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon"></span></a></li>
+                        <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon"></span></a></li>
+                        <li :title="$t('labels.comments')"><a href="#" class="p-2"><span class="mif-comment icon"></span></a></li>
+                        <li :title="$t('labels.showOnMap')"><a href="#" class="p-2"><span class="mif-my-location icon"></span></a></li>
+                        <li :title="$t('labels.publish')"><a href="#" class="p-2"><span class="mif-feed icon"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-4">
-                    <PhotoSlider :photos="photos" :width="'210px'" :height="'150px'" :key="hotel.id" />
+                    <PhotoSlider :photos="photos" :width="'210px'" :height="'150px'" :key="hotel.id" class="drop-shadow" />
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-6 pt-0 mt-0 text-start">
-                            <b>{{ hotel.name }}</b>
+                        <div class="col-md-4 pt-0 mt-0 text-start">
+                            <b class="c-help" :title="$t('labels.advertisementName')">{{ hotel.name }}</b>
+                            <div>
+                                {{ $t('labels.currency') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.defaultCurrency.name }}
+                                </span>
+                            </div>
                             <div>{{ hotel.city.city }}, {{ hotel.country.systemName }}</div>
-                            <p>
+                            <div>
+                                {{ $t('labels.totalCapacity') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.totalCapacity }}
+                                </span>
+                            </div>
+
+                            <div>
+                                {{ $t('labels.imagesCount') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.hotelImagesLists.length }}
+                                </span>
+                            </div>
+                            <div>
+                                {{ $t('labels.advertisementCount') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.hotelRoomLists.length }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pt-0 mt-0 text-start">
+                            <h5 class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createRoomListBox()">
+                                <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
+                            </h5>
+                            <p class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createValueInfoBox()">
+                                {{ $t('labels.valueInformations') }}
+                            </p>
+                            <p class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createBitInfoBox()">
+                                {{ $t('labels.availableInformations') }}
+                            </p>
+                            <div class="c-help ani-hover-heartbeat">
+                                {{ $t('labels.reservationCount') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.hotelReservationLists.length }}
+                                </span>
+                            </div>
+                            <div class="c-help ani-hover-heartbeat">
+                                {{ $t('labels.popularCount') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.popularCount }}
+                                </span>
+                            </div>
+                            <div class="">
+                                {{ $t('labels.searchCount') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.shown }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 pt-0 mt-0 text-start">
+                            <div>
+                                {{ $t('labels.state') }}:
+                                <span class="rounded-pill ">
+                                    {{ ( hotel.approveRequest ? $t('labels.approvalRequest') : hotel.approved ? $t('labels.approved') : $t('labels.processed') ) }}
+                                </span>
+                            </div>
+
+                            <div>
+                                {{ $t('labels.status') }}:
+                                <span class="rounded-pill ">
+                                    {{ ( hotel.deactivated ? $t('labels.inactive') : $t('labels.active') ) }}
+                                </span>
+                            </div>
+
+                            <div>
+                                {{ $t('labels.advertisementStatus') }}:
+                                <span class="rounded-pill ">
+                                    {{ ( hotel.advertised ? $t('labels.advertised') : $t('labels.unadvertised') ) }}
+                                </span>
+                            </div>
+                            <div>
                                 {{ $t('labels.ratings') }}:
                                 <span class="rounded-pill ">
                                     {{ hotel.averageRating }}
                                 </span>
-                            </p>
-                            <p v-for="property in valueProperties.slice(0, 3)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
-                               :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                                {{property.name}}:
-                                <span class="rounded-pill">
-                                    {{ property.value }} {{ property.unit }}
+                            </div>
+                            <div>
+                                {{ $t('labels.topStatus') }}:
+                                <span class="rounded-pill ">
+                                    {{ (hotel.top ? $t('labels.enabled') : $t('labels.disabled') ) }}
                                 </span>
-                            </p>
+                            </div>
+                            <div>
+                                {{ $t('labels.topShownCount') }}:
+                                <span class="rounded-pill ">
+                                    {{ hotel.topShown }}
+                                </span>
+                            </div>
 
-                            <button class="btn btn-primary"
-                                    for="btn-check-outlined"
-                                    @click="hotelDetailsClick">
-                                {{ $t('labels.editAdvertisement') }}
-                            </button>
-                        </div>
-
-                        <div class="col-md-6 pt-0 mt-0 text-start">
-                            <h5 >
-                                <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
-                            </h5>
-
-                            <p v-for="property in bitProperties.slice(0, 4)" class="c-help" style="margin-bottom:0px;" @click="createBitInfoBox()"
-                               :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                                <i class="fas fa-check"></i> {{property.name}}
-                            </p>
-
-                            <button class="btn btn-primary"
-                                    for="btn-check-outlined"
-                                    @click="hotelDetailsClick">
-                                {{ $t('labels.seeDetail') }}
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +185,80 @@ export default {
         }
 
     },
+    mounted() {
+        
+    },
     methods: {
+        editAdvertisement(hotelId) {
+            WizardHotel = {
+                HotelId: this.hotel.id, HotelName: this.hotel.name, HotelCurrency: this.hotel.defaultCurrencyId,
+                HotelCountry: this.hotel.countryId, HotelCity: this.hotel.cityId, Description: this.hotel.descriptionCz,
+                Images: this.hotel.hotelImagesLists, Rooms: this.hotel.hotelRoomLists, Properties: this.hotel.hotelPropertyAndServiceLists
+            };
+            this.$router.push('/profile/advertisementWizard');
+        },
+        createRoomListBox() {
+            if (this.roomListBox != null) { Metro.infobox.close(this.roomListBox); }
+            let htmlContent = "<ul class='feed-list'><li class='title'>" + this.$i18n.t('labels.equipmentForRent') + "</li>";
+            let lineSeparator = true;
+            this.hotel.hotelRoomLists.forEach((room) => {
+                htmlContent += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.id + "' >";
+                htmlContent += "<span class='label'>" + room.name + "</span>";
+                htmlContent += "<span class='second-label fg-black bold'>" + room.roomsCount + "x " + this.$i18n.t('labels.maxCapacity') + ": " + room.maxCapacity + " <i class='fas fa-user-alt'></i></span>";
+                htmlContent += "<span class='second-label fg-black bold'>" + room.price + " " + this.hotel.defaultCurrency.name + "</span></li>";
+            }); htmlContent += "</ul>";
+
+            this.infoBox = Metro.infobox.create(htmlContent, "", {
+                closeButton: true,
+                type: "info",
+                removeOnClose: true,
+                height: "auto"
+            });
+        },
+        async setApprovalRequest(hotelId) {
+            disableScroll();
+            var response = await fetch(
+                this.$store.state.apiRootUrl + '/Advertiser/ApprovalRequest/' + hotelId, {
+                method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
+            }
+            ); let result = await response.json();
+            if (this.$store.state.user.UserId != '') {
+                await this.$store.dispatch("getAdvertisementList");
+                if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+            }
+            enableScroll();
+        },
+        async deleteAdvertisement(hotelId) {
+            disableScroll();
+            var response = await fetch(
+                this.$store.state.apiRootUrl + '/Advertiser/DeleteAdvertisement/' + hotelId, {
+                method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
+            }
+            ); let result = await response.json();
+            if (result.Status == "error") {
+                var notify = Metro.notify; notify.setup({ width: 300, duration: 3000, animation: 'easeOutBounce' });
+                notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
+            } else {
+                if (this.$store.state.user.UserId != '') {
+                    await this.$store.dispatch("getAdvertisementList");
+                    if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+                }
+            }
+            enableScroll();
+        },
+        async setActivation(hotelId) {
+            disableScroll();
+            var response = await fetch(
+                this.$store.state.apiRootUrl + '/Advertiser/ActivationHotel/' + hotelId, {
+                method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
+            }
+            ); let result = await response.json();
+            if (this.$store.state.user.UserId != '') {
+                await this.$store.dispatch("getAdvertisementList");
+                if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+            }
+            enableScroll();
+        },
         createBitInfoBox() {
             if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
 
@@ -168,6 +317,16 @@ export default {
             this.$router.push('/hotels/' + this.hotel.id);
         },
     },
+    created() {
+        $('[scroll="disable"]').on('click', function () {
+            var oldWidth = $body.innerWidth();
+            scrollPosition = window.pageYOffset;
+            $body.css('overflow', 'hidden');
+            $body.css('position', 'fixed');
+            $body.css('top', `-${scrollPosition}px`);
+            $body.width(oldWidth);
+        });
+    }
 };
 </script>
 

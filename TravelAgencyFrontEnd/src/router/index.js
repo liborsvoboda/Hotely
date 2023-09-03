@@ -282,7 +282,6 @@ const router = createRouter({
 
 //before change route
 router.beforeEach((to, from, next) => {
-
     //check forgoten routes for unauthorized user
     if (!store.state.user.loggedIn && to.meta.requiresAuth) { router.push('/'); }
     
@@ -290,12 +289,14 @@ router.beforeEach((to, from, next) => {
     if (store.state.backRoute != to.fullPath
         && to.fullPath.indexOf("/hotels/") == -1 && to.fullPath.indexOf("/profile") == -1
         && to.fullPath.indexOf("/login") == -1 && to.fullPath.indexOf("/registration") == -1
-        && to.fullPath.indexOf("/forgot") == -1
+        && to.fullPath.indexOf("/forgot") == -1 && to.fullPath.indexOf("/profile/advertisement") == -1 
     ) {
         window.scrollTo(0, 0);
+    } else if (to.fullPath.indexOf("/profile/advertisement") > -1) {
+        window.scrollTo(0, window.scrollY);
     } else if (to.fullPath.indexOf("/hotels/") > -1) {
         window.scrollTo(0, 220);
-    } else if (to.fullPath.indexOf("/profile") > -1) {
+    } else if (to.fullPath.indexOf("/profile") > -1 && to.fullPath.indexOf("/profile/advertisement") == -1) {
             window.scrollTo(0, 220);
     } else if (to.fullPath.indexOf("/login") > -1 || to.fullPath.indexOf("/registration") > -1 || to.fullPath.indexOf("/forgot") > -1) {
         window.scrollTo(0, 220);
@@ -309,10 +310,9 @@ router.beforeEach((to, from, next) => {
 
 //check translate after route
 router.afterEach((to, from, next) => {
-
-   
     googleTranslateElementInit();
 });
+
 
 
 //Go to root page on hard reload

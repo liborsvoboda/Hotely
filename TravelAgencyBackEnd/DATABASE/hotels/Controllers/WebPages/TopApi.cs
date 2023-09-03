@@ -12,9 +12,11 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 result = new hotelsContext().HotelLists
-                    .Include(a => a.HotelRoomLists.Where(a => a.Approved == true)).Include(a => a.City).Include(a => a.Country)
+                    .Include(a => a.HotelRoomLists)
+                    .Include(a => a.City)
+                    .Include(a => a.Country)
                     .Include(a => a.DefaultCurrency)
-                    .Where(a => data.Contains(a.Id)).ToList();
+                    .Where(a => data.Contains(a.Id) && !a.Deactivated).ToList();
             }
 
             result.ForEach(hotel => {
@@ -69,14 +71,14 @@
             List<int> otherData;
 
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                searchedIdList = new hotelsContext().HotelLists.Where(a => a.Top)
+                searchedIdList = new hotelsContext().HotelLists.Where(a => a.Top && !a.Deactivated)
                     .Where(a => a.Approved && a.Advertised && a.TotalCapacity > 0)
                     .OrderByDescending(a=> a.TopDate).Select(a => a.Id).ToList();
             }
 
             if (searchedIdList.Count < 20) {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    otherData = new hotelsContext().HotelLists.Where(a => !a.Top)
+                    otherData = new hotelsContext().HotelLists.Where(a => !a.Top && !a.Deactivated)
                         .Where(a => a.Approved && a.Advertised && a.TotalCapacity > 0)
                         .OrderBy(a => a.LastTopShown).Select(a => a.Id).Take(20 - searchedIdList.Count).ToList();
                 }

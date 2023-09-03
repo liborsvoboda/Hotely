@@ -1,11 +1,15 @@
 <template>
     <div class="py-4">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 d-flex">
+                <span :title ="$t('labels.showAlsoInactive')" style="zoom:1.5;">
+                    <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive">
+                </span>
+                
                 <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
             </div>
             <div class="col-md-6">
-                <div class="pos-absolute btn btn-primary" style="top:10px;right:30px;" @click="$router.push('/profile/advertisementWizard')" >{{ $t('labels.newAccommodationAdvertisement') }}</div>
+                <div class="pos-absolute p-button p-component button info" style="top:10px;right:10px;" @click="$router.push('/profile/advertisementWizard')">{{ $t('labels.newAccommodationAdvertisement') }}</div>
             </div>
         </div>
         <hr>
@@ -27,7 +31,8 @@
 export default {
     data() {
         return {
-            errorText: false
+            errorText: false,
+            ShowAlsoInactive: false
         }
     },
     components: {
@@ -44,7 +49,14 @@ export default {
     },
     computed: {
         advertisementList() {
-            return this.$store.state.advertisementList;
+            if (this.ShowAlsoInactive) { return this.$store.state.advertisementList; }
+            else { return this.$store.state.advertisementList.filter(obj => { return obj.deactivated == false; }); }
+            //return this.$store.state.advertisementList;
+        }
+    },
+    methods: {
+        async showAlsoInactive() {
+            this.ShowAlsoInactive = !this.ShowAlsoInactive;
         }
     },
     async mounted() {

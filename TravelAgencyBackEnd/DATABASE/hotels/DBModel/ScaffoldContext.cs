@@ -330,7 +330,6 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.HotelAccommodationActionLists)
                     .HasForeignKey(d => d.HotelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelAccomodationActionList_HotelList");
 
                 entity.HasOne(d => d.User)
@@ -363,7 +362,6 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.HotelImagesLists)
                     .HasForeignKey(d => d.HotelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelImagesList_HotelList");
 
                 entity.HasOne(d => d.User)
@@ -576,7 +574,6 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.HotelRoomLists)
                     .HasForeignKey(d => d.HotelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelRoomList_HotelList");
 
                 entity.HasOne(d => d.RoomType)

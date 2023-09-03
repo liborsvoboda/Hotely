@@ -1,4 +1,9 @@
-﻿namespace UbytkacBackend {
+﻿using System.Reflection;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
+
+namespace UbytkacBackend {
 
     internal class Functions {
 
@@ -105,6 +110,83 @@
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        /// <summary>
+        /// Separate ByteArray from 64 encode file
+        /// For inserted file types
+        /// </summary>
+        /// <param name="strContent">Content of the string.</param>
+        /// <returns></returns>
+        public static byte[] GetByteArrayFrom64Encode(string strContent) {
+            try {
+                var base64Data = Regex.Match(strContent, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+                base64Data = base64Data.Length > 0 ? base64Data : Regex.Match(strContent, @"data:text/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+                base64Data = base64Data.Length > 0 ? base64Data : Regex.Match(strContent, @"data:video/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+                base64Data = base64Data.Length > 0 ? base64Data : Regex.Match(strContent, @"data:application/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+                return Convert.FromBase64String(base64Data);
+            } catch { }
+            byte[] result = new byte[] { };
+            return result;
+        }
+
+
+        /// <summary>
+        /// Gets the self signed certificate For API Security HTTPS.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public static X509Certificate2 GetSelfSignedCertificate(string password) {
+            var commonName = "127.0.0.1,localhost";// ServerConfigSettings.ConfigCertificateDomain;
+            var rsaKeySize = 2048;
+            var years = 10;
+            var hashAlgorithm = HashAlgorithmName.SHA256;
+
+            using (var rsa = RSA.Create(rsaKeySize)) {
+                var request = new CertificateRequest($"cn={commonName}", rsa, hashAlgorithm, RSASignaturePadding.Pkcs1);
+
+                SubjectAlternativeNameBuilder subjectAlternativeNameBuilder = new();
+                subjectAlternativeNameBuilder.AddDnsName(Assembly.GetExecutingAssembly().GetName().FullName);
+
+                X509BasicConstraintsExtension extension = new();
+
+                request.CertificateExtensions.Add(
+                  new X509KeyUsageExtension(X509KeyUsageFlags.DataEncipherment | X509KeyUsageFlags.KeyEncipherment | X509KeyUsageFlags.DigitalSignature | X509KeyUsageFlags.KeyCertSign, false)
+                );
+
+                request.CertificateExtensions.Add(
+                  new X509EnhancedKeyUsageExtension(
+                    new OidCollection { new Oid("1.3.6.1.5.5.7.3.1"), new Oid("1.3.6.1.5.5.7.3.2") }, false)
+                );
+
+                var notAfter = DateTimeOffset.Now.AddYears(years);
+                var certificate = request.CreateSelfSigned(DateTimeOffset.Now.AddDays(-1), notAfter);
+                if (OperatingSystem.IsWindows()) { certificate.FriendlyName = Assembly.GetExecutingAssembly().GetName().FullName; }
+
+                try { //Saving Autogenerate Certificate
+                    byte[] exportedData = certificate.Export(X509ContentType.Pfx, password);
+                    File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data", "ServerAutoCertificate.pfx"), exportedData);
+                } catch { }
+
+                return new X509Certificate2(certificate.Export(X509ContentType.Pfx, password), password, X509KeyStorageFlags.Exportable);
+            }
+        }
+
+
+        /// <summary>
+        /// Set Imported Certificate from file on Server for Https 
+        /// File must has Valid path from Startup Data Path
+        /// </summary>
+        /// <returns></returns>
+        public static X509Certificate2 GetSelfSignedCertificateFromFile(string FileNameFromDataPath) {
+            byte[]? certificate = null;
+            string? password = null;
+            try {
+                certificate = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data", FileNameFromDataPath));
+                password = "CertPassword";//ServerConfigSettings.ConfigCertificatePassword;
+                return new X509Certificate2(certificate, password);
+            } catch (Exception Ex) { SystemFunctions.SendEmail(new MailRequest() { Content = "Incorrect Certificate Path or Password, " + SystemFunctions.GetSystemErrMessage(Ex) }); }
+            return GetSelfSignedCertificate("CertPassword");
         }
     }
 }

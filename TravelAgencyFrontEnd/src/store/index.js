@@ -99,7 +99,6 @@ const store = createStore({
         },
         setLightFavoriteHotelList(store, value) {
             store.lightFavoriteHotelList = value;
-            console.log("Set Lightfav", store.lightFavoriteHotelList);
         },
         setFavoriteHotelList(store, value) {
             store.favoriteHotelList = value;
@@ -109,6 +108,7 @@ const store = createStore({
         },
         setPropertyList(store, value) {
             store.propertyList = value;
+            console.log("Set PropertyList", store.propertyList);
         },
         setRoomTypeList(store, value) {
             store.roomTypeList = value;

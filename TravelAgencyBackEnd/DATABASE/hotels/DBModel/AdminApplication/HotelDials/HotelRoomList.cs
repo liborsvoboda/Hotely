@@ -36,8 +36,6 @@ namespace UbytkacBackend.DBModel
         public int MaxCapacity { get; set; }
         public bool ExtraBed { get; set; }
         public int RoomsCount { get; set; }
-        public bool ApproveRequest { get; set; }
-        public bool Approved { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 

@@ -16,14 +16,14 @@ namespace UbytkacBackend.Controllers {
             switch (type) {
                 case "newest":
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                        data = new hotelsContext().HotelLists.Where(a => a.Approved && a.Advertised)
+                        data = new hotelsContext().HotelLists.Where(a => a.Approved && a.Advertised && !a.Deactivated)
                             .OrderByDescending(a => a.Timestamp).Select(a => a.Id).Take(5).ToList();
                     }
                     break;
                 case "cheapest":
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         data = new hotelsContext().HotelRoomLists
-                            .Where(a => a.Approved && a.Hotel.Approved && a.Hotel.Advertised)
+                            .Where(a => a.Hotel.Approved && a.Hotel.Advertised && !a.Hotel.Deactivated)
                             .OrderBy(a => a.Price).Select(a => a.HotelId).Distinct().Take(5).ToList();
                     }
                     break;
@@ -37,7 +37,7 @@ namespace UbytkacBackend.Controllers {
             List<HotelList> result;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 result = new hotelsContext().HotelLists
-                    .Include(a => a.HotelRoomLists.Where(a => a.Approved == true))
+                    .Include(a => a.HotelRoomLists)
                     .Include(a => a.City)
                     .Include(a => a.Country)
                     .Include(a => a.DefaultCurrency)

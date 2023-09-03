@@ -50,10 +50,15 @@ let app = createApp(App)
 
 
 //Global Variables For Vue + Metro + other.js
-app.config.globalProperties.window = window; //use by this.$LoadedGlobalWindow
+app.config.globalProperties.window = window; 
 app.config.globalProperties.window.dictionary = i18n.global.t;
 app.config.globalProperties.window.watchGlobalVariables = reactive({
-    wizardRequestCityList: null
+    wizardRequestCityList: null,
+});
+
+app.config.globalProperties.window.watchChangeVariables = reactive({
+    roomShowPreviewEnabled: false,
+    propertySelected: false
 });
 
 

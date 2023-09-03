@@ -9,6 +9,7 @@ namespace UbytkacBackend.DBModel
     [Table("HotelPropertyAndServiceList")]
     [Index("HotelId", "PropertyOrServiceId", Name = "IX_HotelPropertyAndServiceList", IsUnique = true)]
     [Index("HotelId", Name = "IX_HotelPropertyAndServiceListHotel")]
+    [Index("HotelId", "IsAvailable", Name = "IX_HotelPropertyAndServiceList_1")]
     public partial class HotelPropertyAndServiceList
     {
         [Key]
