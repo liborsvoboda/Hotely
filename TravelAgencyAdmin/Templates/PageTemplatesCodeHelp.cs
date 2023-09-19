@@ -11,11 +11,11 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Templates {
+namespace UbytkacAdmin.Templates {
 
     /// <summary>
     /// Library with standarztized Definitions and Methods For Develop Any System

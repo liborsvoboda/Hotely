@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyAdmin.SystemConfiguration {
+﻿namespace UbytkacAdmin.SystemConfiguration {
 
     public class CrashReporterSettings {
         //public static ReportCrash _ReportCrash = new ReportCrash()

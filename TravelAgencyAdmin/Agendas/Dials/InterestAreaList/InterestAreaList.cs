@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TravelAgencyAdmin.Classes {
+namespace UbytkacAdmin.Classes {
 
     public partial class InterestAreaList {
         public int Id { get; set; } = 0;

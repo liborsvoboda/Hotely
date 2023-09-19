@@ -13,13 +13,13 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.GlobalStyles;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class ReportListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();

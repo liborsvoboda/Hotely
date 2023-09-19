@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace TravelAgencyAdmin.GlobalStyles {
+namespace UbytkacAdmin.GlobalStyles {
 
     internal class DatagridStyles {
         public static Style gridTextRightAligment = GridTextRightAligment();

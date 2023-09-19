@@ -6,11 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using TravelAgencyAdmin.Pages;
-using TravelAgencyAdmin.Properties;
-using TravelAgencyAdmin.SystemConfiguration;
+using UbytkacAdmin.Pages;
+using UbytkacAdmin.Properties;
+using UbytkacAdmin.SystemConfiguration;
 
-namespace TravelAgencyAdmin.SystemStructure {
+namespace UbytkacAdmin.SystemStructure {
 
     public class SystemWindowDataModel {
         private readonly IInterTabClient _interTabClient;

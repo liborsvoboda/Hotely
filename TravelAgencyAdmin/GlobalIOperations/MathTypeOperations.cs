@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.GlobalOperations {
+namespace UbytkacAdmin.GlobalOperations {
 
     internal class MathTypeOperations {
 

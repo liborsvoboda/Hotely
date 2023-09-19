@@ -3,7 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.IO;
 
-namespace TravelAgencyAdmin.SystemStructure {
+namespace UbytkacAdmin.SystemStructure {
 
     internal abstract class SystemPlatform {
         private static readonly CompareInfo InvariantCompareInfo = CultureInfo.InvariantCulture.CompareInfo;

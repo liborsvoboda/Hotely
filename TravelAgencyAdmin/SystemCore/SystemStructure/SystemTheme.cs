@@ -3,11 +3,11 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
-using TravelAgencyAdmin.Properties;
-using TravelAgencyAdmin.SystemConfiguration;
-using TravelAgencyAdmin.SystemHelpers;
+using UbytkacAdmin.Properties;
+using UbytkacAdmin.SystemConfiguration;
+using UbytkacAdmin.SystemHelpers;
 
-namespace TravelAgencyAdmin.SystemStructure {
+namespace UbytkacAdmin.SystemStructure {
 
     public class SystemTheme : AccentColorMenuData {
 

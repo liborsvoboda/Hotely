@@ -5,11 +5,11 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Animation;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class WelcomePage : MetroWindow {
         public WelcomePage() {

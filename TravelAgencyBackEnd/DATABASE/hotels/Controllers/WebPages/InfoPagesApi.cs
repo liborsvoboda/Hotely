@@ -14,7 +14,7 @@
 
             result.ForEach(item => {
                 item.DescriptionCz = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                item.DescriptionEn = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                item.DescriptionEn = item.DescriptionEn != null ? item.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>") : "";
             });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions()
@@ -36,7 +36,7 @@
 
             result.ForEach(item => {
                 item.DescriptionCz = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                item.DescriptionEn = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                item.DescriptionEn = item.DescriptionEn != null ? item.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>") : "";
             });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
@@ -56,7 +56,7 @@
 
             result.ForEach(item => {
                 item.DescriptionCz = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                item.DescriptionEn = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                item.DescriptionEn = item.DescriptionEn != null ? item.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>") : "";
             });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
@@ -76,7 +76,7 @@
 
             result.ForEach(item => {
                 item.DescriptionCz = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                item.DescriptionEn = item.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                item.DescriptionEn = item.DescriptionEn != null ? item.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>") : "";
             });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions() {

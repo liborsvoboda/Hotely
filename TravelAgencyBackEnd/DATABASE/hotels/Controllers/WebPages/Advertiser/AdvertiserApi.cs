@@ -47,7 +47,7 @@
 
                     //clean datasets
                     hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
-                    hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "");
+                    hotel.DescriptionEn = hotel.DescriptionEn != null ? hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "") : "";
 
                     hotel.HotelImagesLists.ToList().ForEach(attachment => {
                         attachment.Hotel = null;
@@ -92,7 +92,10 @@
                             CityId = record.CityId,
                             DescriptionCz = record.Description,
                             DefaultCurrencyId = record.CurrencyId,
-                            UserId = int.Parse(userId)
+                            UserId = int.Parse(userId), 
+                            ApproveRequest = false,
+                            Approved = false
+
                         };
                         var data = new hotelsContext().HotelLists.Add(hotelRec);
                         result = await data.Context.SaveChangesAsync();
@@ -190,7 +193,7 @@
                 record.Properties.ForEach(async property => {
                     availableProps.Add(property.id);
 
-                    propertyRecord = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == (int)record.HotelRecId && a.Id == property.id).FirstOrDefault();
+                    propertyRecord = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == (int)record.HotelRecId && a.PropertyOrServiceId == property.id).FirstOrDefault();
                     propertyRecord.IsAvailable = property.isAvailable;
                     propertyRecord.Value = property.value; propertyRecord.ValueRangeMin = property.valueRangeMin; propertyRecord.ValueRangeMax = property.valueRangeMax;
                     propertyRecord.Fee = property.fee; propertyRecord.FeeValue = property.feeValue; propertyRecord.FeeRangeMin = property.feeRangeMin; propertyRecord.FeeRangeMax = property.feeRangeMax;

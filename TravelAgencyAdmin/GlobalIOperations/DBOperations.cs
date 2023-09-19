@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
 
-namespace TravelAgencyAdmin.GlobalOperations {
+namespace UbytkacAdmin.GlobalOperations {
 
     /// <summary>
     /// Centralised DBOperations as Load DB Congig, System Dials (Language, Params) Another Db

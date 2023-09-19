@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using TravelAgencyAdmin;
+using UbytkacAdmin;
 
 namespace GlobalClasses {
 

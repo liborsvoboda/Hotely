@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace TravelAgencyAdmin.SystemStructure {
+namespace UbytkacAdmin.SystemStructure {
 
     public class SystemObjectsBehaviors : Behavior<DataGrid> {
         private bool _monitorForTab;

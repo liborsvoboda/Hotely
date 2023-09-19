@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes {
+namespace UbytkacAdmin.Classes {
 
     public partial class PropertyOrServiceTypeList {
         public int Id { get; set; } = 0;

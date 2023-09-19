@@ -13,15 +13,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.Pages;
-using TravelAgencyAdmin.SystemStructure;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.Pages;
+using UbytkacAdmin.SystemStructure;
 
 //using CefSharp;
 //using CefSharp.Wpf;
 
-namespace TravelAgencyAdmin {
+namespace UbytkacAdmin {
 
     public partial class App : Application {
 

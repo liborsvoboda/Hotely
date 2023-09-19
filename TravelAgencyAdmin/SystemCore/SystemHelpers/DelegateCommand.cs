@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TravelAgencyAdmin.SystemHelpers {
+namespace UbytkacAdmin.SystemHelpers {
 
     public class DelegateCommand<T> : ICommand {
         private readonly Func<T, bool> canExecuteFunc;

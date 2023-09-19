@@ -7,9 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using TravelAgencyAdmin.Classes;
+using UbytkacAdmin.Classes;
 
-namespace TravelAgencyAdmin.GlobalOperations {
+namespace UbytkacAdmin.GlobalOperations {
 
     /// <summary>
     /// Centralised System Functions for work with Types, methods, Formats, Logic, supported methods

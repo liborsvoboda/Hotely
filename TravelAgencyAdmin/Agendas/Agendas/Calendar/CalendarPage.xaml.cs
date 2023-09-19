@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class CalendarPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();

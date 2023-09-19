@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.GlobalStyles;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class RegistrationInfoListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();

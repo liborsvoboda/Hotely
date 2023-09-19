@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
 
 // This is Template Is Customized For Load and Save data without List (Settings) is folded from
 // standartized Methods
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class TemplateSettingsPage : UserControl {
 

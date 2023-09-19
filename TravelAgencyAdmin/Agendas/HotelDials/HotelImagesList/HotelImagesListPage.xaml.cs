@@ -12,12 +12,12 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalClasses;
-using TravelAgencyAdmin.GlobalOperations;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalClasses;
+using UbytkacAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class HotelImagesListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();

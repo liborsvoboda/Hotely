@@ -190,10 +190,24 @@ export default {
     },
     methods: {
         editAdvertisement(hotelId) {
+            ActualValidationFormName = "hotelForm";
+            ActualWizardPage = 1;
+            propertyList = [];
+            Token = null;
+            Router = this.$router;
+            ApiRootUrl = null;
+            HotelRecId = null;
+            WizardImageGallery = [];
+            WizardRooms = [];
+            WizardTempRoomPhoto = [];
+            WizardProperties = [];
+            WizardSelectedProperty = {};
             WizardHotel = {
                 HotelId: this.hotel.id, HotelName: this.hotel.name, HotelCurrency: this.hotel.defaultCurrencyId,
                 HotelCountry: this.hotel.countryId, HotelCity: this.hotel.cityId, Description: this.hotel.descriptionCz,
-                Images: this.hotel.hotelImagesLists, Rooms: this.hotel.hotelRoomLists, Properties: this.hotel.hotelPropertyAndServiceLists
+                Images: this.hotel.hotelImagesLists, 
+                Rooms: this.hotel.hotelRoomLists,
+                Properties: this.hotel.hotelPropertyAndServiceLists
             };
             this.$router.push('/profile/advertisementWizard');
         },

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.GlobalStyles;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class HotelApprovalListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
@@ -27,6 +27,7 @@ namespace TravelAgencyAdmin.Pages {
         private HotelApprovalList hotelList = new HotelApprovalList();
         private List<HotelRoomTypeList> hotelRoomTypeList = new List<HotelRoomTypeList>();
         private HotelRoomList selectedRoom = new HotelRoomList();
+        List<HotelRoomList> hotelRoomList = new List<HotelRoomList>();
 
         public HotelApprovalListPage() {
             InitializeComponent();
@@ -38,12 +39,11 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_countryId.Content = Resources["country"].ToString();
                 lbl_name.Content = Resources["fname"].ToString();
                 lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
-                lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
                 lbl_currencyId.Content = Resources["currency"].ToString();
 
-                lbl_owner.Content = lbl_owner2.Content = Resources["owner"].ToString();
-                lbl_approveRequest.Content = lbl_approveRequest2.Content = Resources["approveRequest"].ToString();
-                lbl_approved.Content = lbl_approved2.Content = Resources["approved"].ToString();
+                lbl_owner.Content = lbl_owner1.Content = Resources["owner"].ToString();
+                lbl_approveRequest.Content = Resources["approveRequest"].ToString();
+                lbl_approved.Content = Resources["approved"].ToString();
                 lbl_advertised.Content = Resources["advertised"].ToString();
 
                 btn_save1.Content = btn_save2.Content = Resources["btn_save"].ToString();
@@ -55,7 +55,7 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_roomTypeId.Content = Resources["roomType"].ToString();
                 lbl_name2.Content = Resources["fname"].ToString();
                 lbl_descriptionCz2.Content = Resources["descriptionCz"].ToString();
-                lbl_descriptionEn2.Content = Resources["descriptionEn"].ToString();
+                //lbl_descriptionEn2.Content = Resources["descriptionEn"].ToString();
                 lbl_price.Content = Resources["price"].ToString();
                 lbl_maxCapacity.Content = Resources["maxCapacity"].ToString();
                 lbl_extraBed.Content = Resources["extraBed"].ToString();
@@ -84,6 +84,7 @@ namespace TravelAgencyAdmin.Pages {
                 }
 
                 HotelApprovalList.ForEach( async hotel => {
+                    hotel.UserName = adminUserList.First(a => a.Id == hotel.UserId).UserName;
                     hotel.CountryTranslation = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
                     hotel.CityTranslation = await DBOperations.DBTranslation(hotel.City);
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
@@ -95,7 +96,8 @@ namespace TravelAgencyAdmin.Pages {
                 cb_countryId.ItemsSource = countryList;
                 cb_currencyId.ItemsSource = currencyList;
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
-            MainWindow.ProgressRing = Visibility.Hidden; return true;
+            MainWindow.ProgressRing = Visibility.Hidden; 
+            return true;
         }
 
         private void DgListView_Translate(object sender, EventArgs ex) {
@@ -109,7 +111,8 @@ namespace TravelAgencyAdmin.Pages {
                     else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 5; } 
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 6; } 
                     else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 7; } 
-                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 7; } 
+                    else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 8; }
+                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 9; }
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -133,6 +136,7 @@ namespace TravelAgencyAdmin.Pages {
                     return user.Name.ToLower().Contains(filter.ToLower())
                     || user.CountryTranslation.ToLower().Contains(filter.ToLower())
                     || user.CityTranslation.ToLower().Contains(filter.ToLower())
+                    || user.UserName.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionCz) && user.DescriptionCz.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;
@@ -174,7 +178,7 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.CityId = (cb_cityId.SelectedItem != null) ? (int?)((CityList)cb_cityId.SelectedItem).Id : null;
                 selectedRecord.Name = !string.IsNullOrWhiteSpace(txt_name.Text) ? txt_name.Text : null;
                 selectedRecord.DescriptionCz = txt_descriptionCz.Text;
-                selectedRecord.DescriptionEn = txt_descriptionEn.Text;
+                selectedRecord.DescriptionEn = "";
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
                 selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
@@ -201,12 +205,12 @@ namespace TravelAgencyAdmin.Pages {
             SetRecord(false);
         }
 
-        private void SetRecord(bool showForm, bool copy = false) {
+        private async void SetRecord(bool showForm, bool copy = false) {
+
             cb_cityId.SelectedItem = cityList.FirstOrDefault(a => a.Id == selectedRecord.CityId);
             cb_countryId.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
             txt_name.Text = selectedRecord.Name;
             txt_descriptionCz.Text = selectedRecord.DescriptionCz;
-            txt_descriptionEn.Text = selectedRecord.DescriptionEn;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
             chb_approveRequest.IsChecked = false;
@@ -227,6 +231,7 @@ namespace TravelAgencyAdmin.Pages {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
                 ListForm1.Visibility = ListForm2.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
             }
+            await LoadRoomDataList();
         }
 
         private async void CountrySelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -252,64 +257,58 @@ namespace TravelAgencyAdmin.Pages {
             ListForm2.Visibility = Visibility.Hidden;
         }
 
-        private void GoToForm2_Click(object sender, MouseButtonEventArgs e) {
-            ListForm1.Visibility = Visibility.Hidden;
-            ListForm2.Visibility = Visibility.Visible;
-            CleanRoomForm();
-            LoadRoomDataList();
-        }
-
-        private void BtnNext_Click(object sender, RoutedEventArgs e) {
+        private async void BtnNext_Click(object sender, RoutedEventArgs e) {
             if (ListForm1.Visibility == Visibility.Visible) {
                 ListForm1.Visibility = Visibility.Hidden;
                 ListForm2.Visibility = Visibility.Visible;
                 CleanRoomForm();
-                LoadRoomDataList();
             }
         }
 
         //START RoomApproving
-        public async void LoadRoomDataList() {
+        public async Task<bool> LoadRoomDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
-            List<HotelRoomList> hotelRoomList = new List<HotelRoomList>();
             try {
-                hotelRoomList = await ApiCommunication.GetApiRequest<List<HotelRoomList>>(ApiUrls.HotelApprovalList, "Rooms/" + hotelList.Id, App.UserData.Authentification.Token);
-                hotelRoomTypeList = await ApiCommunication.GetApiRequest<List<HotelRoomTypeList>>(ApiUrls.HotelRoomTypeList, null, App.UserData.Authentification.Token);
-                currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
+                if (hotelList.Id != 0) {
+                    hotelRoomList = await ApiCommunication.GetApiRequest<List<HotelRoomList>>(ApiUrls.HotelApprovalList, "Rooms/" + hotelList.Id, App.UserData.Authentification.Token);
+                    hotelRoomTypeList = await ApiCommunication.GetApiRequest<List<HotelRoomTypeList>>(ApiUrls.HotelRoomTypeList, null, App.UserData.Authentification.Token);
+                    currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
 
-                hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBOperations.DBTranslation(roomType.SystemName); });
+                    hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBOperations.DBTranslation(roomType.SystemName); });
 
-                //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin") {
-                    cb_owner2.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
-                    lbl_owner2.Visibility = cb_owner2.Visibility = Visibility.Visible;
+                    //Only for Admin: Owner/UserId Selection
+                    if (App.UserData.Authentification.Role == "Admin") {
+                        cb_owner1.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                        lbl_owner1.Visibility = cb_owner1.Visibility = Visibility.Visible;
+                    }
+
+                    hotelRoomList.ForEach(async room => {
+                        room.Accommodation = hotelList.Name;
+                        room.RoomType = await DBOperations.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
+                    });
+                    DgRoomListView.ItemsSource = hotelRoomList;
+                    DgRoomListView.Items.Refresh();
+
+                    cb_roomTypeId.ItemsSource = hotelRoomTypeList;
                 }
-
-                hotelRoomList.ForEach(async room => {
-                    room.Accommodation = hotelList.Name;
-                    room.RoomType = await DBOperations.DBTranslation(hotelRoomTypeList.First(a => a.Id == room.RoomTypeId).SystemName);
-                });
-                DgRoomListView.ItemsSource = hotelRoomList;
-                DgRoomListView.Items.Refresh();
-
-                cb_roomTypeId.ItemsSource = hotelRoomTypeList;
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden;
+            return true;
         }
 
         private void DgRoomListView_Translate(object sender, EventArgs ex) {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
-                if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 5; }
-                else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 1; }
-                else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 2; }
-                else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 3; } 
-                else if (headername == "RoomType") { e.Header = Resources["roomType"].ToString(); e.DisplayIndex = 4; } 
-                else if (headername == "Price") { e.Header = Resources["price"].ToString(); e.DisplayIndex = 6; } 
+                if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; }
+                else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 1; } 
+                else if (headername == "RoomType") { e.Header = Resources["roomType"].ToString(); e.DisplayIndex = 2; } 
+                else if (headername == "Price") { e.Header = Resources["price"].ToString(); e.DisplayIndex = 4; } 
                 else if (headername == "MaxCapacity") e.Header = Resources["maxCapacity"].ToString();
                 else if (headername == "ExtraBed") e.Header = Resources["extraBed"].ToString();
                 else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
+                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                
+                else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 else if (headername == "HotelId") e.Visibility = Visibility.Hidden;
                 else if (headername == "RoomTypeId") e.Visibility = Visibility.Hidden;
@@ -328,38 +327,36 @@ namespace TravelAgencyAdmin.Pages {
         private void CleanRoomForm() {
             cb_roomTypeId.Text = null;
             txt_name2.Text = null;
-            txt_descriptionCz2.Text = txt_descriptionEn2.Text = null;
+            txt_descriptionCz2.Text = null;
             txt_price.Value = txt_maxCapacity.Value = txt_roomsCount.Value = null;
             chb_extraBed.IsChecked = false;
-            chb_approveRequest2.IsChecked = false;
-            chb_approved2.IsChecked = false;
 
-            cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled = txt_descriptionEn2.IsEnabled =
+
+            cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled =
                 txt_price.IsEnabled = txt_maxCapacity.IsEnabled = txt_roomsCount.IsEnabled = chb_extraBed.IsEnabled =
-                chb_approveRequest2.IsEnabled = chb_approved2.IsEnabled = cb_owner2.IsEnabled = btn_save2.IsEnabled = false;
+                btn_save1.IsEnabled = false;
         }
 
         private void SetRoomRecord() {
-            cb_roomTypeId.SelectedItem = hotelRoomTypeList.FirstOrDefault(a => a.Id == selectedRoom.RoomTypeId);
-            txt_name2.Text = selectedRoom.Name;
-            txt_descriptionCz2.Text = selectedRoom.DescriptionCz;
-            txt_descriptionEn2.Text = selectedRoom.DescriptionEn;
-            txt_price.Value = selectedRoom.Price;
-            txt_maxCapacity.Value = selectedRoom.MaxCapacity;
-            chb_extraBed.IsChecked = selectedRoom.ExtraBed;
-            txt_roomsCount.Value = selectedRoom.RoomsCount;
+            try {
+                cb_roomTypeId.Text = hotelRoomTypeList.FirstOrDefault(a => a.Id == selectedRoom.RoomTypeId).Translation;
+                txt_name2.Text = selectedRoom.Name;
+                txt_descriptionCz2.Text = selectedRoom.DescriptionCz;
+                txt_price.Value = selectedRoom.Price;
+                txt_maxCapacity.Value = selectedRoom.MaxCapacity;
+                chb_extraBed.IsChecked = selectedRoom.ExtraBed;
+                txt_roomsCount.Value = selectedRoom.RoomsCount;
 
-            chb_approveRequest2.IsChecked = false;
-            btn_save2.IsEnabled = selectedRoom.ApproveRequest;
-            chb_approved2.IsChecked = selectedRoom.Approved;
+                btn_save1.IsEnabled = true;
 
-            //Only for Admin: Owner/UserId Selection
-            if (App.UserData.Authentification.Role == "Admin")
-                cb_owner2.Text = adminUserList.Where(a => a.Id == selectedRoom.UserId).Select(a => a.UserName).FirstOrDefault();
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "Admin")
+                    cb_owner1.Text = adminUserList.Where(a => a.Id == selectedRoom.UserId).Select(a => a.UserName).FirstOrDefault();
 
-            cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled = txt_descriptionEn2.IsEnabled =
-                txt_price.IsEnabled = txt_maxCapacity.IsEnabled = txt_roomsCount.IsEnabled = chb_extraBed.IsEnabled =
-                chb_approveRequest2.IsEnabled = chb_approved2.IsEnabled = cb_owner2.IsEnabled = true;
+                cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled = 
+                    txt_price.IsEnabled = txt_maxCapacity.IsEnabled = txt_roomsCount.IsEnabled = chb_extraBed.IsEnabled = true;
+            }
+            catch (Exception ex) { }
         }
 
         private async void BtnSaveRoom_Click(object sender, RoutedEventArgs e) {
@@ -368,21 +365,18 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRoom.RoomTypeId = (cb_roomTypeId.SelectedItem != null) ? (int?)((HotelRoomTypeList)cb_roomTypeId.SelectedItem).Id : null;
                 selectedRoom.Name = !string.IsNullOrWhiteSpace(txt_name2.Text) ? txt_name2.Text : null;
                 selectedRoom.DescriptionCz = txt_descriptionCz2.Text;
-                selectedRoom.DescriptionEn = txt_descriptionEn2.Text;
+                selectedRoom.DescriptionEn = "";
                 selectedRoom.Price = (double)txt_price.Value;
                 selectedRoom.MaxCapacity = (int)txt_maxCapacity.Value;
                 selectedRoom.ExtraBed = (bool)chb_extraBed.IsChecked;
                 selectedRoom.RoomsCount = (int)txt_roomsCount.Value;
-
-                selectedRoom.ApproveRequest = false;
-                selectedRoom.Approved = (bool)chb_approved2.IsChecked;
 
                 selectedRoom.UserId = App.UserData.Authentification.Id;
                 selectedRoom.Timestamp = DateTimeOffset.Now.DateTime;
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
-                    selectedRoom.UserId = ((UserList)cb_owner2.SelectedItem).Id;
+                    selectedRoom.UserId = ((UserList)cb_owner1.SelectedItem).Id;
 
                 selectedRoom.Accommodation = selectedRoom.RoomType = null;
                 string json = JsonConvert.SerializeObject(selectedRoom);

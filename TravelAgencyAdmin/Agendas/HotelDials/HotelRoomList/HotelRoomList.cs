@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes {
+namespace UbytkacAdmin.Classes {
 
     public partial class HotelRoomList {
         public int Id { get; set; } = 0;
@@ -15,8 +15,6 @@ namespace TravelAgencyAdmin.Classes {
         public int MaxCapacity { get; set; }
         public bool ExtraBed { get; set; }
         public int RoomsCount { get; set; }
-        public bool ApproveRequest { get; set; }
-        public bool Approved { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 

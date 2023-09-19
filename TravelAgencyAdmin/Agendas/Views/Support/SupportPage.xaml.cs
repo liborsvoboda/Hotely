@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1;
 using System.Windows.Controls;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class SupportPage : UserControl {
 

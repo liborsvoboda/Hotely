@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="TravelAgencyAdmin.Pages.HotelListPage"
+    x:Class="UbytkacAdmin.Pages.HotelListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:html="clr-namespace:EASYTools.HTMLEditorNoImg;assembly=EASYTools.HTMLEditorNoImg"
-    xmlns:local="clr-namespace:TravelAgencyAdmin.Pages"
+    xmlns:local="clr-namespace:UbytkacAdmin.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="Form"
     HorizontalAlignment="Stretch"

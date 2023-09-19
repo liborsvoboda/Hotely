@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes {
+namespace UbytkacAdmin.Classes {
 
     /// <summary>
     /// Client configuration Definition
@@ -15,7 +15,7 @@ namespace TravelAgencyAdmin.Classes {
         public string ThemeName { get; set; } = "Base Light";
         public string AccentName { get; set; } = "Green";
         public string ReportingPath { get; set; } = "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlReader.exe";
-        public string UpdateUrl { get; set; } = "https://groupware-solution.eu/FTP/TravelAgencyAdminProject/Update";
+        public string UpdateUrl { get; set; } = "https://groupware-solution.eu/FTP/UbytkacAdminProject/Update";
         public string AutomaticUpdate { get; set; } = "showInfo";
         public bool HideStartVideo { get; set; } = false;
         public string ReportConnectionString { get; set; } = "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;";

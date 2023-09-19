@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace TravelAgencyAdmin.GlobalGenerators {
+namespace UbytkacAdmin.GlobalGenerators {
 
     public class IconMakerGenerator {
 

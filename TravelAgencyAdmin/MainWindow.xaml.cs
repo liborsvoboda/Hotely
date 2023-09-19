@@ -19,16 +19,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.Helper;
-using TravelAgencyAdmin.Pages;
-using TravelAgencyAdmin.Properties;
-using TravelAgencyAdmin.SystemConfiguration;
-using TravelAgencyAdmin.SystemStructure;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.Helper;
+using UbytkacAdmin.Pages;
+using UbytkacAdmin.Properties;
+using UbytkacAdmin.SystemConfiguration;
+using UbytkacAdmin.SystemStructure;
 
-namespace TravelAgencyAdmin {
+namespace UbytkacAdmin {
 
     public partial class MainWindow : MetroWindow {
 
@@ -462,9 +462,9 @@ namespace TravelAgencyAdmin {
             SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
             string advancedFilter = SystemOperations.FilterToString(cb_filter);
 
-            ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("dataViewSupport").GetValue(null)).AdvancedFilter = advancedFilter;
+            ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("dataViewSupport").GetValue(null)).AdvancedFilter = advancedFilter;
             cb_filter.SelectedIndex = 0;
-            _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType()
+            _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType()
                 .GetMethod("LoadDataList").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
         }
 
@@ -478,7 +478,7 @@ namespace TravelAgencyAdmin {
 
             if (((Button)sender).Name == "mi_plus") {
                 SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
-                var viewFields = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("selectedRecord").GetValue(null);
+                var viewFields = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("selectedRecord").GetValue(null);
 
                 ComboBox cbFieldsBox = new ComboBox() { Name = "field_" + mark, Width = 200, Height = 30 };
                 cbFieldsBox.SelectionChanged += FilterField_SelectionChanged;
@@ -554,7 +554,7 @@ namespace TravelAgencyAdmin {
                 } else // Item Field
                 {
                     SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
-                    var viewFields = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("selectedRecord").GetValue(null);
+                    var viewFields = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("selectedRecord").GetValue(null);
 
                     ComboBox cbFieldsBox = new ComboBox() { Name = "field_" + mark, Width = 200, Height = 30 };
                     cbFieldsBox.SelectionChanged += FilterField_SelectionChanged;
@@ -642,7 +642,7 @@ namespace TravelAgencyAdmin {
                     if (cnn.State == System.Data.ConnectionState.Open) {
                         cnn.Close();
                         SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
-                        string advancedFilter = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("dataViewSupport").GetValue(null)).AdvancedFilter;
+                        string advancedFilter = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + SelectedTab.Content.GetType().Name)).GetType().GetField("dataViewSupport").GetValue(null)).AdvancedFilter;
                         advancedFilter = (string.IsNullOrWhiteSpace(advancedFilter)) ? "1=1" : advancedFilter.Replace("[!]", "").Replace("{!}", "");
 
                         //Update Filter data for generate Report
@@ -974,32 +974,32 @@ namespace TravelAgencyAdmin {
                 switch (buttonSenderName) {
                     //AUTOMATIC LIST VIEW PART NOT MODIFY
                     case "tb_search":
-                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
+                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType()
                             .GetMethod("Filter").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, new object[] { ((TextBox)e.Source).Text });
                         break;
 
                     case "mi_reload":
-                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
+                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType()
                              .GetMethod("LoadDataList").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
                         break;
 
                     case "mi_new":
-                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
+                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType()
                             .GetMethod("NewRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
                         break;
 
                     case "mi_edit":
-                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
+                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType()
                             .GetMethod("EditRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, new object[] { false });
                         break;
 
                     case "mi_copy":
-                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
+                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType()
                             .GetMethod("EditRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, new object[] { true });
                         break;
 
                     case "mi_delete":
-                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType()
+                        _ = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType()
                             .GetMethod("DeleteRecord").Invoke(((SystemTabs)InitialTabablzControl.SelectedItem).Content, null);
                         break;
 
@@ -1063,11 +1063,11 @@ namespace TravelAgencyAdmin {
                     DgRefresh = false; cb_printReports.ItemsSource = null;
                 } else if (SelectedTab == null || new string[] { "View", "Form" }.Contains(((FrameworkElement)SelectedTab.Content).Tag.ToString())) {
                     DataGridSelected = true; DgRefresh = true; string senderName = SelectedTab.Content.GetType().Name;
-                    var AutoPageGeneration = Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType();
+                    var AutoPageGeneration = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType();
                     switch (((FrameworkElement)SelectedTab.Content).Tag.ToString()) {
                         //FORMS - LIST + DETAIL FORM
                         case "Form":
-                            dataViewSupport = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType().GetField("dataViewSupport").GetValue(null));
+                            dataViewSupport = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType().GetField("dataViewSupport").GetValue(null));
                             tb_search.Text = dataViewSupport.FilteredValue;
                             if (dataViewSupport.FormShown) { dataGridSelectedId = 0; DataGridSelectedIdListIndicator = false; DataGridSelected = false; DgRefresh = false; } else {
                                 if (dataViewSupport.SelectedRecordId == 0) { dataGridSelectedId = 0; DataGridSelectedIdListIndicator = false; } else { dataGridSelectedId = dataViewSupport.SelectedRecordId; DataGridSelectedIdListIndicator = true; }
@@ -1078,7 +1078,7 @@ namespace TravelAgencyAdmin {
 
                         //VIEWS - LIST ONLY
                         case "View":
-                            dataViewSupport = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("TravelAgencyAdmin.Pages." + senderName)).GetType().GetField("dataViewSupport").GetValue(null));
+                            dataViewSupport = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType().GetField("dataViewSupport").GetValue(null));
                             tb_search.Text = dataViewSupport.FilteredValue; dataGridSelectedId = dataViewSupport.SelectedRecordId;
                             DataGridSelected = DataGridSelectedIdListIndicator = false; DgRefresh = true;
                             StringToFilter(cb_filter, dataViewSupport.AdvancedFilter);

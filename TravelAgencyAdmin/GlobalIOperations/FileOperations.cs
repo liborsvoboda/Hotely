@@ -4,9 +4,9 @@ using System.IO;
 using System.Text;
 using System.Web.Script.Serialization;
 using System.Windows.Media.Imaging;
-using TravelAgencyAdmin.Classes;
+using UbytkacAdmin.Classes;
 
-namespace TravelAgencyAdmin.GlobalOperations {
+namespace UbytkacAdmin.GlobalOperations {
 
     internal class FileOperations {
 

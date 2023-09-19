@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 
-namespace TravelAgencyAdmin.SystemHelpers {
+namespace UbytkacAdmin.SystemHelpers {
 
     public static class SystemHelp {
         public static RoutedCommand MyHelpCommand = new RoutedCommand("MyHelpCommand", typeof(FrameworkElement), new InputGestureCollection() { new KeyGesture(Key.F1) });

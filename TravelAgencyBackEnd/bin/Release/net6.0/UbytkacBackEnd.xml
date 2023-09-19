@@ -152,6 +152,28 @@
             <param name="length">The length.</param>
             <returns></returns>
         </member>
+        <member name="M:UbytkacBackend.Functions.GetByteArrayFrom64Encode(System.String)">
+            <summary>
+            Separate ByteArray from 64 encode file
+            For inserted file types
+            </summary>
+            <param name="strContent">Content of the string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Functions.GetSelfSignedCertificate(System.String)">
+            <summary>
+            Gets the self signed certificate For API Security HTTPS.
+            </summary>
+            <param name="password">The password.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Functions.GetSelfSignedCertificateFromFile(System.String)">
+            <summary>
+            Set Imported Certificate from file on Server for Https 
+            File must has Valid path from Startup Data Path
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.SystemFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
             <summary>
             Sends the mass mail.

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 
-namespace TravelAgencyAdmin.SystemConfiguration {
+namespace UbytkacAdmin.SystemConfiguration {
 
     public class IniFile {
         public string path;

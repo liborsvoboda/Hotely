@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UbytkacBackEnd", "TravelAgencyBackEnd\UbytkacBackEnd.csproj", "{2917002C-CA9B-4B51-A4DF-8FE8C4B9596B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgencyAdmin", "TravelAgencyAdmin\TravelAgencyAdmin.csproj", "{C7FB1174-C52C-4FC0-8DBE-36DE66DA0401}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UbytkacAdmin", "TravelAgencyAdmin\UbytkacAdmin.csproj", "{C7FB1174-C52C-4FC0-8DBE-36DE66DA0401}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{D6C46BAA-44A1-451F-BAF4-680BACD5488B}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TravelAgencyFrontEnd", "TravelAgencyFrontEnd\TravelAgencyFrontEnd.njsproj", "{05505FDD-B668-4628-A989-803A12F2E729}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "UbytkacFrontEnd", "TravelAgencyFrontEnd\UbytkacFrontEnd.njsproj", "{05505FDD-B668-4628-A989-803A12F2E729}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DEMOHOTEL", "DEMOHOTEL\DEMOHOTEL.csproj", "{29780355-6D74-4E2A-8AC1-C92DCCFB317E}"
 EndProject

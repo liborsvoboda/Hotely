@@ -14,12 +14,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.GlobalStyles;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class HotelRoomListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
@@ -46,8 +46,6 @@ namespace TravelAgencyAdmin.Pages {
                 lbl_extraBed.Content = Resources["extraBed"].ToString();
                 lbl_owner.Content = Resources["owner"].ToString();
                 lbl_roomsCount.Content = Resources["roomsCount"].ToString();
-                lbl_approveRequest.Content = Resources["approveRequest"].ToString();
-                lbl_approved.Content = Resources["approved"].ToString();
                 lbl_image.Content = Resources["image"].ToString();
 
                 btn_browse.Content = Resources["browse"].ToString();
@@ -97,8 +95,6 @@ namespace TravelAgencyAdmin.Pages {
                     if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 3; } else if (headername == "Accommodation") { e.Header = Resources["accommodation"].ToString(); e.DisplayIndex = 1; } else if (headername == "RoomType") { e.Header = Resources["roomType"].ToString(); e.DisplayIndex = 2; } else if (headername == "Price") { e.Header = Resources["price"].ToString(); e.DisplayIndex = 4; } else if (headername == "MaxCapacity") e.Header = Resources["maxCapacity"].ToString();
                     else if (headername == "ExtraBed") e.Header = Resources["extraBed"].ToString();
                     else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
-                    else if (headername == "ApproveRequest") e.Header = Resources["approveRequest"].ToString();
-                    else if (headername == "Approved") e.Header = Resources["approved"].ToString();
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                     else if (headername == "HotelId") e.Visibility = Visibility.Hidden;
@@ -175,8 +171,6 @@ namespace TravelAgencyAdmin.Pages {
                 selectedRecord.MaxCapacity = (int)txt_maxCapacity.Value;
                 selectedRecord.ExtraBed = (bool)chb_extraBed.IsChecked;
                 selectedRecord.RoomsCount = (int)txt_roomsCount.Value;
-                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
-                selectedRecord.Approved = (bool)chb_approved.IsChecked;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
@@ -216,8 +210,6 @@ namespace TravelAgencyAdmin.Pages {
             txt_maxCapacity.Value = selectedRecord.MaxCapacity;
             chb_extraBed.IsChecked = selectedRecord.ExtraBed;
             txt_roomsCount.Value = selectedRecord.RoomsCount;
-            chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
-            chb_approved.IsChecked = false;
 
             img_photoPath.Source = (selectedRecord.Image == null) ? new BitmapImage(new Uri(Path.Combine(App.settingFolder, "no_photo.png"))) : MediaOperations.ArrayToImage(selectedRecord.Image);
 

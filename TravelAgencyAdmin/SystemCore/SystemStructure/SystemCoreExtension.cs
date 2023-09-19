@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin {
+namespace UbytkacAdmin {
 
     internal abstract class AppExtension : App {
 

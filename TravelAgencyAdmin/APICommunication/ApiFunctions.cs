@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelAgencyAdmin.Api {
+namespace UbytkacAdmin.Api {
 
     internal class ApiCommunication {
 

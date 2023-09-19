@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes {
+namespace UbytkacAdmin.Classes {
 
     public partial class HotelList {
         public int Id { get; set; } = 0;
@@ -21,6 +21,7 @@ namespace TravelAgencyAdmin.Classes {
         public string CountryTranslation { get; set; }
         public string CityTranslation { get; set; }
         public string Currency { get; set; }
+        public string UserName { get; set; }
 
         public CityList City { get; set; }
     }

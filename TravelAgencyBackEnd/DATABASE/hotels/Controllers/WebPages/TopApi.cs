@@ -9,52 +9,56 @@
             List<int> data = GetTopIdList(language);
 
             List<HotelList> result;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
-            {
-                result = new hotelsContext().HotelLists
-                    .Include(a => a.HotelRoomLists)
-                    .Include(a => a.City)
-                    .Include(a => a.Country)
-                    .Include(a => a.DefaultCurrency)
-                    .Where(a => data.Contains(a.Id) && !a.Deactivated).ToList();
-            }
-
-            result.ForEach(hotel => {
-
-                // load props to each hotel by include is extremelly slow
+            WebPageRootSearchData rootData = new();
+            try { 
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    List<HotelImagesList> images = new hotelsContext().HotelImagesLists.Where(a => a.HotelId == hotel.Id).ToList();
-                    hotel.HotelImagesLists = images;
-
-                    List<HotelPropertyAndServiceList> props = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
-                    hotel.HotelPropertyAndServiceLists = props;
+                    result = new hotelsContext().HotelLists
+                        .Include(a => a.HotelRoomLists)
+                        .Include(a => a.City)
+                        .Include(a => a.Country)
+                        .Include(a => a.DefaultCurrency)
+                        .Where(a => data.Contains(a.Id) && !a.Deactivated).ToList();
                 }
 
-                //clean datasets
-                hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                hotel.DescriptionEn = hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                result.ForEach(hotel => {
 
-                hotel.HotelImagesLists.ToList().ForEach(attachment => {
-                    attachment.Hotel = null;
-                    attachment.Attachment = null;
+                    // load props to each hotel by include is extremelly slow
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        List<HotelImagesList> images = new hotelsContext().HotelImagesLists.Where(a => a.HotelId == hotel.Id).ToList();
+                        hotel.HotelImagesLists = images;
+
+                        List<HotelPropertyAndServiceList> props = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
+                        hotel.HotelPropertyAndServiceLists = props;
+                    }
+
+                    //clean datasets
+                    hotel.DescriptionCz = hotel.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                    hotel.DescriptionEn = hotel.DescriptionEn != null ? hotel.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>") : "";
+
+                    hotel.HotelImagesLists.ToList().ForEach(attachment => {
+                        attachment.Hotel = null;
+                        attachment.Attachment = null;
+                    });
+
+                    hotel.City.HotelLists = null;
+                    hotel.City.Country = null;
+                    hotel.Country.CityLists = null;
+                    hotel.Country.HotelLists = null;
+                    hotel.DefaultCurrency.HotelLists = null;
+                    hotel.HotelRoomLists.ToList().ForEach(room => {
+                        room.DescriptionCz = room.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
+                        room.DescriptionEn = room.DescriptionEn != null ? room.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>") : "";
+                        room.Image = null;
+                        room.Hotel = null;
+                    });
                 });
 
-                hotel.City.HotelLists = null;
-                hotel.City.Country = null;
-                hotel.Country.CityLists = null;
-                hotel.Country.HotelLists = null;
-                hotel.DefaultCurrency.HotelLists = null;
-                hotel.HotelRoomLists.ToList().ForEach(room => {
-                    room.DescriptionCz = room.DescriptionCz.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                    room.DescriptionEn = room.DescriptionEn.Replace("<HTML><BODY>", "").Replace("</BODY></HTML>", "").Replace("<LI><P>", "<LI><SPAN>").Replace("</P></LI>", "</SPAN></LI>");
-                    room.Image = null;
-                    room.Hotel = null;
-                });
-            });
+                //TODO changed to old structure
+               
+                result.ForEach(hotel => { rootData.HotelList.Add(new WebPageRootSearch() { Hotel = hotel, RoomList = null }); });
 
-            //TODO changed to old structure
-            WebPageRootSearchData rootData = new();
-            result.ForEach(hotel => { rootData.HotelList.Add(new WebPageRootSearch() { Hotel = hotel, RoomList = null }); });
+            } 
+            catch (Exception ex) { }
 
             return JsonSerializer.Serialize(rootData, new JsonSerializerOptions()
             {

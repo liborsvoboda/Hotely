@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using TravelAgencyAdmin.Api;
+using UbytkacAdmin.Api;
 
-namespace TravelAgencyAdmin.GlobalOperations {
+namespace UbytkacAdmin.GlobalOperations {
 
     /// <summary>
     /// Centralized DataOperations as Cleaning dataset Language Dictionary Auto filing

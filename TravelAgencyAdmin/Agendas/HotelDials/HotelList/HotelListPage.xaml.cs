@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.GlobalStyles;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class HotelListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
@@ -25,6 +25,7 @@ namespace TravelAgencyAdmin.Pages {
         private List<CountryList> countryList = new List<CountryList>();
         private List<CityList> cityList = new List<CityList>();
         private List<CurrencyList> currencyList = new List<CurrencyList>();
+        private List<UserList> userList = new List<UserList>();
 
         public HotelListPage() {
             InitializeComponent();
@@ -59,6 +60,9 @@ namespace TravelAgencyAdmin.Pages {
                 hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
+                userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+
+
 
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
@@ -69,6 +73,7 @@ namespace TravelAgencyAdmin.Pages {
                 }
 
                 hotelList.ForEach(async hotel => {
+                    hotel.UserName = userList.First(a=>a.Id == hotel.UserId).UserName;
                     hotel.CountryTranslation = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
                     hotel.CityTranslation = await DBOperations.DBTranslation(hotel.City.City);
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
@@ -95,7 +100,9 @@ namespace TravelAgencyAdmin.Pages {
                     else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } 
                     else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } 
                     else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } 
-                    else if (headername == "AverageRating") { e.Header = Resources["averageRating"].ToString(); e.DisplayIndex = 9; } 
+                    else if (headername == "AverageRating") { e.Header = Resources["averageRating"].ToString(); e.DisplayIndex = 9; }
+                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 10; }
+                    
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
 
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -119,6 +126,7 @@ namespace TravelAgencyAdmin.Pages {
                     return user.Name.ToLower().Contains(filter.ToLower())
                     || user.CountryTranslation.ToLower().Contains(filter.ToLower())
                     || user.CityTranslation.ToLower().Contains(filter.ToLower())
+                    || user.UserName.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionCz) && user.DescriptionCz.ToLower().Contains(filter.ToLower())
                     || !string.IsNullOrEmpty(user.DescriptionEn) && user.DescriptionEn.ToLower().Contains(filter.ToLower())
                     ;

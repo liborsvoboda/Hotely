@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace TravelAgencyAdmin.GlobalClasses {
+namespace UbytkacAdmin.GlobalClasses {
 
     internal class UriToBitmapConverter : IValueConverter {
 

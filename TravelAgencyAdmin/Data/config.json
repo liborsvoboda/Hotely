@@ -9,7 +9,7 @@
   "ThemeName": "Base Light",
   "AccentName": "Green",
   "ReportingPath": "C:\\Program Files\\GroupWare-Solution.Eu\\FyiReporting\\RdlReader.exe",
-  "UpdateUrl": "https://groupware-solution.eu/FTP/TravelAgencyAdminProject/Update",
+  "UpdateUrl": "https://groupware-solution.eu/FTP/UbytkacAdminProject/Update",
   "AutomaticUpdate": "showInfo",
   "HideStartVideo": false,
   "ReportConnectionString": "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;",

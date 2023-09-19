@@ -9,7 +9,7 @@
                 <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
             </div>
             <div class="col-md-6">
-                <div class="pos-absolute p-button p-component button info" style="top:10px;right:10px;" @click="$router.push('/profile/advertisementWizard')">{{ $t('labels.newAccommodationAdvertisement') }}</div>
+                <div class="pos-absolute p-button p-component button info" style="top:10px;right:10px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</div>
             </div>
         </div>
         <hr>
@@ -39,9 +39,6 @@ export default {
         AdvertisementList,
         ProgressSpinner,
     },
-    methods: {
-
-    },
     async created() {
         if (!this.advertisementList.length) {
             this.errorText = true;
@@ -55,6 +52,26 @@ export default {
         }
     },
     methods: {
+        startAdvertisement() {
+            ActualValidationFormName = "hotelForm";
+            ActualWizardPage = 1;
+            propertyList = [];
+            Token = null;
+            Router = this.$router;
+            ApiRootUrl = null;
+            HotelRecId = null;
+            WizardImageGallery = [];
+            WizardRooms = [];
+            WizardTempRoomPhoto = [];
+            WizardProperties = [];
+            WizardSelectedProperty = {};
+            WizardHotel = {
+                Images: [],
+                Rooms: [],
+                Properties: []
+            };
+            this.$router.push('/profile/advertisementWizard');
+        },
         async showAlsoInactive() {
             this.ShowAlsoInactive = !this.ShowAlsoInactive;
         }

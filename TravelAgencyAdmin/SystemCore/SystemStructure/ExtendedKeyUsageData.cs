@@ -1,6 +1,6 @@
 ﻿using Org.BouncyCastle.Asn1.X509;
 
-namespace TravelAgencyAdmin.SystemStructure {
+namespace UbytkacAdmin.SystemStructure {
 
     public class ExtendedKeyUsageData {
 

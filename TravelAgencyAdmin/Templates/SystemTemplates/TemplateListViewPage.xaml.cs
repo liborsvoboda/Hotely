@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TravelAgencyAdmin.Api;
-using TravelAgencyAdmin.Classes;
-using TravelAgencyAdmin.GlobalOperations;
-using TravelAgencyAdmin.GlobalStyles;
+using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 
 // This is Template Page ListView only Table Data View
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     /// <summary>
     /// This standartized Template is only for list view od Data table Called from MainWindow.cs on

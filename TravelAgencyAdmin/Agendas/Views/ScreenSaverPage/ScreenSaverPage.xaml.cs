@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace TravelAgencyAdmin.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class ScreenSaverPage : UserControl {
         //private List<MottoList> MottoList = new List<MottoList>();

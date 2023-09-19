@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TravelAgencyAdmin.Classes {
+namespace UbytkacAdmin.Classes {
 
     /// <summary>
     /// Typical Table schema for API which you copy from Generated Model in Backend Server On

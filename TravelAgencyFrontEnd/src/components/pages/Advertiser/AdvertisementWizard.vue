@@ -59,7 +59,7 @@
                             <div id="galleryContainer" class="d-flex w-100">
 
                                 <div class="d-flex" style="width:250px;height:150px;top:0px;left:0px;">
-                                    <input id="Images" type="file" data-role="file" data-mode="drop" data-on-select="WizardUploadImages" data-validate="custom=WizardUploadImagesCheck" accept=".png,.jpg,.jpeg,.tiff" multiple="multiple">
+                                    <input id="Images" type="file" data-role="file" data-mode="drop" data-on-select="WizardUploadImages" accept=".png,.jpg,.jpeg,.tiff" multiple="multiple">
                                 </div>
 
                                 <div id="HotelImageGallery" class="d-flex" />
@@ -83,7 +83,7 @@
                         <div class="d-block" style="height:400px;overflow-y:auto;">
 
                             <div class="container bg-grayBlue p-1" style="height:200px;overflow-y:auto;">
-                                <div id="roomContainer" class="d-flex w-100 ">
+                                <div id="roomContainer" class="d-block w-100 ">
                                 </div>
                             </div>
 

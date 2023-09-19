@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyAdmin.Properties {
+﻿namespace UbytkacAdmin.Properties {
 
     internal sealed partial class Settings {
 

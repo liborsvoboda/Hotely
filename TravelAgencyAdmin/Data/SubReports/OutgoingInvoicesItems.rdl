@@ -352,7 +352,7 @@ DocumentNumber = @DocNr</CommandText>
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>Server=192.168.1.141,1433;Database=TravelAgencyAdmin;User ID=TravelAgencyAdmin;Password=TravelAgencyAdmin;Connection Timeout=10;</Value>
+          <Value>Server=192.168.1.141,1433;Database=UbytkacAdmin;User ID=UbytkacAdmin;Password=UbytkacAdmin;Connection Timeout=10;</Value>
         </Values>
       </DefaultValue>
       <Nullable>false</Nullable>

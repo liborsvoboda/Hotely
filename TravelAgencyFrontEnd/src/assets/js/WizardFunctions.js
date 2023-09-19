@@ -5,9 +5,14 @@ let ActualWizardPage = 1;
 let propertyList = [];
 let Token = null;
 let ApiRootUrl = null;
+let Router = null;
 
 let HotelRecId = null;
-let WizardHotel = {};
+let WizardHotel = {
+    Images: [],
+    Rooms: [],
+    Properties:[]
+};
 let WizardImageGallery = [];
 let WizardRooms = [];
 let WizardTempRoomPhoto = [];
@@ -21,14 +26,16 @@ function WizardRequestCityList(value) {
 };
 
 //Validation
-async function WizardValidateForm() { 
+async function WizardValidateForm() {
+    console.log("validating", $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current, ActualValidationFormName);
+
 
     //prepare properties array
     if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 4) {
         propertyList.forEach(property => {
             if ($("#prop_" + property.id) != undefined && $("#prop_" + property.id).val('checked')[0].checked
                 && (
-                WizardProperties.length == 0 || (WizardProperties.length > 0 && WizardProperties.filter(obj => { return obj.id === property.id; })[0] == undefined)
+                WizardProperties.length == 0 || (WizardProperties.length > 0 && WizardProperties.filter(obj => { return obj.id == property.id; })[0] == undefined)
                 )
             ) {
                 WizardProperties.push({
@@ -38,15 +45,21 @@ async function WizardValidateForm() {
                     fee: false, feeValue: null, feeRangeMin: null, feeRangeMax: null,
                 });
             }
-            if ($("#prop_" + property.id) != undefined && !$("#prop_" + property.id).val('checked')[0].checked && WizardProperties.filter(obj => { return obj.id === property.id; })[0] != undefined) {
+            if ($("#prop_" + property.id) != undefined && !$("#prop_" + property.id).val('checked')[0].checked && WizardProperties.filter(obj => { return obj.id == property.id; })[0] != undefined) {
                 WizardProperties.splice(WizardProperties.indexOf(WizardProperties.filter(obj => { return obj.id === property.id; })[0]), 1);
             }
         });
     }
 
+
     if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && $("#HotelName").val().length > 0 && $("#HotelCurrency")[0].selectedOptions[0] != undefined && $("#HotelCity")[0].selectedOptions[0] != undefined) {
         window.ActualValidationFormName = ActualValidationFormName = "galleryForm";
         window.ActualWizardPage = ActualWizardPage = 2;
+
+        let htmlContent = "<div class='d-flex' style='width: 250px; height: 150px; top: 0px; left: 0px;'><input id='Images' type = 'file' data-role='file' data-mode='drop' data-on-select='WizardUploadImages' accept='.png,.jpg,.jpeg,.tiff' multiple='multiple' ></div><div id='HotelImageGallery' class='d-flex' />";
+        $("#galleryContainer").html(htmlContent);
+        WizardUploadImagesCheck();
+
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && ($("#HotelName").val().length == 0 || $("#HotelCurrency")[0].selectedOptions[0] == undefined || $("#HotelCity")[0].selectedOptions[0] == undefined)) {
@@ -67,7 +80,9 @@ async function WizardValidateForm() {
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 3 && WizardRooms.length > 0) {
         window.ActualValidationFormName = ActualValidationFormName = "propertyForm";
         window.ActualWizardPage = ActualWizardPage = 4;
-        if (WizardHotel.Properties != undefined) { WizardSetUpdateData2(); }
+        //if (WizardHotel.Properties != []) {
+            WizardSetUpdateData2();
+        //}
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 3 && WizardRooms.length == 0) {
@@ -105,7 +120,11 @@ function WizardGallerySetPrimaryImage(filename) {
 }
 function WizardUploadImagesCheck() {
     let status = false;
-    if (WizardImageGallery.length == 0) { status = false; }
+    if (WizardImageGallery.length == 0) {
+        let htmlGallery = "<div data-role='lightbox' data-role-lightbox='false' class='m-2' data-cls-image='border border-1 bd-white' ></div>"; 
+        $("#HotelImageGallery").html(htmlGallery);
+        status = false;
+    }
     else {
 
         let htmlGallery = "<div data-role='lightbox' data-role-lightbox='false' class='m-2' data-cls-image='border border-1 bd-white' >"; 
@@ -121,12 +140,15 @@ function WizardUploadImagesCheck() {
             var new_element = old_element.cloneNode(true);
             new_element.onclick = function () { WizardGallerySetPrimaryImage(image.FileName); }
             old_element.parentNode.replaceChild(new_element, old_element);
-        })
+        });
 
     }
     ValidationWizardStatus = status;
 }
 async function WizardUploadImages(files) {
+    console.log("uploading images", files);
+
+
     if (files.length > 0) {
         window.showPageLoading();
 
@@ -383,13 +405,14 @@ async function SaveHotel() {
     notify.create(window.dictionary('labels.advertisementHasBeenSaved'), "Info"); notify.reset();
 
     window.hidePageLoading();
-    window.location.pathname = "/profile/advertisement"
+    Router.push('/profile/advertisement');
 }
 
 function WizardSetUpdateData() {
     HotelRecId = WizardHotel.HotelId;
     $("#HotelName").val(WizardHotel.HotelName);
 
+    WizardImageGallery = [];
     WizardHotel.Images.forEach(image => {
         WizardImageGallery.push({
             IsPrimary: image.isPrimary, FileName: image.fileName, Attachment: "data:image/png;base64," + image.attachment });
@@ -397,6 +420,7 @@ function WizardSetUpdateData() {
 }
 
 function WizardSetUpdateData1() {
+    WizardRooms = [];
     WizardHotel.Rooms.forEach(room => {
         WizardRooms.push({
             RoomName: room.name, RoomTypeId: room.roomTypeId, Price: room.price, ExtraBed: room.extraBed,
@@ -407,10 +431,11 @@ function WizardSetUpdateData1() {
 }
 
 function WizardSetUpdateData2() {
+    WizardProperties = [];
     WizardHotel.Properties.forEach(property => {
         $('#prop_' + property.propertyOrService.id).val('checked')[0].checked = true;
         WizardProperties.push({
-            id: property.id, name: property.propertyOrService.systemName, unit: property.propertyOrService.propertyOrServiceUnitType.systemName, isAvailable: property.isAvailable, isBit: property.propertyOrService.isBit,
+            id: property.propertyOrService.id, name: property.propertyOrService.systemName, unit: property.propertyOrService.propertyOrServiceUnitType.systemName, isAvailable: property.isAvailable, isBit: property.propertyOrService.isBit,
             isFeeInfoRequired: property.propertyOrService.isFeeInfoRequired, isFeeRangeAllowed: property.propertyOrService.isFeeRangeAllowed, isValueRangeAllowed: property.propertyOrService.isValueRangeAllowed,
             value: property.value, valueRangeMin: property.valueRangeMin, valueRangeMax: property.valueRangeMax,
             fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax

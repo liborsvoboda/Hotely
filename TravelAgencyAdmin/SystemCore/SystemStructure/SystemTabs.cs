@@ -1,4 +1,4 @@
-﻿namespace TravelAgencyAdmin.SystemStructure {
+﻿namespace UbytkacAdmin.SystemStructure {
 
     public class SystemTabs {
         private readonly string _header;
