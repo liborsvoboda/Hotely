@@ -1,8 +1,9 @@
 <template>
     <div class="container d-flex align-items-center justify-content-center">
         <div class="col-md-10">
-            <Card id="test3" v-if="searchResults != null">
-                <template #content>
+            <!-- <Card id="test3" v-if="searchResults != null"> -->
+            <div id="test3" v-if="searchResults != null">
+               <!--  <template #content> -->
                     <div class="row">
                         <div class="col-md-12">
                             <Top v-for="result in searchResults"
@@ -10,8 +11,9 @@
                                  :key="result.hotel.id" />
                         </div>
                     </div>
-                </template>
-            </Card>
+               <!--  </template> -->
+            </div>
+            <!-- </Card> -->
             <div v-else style="border-radius: 20px; margin-top: 20px;">
                 <div class="row">
                     <!--   <ProgressSpinner /> -->
