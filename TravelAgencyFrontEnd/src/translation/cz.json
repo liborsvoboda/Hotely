@@ -81,7 +81,7 @@
     "advertiseAsHost": "Chci inzerovat jako hostitel",
     "accommodationAdvertisement": "Inzerce Ubytování",
     "newAccommodationAdvertisement": "Nová inzerce Ubytování",
-    "topFive": "Top Five",
+    "topFive": "Nej 5 Inzerátů",
     "servicesAndFacilitiesAvailable": "Dostupné služby a zařízení",
     "requestDate": "Datum poptávky",
     "editAdvertisement": "Editace pronájmu",
@@ -157,9 +157,15 @@
     "advertisementStatus": "Stav inzerce",
     "reservationCount": "Počet rezervací",
     "popularCount": "Počet oblíbeno",
-    "searchCount": "Počet vyhledání"
+    "searchCount": "Počet vyhledání",
+    "reservation": "Rezervace",
+    "advertising": "Inzerce",
+    "notifyShowTime": "Čas notifikácí sec. ",
+    "showInactiveAdvertisementAsDefault": "Set Default: Zobrazit neaktivní inzeráty"
+
   },
   "user": {
+    "newPassword": "Nové Heslo",
     "login": "Přihlásit",
     "logout": "Odhlásit",
     "register": "Registrovat",
@@ -210,6 +216,8 @@
     "anyAdvertisementExist": "Není vloženo žádné Ubytovací zařízení",
     "menuIsAvailableAfterLogin": "Menu je dostupné po přihlášení",
     "youMustBeAdvertiser": "Pro přístup musíš být inzerent",
-    "translateAutomatically": "Automaticky Překládat"
+    "translateAutomatically": "Automaticky Překládat",
+    "passwordNotHaveMinimalLength": "heslo nemá minimální délku: ",
+    "passwordNotHaveMinimalLengthOrMailNotValid": "Email není správný nebo heslo nemá minimální délku: "
   }
 }

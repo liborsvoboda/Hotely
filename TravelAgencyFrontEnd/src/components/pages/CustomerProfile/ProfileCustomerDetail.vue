@@ -108,7 +108,9 @@ export default {
             this.loading = false;
 
             //get updated booking
-            this.$store.state.toastSuccessMessage = this.$i18n.t("messages.updateBookingWasSuccess");
+            var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+            notify.create(this.$i18n.t("messages.updateBookingWasSuccess"), "Success", { cls: "success" }); notify.reset();
+
             this.$emit('closeEdit', false);
             await this.$store.dispatch('getBookingList');
 

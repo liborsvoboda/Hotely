@@ -17,6 +17,16 @@ const store = createStore({
             registrationStatus: null
         },
 
+        system: {
+            passwordMin: 6,
+        },
+
+        userSettings: {
+            notifyShowTime: 1000,
+            showInactiveAdvertisementAsDefault: false,
+            translationLanguage: 'cz'
+        },
+
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
@@ -166,10 +176,10 @@ const store = createStore({
             state.user.loggedIn = true;
         },
         logOutUser(state) {
-            state.store.advertisementList = [];
+            store.advertisementList = [];
             store.lightFavoriteHotelList = [];
             store.favoriteHotelList = [];
-            state.store.bookingList = [];
+            store.bookingList = [];
 
             state.user = {
                 loggedIn: false,
@@ -224,14 +234,14 @@ const store = createStore({
             let mainloader; if (!this.state.searchResults == [] || !this.state.searchResults.hotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             if (searchString === null || searchString == '') { searchString = "null"; }
 
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Search/GetSearchInput/' + searchString + '/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             console.log("hotellist", result);
 
             commit('setHotelSearchResultsList', result.hotelList);
@@ -250,14 +260,14 @@ const store = createStore({
                 endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE');
             }
 
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/ReservedRoomList/' + hotelId + '/' + startDate + '/' + endDate + '/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setReservedRoomList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
@@ -265,14 +275,14 @@ const store = createStore({
             console.log("topList", this.state.searchResults);
         
             let mainloader; if (!this.state.searchResults == [] || !this.state.searchResults.hotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Top/GetTopList/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setTopList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
 
@@ -280,14 +290,14 @@ const store = createStore({
         async getPropertyList({ commit }) {
             if (!this.state.propertyList.length) {
                 let mainloader; if (!this.state.propertyList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-                var response = await fetch(
+                let response = await fetch(
                     this.state.apiRootUrl + '/Properties/' + this.state.language, {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json'
                     }
                 });
-                var result = await response.json();
+                let result = await response.json();
                 //console.log("Property", result);
                 commit('setPropertyList', result);
                 if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
@@ -296,14 +306,14 @@ const store = createStore({
         async getPropertyGroupList({ commit }) {
             if (!this.state.propertyGroupList.length) {
                 let mainloader; if (!this.state.propertyGroupList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-                var response = await fetch(
+                let response = await fetch(
                     this.state.apiRootUrl + '/Properties/GetPropertyGroupList/' + this.state.language, {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json'
                     }
                 });
-                var result = await response.json();
+                let result = await response.json();
                 console.log("PropertyGroup", result);
                 commit('setPropertyGroupList', result);
                 if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
@@ -312,7 +322,7 @@ const store = createStore({
         async getAdvertisementList({ commit }) {
             let mainloader; if (!this.state.advertisementList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
 
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Advertiser/GetAdvertisementList/' + this.state.language, {
                 method: 'GET',
                 headers: {
@@ -320,7 +330,7 @@ const store = createStore({
                     'Content-type': 'application/json',
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             console.log("setAdvertisementList", result);
             commit('setAdvertisementList', result);
             if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
@@ -328,80 +338,80 @@ const store = createStore({
 
         async getRoomTypeList({ commit }) {
             let mainloader; if (!this.state.roomTypeList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/RoomTypes/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setRoomTypeList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getUbytkacInfoList({ commit }) {
             let mainloader; if (!this.state.ubytkacInfoList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/UbytkacInfo/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setUbytkacInfoList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getRegistrationInfoList({ commit }) {
             let mainloader; if (!this.state.registrationInfoList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/RegistrationInfo/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setRegistrationInfoList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getOftenQuestionList({ commit }) {
             let mainloader; if (!this.state.oftenQuestionList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/OftenQuestion/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setOftenQuestionList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getHolidayTipsList({ commit }) {
             let mainloader; if (!this.state.holidayTipsList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/HolidayTips/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setHolidayTipsList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getSearchDialList({ commit }) {
             if (!this.state.searchDialList.length) {
                 let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-                var response = await fetch(
+                let response = await fetch(
                     this.state.apiRootUrl + '/Search/GetSearchDialList/' + this.state.language, {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json'
                     }
                 });
-                var result = await response.json();
+                let result = await response.json();
                 commit('setSearchDialList', result);
                 if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
             }
@@ -409,14 +419,14 @@ const store = createStore({
         async getSearchAreaList({ commit }) {
             if (!this.state.searchAreaList.length) {
                 let mainloader; if (!this.state.searchAreaList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-                var response = await fetch(
+                let response = await fetch(
                     this.state.apiRootUrl + '/Search/GetSearchAreaList/' + this.state.language, {
                     method: 'GET',
                     headers: {
                         'Content-type': 'application/json'
                     }
                 });
-                var result = await response.json();
+                let result = await response.json();
                 commit('setSearchAreaList', result);
                 if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
             }
@@ -437,7 +447,9 @@ const store = createStore({
 
                 window.hidePageLoading();
                 if (result.message) {
-                    this.state.toastErrorMessage = result.message;
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                    notify.create(result.message, "Error", { cls: "alert" }); notify.reset();
+
                 } else {
                     commit('setUser', result);
 
@@ -471,7 +483,7 @@ const store = createStore({
         },
         async getBookingList({ commit }) {
             let mainloader; if (!this.state.bookingList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Guest/Booking/GetBookingList/' + this.state.language, {
                 method: 'GET',
                 headers: {
@@ -479,13 +491,13 @@ const store = createStore({
                     'Content-type': 'application/json',
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setBookingList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getLightFavoriteHotelList({ commit }) {
             let mainloader; if (!this.state.lightFavoriteHotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Guest/GetLightFavoriteList', {
                 method: 'GET',
                 headers: {
@@ -493,7 +505,7 @@ const store = createStore({
                     'Content-type': 'application/json',
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setLightFavoriteHotelList', result);
             if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
         },
@@ -503,7 +515,7 @@ const store = createStore({
             //Load Updated Light Favorites for hearts
             await this.dispatch("getLightFavoriteHotelList");
 
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Guest/GetFavoriteList/' + this.state.language, {
                 method: 'GET',
                 headers: {
@@ -511,13 +523,13 @@ const store = createStore({
                     'Content-type': 'application/json',
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setFavoriteHotelList', result.hotelList);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         async getTopFiveList({ commit }, type) {
             let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Guest/GetTopFiveList/' + type + '/' + this.state.language, {
                 method: 'GET',
                 headers: {
@@ -525,24 +537,52 @@ const store = createStore({
                     'Content-type': 'application/json',
                 }
             });
-            var result = await response.json();
+            let result = await response.json();
             commit('setTopFiveList', result.hotelList);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
         //TODO 
         async getReviews({ commit }, hotelId) {
             //let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            var response = await fetch(
+            let response = await fetch(
                 this.state.apiRootUrl + '/Hotel/GetReviews/' + hotelId
             )
-            var result = await response.json();
+            let result = await response.json();
             commit('getReviews', result);
             //if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
 
-        deleteRegistration({ commit }, Id) {
+        async updateRegistration({ commit }, updatedUser) {
             window.showPageLoading();
-            fetch(this.state.apiRootUrl + '/Guest/DeleteRegistration', {
+            let response = await fetch(this.state.apiRootUrl + '/Guest/UpdateRegistration', {
+                method: 'POST',
+                headers: {
+                    "Authorization": 'Bearer ' + this.state.user.Token,
+                    "Content-type": "application/json",
+                },
+                 body: JSON.stringify({ User: updatedUser, Language: this.state.language }),
+            });
+
+            let result = await response.json();
+            if (result.Status != "error") {
+                updatedUser.loggedIn = true;
+                updatedUser.Token = this.state.user.Token;
+                this.state.user = updatedUser;
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                notify.create(window.dictionary("messages.dataSaved"), "Success", { cls: "success" }); notify.reset();
+            }
+            else {
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+            }
+
+            window.hidePageLoading();
+        },
+
+        async deleteRegistration({ commit }, Id) {
+            window.showPageLoading();
+            await fetch(this.state.apiRootUrl + '/Guest/DeleteRegistration', {
                 method: 'DELETE',
                 headers: {
                     "Authorization": 'Bearer ' + this.state.user.Token,

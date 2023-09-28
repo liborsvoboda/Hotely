@@ -298,6 +298,7 @@ export default {
         propertyList = store.state.propertyList;
         ApiRootUrl = store.state.apiRootUrl;
         Token = store.state.user.Token;
+        NotifyShowTime = this.$store.state.userSettings.notifyShowTime;
 
         this.getCountryList();
         this.getCurrencyList();

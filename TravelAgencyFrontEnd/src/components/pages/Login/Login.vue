@@ -9,24 +9,13 @@
 
         <div id="loginForm" class="main">
             <p class="sign" align="center">{{ $t('user.logIn') }}</p>
-            <form class="form1" @submit.prevent="guestLogin">
-                <input class="un"
-                       type="email"
-                       align="center"
-                       placeholder="Email"
-                       required
-                       v-model="Email" />
-                <input class="pass"
-                       type="password"
-                       align="center"
-                       placeholder="Password"
-                       required
-                       minLength=6
-                       v-model="Password" />
+          <!--   <form class="form1"> -->
+                <input class="un" type="email" align="center" placeholder="Email" required v-model="Email" />
+                <input class="pass" type="password" align="center" placeholder="Password" required minLength="$store.state.system.passwordMin" v-model="Password" />
                 <button class="submit" :onclick="checkValid">{{ $t('user.signIn') }}</button>
                 <p class="forgot" align="center"><a href="/forgot">{{ $t('user.forgotPassword') }}</a></p>
                 <p class="forgot" align="center"><a href="/registration">{{ $t('labels.registration') }}</a></p>
-            </form>
+           <!--  </form> -->
         </div>
     </html>
 </template>
@@ -52,11 +41,17 @@ export default {
     methods: {
         async checkValid() {
             if (!this.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-                || this.Password.length < 6) {
+                || this.Password.length < this.$store.state.system.passwordMin) {
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(window.dictionary("messages.passwordNotHaveMinimalLengthOrMailNotValid") + this.$store.state.system.passwordMin, "Error", { cls: "alert" }); notify.reset();
+
                 document.getElementById("loginForm").classList.add("ani-ring");
                 setTimeout(function () {
                     document.getElementById("loginForm").classList.remove("ani-ring");
                 }, 1000);
+            } else {
+                await this.guestLogin();
             }
         },
         async guestLogin() {

@@ -67,6 +67,8 @@
     public enum DBWebApiResponses {
         emailExist,
         emailNotExist,
-        loginInfoSentToEmail
+        loginInfoSentToEmail,
+        inputDataError,
+        saveDataError
     }
 }

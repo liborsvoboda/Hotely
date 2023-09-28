@@ -98,8 +98,12 @@ export default {
 
                 let result = await response.json();
                 this.$store.dispatch('setLightFavoriteHotelList', result);
-                this.$store.state.toastSuccessMessage = this.isFavorite ? this.$i18n.t("messages.addedToFavorite") : this.$i18n.t("messages.removedFromFavorite");
-            } else { this.$store.state.toastInfoMessage = this.$i18n.t("messages.forSaveToFavoriteYouMustBeLogged") }
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.isFavorite ? this.$i18n.t("messages.addedToFavorite") : this.$i18n.t("messages.removedFromFavorite"), "Success", { cls: "success" }); notify.reset();
+            } else { 
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.$i18n.t("messages.forSaveToFavoriteYouMustBeLogged"), "Info", { cls: "info" }); notify.reset();
+            }
         },
     },
     created() {

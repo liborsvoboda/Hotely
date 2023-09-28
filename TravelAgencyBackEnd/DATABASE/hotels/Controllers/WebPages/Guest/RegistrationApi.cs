@@ -133,15 +133,22 @@ namespace UbytkacBackend.Controllers {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                     origUser = new hotelsContext().GuestLists.Where(a => a.Email == record.User.Email).FirstOrDefault();
                 }
+
+                //prepare DB guest
+                GuestList guest = new GuestList() {
+                    Email = record.User.Email, Password = record.User.Password != null ? BCrypt.Net.BCrypt.HashPassword(record.User.Password) : origUser.Password, FirstName = record.User.FirstName,
+                    LastName = record.User.LastName, Street = record.User.Street, ZipCode = record.User.ZipCode, City = record.User.City,
+                    Country = record.User.Country, Phone = record.User.Phone, Active = true, UserId = record.User.UserId, Timestamp = DateTimeOffset.Now.DateTime
+                };
+
                 if (origUser != null) { 
-                    record.User.Id = origUser.Id;
-                    record.User.Timestamp = DateTimeOffset.Now.DateTime;
-                    var data = new hotelsContext().GuestLists.Update(record.User);
+                    guest.User.Id = origUser.Id;
+                var data = new hotelsContext().GuestLists.Update(guest);
                     result = await data.Context.SaveChangesAsync();
                 }
                 else {
                     record.User.Timestamp = DateTimeOffset.Now.DateTime;
-                    var data = new hotelsContext().GuestLists.Add(record.User);
+                    var data = new hotelsContext().GuestLists.Add(guest);
                     result = await data.Context.SaveChangesAsync();
                 }
 
@@ -181,6 +188,13 @@ namespace UbytkacBackend.Controllers {
                 if (User.Claims.First(a => a.Issuer != null).Issuer.ToLower() == record.User.Email.ToLower()) {
                     int result = 0; UserList newUser = new();
 
+                    //prepare DB guest without password
+                    GuestList guest = new GuestList() {
+                        Id = record.User.Id, Email = record.User.Email, FirstName = record.User.FirstName, LastName = record.User.LastName,
+                        Street = record.User.Street, ZipCode = record.User.ZipCode, City = record.User.City, Country = record.User.Country,
+                        Phone = record.User.Phone, Active = true, UserId = record.User.UserId, Timestamp = DateTimeOffset.Now.DateTime
+                    };
+
                     //insert new systemuser
                     if (record.User.UserId == 0) {
                         newUser = new() { UserName = record.User.Email, RoleId = 1, Password = record.User.Password, Name = record.User.FirstName, SurName = record.User.LastName, Active = true };
@@ -188,27 +202,29 @@ namespace UbytkacBackend.Controllers {
                         result = await insData.Context.SaveChangesAsync();
                     }
 
+
+                    if (result > 0) { guest.UserId = newUser.Id; }
+
+
                     //update new systemuser
                     if (record.User.UserId > 0) {
-
                         UserList systemUser = new hotelsContext().UserLists.Where(a => a.Id == record.User.UserId).FirstOrDefault();
-                        systemUser.Password = record.User.Password; 
-                        systemUser.Name = record.User.FirstName; 
-                        systemUser.SurName = record.User.LastName;
-                        systemUser.Active = true;
-                            var insData = new hotelsContext().UserLists.Update(systemUser);
-                            result = await insData.Context.SaveChangesAsync();
+
+                        guest.Password = record.User.Password != null ? BCrypt.Net.BCrypt.HashPassword(record.User.Password) : BCrypt.Net.BCrypt.HashPassword(systemUser.Password);
+
+                        systemUser.Password = record.User.Password != null ? record.User.Password : systemUser.Password;
+                        systemUser.Name = record.User.FirstName; systemUser.SurName = record.User.LastName; systemUser.Active = true;
+                        var insData = new hotelsContext().UserLists.Update(systemUser);
+                        result = await insData.Context.SaveChangesAsync();
                     }
 
-                    if (result > 0) { record.User.UserId = newUser.Id; }
 
-                    record.User.Password = BCrypt.Net.BCrypt.HashPassword(record.User.Password);
-                    record.User.Timestamp = DateTimeOffset.Now.DateTime;
-                    var data = new hotelsContext().GuestLists.Update(record.User);
+
+                    var data = new hotelsContext().GuestLists.Update(guest);
                     result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
-                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-                } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = string.Empty });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.saveDataError.ToString())  });
+                } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.inputDataError.ToString()) });
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
         }
 

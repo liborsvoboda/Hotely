@@ -18,7 +18,7 @@
                         .Include(a => a.City)
                         .Include(a => a.Country)
                         .Include(a => a.DefaultCurrency)
-                        .Include(a=> a.HotelReservationLists)
+                        .Include(a=> a.HotelReservationLists).ThenInclude(a => a.HotelReservationDetailLists)
                         .Where(a => a.UserId == int.Parse(userId))
                         .AsNoTracking()
                         .IgnoreAutoIncludes()

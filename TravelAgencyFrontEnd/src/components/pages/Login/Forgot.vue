@@ -77,11 +77,13 @@ export default {
             var that = this;
 
             def.fail(function (data) {
-                that.$store.state.toastErrorMessage = data.responseJSON.ErrorMessage;
+                var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
             });
 
             def.done(function (data) {
-                that.$store.state.toastInfoMessage = that.$i18n.t('user.resetPasswordEmailWasSent');
+                var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                notify.create(that.$i18n.t('user.resetPasswordEmailWasSent'), "Info", { cls: "info" }); notify.reset();
             });
         },
         resetForm() {

@@ -1,7 +1,7 @@
 <template>
     <div class="card mb-3" style="margin-left: 20px;margin-right: 20px; top: 20px;width:auto;">
         <div class="row g-0">
-            <div class="col-md-4">
+            <div class="col-md-4 d-flex flex-align-center">
                 <div class="img-container drop-shadow ">
                     <img :src="imageApi + hotel.hotel.hotelImagesLists.filter(obj =>{ return obj.isPrimary == true })[0].id" class="img-fluid ml-1"
                          style="cursor:pointer" :title="$t('labels.searchAccomodation')" @click="openAccommodation(hotel.hotel.id)" />
@@ -128,7 +128,9 @@ export default {
                 });
                 var result = await response.json()
                 await this.$store.dispatch('getBookingList');
-                this.$store.state.toastSuccessMessage = this.$i18n.t("messages.bookingWasCancelled");
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.$i18n.t("messages.bookingWasCancelled"), "Success", { cls: "success" }); notify.reset();
             }
         },
     },

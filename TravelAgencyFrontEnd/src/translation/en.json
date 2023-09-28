@@ -157,10 +157,14 @@
     "advertisementStatus": "Advertisement status",
     "reservationCount": "Reservation count",
     "popularCount": "Popular count",
-    "searchCount": "Search count"
-
+    "searchCount": "Search count",
+    "reservation": "Reservation",
+    "advertising": "Advertising",
+    "notifyShowTime": "Notification time sec.",
+    "showInactiveAdvertisementAsDefault": "Set Default: Show inactive Advertisement"
   },
   "user": {
+    "newPassword": "New Password",
     "login": "Přihlásit",
     "logout": "Odhlásit",
     "register": "Registrovat",
@@ -211,6 +215,8 @@
     "anyAdvertisementExist": "Není vloženo žádné Ubytovací zařízení ",
     "menuIsAvailableAfterLogin": "Menu is Available after Login",
     "youMustBeAdvertiser": "For Access You must be Advertiser",
-    "translateAutomatically": "Translate automatically"
+    "translateAutomatically": "Translate automatically",
+    "passwordNotHaveMinimalLength": "password not have Minimal Length: ",
+    "passwordNotHaveMinimalLengthOrMailNotValid": "Email not Valid or password not have Minimal Length: "
   }
 }

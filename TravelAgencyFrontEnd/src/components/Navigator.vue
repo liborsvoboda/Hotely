@@ -150,7 +150,9 @@ export default {
                         else {
                             document.getElementById(menuName).classList.add("ani-flash");
                             setTimeout(function () { document.getElementById(menuName).classList.remove("ani-flash"); }, 5000);
-                            this.$store.state.toastInfoMessage = this.$i18n.t("messages.youMustBeAdvertiser");
+
+                            var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                            notify.create(this.$i18n.t("messages.youMustBeAdvertiser"), "Info", { cls: "info" }); notify.reset();
                         }
                         break;
                 }
@@ -161,7 +163,9 @@ export default {
                     document.getElementById(menuName).classList.remove("ani-flash");
                     document.getElementById(menuName).classList.remove("bg-red");
                 }, 3000);
-                this.$store.state.toastInfoMessage = this.$i18n.t("messages.menuIsAvailableAfterLogin");
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.$i18n.t("messages.menuIsAvailableAfterLogin"), "Info", { cls: "info" }); notify.reset();
             }
 
         },

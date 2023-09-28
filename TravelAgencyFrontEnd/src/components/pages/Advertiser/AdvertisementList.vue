@@ -6,12 +6,19 @@
                     <ul class="h-menu open large pos-static bg-cyan fg-cyan" style="background-color:transparent !important;">
                         <li :title="$t('labels.editLease')" @click="editAdvertisement(hotel.id)"><a href="#" class="p-2"><span class="mif-description icon mif-2"></span></a></li>
                         <li :title="$t('labels.requestOfApproval')" @click="setApprovalRequest(hotel.id)" :class="(hotel.approved ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-traff icon"></span></a></li>
-                        <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li>
+                       <!--  <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li> -->
                         <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon"></span></a></li>
                         <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon"></span></a></li>
                         <li :title="$t('labels.comments')"><a href="#" class="p-2"><span class="mif-comment icon"></span></a></li>
-                        <li :title="$t('labels.showOnMap')"><a href="#" class="p-2"><span class="mif-my-location icon"></span></a></li>
+                       <!--  <li :title="$t('labels.showOnMap')"><a href="#" class="p-2"><span class="mif-my-location icon"></span></a></li> -->
                         <li :title="$t('labels.publish')"><a href="#" class="p-2"><span class="mif-feed icon"></span></a></li>
+                        <li :title="$t('labels.reservation')" @click="openedReservation(hotel.id)" :class="(getUnshownDetailCount == 0 ? 'disabled' : '')">
+                            <a href="#" class="p-2">
+                                <span class="mif-shop icon"></span>
+                                <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;">{{ getUnshownDetailCount }}</span>
+                                <span class="badge bg-green fg-white mt-8" style="font-size: 10px;">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -147,6 +154,20 @@ export default {
         hotel: {},
     },
     computed: {
+        getUnshownDetailCount() {
+            let count = 0; let recNo = 0;
+            this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.startDate) > new Date(); }).forEach(reservation => {
+                recNo++; let subrecNo = 0;
+                reservation.hotelReservationDetailLists.forEach(detail => {
+                    subrecNo++;
+                    if (detail.shown == false) { count++; }
+                    if (recNo == this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.startDate) > new Date(); }).length && subrecNo == reservation.hotelReservationDetailLists.length) {
+                        return count;
+                    }
+                });
+            });
+            return count;
+        },
         lowestPrice() {
             var rooms = this.hotel.hotelRoomLists;
             rooms.sort((a, b) => {
@@ -189,6 +210,9 @@ export default {
         
     },
     methods: {
+        openedReservation(hotelId) {
+            this.$router.push('/profile/advertisementWizard');
+        },
         editAdvertisement(hotelId) {
             ActualValidationFormName = "hotelForm";
             ActualWizardPage = 1;
@@ -243,6 +267,7 @@ export default {
             enableScroll();
         },
         async deleteAdvertisement(hotelId) {
+            window.showPartPageLoading();
             disableScroll();
             var response = await fetch(
                 this.$store.state.apiRootUrl + '/Advertiser/DeleteAdvertisement/' + hotelId, {
@@ -250,17 +275,20 @@ export default {
             }
             ); let result = await response.json();
             if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: 3000, animation: 'easeOutBounce' });
-                notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info", { cls: "info" }); notify.reset();
+                window.hidePartPageLoading();
             } else {
                 if (this.$store.state.user.UserId != '') {
                     await this.$store.dispatch("getAdvertisementList");
                     if (!this.$store.state.advertisementList.length) { this.errorText = true; }
                 }
+                window.hidePartPageLoading();
             }
             enableScroll();
         },
         async setActivation(hotelId) {
+            window.showPartPageLoading();
             disableScroll();
             var response = await fetch(
                 this.$store.state.apiRootUrl + '/Advertiser/ActivationHotel/' + hotelId, {
@@ -271,6 +299,7 @@ export default {
                 await this.$store.dispatch("getAdvertisementList");
                 if (!this.$store.state.advertisementList.length) { this.errorText = true; }
             }
+            window.hidePartPageLoading();
             enableScroll();
         },
         createBitInfoBox() {

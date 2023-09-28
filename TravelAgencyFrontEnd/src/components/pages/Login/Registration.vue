@@ -91,13 +91,16 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
-                    that.$store.state.toastErrorMessage = data.responseJSON.ErrorMessage;
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                    notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                 });
 
                 def.done(function (data) {
                     that.ApiVerificationCode = data.verifyCode;
                     that.verifySent = true;
-                    that.$store.state.toastInfoMessage = that.$i18n.t('user.verifyEmailWasSent');
+
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                    notify.create(that.$i18n.t('user.verifyEmailWasSent'), "Info", { cls: "info" }); notify.reset();
                 });
             } else {
                 document.querySelector('.main').classList.add("ani-ring");
@@ -115,7 +118,10 @@ export default {
         checkPasswords() {
             if (this.guest.ConfirmPassword.length > 0) {
                 if (this.guest.ConfirmPassword != this.guest.Password) {
-                    this.$store.state.toastErrorMessage = this.$i18n.t("messages.passwordsNotMatch");
+
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                    notify.create(this.$i18n.t("messages.passwordsNotMatch"), "Error", { cls: "alert" }); notify.reset();
+
                 } else if (this.guest.ConfirmPassword == this.guest.Password) {
                     this.guestRegistration();
                 }
@@ -138,12 +144,18 @@ export default {
 
             await this.$store.dispatch('registration', regInfo).then(() => {
                 if (this.$store.state.tempVariables.registrationStatus.Status == "emailExist") {
-                    this.$store.state.toastErrorMessage = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
+
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                    notify.create(this.$store.state.tempVariables.registrationStatus.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+
                 } else if (this.$store.state.tempVariables.registrationStatus.Status == "loginInfoSentToEmail") {
                     this.resetForm();
                     document.querySelector('.form1').innerHTML = '<p class="text"></p>';
                     document.querySelector('.main').style.height = "150px";
-                    this.$store.state.toastSuccessMessage = this.$store.state.tempVariables.registrationStatus.ErrorMessage;
+
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                    notify.create(this.$store.state.tempVariables.registrationStatus.ErrorMessage, "Success", { cls: "success" }); notify.reset();
+
 
                     //Login after registration 
                     let credentials = {

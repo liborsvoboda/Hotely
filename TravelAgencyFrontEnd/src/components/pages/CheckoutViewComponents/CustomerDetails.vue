@@ -140,8 +140,13 @@ export default {
                 this.emailChecked = true;
                 this.verifySent = false;
                 this.$store.state.bookingDetail.verified = true;
-                this.$store.state.toastSuccessMessage = this.$i18n.t("messages.emailVerified");
-            } else { this.$store.state.toastInfoMessage = this.$i18n.t("messages.verifyNotMatch"); }
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.$i18n.t("messages.emailVerified"), "Success", { cls: "success" }); notify.reset();
+            } else { 
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.$i18n.t("messages.verifyNotMatch"), "Info", { cls: "info" }); notify.reset();
+            }
         },
         showLogin() {
             this.verifySent = false;
@@ -157,12 +162,17 @@ export default {
             });
             let result = await response.json()
             if (result.message) {
-                this.$store.state.toastErrorMessage = result.message;
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(result.message, "Error", { cls: "alert" }); notify.reset();
+
             } else {
                 this.$store.state.user = result;
                 this.$store.state.user.loggedIn = true;
                 this.$store.state.bookingDetail.verified = true;
-                this.$store.state.toastSuccessMessage = this.$i18n.t("messages.loginSuccess");
+
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                notify.create(this.$i18n.t("messages.loginSuccess"), "Success", { cls: "success" }); notify.reset();
 
                 this.bookingUser.firstName = this.bookingUser.firstName ? this.bookingUser.firstName : this.$store.state.user.FirstName;
                 this.bookingUser.lastName = this.bookingUser.lastName ? this.bookingUser.lastName : this.$store.state.user.LastName;
@@ -188,14 +198,16 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
-                    that.$store.state.toastErrorMessage = data.responseJSON.ErrorMessage;
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                    notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                 });
 
                 def.done(function (data) {
                     console.log("rteturbn", data);
                     that.verifyCode = data.ErrorMessage;
                     that.verifySent = true;
-                    that.$store.state.toastInfoMessage = that.$i18n.t("user.verifyEmailWasSent");
+                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                    notify.create(that.$i18n.t("user.verifyEmailWasSent"), "Info", { cls: "info" }); notify.reset();
                 });
 
 

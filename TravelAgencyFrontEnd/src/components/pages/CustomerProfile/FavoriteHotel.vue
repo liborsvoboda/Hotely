@@ -66,8 +66,10 @@ export default {
             });
 
             let result = await response.json();
-            this.$store.dispatch('setFavoriteList', result);
-            this.$store.state.toastSuccessMessage = this.$i18n.t("messages.removedFromFavorite");
+           this.$store.dispatch('setFavoriteList', result);
+
+            var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+            notify.create(this.$i18n.t("messages.removedFromFavorite"), "Success", { cls: "success" }); notify.reset();
             await this.$store.dispatch('getFavoriteHotelList');
 
         }
