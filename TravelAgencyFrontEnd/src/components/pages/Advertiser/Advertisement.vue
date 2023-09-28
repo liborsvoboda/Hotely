@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6 d-flex">
                 <span :title ="$t('labels.showAlsoInactive')" style="zoom:1.5;">
-                    <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive">
+                    <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive" :checked="$store.state.userSettings.showInactiveAdvertisementAsDefault">
                 </span>
                 
                 <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
@@ -38,6 +38,14 @@ export default {
     components: {
         AdvertisementList,
         ProgressSpinner,
+    },
+    async mounted() {
+        this.ShowAlsoInactive = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
+
+        if (this.$store.state.user.UserId != '') {
+            await this.$store.dispatch("getAdvertisementList");
+            if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+        }
     },
     async created() {
         if (!this.advertisementList.length) {
@@ -74,12 +82,6 @@ export default {
         },
         async showAlsoInactive() {
             this.ShowAlsoInactive = !this.ShowAlsoInactive;
-        }
-    },
-    async mounted() {
-        if (this.$store.state.user.UserId != '') {
-            await this.$store.dispatch("getAdvertisementList");
-            if (!this.$store.state.advertisementList.length) { this.errorText = true; }
         }
     },
     watch: {

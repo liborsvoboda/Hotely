@@ -90,13 +90,13 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <label for="password">{{ $t('labels.password') }}</label>
                         <div class="input-group flex-nowrap form-group p-3 pb-0">
-                            <input type="password" id="password" required minLength="$store.state.system.passwordMin" class="form-control" v-model="guest.Password" autocomplete="new-password">
+                            <input type="password" id="password" required :minLength="$store.state.system.passwordMin" class="form-control" v-model="guest.Password" autocomplete="new-password">
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <label for="password">{{ $t('user.repeatPassword') }}</label>
                         <div class="input-group flex-nowrap form-group p-3 pb-0">
-                            <input type="password" id="RePassword" required minLength="$store.state.system.passwordMin" class="form-control" v-model="guest.confirmPassword" autocomplete="off">
+                            <input type="password" id="RePassword" required :minLength="$store.state.system.passwordMin" class="form-control" v-model="guest.confirmPassword" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                            <input class="" v-model="guest.UserId" type="checkbox" value="" id="userId" :disabled="user.UserId != ''" />
+                            <input id="showInactiveAdvertisementAsDefault" class="" v-model="userSettings.showInactiveAdvertisementAsDefault" type="checkbox" value="" :disabled="user.UserId == ''" />
                             <span style="padding-left:0px;">{{ $t('labels.showInactiveAdvertisementAsDefault') }}</span>
                         </div>
                     </div>
@@ -128,12 +128,20 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <h6 class="mt-3 mb-2 text-primary">{{ $t('user.settings') }}</h6>
                     </div>
+
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group p-3 pb-0">
                             <label for="Street">{{ $t('labels.notifyShowTime') }}</label>
-                            <input type="text" data-role="spinner" data-min-value="1" data-max-value="30">
+                            <input id="notifyShowTime" type="text" v-model="userSettings.notifyShowTime" data-role="spinner" data-min-value="1" data-max-value="30">
                         </div>
                     </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group p-3 pb-0">
+                            <label>{{ $t('labels.autoTranslationLanguage') }}</label>
+                            <span id="languageSelector"></span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -180,25 +188,38 @@ export default {
                 id: '',
                 UserId: false
             },
+            userSettings: {
+                notifyShowTime: null,
+                showInactiveAdvertisementAsDefault: null,
+                translationLanguage: null
+            },
         };
     },
     async mounted() {
+        this.userSettings.notifyShowTime = this.$store.state.userSettings.notifyShowTime / 1000;
+        this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
+        this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
+
+        //get google languagelist
+        try { 
+            if (document.querySelector("#\\:0\\.targetLanguage > select") != null) {
+                let googleLanguagelist = [].slice.call(document.querySelector("#\\:0\\.targetLanguage > select").options);
+                let html = "<select data-role='select' id='languageList' data-filter-placeholder='" + window.dictionary('labels.selectLanguage') + "' data-empty-value='' data-validate='required' data-clear-button='true' >";
+                let jumpFirst = true;
+                googleLanguagelist.forEach(lang => { if (!jumpFirst) { html += "<option value='" + lang.value + "'>" + lang.text + "</option>"; }; jumpFirst = false; });
+                html += "</select>";
+                $("#languageSelector").html(html);
+                $("#languageList").val(this.userSettings.translationLanguage);
+            }
+        } catch { }
 
     },
     methods: {
-        setBackground() {
-            console.log("bakground");
-
-           // $("#" + elId).toggleClass("bg-facebook bg-white");
-        
-        },
         checkPasswords() {
-            console.log(this.guest.Password.length, this.guest.Password, this.guest.confirmPassword);
-
-            if (this.guest.Password.length < this.$store.state.system.passwordMin) {
+            if (this.guest.Password.length > 0 && this.guest.Password.length < this.$store.state.system.passwordMin) {
 
                 var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                notify.create(window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin, "Error", { cls: "alert" }); notify.reset();
+                notify.create((window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin), "Error", { cls: "alert" }); notify.reset();
 
             } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password != this.guest.confirmPassword) {
 
@@ -210,6 +231,13 @@ export default {
             }
         },
         async updateGuest() {
+
+            let guestSettings = [];
+            guestSettings.push({ Key: 'notifyShowTime', Value: $("#notifyShowTime").val() * 1000 });
+            guestSettings.push({ Key: 'showInactiveAdvertisementAsDefault', Value: this.userSettings.showInactiveAdvertisementAsDefault });
+            guestSettings.push({ Key: 'translationLanguage', Value: ($("#languageList")[0].selectedOptions[0] != undefined ? $("#languageList")[0].selectedOptions[0].value : "") });
+            await this.$store.dispatch('updateGuestSetting', guestSettings);
+
             let user = {
                 Id: this.user.Id,
                 FirstName: this.guest.FirstName ? this.guest.FirstName : this.user.FirstName,
@@ -224,12 +252,19 @@ export default {
                 UserId: this.guest.UserId && !this.user.UserId ? "0" : this.guest.UserId && this.user.UserId ? this.user.UserId : null,
                 Active: true
             }
+
             await this.$store.dispatch('updateRegistration', user);
             this.resetForm();
+
         },
         resetForm() {
             document.querySelector(".form1").reset();
             this.guest.UserId = this.user.UserId;
+
+            //set form without DB reload
+            this.userSettings.notifyShowTime = this.$store.state.userSettings.notifyShowTime / 1000;
+            $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
+            this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
         },
         deleteAccout() {
             if (confirm(window.dictionary("user.doYouReallyDeleteAccount"))) {

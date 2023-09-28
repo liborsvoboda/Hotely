@@ -18,9 +18,12 @@
                     <h5 class="card-title">{{hotel.hotel.name}}</h5>
                     <div class="textS" v-html="($store.state.language == 'cz') ? hotel.hotel.descriptionCz : hotel.hotel.descriptionEn" />
 
-                    <Button class="p-button-info mt-2" style="position: absolute; bottom: 5px; right: 20px;width: 125px;" @click="hotelDetailsClick">
+
+                </div>
+                <div class="" style="position: initial;">
+                    <div class="p-button p-component button info mt-2" type="button" style="position: absolute; bottom: 5px; right: 10px;width: 125px;" @click="hotelDetailsClick" data-pc-name="button">
                         {{$t('labels.seeDetail')}}
-                    </Button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,11 +31,11 @@
 </template>
 
 <script>
-import Button from "primevue/button";
+//import Button from "primevue/button";
 
 export default {
     components: {
-        Button
+        //Button
     },
     data() {
         return {

@@ -119,4 +119,14 @@ namespace UbytkacBackend.WebPages {
         public int StatusId { get; set; }
         public int? HotelAccommodationActionId { get; set; }
     }
+
+    public class WebGuestSettingList {
+        public List<WebGuestSetting> Settings { get; set; }
+        public string Language { get; set; }
+    }
+
+    public class WebGuestSetting {
+        public string Key { get; set; }
+        public string Value { get; set; }
+    }
 }

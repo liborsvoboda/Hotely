@@ -161,7 +161,9 @@
     "reservation": "Reservation",
     "advertising": "Advertising",
     "notifyShowTime": "Notification time sec.",
-    "showInactiveAdvertisementAsDefault": "Set Default: Show inactive Advertisement"
+    "showInactiveAdvertisementAsDefault": "Set Default: Show inactive Advertisement",
+    "autoTranslationLanguage": "Language for Auto translate",
+    "selectLanguage": "Select language"
   },
   "user": {
     "newPassword": "New Password",

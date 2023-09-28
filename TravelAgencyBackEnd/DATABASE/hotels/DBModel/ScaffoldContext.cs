@@ -34,6 +34,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<GuestFavoriteList> GuestFavoriteLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<GuestLoginHistoryList> GuestLoginHistoryLists { get; set; }
+        public virtual DbSet<GuestSettingList> GuestSettingLists { get; set; }
         public virtual DbSet<HolidayTipsList> HolidayTipsLists { get; set; }
         public virtual DbSet<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
         public virtual DbSet<HotelActionTypeList> HotelActionTypeLists { get; set; }
@@ -304,6 +305,17 @@ namespace UbytkacBackend.DBModel
             modelBuilder.Entity<GuestLoginHistoryList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<GuestSettingList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Guest)
+                    .WithMany(p => p.GuestSettingLists)
+                    .HasForeignKey(d => d.GuestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GuestSettingList_GuestList");
             });
 
             modelBuilder.Entity<HolidayTipsList>(entity =>

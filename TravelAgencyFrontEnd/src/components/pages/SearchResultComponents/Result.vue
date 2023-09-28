@@ -38,11 +38,9 @@
                                 <i class="fas fa-check"></i> {{property.name}}
                             </p>
                             <br />
-                            <button class="btn btn-primary "
-                                    for="btn-check-outlined"
-                                    @click="hotelDetailsClick">
+                            <div class="p-button p-component button info" for="btn-check-outlined" @click="hotelDetailsClick">
                                 {{ $t('labels.seeDetail') }}
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>

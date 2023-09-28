@@ -161,7 +161,9 @@
     "reservation": "Rezervace",
     "advertising": "Inzerce",
     "notifyShowTime": "Čas notifikácí sec. ",
-    "showInactiveAdvertisementAsDefault": "Set Default: Zobrazit neaktivní inzeráty"
+    "showInactiveAdvertisementAsDefault": "Nastavit: Zobrazit neaktivní inzeráty",
+    "autoTranslationLanguage": "Jazyk pro automatický překlad",
+    "selectLanguage": "Vyberte jazyk"
 
   },
   "user": {

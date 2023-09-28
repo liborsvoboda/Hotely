@@ -30,17 +30,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <div v-if="hotel.statusId != 3" class="text-center mb-3" style="top: 20px !important; position: relative;">
-                        <Button id="buttonG" class="p-button-info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
-                        <Button id="buttonG" :disabled="notEdit" @click="toggleEdit" class="p-button-info mr-1">{{ $t('labels.editLease') }}</Button>
-                        <Button :disabled="notEdit" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button-danger">{{ $t('labels.cancelBooking') }}</Button>
-                    </div>
-                    <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;top: 20px !important; position: relative;">
-                        <Button id="buttonG" class="p-button-info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</Button>
-                        <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
-                    </div>
-
+                </div>
+                <div v-if="hotel.statusId != 3" class="text-center mb-3" style="bottom: 0px !important; position: absolute; right: 10px;">
+                    <div class="p-button p-component button info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</div>
+                    <div :disabled="notEdit" @click="toggleEdit" class="p-button p-component button info mr-1">{{ $t('labels.editLease') }}</div>
+                    <div :disabled="notEdit" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info p-button-danger">{{ $t('labels.cancelBooking') }}</div>
+                </div>
+                <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: 0px !important; position: absolute; right: 10px;">
+                    <div class="p-button p-component button info mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</div>
+                    <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
                 </div>
             </div>
         </div>

@@ -29,8 +29,8 @@
             </ul>
             <input v-if="verifySent && !verified" class="un" type="text" align="center" :placeholder="$t('labels.verifyCode')" required v-model="Verifycode" @input="checkVerify()">
 
-            <input v-if="verified" class="password" type="password" align="center" :placeholder="$t('labels.password')" required minLength=6 v-model="guest.Password">
-            <input v-if="verified" class="confirmPassword" type="password" align="center" :placeholder="$t('labels.retypePassword')" required minLength=6 v-model="guest.ConfirmPassword">
+            <input v-if="verified" class="password" type="password" align="center" :placeholder="$t('labels.password')" required :minLength="$store.state.system.passwordMin" v-model="guest.Password">
+            <input v-if="verified" class="confirmPassword" type="password" align="center" :placeholder="$t('labels.retypePassword')" required :minLength="$store.state.system.passwordMin" v-model="guest.ConfirmPassword">
 
             <ul v-if="verified" class="ul">
                 <li>

@@ -310,7 +310,23 @@ router.beforeEach((to, from, next) => {
 
 //check translate after route
 router.afterEach((to, from, next) => {
-    googleTranslateElementInit();
+/*    googleTranslateElementInit();*/
+
+    $(document).ready(function () {
+        try {
+            if (store.state.userSettings.translationLanguage != "" && document.querySelector('#google_translate_element select') != null) {
+
+                setTimeout(function () {
+                    let selectElement = document.querySelector('#google_translate_element select');
+                    selectElement.value = store.state.userSettings.translationLanguage;
+                    selectElement.dispatchEvent(new Event('change'));
+                }, 1000);
+                setTimeout(function () {
+                    document.querySelector("body > div:nth-child(1)").style.display = "none";
+                }, 1000);
+            }
+        } catch (err) { }
+    });
 });
 
 

@@ -22,9 +22,9 @@ const store = createStore({
         },
 
         userSettings: {
-            notifyShowTime: 1000,
-            showInactiveAdvertisementAsDefault: false,
-            translationLanguage: 'cz'
+            notifyShowTime: 2000,
+            showInactiveAdvertisementAsDefault: true,
+            translationLanguage: ''
         },
 
         apiRootUrl: 'http://localhost:5000/WebApi',
@@ -453,9 +453,9 @@ const store = createStore({
                 } else {
                     commit('setUser', result);
 
-                    //Load Light Favorites for hearts
+                    //Load Light Favorites for hearts and user settings
                     await this.dispatch("getLightFavoriteHotelList");
-
+                    await this.dispatch("getGuestSettingList");
 
                     //path after login
                     router.push('/');
@@ -594,7 +594,66 @@ const store = createStore({
             window.hidePageLoading();
             router.push('/');
         },
-        
+        async getGuestSettingList({ commit }) {
+            window.showPageLoading();
+            let response = await fetch(
+                this.state.apiRootUrl + '/Guest/GetGuestSettingList/' + this.state.user.Id, {
+                method: 'GET',
+                    headers: {
+                        "Authorization": 'Bearer ' + this.state.user.Token,
+                        'Content-type': 'application/json'
+                    }
+            });
+            let result = await response.json();
+            if (result.Status == undefined) {
+                result.forEach(setting => {
+                    switch (setting.key) {
+                        case "notifyShowTime":
+                            this.state.userSettings.notifyShowTime = setting.value;
+                            break;
+                        case "showInactiveAdvertisementAsDefault":
+                            this.state.userSettings.showInactiveAdvertisementAsDefault = setting.value;
+                            break;
+                        case "translationLanguage":
+                            this.state.userSettings.translationLanguage = setting.value;
+                            break;
+                    }
+                });
+            }
+            window.hidePageLoading();
+        },
+        async updateGuestSetting({ commit }, userSettings) {
+            window.showPageLoading();
+            let response = await fetch(this.state.apiRootUrl + '/Guest/SetGuestSettingList', {
+                method: 'POST',
+                headers: {
+                    "Authorization": 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ Settings: userSettings, Language: this.state.language })
+            });
+            let result = await response.json();
+
+            if (result.Status == "error") {
+                var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+            } else {
+                userSettings.forEach(setting => {
+                    switch (setting.Key) {
+                        case "notifyShowTime":
+                            this.state.userSettings.notifyShowTime = setting.Value;
+                            break;
+                        case "showInactiveAdvertisementAsDefault":
+                            this.state.userSettings.showInactiveAdvertisementAsDefault = setting.Value;
+                            break;
+                        case "translationLanguage":
+                            this.state.userSettings.translationLanguage = setting.Value;
+                            break;
+                    }
+                });
+            }
+            window.hidePageLoading();
+        },
     },
 })
 

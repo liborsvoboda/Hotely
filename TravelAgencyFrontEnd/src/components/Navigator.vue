@@ -3,7 +3,7 @@
         <div class="header-top">
             <div class="container">
 
-                <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet op-lightAmber-low pos-fixed list-list grid-style opened" style="top: 0px; left: 90%">
+                <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 90%">
                     <div class="w-100 text-left" style="zoom:0.8">
                         <audio id="radio" class="light bg-transparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5" style="zoom: 0.8"></audio>
                     </div>
@@ -67,7 +67,7 @@
 
                     <div class="col-lg-3 col-sm-3 col-3 header-top-right">
                         <div class="nav-menu">
-                            <div class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-pulse" style="left:10px;top:-5px; z-index:100000;" @click="showToolPanel()"></div>
+                            <div class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="left:10px;top:-5px; z-index:100000;" @click="showToolPanel()"></div>
                             <div v-if="!loggedIn">
                                 <a href="#"><router-link to="/login">{{ $t('user.login') }}</router-link></a>
                                 <a href="#"><router-link to="/registration">{{ $t('user.register') }}</router-link></a>

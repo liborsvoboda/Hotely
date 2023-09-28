@@ -91,31 +91,29 @@ $(document).ready(function () {
     googleTranslateElementInit();
 });
 
-document.addEventListener("load", function () {
-    googleTranslateElementInit();
-});
-
 function googleTranslateElementInit() {
-    
-    try {
-        new google.translate.TranslateElement({
-            pageLanguage: 'cs',
-            /*includedLanguages: 'en,cs',*/
-            layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
-        }, 'google_translate_element');
 
-        if (Metro.storage.getItem('AutomaticTranslate', null) == true && Metro.storage.getItem('WebPagesLanguage', null) != null && document.querySelector('#google_translate_element select') != null) {
+    $(document).ready(function () {
+        try {
+            new google.translate.TranslateElement({
+                pageLanguage: '',
+                /*includedLanguages: 'en,cs',*/
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
 
-            setTimeout(function () {
-                let selectElement = document.querySelector('#google_translate_element select');
-                selectElement.value = Metro.storage.getItem('WebPagesLanguage', null);
-                selectElement.dispatchEvent(new Event('change'));
-            }, 1000);
-            setTimeout(function () {
-                document.querySelector("body > div:nth-child(1)").style.display = "none";
-            }, 1000);
-        }
-    } catch (err) { }
+            if (Metro.storage.getItem('AutomaticTranslate', null) == true && Metro.storage.getItem('WebPagesLanguage', null) != null && document.querySelector('#google_translate_element select') != null) {
+
+                setTimeout(function () {
+                    let selectElement = document.querySelector('#google_translate_element select');
+                    selectElement.value = Metro.storage.getItem('WebPagesLanguage', null);
+                    selectElement.dispatchEvent(new Event('change'));
+                }, 1000);
+                setTimeout(function () {
+                    document.querySelector("body > div:nth-child(1)").style.display = "none";
+                }, 1000);
+            }
+        } catch (err) { }
+    });
 }
 
 
