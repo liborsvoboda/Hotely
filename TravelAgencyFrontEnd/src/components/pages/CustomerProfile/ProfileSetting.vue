@@ -101,6 +101,7 @@
                     </div>
                 </div>
             </div>
+        </form>
 
             <div id="_advertising">
                 <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
@@ -109,7 +110,7 @@
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                            <input class="" v-model="guest.UserId" type="checkbox" value="" id="userId" :disabled="user.UserId != ''" />
+                            <input id="userId" class="" v-model="guest.UserId" type="checkbox" value="" :disabled="user.UserId != ''" />
                             <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
                         </div>
                     </div>
@@ -122,7 +123,7 @@
                     </div>
                 </div>
             </div>
-
+        
             <div id="_settings">
                 <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -141,7 +142,12 @@
                             <span id="languageSelector"></span>
                         </div>
                     </div>
-
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                            <input id="hideSearchingInPrivateZone" class="" v-model="userSettings.hideSearchingInPrivateZone" type="checkbox" value="" />
+                            <span style="padding-left:0px;">{{ $t('labels.hideSearchingInPrivateZone') }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -151,7 +157,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="text-right">
-                        <button type="button" id="cancel" name="cancel" class="btn btn-secondary mb-1" @click="resetForm()">
+                        <button type="button" id="cancel" name="cancel" class="btn btn-secondary mb-1" @click="resetForm();">
                             {{ $t('user.cancelChanges') }}
                         </button>
                         <button type="button" id="update" name="update" class="btn btn-primary ml-1 mb-1" @click="checkPasswords()">
@@ -163,7 +169,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        
     </div>
 </template>
 
@@ -191,15 +197,18 @@ export default {
             userSettings: {
                 notifyShowTime: null,
                 showInactiveAdvertisementAsDefault: null,
-                translationLanguage: null
+                translationLanguage: null,
+                hideSearchingInPrivateZone : null
             },
+
         };
     },
     async mounted() {
         this.userSettings.notifyShowTime = this.$store.state.userSettings.notifyShowTime / 1000;
         this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
         this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
-
+        this.userSettings.hideSearchingInPrivateZone = this.$store.state.userSettings.hideSearchingInPrivateZone;
+        
         //get google languagelist
         try { 
             if (document.querySelector("#\\:0\\.targetLanguage > select") != null) {
@@ -218,12 +227,12 @@ export default {
         checkPasswords() {
             if (this.guest.Password.length > 0 && this.guest.Password.length < this.$store.state.system.passwordMin) {
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create((window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin), "Error", { cls: "alert" }); notify.reset();
 
             } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password != this.guest.confirmPassword) {
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary("messages.passwordsEmptyOrNotMatch"), "Error", { cls: "alert" }); notify.reset();
 
             } else if (this.guest.Password === this.guest.confirmPassword) {
@@ -236,6 +245,8 @@ export default {
             guestSettings.push({ Key: 'notifyShowTime', Value: $("#notifyShowTime").val() * 1000 });
             guestSettings.push({ Key: 'showInactiveAdvertisementAsDefault', Value: this.userSettings.showInactiveAdvertisementAsDefault });
             guestSettings.push({ Key: 'translationLanguage', Value: ($("#languageList")[0].selectedOptions[0] != undefined ? $("#languageList")[0].selectedOptions[0].value : "") });
+            guestSettings.push({ Key: 'hideSearchingInPrivateZone', Value: this.userSettings.hideSearchingInPrivateZone });
+            
             await this.$store.dispatch('updateGuestSetting', guestSettings);
 
             let user = {
@@ -260,17 +271,22 @@ export default {
         resetForm() {
             document.querySelector(".form1").reset();
             this.guest.UserId = this.user.UserId;
-
-            //set form without DB reload
-            this.userSettings.notifyShowTime = this.$store.state.userSettings.notifyShowTime / 1000;
-            $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
-            this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
+     
+            //refil local setting
+            var that = this;
+            setTimeout(function () {
+                that.userSettings.notifyShowTime = that.$store.state.userSettings.notifyShowTime / 1000; $("#notifyShowTime").val(that.userSettings.notifyShowTime);
+                $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = that.userSettings.showInactiveAdvertisementAsDefault = that.$store.state.userSettings.showInactiveAdvertisementAsDefault;
+                that.userSettings.translationLanguage = that.$store.state.userSettings.translationLanguage;
+                $("#hideSearchingInPrivateZone").val('checked')[0].checked = that.userSettings.hideSearchingInPrivateZone = that.$store.state.userSettings.hideSearchingInPrivateZone;
+                $("#userId").val('checked')[0].checked = that.guest.UserId != '' ? true : false;
+            }, 100);
         },
         deleteAccout() {
             if (confirm(window.dictionary("user.doYouReallyDeleteAccount"))) {
                 this.$store.dispatch("deleteRegistration", this.user.Id);
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary("messages.accountWasDeleted"), "Success", { cls: "success" }); notify.reset();
             }
         },

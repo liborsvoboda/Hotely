@@ -1,13 +1,4 @@
 <template>
-    <html>
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/src/assets/css/font-awesome.min.css">
-        <title>Log in</title>
-    </head>
-
-
     <div class="main">
         <p class="sign" align="center">{{ $t('labels.registration')}}</p>
 
@@ -39,9 +30,10 @@
             </ul>
         </form>
 
-    </div>
+        <div class="forgot" align="center"><router-link to="/login">{{ $t('user.logIn') }}</router-link></div>
+        <div class="forgot p-0" align="center"><router-link to="/forgot">{{ $t('user.forgotPassword') }}</router-link></div>
 
-</html>
+    </div>
 </template>
 
 
@@ -91,7 +83,7 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                 });
 
@@ -99,8 +91,8 @@ export default {
                     that.ApiVerificationCode = data.verifyCode;
                     that.verifySent = true;
 
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
-                    notify.create(that.$i18n.t('user.verifyEmailWasSent'), "Info", { cls: "info" }); notify.reset();
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
+                    notify.create(window.dictionary('user.verifyEmailWasSent'), "Info"); notify.reset();
                 });
             } else {
                 document.querySelector('.main').classList.add("ani-ring");
@@ -119,8 +111,8 @@ export default {
             if (this.guest.ConfirmPassword.length > 0) {
                 if (this.guest.ConfirmPassword != this.guest.Password) {
 
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                    notify.create(this.$i18n.t("messages.passwordsNotMatch"), "Error", { cls: "alert" }); notify.reset();
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                    notify.create(window.dictionary("messages.passwordsNotMatch"), "Error", { cls: "alert" }); notify.reset();
 
                 } else if (this.guest.ConfirmPassword == this.guest.Password) {
                     this.guestRegistration();
@@ -145,7 +137,7 @@ export default {
             await this.$store.dispatch('registration', regInfo).then(() => {
                 if (this.$store.state.tempVariables.registrationStatus.Status == "emailExist") {
 
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(this.$store.state.tempVariables.registrationStatus.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
 
                 } else if (this.$store.state.tempVariables.registrationStatus.Status == "loginInfoSentToEmail") {
@@ -153,7 +145,7 @@ export default {
                     document.querySelector('.form1').innerHTML = '<p class="text"></p>';
                     document.querySelector('.main').style.height = "150px";
 
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(this.$store.state.tempVariables.registrationStatus.ErrorMessage, "Success", { cls: "success" }); notify.reset();
 
 
@@ -197,7 +189,7 @@ a:active {
 .main {
     background-color: #ffffff;
     width: 400px;
-    height: 300px;
+    height: 330px;
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);

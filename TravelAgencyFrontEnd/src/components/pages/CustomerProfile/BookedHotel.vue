@@ -127,7 +127,7 @@ export default {
                 var result = await response.json()
                 await this.$store.dispatch('getBookingList');
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(this.$i18n.t("messages.bookingWasCancelled"), "Success", { cls: "success" }); notify.reset();
             }
         },

@@ -1,9 +1,9 @@
 <template>
     <header id="header">
-        <div class="header-top">
+        <div class="header-top" style="background-color: #0CA9F2 !important">
             <div class="container">
 
-                <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 90%">
+                <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 90%; z-index:10000;">
                     <div class="w-100 text-left" style="zoom:0.8">
                         <audio id="radio" class="light bg-transparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5" style="zoom: 0.8"></audio>
                     </div>
@@ -14,11 +14,11 @@
                     <div class="w-100 text-left"><input id="UserAutoTranslate" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" :data-caption="$t('messages.translateAutomatically')" :onchange="userChangeTranslateSetting"></div>
                     <div class="divider"></div>
                     <!-- <div class="d-flex w-100">
-                        <button class="button w-25 mt-1" style="background-color: #585b5d; width:50px;" onclick="ChangeSchemeTo('darcula.css')"></button>
-                        <button class="button w-25 mt-1" style="background-color: #AF0015; width:50px;" onclick="ChangeSchemeTo('red-alert.css')"></button>
-                        <button class="button w-25 mt-1" style="background-color: #690012; width:50px;" onclick="ChangeSchemeTo('red-dark.css')"></button>
-                        <button class="button w-25 mt-1" style="background-color: #0CA9F2; width:50px;" onclick="ChangeSchemeTo('sky-net.css')"></button>
-                    </div> -->
+                <button class="button w-25 mt-1" style="background-color: #585b5d; width:50px;" onclick="ChangeSchemeTo('darcula.css')"></button>
+                <button class="button w-25 mt-1" style="background-color: #AF0015; width:50px;" onclick="ChangeSchemeTo('red-alert.css')"></button>
+                <button class="button w-25 mt-1" style="background-color: #690012; width:50px;" onclick="ChangeSchemeTo('red-dark.css')"></button>
+                <button class="button w-25 mt-1" style="background-color: #0CA9F2; width:50px;" onclick="ChangeSchemeTo('sky-net.css')"></button>
+            </div> -->
 
                 </div>
 
@@ -26,63 +26,53 @@
                     <div class="col-lg-9 col-sm-9 col-9 header-top-left">
                         <div class="nav-menu">
                             <div class="d-flex w-100" style="font-size:16px;">
-                                <router-link :to="'/profile/'">
-                                    <span class="icon mif-star-full " />
+                                <router-link :to="'/profile/'" class="ani-hover-heartbeat">
+                                    <!--  <span class="icon mif-star-full " /> -->
                                     {{ $t('labels.topFive') }}
                                 </router-link>
 
-                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')">
-                                    <span class="icon mif-list " />
+                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')" class="ani-hover-heartbeat">
+                                    <!-- <span class="icon mif-list " /> -->
                                     {{ $t('user.bookings') }}
                                 </a>
 
-                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')">
-                                    <span class="icon mif-favorite " />
+                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')" class="ani-hover-heartbeat">
+                                    <!-- <span class="icon mif-favorite " /> -->
                                     {{ $t('user.favorites') }}
                                 </a>
 
-                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')">
-                                    <i class="fas fa-users-cog"></i>
+                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')" class="ani-hover-heartbeat">
+                                    <!-- <i class="fas fa-users-cog"></i> -->
                                     {{ $t('user.settings') }}
                                 </a>
 
-                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')">
-                                    <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-shuttle ')"></span>
+                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')" class="ani-hover-heartbeat">
+                                    <!-- <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-shuttle ')"></span> -->
                                     {{ $t('labels.accommodationAdvertisement') }}
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <!--                     <div class="col-lg-3 col-sm-3 m-0 p-0 col-3 header-top-right">
-            <div class="d-block pos-absolute w-100" style="top: -10px !important; zoom: 0.8;">
-                <div class="w-100 text-left">
-                    <audio id="radio" class="light bg-transparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5"></audio>
-                </div>
-                <div class="w-100 text-left" style="z-index: 1000000;top: -10px;">
-                    <div id="google_translate_element"></div>
-                </div>
-            </div>
-        </div> -->
 
                     <div class="col-lg-3 col-sm-3 col-3 header-top-right">
                         <div class="nav-menu">
-                            <div class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="left:10px;top:-5px; z-index:100000;" @click="showToolPanel()"></div>
                             <div v-if="!loggedIn">
-                                <a href="#"><router-link to="/login">{{ $t('user.login') }}</router-link></a>
-                                <a href="#"><router-link to="/registration">{{ $t('user.register') }}</router-link></a>
+                                <a href="#" class="ani-hover-heartbeat"><router-link to="/login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#" class="ani-hover-heartbeat"><router-link to="/registration">{{ $t('user.register') }}</router-link></a>
                             </div>
                             <div v-if="loggedIn">
                                 <a href="#" @click="logout()">{{ $t('user.logout') }}</a>
                             </div>
+                            <div data-role="hint" data-hint-position="bottom" :data-hint-text="$t('labels.translateWeb')" class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px; z-index:100000;" @click="showToolPanel()"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="main-menu">
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
+        <div class="container">
+            <div data-role="appbar" data-expand-point="md" style="top:initial;" class="flex-justify-center bg-brandColor1">
+                <ul id="helpMenu" class="app-bar-menu" @click="closeHelpMenu">
                     <li @click="home"><router-link to="/">{{ $t('labels.home') }}</router-link></li>
                     <li><router-link to="/UbytkacInfo">{{ $t('labels.ubytkacInfo') }}</router-link></li>
                     <li><router-link to="/RegistrationInfo">{{ $t('labels.registrationInfo') }}</router-link></li>
@@ -90,7 +80,7 @@
                     <li><router-link to="/HolidayTips">{{ $t('labels.holidayTips') }}</router-link></li>
                     <li><router-link to="/Contact">{{ $t('labels.contactus') }}</router-link></li>
                 </ul>
-            </nav>
+            </div>
         </div>
     </header>
 </template>
@@ -120,6 +110,11 @@ export default {
         },
     },
     methods: {
+        closeHelpMenu() {
+            document.querySelector("#helpMenu").classList.remove("opened");
+            document.querySelector("#helpMenu").classList.add("collapsed");
+            document.querySelector("#helpMenu").style.display = "none";
+        },
         userChangeTranslateSetting() {
             Metro.storage.setItem('AutomaticTranslate', $("#UserAutoTranslate").val('checked')[0].checked);
         },
@@ -151,8 +146,8 @@ export default {
                             document.getElementById(menuName).classList.add("ani-flash");
                             setTimeout(function () { document.getElementById(menuName).classList.remove("ani-flash"); }, 5000);
 
-                            var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                            notify.create(this.$i18n.t("messages.youMustBeAdvertiser"), "Info", { cls: "info" }); notify.reset();
+                            var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                            notify.create(this.$i18n.t("messages.youMustBeAdvertiser"), "Info"); notify.reset();
                         }
                         break;
                 }
@@ -164,8 +159,8 @@ export default {
                     document.getElementById(menuName).classList.remove("bg-red");
                 }, 3000);
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                notify.create(this.$i18n.t("messages.menuIsAvailableAfterLogin"), "Info", { cls: "info" }); notify.reset();
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(this.$i18n.t("messages.menuIsAvailableAfterLogin"), "Info"); notify.reset();
             }
 
         },
@@ -185,6 +180,13 @@ export default {
 
 
 <style scoped>
+
+.app-bar-menu li {
+    list-style: none !important;
+}
+
+
+
     #user {
         color: rgb(131, 255, 93);
         padding-right: 25px;
@@ -233,7 +235,8 @@ export default {
         }
 
             .header-top a:hover {
-                color: #22cf3f;
+                /* color:darkblue ; */
+                font-weight:bold;
             }
 
         .header-top ul li {

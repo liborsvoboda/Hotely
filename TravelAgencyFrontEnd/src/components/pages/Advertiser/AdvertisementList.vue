@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div class="p-4 rounded drop-shadow" :style="(hotel.deactivated ? 'background-color: rgb(242 214 161 / 70%);' : '')">
         <div id="testOmega" style="opacity:1.0;">
             <div class="row">
@@ -6,17 +6,23 @@
                     <ul class="h-menu open large pos-static bg-cyan fg-cyan" style="background-color:transparent !important;">
                         <li :title="$t('labels.editLease')" @click="editAdvertisement(hotel.id)"><a href="#" class="p-2"><span class="mif-description icon mif-2"></span></a></li>
                         <li :title="$t('labels.requestOfApproval')" @click="setApprovalRequest(hotel.id)" :class="(hotel.approved ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-traff icon"></span></a></li>
-                       <!--  <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li> -->
+                        <!--  <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li> -->
                         <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon"></span></a></li>
                         <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon"></span></a></li>
-                        <li :title="$t('labels.comments')"><a href="#" class="p-2"><span class="mif-comment icon"></span></a></li>
-                       <!--  <li :title="$t('labels.showOnMap')"><a href="#" class="p-2"><span class="mif-my-location icon"></span></a></li> -->
-                        <li :title="$t('labels.publish')"><a href="#" class="p-2"><span class="mif-feed icon"></span></a></li>
+                        <li :title="$t('labels.comments')" @click="newCommentHotelId = hotel.id;generateMessageBox();" onclick="Metro.infobox.open('#CommentBox');">
+                            <a href="#" class="p-2">
+                                <span class="mif-comment icon"></span>
+                                <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getOpenedCommentsCount == 0 ? ' display: none ': ' display: inline ')">{{ getOpenedCommentsCount }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.guestAdvertiserNoteLists.length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.guestAdvertiserNoteLists.length }}</span>
+                            </a>
+                        </li>
+                        <!--  <li :title="$t('labels.showOnMap')"><a href="#" class="p-2"><span class="mif-my-location icon"></span></a></li> -->
+                        <!-- <li :title="$t('labels.publish')"><a href="#" class="p-2"><span class="mif-feed icon"></span></a></li> -->
                         <li :title="$t('labels.reservation')" @click="openedReservation(hotel.id)" :class="(getUnshownDetailCount == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
                                 <span class="mif-shop icon"></span>
-                                <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;">{{ getUnshownDetailCount }}</span>
-                                <span class="badge bg-green fg-white mt-8" style="font-size: 10px;">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length }}</span>
+                                <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getUnshownDetailCount == 0 ? ' display: none ': ' display: inline ')">{{ getUnshownDetailCount }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length }}</span>
                             </a>
                         </li>
                     </ul>
@@ -134,12 +140,39 @@
                 </div>
             </div>
         </div>
+
+        <div id="CommentBox" class="info-box" data-role="infobox" data-type="default" data-width="600" data-height="600">
+            <span class="button square closer"></span>
+            <div class="info-box-content" style="overflow-y:auto;">
+                <h3>{{ $t('labels.advertisementNotepad') }}</h3>
+                <form id="CommentForm" data-role="validator" action="javascript:" data-on-submit="newCommentIsValid = true;" data-interactive-check="true" autocomplete="off" data-on-error="newCommentIsValid = false;">
+                    <div class="d-flex row ">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <input id="CommentTitle" type="text" class="input" data-role="input" :placeholder="$t('labels.title')" data-validate="required" maxlength="50"   />
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">
+                            <div class="form-actions p-0 m-0 pl-2">
+                                <button class="button success outline mr-2" type="submit" @click="setNewComment()" style="top: 0px; position: absolute; right: 70px;"> {{ $t('labels.saveNew') }} </button>
+                                <button class="button alert outline" type="reset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <textarea id="CommentNote" data-role="textarea" data-auto-size="true" data-max-height="150" maxlength="4000" class="primary" data-validate="required" :placeholder="$t('labels.writeComment')"></textarea>
+                </form>
+                <hr />
+                <div id="MessageBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:330px;max-height: 330px;"></div>
+            </div>
+        </div>
+
+
     </div>
 </template>
 
 
 <script>
-import PhotoSlider from "../HotelViewComponents/RoomsViewComponents/PhotoSlider.vue";
+    import PhotoSlider from "../HotelViewComponents/RoomsViewComponents/PhotoSlider.vue";
+    import { ref, watch } from 'vue';
 
 export default {
     components: {
@@ -148,12 +181,16 @@ export default {
     data() {
         return {
             infoBox: null,
+            newCommentHotelId : null,
         };
     },
     props: {
         hotel: {},
     },
     computed: {
+        getOpenedCommentsCount() {
+            return this.hotel.guestAdvertiserNoteLists.filter(obj => { return obj.solved == false; }).length;
+        },
         getUnshownDetailCount() {
             let count = 0; let recNo = 0;
             this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.startDate) > new Date(); }).forEach(reservation => {
@@ -207,9 +244,51 @@ export default {
 
     },
     mounted() {
-        
+
+
     },
     methods: {
+        async generateMessageBox() {
+            if (this.hotel.id == this.newCommentHotelId) {
+                let messageData = "";
+                this.hotel.guestAdvertiserNoteLists.forEach(message => {
+                    messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>"; 
+                    messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + message.note + "</div>";
+                    messageData += "<div class=\"col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right\"><div class=\"d-block \">";
+                    messageData += "<div class=\"mb-1 p-button p-component button small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setOpened") + "</div>";
+                    messageData += "<div class=\"mb-1 p-button p-component button small success " + (message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setSolved") + "</div>";
+                    messageData += "<div class=\"p-button p-component button small alert \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.delete") + "</div>";
+                    messageData += "</div></div></div></div></div>";
+                });
+                $("#MessageBox").html(messageData);
+            }
+        },
+        async setNewComment() {
+            $("#CommentForm").submit();
+
+            var that = this;
+            setTimeout(async function () {
+                if (newCommentIsValid) {
+                    window.showPageLoading();
+                    let response = await fetch(
+                        that.$store.state.apiRootUrl + '/Guest/SetGuestComment', {
+                        method: 'POST', headers: { 'Authorization': 'Bearer ' + that.$store.state.user.Token, 'Content-type': 'application/json' },
+                        body: JSON.stringify({ Title: $("#CommentTitle").val(), Note: $("#CommentNote").val(), HotelId: that.newCommentHotelId, Language: that.$store.state.language })
+                    }); let result = await response.json();
+
+                    if (result.Status == "error") {
+                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
+                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                    } else {
+                        if (document.getElementById("CommentForm") != null) { document.getElementById("CommentForm").reset(); }
+                        let result = await that.$store.dispatch("getAdvertisementList");
+                        that.generateMessageBox();
+                    }
+                    window.hidePageLoading();
+                }
+            }, 1000);
+        
+        },
         openedReservation(hotelId) {
             this.$router.push('/profile/advertisementWizard');
         },
@@ -275,8 +354,8 @@ export default {
             }
             ); let result = await response.json();
             if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info", { cls: "info" }); notify.reset();
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
                 window.hidePartPageLoading();
             } else {
                 if (this.$store.state.user.UserId != '') {
@@ -368,6 +447,14 @@ export default {
             $body.css('position', 'fixed');
             $body.css('top', `-${scrollPosition}px`);
             $body.width(oldWidth);
+        });
+
+        watch(window.watchAdvertisementVariables, async () => {
+            if (window.watchAdvertisementVariables.reloadAdvertisement) {
+                window.watchAdvertisementVariables.reloadAdvertisement = false;
+                let result = await this.$store.dispatch("getAdvertisementList");
+                this.generateMessageBox();
+            }
         });
     }
 };

@@ -64,8 +64,8 @@ async function WizardValidateForm() {
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && ($("#HotelName").val().length == 0 || $("#HotelCurrency")[0].selectedOptions[0] == undefined || $("#HotelCity")[0].selectedOptions[0] == undefined)) {
-        var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-        notify.create(window.dictionary('labels.missingSetting'), "Info", { cls: "info" }); notify.reset();
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+        notify.create(window.dictionary('labels.missingSetting'), "Info"); notify.reset();
     }
 
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 2 && WizardImageGallery.length > 0) {
@@ -74,8 +74,8 @@ async function WizardValidateForm() {
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 2 && WizardImageGallery.length == 0) {
-        var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-        notify.create(window.dictionary('labels.missingAnyImage'), "Info", { cls: "info" }); notify.reset();
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+        notify.create(window.dictionary('labels.missingAnyImage'), "Info"); notify.reset();
     }
 
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 3 && WizardRooms.length > 0) {
@@ -87,8 +87,8 @@ async function WizardValidateForm() {
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 3 && WizardRooms.length == 0) {
-        var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-        notify.create(window.dictionary('labels.missingAnyRoom'), "Info", { cls: "info" }); notify.reset();
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+        notify.create(window.dictionary('labels.missingAnyRoom'), "Info"); notify.reset();
     }
 
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 4 && WizardProperties.length > 0) {
@@ -100,8 +100,8 @@ async function WizardValidateForm() {
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 4 && WizardProperties.length == 0) {
-        var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-        notify.create(window.dictionary('labels.missingAnyProperties'), "Info", { cls: "info" }); notify.reset();
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+        notify.create(window.dictionary('labels.missingAnyProperties'), "Info"); notify.reset();
     }
 
     else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 5 && WizardProperties.length > 0) {
@@ -176,21 +176,21 @@ async function WizardUploadImages(files) {
                 if (itsOk) {
                     WizardImageGallery.push({IsPrimary: setprimary ? true : false, FileName: files[i].name, Attachment: fileContent});
                 } else {
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-                    notify.create(window.dictionary('labels.fileExist') + " "+ files[i].name, "Info", { cls: "info" }); notify.reset();
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+                    notify.create(window.dictionary('labels.fileExist') + " "+ files[i].name, "Info"); notify.reset();
                 }
                 
             } else {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-                notify.create(window.dictionary('labels.maxFileSize') + " " + files[i].name, "Info", { cls: "info" }); notify.reset();
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+                notify.create(window.dictionary('labels.maxFileSize') + " " + files[i].name, "Info"); notify.reset();
             }
         }
 
         WizardUploadImagesCheck();
         window.hidePageLoading();
     } else {
-        var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-        notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info", { cls: "info" }); notify.reset();
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+        notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info"); notify.reset();
     }
 
 }
@@ -213,16 +213,16 @@ async function WizardRoomUploadImage(files) {
             WizardTempRoomPhoto.push({ FileName: files[0].name, Attachment: fileContent});
         } else {
             WizardTempRoomPhoto = [];
-            var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-            notify.create(window.dictionary('labels.maxFileSize') + files[0].name, "Info", { cls: "info" }); notify.reset();
+            var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+            notify.create(window.dictionary('labels.maxFileSize') + files[0].name, "Info"); notify.reset();
         }
 
         window.WizardTempRoomPhoto = WizardTempRoomPhoto;
         window.hidePageLoading();
     } else {
         WizardTempRoomPhoto = [];
-        var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-        notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info", { cls: "info" }); notify.reset();
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+        notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info"); notify.reset();
     }
 
     window.watchChangeVariables.roomShowPreviewEnabled = window.WizardTempRoomPhoto != undefined && window.WizardTempRoomPhoto.length > 0;
@@ -402,8 +402,8 @@ async function SaveHotel() {
         }
     ); result = await response.json();
 
-    var notify = Metro.notify; notify.setup({ width: 300, duration: NotifyShowTime });
-    notify.create(window.dictionary('labels.advertisementHasBeenSaved'), "Info", { cls: "info" }); notify.reset();
+    var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
+    notify.create(window.dictionary('labels.advertisementHasBeenSaved'), "Info"); notify.reset();
 
     window.hidePageLoading();
     Router.push('/profile/advertisement');

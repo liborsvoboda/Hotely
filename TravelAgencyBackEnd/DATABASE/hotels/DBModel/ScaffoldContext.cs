@@ -31,6 +31,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<EmailTemplateList> EmailTemplateLists { get; set; }
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GetTopFiveFavoriteList> GetTopFiveFavoriteLists { get; set; }
+        public virtual DbSet<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; }
         public virtual DbSet<GuestFavoriteList> GuestFavoriteLists { get; set; }
         public virtual DbSet<GuestList> GuestLists { get; set; }
         public virtual DbSet<GuestLoginHistoryList> GuestLoginHistoryLists { get; set; }
@@ -278,6 +279,23 @@ namespace UbytkacBackend.DBModel
                 entity.ToView("GetTopFiveFavoriteList");
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<GuestAdvertiserNoteList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Guest)
+                    .WithMany(p => p.GuestAdvertiserNoteLists)
+                    .HasForeignKey(d => d.GuestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GuestAdvertiserNoteList_GuestList");
+
+                entity.HasOne(d => d.Hotel)
+                    .WithMany(p => p.GuestAdvertiserNoteLists)
+                    .HasForeignKey(d => d.HotelId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GuestAdvertiserNoteList_HotelList");
             });
 
             modelBuilder.Entity<GuestFavoriteList>(entity =>

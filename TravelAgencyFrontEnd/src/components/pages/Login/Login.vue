@@ -13,8 +13,9 @@
                 <input class="un" type="email" align="center" placeholder="Email" required v-model="Email" />
                 <input class="pass" type="password" align="center" placeholder="Password" required :minLength="$store.state.system.passwordMin" v-model="Password" />
                 <button class="submit" :onclick="checkValid">{{ $t('user.signIn') }}</button>
-                <p class="forgot" align="center"><a href="/forgot">{{ $t('user.forgotPassword') }}</a></p>
-                <p class="forgot" align="center"><a href="/registration">{{ $t('labels.registration') }}</a></p>
+
+                <div class="forgot" align="center"><router-link to="/forgot">{{ $t('user.forgotPassword') }}</router-link></div>
+                <div class="forgot p-0" align="center"><router-link to="/registration">{{ $t('labels.registration') }}</router-link></div>
            <!--  </form> -->
         </div>
     </html>
@@ -43,7 +44,7 @@ export default {
             if (!this.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
                 || this.Password.length < this.$store.state.system.passwordMin) {
 
-                let notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                let notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create((window.dictionary("messages.passwordNotHaveMinimalLengthOrMailNotValid") + this.$store.state.system.passwordMin), "Error", { cls: "alert" }); notify.reset();
 
                 document.getElementById("loginForm").classList.add("ani-ring");
@@ -77,7 +78,7 @@ body {
 .main {
   background-color: #ffffff;
   width: 400px;
-  height: 420px;
+  height: 330px;
   margin: 7em auto;
   border-radius: 1.5em;
   box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);

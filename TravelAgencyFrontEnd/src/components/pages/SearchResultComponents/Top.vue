@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 rounded shadow-sm">
+    <div class="p-2 rounded shadow-sm mb-4" style="background-color: rgb(241, 241, 241);">
         <div id="testOmega">
             <div class="row">
                 <div class="col-md-4">
@@ -34,16 +34,15 @@
                                :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                                 <i class="fas fa-check"></i> {{property.name}}
                             </p>
-
-                            <br />
-                            <div class="p-button p-component button info" for="btn-check-outlined" @click="hotelDetailsClick">
-                                {{ $t('labels.seeDetail') }}
-                            </div>
                         </div>
+                    </div>
+                    <div class="p-button pos-absolute p-component button info" for="btn-check-outlined" @click="hotelDetailsClick" style="bottom:0px; right:10px;">
+                        {{ $t('labels.seeDetail') }}
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 

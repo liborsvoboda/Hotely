@@ -7,6 +7,7 @@ let partPageLoader = null;
 let partPageLoaderRunningCounter = 0;
 
 
+
 /*Definitions  of Global System Behaviors */
 function ChangeSchemeTo(n) {
     $("#color-scheme").attr("href", "../src/assets/css/schemes/" + n);
@@ -91,8 +92,11 @@ $(document).ready(function () {
     googleTranslateElementInit();
 });
 
-function googleTranslateElementInit() {
+$(window).load(function (e) {
+    googleTranslateElementInit();
+});
 
+function googleTranslateElementInit() {
     $(document).ready(function () {
         try {
             new google.translate.TranslateElement({

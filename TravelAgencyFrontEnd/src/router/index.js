@@ -282,9 +282,18 @@ const router = createRouter({
 
 //before change route
 router.beforeEach((to, from, next) => {
+    $("#SearchPanel").show();
+
     //check forgoten routes for unauthorized user
     if (!store.state.user.loggedIn && to.meta.requiresAuth) { router.push('/'); }
-    
+
+    if (to.fullPath.indexOf("/UbytkacInfo") > -1
+        || to.fullPath.indexOf("/RegistrationInfo") > -1
+        || to.fullPath.indexOf("/OftenQuestion") > -1
+        || to.fullPath.indexOf("/HolidayTips") > -1
+        || to.fullPath.indexOf("/Contact") > -1
+    ) { $("#SearchPanel").hide(); }
+
     //autopage reset scroling without backroute from advertisement
     if (store.state.backRoute != to.fullPath
         && to.fullPath.indexOf("/hotels/") == -1 && to.fullPath.indexOf("/profile") == -1
@@ -293,13 +302,19 @@ router.beforeEach((to, from, next) => {
     ) {
         window.scrollTo(0, 0);
     } else if (to.fullPath.indexOf("/profile/advertisement") > -1) {
+        if (store.state.userSettings.hideSearchingInPrivateZone) { $("#SearchPanel").hide(); } else { $("#SearchPanel").show(); }
         window.scrollTo(0, window.scrollY);
     } else if (to.fullPath.indexOf("/hotels/") > -1) {
         window.scrollTo(0, 220);
     } else if (to.fullPath.indexOf("/profile") > -1 && to.fullPath.indexOf("/profile/advertisement") == -1) {
-            window.scrollTo(0, 220);
+        //hide searching in private zone
+        if (store.state.userSettings.hideSearchingInPrivateZone) {
+            $("#SearchPanel").hide(); window.scrollTo(0, 0);
+        } else { $("#SearchPanel").show(); window.scrollTo(0, 220); }
+            
     } else if (to.fullPath.indexOf("/login") > -1 || to.fullPath.indexOf("/registration") > -1 || to.fullPath.indexOf("/forgot") > -1) {
-        window.scrollTo(0, 220);
+        $("#SearchPanel").hide(); window.scrollTo(0, 0);
+        //window.scrollTo(0, 220);
     } else if (store.state.backRoute == to.fullPath) {
         window.scrollTo(0, store.state.backRouteScroll);
     }
@@ -310,7 +325,6 @@ router.beforeEach((to, from, next) => {
 
 //check translate after route
 router.afterEach((to, from, next) => {
-/*    googleTranslateElementInit();*/
 
     $(document).ready(function () {
         try {
@@ -326,7 +340,9 @@ router.afterEach((to, from, next) => {
                 }, 1000);
             }
         } catch (err) { }
+
     });
+
 });
 
 

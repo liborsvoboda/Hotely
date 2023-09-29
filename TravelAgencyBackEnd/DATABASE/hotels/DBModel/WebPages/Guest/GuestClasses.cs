@@ -129,4 +129,11 @@ namespace UbytkacBackend.WebPages {
         public string Key { get; set; }
         public string Value { get; set; }
     }
+
+    public class WebGuestComment {
+        public string Title { get; set; }
+        public string Note { get; set; }
+        public int HotelId { get; set; }
+        public string Language { get; set; }
+    }
 }

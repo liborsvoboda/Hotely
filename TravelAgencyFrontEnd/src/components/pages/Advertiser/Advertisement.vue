@@ -1,21 +1,21 @@
 <template>
     <div class="py-4">
-        <div class="row">
-            <div class="col-md-6 d-flex">
-                <span :title ="$t('labels.showAlsoInactive')" style="zoom:1.5;">
-                    <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive" :checked="$store.state.userSettings.showInactiveAdvertisementAsDefault">
-                </span>
-                
-                <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
-            </div>
-            <div class="col-md-6">
-                <div class="pos-absolute p-button p-component button info" style="top:10px;right:10px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</div>
+        <div class="rounded drop-shadow row">
+            <div class="row">
+                <div class="col-md-6 d-flex">
+                    <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showAlsoInactive')">
+                        <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive" :checked="$store.state.userSettings.showInactiveAdvertisementAsDefault">
+                    </div>
+
+                    <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
+                </div>
+                <div class="col-md-6">
+                    <div class="pos-absolute p-button p-component button info" style="top:10px;right:10px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</div>
+                </div>
             </div>
         </div>
         <hr>
-        <!--<div v-if="advertisementList.length && !errorText">
-                <ProgressSpinner />
-        </div> -->
+
         <div v-if="errorText" class="h2 pt-5">
             <p>{{ $t('messages.anyAdvertisementExist') }}</p>
         </div>

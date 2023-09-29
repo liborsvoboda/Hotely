@@ -12,6 +12,7 @@ namespace UbytkacBackend.DBModel
     {
         public GuestList()
         {
+            GuestAdvertiserNoteLists = new HashSet<GuestAdvertiserNoteList>();
             GuestFavoriteLists = new HashSet<GuestFavoriteList>();
             GuestSettingLists = new HashSet<GuestSettingList>();
             HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
@@ -65,6 +66,8 @@ namespace UbytkacBackend.DBModel
         [ForeignKey("UserId")]
         [InverseProperty("GuestLists")]
         public virtual UserList User { get; set; }
+        [InverseProperty("Guest")]
+        public virtual ICollection<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; }
         [InverseProperty("Guest")]
         public virtual ICollection<GuestFavoriteList> GuestFavoriteLists { get; set; }
         [InverseProperty("Guest")]

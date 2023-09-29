@@ -43,7 +43,7 @@ export default {
 
             if (result.ErrorMessage) {
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
             } else {
                 this.$store.dispatch('clearBooking');
@@ -62,7 +62,7 @@ export default {
 
             if (result.ErrorMessage) {
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
 
             } else {
@@ -78,13 +78,13 @@ export default {
                 });
                 let loginres = await response.json()
                 if (loginres.message) {
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(loginres.message, "Error", { cls: "alert" }); notify.reset();
                 } else {
                     this.$store.state.user = loginres;
                     this.$store.state.user.loggedIn = true;
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                    notify.create(this.$i18n.t("messages.loginSuccess"), "Info", { cls: "info" }); notify.reset();
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                    notify.create(this.$i18n.t("messages.loginSuccess"), "Info"); notify.reset();
                 }
 
                 //clear booking

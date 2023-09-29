@@ -16,9 +16,13 @@
             <ul v-if="!verified" class="ul">
                 <li>
                     <button class="submit" :onclick="checkValid" align="center">{{ $t('user.sendNewPassword') }}</button>
+
                 </li>
             </ul>
         </form>
+
+        <div class="forgot" align="center"><router-link to="/login">{{ $t('user.logIn') }}</router-link></div>
+        <div class="forgot p-0" align="center"><router-link to="/registration">{{ $t('labels.registration') }}</router-link></div>
 
     </div>
 
@@ -77,13 +81,13 @@ export default {
             var that = this;
 
             def.fail(function (data) {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
             });
 
             def.done(function (data) {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
-                notify.create(that.$i18n.t('user.resetPasswordEmailWasSent'), "Info", { cls: "info" }); notify.reset();
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(window.dictionary('user.resetPasswordEmailWasSent'), "Info"); notify.reset();
             });
         },
         resetForm() {
@@ -115,7 +119,7 @@ a:active {
 .main {
     background-color: #ffffff;
     width: 400px;
-    height: 300px;
+    height: 310px;
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);

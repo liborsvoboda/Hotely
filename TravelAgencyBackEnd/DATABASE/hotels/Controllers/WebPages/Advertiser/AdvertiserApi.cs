@@ -18,7 +18,8 @@
                         .Include(a => a.City)
                         .Include(a => a.Country)
                         .Include(a => a.DefaultCurrency)
-                        .Include(a=> a.HotelReservationLists).ThenInclude(a => a.HotelReservationDetailLists)
+                        .Include(a => a.HotelReservationLists).ThenInclude(a => a.HotelReservationDetailLists)
+                        .Include(a=> a.GuestAdvertiserNoteLists)
                         .Where(a => a.UserId == int.Parse(userId))
                         .AsNoTracking()
                         .IgnoreAutoIncludes()
@@ -35,7 +36,7 @@
 
                         List<HotelPropertyAndServiceList> props = new hotelsContext().HotelPropertyAndServiceLists
                         .Include(a => a.PropertyOrService)
-                        .Include (a => a.PropertyOrService.PropertyOrServiceUnitType)
+                        .Include(a => a.PropertyOrService.PropertyOrServiceUnitType)
                         .Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
 
                         props.ForEach(property => {
@@ -43,6 +44,7 @@
                         });
 
                         hotel.HotelPropertyAndServiceLists = props;
+
                     }
 
                     //clean datasets
@@ -62,6 +64,7 @@
                     hotel.HotelRoomLists.ToList().ForEach(room => {
                         room.Hotel = null;
                     });
+                    hotel.GuestAdvertiserNoteLists = hotel.GuestAdvertiserNoteLists.OrderByDescending(a => a.TimeStamp).ToList();
                 });
 
                 //result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });

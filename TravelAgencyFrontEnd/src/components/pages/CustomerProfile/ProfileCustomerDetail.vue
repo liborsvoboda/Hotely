@@ -108,7 +108,7 @@ export default {
             this.loading = false;
 
             //get updated booking
-            var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+            var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
             notify.create(this.$i18n.t("messages.updateBookingWasSuccess"), "Success", { cls: "success" }); notify.reset();
 
             this.$emit('closeEdit', false);

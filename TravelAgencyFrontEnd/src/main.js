@@ -61,5 +61,11 @@ app.config.globalProperties.window.watchChangeVariables = reactive({
     propertySelected: false
 });
 
+app.config.globalProperties.window.watchAdvertisementVariables = reactive({
+    reloadAdvertisement: false,
+
+});
+
+
 
 app.mount('#app');

@@ -81,7 +81,7 @@
     "advertiseAsHost": "Chci inzerovat jako hostitel",
     "accommodationAdvertisement": "Inzerce Ubytování",
     "newAccommodationAdvertisement": "Nová inzerce Ubytování",
-    "topFive": "Nej 5 Inzerátů",
+    "topFive": "Nej 5",
     "servicesAndFacilitiesAvailable": "Dostupné služby a zařízení",
     "requestDate": "Datum poptávky",
     "editAdvertisement": "Editace pronájmu",
@@ -163,8 +163,15 @@
     "notifyShowTime": "Čas notifikácí sec. ",
     "showInactiveAdvertisementAsDefault": "Nastavit: Zobrazit neaktivní inzeráty",
     "autoTranslationLanguage": "Jazyk pro automatický překlad",
-    "selectLanguage": "Vyberte jazyk"
-
+    "selectLanguage": "Vyberte jazyk",
+    "hideSearchingInPrivateZone": "Skrýt Vyhledávač v Privátní Zóně",
+    "translateWeb": "Přeložit WebStránky",
+    "advertisementNotepad": "Poznámkový blok Inzerátu",
+    "writeComment": "Napište poznámku...",
+    "title": "Název",
+    "setOpened": "Otevřít",
+    "setSolved": "Vyřešeno",
+    "delete": "Vymazat"
   },
   "user": {
     "newPassword": "Nové Heslo",

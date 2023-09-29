@@ -141,11 +141,11 @@ export default {
                 this.verifySent = false;
                 this.$store.state.bookingDetail.verified = true;
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(this.$i18n.t("messages.emailVerified"), "Success", { cls: "success" }); notify.reset();
             } else { 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
-                notify.create(this.$i18n.t("messages.verifyNotMatch"), "Info", { cls: "info" }); notify.reset();
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(this.$i18n.t("messages.verifyNotMatch"), "Info"); notify.reset();
             }
         },
         showLogin() {
@@ -163,7 +163,7 @@ export default {
             let result = await response.json()
             if (result.message) {
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(result.message, "Error", { cls: "alert" }); notify.reset();
 
             } else {
@@ -171,7 +171,7 @@ export default {
                 this.$store.state.user.loggedIn = true;
                 this.$store.state.bookingDetail.verified = true;
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.$store.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(this.$i18n.t("messages.loginSuccess"), "Success", { cls: "success" }); notify.reset();
 
                 this.bookingUser.firstName = this.bookingUser.firstName ? this.bookingUser.firstName : this.$store.state.user.FirstName;
@@ -198,7 +198,7 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                 });
 
@@ -206,8 +206,8 @@ export default {
                     console.log("rteturbn", data);
                     that.verifyCode = data.ErrorMessage;
                     that.verifySent = true;
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: that.$store.state.userSettings.notifyShowTime });
-                    notify.create(that.$i18n.t("user.verifyEmailWasSent"), "Info", { cls: "info" }); notify.reset();
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
+                    notify.create(that.$i18n.t("user.verifyEmailWasSent"), "Info"); notify.reset();
                 });
 
 

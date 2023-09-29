@@ -138,3 +138,15 @@ $("#HotelCurrency").val()
 $("#HotelCurrency")[0].selectedOptions[0].text
 $("#Hotelsummernote").summernote('code')
 
+----------------------------------------------------------
+
+//set bottom notification
+$("#AppBody > div.notify-container").addClass("position-bottom");
+
+---------------------------------------------------------
+validation form
+<form id="CommentForm" data-role="validator" action="javascript:" @data-on-submit="setNewComment()" data-interactive-check="true" autocomplete="off" data-on-error="newCommentIsValid = false;console.log('onerror');">
+
+
+data-on-submit run when form is ok else not run
+data-on-error run when form is not ok ele not run

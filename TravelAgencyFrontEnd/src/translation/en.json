@@ -163,7 +163,16 @@
     "notifyShowTime": "Notification time sec.",
     "showInactiveAdvertisementAsDefault": "Set Default: Show inactive Advertisement",
     "autoTranslationLanguage": "Language for Auto translate",
-    "selectLanguage": "Select language"
+    "selectLanguage": "Select language",
+    "hideSearchingInPrivateZone": "Hide Searching in Private Zone",
+    "translateWeb": "Translate WebPages",
+    "advertisementNotepad": "Advertisement Notepad",
+    "writeComment": "Write note...",
+    "title": "Title",
+    "setOpened": "Set Opened",
+    "setSolved": "Set Solved",
+    "delete": "Delete"
+
   },
   "user": {
     "newPassword": "New Password",

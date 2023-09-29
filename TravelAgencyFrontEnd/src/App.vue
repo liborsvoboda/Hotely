@@ -4,7 +4,7 @@
     <div class="view intro-2">
         <div class="full-bg-img">
             <div class="mask rgba-black-light flex-center">
-              <div class="container" style="top: -100px;">
+              <div class="container" style="margin-top:120px;">
                 <Searcher/>
                 <router-view/>
               </div>
@@ -157,7 +157,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 
 .input-group {

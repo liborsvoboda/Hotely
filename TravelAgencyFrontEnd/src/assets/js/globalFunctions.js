@@ -24,6 +24,37 @@ function setBackgroundProfileMenu() {
     }, 10);
 };
 
+async function setCommentStatus(commentId, apiUrl) {
+    window.showPageLoading();
+    let response = await fetch(
+        apiUrl + '/Guest/SetCommentStatus/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
+            method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
+    }); let result = await response.json();
+    if (result.Status == "error") {
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: 2000, duration: 500 });
+        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+    } else {
+        window.watchAdvertisementVariables.reloadAdvertisement = true;
+    }
+    window.hidePageLoading();
+};
+
+async function deleteComment(commentId, apiUrl) {
+    window.showPageLoading();
+    let response = await fetch(
+        apiUrl + '/Guest/DeleteComment/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
+        method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
+    }); let result = await response.json();
+    if (result.Status == "error") {
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: 2000, duration: 500 });
+        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+    } else {
+        window.watchAdvertisementVariables.reloadAdvertisement = true;
+    }
+    window.hidePageLoading();
+};
+
+
 //function UserLoadConfig() {
 //    showPageLoading();
 //        $.ajax({ url: '/GLOBALNETUserWebConfigList/WebUser', dataType: 'json',

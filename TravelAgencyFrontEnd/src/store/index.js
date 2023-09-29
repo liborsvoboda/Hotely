@@ -24,7 +24,8 @@ const store = createStore({
         userSettings: {
             notifyShowTime: 2000,
             showInactiveAdvertisementAsDefault: true,
-            translationLanguage: ''
+            translationLanguage: '',
+            hideSearchingInPrivateZone : false
         },
 
         apiRootUrl: 'http://localhost:5000/WebApi',
@@ -180,10 +181,11 @@ const store = createStore({
             store.lightFavoriteHotelList = [];
             store.favoriteHotelList = [];
             store.bookingList = [];
-
+            
             state.user = {
                 loggedIn: false,
             }
+            Metro.storage.setItem('Token', null);
         },
     },
     actions: {
@@ -320,7 +322,8 @@ const store = createStore({
             }
         },
         async getAdvertisementList({ commit }) {
-            let mainloader; if (!this.state.advertisementList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            //let mainloader; if (!this.state.advertisementList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            window.showPageLoading();
 
             let response = await fetch(
                 this.state.apiRootUrl + '/Advertiser/GetAdvertisementList/' + this.state.language, {
@@ -333,7 +336,8 @@ const store = createStore({
             let result = await response.json();
             console.log("setAdvertisementList", result);
             commit('setAdvertisementList', result);
-            if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
+            //if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
+            window.hidePageLoading();
         },
 
         async getRoomTypeList({ commit }) {
@@ -447,11 +451,12 @@ const store = createStore({
 
                 window.hidePageLoading();
                 if (result.message) {
-                    var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(result.message, "Error", { cls: "alert" }); notify.reset();
 
                 } else {
                     commit('setUser', result);
+                    Metro.storage.setItem('Token', result.Token);
 
                     //Load Light Favorites for hearts and user settings
                     await this.dispatch("getLightFavoriteHotelList");
@@ -569,11 +574,11 @@ const store = createStore({
                 updatedUser.Token = this.state.user.Token;
                 this.state.user = updatedUser;
 
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary("messages.dataSaved"), "Success", { cls: "success" }); notify.reset();
             }
             else {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
             }
 
@@ -617,6 +622,10 @@ const store = createStore({
                         case "translationLanguage":
                             this.state.userSettings.translationLanguage = setting.value;
                             break;
+                        case "hideSearchingInPrivateZone":
+                            this.state.userSettings.hideSearchingInPrivateZone = setting.value;
+                            break;
+                            
                     }
                 });
             }
@@ -635,7 +644,7 @@ const store = createStore({
             let result = await response.json();
 
             if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, duration: this.state.userSettings.notifyShowTime });
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
             } else {
                 userSettings.forEach(setting => {
@@ -649,6 +658,10 @@ const store = createStore({
                         case "translationLanguage":
                             this.state.userSettings.translationLanguage = setting.Value;
                             break;
+                        case "hideSearchingInPrivateZone":
+                            this.state.userSettings.hideSearchingInPrivateZone = setting.Value;
+                            break;
+                            
                     }
                 });
             }
