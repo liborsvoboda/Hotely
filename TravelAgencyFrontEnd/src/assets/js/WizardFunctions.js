@@ -3,7 +3,6 @@
 let ActualValidationFormName = "hotelForm";
 let ActualWizardPage = 1;
 let propertyList = [];
-let Token = null;
 let ApiRootUrl = null;
 let Router = null;
 let NotifyShowTime = 1000;
@@ -367,7 +366,7 @@ async function SaveHotel() {
     //Save Hotel
     var response = await fetch(
         ApiRootUrl + '/Advertiser/SetHotel', {
-        method: 'POST', headers: { 'Authorization': 'Bearer ' + Token, 'Content-type': 'application/json' },
+            method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
         body: JSON.stringify({
             HotelRecId: HotelRecId,
             HotelName: $("#HotelName").val(), CurrencyId: $("#HotelCurrency")[0].selectedOptions[0].value,
@@ -381,7 +380,7 @@ async function SaveHotel() {
     //Save HotelImages
     var response = await fetch(
         ApiRootUrl + '/Advertiser/SetHotelImages', {
-            method: 'POST', headers: { 'Authorization': 'Bearer ' + Token, 'Content-type': 'application/json' },
+            method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ HotelRecId: HotelRecId, Images: WizardImageGallery })
         }
     ); result = await response.json();
@@ -389,7 +388,7 @@ async function SaveHotel() {
     //Save HotelRooms
     var response = await fetch(
         ApiRootUrl + '/Advertiser/SetHotelRooms', {
-            method: 'POST', headers: { 'Authorization': 'Bearer ' + Token, 'Content-type': 'application/json' },
+            method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ HotelRecId: HotelRecId, Rooms: WizardRooms })
         }
     ); result = await response.json();
@@ -397,7 +396,7 @@ async function SaveHotel() {
     //Update HotelProperties
     var response = await fetch(
         ApiRootUrl + '/Advertiser/SetHotelProperties', {
-            method: 'POST', headers: { 'Authorization': 'Bearer ' + Token, 'Content-type': 'application/json' },
+            method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ HotelRecId: HotelRecId, Properties: WizardProperties })
         }
     ); result = await response.json();

@@ -10,6 +10,11 @@
     color: white;
 }
 
+#AppBody {
+    position: relative;
+    min-height: 100%;
+    top: -30px !important;
+}
 
 .p-inputnumber-button {
     background: #53c16e !important;

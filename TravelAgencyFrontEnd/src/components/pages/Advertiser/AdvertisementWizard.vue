@@ -297,7 +297,6 @@ export default {
     mounted() {
         propertyList = store.state.propertyList;
         ApiRootUrl = store.state.apiRootUrl;
-        Token = store.state.user.Token;
         NotifyShowTime = this.$store.state.userSettings.notifyShowTime;
 
         this.getCountryList();
@@ -468,7 +467,7 @@ export default {
                 window.showPageLoading();
                 var response = await fetch(
                     store.state.apiRootUrl + '/Advertiser/GetCityList/' + JSON.parse(JSON.stringify(window.watchGlobalVariables.wizardRequestCityList))[0],
-                    { method: 'GET', headers: { 'Authorization': 'Bearer ' + store.state.user.Token, 'Content-type': 'application/json' } }
+                    { method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' } }
                 ); let result = await response.json();
 
                 let html = "<select data-role='select' id='HotelCity' data-filter-placeholder='" + window.dictionary('labels.selectCity') + "' data-empty-value='' data-validate='required' data-clear-button='true' >";

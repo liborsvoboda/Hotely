@@ -154,6 +154,7 @@
     <Content Include="src\assets\css\schemes\sky-net.css" />
     <Content Include="src\assets\css\schemes\sky-net.min.css" />
     <Content Include="src\assets\css\summernote.css" />
+    <Content Include="src\assets\img\cover_img_1.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Copenhagen\FrontCo.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Copenhagen\InteriorCo.jpg" />
     <Content Include="src\assets\img\Hotels\Hotel Copenhagen\Room1Co.jpg" />
@@ -209,6 +210,7 @@
     <Content Include="src\assets\js\fontawesome.js" />
     <Content Include="src\assets\js\globalBehavior.js" />
     <Content Include="src\assets\js\globalFunctions.js" />
+    <Content Include="src\assets\js\jquery.mb.YTPlayer.min.js" />
     <Content Include="src\assets\js\summernote-lite.min.js.map" />
     <Content Include="src\assets\js\globalStorage.js" />
     <Content Include="src\assets\js\highlight.pack.js" />

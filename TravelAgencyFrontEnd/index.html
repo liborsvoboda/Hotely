@@ -25,17 +25,20 @@
 
 </head>
 <body id="AppBody">
-    <div id="app"></div>
+    <div id="app" class="view video-hero" style="top:0px; background-image: url(/src/assets/img/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="app">
+    </div>
+    <div class="overlay"></div>
+    <a class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=vqqt5p0q-eU',containment:'#app', showControls:false, autoPlay:true, loop:true, mute:true, startAt:0, opacity:1, quality:'default'}"></a>
+
     <script type="module" src="/src/main.js"></script>
 
-    <script src="/src/assets/js/jquery-3.6.0.min.js"></script>
     <script src="/src/assets/js/js.cookie.min.js"></script>
-
+    <script src="/src/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/src/assets/js/jquery.mb.YTPlayer.min.js"></script>
     <script src="/src/assets/js/highlight.pack.js"></script>
     <script src="/src/assets/js/clipboard.min.js"></script>
     <script src="/src/assets/js/site.js"></script>
 
-    <!-- include summernote css/js -->
     <link rel="stylesheet" href="/src/assets/css/bootstrap5.0.0.min.css">
     <link rel="stylesheet" href="/src/assets/css/summernote.css">
     <script src="/src/assets/js/bootstrap5.0.0.bundle.min.js"></script>

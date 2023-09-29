@@ -1,30 +1,31 @@
 <template>
-  <main>
-    <Navigator/>
-    <div class="view intro-2">
-        <div class="full-bg-img">
-            <div class="mask rgba-black-light flex-center">
-              <div class="container" style="margin-top:120px;">
-                <Searcher/>
-                <router-view/>
-              </div>
+    <main id="main">
+
+        <Navigator />
+        <div class="view ">
+            <div class="full-bg-img">
+                <div class="mask rgba-black-light flex-center">
+                    <div class="container" style="margin-top:120px;">
+                        <Searcher style="top:20px;" />
+                        <router-view />
+                    </div>
+                </div>
             </div>
+
+
+            <!--         <figure>
+                <figcaption></figcaption>
+                    <audio
+                        controls
+                        src="/src/assets/Media/Toto.mp3">
+                            Your browser does not support the
+                            <code>audio</code> element.
+                    </audio>
+                </figure>  -->
         </div>
-
-
-<!--         <figure>
-            <figcaption></figcaption>
-                <audio
-                    controls
-                    src="/src/assets/Media/Toto.mp3">
-                        Your browser does not support the
-                        <code>audio</code> element.
-                </audio>
-            </figure>  -->
-    </div>
-        <Body v-if="showBody"/>
-    <Footer/>
-  </main>
+        <Body v-if="showBody" />
+        <Footer />
+    </main>
 </template>
 
 <script>

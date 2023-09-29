@@ -6,6 +6,9 @@ let pageLoaderRunningCounter = 0;
 let partPageLoader = null;
 let partPageLoaderRunningCounter = 0;
 
+//background video init
+let bgVideo = function () { $('.player').mb_YTPlayer(); };
+$(function () { bgVideo(); });
 
 
 /*Definitions  of Global System Behaviors */
@@ -88,13 +91,8 @@ function hidePartPageLoading() {
 
 }
 
-$(document).ready(function () {
-    googleTranslateElementInit();
-});
+$(document).ready(function () { googleTranslateElementInit(); });
 
-$(window).load(function (e) {
-    googleTranslateElementInit();
-});
 
 function googleTranslateElementInit() {
     $(document).ready(function () {
