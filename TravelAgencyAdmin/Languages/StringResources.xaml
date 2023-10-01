@@ -489,4 +489,9 @@
     <system:String x:Key="itemAlreadyExists">Item already exists</system:String>
     <system:String x:Key="resetPassword">Reset password</system:String>
 
+    <system:String x:Key="privacyPolicyList">Privacy Policy</system:String>
+    <system:String x:Key="termsList" xml:space="preserve">Terms&amp;Conditions</system:String>
+    <system:String x:Key="webSettingList" xml:space="preserve">Web Settings</system:String>
+    <system:String x:Key="key" xml:space="preserve">Key</system:String>
+
 </ResourceDictionary>

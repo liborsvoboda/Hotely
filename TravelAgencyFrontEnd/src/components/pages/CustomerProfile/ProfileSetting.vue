@@ -157,13 +157,13 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="text-right">
-                        <button type="button" id="cancel" name="cancel" class="btn btn-secondary mb-1" @click="resetForm();">
+                        <button type="button" class="button secondary outline shadowed mb-1" @click="resetForm();">
                             {{ $t('user.cancelChanges') }}
                         </button>
-                        <button type="button" id="update" name="update" class="btn btn-primary ml-1 mb-1" @click="checkPasswords()">
+                        <button type="button" class="button success outline shadowed ml-1 mb-1" @click="checkPasswords()">
                             {{ $t('user.saveChanges') }}
                         </button>
-                        <button type="button" id="submit" name="submit" class="btn btn-danger ml-1 mb-1" @click="deleteAccout()">
+                        <button type="button" class="button alert outline shadowed ml-1 mb-1" @click="deleteAccout()">
                             {{ $t('user.deleteAccount') }}
                         </button>
                     </div>

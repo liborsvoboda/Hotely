@@ -1,9 +1,8 @@
 <template>
-    <div class="main">
+    <div class="main" style="top: 30px;">
         <p class="sign" align="center">{{ $t('labels.registration')}}</p>
 
         <form class="form1" @submit.prevent="checkPasswords">
-
             <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.firstname')" required v-model="guest.Firstname">
             <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.lastname')" required v-model="guest.Lastname">
             <input v-if="verified" class="un" type="text" align="center" :placeholder="$t('labels.street')" required v-model="guest.Street">
@@ -15,7 +14,7 @@
             <input class="un" type="email" align="center" :placeholder="$t('labels.email')" required v-model="guest.Email">
             <ul v-if="!verified" class="ul">
                 <li>
-                    <button class="submit" :onclick="sendVerifyEmail" align="center">{{ $t('user.sendVerifyEmail') }}</button>
+                    <button class="submit shadowed" :onclick="sendVerifyEmail" align="center">{{ $t('user.sendVerifyEmail') }}</button>
                 </li>
             </ul>
             <input v-if="verifySent && !verified" class="un" type="text" align="center" :placeholder="$t('labels.verifyCode')" required v-model="Verifycode" @input="checkVerify()">
@@ -25,7 +24,7 @@
 
             <ul v-if="verified" class="ul">
                 <li>
-                    <button class="submit" align="center">{{ $t('user.register') }}</button>
+                    <button class="submit shadowed" align="center">{{ $t('user.register') }}</button>
                 </li>
             </ul>
         </form>

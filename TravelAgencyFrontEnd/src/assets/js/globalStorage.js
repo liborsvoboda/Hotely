@@ -4,11 +4,7 @@
 
 
 /*WebPages Language Variable*/
-if (Metro.storage.getItem('WebPagesLanguage', null ) == null) {
-    //let WebPagesLanguage = (navigator.language || navigator.userLanguage).indexOf("cs") >= 0 ? "cz" : "en"; 
-    let WebPagesLanguage = (navigator.language || navigator.userLanguage).substring(0, 1); 
-    Metro.storage.setItem('WebPagesLanguage', WebPagesLanguage);
-}
+Metro.storage.setItem('WebPagesLanguage', (navigator.language || navigator.userLanguage).substring(0, 2));
 
 /*WebPages Theme Scheme*/
 if (Metro.storage.getItem('WebScheme', null) == null) {

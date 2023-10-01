@@ -57,6 +57,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<OftenQuestionList> OftenQuestionLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
+        public virtual DbSet<PrivacyPolicyList> PrivacyPolicyLists { get; set; }
         public virtual DbSet<PropertyGroupList> PropertyGroupLists { get; set; }
         public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
         public virtual DbSet<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
@@ -65,9 +66,11 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
         public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
+        public virtual DbSet<TermsList> TermsLists { get; set; }
         public virtual DbSet<UbytkacInfoList> UbytkacInfoLists { get; set; }
         public virtual DbSet<UserList> UserLists { get; set; }
         public virtual DbSet<UserRoleList> UserRoleLists { get; set; }
+        public virtual DbSet<WebSettingList> WebSettingLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -719,6 +722,17 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_ParameterList_UserList");
             });
 
+            modelBuilder.Entity<PrivacyPolicyList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PrivacyPolicyLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PrivacyPolicyList_UserList");
+            });
+
             modelBuilder.Entity<PropertyGroupList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
@@ -824,6 +838,17 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_TemplateList_UserList");
             });
 
+            modelBuilder.Entity<TermsList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.TermsLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TermsList_UserList");
+            });
+
             modelBuilder.Entity<UbytkacInfoList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -850,6 +875,16 @@ namespace UbytkacBackend.DBModel
             modelBuilder.Entity<UserRoleList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<WebSettingList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.WebSettingLists)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_WebSettingList_UserList");
             });
 
             OnModelCreatingPartial(modelBuilder);

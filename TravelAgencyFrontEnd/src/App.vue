@@ -2,26 +2,15 @@
     <main id="main">
 
         <Navigator />
-        <div class="view ">
+        <div class="view pt-4">
             <div class="full-bg-img">
                 <div class="mask rgba-black-light flex-center">
-                    <div class="container" style="margin-top:120px;">
+                    <div class="container" style="margin-top:100px;">
                         <Searcher style="top:20px;" />
                         <router-view />
                     </div>
                 </div>
             </div>
-
-
-            <!--         <figure>
-                <figcaption></figcaption>
-                    <audio
-                        controls
-                        src="/src/assets/Media/Toto.mp3">
-                            Your browser does not support the
-                            <code>audio</code> element.
-                    </audio>
-                </figure>  -->
         </div>
         <Body v-if="showBody" />
         <Footer />

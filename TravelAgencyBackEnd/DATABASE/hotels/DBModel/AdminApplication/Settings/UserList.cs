@@ -41,6 +41,7 @@ namespace UbytkacBackend.DBModel
             MottoLists = new HashSet<MottoList>();
             OftenQuestionLists = new HashSet<OftenQuestionList>();
             ParameterLists = new HashSet<ParameterList>();
+            PrivacyPolicyLists = new HashSet<PrivacyPolicyList>();
             PropertyGroupLists = new HashSet<PropertyGroupList>();
             PropertyOrServiceTypeLists = new HashSet<PropertyOrServiceTypeList>();
             PropertyOrServiceUnitLists = new HashSet<PropertyOrServiceUnitList>();
@@ -49,7 +50,9 @@ namespace UbytkacBackend.DBModel
             ReportQueueLists = new HashSet<ReportQueueList>();
             SystemFailLists = new HashSet<SystemFailList>();
             TemplateLists = new HashSet<TemplateList>();
+            TermsLists = new HashSet<TermsList>();
             UbytkacInfoLists = new HashSet<UbytkacInfoList>();
+            WebSettingLists = new HashSet<WebSettingList>();
         }
 
         [Key]
@@ -146,6 +149,8 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("User")]
         public virtual ICollection<ParameterList> ParameterLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<PrivacyPolicyList> PrivacyPolicyLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<PropertyGroupList> PropertyGroupLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
@@ -162,6 +167,10 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("User")]
         public virtual ICollection<TemplateList> TemplateLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<TermsList> TermsLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<UbytkacInfoList> UbytkacInfoLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<WebSettingList> WebSettingLists { get; set; }
     }
 }

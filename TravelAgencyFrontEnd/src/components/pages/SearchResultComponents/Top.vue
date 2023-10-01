@@ -36,7 +36,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="p-button pos-absolute p-component button info" for="btn-check-outlined" @click="hotelDetailsClick" style="bottom:0px; right:10px;">
+                    <div class="p-button pos-absolute p-component button info outline shadowed" for="btn-check-outlined" @click="hotelDetailsClick" style="bottom:0px; right:10px;">
                         {{ $t('labels.seeDetail') }}
                     </div>
                 </div>

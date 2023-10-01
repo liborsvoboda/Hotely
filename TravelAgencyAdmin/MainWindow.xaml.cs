@@ -214,6 +214,8 @@ namespace UbytkacAdmin {
                 tm_holidayTipsList.Header = Resources["holidayTipsList"].ToString(); tm_oftenQuestionList.Header = Resources["oftenQuestionList"].ToString();
                 tm_registrationInfoList.Header = Resources["registrationInfoList"].ToString(); tm_ubytkacInfoList.Header = Resources["ubytkacInfoList"].ToString();
                 tm_countryAreaList.Header = Resources["countryAreaList"].ToString(); tm_emailTemplateList.Header = Resources["emailTemplateList"].ToString();
+                tm_privacyPolicyList.Header = Resources["privacyPolicyList"].ToString(); tm_termsList.Header = Resources["termsList"].ToString();
+                tm_webSettingList.Header = Resources["webSettingList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -867,7 +869,11 @@ namespace UbytkacAdmin {
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/ParameterList", App.UserData.Authentification.Token);
                             break;
-
+                        case "tm_privacyPolicyList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new PrivacyPolicyListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/PrivacyPolicyList", App.UserData.Authentification.Token);
+                            break;
                         case "tm_propertyGroupList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new PropertyGroupListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
@@ -923,7 +929,12 @@ namespace UbytkacAdmin {
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = null;
                             break;
-
+                        case "tm_termsList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new TermsListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/TermsList", App.UserData.Authentification.Token);
+                            break;
+                            
                         case "tm_ubytkacInfoList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new UbytkacInfoListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
@@ -947,7 +958,12 @@ namespace UbytkacAdmin {
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/SystemFailList", App.UserData.Authentification.Token);
                             break;
-
+                        case "tm_webSettingList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new WebSettingListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/WebSettingList", App.UserData.Authentification.Token);
+                            break;
+                            
                         default:
                             cb_printReports.ItemsSource = null;
                             break;

@@ -3,23 +3,26 @@
         <div class="header-top" style="background-color: #0CA9F2 !important">
             <div class="container">
 
-                <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 90%; z-index:10000;">
-                    <div class="w-100 text-left" style="zoom:0.8">
-                        <audio id="radio" class="light bg-transparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5" style="zoom: 0.8"></audio>
+
+                <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 85%; z-index:10000;min-width:470px;">
+                    <div class="w-100 text-left">
+                        <audio id="radio" class="light bg-transparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5"></audio>
                     </div>
-                    <div class="w-100 text-left" style="z-index: 1000000;zoom:0.7;">
+                    <div class="w-100 text-left" style="z-index: 1000000;">
                         <div id="google_translate_element"></div>
                     </div>
 
                     <div class="w-100 text-left"><input id="UserAutoTranslate" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" :data-caption="$t('messages.translateAutomatically')" :onchange="userChangeTranslateSetting"></div>
                     <div class="divider"></div>
-                    <!-- <div class="d-flex w-100">
-                <button class="button w-25 mt-1" style="background-color: #585b5d; width:50px;" onclick="ChangeSchemeTo('darcula.css')"></button>
-                <button class="button w-25 mt-1" style="background-color: #AF0015; width:50px;" onclick="ChangeSchemeTo('red-alert.css')"></button>
-                <button class="button w-25 mt-1" style="background-color: #690012; width:50px;" onclick="ChangeSchemeTo('red-dark.css')"></button>
-                <button class="button w-25 mt-1" style="background-color: #0CA9F2; width:50px;" onclick="ChangeSchemeTo('sky-net.css')"></button>
-            </div> -->
-
+                    <!--
+                        <div class="d-flex w-100">
+                                <button class="button w-25 mt-1" style="background-color: #585b5d; width:50px;" onclick="ChangeSchemeTo('darcula.css')"></button>
+                                <button class="button w-25 mt-1" style="background-color: #AF0015; width:50px;" onclick="ChangeSchemeTo('red-alert.css')"></button>
+                                <button class="button w-25 mt-1" style="background-color: #690012; width:50px;" onclick="ChangeSchemeTo('red-dark.css')"></button>
+                                <button class="button w-25 mt-1" style="background-color: #0CA9F2; width:50px;" onclick="ChangeSchemeTo('sky-net.css')"></button>
+                        </div>
+     -->
+                    <div class="c-pointer mif-cancel icon pos-absolute fg-red" style="top:5px;right:5px;" @click="showToolPanel()"></div>
                 </div>
 
                 <div class="row text-left">

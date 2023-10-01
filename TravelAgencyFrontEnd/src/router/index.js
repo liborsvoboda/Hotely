@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+﻿import { createRouter, createWebHistory } from "vue-router";
 import store from "../store/index"
 
 import Info from "../components/pages/HotelViewComponents/Info.vue";
@@ -31,6 +31,8 @@ import OftenQuestion from '../components/pages/Extra pages/OftenQuestion.vue';
 import HolidayTips from '../components/pages/Extra pages/HolidayTips.vue';
 import Advertisement from '../components/pages/Advertiser/Advertisement.vue';
 import AdvertisementWizard from '../components/pages/Advertiser/AdvertisementWizard.vue';
+import PrivacyPolicy from '../components/pages/Extra pages/PrivacyPolicy.vue';
+import Terms from '../components/pages/Extra pages/Terms.vue';
 
 const routes = [
     {
@@ -38,7 +40,7 @@ const routes = [
         name: "Home",
         component: Home,
         meta: {
-            requiresAuth: false, title: "Home"
+            requiresAuth: false, title: "Hlavní Stránka"
         },
     },
     {
@@ -46,7 +48,7 @@ const routes = [
         name: "profile",
         component: ProfileMain,
         meta: {
-            requiresAuth: true, title: "Advertisement News"
+            requiresAuth: true, title: "Novinky v Inzerci"
         },
         children: [
             {
@@ -54,7 +56,7 @@ const routes = [
                 name: "TopFive",
                 component: TopFive,
                 meta: {
-                    requiresAuth: false, title: "Top Five"
+                    requiresAuth: false, title: "Nejlepších 5"
                 },
             },
             {
@@ -62,7 +64,7 @@ const routes = [
                 name: "Bookings",
                 component: Bookings,
                 meta: {
-                    requiresAuth: true, title: "Bookings"
+                    requiresAuth: true, title: "Rezervace"
                 },
             },
             {
@@ -70,7 +72,7 @@ const routes = [
                 name: "favorite",
                 component: FavoriteHotelList,
                 meta: {
-                    requiresAuth: true, title: "Favorite List"
+                    requiresAuth: true, title: "Oblibené"
                 },
             },
             {
@@ -78,7 +80,7 @@ const routes = [
                 name: "profileSetting",
                 component: ProfileSetting,
                 meta: {
-                    requiresAuth: true, title: "Profile Setting"
+                    requiresAuth: true, title: "Nastavení Profilu"
                 },
             },
             {
@@ -86,7 +88,7 @@ const routes = [
                 name: "advertisement",
                 component: Advertisement,
                 meta: {
-                    requiresAuth: true, title: "Advertisement"
+                    requiresAuth: true, title: "Inzerce"
                 },
             },
             {
@@ -94,7 +96,7 @@ const routes = [
                 name: "advertisementWizard",
                 component: AdvertisementWizard,
                 meta: {
-                    requiresAuth: true, title: "Advertisement Wizard"
+                    requiresAuth: true, title: "Průvodce Inzercí"
                 },
             },
             
@@ -105,7 +107,7 @@ const routes = [
         name: "result",
         component: SearchResult,
         meta: {
-            requiresAuth: false, title: "Search Result"
+            requiresAuth: false, title: "Výsledky Hledání"
         },
     },
     {
@@ -113,7 +115,7 @@ const routes = [
         name: "login",
         component: Login,
         meta: {
-            requiresAuth: false, title: "Login"
+            requiresAuth: false, title: "Přihlášení"
         },
     },
     {
@@ -121,7 +123,7 @@ const routes = [
         name: "registration",
         component: Registration,
         meta: {
-            requiresAuth: false, title: "Registration"
+            requiresAuth: false, title: "Registrace"
         },
     },
     {
@@ -129,7 +131,7 @@ const routes = [
         name: "forgot",
         component: Forgot,
         meta: {
-            requiresAuth: false, title: "Forgot"
+            requiresAuth: false, title: "Zapomenuté Heslo"
         },
     },
     {
@@ -137,7 +139,7 @@ const routes = [
         name: "contact",
         component: Contact,
         meta: {
-            requiresAuth: false, title: "Contact"
+            requiresAuth: false, title: "Kontakty"
         },
     },
     {
@@ -145,7 +147,7 @@ const routes = [
         name: "about",
         component: About,
         meta: {
-            requiresAuth: false, title: "About"
+            requiresAuth: false, title: "O nás"
         },
     },
     {
@@ -161,7 +163,7 @@ const routes = [
         name: "registrationInfo",
         component: RegistrationInfo,
         meta: {
-            requiresAuth: false, title: "Registration Info"
+            requiresAuth: false, title: "Info Registrace"
         },
     },
     {
@@ -169,7 +171,7 @@ const routes = [
         name: "oftenQuestion",
         component: OftenQuestion,
         meta: {
-            requiresAuth: false, title: "Often Question"
+            requiresAuth: false, title: "Časté Dotazy"
         },
     },
     {
@@ -177,10 +179,26 @@ const routes = [
         name: "holidayTips",
         component: HolidayTips,
         meta: {
-            requiresAuth: false, title: "Holiday Tips"
+            requiresAuth: false, title: "Typy na Dovolenou"
         },
     },
-
+    {
+        path: "/PrivacyPolicy",
+        name: "privacyPolicy",
+        component: PrivacyPolicy,
+        meta: {
+            requiresAuth: false, title: "Privátní Politika"
+        },
+    },
+    {
+        path: "/Terms",
+        name: "terms",
+        component: Terms,
+        meta: {
+            requiresAuth: false, title: "Termíny & Podmínky"
+        },
+    },
+    
     // {
     //   path: "/addReview",
     //   name: "addReview",
@@ -191,7 +209,7 @@ const routes = [
         name: "hotels",
         component: HotelView,
         meta: {
-            requiresAuth: false, title: "Accommodation"
+            requiresAuth: false, title: "Ubytování"
         },
         children: [
             {
@@ -199,7 +217,7 @@ const routes = [
                 name: "Info",
                 component: Info,
                 meta: {
-                    requiresAuth: false, title: "Accommodation"
+                    requiresAuth: false, title: "Ubytování"
                 },
             },
             {
@@ -207,7 +225,7 @@ const routes = [
                 name: "hotels",
                 component: Rooms,
                 meta: {
-                    requiresAuth: false, title: "Accommodation Units"
+                    requiresAuth: false, title: "Ubytovací Prostory"
                 },
             },
             {
@@ -215,7 +233,7 @@ const routes = [
                 name: "photos",
                 component: PhotoGallery,
                 meta: {
-                    requiresAuth: false, title: "Photo Gallery"
+                    requiresAuth: false, title: "Foto Galerie"
                 },
             },
             {
@@ -223,7 +241,7 @@ const routes = [
                 name: "reviews",
                 component: Reviews,
                 meta: {
-                    requiresAuth: true, title: "Reviews"
+                    requiresAuth: true, title: "Komentáře"
                 },
 
             },
@@ -232,7 +250,7 @@ const routes = [
                 name: "addReview",
                 component: AddReview,
                 meta: {
-                    requiresAuth: true, title: "New Review"
+                    requiresAuth: true, title: "Nový Komentář"
                 },
             },
         ],
@@ -242,7 +260,7 @@ const routes = [
         name: "Checkout",
         component: CheckoutView,
         meta: {
-            requiresAuth: false, title: "Accommodation Reservation"
+            requiresAuth: false, title: "Rezervace Ubytování"
         },
         children: [
             {
@@ -250,7 +268,7 @@ const routes = [
                 name: "customerDetails",
                 component: CustomerDetails,
                 meta: {
-                    requiresAuth: false, title: "Accommodation Reservation Customer"
+                    requiresAuth: false, title: "Rezervace Ubytování - Zákazník"
                 },
 
             },
@@ -259,7 +277,7 @@ const routes = [
                 name: "OrderDetails",
                 component: OrderDetails,
                 meta: {
-                    requiresAuth: false, title: "Accommodation Reservation Detail"
+                    requiresAuth: false, title: "Rezervace Ubytování - Detail"
                 },
 
             },
@@ -268,17 +286,15 @@ const routes = [
                 name: "OrderConfirmed",
                 component: OrderConfirmed,
                 meta: {
-                    requiresAuth: false, title: "Accommodation Reservation Confirm"
+                    requiresAuth: false, title: "Rezervace Ubytování - Dokončeno"
                 },
 
             }
         ]
     },
 ];
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
-});
+const router = createRouter({ history: createWebHistory(), routes });
+
 
 //before change route
 router.beforeEach((to, from, next) => {
@@ -292,6 +308,10 @@ router.beforeEach((to, from, next) => {
         || to.fullPath.indexOf("/OftenQuestion") > -1
         || to.fullPath.indexOf("/HolidayTips") > -1
         || to.fullPath.indexOf("/Contact") > -1
+        || to.fullPath.indexOf("/Terms") > -1
+        || to.fullPath.indexOf("/PrivacyPolicy") > -1
+        || to.fullPath.indexOf("/About") > -1
+        || to.fullPath.indexOf("/Services") > -1
     ) { $("#SearchPanel").hide(); }
 
     //autopage reset scroling without backroute from advertisement
@@ -319,25 +339,41 @@ router.beforeEach((to, from, next) => {
         window.scrollTo(0, store.state.backRouteScroll);
     }
 
-    document.title = `Ubytkac: ${to.meta.title}`;
+    document.title = `Úbytkáč: ${to.meta.title}`;
     next();
 });
 
 //check translate after route
 router.afterEach((to, from, next) => {
 
+    //load webSetting if not exist - After Logout/New
+    if (Metro.storage.getItem('WebSettings', null) == null) { store.dispatch('getWebSettings'); }
+
+
+
+
     $(document).ready(function () {
         try {
-            if (store.state.userSettings.translationLanguage != "" && document.querySelector('#google_translate_element select') != null) {
+            //WebPages Setting On Each Route
+            ApplyLoadedWebSetting();
 
+            if (Metro.storage.getItem('AutomaticDetectedLanguageTranslate', null) == true && document.querySelector('#google_translate_element select') != null) {
+                setTimeout(function () {
+                    let selectElement = document.querySelector('#google_translate_element select');
+                    selectElement.value = Metro.storage.getItem('WebPagesLanguage', null);
+                    selectElement.dispatchEvent(new Event('change'));
+                }, 1000);
+                setTimeout(function () { document.querySelector("body > div:nth-child(1)").style.display = "none"; }, 1000);
+            }
+
+            // user Setting translation request 
+            if (store.state.userSettings.translationLanguage != "" && document.querySelector('#google_translate_element select') != null) {
                 setTimeout(function () {
                     let selectElement = document.querySelector('#google_translate_element select');
                     selectElement.value = store.state.userSettings.translationLanguage;
                     selectElement.dispatchEvent(new Event('change'));
                 }, 1000);
-                setTimeout(function () {
-                    document.querySelector("body > div:nth-child(1)").style.display = "none";
-                }, 1000);
+                setTimeout(function () { document.querySelector("body > div:nth-child(1)").style.display = "none"; }, 1000);
             }
         } catch (err) { }
 

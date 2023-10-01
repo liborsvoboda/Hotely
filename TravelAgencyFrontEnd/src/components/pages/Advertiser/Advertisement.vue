@@ -10,7 +10,7 @@
                     <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
                 </div>
                 <div class="col-md-6">
-                    <div class="pos-absolute p-button p-component button info" style="top:10px;right:10px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</div>
+                    <div class="pos-absolute p-button p-component button info shadowed" style="top:17px;right:0px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</div>
                 </div>
             </div>
         </div>

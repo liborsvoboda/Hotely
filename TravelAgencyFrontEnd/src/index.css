@@ -75,7 +75,7 @@ body {
 .video-hero .YTPOverlay {
     position: absolute;
     top: 0;
-    bottom: 30px;
+    bottom: 0px;
     left: 0;
     right: 0;
     opacity: 0.75;
@@ -90,4 +90,22 @@ body {
     background: linear-gradient(135deg, #499bea 0%, #798eea 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#798eea', GradientType=1 );
     z-index: 1;
+}
+
+.app-bar {
+    min-height: 35px !important;
+    max-height: 35px !important;
+}
+
+    .app-bar .hamburger {
+        max-height: 35px !important;
+    }
+
+.app-bar-menu > li {
+    height: 35px !important;
+    line-height: 35px !important;
+}
+
+.app-bar .app-bar-menu > li, .app-bar .app-bar-menu > li > a {
+    line-height: 35px;
 }

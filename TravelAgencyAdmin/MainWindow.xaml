@@ -258,7 +258,21 @@
                             x:Name="tm_ubytkacInfoList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_termsList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_privacyPolicyList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_webSettingList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+
                     </TreeViewItem>
+
                     <TreeViewItem
                         x:Name="tv_reservations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem

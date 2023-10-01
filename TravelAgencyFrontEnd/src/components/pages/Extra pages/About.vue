@@ -1,20 +1,22 @@
 <template>
-    <Card id="card">
+    <Card id="card" style="top: 20px;" class="mb-10">
         <template #content>
             <h1>About us</h1>
             <div class="container">
-            <p>The survivors of Deckelshop, unable to be pleased with simply one perfect project, set out so create something new. Something grander then ever seen before.
-                But where could they find such glory? Such succes.... Then it dawned upon them.... <b>AFRICA!</b>.
-            </p>
+                <p>
+                    The survivors of Deckelshop, unable to be pleased with simply one perfect project, set out so create something new. Something grander then ever seen before.
+                    But where could they find such glory? Such succes.... Then it dawned upon them.... <b>AFRICA!</b>.
+                </p>
             </div>
-                <div class="container mt-5 mb-5">
+            <div class="container mt-5 mb-5">
                 <div class="row g-2">
                     <div class="col-md-3">
                         <div class="card p-2 py-3 text-center">
                             <div class="img mb-2"> <img src="/src/assets/img/Profile/Hottudoggu.jpg" width="70" class="rounded"> </div>
                             <h5 class="mb-0">Alexander Hammargren</h5> <small>Insane Designer</small>
                             <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i>  </div>
-                            <p>After Deckelshops succes, annoyed with the inability to further perfect what is already perfect. He travels to africa
+                            <p>
+                                After Deckelshops succes, annoyed with the inability to further perfect what is already perfect. He travels to africa
                                 to spread more of his insane designs.
                             </p>
                         </div>
@@ -80,11 +82,11 @@
                             <div class="img mb-2"> <img src="/src/assets/img/Profile/REDACTED.jpg" width="70" class="rounded"> </div>
                             <h5 class="mb-0"><b>REDACTED</b></h5> <small><b>REDACTED</b></small>
                             <div class="ratings mt-2"> <i class="fa fa-star"></i> </div>
-                             <p>
+                            <p>
                                 <del>
-                                 There used to be a person here, his name was Ya.....<b>REDACTED</b>, He left the group after an experimental testing of <b>REDACTED</b>, unknown if he is still at large.
-                                 If target still lives, use tasers and recapture target.
-                             </del>
+                                    There used to be a person here, his name was Ya.....<b>REDACTED</b>, He left the group after an experimental testing of <b>REDACTED</b>, unknown if he is still at large.
+                                    If target still lives, use tasers and recapture target.
+                                </del>
                             </p>
                         </div>
                     </div>
@@ -93,11 +95,11 @@
                             <div class="img mb-2"> <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_237795.png&f=1&nofb=1" width="70" class="rounded"> </div>
                             <h5 class="mb-0"><b>REDACTED</b></h5> <small><b>REDACTED</b></small>
                             <div class="ratings mt-2"> <i class="fa fa-star"></i> </div>
-                             <p>
+                            <p>
                                 <del>
-                                Uknown if this was a person or not....Blew up Angola.....Know how to tame giraffes, with a spoon and some clearly disturbed fantasies...How do one blow up a country with a tomatoe?
-                                Missing.....Action....Operation: Red F******....
-                             </del>
+                                    Uknown if this was a person or not....Blew up Angola.....Know how to tame giraffes, with a spoon and some clearly disturbed fantasies...How do one blow up a country with a tomatoe?
+                                    Missing.....Action....Operation: Red F******....
+                                </del>
                             </p>
                         </div>
                     </div>

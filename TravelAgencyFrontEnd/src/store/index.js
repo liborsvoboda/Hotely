@@ -31,6 +31,8 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        privacyPolicyList: [],
+        termsList: [],
         advertisementList: [],
         propertyGroupList: [],
         bookingList: [],
@@ -90,6 +92,14 @@ const store = createStore({
 
     },
     mutations: {
+        setPrivacyPolicyList(store, value) {
+            store.privacyPolicyList = value;
+            console.log("setPrivacyPolicyList", store.privacyPolicyList);
+        },
+        setTermsList(store, value) {
+            store.termsList = value;
+            console.log("settermsList", store.termsList);
+        },
         setAdvertisementList(store, value) {
             store.advertisementList = value;
             console.log("setAdvertisementList", store.advertisementList);
@@ -185,7 +195,7 @@ const store = createStore({
             state.user = {
                 loggedIn: false,
             }
-            Metro.storage.setItem('Token', null);
+            Metro.storage.storage.clear();
         },
     },
     actions: {
@@ -405,6 +415,32 @@ const store = createStore({
             commit('setHolidayTipsList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
+        async getPrivacyPolicyList({ commit }) {
+            let mainloader; if (!this.state.privacyPolicyList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            let response = await fetch(
+                this.state.apiRootUrl + '/PrivacyPolicy/' + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            let result = await response.json();
+            commit('setPrivacyPolicyList', result);
+            if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+        },
+        async getTermsList({ commit }) {
+            let mainloader; if (!this.state.termsList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            let response = await fetch(
+                this.state.apiRootUrl + '/Terms/' + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            let result = await response.json();
+            commit('setTermsList', result);
+            if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+        },
         async getSearchDialList({ commit }) {
             if (!this.state.searchDialList.length) {
                 let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
@@ -546,6 +582,36 @@ const store = createStore({
             commit('setTopFiveList', result.hotelList);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
+
+        async getWebSettings({ commit }, type) {
+            //let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            let response = await fetch(
+                this.state.apiRootUrl + '/WebPages/GetSettingList', {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            if (result.Status == "error") {
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+            } else {
+                Metro.storage.setItem('WebSettings', result);
+                result.forEach(setting => {
+                    switch (setting.key) {
+                        case "NotifyShowTime": Metro.storage.setItem('NotifyShowTime', setting.value);
+                            this.state.userSettings.notifyShowTime = setting.value;
+                            break;
+                        case "AutomaticDetectedLanguageTranslate": Metro.storage.setItem('AutomaticDetectedLanguageTranslate', JSON.parse(setting.value.toLowerCase())); break;
+                        case "BackgroundOpacitySetting": Metro.storage.setItem('BackgroundOpacitySetting', setting.value); break;
+                        case "BackgroundColorSetting": Metro.storage.setItem('BackgroundColorSetting', setting.value); break;
+                        case "BackgroundVideoSetting": Metro.storage.setItem('BackgroundVideoSetting', setting.value); break;
+                        case "BackgroundImageSetting": Metro.storage.setItem('BackgroundImageSetting', setting.value); break;
+                    }
+                }); ApplyLoadedWebSetting();
+            }
+            //if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+        },
+
         //TODO 
         async getReviews({ commit }, hotelId) {
             //let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }

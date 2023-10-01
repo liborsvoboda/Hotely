@@ -38,15 +38,18 @@
         MottoList,
         OftenQuestionList,
         ParameterList,
+        PrivacyPolicyList,
         PropertyGroupList,
         PropertyOrServiceTypeList,
         PropertyOrServiceUnitList,
         RegistrationInfoList,
         ReportList,
         ReportQueueList,
+        TermsList,
         UbytkacInfoList,
         UserList,
         UserRoleList,
+        WebSettingList,
 
         SystemFailList,
         TemplateClassList

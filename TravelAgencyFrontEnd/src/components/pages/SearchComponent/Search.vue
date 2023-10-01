@@ -18,7 +18,7 @@
                <SearchDropdown />
            </div>
            <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
-               <Button class="button info" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
+               <Button class="button info shadowed" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
            </div>
        </div>
    </template>

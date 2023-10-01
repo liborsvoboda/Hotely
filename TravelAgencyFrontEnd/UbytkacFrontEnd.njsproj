@@ -257,6 +257,8 @@
     <Content Include="src\components\pages\Extra pages\Contact.vue" />
     <Content Include="src\components\pages\Extra pages\HolidayTips.vue" />
     <Content Include="src\components\pages\Extra pages\OftenQuestion.vue" />
+    <Content Include="src\components\pages\Extra pages\Terms.vue" />
+    <Content Include="src\components\pages\Extra pages\PrivacyPolicy.vue" />
     <Content Include="src\components\pages\Extra pages\RegistrationInfo.vue" />
     <Content Include="src\components\pages\Extra pages\UbytkacInfo.vue" />
     <Content Include="src\components\pages\Home.vue" />

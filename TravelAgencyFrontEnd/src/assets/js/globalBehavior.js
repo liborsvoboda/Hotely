@@ -6,9 +6,12 @@ let pageLoaderRunningCounter = 0;
 let partPageLoader = null;
 let partPageLoaderRunningCounter = 0;
 
-//background video init
+//background video & Startup Init
 let bgVideo = function () { $('.player').mb_YTPlayer(); };
 $(function () { bgVideo(); });
+
+$(document).ready(function () { googleTranslateElementInit(); });
+
 
 
 /*Definitions  of Global System Behaviors */
@@ -36,12 +39,8 @@ function showPageLoading() {
         else { pageLoader = pageLoader[0]["DATASET:UID:M4Q"].dialog; pageLoader.close(); pageLoader = null;}
     }
     pageLoader = Metro.activity.open({
-        role: 'dialog',
-        type: 'atom',
-        style: 'dark',
-        /*overlayColor: '#fff',*/
-        //overlayClickClose: true,
-        /*overlayAlpha: 1*/
+        role: 'dialog', type: 'atom', style: 'dark',
+        /*overlayColor: '#fff',overlayClickClose: true, overlayAlpha: 1*/
         text: '<div class=\'mt-2 text-small\'>' + window.dictionary('labels.loadingData') + '</div>',
     });
 }
@@ -55,7 +54,6 @@ function hidePageLoading() {
             if (pageLoader[0]["DATASET:UID:M4Q"] == undefined) { pageLoader = null; }
             else { pageLoader = pageLoader[0]["DATASET:UID:M4Q"].dialog; pageLoader.close(); pageLoader = null; }
         }//Metro.activity.close(pageLoader);
-
         googleTranslateElementInit();
     }
 
@@ -77,6 +75,7 @@ function showPartPageLoading() {
         text: '<div class=\'mt-2 text-small\'>' + window.dictionary('labels.loadingPartData') + '</div>',
     });
 }
+
 function hidePartPageLoading() {
     partPageLoaderRunningCounter--;
     if (partPageLoaderRunningCounter <= 0) {
@@ -85,26 +84,22 @@ function hidePartPageLoading() {
             if (partPageLoader[0]["DATASET:UID:M4Q"] == undefined) { partPageLoader = null; }
             else { partPageLoader = partPageLoader[0]["DATASET:UID:M4Q"].dialog; partPageLoader.close(); partPageLoader = null; }
         } //Metro.activity.close(partPageLoader);
-
         googleTranslateElementInit();
     }
 
 }
-
-$(document).ready(function () { googleTranslateElementInit(); });
 
 
 function googleTranslateElementInit() {
     $(document).ready(function () {
         try {
             new google.translate.TranslateElement({
-                pageLanguage: '',
-                /*includedLanguages: 'en,cs',*/
+                pageLanguage: 'cs', /*includedLanguages: 'en,cs',*/
                 layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
             }, 'google_translate_element');
 
+            // Anonymous User AutoTranslate
             if (Metro.storage.getItem('AutomaticTranslate', null) == true && Metro.storage.getItem('WebPagesLanguage', null) != null && document.querySelector('#google_translate_element select') != null) {
-
                 setTimeout(function () {
                     let selectElement = document.querySelector('#google_translate_element select');
                     selectElement.value = Metro.storage.getItem('WebPagesLanguage', null);
@@ -118,4 +113,14 @@ function googleTranslateElementInit() {
     });
 }
 
+
+function ApplyLoadedWebSetting() {
+    document.getElementsByClassName("YTPOverlay")[0].style.opacity = (Metro.storage.getItem('BackgroundOpacitySetting', null) / 100);
+    document.getElementsByClassName("YTPOverlay")[0].style.backgroundColor = Metro.storage.getItem('BackgroundColorSetting', null);
+    $("#app")[0].style.backgroundImage = 'url("' + Metro.storage.getItem('BackgroundImageSetting', null) + '")';
+
+    try { $('.player').YTPChangeMovie({ videoURL: Metro.storage.getItem('BackgroundVideoSetting', null), containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }); }
+    catch { $("#backgroundPlayer")[0].dataset.property = "{ videoURL:'" + Metro.storage.getItem('BackgroundVideoSetting', null) + "', containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }"; }
+    setTimeout(function () { $('.player').YTPPlay(); }, 2000);
+}
 

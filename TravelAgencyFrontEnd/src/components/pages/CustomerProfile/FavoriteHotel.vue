@@ -8,20 +8,20 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <button class="btn btn-danger btn-sm rounded-0 float-end"
-                            type="button"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            @click="RemoveFavorite">
+                    <div class="btn btn-danger pos-absolute btn-sm outline shadowed rounded-0 float-end"
+                         type="button"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         @click="RemoveFavorite" style="top:0px;right:5px;">
                         <i class="fa fa-trash"></i>
-                    </button>
+                    </div>
                     <h5 class="card-title">{{hotel.hotel.name}}</h5>
                     <div class="textS" v-html="($store.state.language == 'cz') ? hotel.hotel.descriptionCz : hotel.hotel.descriptionEn" />
 
 
                 </div>
                 <div class="" style="position: initial;">
-                    <div class="p-button p-component button info mt-2" type="button" style="position: absolute; bottom: 5px; right: 10px;width: 125px;" @click="hotelDetailsClick" data-pc-name="button">
+                    <div class="p-button p-component button info outline shadowed mt-2" type="button" style="position: absolute; bottom: 5px; right: 10px;width: 125px;" @click="hotelDetailsClick" data-pc-name="button">
                         {{$t('labels.seeDetail')}}
                     </div>
                 </div>

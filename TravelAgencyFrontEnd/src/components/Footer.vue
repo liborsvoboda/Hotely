@@ -13,15 +13,20 @@
 <body style="min-height:auto !important;">
     <div class="footer-basic">
         <footer>
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+            <div class="social p-0 m-0">
+                <a href="#"><i class="icon ion-social-instagram"></i></a>
+                <a href="#"><i class="icon ion-social-snapchat"></i></a>
+                <a href="#"><i class="icon ion-social-twitter"></i></a>
+                <a href="#"><i class="icon ion-social-facebook"></i></a>
+            </div>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#"><router-link to="/">{{ $t('labels.home') }}</router-link></a></li>
-                <li class="list-inline-item"><a href="#">Services</a></li>
-                <li class="list-inline-item"><router-link to="/About">About</router-link></li>
-                <li class="list-inline-item"><a href="#">Insurance</a></li>
-                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="/Services">{{ $t('labels.services') }}</a></li>
+                <li class="list-inline-item"><router-link to="/About">{{ $t('labels.about') }}</router-link></li>
+                <li class="list-inline-item"><a href="/Terms">{{ $t('labels.termsConditions') }}</a></li>
+                <li class="list-inline-item"><a href="/PrivacyPolicy">{{ $t('labels.privacyPolicy') }}</a></li>
             </ul>
-            <p class="copyright">copyright CoolNET © 2023 by GroupWare-Solution.Eu used Metro4</p>
+            <p class="copyright p-0 m-0">copyright CoolNET © 2023 by <a href="https://groupware-solution.eu" class="no-wrap" target="_blank">GroupWare-Solution.Eu</a> použito <a href="https://KlikneteZde.Cz:5000" class="no-wrap" target="_blank">EASY-DATA-Center Řešení</a> & <a href="https://metroui.org.ua" target="_blank">Metro4</a></p>
         </footer>
     </div>
 </body>

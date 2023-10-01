@@ -35,7 +35,7 @@
                                 <i class="fas fa-check"></i> {{property.name}}
                             </p>
                             <br />
-                            <div class="p-button p-component button info " for="btn-check-outlined" @click="hotelDetailsClick">
+                            <div class="p-button p-component button info outline shadowed" for="btn-check-outlined" @click="hotelDetailsClick">
                                 {{ $t('labels.seeDetail') }}
                             </div>
                         </div>

@@ -171,7 +171,12 @@
     "title": "Název",
     "setOpened": "Otevřít",
     "setSolved": "Vyřešeno",
-    "delete": "Vymazat"
+    "delete": "Vymazat",
+    "about": "O nás",
+    "services": "Služby",
+    "termsConditions": "Termíny a Podmínky",
+    "privacyPolicy": "Privátní Politika"
+
   },
   "user": {
     "newPassword": "Nové Heslo",

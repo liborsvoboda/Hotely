@@ -1,22 +1,12 @@
 <template>
-<html>
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/src/assets/css/font-awesome.min.css">
-        <title>Log in</title>
-    </head>
-
-
-    <div id="checkForm" class="main">
+    <div id="checkForm" class="main" style="top: 30px;">
         <p class="sign" align="center">{{ $t('user.forgotPassword')}}</p>
 
         <form class="form1" @submit.prevent="sendNewPassword">
             <input class="un" type="email" align="center" :placeholder="$t('labels.email')" required v-model="guest.Email">
             <ul v-if="!verified" class="ul">
                 <li>
-                    <button class="submit" :onclick="checkValid" align="center">{{ $t('user.sendNewPassword') }}</button>
-
+                    <button class="submit shadowed" :onclick="checkValid" align="center">{{ $t('user.sendNewPassword') }}</button>
                 </li>
             </ul>
         </form>
@@ -25,8 +15,6 @@
         <div class="forgot p-0" align="center"><router-link to="/registration">{{ $t('labels.registration') }}</router-link></div>
 
     </div>
-
-</html>
 </template>
 
 
@@ -119,7 +107,7 @@ a:active {
 .main {
     background-color: #ffffff;
     width: 400px;
-    height: 310px;
+    height: 340px;
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);

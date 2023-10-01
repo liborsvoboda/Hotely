@@ -85,3 +85,5 @@ window.str2bytes =function str2bytes(str) {
     }
     return bytes;
 }
+
+

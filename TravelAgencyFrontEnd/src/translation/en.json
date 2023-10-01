@@ -171,8 +171,11 @@
     "title": "Title",
     "setOpened": "Set Opened",
     "setSolved": "Set Solved",
-    "delete": "Delete"
-
+    "delete": "Delete",
+    "about": "About",
+    "services": "Services",
+    "termsConditions": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy"
   },
   "user": {
     "newPassword": "New Password",

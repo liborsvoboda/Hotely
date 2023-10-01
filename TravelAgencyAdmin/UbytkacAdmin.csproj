@@ -355,13 +355,25 @@
     <Compile Include="Agendas\WebAdmin\OftenQuestionList\OftenQuestionListPage.xaml.cs">
       <DependentUpon>OftenQuestionListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\WebAdmin\PrivacyPolicyList\PrivacyPolicyList.cs" />
+    <Compile Include="Agendas\WebAdmin\PrivacyPolicyList\PrivacyPolicyListPage.xaml.cs">
+      <DependentUpon>PrivacyPolicyListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\WebAdmin\RegistrationInfoList\RegistrationInfoList.cs" />
     <Compile Include="Agendas\WebAdmin\RegistrationInfoList\RegistrationInfoListPage.xaml.cs">
       <DependentUpon>RegistrationInfoListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\WebAdmin\TermsList\TermsListList.cs" />
+    <Compile Include="Agendas\WebAdmin\TermsList\TermsListPage.xaml.cs">
+      <DependentUpon>TermsListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\WebAdmin\UbytkacInfoList\UbytkacInfoList.cs" />
     <Compile Include="Agendas\WebAdmin\UbytkacInfoList\UbytkacInfoListPage.xaml.cs">
       <DependentUpon>UbytkacInfoListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\WebAdmin\WebSettingList\WebSettingList.cs" />
+    <Compile Include="Agendas\WebAdmin\WebSettingList\WebSettingListPage.xaml.cs">
+      <DependentUpon>WebSettingListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="APICommunication\ApiFunctions.cs" />
     <Compile Include="Agendas\Agendas\BranchList\BranchList.cs" />
@@ -610,11 +622,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\WebAdmin\PrivacyPolicyList\PrivacyPolicyListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\WebAdmin\RegistrationInfoList\RegistrationInfoListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\WebAdmin\TermsList\TermsListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\WebAdmin\UbytkacInfoList\UbytkacInfoListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\WebAdmin\WebSettingList\WebSettingListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

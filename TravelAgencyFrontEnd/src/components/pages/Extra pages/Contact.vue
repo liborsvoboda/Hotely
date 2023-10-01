@@ -1,39 +1,39 @@
 <template>
-<Card id="card">
-    <template #content>
-        <div class="content">
-            <div class="contact">
-                <div class="other">
-                    <div class="info">
-                        <h3>More Methods </h3>
-                        <h3>Email</h3>
-                        <div class="svg-wrap"> <a href=""><svg >
-                            </svg> Ukubhuka@gmail.com</a> </div>
+    <Card id="card" style="top: 20px;" class="mb-10">
+        <template #content>
+            <div class="content">
+                <div class="contact">
+                    <div class="other">
+                        <div class="info">
+                            <h3>More Methods </h3>
+                            <h3>Email</h3>
+                            <div class="svg-wrap">
+                                <a href="">
+                                    <svg>
+                                    </svg> Ukubhuka@gmail.com
+                                </a>
+                            </div>
                             <h3>Connect</h3>
                             <ul class="profile-userbuttons">
-                                <a class="btn btn-primary" style="background-color: #3b5998;" href="#!" role="button"
-                                ><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-primary" style="background-color: #55acee;" href="#!" role="button"
-                                ><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-primary" style="background-color: #dd4b39;" href="#!" role="button"
-                                ><i class="fab fa-google"></i></a>
-                                <a class="btn btn-primary" style="background-color: #ac2bac;" href="#!" role="button"
-                                ><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-primary" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-primary" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-primary" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
+                                <a class="btn btn-primary" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="form">
+                        <h1>Contact us!</h1>
+                        <form action="">
+                            <div class="flex-rev"><input type="text" class="form-control" placeholder="Input name..." name="name" id="name"><label for="name">Full name</label></div>
+                            <div class="flex-rev"><input type="email" class="form-control" placeholder="Input Email..." name="email" id="email"><label for="email"> Your Email</label></div>
+                            <div class="flex-rev"> <textarea placeholder="Plez hire meh....." name="message" id="message"></textarea> <label for="message">Email Message</label> </div> <button id="buttonz">Send Email</button>
+                        </form>
                     </div>
                 </div>
-                <div class="form">
-                    <h1>Contact us!</h1>
-                    <form action="">
-                        <div class="flex-rev"><input type="text" class="form-control" placeholder="Input name..." name="name" id="name" ><label for="name">Full name</label></div>
-                        <div class="flex-rev"><input type="email" class="form-control" placeholder="Input Email..." name="email" id="email" ><label for="email"> Your Email</label></div>
-                        <div class="flex-rev"> <textarea placeholder="Plez hire meh....." name="message" id="message"></textarea> <label for="message">Email Message</label> </div> <button id="buttonz">Send Email</button>
-                    </form>
-                </div>
             </div>
-        </div>
-    </template>
-</Card>
+        </template>
+    </Card>
 </template>
 
 

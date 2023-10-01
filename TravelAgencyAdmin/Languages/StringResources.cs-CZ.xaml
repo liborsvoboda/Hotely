@@ -488,4 +488,9 @@
     <system:String x:Key="itemAlreadyExists">Položka již existuje</system:String>
     <system:String x:Key="resetPassword">Změna hesla</system:String>
 
+    <system:String x:Key="privacyPolicyList">Privátní Politika</system:String>
+    <system:String x:Key="termsList" xml:space="preserve">Termíny&amp;Podmínky</system:String>
+    <system:String x:Key="webSettingList" xml:space="preserve">Nastavení Webu</system:String>
+    <system:String x:Key="key" xml:space="preserve">Klíč</system:String>
+
 </ResourceDictionary>

@@ -1,24 +1,15 @@
 <template>
-    <html>
-        <head>
-            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link rel="stylesheet" href="/src/assets/css/font-awesome.min.css">
-            <title>Log in</title>
-        </head>
+    <div id="loginForm" class="main" style="top: 30px;">
+        <p class="sign" align="center">{{ $t('user.logIn') }}</p>
+        <!--   <form class="form1"> -->
+            <input class="un" type="email" align="center" placeholder="Email" required v-model="Email" />
+            <input class="pass" type="password" align="center" placeholder="Password" required :minLength="$store.state.system.passwordMin" v-model="Password" />
+            <button class="submit shadowed" :onclick="checkValid">{{ $t('user.signIn') }}</button>
 
-        <div id="loginForm" class="main">
-            <p class="sign" align="center">{{ $t('user.logIn') }}</p>
-          <!--   <form class="form1"> -->
-                <input class="un" type="email" align="center" placeholder="Email" required v-model="Email" />
-                <input class="pass" type="password" align="center" placeholder="Password" required :minLength="$store.state.system.passwordMin" v-model="Password" />
-                <button class="submit" :onclick="checkValid">{{ $t('user.signIn') }}</button>
-
-                <div class="forgot" align="center"><router-link to="/forgot">{{ $t('user.forgotPassword') }}</router-link></div>
-                <div class="forgot p-0" align="center"><router-link to="/registration">{{ $t('labels.registration') }}</router-link></div>
-           <!--  </form> -->
-        </div>
-    </html>
+            <div class="forgot" align="center"><router-link to="/forgot">{{ $t('user.forgotPassword') }}</router-link></div>
+            <div class="forgot p-0" align="center"><router-link to="/registration">{{ $t('labels.registration') }}</router-link></div>
+        <!--  </form> -->
+    </div>
 </template>
 
 <script>
@@ -78,7 +69,7 @@ body {
 .main {
   background-color: #ffffff;
   width: 400px;
-  height: 330px;
+  height: 360px;
   margin: 7em auto;
   border-radius: 1.5em;
   box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);

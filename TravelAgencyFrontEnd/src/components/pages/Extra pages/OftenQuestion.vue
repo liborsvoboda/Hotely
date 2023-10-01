@@ -1,34 +1,34 @@
 <template>
-  <Card id="card">
-    <template #content>
-        <main class="container">
+    <Card id="card" style="top: 20px;" class="mb-10">
+        <template #content>
+            <main class="container">
 
-            <div class="row mb-2" v-for="oftenQuestion in oftenQuestionList">
-                <div class="col-md-12 d-flex">
-                    <div class="col-lg-3 col-md-3 meta-details">
-                        <div class="user-details row">
-                            <p class="user-name col-lg-12 col-md-12 col-6">
-                                <!-- <a href="#">Random Blogger</a> -->
-                                {{new Date(oftenQuestion.timeStamp).toLocaleDateString('cs-CZ')}}
-                            </p>
-                            <p class="user-name col-lg-12 col-md-12 col-6">
-                                <!-- <a href="#">Random Blogger</a> -->
-                                Reviews
-                            </p>
-                            <p class="user-name col-lg-12 col-md-12 col-6">
-                                <a href="#">Comments</a>
-                            </p>
+                <div class="row mb-2" v-for="oftenQuestion in oftenQuestionList">
+                    <div class="col-md-12 d-flex">
+                        <div class="col-lg-3 col-md-3 meta-details">
+                            <div class="user-details row">
+                                <p class="user-name col-lg-12 col-md-12 col-6">
+                                    <!-- <a href="#">Random Blogger</a> -->
+                                    {{new Date(oftenQuestion.timeStamp).toLocaleDateString('cs-CZ')}}
+                                </p>
+                                <p class="user-name col-lg-12 col-md-12 col-6">
+                                    <!-- <a href="#">Random Blogger</a> -->
+                                    Reviews
+                                </p>
+                                <p class="user-name col-lg-12 col-md-12 col-6">
+                                    <a href="#">Comments</a>
+                                </p>
+                            </div>
                         </div>
+
+                        <div class="col-lg-9 col-md-9" v-html="($store.state.language == 'cz') ? oftenQuestion.descriptionCz : oftenQuestion.descriptionEn" />
+
                     </div>
-
-                    <div class="col-lg-9 col-md-9" v-html="($store.state.language == 'cz') ? oftenQuestion.descriptionCz : oftenQuestion.descriptionEn" />
-
                 </div>
-            </div>
 
-        </main>
-    </template>
-  </Card>
+            </main>
+        </template>
+    </Card>
 </template>
 
 

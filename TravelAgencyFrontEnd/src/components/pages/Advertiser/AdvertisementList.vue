@@ -148,12 +148,12 @@
                 <form id="CommentForm" data-role="validator" action="javascript:" data-on-submit="newCommentIsValid = true;" data-interactive-check="true" autocomplete="off" data-on-error="newCommentIsValid = false;">
                     <div class="d-flex row ">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <input id="CommentTitle" type="text" class="input" data-role="input" :placeholder="$t('labels.title')" data-validate="required" maxlength="50"   />
+                            <input id="CommentTitle" type="text" class="input" data-role="input" :placeholder="$t('labels.title')" data-validate="required" maxlength="50" />
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">
                             <div class="form-actions p-0 m-0 pl-2">
-                                <button class="button success outline mr-2" type="submit" @click="setNewComment()" style="top: 0px; position: absolute; right: 70px;"> {{ $t('labels.saveNew') }} </button>
-                                <button class="button alert outline" type="reset">Reset</button>
+                                <button class="button success outline shadowed mr-2" type="submit" @click="setNewComment()" style="top: 0px; position: absolute; right: 70px;"> {{ $t('labels.saveNew') }} </button>
+                                <button class="button alert outline shadowed" type="reset">Reset</button>
                             </div>
                         </div>
                     </div>
@@ -255,9 +255,9 @@ export default {
                     messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>"; 
                     messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + message.note + "</div>";
                     messageData += "<div class=\"col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right\"><div class=\"d-block \">";
-                    messageData += "<div class=\"mb-1 p-button p-component button small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setOpened") + "</div>";
-                    messageData += "<div class=\"mb-1 p-button p-component button small success " + (message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setSolved") + "</div>";
-                    messageData += "<div class=\"p-button p-component button small alert \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.delete") + "</div>";
+                    messageData += "<div class=\"mb-1 p-button p-component button shadowed small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setOpened") + "</div>";
+                    messageData += "<div class=\"mb-1 p-button p-component button shadowed small success " + (message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setSolved") + "</div>";
+                    messageData += "<div class=\"p-button p-component button shadowed small alert \" onclick=\"deleteComment('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.delete") + "</div>";
                     messageData += "</div></div></div></div></div>";
                 });
                 $("#MessageBox").html(messageData);
@@ -296,7 +296,6 @@ export default {
             ActualValidationFormName = "hotelForm";
             ActualWizardPage = 1;
             propertyList = [];
-            Token = null;
             Router = this.$router;
             ApiRootUrl = null;
             HotelRecId = null;

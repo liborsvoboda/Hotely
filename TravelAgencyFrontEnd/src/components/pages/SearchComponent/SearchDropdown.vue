@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown">
-        <div class="p-button p-component button info dropdown-toggle"
+        <div class="p-button p-component button info dropdown-toggle shadowed"
                 type="button"
                 id="dropdownMenuClickableInside"
                 data-bs-toggle="dropdown"
