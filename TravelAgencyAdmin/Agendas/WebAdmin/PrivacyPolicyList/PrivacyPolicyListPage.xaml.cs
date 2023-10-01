@@ -129,7 +129,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.Name = txt_name.Text;
                 selectedRecord.Sequence = int.Parse(txt_sequence.Value.ToString());
-                selectedRecord.DescriptionCz = editor.HtmlContent;
+                selectedRecord.DescriptionCz = editor.Browser.GetCurrentHtml();
                 //selectedRecord.DescriptionEn = html_descriptionEn.Text;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
