@@ -4,10 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:html="clr-namespace:EASYTools.HTMLEditorNoImg;assembly=EASYTools.HTMLEditorNoImg"
-    xmlns:local="clr-namespace:UbytkacAdmin.Pages"
+    xmlns:html="clr-namespace:EASYTools.HTMLFullEditor;assembly=EASYTools.HTMLFullEditor"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Name="Form"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -30,7 +28,7 @@
 
         <Grid
             x:Name="ListForm"
-            Background="{DynamicResource WhiteBrush}"
+            Background="{DynamicResource LightColorBrush}"
             Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -69,9 +67,11 @@
             <!--<Label
                 x:Name="lbl_descriptionEn" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />-->
 
-            <html:RichTextEditor
-                x:Name="html_descriptionCz" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,2"
-                BorderThickness="0.5" />
+            <html:HtmlEditor
+                x:Name="editor" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,2"
+                BorderThickness="0.5"
+                HtmlContent="{Binding SourceCode}" />
+
             <!--<html:RichTextEditor
                 x:Name="html_descriptionEn" Grid.Row="3" Grid.Column="1" Margin="0,2,0,2" BorderThickness="0.5" />-->
 

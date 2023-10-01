@@ -156,8 +156,8 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.SubjectCz = txt_subjectCz.Text;
                 selectedRecord.SubjectEn = txt_subjectEn.Text;
                 
-                selectedRecord.EmailCz = html_emailCz.Text;
-                selectedRecord.EmailEn = html_emailEn.Text;
+                selectedRecord.EmailCz = html_emailCz.HtmlContent;
+                selectedRecord.EmailEn = html_emailEn.HtmlContent;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
@@ -189,8 +189,8 @@ namespace UbytkacAdmin.Pages {
             txt_subjectCz.Text = selectedRecord.SubjectCz;
             txt_subjectEn.Text = selectedRecord.SubjectEn;
 
-            html_emailCz.Text = selectedRecord.EmailCz;
-            html_emailEn.Text = selectedRecord.EmailEn;
+            html_emailCz.HtmlContent = selectedRecord.EmailCz;
+            html_emailEn.HtmlContent = selectedRecord.EmailEn;
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

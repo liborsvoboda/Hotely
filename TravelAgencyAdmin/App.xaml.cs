@@ -18,9 +18,6 @@ using UbytkacAdmin.GlobalOperations;
 using UbytkacAdmin.Pages;
 using UbytkacAdmin.SystemStructure;
 
-//using CefSharp;
-//using CefSharp.Wpf;
-
 namespace UbytkacAdmin {
 
     public partial class App : Application {
@@ -28,7 +25,6 @@ namespace UbytkacAdmin {
         /// <summary>
         /// Global Application Startup Settings Central Parameters / Languages / User / Config
         /// </summary>
-        //public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
         public static List<ParameterList> ParameterList = null;
@@ -71,6 +67,7 @@ namespace UbytkacAdmin {
         /// </summary>
         /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e) {
+
             base.OnStartup(e);
             if (!Setting.HideStartVideo) {
                 MetroWindow startupAnimation = new WelcomePage();
@@ -114,8 +111,6 @@ namespace UbytkacAdmin {
         /// MainWindow Closing Handler for Cleaning TempData, disable Addons / Tool and Third Party
         /// Software Closing Third Party processes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">     </param>
         private static void ApplicationQuit() {
             try {
                 MainWindow mainWindow = (MainWindow)Current.MainWindow;

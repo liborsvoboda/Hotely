@@ -1,7 +1,9 @@
-﻿using MahApps.Metro.Controls.Dialogs;
+﻿using EASYTools.HTMLFullEditor.Code;
+using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,7 +22,7 @@ namespace UbytkacAdmin.Pages {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static PrivacyPolicyList selectedRecord = new PrivacyPolicyList();
 
-        private List<PrivacyPolicyList> PrivacyPolicyList = new List<PrivacyPolicyList>();
+        private List<PrivacyPolicyList> privacyPolicyList = new List<PrivacyPolicyList>();
 
         public PrivacyPolicyListPage() {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace UbytkacAdmin.Pages {
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
+
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             _ = LoadDataList();
@@ -45,11 +48,12 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                DgListView.ItemsSource = PrivacyPolicyList = await ApiCommunication.GetApiRequest<List<PrivacyPolicyList>>(ApiUrls.PrivacyPolicyList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                privacyPolicyList = await ApiCommunication.GetApiRequest<List<PrivacyPolicyList>>(ApiUrls.PrivacyPolicyList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+
+                DgListView.ItemsSource = privacyPolicyList;
+                DgListView.Items.Refresh();
 
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
-
-
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
 
@@ -125,7 +129,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.Name = txt_name.Text;
                 selectedRecord.Sequence = int.Parse(txt_sequence.Value.ToString());
-                selectedRecord.DescriptionCz = html_descriptionCz.Text;
+                selectedRecord.DescriptionCz = editor.HtmlContent;
                 //selectedRecord.DescriptionEn = html_descriptionEn.Text;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
@@ -153,9 +157,9 @@ namespace UbytkacAdmin.Pages {
         private void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
             txt_name.Text = selectedRecord.Name;
-            txt_sequence.Value = (txt_id.Value == 0) ? PrivacyPolicyList.Any() ? PrivacyPolicyList.Max(a => a.Sequence) + 10 : 10 : selectedRecord.Sequence;
+            txt_sequence.Value = (txt_id.Value == 0) ? privacyPolicyList.Any() ? privacyPolicyList.Max(a => a.Sequence) + 10 : 10 : selectedRecord.Sequence;
 
-            html_descriptionCz.Text = selectedRecord.DescriptionCz;
+            editor.HtmlContent = selectedRecord.DescriptionCz;
             //html_descriptionEn.Text = selectedRecord.DescriptionEn;
 
             if (showForm) {
