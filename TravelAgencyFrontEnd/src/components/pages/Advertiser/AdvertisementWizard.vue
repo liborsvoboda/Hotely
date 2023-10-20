@@ -257,21 +257,14 @@
         </div>
     </div>
 
-    <!--  <BookingMessage @message="updateMessage"></BookingMessage>
- <Button class="mt-3" @click="updateReservation" :loading="loading">{{ $t('labels.newMessage') }}</Button> -->
-   
 </template>
 
 <script>
-    import BookingMessage from '/src/components/pages/CheckoutViewComponents/BookingMessage.vue';
     import Button from 'primevue/button';
     import { ref, watch } from 'vue';
-    import store from "../../../store/index";
-    import * as WizardFunctions from '../../../assets/js/WizardFunctions';
 
 export default {
     components: {
-        BookingMessage,
         Button,
     },
     props: {
@@ -295,8 +288,8 @@ export default {
     
     },
     mounted() {
-        propertyList = store.state.propertyList;
-        ApiRootUrl = store.state.apiRootUrl;
+        propertyList = this.$store.state.propertyList;
+        ApiRootUrl = this.$store.state.apiRootUrl;
         NotifyShowTime = this.$store.state.userSettings.notifyShowTime;
 
         this.getCountryList();
@@ -461,12 +454,12 @@ export default {
     },
     created() {
 
-        //Watcher Initiate for Country selection changed dinaical generate selectbox
+        //Watcher Initiate for Country selection changed dynamic generate selectbox
         watch(window.watchGlobalVariables, async () => {
             if (window.watchGlobalVariables.wizardRequestCityList.length) {
                 window.showPageLoading();
                 var response = await fetch(
-                    store.state.apiRootUrl + '/Advertiser/GetCityList/' + JSON.parse(JSON.stringify(window.watchGlobalVariables.wizardRequestCityList))[0],
+                    this.$store.state.apiRootUrl + '/Advertiser/GetCityList/' + JSON.parse(JSON.stringify(window.watchGlobalVariables.wizardRequestCityList))[0],
                     { method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' } }
                 ); let result = await response.json();
 

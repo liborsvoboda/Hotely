@@ -31,6 +31,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        statusList: [],
         privacyPolicyList: [],
         termsList: [],
         advertisementList: [],
@@ -92,6 +93,9 @@ const store = createStore({
 
     },
     mutations: {
+        setStatusList(store, value) {
+            store.statusList = value;
+        },
         setPrivacyPolicyList(store, value) {
             store.privacyPolicyList = value;
             console.log("setPrivacyPolicyList", store.privacyPolicyList);
@@ -349,7 +353,20 @@ const store = createStore({
             //if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
             window.hidePageLoading();
         },
-
+        async getStatusList({ commit }) {
+            window.showPageLoading();
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/GetStatusList/' + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+            commit('setStatusList', result);
+            window.hidePageLoading();
+        },
         async getRoomTypeList({ commit }) {
             let mainloader; if (!this.state.roomTypeList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let response = await fetch(
@@ -583,8 +600,30 @@ const store = createStore({
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
 
-        async getWebSettings({ commit }, type) {
-            //let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+        async setAdvertiserShown({ commit }, reservationId) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/SetAdvertiserShown/' + reservationId, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+        },
+        async setGuestShown({ commit }, reservationId) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/SetGuestShown/' + reservationId, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+        },
+
+        async getWebSettings({ commit }) {
             let response = await fetch(
                 this.state.apiRootUrl + '/WebPages/GetSettingList', {
                 method: 'GET',
@@ -606,11 +645,20 @@ const store = createStore({
                         case "BackgroundColorSetting": Metro.storage.setItem('BackgroundColorSetting', setting.value); break;
                         case "BackgroundVideoSetting": Metro.storage.setItem('BackgroundVideoSetting', setting.value); break;
                         case "BackgroundImageSetting": Metro.storage.setItem('BackgroundImageSetting', setting.value); break;
+                        case "BackgroundColor": Metro.storage.setItem('BackgroundColor', setting.value); break;
+                        case "InputBanner": Metro.storage.setItem('InputBanner', setting.value); break;
+                        case "InputInfoText": Metro.storage.setItem('InputInfoText', setting.value); break;
+                            
                     }
-                }); ApplyLoadedWebSetting();
+                });
+                ApplyLoadedWebSetting();
             }
-            //if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
         },
+
+
+
+
+
 
         //TODO 
         async getReviews({ commit }, hotelId) {

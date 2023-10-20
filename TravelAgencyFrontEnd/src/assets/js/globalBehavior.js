@@ -8,8 +8,6 @@ let partPageLoaderRunningCounter = 0;
 
 //background video & Startup Init
 let bgVideo = function () { $('.player').mb_YTPlayer(); };
-$(function () { bgVideo(); });
-
 $(document).ready(function () { googleTranslateElementInit(); });
 
 
@@ -115,12 +113,34 @@ function googleTranslateElementInit() {
 
 
 function ApplyLoadedWebSetting() {
-    document.getElementsByClassName("YTPOverlay")[0].style.opacity = (Metro.storage.getItem('BackgroundOpacitySetting', null) / 100);
-    document.getElementsByClassName("YTPOverlay")[0].style.backgroundColor = Metro.storage.getItem('BackgroundColorSetting', null);
-    $("#app")[0].style.backgroundImage = 'url("' + Metro.storage.getItem('BackgroundImageSetting', null) + '")';
-
-    try { $('.player').YTPChangeMovie({ videoURL: Metro.storage.getItem('BackgroundVideoSetting', null), containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }); }
-    catch { $("#backgroundPlayer")[0].dataset.property = "{ videoURL:'" + Metro.storage.getItem('BackgroundVideoSetting', null) + "', containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }"; }
-    setTimeout(function () { $('.player').YTPPlay(); }, 2000);
+    if (Metro.storage.getItem('InputBanner', null) != null && Metro.storage.getItem('InputBanner', null).length > 0 && $("#SearchPanel")[0] != undefined ) { $("#SearchPanel")[0].style.backgroundImage = 'url(' + Metro.storage.getItem('InputBanner', null) + ')'; }
+    if (Metro.storage.getItem('BackgroundImageSetting', null) != null && Metro.storage.getItem('BackgroundImageSetting', null).length > 0) { $("#app")[0].style.backgroundImage = 'url("' + Metro.storage.getItem('BackgroundImageSetting', null) + '")'; }
+    if (Metro.storage.getItem('BackgroundVideoSetting', null) != null && Metro.storage.getItem('BackgroundVideoSetting', null).length > 0) {
+        let secondstart = false;
+        if (document.getElementsByClassName("YTPOverlay")[0] == undefined) { $(function () { bgVideo(); }); secondstart = true; } else {
+            if (Metro.storage.getItem('BackgroundVideoSetting', null).indexOf($('.player')[0].videoID) == -1) {
+                try { $('.player').YTPChangeMovie({ videoURL: Metro.storage.getItem('BackgroundVideoSetting', null), containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }); }
+                catch { $("#backgroundPlayer")[0].dataset.property = "{ videoURL:'" + Metro.storage.getItem('BackgroundVideoSetting', null) + "', containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }"; }
+            }
+        }
+        
+        setTimeout(function () {
+            if (secondstart) {
+                if (Metro.storage.getItem('BackgroundVideoSetting', null).indexOf($('.player')[0].videoID) == -1) {
+                    try { $('.player').YTPChangeMovie({ videoURL: Metro.storage.getItem('BackgroundVideoSetting', null), containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }); }
+                    catch { $("#backgroundPlayer")[0].dataset.property = "{ videoURL:'" + Metro.storage.getItem('BackgroundVideoSetting', null) + "', containment: '#body', showControls: false, autoPlay: true, loop: true, mute: true, startAt: 0, opacity: 1, quality: 'default', optimizeDisplay: true }"; }
+                }
+            }
+            try {
+                document.getElementsByClassName("YTPOverlay")[0].style.opacity = (Metro.storage.getItem('BackgroundOpacitySetting', null) / 100);
+                document.getElementsByClassName("YTPOverlay")[0].style.setProperty("background-color", Metro.storage.getItem('BackgroundColorSetting', null), "important");
+            } catch { }
+            $('.player').YTPPlay();
+            if (secondstart) {
+                console.log("secondstart");
+                setTimeout(function () { $('.player').YTPPlay(); }, 2000);
+            }
+        }, 2000);
+    }
 }
 

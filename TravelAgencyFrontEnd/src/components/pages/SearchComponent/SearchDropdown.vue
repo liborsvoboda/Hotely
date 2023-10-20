@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown">
-        <div class="p-button p-component button info dropdown-toggle shadowed"
+        <button class="btn btn-secondary dropdown-toggle shadowed"
                 type="button"
                 id="dropdownMenuClickableInside"
                 data-bs-toggle="dropdown"
@@ -9,7 +9,7 @@
             <b>{{ inputAdult }} <i class="fas fa-user"></i></b>
             <b>{{ inputChild }} <i class="fas fa-baby"></i></b>
             <!--             <b>{{ inputRoom }} <i class="fas fa-door-closed"></i></b> -->
-        </div>
+        </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <div class="container text-start" style="max-width: 130px;">
                 <div>
@@ -82,13 +82,13 @@ export default {
 <style scoped>
 
 .dropdown-toggle{
- /*  background-color: rgb(83 193 110);
-  border: #14a04d; */
+  background-color: rgb(83 193 110);
+  border: #14a04d;
 }
 
 .btn-secondary:hover {
-/*   background-color: rgb(83 193 110);
-  border: #14a04d; */
+  background-color: rgb(83 193 110);
+  border: #14a04d;
 }
 
 b{

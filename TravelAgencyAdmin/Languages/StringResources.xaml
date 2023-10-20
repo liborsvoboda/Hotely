@@ -494,4 +494,6 @@
     <system:String x:Key="webSettingList" xml:space="preserve">Web Settings</system:String>
     <system:String x:Key="key" xml:space="preserve">Key</system:String>
 
+    <system:String x:Key="hotelReservationStatusList">Reservation Statuses</system:String>
+
 </ResourceDictionary>

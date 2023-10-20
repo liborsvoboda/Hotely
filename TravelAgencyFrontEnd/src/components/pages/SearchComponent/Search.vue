@@ -2,26 +2,34 @@
  <Card id="SearchPanel">
    <template #content>
        <div class="p-grid">
-           <div class="p-col-12 p-md-6 p-lg-4">
-               <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label>
+           <div class="p-col-12 p-md-12 p-lg-12 d-flex text-center" style="height:390px;">
+               <div class="card pt-10 mt-10" style="font-size:38px;width:600px;background: transparent;border: none;" v-html="InputInfoText">
+               </div>
+           </div>
+
+           <div class="p-col-12 p-md-6 p-lg-2">
+           </div>
+           <div class="p-col-12 p-md-6 p-lg-3">
+               <!-- <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label> -->
                <Searchfield @input-changed="setSearchText" />
            </div>
-           <div class="p-col-12 p-md-6 p-lg-4">
-               <label for="range" id="range">{{ $t('labels.dates') }}</label>
+           <div class="p-col-12 p-md-6 p-lg-2 mt-1">
+               <!-- <label for="range" id="range">{{ $t('labels.dates') }}</label> -->
 
                <div class="p-fluid" id="calendar">
                    <Calendar />
                </div>
            </div>
            <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
-               <label for="guest">{{ $t('labels.personCount') }}</label>
+               <!-- <label for="guest">{{ $t('labels.personCount') }}</label> -->
                <SearchDropdown />
            </div>
-           <div class="p-col-12 p-md-6 p-lg-2" id="searchBtn">
-               <Button class="button info shadowed" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
+           <div class="p-col-12 p-md-6 p-lg-1" id="searchBtn" style="top:13px;height:50px;">
+               <Button class="button shadowed" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
            </div>
+
        </div>
-   </template>
+</template>
  </Card>
 </template>
 
@@ -45,6 +53,9 @@ export default {
         SearchDropdown,
         Card,
     },
+    mounted() {
+        
+    },
     methods: {
         onSubmit() { },
         Search(event) {
@@ -58,6 +69,9 @@ export default {
         }
     },
     computed: {
+        InputInfoText() {
+            return Metro.storage.getItem('InputInfoText', null);
+        },
         isLoading() {
             return this.$store.state.searchButtonLoading;
         }
@@ -71,9 +85,9 @@ export default {
   border-radius: 20px;
 }
 
-#searchBtn{
-  margin-top: 46px;
-}
+/* #searchBtn{
+  margin-top: 50px;
+} */
 
 #range{
   display: block;
@@ -101,7 +115,7 @@ export default {
   padding-top: 30px;
   padding-bottom: 30px;
 }
-/* 
+
 button.p-button.p-component{
   background: #53c16e;
   border:#14a04d;
@@ -112,6 +126,6 @@ button.p-button.p-component{
   background:#348047 !important;
   border-color:#14a04d;
   text-decoration: none;
-} */
+}
 
 </style>

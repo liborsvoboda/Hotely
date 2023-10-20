@@ -33,6 +33,7 @@ namespace UbytkacAdmin.Pages {
             lbl_keyDescription.Content = Resources["translation"].ToString();
             lbl_key.Content = Resources["key"].ToString();
             lbl_value.Content = Resources["value"].ToString();
+            lbl_description.Content = Resources["description"].ToString();
             lbl_timestamp.Content = Resources["timestamp"].ToString();
 
             btn_save.Content = Resources["btn_save"].ToString();
@@ -65,11 +66,12 @@ namespace UbytkacAdmin.Pages {
                 if (headername == "SystemName") { e.Header = Resources["systemName"].ToString(); e.DisplayIndex = 1; }
                 else if (headername == "Key") { e.Header = Resources["key"].ToString(); e.DisplayIndex = 2; }
                 else if (headername == "KeyDesccription") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 3; } 
-                else if (headername == "Value") { e.Header = Resources["value"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; } 
+                else if (headername == "Value") { e.Header = Resources["value"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 4; } 
 
                 else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
+                else if (headername == "Description") e.Visibility = Visibility.Hidden;
             });
         }
 
@@ -133,6 +135,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Key = txt_key.Text;
                 selectedRecord.Value = txt_value.Text;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
+                selectedRecord.Description = txt_description.Text;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
@@ -161,6 +164,7 @@ namespace UbytkacAdmin.Pages {
             desc_keyDescription.Content = selectedRecord.KeyDesccription;
             txt_key.Text = selectedRecord.Key;
             txt_value.Text = selectedRecord.Value;
+            txt_description.Text = selectedRecord.Description;
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

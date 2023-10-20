@@ -347,15 +347,14 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from, next) => {
 
     //load webSetting if not exist - After Logout/New
-    if (Metro.storage.getItem('WebSettings', null) == null) { store.dispatch('getWebSettings'); }
-
+    store.dispatch('getWebSettings');
 
 
 
     $(document).ready(function () {
         try {
             //WebPages Setting On Each Route
-            ApplyLoadedWebSetting();
+            //ApplyLoadedWebSetting();
 
             if (Metro.storage.getItem('AutomaticDetectedLanguageTranslate', null) == true && document.querySelector('#google_translate_element select') != null) {
                 setTimeout(function () {

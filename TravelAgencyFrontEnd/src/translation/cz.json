@@ -175,8 +175,14 @@
     "about": "O nás",
     "services": "Služby",
     "termsConditions": "Termíny a Podmínky",
-    "privacyPolicy": "Privátní Politika"
-
+    "privacyPolicy": "Privátní Politika",
+    "reservationsOverview": "Přehled rezervací",
+    "reservationInfo": "Info",
+    "reservationRooms": "Pokoje",
+    "reservationMessages": "Zprávy",
+    "reservationNewMessage": "Nová zpráva",
+    "writeMessage": "Napište zprávu...",
+    "reservationsHistoryOverview": "Historie rezervací"
   },
   "user": {
     "newPassword": "Nové Heslo",

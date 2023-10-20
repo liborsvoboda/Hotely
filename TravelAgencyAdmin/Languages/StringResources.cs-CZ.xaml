@@ -493,4 +493,6 @@
     <system:String x:Key="webSettingList" xml:space="preserve">Nastavení Webu</system:String>
     <system:String x:Key="key" xml:space="preserve">Klíč</system:String>
 
+    <system:String x:Key="hotelReservationStatusList">Stavy Rezervací</system:String>
+
 </ResourceDictionary>

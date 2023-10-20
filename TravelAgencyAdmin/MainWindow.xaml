@@ -215,6 +215,10 @@
                             x:Name="tm_hotelRoomTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_hotelReservationStatusList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
                         x:Name="tv_accommodations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">

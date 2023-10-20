@@ -5,14 +5,12 @@
 
                 <div class="row mb-2" v-for="registrationInfo in registrationInfoList">
                     <div class="col-md-12 d-flex">
-                        <div class="col-lg-3 col-md-3 meta-details">
+<!--                         <div class="col-lg-3 col-md-3 meta-details">
                             <div class="user-details row">
                                 <p class="user-name col-lg-12 col-md-12 col-6">
-                                    <!-- <a href="#">Random Blogger</a> -->
                                     {{new Date(registrationInfo.timeStamp).toLocaleDateString('cs-CZ')}}
                                 </p>
                                 <p class="user-name col-lg-12 col-md-12 col-6">
-                                    <!-- <a href="#">Random Blogger</a> -->
                                     Reviews
                                 </p>
                                 <p class="user-name col-lg-12 col-md-12 col-6">
@@ -21,7 +19,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-9 col-md-9" v-html="($store.state.language == 'cz') ? registrationInfo.descriptionCz : registrationInfo.descriptionEn" />
+ -->                        <div class="col-lg-12 col-md-12" v-html="($store.state.language == 'cz') ? registrationInfo.descriptionCz : registrationInfo.descriptionEn" />
 
                     </div>
                 </div>

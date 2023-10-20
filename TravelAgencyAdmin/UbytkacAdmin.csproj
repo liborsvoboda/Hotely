@@ -240,6 +240,10 @@
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
       <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusList.cs" />
+    <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusListPage.xaml.cs">
+      <DependentUpon>HotelReservationStatusListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupList.cs" />
     <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml.cs">
       <DependentUpon>PropertyGroupListPage.xaml</DependentUpon>
@@ -455,6 +459,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

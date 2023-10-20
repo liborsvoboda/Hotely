@@ -44,7 +44,10 @@ export default {
 
         if (this.$store.state.user.UserId != '') {
             await this.$store.dispatch("getAdvertisementList");
-            if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+        }
+    
+        if (this.$store.state.statusList.length == 0) {
+            await this.$store.dispatch("getStatusList");
         }
     },
     async created() {
@@ -56,7 +59,6 @@ export default {
         advertisementList() {
             if (this.ShowAlsoInactive) { return this.$store.state.advertisementList; }
             else { return this.$store.state.advertisementList.filter(obj => { return obj.deactivated == false; }); }
-            //return this.$store.state.advertisementList;
         }
     },
     methods: {
@@ -64,7 +66,6 @@ export default {
             ActualValidationFormName = "hotelForm";
             ActualWizardPage = 1;
             propertyList = [];
-            Token = null;
             Router = this.$router;
             ApiRootUrl = null;
             HotelRecId = null;

@@ -18,7 +18,10 @@
                         .Include(a => a.City)
                         .Include(a => a.Country)
                         .Include(a => a.DefaultCurrency)
-                        .Include(a => a.HotelReservationLists).ThenInclude(a => a.HotelReservationDetailLists)
+                        .Include(a => a.HotelReservationLists)
+                        .ThenInclude(a => a.HotelReservationDetailLists)
+                        .Include(a => a.HotelReservationLists)
+                        .ThenInclude(a=> a.HotelReservedRoomLists.Where(a=>a.Count > 0))
                         .Include(a=> a.GuestAdvertiserNoteLists)
                         .Where(a => a.UserId == int.Parse(userId))
                         .AsNoTracking()
@@ -63,6 +66,11 @@
                     hotel.DefaultCurrency.HotelLists = null;
                     hotel.HotelRoomLists.ToList().ForEach(room => {
                         room.Hotel = null;
+                    });
+
+                    hotel.HotelReservationLists = hotel.HotelReservationLists.OrderByDescending(a => a.StartDate).ToList();
+                    hotel.HotelReservationLists.ToList().ForEach(reservation => {
+                        reservation.HotelReservationDetailLists = reservation.HotelReservationDetailLists.OrderByDescending(a => a.Timestamp).ToList();
                     });
                     hotel.GuestAdvertiserNoteLists = hotel.GuestAdvertiserNoteLists.OrderByDescending(a => a.TimeStamp).ToList();
                 });

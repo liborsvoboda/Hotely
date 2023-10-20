@@ -18,7 +18,7 @@ namespace UbytkacBackend.Controllers {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                     data = new hotelsContext().HotelReservationLists.Where(a => a.GuestId == int.Parse(authId))
                         .Include(a => a.HotelReservationDetailLists)
-                        .Include(a => a.HotelReservedRoomLists)
+                        .Include(a => a.HotelReservedRoomLists.Where(a => a.Count > 0))
                         .Include(a => a.Status)
                         .Include(a => a.Hotel).ThenInclude(a => a.HotelImagesLists)
                         .Include(a => a.Currency)

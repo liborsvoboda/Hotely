@@ -175,7 +175,15 @@
     "about": "About",
     "services": "Services",
     "termsConditions": "Terms & Conditions",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "reservationsOverview": "Reservations overview",
+    "reservationInfo": "Info",
+    "reservationRooms": "Rooms",
+    "reservationMessages": "Messages",
+    "reservationNewMessage": "New Message",
+    "writeMessage": "Write message...",
+    "reservationsHistoryOverview": "Reservations history"
+
   },
   "user": {
     "newPassword": "New Password",

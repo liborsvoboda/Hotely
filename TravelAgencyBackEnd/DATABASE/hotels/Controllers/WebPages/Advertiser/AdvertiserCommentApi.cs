@@ -4,12 +4,12 @@ namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]
-    [Route("WebApi/Guest")]
-    public class GuestCommentApi : ControllerBase {
+    [Route("WebApi/Advertiser")]
+    public class AdvertiserCommentApi : ControllerBase {
 
-        [HttpPost("/WebApi/Guest/SetGuestComment")]
+        [HttpPost("/WebApi/Advertiser/SetGuestComment")]
         [Consumes("application/json")]
-        public IActionResult SetGuestComment([FromBody] WebGuestComment record) {
+        public IActionResult SetAdvertiserComment([FromBody] WebGuestComment record) {
             try {
 
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
@@ -29,7 +29,7 @@ namespace UbytkacBackend.Controllers {
             });
         }
 
-        [HttpGet("/WebApi/Guest/SetCommentStatus/{commentId}/{language}")]
+        [HttpGet("/WebApi/Advertiser/SetCommentStatus/{commentId}/{language}")]
         [Consumes("application/json")]
         public IActionResult SetCommentStatusByCommentId(int commentId, string language = "cz") {
             GuestAdvertiserNoteList guestAdvertiserNoteList;
@@ -58,7 +58,7 @@ namespace UbytkacBackend.Controllers {
             });
         }
 
-        [HttpGet("/WebApi/Guest/DeleteComment/{commentId}/{language}")]
+        [HttpGet("/WebApi/Advertiser/DeleteComment/{commentId}/{language}")]
         [Consumes("application/json")]
         public IActionResult DeleteCommentByCommentId(int commentId, string language = "cz") {
             GuestAdvertiserNoteList guestAdvertiserNoteList;

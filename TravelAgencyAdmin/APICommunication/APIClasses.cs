@@ -29,6 +29,7 @@
         HotelImagesList,
         HotelList,
         HotelPropertyAndServiceList,
+        HotelReservationStatusList,
         HotelRoomList,
         HotelRoomTypeList,
         IgnoredExceptionList,

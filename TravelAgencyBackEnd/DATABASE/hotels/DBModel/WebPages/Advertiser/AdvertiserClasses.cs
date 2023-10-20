@@ -55,4 +55,17 @@
         public double? feeRangeMax { get; set; }
     }
 
+    public class Translation {
+        public int Id { get; set; }
+        public string SystemName { get; set; }
+        public string TranslationName { get; set; }
+    }
+
+    public class AdvertiserBookingData {
+        public int ReservationId { get; set; }
+        public int StatusId { get; set; }
+        public string DetailMessage { get; set; }
+        public string Language { get; set; }
+    }
+
 }

@@ -6,7 +6,7 @@
             <div class="full-bg-img">
                 <div class="mask rgba-black-light flex-center">
                     <div class="container" style="margin-top:100px;">
-                        <Searcher style="top:20px;" />
+                        <Searcher class="shadowed" style="top:20px;height:600px;background-size:cover; background-position: center center;background-attachment:inherit;" />
                         <router-view />
                     </div>
                 </div>
@@ -94,7 +94,7 @@ export default {
         }
     },
     mounted() { 
-
+       if (Metro.storage.getItem('InputBanner', null) != null && Metro.storage.getItem('InputBanner', null).length > 0) { $("#SearchPanel")[0].style.backgroundImage = 'url(' + Metro.storage.getItem('InputBanner', null) + ')'; }
     },
     methods: {
         toggle(event) {

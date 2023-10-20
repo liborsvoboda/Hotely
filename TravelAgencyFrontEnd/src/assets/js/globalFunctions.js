@@ -27,7 +27,7 @@ function setBackgroundProfileMenu() {
 async function setCommentStatus(commentId, apiUrl) {
     window.showPageLoading();
     let response = await fetch(
-        apiUrl + '/Guest/SetCommentStatus/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
+        apiUrl + '/Advertiser/SetCommentStatus/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
             method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
     }); let result = await response.json();
     if (result.Status == "error") {
@@ -42,7 +42,7 @@ async function setCommentStatus(commentId, apiUrl) {
 async function deleteComment(commentId, apiUrl) {
     window.showPageLoading();
     let response = await fetch(
-        apiUrl + '/Guest/DeleteComment/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
+        apiUrl + '/Advertiser/DeleteComment/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
         method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
     }); let result = await response.json();
     if (result.Status == "error") {
@@ -55,29 +55,6 @@ async function deleteComment(commentId, apiUrl) {
 };
 
 
-//function UserLoadConfig() {
-//    showPageLoading();
-//        $.ajax({ url: '/GLOBALNETUserWebConfigList/WebUser', dataType: 'json',
-//        type: "GET",
-//        headers: {
-//            'Content-type': 'application/json',
-//            'Authorization': 'Bearer ' + Metro.storage.getItem('ApiToken', null)
-//        },
-//        success: function (data) {
-//            Metro.storage.setItem('UserConfig', JSON.parse(JSON.stringify(data)));
-//            hidePageLoading();
-//            IsLogged();
-//            window.location.href = "/Dashboard";
-//        },
-//        error: function (error) {
-//            var notify = Metro.notify; notify.setup({ width: 300, duration: 1000, animation: 'easeOutBounce' });
-//            notify.create("Downloading User Data Failed", "Alert", { cls: "alert" }); notify.reset();
-//            hidePageLoading();
-//        }
-//    });
-//}
-
-
 window.str2bytes =function str2bytes(str) {
     var bytes = new Uint8Array(str.length);
     for (var i = 0; i < str.length; i++) {
@@ -85,5 +62,3 @@ window.str2bytes =function str2bytes(str) {
     }
     return bytes;
 }
-
-

@@ -28,7 +28,7 @@
                         </div>
 
                         <div class=" col-md-6 pt-0 mt-0 text-start">
-                            <h5 class="c-pointer ani-heartbeat" @click="createRoomListBox()">
+                            <h5 class="c-pointer" @click="createRoomListBox()">
                                 <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
 

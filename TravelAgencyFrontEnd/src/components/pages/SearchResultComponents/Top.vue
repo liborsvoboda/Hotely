@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="col-md-6 pt-0 mt-0 text-start">
-                            <h5 class="c-pointer ani-heartbeat" @click="createRoomListBox()">
+                            <h5 class="c-pointer" @click="createRoomListBox()">
                                 <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
 
@@ -186,7 +186,12 @@ export default {
 
 <style scoped>
 #testOmega {
-  opacity: 100% !important;
+    opacity: 100% !important;
+    background-image: url(/src/assets/img/bg-lokace.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: inherit;
+
 }
 
 .btn.btn-primary{

@@ -1,4 +1,6 @@
-﻿namespace UbytkacBackend.Controllers {
+﻿using UbytkacBackend.DBModel;
+
+namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]
@@ -52,6 +54,27 @@
             data.ForEach(roomType => { roomType.SystemName = DBOperations.DBTranslate(roomType.SystemName, language); });
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
+        }
+
+        [HttpGet("/WebApi/Advertiser/GetStatusList/{language}")]
+        public async Task<string> GetStatusList(string language = null) {
+            List<HotelReservationStatusList> data;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
+                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
+            })) {
+                data = new hotelsContext().HotelReservationStatusLists.ToList();
+            }
+
+            List<Translation> result = new List<Translation>();
+            data.ForEach(status => {
+                result.Add(new Translation() {
+                    Id = status.Id,
+                    SystemName = status.SystemName,
+                    TranslationName = DBOperations.DBTranslate(status.SystemName, language)
+                });
+            });
+
+            return JsonSerializer.Serialize(result, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
     }
