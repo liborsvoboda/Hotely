@@ -217,7 +217,9 @@ namespace UbytkacAdmin {
                 tm_privacyPolicyList.Header = Resources["privacyPolicyList"].ToString(); tm_termsList.Header = Resources["termsList"].ToString();
                 tm_webSettingList.Header = Resources["webSettingList"].ToString(); tm_hotelReservationStatusList.Header = Resources["hotelReservationStatusList"].ToString();
 
-                tm_hotelReservationReviewList.Header = Resources["hotelReservationReviewList"].ToString();
+                tm_hotelReservationReviewList.Header = Resources["hotelReservationReviewList"].ToString(); tm_hotelReservationList.Header = Resources["hotelReservationList"].ToString();
+                tm_hotelReservationReviewApprovalList.Header = Resources["hotelReservationReviewApprovalList"].ToString();
+
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
 
@@ -820,6 +822,18 @@ namespace UbytkacAdmin {
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelActionTypeList", App.UserData.Authentification.Token);
                             break;
 
+                        case "tm_hotelReservationList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelReservationListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelReservationList", App.UserData.Authentification.Token);
+                            break;
+
+                        case "tm_hotelReservationReviewApprovalList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelReservationReviewApprovalListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/HotelReservationReviewApprovalList", App.UserData.Authentification.Token);
+                            break;
+                            
                         case "tm_hotelReservationReviewList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new HotelReservationReviewListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");

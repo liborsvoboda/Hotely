@@ -7,7 +7,6 @@ namespace UbytkacBackend.Controllers {
     public class TopFiveApi : ControllerBase {
 
 
-        //[Authorize]
         [HttpGet("/WebApi/Guest/GetTopFiveList/{type}/{language}")]
         public async Task<string> GetTopFiveList(string type, string language = "cz") {
 

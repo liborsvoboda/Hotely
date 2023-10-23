@@ -428,7 +428,7 @@
     <system:String x:Key="feeValueRangeMin">Hodnota rozsahu poplatku Min</system:String>
     <system:String x:Key="feeValueRangeMax">Hodnota rozsahu poplatku Max</system:String>
     <system:String x:Key="approveRequest">Žádost o schválení</system:String>
-    <system:String x:Key="approvingProcess">Proces Schvalování</system:String>
+    <system:String x:Key="approvingProcess">Schvalení Inzerátů</system:String>
     <system:String x:Key="next">Dále</system:String>
     <system:String x:Key="changesSaved">Změny byly uloženy</system:String>
     <system:String x:Key="close">Zavřít</system:String>
@@ -506,6 +506,12 @@
     <system:String x:Key="answer">Odpověď</system:String>
     <system:String x:Key="advertiserShown">Zobrazeno hostiteli</system:String>
     <system:String x:Key="hotelReservationReviewList">Přehled hodnocení</system:String>
-    
+    <system:String x:Key="hotelReservationList">Přehled Rezervací</system:String>
+    <system:String x:Key="status">Status</system:String>
+    <system:String x:Key="adult">Dospělí</system:String>
+    <system:String x:Key="children">Dětí</system:String>
+    <system:String x:Key="zipcode">PSČ</system:String>
+    <system:String x:Key="hotelReservationReviewApprovalList">Schválení komentářů</system:String>
+
 
 </ResourceDictionary>

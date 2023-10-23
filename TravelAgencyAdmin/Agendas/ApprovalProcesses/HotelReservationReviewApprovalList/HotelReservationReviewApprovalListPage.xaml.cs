@@ -17,16 +17,16 @@ using UbytkacAdmin.GlobalStyles;
 
 namespace UbytkacAdmin.Pages {
 
-    public partial class HotelReservationReviewListPage : UserControl {
+    public partial class HotelReservationReviewApprovalListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
-        public static HotelReservationReviewList selectedRecord = new HotelReservationReviewList();
+        public static HotelReservationReviewApprovalList selectedRecord = new HotelReservationReviewApprovalList();
 
 
         private List<HotelList> hotelList = new List<HotelList>();
-        //private List<HotelReservationList> hotelReservationList = new List<HotelReservationList>();
+        private List<HotelReservationList> hotelReservationList = new List<HotelReservationList>();
         private List<GuestList> guestList = new List<GuestList>();
 
-        public HotelReservationReviewListPage() {
+        public HotelReservationReviewApprovalListPage() {
             InitializeComponent();
             _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
 
@@ -50,21 +50,21 @@ namespace UbytkacAdmin.Pages {
         }
 
         public async Task<bool> LoadDataList() {
-            List<HotelReservationReviewList> hotelReservationReviewList = new List<HotelReservationReviewList>();
+            List<HotelReservationReviewApprovalList> HotelReservationReviewApprovalList = new List<HotelReservationReviewApprovalList>();
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                hotelReservationReviewList = await ApiCommunication.GetApiRequest<List<HotelReservationReviewList>>(ApiUrls.HotelReservationReviewList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                HotelReservationReviewApprovalList = await ApiCommunication.GetApiRequest<List<HotelReservationReviewApprovalList>>(ApiUrls.HotelReservationReviewApprovalList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
-                //currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
+                hotelReservationList = await ApiCommunication.GetApiRequest<List<HotelReservationList>>(ApiUrls.HotelReservationList, null, App.UserData.Authentification.Token);
                 guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
 
-                hotelReservationReviewList.ForEach(async hotel => {
+                HotelReservationReviewApprovalList.ForEach(async hotel => {
                     hotel.HotelName = hotelList.First(a=>a.Id == hotel.HotelId).Name; txt_hotelName.Content = hotel.HotelName;
-                    hotel.GuestName = guestList.First(a => a.Id == hotel.GuestId).FullName;
-                    hotel.ReservationNumber = "TODO static";
+                    hotel.GuestName = guestList.First(a => a.Id == hotel.GuestId).FirstName + " " + guestList.First(a => a.Id == hotel.GuestId).LastName; txt_guestName.Content = hotel.GuestName;
+                    hotel.ReservationNumber = hotelReservationList.First(a => a.Id == hotel.ReservationId).ReservationNumber; txt_reservationNumber.Content = hotel.ReservationNumber;
                 });
 
-                DgListView.ItemsSource = hotelReservationReviewList;
+                DgListView.ItemsSource = HotelReservationReviewApprovalList;
                 DgListView.Items.Refresh();
 
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -99,7 +99,7 @@ namespace UbytkacAdmin.Pages {
                 if (filter.Length == 0) { dataViewSupport.FilteredValue = null; DgListView.Items.Filter = null; return; }
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
-                    HotelReservationReviewList user = e as HotelReservationReviewList;
+                    HotelReservationReviewApprovalList user = e as HotelReservationReviewApprovalList;
                     return user.HotelName.ToLower().Contains(filter.ToLower())
                     || user.ReservationNumber.ToLower().Contains(filter.ToLower())
                     || user.GuestName.ToLower().Contains(filter.ToLower())
@@ -111,23 +111,23 @@ namespace UbytkacAdmin.Pages {
         }
 
         public void NewRecord() {
-            selectedRecord = new HotelReservationReviewList();
+            selectedRecord = new HotelReservationReviewApprovalList();
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true);
         }
 
         public void EditRecord(bool copy) {
-            selectedRecord = (HotelReservationReviewList)DgListView.SelectedItem;
+            selectedRecord = (HotelReservationReviewApprovalList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true, copy);
         }
 
         public async void DeleteRecord() {
-            selectedRecord = (HotelReservationReviewList)DgListView.SelectedItem;
+            selectedRecord = (HotelReservationReviewApprovalList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelReservationReviewList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelReservationReviewApprovalList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -135,13 +135,13 @@ namespace UbytkacAdmin.Pages {
 
         private void DgListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             if (DgListView.SelectedItems.Count == 0) return;
-            selectedRecord = (HotelReservationReviewList)DgListView.SelectedItem;
+            selectedRecord = (HotelReservationReviewApprovalList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(true);
         }
 
         private void DgListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (DgListView.SelectedItems.Count > 0) { selectedRecord = (HotelReservationReviewList)DgListView.SelectedItem; } else { selectedRecord = new HotelReservationReviewList(); }
+            if (DgListView.SelectedItems.Count > 0) { selectedRecord = (HotelReservationReviewApprovalList)DgListView.SelectedItem; } else { selectedRecord = new HotelReservationReviewApprovalList(); }
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             SetRecord(false);
         }
@@ -162,11 +162,11 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelReservationReviewList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelReservationReviewList, httpContent, null, App.UserData.Authentification.Token); }
+                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelReservationReviewApprovalList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelReservationReviewApprovalList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
-                    selectedRecord = new HotelReservationReviewList();
+                    selectedRecord = new HotelReservationReviewApprovalList();
                     await LoadDataList();
                     SetRecord(false);
                 } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
@@ -174,7 +174,7 @@ namespace UbytkacAdmin.Pages {
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e) {
-            selectedRecord = (DgListView.SelectedItems.Count > 0) ? (HotelReservationReviewList)DgListView.SelectedItem : new HotelReservationReviewList();
+            selectedRecord = (DgListView.SelectedItems.Count > 0) ? (HotelReservationReviewApprovalList)DgListView.SelectedItem : new HotelReservationReviewApprovalList();
             SetRecord(false);
         }
 

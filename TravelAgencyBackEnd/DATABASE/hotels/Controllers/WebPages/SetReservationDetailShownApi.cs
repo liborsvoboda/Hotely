@@ -27,7 +27,7 @@ namespace UbytkacBackend.Controllers {
         }
 
 
-        [HttpGet("/WebApi/Advertiser/SetGuestShown/{id}")]
+        [HttpGet("/WebApi/Guest/SetGuestShown/{id}")]
         public async Task<string> SetGuestShown(int id) {
 
             List<HotelReservationDetailList> data;

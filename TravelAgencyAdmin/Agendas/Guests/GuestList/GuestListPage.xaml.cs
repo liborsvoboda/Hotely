@@ -29,7 +29,8 @@ namespace UbytkacAdmin.Pages {
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
             lbl_email.Content = Resources["email"].ToString();
-            lbl_fullName.Content = Resources["fullName"].ToString();
+            lbl_firstName.Content = Resources["firstName"].ToString();
+            lbl_lastName.Content = Resources["lastName"].ToString();
             lbl_street.Content = Resources["street"].ToString();
             lbl_city.Content = Resources["city"].ToString();
             lbl_postCode.Content = Resources["postCode"].ToString();
@@ -58,7 +59,8 @@ namespace UbytkacAdmin.Pages {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
                 if (headername == "Email") e.Header = Resources["email"].ToString();
-                else if (headername == "FullName") e.Header = Resources["fullName"].ToString();
+                else if (headername == "FirstName") e.Header = Resources["firstName"].ToString();
+                else if (headername == "LastName") e.Header = Resources["lastName"].ToString();
                 else if (headername == "Street") e.Header = Resources["street"].ToString();
                 else if (headername == "City") e.Header = Resources["city"].ToString();
                 else if (headername == "ZipCode") { e.Header = Resources["postCode"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; } else if (headername == "Country") e.Header = Resources["country"].ToString();
@@ -78,7 +80,8 @@ namespace UbytkacAdmin.Pages {
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
                     GuestList report = e as GuestList;
-                    return report.FullName.ToLower().Contains(filter.ToLower())
+                    return report.FirstName.ToLower().Contains(filter.ToLower())
+                    || report.LastName.ToLower().Contains(filter.ToLower())
                     || report.Street.ToLower().Contains(filter.ToLower())
                     || report.City.ToLower().Contains(filter.ToLower())
                     || report.Country.ToLower().Contains(filter.ToLower())
@@ -138,7 +141,8 @@ namespace UbytkacAdmin.Pages {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.Email = txt_email.Text;
-                selectedRecord.FullName = txt_fullName.Text;
+                selectedRecord.FirstName = txt_firstName.Text;
+                selectedRecord.LastName = txt_lastName.Text;
                 selectedRecord.Street = txt_street.Text;
                 selectedRecord.City = txt_city.Text;
                 selectedRecord.ZipCode = txt_postCode.Text;
@@ -169,7 +173,8 @@ namespace UbytkacAdmin.Pages {
         private void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
             txt_email.Text = selectedRecord.Email;
-            txt_fullName.Text = selectedRecord.FullName;
+            txt_firstName.Text = selectedRecord.FirstName;
+            txt_lastName.Text = selectedRecord.LastName;
             txt_street.Text = selectedRecord.Street;
             txt_city.Text = selectedRecord.City;
             txt_postCode.Text = selectedRecord.ZipCode;

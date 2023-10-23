@@ -29,6 +29,8 @@ namespace UbytkacBackend.Controllers {
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
         }
 
+
+        /*
         [Authorize]
         [HttpPost("/WebApi/WebPages/SetSettingList")]
         [Consumes("application/json")]
@@ -72,7 +74,7 @@ namespace UbytkacBackend.Controllers {
                 });
             }
         }
-
+        */
 
     }
 }

@@ -613,7 +613,7 @@ const store = createStore({
         },
         async setGuestShown({ commit }, reservationId) {
             let response = await fetch(
-                this.state.apiRootUrl + '/Advertiser/SetGuestShown/' + reservationId, {
+                this.state.apiRootUrl + '/Guest/SetGuestShown/' + reservationId, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + this.state.user.Token,

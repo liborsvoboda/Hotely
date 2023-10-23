@@ -88,8 +88,18 @@ export default {
             return this.hotel;
         }
     },
-    mounted() {
+    async mounted() {
         this.info.message = '';
+
+        if (this.hotel.hotelReservationDetailLists != null && this.hotel.hotelReservationDetailLists.filter(obj => { return !obj.guestSender && !obj.shown; }).length > 0) {
+            await this.$store.dispatch("setGuestShown", this.hotel.id);
+            if (this.hotel.hotelReservationDetailLists != null) {
+                this.hotel.hotelReservationDetailLists.forEach(detail => {
+                    if (!detail.guestSender && !detail.shown) { detail.shown = true; }
+                });
+            }
+        }
+
     },
     methods:{
         async updateReservation() {

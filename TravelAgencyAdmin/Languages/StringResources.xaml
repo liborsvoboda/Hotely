@@ -429,7 +429,7 @@
     <system:String x:Key="feeValueRangeMin">Range fee value Min</system:String>
     <system:String x:Key="feeValueRangeMax">Range fee value Max</system:String>
     <system:String x:Key="approveRequest">Approve request</system:String>
-    <system:String x:Key="approvingProcess">Approving proces</system:String>
+    <system:String x:Key="approvingProcess">Approve advertisement</system:String>
     <system:String x:Key="next">Next</system:String>
     <system:String x:Key="changesSaved">Changes was saved</system:String>
     <system:String x:Key="close">Close</system:String>
@@ -507,5 +507,11 @@
     <system:String x:Key="answer">Answer</system:String>
     <system:String x:Key="advertiserShown">Advertiser shown</system:String>
     <system:String x:Key="hotelReservationReviewList">Review List</system:String>
-    
+    <system:String x:Key="hotelReservationList">Reservation List</system:String>
+    <system:String x:Key="status">Status</system:String>
+    <system:String x:Key="adult">Adult</system:String>
+    <system:String x:Key="children">Children</system:String>
+    <system:String x:Key="zipcode">Zip code</system:String>
+    <system:String x:Key="hotelReservationReviewApprovalList">Reviews approve</system:String>
+
 </ResourceDictionary>

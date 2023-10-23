@@ -33,13 +33,22 @@
                     </div>
                 </div>
                 <div v-if="hotel.statusId != 3" class="text-center mb-3" style="bottom: -5px !important; position: absolute; left: 10px;">
-                    <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</div>
-                    <div :id="'EditButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="toggleEdit" class="p-button p-component button info outline shadowed mr-1">{{ $t('labels.editLease') }}</div>
+                    <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">
+                        {{ $t('labels.reservationDetail') }}
+                        <span v-if="newDetailCount > 0" class="badge fg-green mt-1 mr-2">{{ newDetailCount }}</span>
+                    </div>
+                    <div :id="'EditButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="toggleEdit" class="p-button p-component button info outline shadowed mr-1">
+                        {{ $t('labels.editLease') }}
+                        <span v-if="newDetailCount > 0" class="badge fg-green mt-1 mr-2">{{ newDetailCount }}</span>
+                    </div>
                     <div :id="'CancelButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelBooking') }}</div>
                     <div :id="'ReviewButton_'+hotel.reservationNumber" :class="(notReview ? 'disabled' : '')" class="p-button p-component button warning outline shadowed" @click="addRewiew">{{ $t('labels.ratings') }}</div>
                 </div>
                 <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: -5px !important; position: absolute; left: 10px;">
-                    <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</div>
+                    <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">
+                        {{ $t('labels.reservationDetail') }}
+                        <span v-if="newDetailCount > 0" class="badge fg-green mt-1 mr-2">{{ newDetailCount }}</span>
+                    </div>
                     <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
                 </div>
             </div>
@@ -87,6 +96,10 @@ export default {
         },
         notReview() {
             return this.hotel.hotelReservationReviewList != null;
+        },
+        newDetailCount() {
+            if (this.hotel.hotelReservationDetailLists == null) { return 0; }
+            return this.hotel.hotelReservationDetailLists.filter(obj => { return !obj.guestSender && !obj.shown; }).length;
         },
         startDate() {
             if (this.hotel.startDate === undefined) {

@@ -232,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalList.cs" />
+    <Compile Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalListPage.xaml.cs">
+      <DependentUpon>HotelReservationReviewApprovalListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Dials\CountryAreaList\CountryAreaList.cs" />
     <Compile Include="Agendas\Dials\CountryAreaList\CountryAreaListPage.xaml.cs">
       <DependentUpon>CountryAreaListPage.xaml</DependentUpon>
@@ -240,8 +244,12 @@
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
       <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Guests\HotelReservationReviewList\HotelReservationReviewList.cs" />
-    <Compile Include="Agendas\Guests\HotelReservationReviewList\HotelReservationReviewListPage.xaml.cs">
+    <Compile Include="Agendas\Hosts\HotelReservationList\HotelReservationList.cs" />
+    <Compile Include="Agendas\Hosts\HotelReservationList\HotelReservationListPage.xaml.cs">
+      <DependentUpon>HotelReservationListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Hosts\HotelReservationReviewList\HotelReservationReviewList.cs" />
+    <Compile Include="Agendas\Hosts\HotelReservationReviewList\HotelReservationReviewListPage.xaml.cs">
       <DependentUpon>HotelReservationReviewListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusList.cs" />
@@ -458,6 +466,10 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\Dials\CountryAreaList\CountryAreaListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -466,7 +478,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Guests\HotelReservationReviewList\HotelReservationReviewListPage.xaml">
+    <Page Include="Agendas\Hosts\HotelReservationList\HotelReservationListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Hosts\HotelReservationReviewList\HotelReservationReviewListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -978,9 +994,7 @@
       <Name>EASYTools.TouchKeyboard</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Agendas\HotelReservations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

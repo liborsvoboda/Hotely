@@ -57,14 +57,14 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.ratings') }}</h6>
                     </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div v-if="hotel.hotelReservationReviewList != null" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item text-left p-0 mb-3">
                                 <div>
                                     <span class="fas fa-info"></span> {{ new Date(hotel.hotelReservationReviewList.timestamp).toLocaleString('cs-CZ') }}
                                     , <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-star-color="cyan" data-static="true">
                                 </div>
-                                
+
                             </li>
                             <li class="list-group-item text-left p-0 mb-3">
                                 <div>
@@ -97,6 +97,17 @@ export default {
         info(){
             return this.hotel;
         }
+    },
+    async mounted() { 
+        if (this.hotel.hotelReservationDetailLists != null && this.hotel.hotelReservationDetailLists.filter(obj => { return !obj.guestSender && !obj.shown; }).length > 0) {
+            await this.$store.dispatch("setGuestShown", this.hotel.id);
+            if (this.hotel.hotelReservationDetailLists != null) {
+                this.hotel.hotelReservationDetailLists.forEach(detail => {
+                    if (!detail.guestSender && !detail.shown) { detail.shown = true; }
+                });
+            }
+        }
+
     },
     methods:{
        

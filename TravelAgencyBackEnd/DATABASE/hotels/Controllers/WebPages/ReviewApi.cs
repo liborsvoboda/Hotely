@@ -7,6 +7,7 @@ namespace UbytkacBackend.Controllers {
     [Route("WebApi")]
     public class ReviewApi : ControllerBase {
 
+
         [HttpPost("/WebApi/Guest/Review/AddReview")]
         [Consumes("application/json")]
         public IActionResult AddReview([FromBody] AddReview record) {
