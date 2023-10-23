@@ -52,7 +52,7 @@ async function WizardValidateForm() {
     }
 
 
-    if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && $("#HotelName").val().length > 0 && $("#HotelCurrency")[0].selectedOptions[0] != undefined && $("#HotelCity")[0].selectedOptions[0] != undefined) {
+    if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && $("#HotelName").val().length > 0 && $("#LimitGuestCommDays").val().length > 0 && $("#HotelCurrency")[0].selectedOptions[0] != undefined && $("#HotelCity")[0].selectedOptions[0] != undefined) {
         window.ActualValidationFormName = ActualValidationFormName = "galleryForm";
         window.ActualWizardPage = ActualWizardPage = 2;
 
@@ -62,7 +62,7 @@ async function WizardValidateForm() {
 
         $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
     }
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && ($("#HotelName").val().length == 0 || $("#HotelCurrency")[0].selectedOptions[0] == undefined || $("#HotelCity")[0].selectedOptions[0] == undefined)) {
+    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 && ($("#HotelName").val().length == 0 || $("#LimitGuestCommDays").val().length == 0 || $("#HotelCurrency")[0].selectedOptions[0] == undefined || $("#HotelCity")[0].selectedOptions[0] == undefined)) {
         var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
         notify.create(window.dictionary('labels.missingSetting'), "Info"); notify.reset();
     }
@@ -371,7 +371,7 @@ async function SaveHotel() {
             HotelRecId: HotelRecId,
             HotelName: $("#HotelName").val(), CurrencyId: $("#HotelCurrency")[0].selectedOptions[0].value,
             CountryId: $("#HotelCountry")[0].selectedOptions[0].value, CityId: $("#HotelCity")[0].selectedOptions[0].value,
-            Description: $('#HotelSummernote').summernote('code')
+            Description: $('#HotelSummernote').summernote('code'), LimitGuestCommDays: $("#LimitGuestCommDays").val()
         })
     }
 
@@ -411,6 +411,7 @@ async function SaveHotel() {
 function WizardSetUpdateData() {
     HotelRecId = WizardHotel.HotelId;
     $("#HotelName").val(WizardHotel.HotelName);
+    $("#LimitGuestCommDays").val(WizardHotel.LimitGuestCommDays);
 
     WizardImageGallery = [];
     WizardHotel.Images.forEach(image => {

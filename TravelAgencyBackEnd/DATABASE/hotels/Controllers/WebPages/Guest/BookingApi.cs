@@ -17,11 +17,12 @@ namespace UbytkacBackend.Controllers {
                 List<HotelReservationList> data;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                     data = new hotelsContext().HotelReservationLists.Where(a => a.GuestId == int.Parse(authId))
-                        .Include(a => a.HotelReservationDetailLists)
+                        .Include(a => a.HotelReservationDetailLists).ThenInclude(a=> a.Status)
                         .Include(a => a.HotelReservedRoomLists.Where(a => a.Count > 0))
                         .Include(a => a.Status)
                         .Include(a => a.Hotel).ThenInclude(a => a.HotelImagesLists)
                         .Include(a => a.Currency)
+                        .Include(a=>a.HotelReservationReviewList)
                         .OrderByDescending(a => a.Timestamp).ToList();
                 }
 
@@ -35,16 +36,21 @@ namespace UbytkacBackend.Controllers {
                         image.Attachment = null;
                     });
 
-                    reservation.HotelReservationDetailLists.ToList().ForEach(reservationDetail => {
-                        reservationDetail.Hotel = null;
-                        reservationDetail.Reservation = null;
-                        reservationDetail.Status.HotelReservationLists = null;
-                        reservationDetail.Status.HotelReservedRoomLists = null;
-                        reservationDetail.Status.HotelReservationDetailLists = null;
-                    });
+                    if (reservation.HotelReservationDetailLists != null) {
+                        reservation.HotelReservationDetailLists.ToList().ForEach(reservationDetail => {
+                            reservationDetail.Hotel = null;
+                            reservationDetail.Reservation = null;
+                            if (reservationDetail.Status != null) {
+                                reservationDetail.Status.SystemName = DBOperations.DBTranslate(reservationDetail.Status.SystemName, language);
+                                reservationDetail.Status.HotelReservationLists = null;
+                                reservationDetail.Status.HotelReservedRoomLists = null;
+                                reservationDetail.Status.HotelReservationDetailLists = null;
+                            }
+                        });
+                    }
 
                     //oposite sort of part
-                    reservation.HotelReservationDetailLists = reservation.HotelReservationDetailLists.OrderByDescending(a=>a.Timestamp).ToList();
+                    reservation.HotelReservationDetailLists = reservation.HotelReservationDetailLists != null ? reservation.HotelReservationDetailLists.OrderByDescending(a=>a.Timestamp).ToList() : null;
 
                     reservation.HotelReservedRoomLists.ToList().ForEach(room => {
                         room.Hotel = null;

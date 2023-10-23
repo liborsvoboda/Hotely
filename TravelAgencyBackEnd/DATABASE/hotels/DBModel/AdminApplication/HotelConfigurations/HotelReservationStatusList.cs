@@ -23,6 +23,7 @@ namespace UbytkacBackend.DBModel
         [StringLength(50)]
         [Unicode(false)]
         public string SystemName { get; set; }
+        public int Sequence { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
 

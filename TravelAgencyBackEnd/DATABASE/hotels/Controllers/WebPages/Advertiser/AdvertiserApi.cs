@@ -105,7 +105,8 @@
                             DefaultCurrencyId = record.CurrencyId,
                             UserId = int.Parse(userId), 
                             ApproveRequest = false,
-                            Approved = false
+                            Approved = false,
+                            EnabledCommDaysBeforeStart = record.LimitGuestCommDays
 
                         };
                         var data = new hotelsContext().HotelLists.Add(hotelRec);
@@ -124,6 +125,7 @@
                         hotelRec = new hotelsContext().HotelLists.Where(a => a.Id == (int)record.HotelRecId).FirstOrDefault();
                         hotelRec.Name = record.HotelName; hotelRec.CountryId = record.CountryId; hotelRec.CityId = record.CityId;
                         hotelRec.DescriptionCz = record.Description; hotelRec.DefaultCurrencyId = record.CurrencyId; hotelRec.ApproveRequest = false; hotelRec.Approved = false;
+                        hotelRec.EnabledCommDaysBeforeStart = record.LimitGuestCommDays;
                         var data = new hotelsContext().HotelLists.Update(hotelRec);
                         result = await data.Context.SaveChangesAsync();
                     }

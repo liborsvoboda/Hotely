@@ -1,13 +1,11 @@
 <template>
     <div>
         <div v-if="!bookingList.length && !errorText">
-           <!--  <ProgressSpinner /> -->
         </div>
         <div v-if="errorText">
             <p>{{ $t('messages.anyReservationExist') }}</p>
         </div>
         <BookedHotel v-for="hotel in bookingList" :hotel="hotel" :key="hotel.id"></BookedHotel>
-        <!-- <ConfirmDialog></ConfirmDialog> -->
     </div>
 </template>
 <script>

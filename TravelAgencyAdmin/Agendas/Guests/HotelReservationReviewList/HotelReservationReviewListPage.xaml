@@ -1,12 +1,11 @@
 ﻿<UserControl
-    x:Class="UbytkacAdmin.Pages.HotelReservationStatusListPage"
+    x:Class="UbytkacAdmin.Pages.HotelReservationReviewListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:UbytkacAdmin.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Name="Form"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
@@ -39,8 +38,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="120" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -56,16 +55,52 @@
                 Controls:TextBoxHelper.ClearTextButton="False" Controls:TextBoxHelper.Watermark="" HideUpDownButtons="True" IsEnabled="False" ToolTip="This unique identificator is read only value which is filled automatically by system" />
 
             <Label
-                x:Name="lbl_systemName" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
-            <TextBox
-                x:Name="txt_systemName" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="true"
-                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" ToolTip="" />
+                x:Name="lbl_hotelName" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
+            <Label
+                x:Name="txt_hotelName" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right"
+                FontWeight="Bold" />
 
             <Label
-                x:Name="lbl_sequence" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                x:Name="lbl_reservationNumber" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
+            <Label
+                x:Name="txt_reservationNumber" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" HorizontalContentAlignment="Right"
+                FontWeight="Bold" />
+
+            <Label
+                x:Name="lbl_guestName" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
+            <Label
+                x:Name="txt_guestName" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right"
+                FontWeight="Bold" />
+
+            <Label
+                x:Name="lbl_rating" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <Controls:NumericUpDown
-                x:Name="txt_sequence" Grid.Row="2" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="False"
-                Controls:TextBoxHelper.Watermark="" Interval="10" Minimum="0" />
+                x:Name="txt_rating" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"
+                Controls:TextBoxHelper.ClearTextButton="true" HasDecimals="True" Maximum="5" Minimum="0" NumericInputMode="Numbers"
+                SelectAllOnFocus="True" StringFormat="N0" />
+
+            <Label
+                x:Name="lbl_description" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <TextBox
+                x:Name="tb_description" Grid.Row="3" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
+                Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
+
+            <Label
+                x:Name="lbl_answer" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <TextBox
+                x:Name="tb_answer" Grid.Row="4" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
+                Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
+
+            <Label
+                x:Name="lbl_advertiserShown" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <CheckBox
+                x:Name="chb_advertiserShown" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" />
+
+            <Label
+                x:Name="lbl_approved" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <CheckBox
+                x:Name="chb_approved" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" />
+
 
             <Button
                 Name="btn_save" Grid.Row="10" Grid.Column="0" Width="200" Height="40"

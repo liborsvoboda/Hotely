@@ -48,9 +48,29 @@
                             <li v-for="message in hotel.hotelReservationDetailLists" class="list-group-item text-left p-0 mb-3">
                                 <div>
                                     <span class="fas fa-info"></span> {{ new Date(message.timestamp).toLocaleString('cs-CZ') }}
-                                    , {{ $t('labels.status') }}: {{message.status.systemName}}
+                                    , {{ $t('labels.status') }}: {{ (message.status != null ? message.status.systemName: "")}}
                                 </div>
                                 <span class="fas fa-envelope-open-text"></span> {{ message.message }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.ratings') }}</h6>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-left p-0 mb-3">
+                                <div>
+                                    <span class="fas fa-info"></span> {{ new Date(hotel.hotelReservationReviewList.timestamp).toLocaleString('cs-CZ') }}
+                                    , <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-star-color="cyan" data-static="true">
+                                </div>
+                                
+                            </li>
+                            <li class="list-group-item text-left p-0 mb-3">
+                                <div>
+                                    <span class="fas fa-envelope-open-text"></span>
+                                    {{ hotel.hotelReservationReviewList.description }}
+                                </div>
                             </li>
                         </ul>
                     </div>

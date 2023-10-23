@@ -62,7 +62,7 @@ namespace UbytkacBackend.Controllers {
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                data = new hotelsContext().HotelReservationStatusLists.ToList();
+                data = new hotelsContext().HotelReservationStatusLists.OrderBy(a=>a.Sequence).ToList();
             }
 
             List<Translation> result = new List<Translation>();

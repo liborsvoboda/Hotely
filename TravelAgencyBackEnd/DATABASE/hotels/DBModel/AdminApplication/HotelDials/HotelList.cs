@@ -53,6 +53,7 @@ namespace UbytkacBackend.DBModel
         public int Shown { get; set; }
         public bool Deactivated { get; set; }
         public int PopularCount { get; set; }
+        public int EnabledCommDaysBeforeStart { get; set; }
 
         [ForeignKey("CityId")]
         [InverseProperty("HotelLists")]

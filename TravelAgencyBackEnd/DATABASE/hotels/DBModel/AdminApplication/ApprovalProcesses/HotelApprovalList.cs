@@ -31,5 +31,6 @@ namespace UbytkacBackend.DBModel
         [StringLength(250)]
         [Unicode(false)]
         public string City { get; set; }
+        public int EnabledCommDaysBeforeStart { get; set; }
     }
 }

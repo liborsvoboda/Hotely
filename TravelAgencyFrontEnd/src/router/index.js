@@ -23,16 +23,16 @@ import TopFive from '../components/pages/CustomerProfile/ProfilePage.vue'
 import Bookings from '../components/pages/CustomerProfile/Bookings.vue'
 import FavoriteHotelList from '/src/components/pages/CustomerProfile/FavoriteHotelList.vue';
 import ProfileSetting from '../components/pages/CustomerProfile/ProfileSetting.vue'
-import Contact from '../components/pages/Extra pages/Contact.vue';
-import About from '../components/pages/Extra pages/About.vue';
-import UbytkacInfo from '../components/pages/Extra pages/UbytkacInfo.vue';
-import RegistrationInfo from '../components/pages/Extra pages/RegistrationInfo.vue';
-import OftenQuestion from '../components/pages/Extra pages/OftenQuestion.vue';
-import HolidayTips from '../components/pages/Extra pages/HolidayTips.vue';
+import Contact from '../components/pages/ExtraPages/Contact.vue';
+import About from '../components/pages/ExtraPages/About.vue';
+import UbytkacInfo from '../components/pages/ExtraPages/UbytkacInfo.vue';
+import RegistrationInfo from '../components/pages/ExtraPages/RegistrationInfo.vue';
+import OftenQuestion from '../components/pages/ExtraPages/OftenQuestion.vue';
+import HolidayTips from '../components/pages/ExtraPages/HolidayTips.vue';
 import Advertisement from '../components/pages/Advertiser/Advertisement.vue';
 import AdvertisementWizard from '../components/pages/Advertiser/AdvertisementWizard.vue';
-import PrivacyPolicy from '../components/pages/Extra pages/PrivacyPolicy.vue';
-import Terms from '../components/pages/Extra pages/Terms.vue';
+import PrivacyPolicy from '../components/pages/ExtraPages/PrivacyPolicy.vue';
+import Terms from '../components/pages/ExtraPages/Terms.vue';
 
 const routes = [
     {
@@ -184,7 +184,7 @@ const routes = [
     },
     {
         path: "/PrivacyPolicy",
-        name: "privacyPolicy",
+        name: "PrivacyPolicy",
         component: PrivacyPolicy,
         meta: {
             requiresAuth: false, title: "Privátní Politika"
@@ -192,7 +192,7 @@ const routes = [
     },
     {
         path: "/Terms",
-        name: "terms",
+        name: "Terms",
         component: Terms,
         meta: {
             requiresAuth: false, title: "Termíny & Podmínky"
@@ -325,16 +325,15 @@ router.beforeEach((to, from, next) => {
         if (store.state.userSettings.hideSearchingInPrivateZone) { $("#SearchPanel").hide(); } else { $("#SearchPanel").show(); }
         window.scrollTo(0, window.scrollY);
     } else if (to.fullPath.indexOf("/hotels/") > -1) {
-        window.scrollTo(0, 220);
+        window.scrollTo(0, 620);
     } else if (to.fullPath.indexOf("/profile") > -1 && to.fullPath.indexOf("/profile/advertisement") == -1) {
         //hide searching in private zone
         if (store.state.userSettings.hideSearchingInPrivateZone) {
             $("#SearchPanel").hide(); window.scrollTo(0, 0);
-        } else { $("#SearchPanel").show(); window.scrollTo(0, 220); }
+        } else { $("#SearchPanel").show(); window.scrollTo(0, 620); }
             
     } else if (to.fullPath.indexOf("/login") > -1 || to.fullPath.indexOf("/registration") > -1 || to.fullPath.indexOf("/forgot") > -1) {
         $("#SearchPanel").hide(); window.scrollTo(0, 0);
-        //window.scrollTo(0, 220);
     } else if (store.state.backRoute == to.fullPath) {
         window.scrollTo(0, store.state.backRouteScroll);
     }
@@ -353,8 +352,6 @@ router.afterEach((to, from, next) => {
 
     $(document).ready(function () {
         try {
-            //WebPages Setting On Each Route
-            //ApplyLoadedWebSetting();
 
             if (Metro.storage.getItem('AutomaticDetectedLanguageTranslate', null) == true && document.querySelector('#google_translate_element select') != null) {
                 setTimeout(function () {

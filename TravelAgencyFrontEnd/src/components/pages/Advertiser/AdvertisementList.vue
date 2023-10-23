@@ -22,13 +22,13 @@
                             <a href="#" class="p-2">
                                 <span class="mif-shop icon"></span>
                                 <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getUnshownDetailCount == 0 ? ' display: none ': ' display: inline ')">{{ getUnshownDetailCount }}</span>
-                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) > new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length }}</span>
                             </a>
                         </li>
                         <li :title="$t('labels.reservationsHistoryOverview')" @click="openHistory();" onclick="Metro.infobox.open('#HistoryBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
                                 <span class="mif-history icon"></span>
-                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) <= new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length }}</span>
                             </a>
                         </li>
                     </ul>
@@ -175,10 +175,10 @@
             <span class="button square closer"></span>
             <div class="info-box-content" style="overflow-y:auto;">
                 <div class="d-flex row ">
-                    <div class="h3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="h3 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
                         {{ $t('labels.reservationsOverview') }}
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right pr-5">
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 text-right pr-5">
                         <select id="reservations" data-role="select" data-add-empty-value="true" data-clear-button="false" @change='changeSelectedReservation()'></select>
                     </div>
                 </div>
@@ -246,10 +246,10 @@
             <span class="button square closer"></span>
             <div class="info-box-content" style="overflow-y:auto;">
                 <div class="d-flex row ">
-                    <div class="h3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="h3 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
                         {{ $t('labels.reservationsHistoryOverview') }}
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right pr-5">
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 text-right pr-5">
                         <select id="history" data-role="select" data-add-empty-value="true" data-clear-button="false" @change='changeSelectedHistory()'></select>
                     </div>
                 </div>
@@ -323,12 +323,12 @@ export default {
         },
         getUnshownDetailCount() {
             let count = 0; let recNo = 0;
-            this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.startDate) > new Date(); }).forEach(reservation => {
+            this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.endDate) > new Date(); }).forEach(reservation => {
                 recNo++; let subrecNo = 0;
                 reservation.hotelReservationDetailLists.forEach(detail => {
                     subrecNo++;
                     if (detail.shown == false && detail.guestSender) { count++; }
-                    if (recNo == this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.startDate) > new Date(); }).length && subrecNo == reservation.hotelReservationDetailLists.length) {
+                    if (recNo == this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.endDate) > new Date(); }).length && subrecNo == reservation.hotelReservationDetailLists.length) {
                         return count;
                     }
                 });
@@ -529,11 +529,11 @@ export default {
             let select = Metro.getPlugin("#reservations", "select"); let options = [];
             this.hotel.hotelReservationLists.forEach(reservation => {
                 let newMessage = false;
-                if (new Date(reservation.startDate) > new Date()) {
+                if (new Date(reservation.endDate) > new Date()) {
                     reservation.hotelReservationDetailLists.forEach((detail, index) => {
                         if (!detail.shown && detail.guestSender) { newMessage = true; }
                         if (reservation.hotelReservationDetailLists.length == index + 1) {
-                            options.push({ val: reservation.id, title: (newMessage ? "!!! " : "") + " " + this.$store.state.statusList.filter(obj => { return obj.Id == reservation.statusId })[0].TranslationName.substring(0, 1) + " " + reservation.reservationNumber + " " + new Date(reservation.startDate).toLocaleDateString('cs-CZ'), selected: false });
+                            options.push({ val: reservation.id, title: (newMessage ? "!!! " : "") + " " + this.$store.state.statusList.filter(obj => { return obj.Id == reservation.statusId })[0].TranslationName + " " + reservation.reservationNumber + " " + new Date(reservation.startDate).toLocaleDateString('cs-CZ'), selected: false });
                         }
                     });
                 }
@@ -554,11 +554,11 @@ export default {
             let select = Metro.getPlugin("#history", "select"); let options = [];
             this.hotel.hotelReservationLists.forEach(reservation => {
                 let newMessage = false;
-                if (new Date(reservation.startDate) <= new Date()) {
+                if (new Date(reservation.endDate) <= new Date()) {
                     reservation.hotelReservationDetailLists.forEach((detail, index) => {
                         if (!detail.shown && detail.guestSender) { newMessage = true; }
                         if (reservation.hotelReservationDetailLists.length == index + 1) {
-                            options.push({ val: reservation.id, title: (newMessage ? "!!! " : "") + " " + this.$store.state.statusList.filter(obj => { return obj.Id == reservation.statusId })[0].TranslationName.substring(0, 1) + " " + reservation.reservationNumber + " " + new Date(reservation.startDate).toLocaleDateString('cs-CZ'), selected: false });
+                            options.push({ val: reservation.id, title: (newMessage ? "!!! " : "") + " " + this.$store.state.statusList.filter(obj => { return obj.Id == reservation.statusId })[0].TranslationName + " " + reservation.reservationNumber + " " + new Date(reservation.startDate).toLocaleDateString('cs-CZ'), selected: false });
                         }
                     });
                 }
@@ -587,7 +587,8 @@ export default {
                 HotelCountry: this.hotel.countryId, HotelCity: this.hotel.cityId, Description: this.hotel.descriptionCz,
                 Images: this.hotel.hotelImagesLists, 
                 Rooms: this.hotel.hotelRoomLists,
-                Properties: this.hotel.hotelPropertyAndServiceLists
+                Properties: this.hotel.hotelPropertyAndServiceLists,
+                LimitGuestCommDays: this.hotel.enabledCommDaysBeforeStart
             };
             this.$router.push('/profile/advertisementWizard');
         },

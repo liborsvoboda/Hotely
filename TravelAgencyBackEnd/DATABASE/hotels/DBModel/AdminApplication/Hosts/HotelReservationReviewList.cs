@@ -21,6 +21,11 @@ namespace UbytkacBackend.DBModel
         [StringLength(2048)]
         [Unicode(false)]
         public string Description { get; set; }
+        [StringLength(2048)]
+        [Unicode(false)]
+        public string Answer { get; set; }
+        public bool? Approved { get; set; }
+        public bool? AdvertiserShown { get; set; }
         public DateTime Timestamp { get; set; }
 
         [ForeignKey("GuestId")]

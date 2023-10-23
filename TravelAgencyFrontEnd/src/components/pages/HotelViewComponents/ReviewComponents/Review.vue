@@ -1,22 +1,24 @@
 <template>
     <div class="p-4 rounded shadow-sm">
-      <div class="row">
         <div class="row">
-          <div class="col-md-4">
-            <p>Name: {{review.guest.fullName}}</p>
-            <p>Date created: {{ createdDate }}</p>
-          </div>
-          <div class="col-md-8">
-            <p>
-              Ratings:
-              <span class="badge rounded-pill bg-secondary">{{
-                review.rating
-              }}</span>
-            </p>
-            <p>{{ review.description }}</p>
-          </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Name: {{review.guest.fullName}}</p>
+                    <p>Date created: {{ createdDate }}</p>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        Ratings:
+                        <span class="badge rounded-pill bg-secondary">
+                            {{
+                            review.rating
+                            }}
+                        </span>
+                    </p>
+                    <p>{{ review.description }}</p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 </template>
 

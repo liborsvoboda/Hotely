@@ -166,8 +166,8 @@
     "selectLanguage": "Vyberte jazyk",
     "hideSearchingInPrivateZone": "Skrýt Vyhledávač v Privátní Zóně",
     "translateWeb": "Přeložit WebStránky",
-    "advertisementNotepad": "Poznámkový blok Inzerátu",
-    "writeComment": "Napište poznámku...",
+    "advertisementNotepad": "Úkolovník Inzerátu",
+    "writeComment": "Napište úkol...",
     "title": "Název",
     "setOpened": "Otevřít",
     "setSolved": "Vyřešeno",
@@ -182,7 +182,9 @@
     "reservationMessages": "Zprávy",
     "reservationNewMessage": "Nová zpráva",
     "writeMessage": "Napište zprávu...",
-    "reservationsHistoryOverview": "Historie rezervací"
+    "reservationsHistoryOverview": "Historie rezervací",
+    "limitGuestCommDays": "Limit Editace Hostem před zahájením (dny)",
+    "addReview": "Vložit komentář"
   },
   "user": {
     "newPassword": "Nové Heslo",
@@ -238,6 +240,7 @@
     "youMustBeAdvertiser": "Pro přístup musíš být inzerent",
     "translateAutomatically": "Automaticky Překládat",
     "passwordNotHaveMinimalLength": "heslo nemá minimální délku: ",
-    "passwordNotHaveMinimalLengthOrMailNotValid": "Email není správný nebo heslo nemá minimální délku: "
+    "passwordNotHaveMinimalLengthOrMailNotValid": "Email není správný nebo heslo nemá minimální délku: ",
+    "addReviewWasSuccess": "Vložení hodnocení proběhlo v pořádku"
   }
 }

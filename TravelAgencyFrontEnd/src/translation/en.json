@@ -182,7 +182,9 @@
     "reservationMessages": "Messages",
     "reservationNewMessage": "New Message",
     "writeMessage": "Write message...",
-    "reservationsHistoryOverview": "Reservations history"
+    "reservationsHistoryOverview": "Reservations history",
+    "limitGuestCommDays": "Limit Host Editbefore start (days)",
+    "addReview": "Add rewiew"
 
   },
   "user": {
@@ -239,6 +241,8 @@
     "youMustBeAdvertiser": "For Access You must be Advertiser",
     "translateAutomatically": "Translate automatically",
     "passwordNotHaveMinimalLength": "password not have Minimal Length: ",
-    "passwordNotHaveMinimalLengthOrMailNotValid": "Email not Valid or password not have Minimal Length: "
+    "passwordNotHaveMinimalLengthOrMailNotValid": "Email not Valid or password not have Minimal Length: ",
+    "addReviewWasSuccess": "Review insert was success"
+
   }
 }

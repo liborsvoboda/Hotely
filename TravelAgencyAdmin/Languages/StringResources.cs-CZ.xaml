@@ -494,5 +494,18 @@
     <system:String x:Key="key" xml:space="preserve">Klíč</system:String>
 
     <system:String x:Key="hotelReservationStatusList">Stavy Rezervací</system:String>
+    <system:String x:Key="enabledCommDaysBeforeStart">Limit editace hostem před zahájením (dny)</system:String>
+    <system:String x:Key="guests">Návštěvníci</system:String>
+    <system:String x:Key="approvalProcesses">Schvalovací procesy</system:String>
+    <system:String x:Key="hosts">Hostitelé</system:String>
+
+    <system:String x:Key="hotelName">Název zařízení</system:String>
+    <system:String x:Key="reservationNumber">Číslo rezervace</system:String>
+    <system:String x:Key="guestName">Jméno hosta</system:String>
+    <system:String x:Key="rating">Hodnocení</system:String>
+    <system:String x:Key="answer">Odpověď</system:String>
+    <system:String x:Key="advertiserShown">Zobrazeno hostiteli</system:String>
+    <system:String x:Key="hotelReservationReviewList">Přehled hodnocení</system:String>
+    
 
 </ResourceDictionary>

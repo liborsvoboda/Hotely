@@ -40,11 +40,13 @@ namespace UbytkacAdmin.Pages {
                 lbl_name.Content = Resources["fname"].ToString();
                 lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
                 lbl_currencyId.Content = Resources["currency"].ToString();
+                lbl_enabledCommDaysBeforeStart.Content = Resources["enabledCommDaysBeforeStart"].ToString();
 
                 lbl_owner.Content = lbl_owner1.Content = Resources["owner"].ToString();
                 lbl_approveRequest.Content = Resources["approveRequest"].ToString();
                 lbl_approved.Content = Resources["approved"].ToString();
                 lbl_advertised.Content = Resources["advertised"].ToString();
+
 
                 btn_save1.Content = btn_save2.Content = Resources["btn_save"].ToString();
                 btn_next1.Content = Resources["next"].ToString();
@@ -112,7 +114,8 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 6; } 
                     else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 7; } 
                     else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 8; }
-                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 9; }
+                    else if (headername == "EnabledCommDaysBeforeStart") { e.Header = Resources["enabledCommDaysBeforeStart"].ToString(); e.DisplayIndex = 9; }
+                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 10; }
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -180,6 +183,8 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.DescriptionCz = txt_descriptionCz.Text;
                 selectedRecord.DescriptionEn = "";
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
+
+                selectedRecord.EnabledCommDaysBeforeStart = (int)txt_enabledCommDaysBeforeStart.Value;
                 selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
                 selectedRecord.Advertised = (bool)chb_advertised.IsChecked;
@@ -213,6 +218,7 @@ namespace UbytkacAdmin.Pages {
             txt_descriptionCz.Text = selectedRecord.DescriptionCz;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
+            txt_enabledCommDaysBeforeStart.Value = selectedRecord.EnabledCommDaysBeforeStart;
             chb_approveRequest.IsChecked = false;
             btn_save1.IsEnabled = selectedRecord.ApproveRequest;
             chb_approved.IsChecked = selectedRecord.Approved;

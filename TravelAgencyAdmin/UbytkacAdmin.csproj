@@ -240,6 +240,10 @@
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
       <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\Guests\HotelReservationReviewList\HotelReservationReviewList.cs" />
+    <Compile Include="Agendas\Guests\HotelReservationReviewList\HotelReservationReviewListPage.xaml.cs">
+      <DependentUpon>HotelReservationReviewListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusList.cs" />
     <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusListPage.xaml.cs">
       <DependentUpon>HotelReservationStatusListPage.xaml</DependentUpon>
@@ -256,8 +260,8 @@
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsListPage.xaml.cs">
       <DependentUpon>HolidayTipsListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\WebAdmin\HotelApprovalList\HotelApprovalList.cs" />
-    <Compile Include="Agendas\WebAdmin\HotelApprovalList\HotelApprovalListPage.xaml.cs">
+    <Compile Include="Agendas\ApprovalProcesses\HotelApprovalList\HotelApprovalList.cs" />
+    <Compile Include="Agendas\ApprovalProcesses\HotelApprovalList\HotelApprovalListPage.xaml.cs">
       <DependentUpon>HotelApprovalListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\HotelDials\HotelImagesList\HotelImagesListPage.xaml.cs">
@@ -272,8 +276,8 @@
     <Compile Include="Agendas\HotelDials\HotelRoomList\HotelRoomListPage.xaml.cs">
       <DependentUpon>HotelRoomListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\HotelReservation\GuestList\GuestList.cs" />
-    <Compile Include="Agendas\HotelReservation\GuestList\GuestListPage.xaml.cs">
+    <Compile Include="Agendas\Guests\GuestList\GuestList.cs" />
+    <Compile Include="Agendas\Guests\GuestList\GuestListPage.xaml.cs">
       <DependentUpon>GuestListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Settings\AccessRoleList\AccessRoleList.cs" />
@@ -348,8 +352,8 @@
       <DependentUpon>MottoListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Settings\MottoList\MottoList.cs" />
-    <Compile Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryList.cs" />
-    <Compile Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml.cs">
+    <Compile Include="Agendas\Guests\GuestLoginHistoryList\GuestLoginHistoryList.cs" />
+    <Compile Include="Agendas\Guests\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml.cs">
       <DependentUpon>GuestLoginHistoryListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Views\ScreenSaverPage\ScreenSaverPage.xaml.cs">
@@ -410,7 +414,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
+    <Compile Include="Agendas\Hosts\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
     <Compile Include="Agendas\Settings\ReportList\ReportList.cs" />
     <Compile Include="GlobalClasses\ConcurrentObservableList.cs" />
     <Compile Include="GlobalClasses\PhotoCollectionClasses.cs" />
@@ -418,7 +422,7 @@
     <Compile Include="SystemCore\SystemHelpers\SystemUpdater.cs" />
     <Compile Include="Agendas\Settings\UserList\UserList.cs" />
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleList.cs" />
-    <Compile Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
+    <Compile Include="Agendas\Hosts\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
       <DependentUpon>AdminLoginHistoryListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Settings\ReportList\ReportListPage.xaml.cs">
@@ -462,6 +466,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\Guests\HotelReservationReviewList\HotelReservationReviewListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -478,7 +486,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\WebAdmin\HotelApprovalList\HotelApprovalListPage.xaml">
+    <Page Include="Agendas\ApprovalProcesses\HotelApprovalList\HotelApprovalListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -494,7 +502,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\HotelReservation\GuestList\GuestListPage.xaml">
+    <Page Include="Agendas\Guests\GuestList\GuestListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -566,11 +574,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Views\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml">
+    <Page Include="Agendas\Guests\GuestLoginHistoryList\GuestLoginHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Views\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml">
+    <Page Include="Agendas\Hosts\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -970,7 +978,9 @@
       <Name>EASYTools.TouchKeyboard</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Agendas\HotelReservations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

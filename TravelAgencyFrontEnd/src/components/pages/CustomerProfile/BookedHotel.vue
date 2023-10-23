@@ -27,16 +27,18 @@
                                     {{ room.name }} x {{ room.count }}
                                 </div>
                                 <div class="text-right">{{ hotel.totalPrice }} {{ hotel.currency.name }}</div>
+                                <div v-if="hotel.hotelReservationReviewList != null" class="text-right"><input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-star-color="cyan" data-static="true"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div v-if="hotel.statusId != 3" class="text-center mb-3" style="bottom: -5px !important; position: absolute; right: 10px;">
+                <div v-if="hotel.statusId != 3" class="text-center mb-3" style="bottom: -5px !important; position: absolute; left: 10px;">
                     <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</div>
-                    <div :disabled="notEdit" @click="toggleEdit" class="p-button p-component button info outline shadowed mr-1">{{ $t('labels.editLease') }}</div>
-                    <div :disabled="notEdit" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelBooking') }}</div>
+                    <div :id="'EditButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="toggleEdit" class="p-button p-component button info outline shadowed mr-1">{{ $t('labels.editLease') }}</div>
+                    <div :id="'CancelButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelBooking') }}</div>
+                    <div :id="'ReviewButton_'+hotel.reservationNumber" :class="(notReview ? 'disabled' : '')" class="p-button p-component button warning outline shadowed" @click="addRewiew">{{ $t('labels.ratings') }}</div>
                 </div>
-                <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: -5px !important; position: absolute; right: 10px;">
+                <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: -5px !important; position: absolute; left: 10px;">
                     <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">{{ $t('labels.reservationDetail') }}</div>
                     <div class="text-center pt-2 ml-5">{{ $t('messages.thisBookingIsCancelled') }}</div>
                 </div>
@@ -48,17 +50,22 @@
         <div v-if="detail">
             <ReservationDetail :hotel="hotel" />
         </div>
+        <div v-if="review">
+            <AddReview :hotel="hotel" @closeReviewEdit="closeReviewEdit" />
+        </div>
     </div>
 </template>
 
 <script>
     import ProfileCustomerDetail from "/src/components/pages/CustomerProfile/ProfileCustomerDetail.vue";
     import ReservationDetail from "/src/components/pages/CustomerProfile/ReservationDetail.vue";
+    import AddReview from "/src/components/pages/CustomerProfile/AddReview.vue";
     import Button from "primevue/button";
 export default {
     components: {
         ProfileCustomerDetail,
         ReservationDetail,
+        AddReview,
         Button,
     },
     props: {
@@ -67,7 +74,8 @@ export default {
     data() {
         return {
             edit: false,
-            detail: false
+            detail: false,
+            review: false
         };
     },
     computed: {
@@ -75,7 +83,10 @@ export default {
             return this.$store.state.apiRootUrl + '/Image/';
         },
         notEdit() {
-            return new Date(this.hotel.startDate) < new Date() || this.hotel.statusId != 1;
+            return new Date(new Date(this.hotel.startDate).getTime() - this.hotel.hotel.enabledCommDaysBeforeStart * 86400000) < new Date() || this.hotel.statusId != 1;
+        },
+        notReview() {
+            return this.hotel.hotelReservationReviewList != null;
         },
         startDate() {
             if (this.hotel.startDate === undefined) {
@@ -90,7 +101,21 @@ export default {
             return new Date(this.hotel.endDate).toLocaleDateString('cs-CZ');
         },
     },
+    mounted() {
+        if (new Date(new Date(this.hotel.startDate).getTime() - this.hotel.hotel.enabledCommDaysBeforeStart * 86400000) < new Date() || this.hotel.statusId != 1) {
+            $("#EditButton_" + this.hotel.reservationNumber).hide();
+            $("#CancelButton_" + this.hotel.reservationNumber).hide();
+        }
+        if (new Date(this.hotel.endDate) <= new Date() && this.hotel.statusId == 2 && this.hotel.hotelReservationReviewList == null) {
+            $("#ReviewButton_" + this.hotel.reservationNumber).show();
+        } else { 
+            $("#ReviewButton_" + this.hotel.reservationNumber).hide();
+        }
+    },
     methods: {
+        closeReviewEdit(status) {
+            this.review = status;
+        },
         closeEdit(status) {
             this.edit = status;
         },
@@ -102,13 +127,19 @@ export default {
         },
         toggleEdit() {
             this.detail = false;
+            this.review = false;
             this.edit = !this.edit;
         },
         showDetail() {
             this.edit = false;
+            this.review = false;
             this.detail = !this.detail;
         },
-    
+        addRewiew() {
+            this.detail = false;
+            this.edit = false;
+            this.review = !this.review;
+        },
         async cancel(bookingNr ,id) {
             let message = prompt(this.$i18n.t("messages.doYouReallyCancelBooking") + ' ' + bookingNr + this.$i18n.t("messages.writeCancelReason"));
             

@@ -23,8 +23,8 @@
                 <li class="list-inline-item"><a href="#"><router-link to="/">{{ $t('labels.home') }}</router-link></a></li>
                 <li class="list-inline-item"><a href="/Services">{{ $t('labels.services') }}</a></li>
                 <li class="list-inline-item"><router-link to="/About">{{ $t('labels.about') }}</router-link></li>
-                <li class="list-inline-item"><a href="/Terms">{{ $t('labels.termsConditions') }}</a></li>
-                <li class="list-inline-item"><a href="/PrivacyPolicy">{{ $t('labels.privacyPolicy') }}</a></li>
+                <li class="list-inline-item"><router-link to="/Terms">{{ $t('labels.termsConditions') }}</router-link></li>
+                <li class="list-inline-item"><router-link to="/PrivacyPolicy">{{ $t('labels.privacyPolicy') }}</router-link></li>
             </ul>
             <p class="copyright p-0 m-0">copyright CoolNET © 2023 by <a href="https://groupware-solution.eu" class="no-wrap" target="_blank">GroupWare-Solution.Eu</a> použito <a href="https://KlikneteZde.Cz:5000" class="no-wrap" target="_blank">EASY-DATA-Center Řešení</a> & <a href="https://metroui.org.ua" target="_blank">Metro4</a></p>
         </footer>

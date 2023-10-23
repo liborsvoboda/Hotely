@@ -495,5 +495,17 @@
     <system:String x:Key="key" xml:space="preserve">Key</system:String>
 
     <system:String x:Key="hotelReservationStatusList">Reservation Statuses</system:String>
+    <system:String x:Key="enabledCommDaysBeforeStart">Host edit limit before start (days)</system:String>
+    <system:String x:Key="guests">Guests</system:String>
+    <system:String x:Key="approvalProcesses">Approval processes</system:String>
+    <system:String x:Key="hosts">Hosts</system:String>
 
+    <system:String x:Key="hotelName">Hotel name</system:String>
+    <system:String x:Key="reservationNumber">Reservation number</system:String>
+    <system:String x:Key="guestName">Guest name</system:String>
+    <system:String x:Key="rating">Rating</system:String>
+    <system:String x:Key="answer">Answer</system:String>
+    <system:String x:Key="advertiserShown">Advertiser shown</system:String>
+    <system:String x:Key="hotelReservationReviewList">Review List</system:String>
+    
 </ResourceDictionary>

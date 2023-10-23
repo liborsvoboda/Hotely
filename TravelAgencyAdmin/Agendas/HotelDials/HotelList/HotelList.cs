@@ -17,6 +17,8 @@ namespace UbytkacAdmin.Classes {
         public decimal AverageRating { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
+        public int EnabledCommDaysBeforeStart { get; set; }
+
 
         public string CountryTranslation { get; set; }
         public string CityTranslation { get; set; }
