@@ -52,6 +52,10 @@ namespace UbytkacBackend.Controllers {
 
                     List<HotelPropertyAndServiceList> props = new hotelsContext().HotelPropertyAndServiceLists.Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
                     hotel.HotelPropertyAndServiceLists = props;
+
+                    List<HotelReservationReviewList> reviews = new hotelsContext().HotelReservationReviewLists.Where(a => a.HotelId == hotel.Id && a.Approved == true)
+                    .OrderByDescending(a => a.Timestamp).ToList();
+                    hotel.HotelReservationReviewLists = reviews;
                 }
 
 

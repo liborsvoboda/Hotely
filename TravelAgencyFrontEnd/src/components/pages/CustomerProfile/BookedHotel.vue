@@ -27,12 +27,14 @@
                                     {{ room.name }} x {{ room.count }}
                                 </div>
                                 <div class="text-right">{{ hotel.totalPrice }} {{ hotel.currency.name }}</div>
-                                <div v-if="hotel.hotelReservationReviewList != null" class="text-right"><input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-star-color="cyan" data-static="true"></div>
+                                <div v-if="hotel.hotelReservationReviewList != null" class="text-right">
+                                    <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-stared-color="cyan" data-static="true">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div v-if="hotel.statusId != 3" class="text-center mb-3" style="bottom: -5px !important; position: absolute; left: 10px;">
+                <div v-if="hotel.statusId != 3" class="text-center mb-2" style="bottom: -5px !important; position: absolute; left: 10px;">
                     <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">
                         {{ $t('labels.reservationDetail') }}
                         <span v-if="newDetailCount > 0" class="badge fg-green mt-1 mr-2">{{ newDetailCount }}</span>
@@ -44,7 +46,7 @@
                     <div :id="'CancelButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelBooking') }}</div>
                     <div :id="'ReviewButton_'+hotel.reservationNumber" :class="(notReview ? 'disabled' : '')" class="p-button p-component button warning outline shadowed" @click="addRewiew">{{ $t('labels.ratings') }}</div>
                 </div>
-                <div v-else class="d-flex mb-3" style="font-weight:bold;color: red;bottom: -5px !important; position: absolute; left: 10px;">
+                <div v-else class="d-flex mb-2" style="font-weight:bold;color: red;bottom: -5px !important; position: absolute; left: 10px;">
                     <div class="p-button p-component button info outline shadowed mr-1" @click="showDetail">
                         {{ $t('labels.reservationDetail') }}
                         <span v-if="newDetailCount > 0" class="badge fg-green mt-1 mr-2">{{ newDetailCount }}</span>
@@ -119,7 +121,7 @@ export default {
             $("#EditButton_" + this.hotel.reservationNumber).hide();
             $("#CancelButton_" + this.hotel.reservationNumber).hide();
         }
-        if (new Date(this.hotel.endDate) <= new Date() && this.hotel.statusId == 2 && this.hotel.hotelReservationReviewList == null) {
+        if (new Date(this.hotel.endDate) <= new Date() && new Date(new Date(this.hotel.endDate).getTime() + Metro.storage.getItem('ReviewInsertDaysLimit', null) * 86400000) >= new Date() && this.hotel.statusId == 2 && this.hotel.hotelReservationReviewList == null) {
             $("#ReviewButton_" + this.hotel.reservationNumber).show();
         } else { 
             $("#ReviewButton_" + this.hotel.reservationNumber).hide();

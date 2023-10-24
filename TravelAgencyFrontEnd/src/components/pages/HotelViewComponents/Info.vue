@@ -1,7 +1,8 @@
 <template>
     <div class="py-4">
         <div class="p-4 bg-light rounded shadow-sm">
-            <h5>{{ $t('labels.ratings') }}: <span class="rounded-pill">{{hotel.averageRating}}</span></h5>
+            <h5>{{ $t('labels.averageRating') }}:</h5>
+            <input data-role="rating" :data-value="hotel.averageRating" data-static="true">
             <div class="col-lg-12 col-md-12" v-html="($store.state.language == 'cz') ? hotel.descriptionCz : hotel.descriptionEn" />
             <h4>{{ $t('labels.servicesAndProperties') }}:</h4>
 

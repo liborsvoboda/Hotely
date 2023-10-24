@@ -8,7 +8,6 @@ import Photos from "../components/pages/HotelViewComponents/Photos.vue";
 import PhotoGallery from "../components/pages/HotelViewComponents/RoomsViewComponents/PhotoGallery.vue";
 import Reviews from "../components/pages/HotelViewComponents/Reviews.vue";
 import SearchResult from "../components/pages/SearchResult.vue";
-import AddReview from "../components/pages/HotelViewComponents/ReviewComponents/AddReview.vue";
 import CheckoutView from "../components/pages/CheckoutView.vue";
 import { registerRuntimeCompiler } from "@vue/runtime-core";
 import Home from "/src/components/pages/Home.vue";
@@ -198,12 +197,6 @@ const routes = [
             requiresAuth: false, title: "Termíny & Podmínky"
         },
     },
-    
-    // {
-    //   path: "/addReview",
-    //   name: "addReview",
-    //   component: AddReview,
-    // },
     {
         path: "/hotels/:id",
         name: "hotels",
@@ -241,18 +234,10 @@ const routes = [
                 name: "reviews",
                 component: Reviews,
                 meta: {
-                    requiresAuth: true, title: "Komentáře"
+                    requiresAuth: false, title: "Komentáře"
                 },
 
-            },
-            {
-                path: "AddReview",
-                name: "addReview",
-                component: AddReview,
-                meta: {
-                    requiresAuth: true, title: "Nový Komentář"
-                },
-            },
+            }
         ],
     },
     {

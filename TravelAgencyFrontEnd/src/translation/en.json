@@ -184,7 +184,17 @@
     "writeMessage": "Write message...",
     "reservationsHistoryOverview": "Reservations history",
     "limitGuestCommDays": "Limit Host Editbefore start (days)",
-    "addReview": "Add rewiew"
+    "addReview": "Add rewiew",
+    "tasks": "Tasks",
+    "averageRating": "Average rating",
+    "comment": "Comment",
+    "answer": "Answer",
+    "reviewOverview": "Review overview",
+    "selectedReview": "Selected review",
+    "insertAnswer": "Insert answer",
+    "allReviews": "All reviews",
+    "writeAnswer": "Write answer...",
+    "saveAnswer": "Save Answer"
 
   },
   "user": {

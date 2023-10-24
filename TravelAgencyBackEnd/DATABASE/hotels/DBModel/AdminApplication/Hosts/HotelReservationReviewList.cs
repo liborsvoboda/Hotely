@@ -25,7 +25,7 @@ namespace UbytkacBackend.DBModel
         [Unicode(false)]
         public string Answer { get; set; }
         public bool? Approved { get; set; }
-        public bool? AdvertiserShown { get; set; }
+        public bool AdvertiserShown { get; set; }
         public DateTime Timestamp { get; set; }
 
         [ForeignKey("GuestId")]

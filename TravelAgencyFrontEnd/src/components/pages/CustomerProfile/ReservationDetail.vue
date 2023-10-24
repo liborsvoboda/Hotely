@@ -62,7 +62,7 @@
                             <li class="list-group-item text-left p-0 mb-3">
                                 <div>
                                     <span class="fas fa-info"></span> {{ new Date(hotel.hotelReservationReviewList.timestamp).toLocaleString('cs-CZ') }}
-                                    , <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-star-color="cyan" data-static="true">
+                                    , <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-stared-color="cyan" data-static="true">
                                 </div>
 
                             </li>

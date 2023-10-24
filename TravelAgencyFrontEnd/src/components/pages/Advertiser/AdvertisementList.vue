@@ -9,9 +9,9 @@
                         <!--  <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li> -->
                         <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon"></span></a></li>
                         <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon"></span></a></li>
-                        <li :title="$t('labels.comments')" @click="newCommentHotelId = hotel.id;generateMessageBox();" onclick="Metro.infobox.open('#CommentBox');">
+                        <li :title="$t('labels.tasks')" @click="newCommentHotelId = hotel.id;generateMessageBox();" onclick="Metro.infobox.open('#CommentBox');">
                             <a href="#" class="p-2">
-                                <span class="mif-comment icon"></span>
+                                <span class="mif-clipboard icon"></span>
                                 <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getOpenedCommentsCount == 0 ? ' display: none ': ' display: inline ')">{{ getOpenedCommentsCount }}</span>
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.guestAdvertiserNoteLists.length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.guestAdvertiserNoteLists.length }}</span>
                             </a>
@@ -29,6 +29,13 @@
                             <a href="#" class="p-2">
                                 <span class="mif-history icon"></span>
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) <= new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length }}</span>
+                            </a>
+                        </li>
+                        <li :title="$t('labels.reviews')" @click="openReview()" onclick="Metro.infobox.open('#ReviewBox');" :class="(hotel.hotelReservationReviewLists.length == 0 ? 'disabled' : '')">
+                            <a href="#" class="p-2">
+                                <span class="mif-blogger icon"></span>
+                                <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getUnshownReviewCount == 0 ? ' display: none ': ' display: inline ')">{{ getUnshownReviewCount }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationReviewLists.length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationReviewLists.length }}</span>
                             </a>
                         </li>
                     </ul>
@@ -294,6 +301,47 @@
             </div>
         </div>
 
+        <div id="ReviewBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600">
+            <span class="button square closer"></span>
+            <div class="info-box-content" style="overflow-y:auto;">
+                <div class="d-flex row ">
+                    <div class="h3 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
+                        {{ $t('labels.reviewOverview') }}
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 text-right pr-5">
+                        <select id="reviews" data-role="select" data-add-empty-value="true" data-clear-button="false" @change='changeSelectedReview()'></select>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <ul data-role="tabs" data-expand="true">
+                        <li class="fg-black"><a href="#_reviewAllMessages">{{ $t('labels.allReviews') }}</a></li>
+                        <li class="fg-black"><a href="#_reviewInfo">{{ $t('labels.selectedReview') }}</a></li>
+                        <li class="fg-black"><a href="#_reviewNewAnswer">{{ $t('labels.insertAnswer') }}</a></li>
+                    </ul>
+                </div>
+                <div id="_reviewAllMessages">
+                    <div id="reviewAllMessagesBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;"></div>
+                </div>
+                <div id="_reviewInfo">
+                    <div id="ReviewInfoBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;"></div>
+                </div>
+                <div id="_reviewNewAnswer">
+                    <div class="d-block m-0 p-0">
+                        <form id="ReviewForm" data-role="validator" action="javascript:" data-on-submit="newReviewIsValid = true;" data-interactive-check="true" autocomplete="off" data-on-error="newReviewIsValid = false;">
+                            <div class="d-flex row ">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <textarea id="ReviewNote" data-role="textarea" data-auto-size="true" data-max-height="150" maxlength="2048" class="primary" data-validate="required" :placeholder="$t('labels.writeAnswer')"></textarea>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right">
+                                    <button class="button success outline shadowed mr-2" type="submit" @click="setNewReviewAnswer()" :disabled="reviewId == null"> {{ $t('labels.saveAnswer') }} </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -312,6 +360,7 @@ export default {
             newCommentHotelId: null,
             reservationId: null,
             historyId: null,
+            reviewId: null,
         };
     },
     props: {
@@ -334,6 +383,9 @@ export default {
                 });
             });
             return count;
+        },
+        getUnshownReviewCount() {
+            return this.hotel.hotelReservationReviewLists.filter(obj => { return obj.advertiserShown == false; }).length;
         },
         lowestPrice() {
             var rooms = this.hotel.hotelRoomLists;
@@ -462,7 +514,7 @@ export default {
             if (this.hotel.id == this.newCommentHotelId) {
                 let messageData = "";
                 this.hotel.guestAdvertiserNoteLists.forEach(message => {
-                    messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>"; 
+                    messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>";
                     messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + message.note + "</div>";
                     messageData += "<div class=\"col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right\"><div class=\"d-block \">";
                     messageData += "<div class=\"mb-1 p-button p-component button shadowed small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setOpened") + "</div>";
@@ -497,7 +549,7 @@ export default {
                     window.hidePageLoading();
                 }
             }, 1000);
-        
+
         },
         async setNewReservationDetail() {
             $("#ReservationForm").submit();
@@ -516,7 +568,7 @@ export default {
                         var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                         notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                     } else {
-                        if (document.getElementById("CommentForm") != null) { document.getElementById("CommentForm").reset(); }
+                        if (document.getElementById("ReservationForm") != null) { document.getElementById("ReservationForm").reset(); }
                         $("#ReservationNote").val('');
                         let result = await that.$store.dispatch("getAdvertisementList");
                         that.openReservation();
@@ -570,6 +622,76 @@ export default {
             $("#HistoryRoomsBox").html('');
             $("#HistoryMessageBox").html('');
         },
+        openReview() {
+            let select = Metro.getPlugin("#reviews", "select"); let options = [];
+            let messageData = ""; let setShown = false;
+            this.hotel.hotelReservationReviewLists.forEach(async (review, index) => {
+
+                messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!review.advertiserShown ? " bg-gitlab " : " bg-lightOlive ") + "\">";
+                messageData += "<div class=\"d-flex\"><div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0\"><input data-role=\"rating\" data-value=\"" + review.rating + "\" data-stared-color=\"cyan\" data-static=\"true\" ></div>";
+                messageData += "<div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right p-1 m-0\">" + new Date(review.timestamp).toLocaleString('cs-CZ') + "</div></div>";
+                messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + window.dictionary('labels.comment') + ": " + review.description + "</div></div>";
+                if (review.answer != null && review.answer.length > 0) { messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + window.dictionary('labels.answer') + ": " + review.answer + "</div></div>"; }
+                messageData += "</div></div>";
+
+                if (review.answer == null || review.answer.length == 0) {
+                    options.push({ val: review.id, title: (review.advertiserShown == false ? "!!!" : "") + " " + new Date(review.timestamp).toLocaleString('cs-CZ') });
+                }
+
+                //Set Shown
+                if (!review.advertiserShown) { setShown = true; review.advertiserShown = true; }
+                if (this.hotel.hotelReservationReviewLists.length == index + 1 && setShown) {
+                    await this.$store.dispatch("setReviewShown", this.hotel.id);
+                }
+
+            });
+            select.data(""); select.addOptions(options);
+            $("#reviewAllMessagesBox").html(messageData);
+            this.reviewId = null;
+        },
+        async changeSelectedReview() {
+            if ($("#reviews")[0] != undefined && $("#reviews")[0].selectedOptions[0] != undefined) {
+                this.reviewId = $("#reviews")[0].selectedOptions[0].value;
+                let messageData = "";
+                this.hotel.hotelReservationReviewLists.forEach(async review => {
+                    if (review.id == this.reviewId) {
+                        messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!review.advertiserShown ? " bg-gitlab " : " bg-lightOlive ") + "\">";
+                        messageData += "<div class=\"d-flex\"><div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0\"><input data-role=\"rating\" data-value=\"" + review.rating + "\" data-stared-color=\"cyan\" data-static=\"true\" ></div>";
+                        messageData += "<div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right p-1 m-0\">" + new Date(review.timestamp).toLocaleString('cs-CZ') + "</div></div>";
+                        messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + window.dictionary('labels.comment') + ": " + review.description + "</div></div>";
+                        messageData += "</div></div>";
+                    }
+                });
+                $("#ReviewInfoBox").html(messageData);
+            }
+        },
+        async setNewReviewAnswer() {
+            $("#ReviewForm").submit();
+
+            var that = this;
+            setTimeout(async function () {
+                if (newReviewIsValid) {
+                    window.showPageLoading();
+                    let response = await fetch(
+                        that.$store.state.apiRootUrl + '/Advertiser/SetAdvertiserReviewAnswer', {
+                        method: 'POST', headers: { 'Authorization': 'Bearer ' + that.$store.state.user.Token, 'Content-type': 'application/json' },
+                        body: JSON.stringify({ ReviewId: that.reviewId, Answer: $("#ReviewNote").val(), Language: that.$store.state.language })
+                    }); let result = await response.json();
+
+                    if (result.Status == "error") {
+                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
+                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                    } else {
+                        if (document.getElementById("ReviewForm") != null) { document.getElementById("ReviewForm").reset(); }
+                        $("#ReviewNote").val('');
+                        let result = await that.$store.dispatch("getAdvertisementList");
+                        that.openReview();
+                    }
+                    window.hidePageLoading();
+                }
+            }, 1000);
+
+        },
         editAdvertisement(hotelId) {
             ActualValidationFormName = "hotelForm";
             ActualWizardPage = 1;
@@ -615,8 +737,7 @@ export default {
             var response = await fetch(
                 this.$store.state.apiRootUrl + '/Advertiser/ApprovalRequest/' + hotelId, {
                 method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
-            }
-            ); let result = await response.json();
+            }); let result = await response.json();
             if (this.$store.state.user.UserId != '') {
                 await this.$store.dispatch("getAdvertisementList");
                 if (!this.$store.state.advertisementList.length) { this.errorText = true; }
@@ -629,8 +750,7 @@ export default {
             var response = await fetch(
                 this.$store.state.apiRootUrl + '/Advertiser/DeleteAdvertisement/' + hotelId, {
                 method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
-            }
-            ); let result = await response.json();
+            }); let result = await response.json();
             if (result.Status == "error") {
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
@@ -650,8 +770,7 @@ export default {
             var response = await fetch(
                 this.$store.state.apiRootUrl + '/Advertiser/ActivationHotel/' + hotelId, {
                 method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
-            }
-            ); let result = await response.json();
+            }); let result = await response.json();
             if (this.$store.state.user.UserId != '') {
                 await this.$store.dispatch("getAdvertisementList");
                 if (!this.$store.state.advertisementList.length) { this.errorText = true; }

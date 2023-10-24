@@ -10,12 +10,11 @@
                         <div class="col-md-6 pt-0 mt-0 text-start">
                             <b>{{ hotel.name }}</b>
                             <div>{{ hotel.city.city }}, {{ hotel.country.systemName }}</div>
-                            <p>
-                                {{ $t('labels.ratings') }}:
-                                <span class="rounded-pill">
-                                    {{ hotel.averageRating }}
-                                </span>
+                            <p v-if="hotel.hotelReservationReviewLists.length">
+                                <input data-role="rating" :data-value="hotel.averageRating" data-stared-color="cyan" data-static="true">
+                                <!--  {{ $t('labels.averageRating') }}: <span class="rounded-pill"> {{ hotel.averageRating }} z 5 </span> -->
                             </p>
+                            <p></p>
                             <p v-for="property in valueProperties.slice(0, 3)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
                                :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
                                 {{property.name}}:

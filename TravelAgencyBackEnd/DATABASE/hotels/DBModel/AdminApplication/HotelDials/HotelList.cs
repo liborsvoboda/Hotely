@@ -42,7 +42,7 @@ namespace UbytkacBackend.DBModel
         [Required]
         public bool Advertised { get; set; }
         public int TotalCapacity { get; set; }
-        [Column(TypeName = "decimal(2, 2)")]
+        [Column(TypeName = "decimal(10, 2)")]
         public decimal AverageRating { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }

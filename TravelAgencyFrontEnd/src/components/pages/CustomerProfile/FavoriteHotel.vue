@@ -15,13 +15,13 @@
                          @click="RemoveFavorite" style="top:0px;right:5px;">
                         <i class="fa fa-trash"></i>
                     </div>
-                    <h5 class="card-title">{{hotel.hotel.name}}</h5>
+                    <h5 class="card-title">{{hotel.hotel.name}} <input v-if="hotel.hotel.averageRating > 0" data-role="rating" :data-value="hotel.hotel.averageRating" data-static="true"></h5>
                     <div class="textS" v-html="($store.state.language == 'cz') ? hotel.hotel.descriptionCz : hotel.hotel.descriptionEn" />
 
 
                 </div>
                 <div class="" style="position: initial;">
-                    <div class="p-button p-component button info outline shadowed mt-2" type="button" style="position: absolute; bottom: 5px; right: 10px;width: 125px;" @click="hotelDetailsClick" data-pc-name="button">
+                    <div class="p-button p-component button info outline shadowed mt-2 mr-2" type="button" style="position: absolute; bottom: 5px; right: 10px;width: 125px;" @click="hotelDetailsClick" data-pc-name="button">
                         {{$t('labels.seeDetail')}}
                     </div>
                 </div>

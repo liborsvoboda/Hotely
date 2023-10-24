@@ -155,7 +155,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Description = tb_description.Text;
                 selectedRecord.Answer = tb_answer.Text;
 
-                selectedRecord.AdvertiserShown = chb_advertiserShown.IsChecked;
+                selectedRecord.AdvertiserShown = (bool)chb_advertiserShown.IsChecked;
                 selectedRecord.Approved = chb_approved.IsChecked;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 

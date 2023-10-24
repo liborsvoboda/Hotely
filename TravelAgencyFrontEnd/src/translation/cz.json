@@ -160,7 +160,7 @@
     "searchCount": "Počet vyhledání",
     "reservation": "Rezervace",
     "advertising": "Inzerce",
-    "notifyShowTime": "Čas notifikácí sec. ",
+    "notifyShowTime": "Čas notifikací sec. ",
     "showInactiveAdvertisementAsDefault": "Nastavit: Zobrazit neaktivní inzeráty",
     "autoTranslationLanguage": "Jazyk pro automatický překlad",
     "selectLanguage": "Vyberte jazyk",
@@ -184,7 +184,17 @@
     "writeMessage": "Napište zprávu...",
     "reservationsHistoryOverview": "Historie rezervací",
     "limitGuestCommDays": "Limit Editace Hostem před zahájením (dny)",
-    "addReview": "Vložit komentář"
+    "addReview": "Vložit komentář",
+    "tasks": "Úkoly",
+    "averageRating": "Průměrné hodnocení",
+    "comment": "Komentář",
+    "answer": "Odpověď",
+    "reviewOverview": "Přehled hodnocení",
+    "selectedReview": "Vybrané hodnocení",
+    "insertAnswer": "Vložit odpověď",
+    "allReviews": "Všechna hodnocení",
+    "writeAnswer": "Napište odpověď...",
+    "saveAnswer": "Uložit Odpověď"
   },
   "user": {
     "newPassword": "Nové Heslo",

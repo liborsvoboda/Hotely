@@ -223,8 +223,6 @@
     <Content Include="src\components\pages\HotelView.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Info.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Photos.vue" />
-    <Content Include="src\components\pages\HotelViewComponents\ReviewComponents\AddReview.vue" />
-    <Content Include="src\components\pages\HotelViewComponents\ReviewComponents\Review.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Reviews.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Rooms.vue" />
     <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\Option.vue" />
@@ -292,7 +290,6 @@
     <Folder Include="src\components\pages\CustomerProfile\" />
     <Folder Include="src\components\pages\ExtraPages\" />
     <Folder Include="src\components\pages\HotelViewComponents\" />
-    <Folder Include="src\components\pages\HotelViewComponents\ReviewComponents\" />
     <Folder Include="src\components\pages\HotelViewComponents\RoomsViewComponents\" />
     <Folder Include="src\components\pages\Login\" />
     <Folder Include="src\components\pages\MainPage\" />

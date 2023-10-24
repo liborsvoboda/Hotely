@@ -31,6 +31,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        reviewList:[],
         statusList: [],
         privacyPolicyList: [],
         termsList: [],
@@ -93,16 +94,18 @@ const store = createStore({
 
     },
     mutations: {
+        setReviewList(store, value) {
+            store.reviewList = value;
+            console.log("setReviewList", store.reviewList);
+        },
         setStatusList(store, value) {
             store.statusList = value;
         },
         setPrivacyPolicyList(store, value) {
             store.privacyPolicyList = value;
-            console.log("setPrivacyPolicyList", store.privacyPolicyList);
         },
         setTermsList(store, value) {
             store.termsList = value;
-            console.log("settermsList", store.termsList);
         },
         setAdvertisementList(store, value) {
             store.advertisementList = value;
@@ -351,6 +354,20 @@ const store = createStore({
             console.log("setAdvertisementList", result);
             commit('setAdvertisementList', result);
             //if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
+            window.hidePageLoading();
+        },
+        async getReviewList({ commit }) {
+            window.showPageLoading();
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/GetReviewList', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+            commit('setReviewList', result);
             window.hidePageLoading();
         },
         async getStatusList({ commit }) {
@@ -611,6 +628,18 @@ const store = createStore({
             });
             let result = await response.json();
         },
+
+        async setReviewShown({ commit }, reservationId) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/SetReviewShown/' + reservationId, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+        },
         async setGuestShown({ commit }, reservationId) {
             let response = await fetch(
                 this.state.apiRootUrl + '/Guest/SetGuestShown/' + reservationId, {
@@ -648,27 +677,12 @@ const store = createStore({
                         case "BackgroundColor": Metro.storage.setItem('BackgroundColor', setting.value); break;
                         case "InputBanner": Metro.storage.setItem('InputBanner', setting.value); break;
                         case "InputInfoText": Metro.storage.setItem('InputInfoText', setting.value); break;
+                        case "ReviewInsertDaysLimit": Metro.storage.setItem('ReviewInsertDaysLimit', setting.value); break;
                             
                     }
                 });
                 ApplyLoadedWebSetting();
             }
-        },
-
-
-
-
-
-
-        //TODO 
-        async getReviews({ commit }, hotelId) {
-            //let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            let response = await fetch(
-                this.state.apiRootUrl + '/Hotel/GetReviews/' + hotelId
-            )
-            let result = await response.json();
-            commit('getReviews', result);
-            //if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
 
         async updateRegistration({ commit }, updatedUser) {

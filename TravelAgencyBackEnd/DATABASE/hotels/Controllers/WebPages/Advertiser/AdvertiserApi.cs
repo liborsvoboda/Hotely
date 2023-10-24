@@ -21,8 +21,9 @@
                         .Include(a => a.HotelReservationLists)
                         .ThenInclude(a => a.HotelReservationDetailLists)
                         .Include(a => a.HotelReservationLists)
-                        .ThenInclude(a=> a.HotelReservedRoomLists.Where(a=>a.Count > 0))
-                        .Include(a=> a.GuestAdvertiserNoteLists)
+                        .ThenInclude(a => a.HotelReservedRoomLists.Where(a => a.Count > 0))
+                        .Include(a => a.GuestAdvertiserNoteLists)
+                        .Include(a=> a.HotelReservationReviewLists)
                         .Where(a => a.UserId == int.Parse(userId))
                         .AsNoTracking()
                         .IgnoreAutoIncludes()
@@ -73,6 +74,7 @@
                         reservation.HotelReservationDetailLists = reservation.HotelReservationDetailLists.OrderByDescending(a => a.Timestamp).ToList();
                     });
                     hotel.GuestAdvertiserNoteLists = hotel.GuestAdvertiserNoteLists.OrderByDescending(a => a.TimeStamp).ToList();
+                    hotel.HotelReservationReviewLists = hotel.HotelReservationReviewLists.OrderByDescending(a => a.Timestamp).ToList();
                 });
 
                 //result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });

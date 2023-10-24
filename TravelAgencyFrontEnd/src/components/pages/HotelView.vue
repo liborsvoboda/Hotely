@@ -1,8 +1,7 @@
 <template>
-    <Card id="test4">
+    <Card id="test4" class="mb-4">
         <template #content>
             <div class="hotelview">
-
                 <h1>{{hotel.name}}</h1>
                 <div class="container-fluid">
                     <!-- <PhotoG :photos="photos"></PhotoG> -->
@@ -16,12 +15,20 @@
                                             {{ $t('labels.back') }}
                                         </button>
                                     </router-link>
-
-                                    <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')"></Button>
-                                    <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
-                                    <Button id="menuButton" :label="$t('labels.lease')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
-                                    <Button id="menuButton" :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
                                 </div>
+                                <li class="nav-item">
+                                    <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')"></Button>
+                                </li>
+                                <li class="nav-item">
+                                    <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
+                                </li>
+                                <li class="nav-item">
+                                    <Button id="menuButton" :label="$t('labels.lease')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <Button id="menuButton" :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
+                                </li>
 
                                 <li class="nav-item">
                                     <button class="btn" @click="SetFavorite" id="starBtn">

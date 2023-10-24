@@ -69,4 +69,9 @@
         public string Language { get; set; }
     }
 
+    public class AddReviewAnswer {
+        public int ReviewId { get; set; }
+        public string Answer { get; set; }
+        public string Language { get; set; }
+    }
 }
