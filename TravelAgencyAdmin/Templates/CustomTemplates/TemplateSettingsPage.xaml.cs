@@ -74,8 +74,8 @@ namespace UbytkacAdmin.Pages {
             using (HttpClient httpClient = new HttpClient()) {
                 try {
                     string json = await httpClient.GetStringAsync(txt_apiAddress.Text + "/" + ApiUrls.BackendCheck + "/Db");
-                    await MainWindow.ShowMessage(false, json);
-                } catch (Exception ex) { await MainWindow.ShowMessage(false, "Exception Error : " + ex.StackTrace); }
+                    await MainWindow.ShowMessageOnMainWindow(false, json);
+                } catch (Exception ex) { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + ex.StackTrace); }
             }
         }
 
@@ -109,7 +109,7 @@ namespace UbytkacAdmin.Pages {
             App.Setting.AccentName = App.Setting.AccentName;
             App.Setting.ReportingPath = txt_powerBuilderPath.Text;
 
-            if (FileOperations.SaveSettings()) { await MainWindow.ShowMessage(false, Resources["savingSuccessfull"].ToString()); }
+            if (FileOperations.SaveSettings()) { await MainWindow.ShowMessageOnMainWindow(false, Resources["savingSuccessfull"].ToString()); }
         }
 
         private void ApiAddress_TextChanged(object sender, TextChangedEventArgs e) => btnApiTest.IsEnabled = txt_apiAddress.Text.Length > 0;

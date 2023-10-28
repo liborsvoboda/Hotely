@@ -78,7 +78,7 @@
                 {
                     new Claim(ClaimTypes.PrimarySid, guest.Id.ToString()),
                     new Claim(ClaimTypes.Email, guest.Email),
-                    new Claim(ClaimTypes.NameIdentifier, guest.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, guest.Email.ToString()),
                     new Claim(ClaimTypes.GroupSid, guest.UserId.ToString()),
                 }),
                 Issuer = guest.Email,

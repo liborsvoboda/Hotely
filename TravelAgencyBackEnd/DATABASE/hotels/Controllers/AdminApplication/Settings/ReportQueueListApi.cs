@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertReportQueueList([FromBody] ReportQueueList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     var data = new hotelsContext().ReportQueueLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -59,7 +59,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateReportQueueListWriteFilter([FromBody] ApiClassesExtension.SetReportFilter record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     List<ReportQueueList> dbData;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) { dbData = new hotelsContext().ReportQueueLists.Where(a => a.TableName == record.TableName).ToList(); }
                     dbData.ForEach(rec => { rec.Filter = record.Filter; rec.Search = record.Search; rec.RecId = record.RecId; });
@@ -78,7 +78,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateReportQueueList([FromBody] ReportQueueList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     var data = new hotelsContext().ReportQueueLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -92,7 +92,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteReportQueueList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     ReportQueueList record = new() { Id = int.Parse(id) };

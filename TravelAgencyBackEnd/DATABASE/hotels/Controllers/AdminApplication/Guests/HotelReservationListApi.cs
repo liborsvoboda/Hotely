@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertHotelReservationList([FromBody] HotelReservationList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin") || Request.HttpContext.User.IsInRole("Advertiser")) {
+                if (Request.HttpContext.User.IsInRole("admin") || Request.HttpContext.User.IsInRole("advertiser")) {
                     var data = new hotelsContext().HotelReservationLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -59,7 +59,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateHotelReservationList([FromBody] HotelReservationList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin") || Request.HttpContext.User.IsInRole("Advertiser")) {
+                if (Request.HttpContext.User.IsInRole("admin") || Request.HttpContext.User.IsInRole("advertiser")) {
                     var data = new hotelsContext().HotelReservationLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -73,7 +73,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteHotelReservationList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin") || Request.HttpContext.User.IsInRole("Advertiser")) {
+                if (Request.HttpContext.User.IsInRole("admin") || Request.HttpContext.User.IsInRole("advertiser")) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     HotelReservationList record = new() { Id = int.Parse(id) };

@@ -127,10 +127,10 @@ namespace UbytkacAdmin.Pages {
         public async void DeleteRecord() {
             selectedRecord = (ExtendedExchangeRateList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
+            MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.ExchangeRateList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -178,7 +178,7 @@ namespace UbytkacAdmin.Pages {
                     selectedRecord = new ExtendedExchangeRateList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 

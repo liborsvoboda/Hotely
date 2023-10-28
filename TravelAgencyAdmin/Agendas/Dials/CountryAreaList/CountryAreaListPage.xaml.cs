@@ -117,10 +117,10 @@ namespace UbytkacAdmin.Pages {
         public async void DeleteRecord() {
             selectedRecord = (CountryAreaList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
+            MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CountryAreaList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
         }
@@ -165,7 +165,7 @@ namespace UbytkacAdmin.Pages {
                     json = JsonConvert.SerializeObject(countryAreaCityList); httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CountryAreaCityList, httpContent, null, App.UserData.Authentification.Token);
                     if (dBResult.RecordCount != countryAreaCityList.Count()) {
-                        await MainWindow.ShowMessage(true, Resources["itemsDBError"].ToString() + Environment.NewLine + dBResult.ErrorMessage);
+                        await MainWindow.ShowMessageOnMainWindow(true, Resources["itemsDBError"].ToString() + Environment.NewLine + dBResult.ErrorMessage);
                     }
                     else {
                         selectedRecord = new CountryAreaList();
@@ -173,7 +173,7 @@ namespace UbytkacAdmin.Pages {
                         SetRecord(false);
                     }
 
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
@@ -260,7 +260,7 @@ namespace UbytkacAdmin.Pages {
                 Timestamp = DateTimeOffset.Now.DateTime
             };
             if (countryAreaCityList.Where(a => a.CityId == ((CityList)cb_city.SelectedItem).Id).Any()) {
-                await MainWindow.ShowMessage(false, Resources["itemAlreadyExists"].ToString());
+                await MainWindow.ShowMessageOnMainWindow(false, Resources["itemAlreadyExists"].ToString());
             } else { countryAreaCityList.Add(countryAreaCity); }
             DgSubListView.Items.Refresh();
             if (countryAreaCityList.Count > 0 ) { cb_country.IsEnabled = false; } else { cb_country.IsEnabled = true; }

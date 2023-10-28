@@ -89,7 +89,7 @@ namespace UbytkacAdmin.Pages {
 
             DBResultMessage dBResult = await ApiCommunication.PostApiRequest(ApiUrls.Calendar, httpContent, null, App.UserData.Authentification.Token);
             if (dBResult.RecordCount == 0) {
-                await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
             }
         }
 

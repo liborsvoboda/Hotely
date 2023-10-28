@@ -137,10 +137,10 @@ namespace UbytkacAdmin.Pages {
         public async void DeleteRecord() {
             selectedRecord = (HotelRoomList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
+            MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelRoomList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
         }
@@ -190,7 +190,7 @@ namespace UbytkacAdmin.Pages {
                     selectedRecord = new HotelRoomList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
@@ -235,8 +235,8 @@ namespace UbytkacAdmin.Pages {
             try {
                 OpenFileDialog dlg = new OpenFileDialog() { Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) {
-                    if (!MimeMapping.GetMimeMapping(dlg.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
-                    else if (new FileInfo(dlg.FileName).Length > 250 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); }
+                    if (!MimeMapping.GetMimeMapping(dlg.FileName).StartsWith("image/")) { await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("fileisNotImage")); }
+                    else if (new FileInfo(dlg.FileName).Length > 250 * 1024) { await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); }
                     else {
                         img_photoPath.Source = new BitmapImage(new Uri(dlg.FileName));
                         selectedRecord.ImageName = dlg.SafeFileName;

@@ -104,7 +104,7 @@ namespace UbytkacAdmin.Pages {
                         MainWindow.ProgressRing = Visibility.Hidden;
                     } catch (Exception ex) {
                         tbOutputMessageBox.Text = null;
-                        await MainWindow.ShowMessage(false, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
+                        await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
                     }
                 }
             }

@@ -21,7 +21,7 @@ namespace EASYDATACenter.Controllers {
         [Consumes("application/json")]
         public async Task<string> InsertAllDocInterestAreaCityList([FromBody] List<InterestAreaCityList> record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     int result;
                     hotelsContext data = new hotelsContext(); data.InterestAreaCityLists.AddRange(record);
                     result = data.SaveChanges();
@@ -37,7 +37,7 @@ namespace EASYDATACenter.Controllers {
         [Consumes("application/json")]
         public async Task<string> DeleteItemList(int iacId) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     List<InterestAreaCityList> data;
                     data = new hotelsContext().InterestAreaCityLists.Where(a => a.Iacid == iacId).ToList();
                     hotelsContext data1 = new hotelsContext(); data1.InterestAreaCityLists.RemoveRange(data);

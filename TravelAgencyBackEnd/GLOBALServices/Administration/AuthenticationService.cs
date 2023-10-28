@@ -63,10 +63,9 @@
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    //new Claim(ClaimTypes.Name, user.Name),
-                    //new Claim(ClaimTypes.Surname, user.Surname),
+                    new Claim(ClaimTypes.PrimarySid, user.Id.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                    new Claim(ClaimTypes.Role, user.Role.SystemName),
+                    new Claim(ClaimTypes.Role, user.Role.SystemName.ToLower()),
                 }),
                 Issuer = user.UserName,
                 //NotBefore = DateTimeOffset.Now.DateTime,
@@ -75,7 +74,7 @@
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            AuthenticateResponse authResponse = new() { Id = user.Id, Name = user.Name, Surname = user.SurName, Token = tokenHandler.WriteToken(token), Role = user.Role.SystemName };
+            AuthenticateResponse authResponse = new() { Id = user.Id, Name = user.Name, Surname = user.SurName, Token = tokenHandler.WriteToken(token), Role = user.Role.SystemName.ToLower() };
             return authResponse;
         }
 

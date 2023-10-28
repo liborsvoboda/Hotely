@@ -8,7 +8,7 @@
         [HttpGet("/PrivacyPolicyList")]
         public async Task<string> GetPrivacyPolicyList() {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     List<PrivacyPolicyList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -25,7 +25,7 @@
         [HttpGet("/PrivacyPolicyList/Filter/{filter}")]
         public async Task<string> GetPrivacyPolicyListByFilter(string filter) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     List<PrivacyPolicyList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -42,7 +42,7 @@
         [HttpGet("/PrivacyPolicyList/{id}")]
         public async Task<string> GetPrivacyPolicyListKey(int id) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     PrivacyPolicyList data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted
@@ -60,7 +60,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertPrivacyPolicyList([FromBody] PrivacyPolicyList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     var data = new hotelsContext().PrivacyPolicyLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -74,7 +74,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdatePrivacyPolicyList([FromBody] PrivacyPolicyList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     var data = new hotelsContext().PrivacyPolicyLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -88,7 +88,7 @@
         [Consumes("application/json")]
         public async Task<string> DeletePrivacyPolicyList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     PrivacyPolicyList record = new() { Id = int.Parse(id) };

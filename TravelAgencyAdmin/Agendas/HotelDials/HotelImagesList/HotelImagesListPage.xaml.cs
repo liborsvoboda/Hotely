@@ -99,7 +99,7 @@ namespace UbytkacAdmin.Pages {
             if (selectedPhotoId != 0) { PhotosListBox.SelectedItem = Photos.First(x => (selectedPhotoId > 0 && x.DbId == selectedPhotoId) || (selectedPhotoId == -1 && x.DbId == Photos.Max(a => a.DbId))); }
 
             MessageDialogResult result = new MessageDialogResult();
-            if (PhotosListBox.IsEnabled && ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
+            if (PhotosListBox.IsEnabled && ClonedSelectedImage.Changed) result = await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
             if (!ClonedSelectedImage.Changed || (ClonedSelectedImage.Changed && result == MessageDialogResult.Affirmative)) { ClonedSelectedImage = new ImageHelper(((Photo)PhotosListBox.SelectedItem).Source); SetImageChanges(false); }
             ViewedPhoto.Source = ClonedSelectedImage.EditingImage;
 
@@ -160,7 +160,7 @@ namespace UbytkacAdmin.Pages {
                             dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
                         } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
-                        if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                        if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
                     }
                 } else {  // Save Last image only
                     Photo selectedPhoto = Photos.First(a => a.DbId == onlyThis);
@@ -181,7 +181,7 @@ namespace UbytkacAdmin.Pages {
                         dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
                     } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
-                    if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
+                    if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
                 }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); return false; }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -190,8 +190,8 @@ namespace UbytkacAdmin.Pages {
         private async void InsertNewClick(object sender, RoutedEventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "Image files |*.png;*.jpg;*.jpeg", Title = Resources["fileOpenDescription"].ToString() };
             if (openFileDialog.ShowDialog() == true) {
-                if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileisNotImage")); }
-                else if (new FileInfo(openFileDialog.FileName).Length > 250 * 1024) { await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); } 
+                if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("fileisNotImage")); }
+                else if (new FileInfo(openFileDialog.FileName).Length > 250 * 1024) { await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); } 
                 else { 
                     try { FileOperations.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
                     Photos.Add(openFileDialog.FileName, 0, false);
@@ -206,7 +206,7 @@ namespace UbytkacAdmin.Pages {
             DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelImagesList, dbId.ToString(), App.UserData.Authentification.Token);
             MainWindow.ProgressRing = Visibility.Hidden;
 
-            if (dBResult.RecordCount > 0) { return true; } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
+            if (dBResult.RecordCount > 0) { return true; } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
         }
 
         private async void DeleteSelectedClick(object sender, RoutedEventArgs e) {
@@ -237,7 +237,7 @@ namespace UbytkacAdmin.Pages {
 
         private async void SelectedHotelChanged(object sender, SelectionChangedEventArgs e) {
             MessageDialogResult result = new MessageDialogResult();
-            if (ClonedSelectedImage.Changed) result = await MainWindow.ShowMessage(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
+            if (ClonedSelectedImage.Changed) result = await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("YouHaveUnconfirmedImagesChanges_IgnoreIt?"), true);
             selectedHotel = ((HotelList)cb_hodelId.SelectedItem).Id;
             await LoadFromServer();
         }

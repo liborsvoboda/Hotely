@@ -197,7 +197,7 @@ namespace UbytkacAdmin.Pages {
                     selectedRecord = new HotelPropertyAndServiceList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 

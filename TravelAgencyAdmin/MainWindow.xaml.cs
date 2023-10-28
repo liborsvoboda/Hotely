@@ -273,7 +273,7 @@ namespace UbytkacAdmin {
         /// <param name="message"></param>
         /// <param name="confirm"></param>
         /// <returns></returns>
-        public static async Task<MessageDialogResult> ShowMessage(bool error, string message, bool confirm = false) {
+        public static async Task<MessageDialogResult> ShowMessageOnMainWindow(bool error, string message, bool confirm = false) {
             if (error) App.ApplicationLogging(new Exception(), message);
 
             ProgressRing = Visibility.Hidden; MessageDialogResult result;
@@ -678,13 +678,13 @@ namespace UbytkacAdmin {
                         }
                     } else {
                         cnn.Close();
-                        await ShowMessage(true, Resources["connectionStringIsNotValid"].ToString());
+                        await ShowMessageOnMainWindow(true, Resources["connectionStringIsNotValid"].ToString());
                     }
                     ProgressRing = Visibility.Hidden;
                 }
             } catch (Exception ex) {
                 App.ApplicationLogging(ex);
-                await ShowMessage(true, Resources["connectionStringIsNotValid"].ToString());
+                await ShowMessageOnMainWindow(true, Resources["connectionStringIsNotValid"].ToString());
                 ProgressRing = Visibility.Hidden;
             }
             cb_printReports.SelectedIndex = -1;

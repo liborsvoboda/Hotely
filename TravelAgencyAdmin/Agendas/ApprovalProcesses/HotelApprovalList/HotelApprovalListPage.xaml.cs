@@ -200,7 +200,7 @@ namespace UbytkacAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                 dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token);
-                if (dBResult.RecordCount > 0) { await MainWindow.ShowMessage(false, Resources["changesSaved"].ToString()); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                if (dBResult.RecordCount > 0) { await MainWindow.ShowMessageOnMainWindow(false, Resources["changesSaved"].ToString()); } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 
@@ -389,7 +389,7 @@ namespace UbytkacAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelRoomList, httpContent, null, App.UserData.Authentification.Token);
 
-                if (dBResult.RecordCount > 0) { LoadRoomDataList(); } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                if (dBResult.RecordCount > 0) { LoadRoomDataList(); } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
     }

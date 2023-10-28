@@ -16,7 +16,7 @@ namespace UbytkacAdmin.Helper {
         public static async void CheckUpdate(bool directUpdate) {
             MetroWindow metroWindow = Application.Current.MainWindow as MetroWindow;
 
-            if (string.IsNullOrWhiteSpace(App.Setting.UpdateUrl)) { await MainWindow.ShowMessage(false, metroWindow.Resources["updateUrlNotSet"].ToString()); }
+            if (string.IsNullOrWhiteSpace(App.Setting.UpdateUrl)) { await MainWindow.ShowMessageOnMainWindow(false, metroWindow.Resources["updateUrlNotSet"].ToString()); }
             Tuple<Version, string> updateResult = await LastUpdate();
 
             if (string.IsNullOrWhiteSpace(updateResult.Item2) && directUpdate) { await metroWindow.ShowMessageAsync(metroWindow.Resources["info"].ToString(), metroWindow.Resources["noneUpdateAvailable"].ToString(), MessageDialogStyle.Affirmative); } else if (updateResult.Item2 == "update") {
@@ -63,7 +63,7 @@ namespace UbytkacAdmin.Helper {
                 webClient.DownloadFileCompleted += (sender, args) => { DownloadCompleted(version, installNow); };
                 await webClient.DownloadFileTaskAsync(new Uri(App.Setting.UpdateUrl.Remove(App.Setting.UpdateUrl.Length - 6, 6) + App.appName + "_" + version + ".exe"), Path.Combine(App.updateFolder, App.appName + "_" + version + ".exe"));
             } catch (Exception ex) {
-                await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden;
+                await MainWindow.ShowMessageOnMainWindow(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden;
             }
         }
 
@@ -80,7 +80,7 @@ namespace UbytkacAdmin.Helper {
                 } else {   //Update file is under 1MB go next without info
                     metroWindow.Dispatcher.Invoke(DispatcherPriority.DataBind, new Action(delegate () { MainWindow.ProgressRing = Visibility.Hidden; MainWindow.DownloadShow = 0; MainWindow.DownloadStatus = 0; }));
                 }
-            } catch (Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
+            } catch (Exception ex) { await MainWindow.ShowMessageOnMainWindow(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
         }
 
         private static async void InstallUpdate(string path) {
@@ -88,7 +88,7 @@ namespace UbytkacAdmin.Helper {
                 var psi = new ProcessStartInfo() { FileName = path, Verb = (Environment.OSVersion.Version.Major >= 6) ? "runas" : "" };
                 Process.Start(psi);
                 App.AppQuitRequest(true);
-            } catch (Exception ex) { await MainWindow.ShowMessage(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
+            } catch (Exception ex) { await MainWindow.ShowMessageOnMainWindow(false, ex.Message + Environment.NewLine + ex.StackTrace); MainWindow.ProgressRing = Visibility.Hidden; }
         }
     }
 }

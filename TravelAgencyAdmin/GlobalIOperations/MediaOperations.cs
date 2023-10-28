@@ -33,7 +33,7 @@ namespace UbytkacAdmin.GlobalOperations {
                     encoder.Save(fs);
                     fs.Close();
                 }
-            } catch (Exception ex) { await MainWindow.ShowMessage(true, ex.Message + Environment.NewLine + ex.StackTrace); }
+            } catch (Exception ex) { await MainWindow.ShowMessageOnMainWindow(true, ex.Message + Environment.NewLine + ex.StackTrace); }
         }
 
         /// <summary>

@@ -102,10 +102,10 @@ namespace UbytkacAdmin.Pages {
         public async void DeleteRecord() {
             selectedRecord = (PrivacyPolicyList)DgListView.SelectedItem;
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
-            MessageDialogResult result = await MainWindow.ShowMessage(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
+            MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
                 DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.PrivacyPolicyList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
-                if (dBResult.RecordCount == 0) await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage);
+                if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
         }
@@ -145,7 +145,7 @@ namespace UbytkacAdmin.Pages {
                     selectedRecord = new PrivacyPolicyList();
                     await LoadDataList();
                     SetRecord(false);
-                } else { await MainWindow.ShowMessage(false, "Exception Error : " + dBResult.ErrorMessage); }
+                } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
 

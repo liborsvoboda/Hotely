@@ -11,7 +11,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     data = new hotelsContext().DocumentAdviceLists.ToList();
                 }
                 else {
@@ -29,7 +29,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                if (Request.HttpContext.User.IsInRole("Admin")) { data = new hotelsContext().DocumentAdviceLists.FromSqlRaw("SELECT * FROM DocumentAdviceList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                if (Request.HttpContext.User.IsInRole("admin")) { data = new hotelsContext().DocumentAdviceLists.FromSqlRaw("SELECT * FROM DocumentAdviceList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else {
                     data = new hotelsContext().DocumentAdviceLists.FromSqlRaw("SELECT * FROM DocumentAdviceList WHERE 1=1 AND " + filter.Replace("+", " "))
                         .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
@@ -57,7 +57,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertDocumentAdviceList([FromBody] DocumentAdviceList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
                     var data = new hotelsContext().DocumentAdviceLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
@@ -72,7 +72,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateDocumentAdviceList([FromBody] DocumentAdviceList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     var data = new hotelsContext().DocumentAdviceLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -86,7 +86,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteDocumentAdviceList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("admin")) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     DocumentAdviceList record = new() { Id = int.Parse(id) };

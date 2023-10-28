@@ -25,7 +25,7 @@ namespace UbytkacBackend.Controllers {
                         
                         //Send Verify Email
                         string verifyCode = Functions.RandomString(10);
-                        EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                        EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                         MailRequest mailRequest = new MailRequest();
                         if (template != null) {
                             mailRequest = new MailRequest() {
@@ -133,7 +133,7 @@ namespace UbytkacBackend.Controllers {
                 //missing saving control booked rooms from foreach saving
 
                 //Send Reservation Email
-                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest1 = new MailRequest();
                 if (template1 != null) {
                     mailRequest1 = new MailRequest() {
@@ -208,7 +208,7 @@ namespace UbytkacBackend.Controllers {
 
                 //Send Registration Email
                 if (result > 0) {
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
@@ -296,7 +296,7 @@ namespace UbytkacBackend.Controllers {
                 //missing saving control booked rooms from foreach saving
 
                 //Send Reservation Email
-                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest1 = new MailRequest();
                 if (template1 != null) {
                     mailRequest1 = new MailRequest() {

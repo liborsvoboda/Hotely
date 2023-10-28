@@ -82,10 +82,10 @@ namespace UbytkacAdmin.Templates {
             MainWindow.ProgressRing = Visibility.Hidden;
 
             ///Show Info message
-            await MainWindow.ShowMessage(false, "Resources[\"dictionaryWord\"].ToString()");
+            await MainWindow.ShowMessageOnMainWindow(false, "Resources[\"dictionaryWord\"].ToString()");
 
             ///Show Confirm Dialog
-            MessageDialogResult result = await MainWindow.ShowMessage(false, "Resources[\"dictionaryWord\"].ToString()" + " ", true);
+            MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, "Resources[\"dictionaryWord\"].ToString()" + " ", true);
             if (result == MessageDialogResult.Affirmative) { }
 
             ///Method For Sett Language of Each Page
@@ -125,8 +125,8 @@ namespace UbytkacAdmin.Templates {
             using (HttpClient httpClient = new HttpClient()) {
                 try {
                     string json = await httpClient.GetStringAsync("someUrl");
-                    await MainWindow.ShowMessage(false, json);
-                } catch (Exception ex) { await MainWindow.ShowMessage(false, "Exception Error : " + ex.StackTrace); }
+                    await MainWindow.ShowMessageOnMainWindow(false, json);
+                } catch (Exception ex) { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + ex.StackTrace); }
             }
         }
 

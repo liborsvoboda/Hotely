@@ -32,7 +32,7 @@ namespace UbytkacBackend.Controllers {
 
 
                     //Send ResetPassword Email
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
@@ -82,7 +82,7 @@ namespace UbytkacBackend.Controllers {
                     }
 
                     //Send Verify Email
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
@@ -154,7 +154,7 @@ namespace UbytkacBackend.Controllers {
 
 
                 //Send Reg Email
-                EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a=>a.TemplateName == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a=>a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest = new MailRequest();
                 if (template != null) {
                     mailRequest = new MailRequest() {
