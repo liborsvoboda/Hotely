@@ -5,7 +5,7 @@
                 {{ $t('messages.reservationWasSent') }}
             </template>
             <template #content>
-                <img alt="Bootstrap Image Preview" src="https://raw.githubusercontent.com/PKief/vscode-markdown-checkbox/master/logo.png" class="rounded-circle" id="orderPic"/>
+                <img src="https://raw.githubusercontent.com/PKief/vscode-markdown-checkbox/master/logo.png" class="rounded-circle" id="orderPic"/>
                 <div> {{ $t('messages.reservationInfo') }} </div>
             </template>
         </Card>

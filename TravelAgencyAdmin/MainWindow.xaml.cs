@@ -182,7 +182,7 @@ namespace UbytkacAdmin {
 
                 //MENUS THIS IS FOR MANUAL UPDATE
                 //Vertical main menu
-                tv_dials.Header = Resources["dials"].ToString(); tv_crm.Header = Resources["crm"].ToString(); tv_agendas.Header = Resources["agendas"].ToString();
+                tv_dials.Header = Resources["dials"].ToString(); tv_agendas.Header = Resources["agendas"].ToString();
                 tv_settings.Header = Resources["settings"].ToString(); tv_system.Header = Resources["system"].ToString();
                 tv_accommodations.Header = Resources["accommodations"].ToString(); tv_accommodationConfiguration.Header = Resources["accommodationConfiguration"].ToString();
                 tv_hosts.Header = Resources["hosts"].ToString();tv_webAdmin.Header = Resources["webAdmin"].ToString(); 
@@ -218,7 +218,9 @@ namespace UbytkacAdmin {
                 tm_webSettingList.Header = Resources["webSettingList"].ToString(); tm_hotelReservationStatusList.Header = Resources["hotelReservationStatusList"].ToString();
 
                 tm_hotelReservationReviewList.Header = Resources["hotelReservationReviewList"].ToString(); tm_hotelReservationList.Header = Resources["hotelReservationList"].ToString();
-                tm_hotelReservationReviewApprovalList.Header = Resources["hotelReservationReviewApprovalList"].ToString();
+                tm_hotelReservationReviewApprovalList.Header = Resources["hotelReservationReviewApprovalList"].ToString(); tm_creditPackageList.Header = Resources["creditPackageList"].ToString();
+
+
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -766,6 +768,11 @@ namespace UbytkacAdmin {
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CountryAreaListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CountryAreaList", App.UserData.Authentification.Token);
+                            break;
+                        case "tm_creditPackageList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new CreditPackageListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/CreditPackageList", App.UserData.Authentification.Token);
                             break;
 
                         case "tm_currencyList":

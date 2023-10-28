@@ -1,4 +1,6 @@
-﻿namespace UbytkacBackend.Controllers {
+﻿using UbytkacBackend.DBModel;
+
+namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]
@@ -18,12 +20,16 @@
                         .Include(a => a.City)
                         .Include(a => a.Country)
                         .Include(a => a.DefaultCurrency)
+
+                        /*
                         .Include(a => a.HotelReservationLists)
                         .ThenInclude(a => a.HotelReservationDetailLists)
                         .Include(a => a.HotelReservationLists)
                         .ThenInclude(a => a.HotelReservedRoomLists.Where(a => a.Count > 0))
-                        .Include(a => a.GuestAdvertiserNoteLists)
-                        .Include(a=> a.HotelReservationReviewLists)
+                        */
+
+                        //.Include(a => a.GuestAdvertiserNoteLists)
+                        //.Include(a=> a.HotelReservationReviewLists)
                         .Where(a => a.UserId == int.Parse(userId))
                         .AsNoTracking()
                         .IgnoreAutoIncludes()
@@ -46,8 +52,21 @@
                         props.ForEach(property => {
                             property.PropertyOrService.SystemName = DBOperations.DBTranslate(property.PropertyOrService.SystemName, language);
                         });
-
                         hotel.HotelPropertyAndServiceLists = props;
+
+                        List<HotelReservationList> reservations = new hotelsContext().HotelReservationLists
+                        .Include(a => a.HotelReservationDetailLists)
+                        .Include(a => a.HotelReservedRoomLists.Where(a => a.Count > 0))
+                        .Where(a => a.HotelId == hotel.Id).OrderByDescending(a => a.Timestamp).ToList();
+                        hotel.HotelReservationLists = reservations;
+
+                        List<GuestAdvertiserNoteList> notes = new hotelsContext().GuestAdvertiserNoteLists.Where(a => a.HotelId == hotel.Id)
+                        .OrderByDescending(a => a.TimeStamp).ToList();
+                        hotel.GuestAdvertiserNoteLists = notes;
+
+                        List<HotelReservationReviewList> reviews = new hotelsContext().HotelReservationReviewLists.Where(a => a.HotelId == hotel.Id && a.Approved == true)
+                        .OrderByDescending(a => a.Timestamp).ToList();
+                        hotel.HotelReservationReviewLists = reviews;
 
                     }
 
@@ -57,7 +76,7 @@
 
                     hotel.HotelImagesLists.ToList().ForEach(attachment => {
                         attachment.Hotel = null;
-                        attachment.Attachment = attachment.Attachment;
+                        attachment.Attachment = null;
                     });
 
                     hotel.City.HotelLists = null;
@@ -67,14 +86,16 @@
                     hotel.DefaultCurrency.HotelLists = null;
                     hotel.HotelRoomLists.ToList().ForEach(room => {
                         room.Hotel = null;
+                        room.Image = null;
                     });
 
-                    hotel.HotelReservationLists = hotel.HotelReservationLists.OrderByDescending(a => a.StartDate).ToList();
+                    //hotel.HotelReservationLists = hotel.HotelReservationLists.OrderByDescending(a => a.StartDate).ToList();
                     hotel.HotelReservationLists.ToList().ForEach(reservation => {
                         reservation.HotelReservationDetailLists = reservation.HotelReservationDetailLists.OrderByDescending(a => a.Timestamp).ToList();
                     });
-                    hotel.GuestAdvertiserNoteLists = hotel.GuestAdvertiserNoteLists.OrderByDescending(a => a.TimeStamp).ToList();
-                    hotel.HotelReservationReviewLists = hotel.HotelReservationReviewLists.OrderByDescending(a => a.Timestamp).ToList();
+
+                    //hotel.GuestAdvertiserNoteLists = hotel.GuestAdvertiserNoteLists.OrderByDescending(a => a.TimeStamp).ToList();
+                    //hotel.HotelReservationReviewLists = hotel.HotelReservationReviewLists.OrderByDescending(a => a.Timestamp).ToList();
                 });
 
                 //result.ForEach(item => { item.SystemName = DBOperations.DBTranslate(item.SystemName, language); });

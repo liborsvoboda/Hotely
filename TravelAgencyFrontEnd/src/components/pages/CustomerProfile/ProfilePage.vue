@@ -1,6 +1,6 @@
 <template>
-    <div class="py-4">
-        <div class="row">
+    <div class="py-4 mt-4">
+        <div class="rounded drop-shadow row">
             <div class="col-md-6 text-left">
                 <h1>{{ $t('labels.showNews') }}</h1>
             </div>
@@ -10,9 +10,10 @@
                         {{ $t('labels.show') }}
                     </div>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" v-on:click="showNewest">{{ $t('labels.fiveNewest') }}</a></li>
-                        <li><a class="dropdown-item" v-on:click="showCheapest">{{ $t('labels.fiveCheapest') }}</a></li>
-                        <li><a class="dropdown-item" v-on:click="showFavoritest">{{ $t('labels.fiveFavoritest') }}</a></li>
+                        <li><a class="dropdown-item" v-on:click="showNewest">{{ userSettings.topFiveCount }} {{ $t('labels.fiveNewest') }}</a></li>
+                        <li><a class="dropdown-item" v-on:click="showCheapest">{{ userSettings.topFiveCount }} {{ $t('labels.fiveCheapest') }}</a></li>
+                        <li><a class="dropdown-item" v-on:click="showFavoritest">{{ userSettings.topFiveCount }} {{ $t('labels.fiveFavoritest') }}</a></li>
+                        <li><a class="dropdown-item" v-on:click="showBestReviews">{{ userSettings.topFiveCount }} {{ $t('labels.fiveBestScore') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,11 +54,19 @@ export default {
             this.$store.state.topFiveList = [];
             await this.$store.dispatch('getTopFiveList', 'favoritest');
         },
+        async showBestReviews() {
+            this.$store.state.topFiveList = [];
+            await this.$store.dispatch('getTopFiveList', 'bestreview');
+        },
+        
     },
     async created() {
         await this.$store.dispatch('getTopFiveList','newest');
     },
     computed: {
+        userSettings() {
+            return this.$store.state.userSettings;
+        },
         TopFiveList() {
             return this.$store.state.topFiveList;
         }

@@ -29,8 +29,8 @@
             </ul>
         </form>
 
-        <div class="forgot" align="center"><router-link to="/login">{{ $t('user.logIn') }}</router-link></div>
-        <div class="forgot p-0" align="center"><router-link to="/forgot">{{ $t('user.forgotPassword') }}</router-link></div>
+        <div class="forgot" align="center"><router-link to="/Login">{{ $t('user.logIn') }}</router-link></div>
+        <div class="forgot p-0" align="center"><router-link to="/Forgot">{{ $t('user.forgotPassword') }}</router-link></div>
 
     </div>
 </template>

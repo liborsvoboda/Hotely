@@ -17,17 +17,17 @@
                                     </router-link>
                                 </div>
                                 <li class="nav-item">
-                                    <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/hotels/' + this.$route.params.id + '/')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.info')" icon="pi pi-info-circle" @click="$router.push('/Hotels/' + this.$route.params.id + '/')"></Button>
                                 </li>
                                 <li class="nav-item">
-                                    <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/hotels/' + this.$route.params.id + '/photos')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.photos')" icon="pi pi-images" @click="$router.push('/Hotels/' + this.$route.params.id + '/Photos')"></Button>
                                 </li>
                                 <li class="nav-item">
-                                    <Button id="menuButton" :label="$t('labels.lease')" icon="pi pi-home" @click="$router.push('/hotels/' + this.$route.params.id + '/rooms')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.lease')" icon="pi pi-home" @click="$router.push('/Hotels/' + this.$route.params.id + '/Rooms')"></Button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <Button id="menuButton" :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/hotels/' + this.$route.params.id + '/reviews')"></Button>
+                                    <Button id="menuButton" :label="$t('labels.reviews')" icon="pi pi-comments" @click="$router.push('/Hotels/' + this.$route.params.id + '/Reviews')"></Button>
                                 </li>
 
                                 <li class="nav-item">
@@ -69,8 +69,6 @@ export default {
     },
     computed: {
         isFavorite() {
-            console.log("HotelChecking Fav store/com store/fav", this.$store.state.hotel, this.hotel.id, this.$store.state.lightFavoriteHotelList);
-
             return this.$store.state.lightFavoriteHotelList.filter(obj => { return obj.hotelId === this.hotel.id; }).length > 0;
         },
         backRoute() {

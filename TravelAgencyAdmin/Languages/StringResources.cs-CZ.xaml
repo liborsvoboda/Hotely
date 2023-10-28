@@ -513,5 +513,8 @@
     <system:String x:Key="zipcode">PSČ</system:String>
     <system:String x:Key="hotelReservationReviewApprovalList">Schválení komentářů</system:String>
 
+    <system:String x:Key="creditCount">Počet kreditů</system:String>
+    <system:String x:Key="creditPrice">Cena kreditů</system:String>
+    <system:String x:Key="creditPackageList">Balíčky kreditů</system:String>
 
 </ResourceDictionary>

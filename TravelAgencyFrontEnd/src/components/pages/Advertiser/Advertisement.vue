@@ -79,7 +79,7 @@ export default {
                 Rooms: [],
                 Properties: []
             };
-            this.$router.push('/profile/advertisementWizard');
+            this.$router.push('/Profile/AdvertisementWizard');
         },
         async showAlsoInactive() {
             this.ShowAlsoInactive = !this.ShowAlsoInactive;

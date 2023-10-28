@@ -514,4 +514,8 @@
     <system:String x:Key="zipcode">Zip code</system:String>
     <system:String x:Key="hotelReservationReviewApprovalList">Reviews approve</system:String>
 
+    <system:String x:Key="creditCount">Credit count</system:String>
+    <system:String x:Key="creditPrice">Credit price</system:String>
+    <system:String x:Key="creditPackageList">Credit packages</system:String>
+
 </ResourceDictionary>

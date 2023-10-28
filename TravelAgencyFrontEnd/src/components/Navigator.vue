@@ -29,9 +29,9 @@
                     <div class="col-lg-9 col-sm-9 col-9 header-top-left">
                         <div class="nav-menu">
                             <div class="d-flex w-100" style="font-size:16px;">
-                                <router-link :to="'/profile/'" class="ani-hover-heartbeat">
+                                <router-link :to="'/Profile/'" class="ani-hover-heartbeat">
                                     <!--  <span class="icon mif-star-full " /> -->
-                                    {{ $t('labels.topFive') }}
+                                    {{ $t('labels.top') }} {{ userSettings.topFiveCount }}
                                 </router-link>
 
                                 <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')" class="ani-hover-heartbeat">
@@ -61,8 +61,8 @@
                     <div class="col-lg-3 col-sm-3 col-3 header-top-right">
                         <div class="nav-menu">
                             <div v-if="!loggedIn">
-                                <a href="#" class="ani-hover-heartbeat"><router-link to="/login">{{ $t('user.login') }}</router-link></a>
-                                <a href="#" class="ani-hover-heartbeat"><router-link to="/registration">{{ $t('user.register') }}</router-link></a>
+                                <a href="#" class="ani-hover-heartbeat"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#" class="ani-hover-heartbeat"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
                             </div>
                             <div v-if="loggedIn">
                                 <a href="#" @click="logout()">{{ $t('user.logout') }}</a>
@@ -105,6 +105,9 @@ export default {
         user() {
             return this.$store.state.user;
         },
+        userSettings() {
+            return this.$store.state.userSettings;
+        },
         advertisement() {
             return this.$store.state.advertisementList;
         },
@@ -135,16 +138,16 @@ export default {
             if (this.loggedIn) {
                 switch (menuName) {
                     case "MenuBooking":
-                        this.$router.push('/profile/bookings');
+                        this.$router.push('/Profile/Bookings');
                         break;
                     case "MenuFavorite":
-                        this.$router.push('/profile/favorite');
+                        this.$router.push('/Profile/Favorite');
                         break;
                     case "MenuUserSetting":
-                        this.$router.push('/profile/profileSetting');
+                        this.$router.push('/Profile/ProfileSetting');
                         break;
                     case "MenuAdvertisement":
-                        if (this.user.UserId != '') { this.$router.push('/profile/advertisement'); }
+                        if (this.user.UserId != '') { this.$router.push('/Profile/Advertisement'); }
                         else {
                             document.getElementById(menuName).classList.add("ani-flash");
                             setTimeout(function () { document.getElementById(menuName).classList.remove("ani-flash"); }, 5000);
@@ -168,7 +171,7 @@ export default {
 
         },
         async home() {
-            await this.$store.dispatch("getTopList");
+            await this.$store.dispatch("getMainTopList");
             this.$router.push('/');
         },
         logout() {

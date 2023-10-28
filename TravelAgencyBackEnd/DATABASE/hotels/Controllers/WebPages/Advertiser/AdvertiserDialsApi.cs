@@ -77,6 +77,35 @@ namespace UbytkacBackend.Controllers {
             return JsonSerializer.Serialize(result, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
+        [HttpGet("/WebApi/Advertiser/GetRoomBookingList/{roomId}/{language}")]
+        public async Task<string> GetRoomBookingList(int roomId, string language = "cz") {
+
+            string userId = User.FindFirst(ClaimTypes.GroupSid.ToString()).Value;
+
+            List<HotelReservedRoomList> result;
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                result = new hotelsContext().HotelReservedRoomLists
+                    .Include(a => a.Reservation)
+                    .Include(a=>a.Status)
+                    .Where(a => a.HotelRoomId == roomId && a.Count > 0 && a.Hotel.UserId == int.Parse(userId))
+                    .OrderBy(a=> a.HotelRoomId)
+                    .OrderByDescending(a => a.Timestamp)
+                    .ToList();
+            }
+
+            result.ForEach(reservation => {
+                reservation.Status.SystemName = DBOperations.DBTranslate(reservation.Status.SystemName, language);
+            });
+
+
+            return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        }
+
     }
 }
 

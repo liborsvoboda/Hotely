@@ -6,7 +6,7 @@ namespace UbytkacBackend.Controllers {
     [Route("WebApi/Top")]
     public class TopApi : ControllerBase {
 
-        [HttpGet("/WebApi/Top/GetTopList/{language}")]
+        [HttpGet("/WebApi/Top/GetMainTopList/{language}")]
         public async Task<string> GetTopList(string language = "cz") {
             List<int> data = GetTopIdList(language);
 

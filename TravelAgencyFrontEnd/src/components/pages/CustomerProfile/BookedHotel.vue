@@ -24,7 +24,10 @@
                             <div class="textB">
                                 <div class="text-right">{{ hotel.status.systemName }}</div>
                                 <div v-for="room in hotel.hotelReservedRoomLists" class="text-right">
-                                    {{ room.name }} x {{ room.count }}
+                                    {{ room.name }} x {{ room.count }} 
+                                    <span v-if="room.extraBed">
+                                        + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                                    </span>
                                 </div>
                                 <div class="text-right">{{ hotel.totalPrice }} {{ hotel.currency.name }}</div>
                                 <div v-if="hotel.hotelReservationReviewList != null" class="text-right">

@@ -175,11 +175,11 @@ export default {
             });
         },
         hotelDetailsClick(event) {
-            this.$store.state.backRoute = "/result";
+            this.$store.state.backRoute = "/Result";
             this.$store.state.backRouteScroll = window.scrollY;
 
             this.$store.dispatch("setHotel", this.hotel);
-            this.$router.push('/hotels/' + this.hotel.id);
+            this.$router.push('/Hotels/' + this.hotel.id);
         },
     },
 };

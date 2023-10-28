@@ -1,35 +1,50 @@
 <template>
-  <div class="container">
-      <div class="row">
-          <!-- left column -->
-          <div class="col-md-10">
-              <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :hotel="hotelInfo" :key="room.id" />
-          </div>
+    <div class="container">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-10">
+                <Room v-for="room in hotelInfo.hotelRoomLists" :room="room" :hotel="hotelInfo" :key="room.id" />
+            </div>
 
 
-          <!-- right column -->
-          <div class="col-md-2 rounded shadow-sm" id="rightCard">
-              <div class="row pt-5">
-                  <div class="col-md-12">
-                      <b>
-                          {{ $t('labels.totalPrice')}}
-                          <br />
-                          {{ totalprice }} {{hotelInfo.defaultCurrency.name}}
-                      </b>
-                  </div>
+            <!-- right column -->
+            <div class="col-md-2 rounded shadow-sm" id="rightCard">
+                <div class="row pt-5">
+                    <div class="col-md-12">
+                        <b>
+                            {{ $t('labels.totalPrice')}}
+                            <br />
+                            {{ totalprice }} {{hotelInfo.defaultCurrency.name}}
+                        </b>
+                    </div>
 
-                  <div class="col-md-12 pt-5">
-                      <div v-if="CanBook">
-                          <router-link to="/checkout" class="btn btn-primary" @click="Book"><span class="far fa-bookmark"></span> {{ $t('labels.demandReservation')}} </router-link>
-                      </div>
-                      <div v-else>
-                          <b>{{ $t('labels.insertRoomsCount')}}</b>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                    <div class="col-md-12 pt-5">
+                        <div v-if="CanBook">
+                            <router-link to="/Checkout" class="btn btn-primary shadowed" @click="Book"><span class="far fa-bookmark"></span> {{ $t('labels.demandReservation')}} </router-link>
+                        </div>
+                        <div v-else>
+                            <b>{{ $t('labels.insertRoomsCount')}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="BookedCalendarBox" class="info-box" data-role="infobox" data-type="default" data-width="630" data-height="450">
+        <span class="button square closer"></span>
+        <div class="info-box-content" style="overflow-y:auto;">
+            <div class="d-flex row ">
+                <div class="h3 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-0 mt-0 pb-0 mb-0">
+                    {{ $t('labels.availableCalendar') }}
+                </div>
+                <div id="roomName" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-0 mt-0 pb-0 mb-0"></div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div id="BookedCalendar" data-role="calendar" data-wide-point="sm" data-week-start="1" data-input-format="yyyy-mm-dd" data-buttons="today" data-ripple="true"></div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -62,18 +77,7 @@ export default {
         },
     },
     mounted() {
-        //Cleared Booked Rooms
-        this.$store.state.bookingDetail.rooms = [];
-        this.$store.state.hotel.hotelRoomLists.forEach(room => {
-            this.$store.state.bookingDetail.rooms.push({
-                id: room.id, 
-                typeId: room.roomTypeId,
-                name: room.name, 
-                price: room.price,
-                booked: 0
-            });
-        });
-        this.$store.state.bookingDetail.totalPrice = 0;
+        
     },
     methods: {
         Book() {

@@ -2,8 +2,8 @@
  <Card id="SearchPanel">
    <template #content>
        <div class="p-grid">
-           <div class="p-col-12 p-md-12 p-lg-12 d-flex text-center" style="height:390px;">
-               <div class="card pt-10 mt-10" style="font-size:38px;width:600px;background: transparent;border: none;" v-html="InputInfoText">
+           <div class="p-col-12 p-md-12 p-lg-12 d-flex text-center" style="height:335px;">
+               <div class="card pt-0" style="font-size:38px;width:600px;background: transparent;border: none;" v-html="InputInfoText">
                </div>
            </div>
 

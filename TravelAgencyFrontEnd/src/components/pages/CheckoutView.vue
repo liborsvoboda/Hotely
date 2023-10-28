@@ -1,5 +1,5 @@
 <template>
-    <div id="test2">
+    <div id="test2" class="mt-5">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -11,22 +11,20 @@
             <div class="card p-shadow-1">
                 <Steps :model="items" />
             </div>
-            <router-view class="" @payment-confirmed="confirmed"/>
-            <Button v-if="notAtStart" @click="prevPage" :label="$t('labels.previous')" class="p-button-raised p-button-rounded mt-3 mr-3" />
-            <Button v-if="notAtEnd" @click="nextPage" :label="$t('labels.next')" class="p-button-raised p-button-rounded mt-3" />
+            <router-view class="" @payment-confirmed="confirmed" />
+            <div v-if="notAtStart" @click="prevPage" class="p-button p-component button info outline shadowed mt-3 mr-3">{{ $t('labels.previous') }}</div>
+            <div v-if="notAtEnd" @click="nextPage" class="p-button p-component button info outline shadowed mt-3">{{ $t('labels.next') }}</div>
         </div>
     </div>
 </template>
 
 <script>
 import CustomerDetails from './CheckoutViewComponents/CustomerDetails.vue'
-import BookingDetails from './CheckoutViewComponents/BookingDetails.vue'
 import Steps from 'primevue/steps';
 import Button from 'primevue/button';
 export default {
     components:{
         CustomerDetails,
-        BookingDetails,
         Steps,
         Button
     },
@@ -49,15 +47,15 @@ export default {
             items: [
                 {
                 label: this.$i18n.t("labels.customer"),
-                to: '/checkout'
+                to: '/Checkout'
                 },
                 {
                     label: this.$i18n.t('user.reservationInfo'),
-                    to: '/checkout/orderDetails'
+                    to: '/Checkout/OrderDetails'
                 },
                 {
                     label: this.$i18n.t("labels.sendBookingRequest"),
-                    to: '/checkout/OrderConfirmed'
+                    to: '/Checkout/OrderConfirmed'
                 },
             ],
             page: 0

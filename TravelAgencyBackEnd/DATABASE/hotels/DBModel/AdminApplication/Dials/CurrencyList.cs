@@ -12,6 +12,7 @@ namespace UbytkacBackend.DBModel
     {
         public CurrencyList()
         {
+            CreditPackageLists = new HashSet<CreditPackageList>();
             ExchangeRateLists = new HashSet<ExchangeRateList>();
             HotelLists = new HashSet<HotelList>();
             HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
@@ -37,6 +38,8 @@ namespace UbytkacBackend.DBModel
         [ForeignKey("UserId")]
         [InverseProperty("CurrencyLists")]
         public virtual UserList User { get; set; }
+        [InverseProperty("Currency")]
+        public virtual ICollection<CreditPackageList> CreditPackageLists { get; set; }
         [InverseProperty("Currency")]
         public virtual ICollection<ExchangeRateList> ExchangeRateLists { get; set; }
         [InverseProperty("DefaultCurrency")]

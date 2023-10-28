@@ -109,3 +109,7 @@ body {
 .app-bar .app-bar-menu > li, .app-bar .app-bar-menu > li > a {
     line-height: 35px;
 }
+
+.zoom2 {
+    zoom:2;
+}

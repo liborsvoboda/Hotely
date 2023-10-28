@@ -84,6 +84,7 @@ namespace UbytkacBackend.WebPages {
         public int TypeId { get; set; }
         public string Name { get; set; }
         public int Booked { get; set; }
+        public bool Extrabed { get; set; }
     }
 
     public class BookingCancel {
@@ -134,6 +135,14 @@ namespace UbytkacBackend.WebPages {
         public string Title { get; set; }
         public string Note { get; set; }
         public int HotelId { get; set; }
+        public string Language { get; set; }
+    }
+
+    public class AddGuestReview {
+        public int HotelId { get; set; }
+        public int ReservationId { get; set; }
+        public int Rating { get; set; }
+        public string Message { get; set; }
         public string Language { get; set; }
     }
 }

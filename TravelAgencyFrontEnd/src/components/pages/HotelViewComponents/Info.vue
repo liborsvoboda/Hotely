@@ -1,5 +1,5 @@
 <template>
-    <div class="py-4">
+    <div class="pt-0 mt-0">
         <div class="p-4 bg-light rounded shadow-sm">
             <h5>{{ $t('labels.averageRating') }}:</h5>
             <input data-role="rating" :data-value="hotel.averageRating" data-static="true">
@@ -83,10 +83,15 @@ export default {
     },
     mounted() {
 
-        if (this.$store.state.searchString.dates.length && this.$store.state.searchString.dates[1] != null) { 
+        // load booked Data on Open Detail
+        if (!this.$store.state.tempVariables.goBackToRoomsPage && this.$store.state.searchString.dates.length && this.$store.state.searchString.dates[1] != null ) { 
             this.$store.dispatch("getReservedRoomList", this.hotel.id);
         }
-        
+        // Go back to Rooms after booked data reloaded
+        if (this.$store.state.tempVariables.goBackToRoomsPage) {
+            this.$store.state.tempVariables.goBackToRoomsPage = false;
+            this.$router.push({ name: 'Rooms' });
+        }
     },
 };
 </script>

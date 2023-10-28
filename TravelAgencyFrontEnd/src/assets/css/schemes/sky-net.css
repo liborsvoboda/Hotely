@@ -390,10 +390,10 @@ textarea.focused,
 .calendar .day.today {
   background-color: #0CA9F2;
 }
-.calendar .day.selected {
+/* .calendar .day.selected {
   -webkit-box-shadow: 0 0 0 1px #0ca9f2 !important;
           box-shadow: 0 0 0 1px #0ca9f2 !important;
-}
+} */
 .calendar .day.selected::after {
   border-top-color: #0CA9F2;
 }

@@ -25,6 +25,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<CountryAreaCityList> CountryAreaCityLists { get; set; }
         public virtual DbSet<CountryAreaList> CountryAreaLists { get; set; }
         public virtual DbSet<CountryList> CountryLists { get; set; }
+        public virtual DbSet<CreditPackageList> CreditPackageLists { get; set; }
         public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
         public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
@@ -200,6 +201,25 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Country_UserList");
+            });
+
+            modelBuilder.Entity<CreditPackageList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.CreditPackageLists)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditPackageList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CreditPackageLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditPackageList_UserList");
             });
 
             modelBuilder.Entity<CurrencyList>(entity =>

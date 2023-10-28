@@ -232,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\Agendas\CreditPackageList\CreditPackageList.cs" />
+    <Compile Include="Agendas\Agendas\CreditPackageList\CreditPackageListPage.xaml.cs">
+      <DependentUpon>CreditPackageListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalList.cs" />
     <Compile Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalListPage.xaml.cs">
       <DependentUpon>HotelReservationReviewApprovalListPage.xaml</DependentUpon>
@@ -466,6 +470,10 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\Agendas\CreditPackageList\CreditPackageListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

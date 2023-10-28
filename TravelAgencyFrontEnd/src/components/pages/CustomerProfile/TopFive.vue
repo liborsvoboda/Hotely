@@ -172,9 +172,9 @@ export default {
             });
         },
         hotelDetailsClick(event) {
-            this.$store.state.backRoute = "/profile";
+            this.$store.state.backRoute = "/Profile";
             this.$store.dispatch("setHotel", this.hotel);
-            this.$router.push('/hotels/' + this.hotel.id);
+            this.$router.push('/Hotels/' + this.hotel.id);
         },
     },
 };

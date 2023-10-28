@@ -14,7 +14,8 @@ const store = createStore({
         toastInfoMessage: null,
 
         tempVariables: {
-            registrationStatus: null
+            registrationStatus: null,
+            goBackToRoomsPage: false
         },
 
         system: {
@@ -22,6 +23,7 @@ const store = createStore({
         },
 
         userSettings: {
+            topFiveCount: 5,
             notifyShowTime: 2000,
             showInactiveAdvertisementAsDefault: true,
             translationLanguage: '',
@@ -31,6 +33,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        roomBookingList:[],
         reviewList:[],
         statusList: [],
         privacyPolicyList: [],
@@ -111,6 +114,10 @@ const store = createStore({
             store.advertisementList = value;
             console.log("setAdvertisementList", store.advertisementList);
         },
+        setRoomBookingList(store, value) {
+            store.roomBookingList = value;
+            console.log("setRoomBookingList", store.roomBookingList);
+        },
         setPropertyGroupList(store, value) {
             store.propertyGroupList = value;
         },
@@ -133,10 +140,29 @@ const store = createStore({
         },
         setReservedRoomList(store, value) {
             store.reservedRoomList = value;
+
+            //Prepare Room List for Booking
+            store.bookingDetail.rooms = [];
+            store.hotel.hotelRoomLists.forEach(room => {
+                store.bookingDetail.rooms.push({
+                    id: room.id,
+                    typeId: room.roomTypeId,
+                    name: room.name,
+                    price: room.price,
+                    booked: 0,
+                    extrabed: false
+                });
+            });
+            store.bookingDetail.totalPrice = 0;
+
+            // get to info and next to Rooms Back On dates change in Rooms for Full Refresh
+            if (router.currentRoute.value.name == "Rooms") {
+                router.push({ name: 'Info' });
+                store.tempVariables.goBackToRoomsPage = true;
+            }
         },
         setPropertyList(store, value) {
             store.propertyList = value;
-            console.log("Set PropertyList", store.propertyList);
         },
         setRoomTypeList(store, value) {
             store.roomTypeList = value;
@@ -159,7 +185,7 @@ const store = createStore({
         setHolidayTipsList(store, value) {
             store.holidayTipsList = value;
         },
-        setTopList(store, value) {
+        setMainTopList(store, value) {
             store.searchResults = value;
             store.searchButtonLoading = false;
         },
@@ -171,8 +197,17 @@ const store = createStore({
         setSearchButtonLoadingTrue(store, value) {
             store.searchButtonLoading = true;
         },
-        setDates(state, date) {
+        async setDates(state, date) {
             state.searchString.dates = date;
+
+            // Updating BookedCalendar in Hotel Detail
+            if (state.searchString.dates.length && state.searchString.dates[1] != null &&
+                (router.currentRoute.value.name == "Info" ||
+                    router.currentRoute.value.name == "Hotels" ||
+                    router.currentRoute.value.name == "Rooms" ||
+                    router.currentRoute.value.name == "Photos" ||
+                    router.currentRoute.value.name == "Reviews")
+                ) { await this.dispatch("getReservedRoomList", state.hotel.id); }
         },
         setSearchString(state, value) {
             state.searchString.string = value;
@@ -207,6 +242,7 @@ const store = createStore({
     },
     actions: {
         setDates({ commit }, date) {
+            console.log("setDates", date);
             commit('setDates', date);
         },
         setLightFavoriteHotelList({ commit }, value) {
@@ -267,13 +303,14 @@ const store = createStore({
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
 
             if (result) {
-                router.push({ name: 'result' });
+                router.push({ name: 'Result' });
             }
             
         },
         async getReservedRoomList({ commit }, hotelId) {
             let mainloader; if (!this.state.reservedRoomList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let startDate; let endDate;
+            
             if (this.state.searchString.dates.length) {
                 startDate = this.state.searchString.dates[0].toLocaleDateString('sv-SE');
                 endDate = this.state.searchString.dates[1].toLocaleDateString('sv-SE');
@@ -290,19 +327,17 @@ const store = createStore({
             commit('setReservedRoomList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
         },
-        async getTopList({ commit }) {
-            console.log("topList", this.state.searchResults);
-        
+        async getMainTopList({ commit }) {
             let mainloader; if (!this.state.searchResults == [] || !this.state.searchResults.hotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let response = await fetch(
-                this.state.apiRootUrl + '/Top/GetTopList/' + this.state.language, {
+                this.state.apiRootUrl + '/Top/GetMainTopList/' + this.state.language, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json'
                 }
             });
             let result = await response.json();
-            commit('setTopList', result);
+            commit('setMainTopList', result);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
 
         },
@@ -339,9 +374,7 @@ const store = createStore({
             }
         },
         async getAdvertisementList({ commit }) {
-            //let mainloader; if (!this.state.advertisementList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             window.showPageLoading();
-
             let response = await fetch(
                 this.state.apiRootUrl + '/Advertiser/GetAdvertisementList/' + this.state.language, {
                 method: 'GET',
@@ -351,9 +384,21 @@ const store = createStore({
                 }
             });
             let result = await response.json();
-            console.log("setAdvertisementList", result);
             commit('setAdvertisementList', result);
-            //if (mainloader) { if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); } } else {window.hidePartPageLoading(); }
+            window.hidePageLoading();
+        },
+        async getRoomBookingList({ commit }, hotelRoomId) {
+            window.showPageLoading();
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/GetRoomBookingList/' + hotelRoomId + "/" + this.state.language, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+            commit('setRoomBookingList', result);
             window.hidePageLoading();
         },
         async getReviewList({ commit }) {
@@ -604,14 +649,18 @@ const store = createStore({
         },
         async getTopFiveList({ commit }, type) {
             let mainloader; if (!this.state.topFiveList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
-            let response = await fetch(
-                this.state.apiRootUrl + '/Guest/GetTopFiveList/' + type + '/' + this.state.language, {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + this.state.user.Token,
-                    'Content-type': 'application/json',
-                }
-            });
+            let response;
+            if (this.state.user.loggedIn == true) {
+                response = await fetch(
+                    this.state.apiRootUrl + '/Guest/GetAuthTopFiveList/' + type + '/' + this.state.userSettings.topFiveCount + '/' + this.state.language, {
+                        method: 'GET', headers: { 'Authorization': 'Bearer ' + this.state.user.Token, 'Content-type': 'application/json' }
+                });
+            } else {
+                response = await fetch(
+                    this.state.apiRootUrl + '/Guest/GetTopFiveList/' + type + '/' + this.state.language, {
+                    method: 'GET', headers: { 'Content-type': 'application/json' }
+                });
+            }
             let result = await response.json();
             commit('setTopFiveList', result.hotelList);
             if (mainloader) { window.hidePageLoading(); } else {window.hidePartPageLoading(); }
@@ -678,6 +727,8 @@ const store = createStore({
                         case "InputBanner": Metro.storage.setItem('InputBanner', setting.value); break;
                         case "InputInfoText": Metro.storage.setItem('InputInfoText', setting.value); break;
                         case "ReviewInsertDaysLimit": Metro.storage.setItem('ReviewInsertDaysLimit', setting.value); break;
+                        case "BookCalendarViewMonthsBefore": Metro.storage.setItem('BookCalendarViewMonthsBefore', setting.value); break;
+                        case "BookCalendarViewMonthsAfter": Metro.storage.setItem('BookCalendarViewMonthsAfter', setting.value); break;
                             
                     }
                 });
@@ -741,6 +792,9 @@ const store = createStore({
             if (result.Status == undefined) {
                 result.forEach(setting => {
                     switch (setting.key) {
+                        case "topFiveCount":
+                            this.state.userSettings.topFiveCount = setting.value;
+                            break;
                         case "notifyShowTime":
                             this.state.userSettings.notifyShowTime = setting.value;
                             break;
@@ -777,6 +831,9 @@ const store = createStore({
             } else {
                 userSettings.forEach(setting => {
                     switch (setting.Key) {
+                        case "topFiveCount":
+                            this.state.userSettings.topFiveCount = setting.Value;
+                            break;
                         case "notifyShowTime":
                             this.state.userSettings.notifyShowTime = setting.Value;
                             break;

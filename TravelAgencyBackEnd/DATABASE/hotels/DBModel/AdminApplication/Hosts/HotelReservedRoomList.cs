@@ -26,6 +26,7 @@ namespace UbytkacBackend.DBModel
         public DateTime StartDate { get; set; }
         [Column(TypeName = "date")]
         public DateTime EndDate { get; set; }
+        public bool ExtraBed { get; set; }
         public DateTime Timestamp { get; set; }
 
         [ForeignKey("HotelId")]

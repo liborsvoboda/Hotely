@@ -20,6 +20,7 @@ namespace UbytkacBackend.DBModel
             CountryAreaCityLists = new HashSet<CountryAreaCityList>();
             CountryAreaLists = new HashSet<CountryAreaList>();
             CountryLists = new HashSet<CountryList>();
+            CreditPackageLists = new HashSet<CreditPackageList>();
             CurrencyLists = new HashSet<CurrencyList>();
             DocumentAdviceLists = new HashSet<DocumentAdviceList>();
             DocumentTypeLists = new HashSet<DocumentTypeList>();
@@ -106,6 +107,8 @@ namespace UbytkacBackend.DBModel
         public virtual ICollection<CountryAreaList> CountryAreaLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<CountryList> CountryLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<CreditPackageList> CreditPackageLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<CurrencyList> CurrencyLists { get; set; }
         [InverseProperty("User")]

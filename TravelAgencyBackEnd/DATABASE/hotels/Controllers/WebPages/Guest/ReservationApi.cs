@@ -76,7 +76,7 @@ namespace UbytkacBackend.Controllers {
                 //Get ReservationNumber
                 DocumentAdviceList documentAdviceList = new DocumentAdviceList();
                 DateTime today = DateTimeOffset.Now.DateTime;
-                documentAdviceList = new hotelsContext().DocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate <= today && a.DocumentTypeId == 1).FirstOrDefault();
+                documentAdviceList = new hotelsContext().DocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate >= today && a.DocumentTypeId == 1).FirstOrDefault();
 
                 //Prepare And Save Reservation
                 HotelReservationList hotelReservationList = new HotelReservationList() {
@@ -121,7 +121,8 @@ namespace UbytkacBackend.Controllers {
                         HotelReservedRoomList hotelReservedRoomList = new() {
                             HotelId = record.Booking.HotelId, HotelRoomId = room.Id, Name = room.Name, ReservationId = hotelReservationList.Id, RoomTypeId = room.TypeId, StatusId = 1,
                             StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
-                            Count = room.Booked, Timestamp = DateTimeOffset.Now.DateTime
+                            Count = room.Booked, Timestamp = DateTimeOffset.Now.DateTime,
+                            ExtraBed = room.Extrabed
                         };
                         var data3 = new hotelsContext().HotelReservedRoomLists.Add(hotelReservedRoomList);
                         result = data3.Context.SaveChanges();
@@ -234,7 +235,7 @@ namespace UbytkacBackend.Controllers {
                 //Get ReservationNumber
                 DocumentAdviceList documentAdviceList = new DocumentAdviceList();
                 DateTime today = DateTimeOffset.Now.DateTime;
-                documentAdviceList = new hotelsContext().DocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate <= today && a.DocumentTypeId == 1).FirstOrDefault();
+                documentAdviceList = new hotelsContext().DocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate >= today && a.DocumentTypeId == 1).FirstOrDefault();
 
                 //Prepare And Save Reservation
                 HotelReservationList hotelReservationList = new HotelReservationList() {
@@ -283,7 +284,8 @@ namespace UbytkacBackend.Controllers {
                             HotelId = record.Booking.HotelId, HotelRoomId = room.Id, Name = room.Name,
                             ReservationId = hotelReservationList.Id, RoomTypeId = room.TypeId, StatusId = 1,
                             StartDate = record.Booking.StartDate, EndDate = record.Booking.EndDate,
-                            Count = room.Booked, Timestamp = DateTimeOffset.Now.DateTime
+                            Count = room.Booked, Timestamp = DateTimeOffset.Now.DateTime,
+                            ExtraBed = room.Extrabed
                         };
                         var data3 = new hotelsContext().HotelReservedRoomLists.Add(hotelReservedRoomList);
                         result = data3.Context.SaveChanges();

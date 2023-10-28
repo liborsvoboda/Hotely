@@ -195,7 +195,6 @@
     <Content Include="src\components\pages\Advertiser\Advertisement.vue" />
     <Content Include="src\components\pages\Advertiser\AdvertisementWizard.vue" />
     <Content Include="src\components\pages\CheckoutView.vue" />
-    <Content Include="src\components\pages\CheckoutViewComponents\BookingDetails.vue" />
     <Content Include="src\components\pages\CheckoutViewComponents\BookingMessage.vue" />
     <Content Include="src\components\pages\CheckoutViewComponents\CustomerDetails.vue" />
     <Content Include="src\components\pages\CheckoutViewComponents\OrderConfirmed.vue" />
@@ -233,9 +232,6 @@
     <Content Include="src\components\pages\Login\Forgot.vue" />
     <Content Include="src\components\pages\Login\Registration.vue" />
     <Content Include="src\components\pages\MainPage\Body.vue" />
-    <Content Include="src\components\pages\MainPage\Destination.vue" />
-    <Content Include="src\components\pages\MainPage\PopularDestinations.vue" />
-    <Content Include="src\components\pages\MainPage\SelectedHotels.vue" />
     <Content Include="src\components\pages\SearchComponent\Datepicker.vue" />
     <Content Include="src\components\pages\SearchComponent\Search.vue" />
     <Content Include="src\components\pages\SearchComponent\SearchDropdown.vue" />
@@ -292,8 +288,8 @@
     <Folder Include="src\components\pages\HotelViewComponents\" />
     <Folder Include="src\components\pages\HotelViewComponents\RoomsViewComponents\" />
     <Folder Include="src\components\pages\Login\" />
-    <Folder Include="src\components\pages\MainPage\" />
     <Folder Include="src\components\pages\Advertiser\" />
+    <Folder Include="src\components\pages\MainPage\" />
     <Folder Include="src\components\pages\SearchComponent\" />
     <Folder Include="src\components\pages\SearchResultComponents\" />
     <Folder Include="src\translation\" />

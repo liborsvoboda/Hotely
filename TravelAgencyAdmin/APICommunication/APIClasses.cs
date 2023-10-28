@@ -15,6 +15,7 @@
         CountryAreaList,
         CountryAreaCityList,
         CountryList,
+        CreditPackageList,
         CurrencyList,
         Calendar,
         DocumentAdviceList,

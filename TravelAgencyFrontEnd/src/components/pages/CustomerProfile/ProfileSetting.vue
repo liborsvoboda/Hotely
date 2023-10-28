@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-content">
+    <div class="profile-content mt-10">
         <form class="form1" @submit.prevent="checkPasswords" autocomplete="off">
             <div class="card-body">
 
@@ -103,73 +103,79 @@
             </div>
         </form>
 
-            <div id="_advertising">
-                <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.advertising') }}</h6>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                            <input id="userId" class="" v-model="guest.UserId" type="checkbox" value="" :disabled="user.UserId != ''" />
-                            <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                            <input id="showInactiveAdvertisementAsDefault" class="" v-model="userSettings.showInactiveAdvertisementAsDefault" type="checkbox" value="" :disabled="user.UserId == ''" />
-                            <span style="padding-left:0px;">{{ $t('labels.showInactiveAdvertisementAsDefault') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div id="_settings">
-                <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.settings') }}</h6>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="Street">{{ $t('labels.notifyShowTime') }}</label>
-                            <input id="notifyShowTime" type="text" v-model="userSettings.notifyShowTime" data-role="spinner" data-min-value="1" data-max-value="30">
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label>{{ $t('labels.autoTranslationLanguage') }}</label>
-                            <span id="languageSelector"></span>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                            <input id="hideSearchingInPrivateZone" class="" v-model="userSettings.hideSearchingInPrivateZone" type="checkbox" value="" />
-                            <span style="padding-left:0px;">{{ $t('labels.hideSearchingInPrivateZone') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row gutters pr-5">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+        <div id="_advertising">
+            <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.advertising') }}</h6>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="text-right">
-                        <button type="button" class="button secondary outline shadowed mb-1" @click="resetForm();">
-                            {{ $t('user.cancelChanges') }}
-                        </button>
-                        <button type="button" class="button success outline shadowed ml-1 mb-1" @click="checkPasswords()">
-                            {{ $t('user.saveChanges') }}
-                        </button>
-                        <button type="button" class="button alert outline shadowed ml-1 mb-1" @click="deleteAccout()">
-                            {{ $t('user.deleteAccount') }}
-                        </button>
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="userId" class="" v-model="guest.UserId" type="checkbox" value="" :disabled="user.UserId != ''" />
+                        <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="showInactiveAdvertisementAsDefault" class="" v-model="userSettings.showInactiveAdvertisementAsDefault" type="checkbox" value="" :disabled="user.UserId == ''" />
+                        <span style="padding-left:0px;">{{ $t('labels.showInactiveAdvertisementAsDefault') }}</span>
                     </div>
                 </div>
             </div>
-        
+        </div>
+
+        <div id="_settings">
+            <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('user.settings') }}</h6>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group p-3 pb-0">
+                        <label for="Street">{{ $t('labels.notifyShowTime') }}</label>
+                        <input id="notifyShowTime" type="text" v-model="userSettings.notifyShowTime" data-role="spinner" data-min-value="1" data-max-value="30">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group p-3 pb-0">
+                        <label>{{ $t('labels.autoTranslationLanguage') }}</label>
+                        <span id="languageSelector"></span>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="hideSearchingInPrivateZone" class="" v-model="userSettings.hideSearchingInPrivateZone" type="checkbox" value="" />
+                        <span style="padding-left:0px;">{{ $t('labels.hideSearchingInPrivateZone') }}</span>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group p-3 pb-0">
+                        <label for="Street">{{ $t('labels.setCustomTopFiveCount') }}</label>
+                        <input id="topFiveCount" type="text" v-model="userSettings.topFiveCount" data-role="spinner" data-min-value="5" data-step="10" data-max-value="250">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row gutters pr-5">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="text-right">
+                    <button type="button" class="button secondary outline shadowed mb-1" @click="resetForm();">
+                        {{ $t('user.cancelChanges') }}
+                    </button>
+                    <button type="button" class="button success outline shadowed ml-1 mb-1" @click="checkPasswords()">
+                        {{ $t('user.saveChanges') }}
+                    </button>
+                    <button type="button" class="button alert outline shadowed ml-1 mb-1" @click="deleteAccout()">
+                        {{ $t('user.deleteAccount') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -198,12 +204,14 @@ export default {
                 notifyShowTime: null,
                 showInactiveAdvertisementAsDefault: null,
                 translationLanguage: null,
-                hideSearchingInPrivateZone : null
+                hideSearchingInPrivateZone: null,
+                topFiveCount : null
             },
 
         };
     },
     async mounted() {
+        this.userSettings.topFiveCount = this.$store.state.userSettings.topFiveCount;
         this.userSettings.notifyShowTime = this.$store.state.userSettings.notifyShowTime / 1000;
         this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
         this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
@@ -242,6 +250,7 @@ export default {
         async updateGuest() {
 
             let guestSettings = [];
+            guestSettings.push({ Key: 'topFiveCount', Value: $("#topFiveCount").val() });
             guestSettings.push({ Key: 'notifyShowTime', Value: $("#notifyShowTime").val() * 1000 });
             guestSettings.push({ Key: 'showInactiveAdvertisementAsDefault', Value: this.userSettings.showInactiveAdvertisementAsDefault });
             guestSettings.push({ Key: 'translationLanguage', Value: ($("#languageList")[0].selectedOptions[0] != undefined ? $("#languageList")[0].selectedOptions[0].value : "") });
@@ -275,6 +284,7 @@ export default {
             //refil local setting
             var that = this;
             setTimeout(function () {
+                that.userSettings.topFiveCount = that.$store.state.userSettings.topFiveCount; $("#topFiveCount").val(that.userSettings.topFiveCount);
                 that.userSettings.notifyShowTime = that.$store.state.userSettings.notifyShowTime / 1000; $("#notifyShowTime").val(that.userSettings.notifyShowTime);
                 $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = that.userSettings.showInactiveAdvertisementAsDefault = that.$store.state.userSettings.showInactiveAdvertisementAsDefault;
                 that.userSettings.translationLanguage = that.$store.state.userSettings.translationLanguage;

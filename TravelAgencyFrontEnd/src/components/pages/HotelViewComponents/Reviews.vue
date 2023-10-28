@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pt-4 mt-0">
         <h5>{{ $t('labels.averageRating') }}:</h5>
         <input data-role="rating" :data-value="hotel.averageRating" data-static="true">
         <div class="row mb-2" v-for="review in hotel.hotelReservationReviewLists">

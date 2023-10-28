@@ -152,6 +152,7 @@ export default {
             this.verifySent = false;
         },
         async login() {
+            window.showPageLoading();
             let response = await fetch(this.$store.state.apiRootUrl + '/Guest/WebLogin', {
                 method: 'post',
                 headers: {
@@ -160,7 +161,8 @@ export default {
                 },
                 body: JSON.stringify({ language: this.$store.state.language })
             });
-            let result = await response.json()
+            let result = await response.json();
+            window.hidePageLoading();
             if (result.message) {
 
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
@@ -183,11 +185,12 @@ export default {
                 this.bookingUser.country = this.bookingUser.country ? this.bookingUser.country : this.$store.state.user.Country;
                 this.bookingUser.zipCode = this.bookingUser.zipCode ? this.bookingUser.zipCode : this.$store.state.user.ZipCode;
             }
-
+            await this.$store.dispatch("getLightFavoriteHotelList");
+            await this.$store.dispatch("getGuestSettingList");
         },
         checkEmail() {
             if (!this.loggedIn && !this.emailChecked && this.bookingUser.email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-
+                window.showPageLoading();
                 var def = $.ajax({
                     global: false, type: "POST",
                     url: this.$store.state.apiRootUrl + "/Guest/Reservation/CheckEmail",
@@ -198,11 +201,13 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
+                    window.hidePageLoading();
                     var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                 });
 
                 def.done(function (data) {
+                    window.hidePageLoading();
                     console.log("rteturbn", data);
                     that.verifyCode = data.ErrorMessage;
                     that.verifySent = true;

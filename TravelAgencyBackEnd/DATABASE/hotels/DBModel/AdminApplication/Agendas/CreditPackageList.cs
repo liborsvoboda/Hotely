@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace UbytkacBackend.DBModel
+{
+    [Table("CreditPackageList")]
+    [Index("SystemName", Name = "IX_CreditPackageList", IsUnique = true)]
+    public partial class CreditPackageList
+    {
+        [Key]
+        public int Id { get; set; }
+        public int Sequence { get; set; }
+        [Required]
+        [StringLength(50)]
+        [Unicode(false)]
+        public string SystemName { get; set; }
+        [Column(TypeName = "text")]
+        public string Description { get; set; }
+        public int CreditCount { get; set; }
+        [Column(TypeName = "decimal(10, 2)")]
+        public decimal CreditPrice { get; set; }
+        public int CurrencyId { get; set; }
+        public int UserId { get; set; }
+        [Required]
+        public bool Active { get; set; }
+        public DateTime TimeStamp { get; set; }
+
+        [ForeignKey("CurrencyId")]
+        [InverseProperty("CreditPackageLists")]
+        public virtual CurrencyList Currency { get; set; }
+        [ForeignKey("UserId")]
+        [InverseProperty("CreditPackageLists")]
+        public virtual UserList User { get; set; }
+    }
+}

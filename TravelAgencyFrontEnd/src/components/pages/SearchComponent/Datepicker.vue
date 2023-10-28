@@ -9,7 +9,7 @@
               :minDate="minDate"
               :monthNavigator="true"
               :yearNavigator="true"
-              yearRange="2023:2050"
+              yearRange="2023:2080"
               :showButtonBar="true"
               @date-select="getDate" />
 </template>

@@ -43,8 +43,8 @@ const routes = [
         },
     },
     {
-        path: "/profile",
-        name: "profile",
+        path: "/Profile",
+        name: "Profile",
         component: ProfileMain,
         meta: {
             requiresAuth: true, title: "Novinky v Inzerci"
@@ -59,7 +59,7 @@ const routes = [
                 },
             },
             {
-                path: "bookings",
+                path: "Bookings",
                 name: "Bookings",
                 component: Bookings,
                 meta: {
@@ -67,32 +67,32 @@ const routes = [
                 },
             },
             {
-                path: "favorite",
-                name: "favorite",
+                path: "Favorite",
+                name: "Favorite",
                 component: FavoriteHotelList,
                 meta: {
                     requiresAuth: true, title: "Oblibené"
                 },
             },
             {
-                path: "profileSetting",
-                name: "profileSetting",
+                path: "ProfileSetting",
+                name: "ProfileSetting",
                 component: ProfileSetting,
                 meta: {
                     requiresAuth: true, title: "Nastavení Profilu"
                 },
             },
             {
-                path: "advertisement",
-                name: "advertisement",
+                path: "Advertisement",
+                name: "Advertisement",
                 component: Advertisement,
                 meta: {
                     requiresAuth: true, title: "Inzerce"
                 },
             },
             {
-                path: "advertisementWizard",
-                name: "advertisementWizard",
+                path: "AdvertisementWizard",
+                name: "AdvertisementWizard",
                 component: AdvertisementWizard,
                 meta: {
                     requiresAuth: true, title: "Průvodce Inzercí"
@@ -102,32 +102,32 @@ const routes = [
         ],
     },
     {
-        path: "/result",
-        name: "result",
+        path: "/Result",
+        name: "Result",
         component: SearchResult,
         meta: {
             requiresAuth: false, title: "Výsledky Hledání"
         },
     },
     {
-        path: "/login",
-        name: "login",
+        path: "/Login",
+        name: "Login",
         component: Login,
         meta: {
             requiresAuth: false, title: "Přihlášení"
         },
     },
     {
-        path: "/registration",
-        name: "registration",
+        path: "/Registration",
+        name: "Registration",
         component: Registration,
         meta: {
             requiresAuth: false, title: "Registrace"
         },
     },
     {
-        path: "/forgot",
-        name: "forgot",
+        path: "/Forgot",
+        name: "Forgot",
         component: Forgot,
         meta: {
             requiresAuth: false, title: "Zapomenuté Heslo"
@@ -135,7 +135,7 @@ const routes = [
     },
     {
         path: "/Contact",
-        name: "contact",
+        name: "Contact",
         component: Contact,
         meta: {
             requiresAuth: false, title: "Kontakty"
@@ -143,7 +143,7 @@ const routes = [
     },
     {
         path: "/About",
-        name: "about",
+        name: "About",
         component: About,
         meta: {
             requiresAuth: false, title: "O nás"
@@ -151,7 +151,7 @@ const routes = [
     },
     {
         path: "/UbytkacInfo",
-        name: "ubytkacInfo",
+        name: "UbytkacInfo",
         component: UbytkacInfo,
         meta: {
             requiresAuth: false, title: "Ubytkac Info"
@@ -159,7 +159,7 @@ const routes = [
     },
     {
         path: "/RegistrationInfo",
-        name: "registrationInfo",
+        name: "RegistrationInfo",
         component: RegistrationInfo,
         meta: {
             requiresAuth: false, title: "Info Registrace"
@@ -167,7 +167,7 @@ const routes = [
     },
     {
         path: "/OftenQuestion",
-        name: "oftenQuestion",
+        name: "OftenQuestion",
         component: OftenQuestion,
         meta: {
             requiresAuth: false, title: "Časté Dotazy"
@@ -175,7 +175,7 @@ const routes = [
     },
     {
         path: "/HolidayTips",
-        name: "holidayTips",
+        name: "HolidayTips",
         component: HolidayTips,
         meta: {
             requiresAuth: false, title: "Typy na Dovolenou"
@@ -198,8 +198,8 @@ const routes = [
         },
     },
     {
-        path: "/hotels/:id",
-        name: "hotels",
+        path: "/Hotels/:id",
+        name: "Hotels",
         component: HotelView,
         meta: {
             requiresAuth: false, title: "Ubytování"
@@ -214,8 +214,8 @@ const routes = [
                 },
             },
             {
-                path: "rooms",
-                name: "hotels",
+                path: "Rooms",
+                name: "Rooms",
                 component: Rooms,
                 meta: {
                     requiresAuth: false, title: "Ubytovací Prostory"
@@ -223,7 +223,7 @@ const routes = [
             },
             {
                 path: "Photos",
-                name: "photos",
+                name: "Photos",
                 component: PhotoGallery,
                 meta: {
                     requiresAuth: false, title: "Foto Galerie"
@@ -231,7 +231,7 @@ const routes = [
             },
             {
                 path: "Reviews",
-                name: "reviews",
+                name: "Reviews",
                 component: Reviews,
                 meta: {
                     requiresAuth: false, title: "Komentáře"
@@ -241,7 +241,7 @@ const routes = [
         ],
     },
     {
-        path: "/checkout",
+        path: "/Checkout",
         name: "Checkout",
         component: CheckoutView,
         meta: {
@@ -250,7 +250,7 @@ const routes = [
         children: [
             {
                 path: "",
-                name: "customerDetails",
+                name: "CustomerDetails",
                 component: CustomerDetails,
                 meta: {
                     requiresAuth: false, title: "Rezervace Ubytování - Zákazník"
@@ -258,7 +258,7 @@ const routes = [
 
             },
             {
-                path: "orderDetails",
+                path: "OrderDetails",
                 name: "OrderDetails",
                 component: OrderDetails,
                 meta: {
@@ -267,7 +267,7 @@ const routes = [
 
             },
             {
-                path: "orderConfirmed",
+                path: "OrderConfirmed",
                 name: "OrderConfirmed",
                 component: OrderConfirmed,
                 meta: {
@@ -297,27 +297,28 @@ router.beforeEach((to, from, next) => {
         || to.fullPath.indexOf("/PrivacyPolicy") > -1
         || to.fullPath.indexOf("/About") > -1
         || to.fullPath.indexOf("/Services") > -1
+
     ) { $("#SearchPanel").hide(); }
 
     //autopage reset scroling without backroute from advertisement
     if (store.state.backRoute != to.fullPath
-        && to.fullPath.indexOf("/hotels/") == -1 && to.fullPath.indexOf("/profile") == -1
-        && to.fullPath.indexOf("/login") == -1 && to.fullPath.indexOf("/registration") == -1
-        && to.fullPath.indexOf("/forgot") == -1 && to.fullPath.indexOf("/profile/advertisement") == -1 
+        && to.fullPath.indexOf("/Hotels/") == -1 && to.fullPath.indexOf("/Profile") == -1
+        && to.fullPath.indexOf("/Login") == -1 && to.fullPath.indexOf("/Registration") == -1
+        && to.fullPath.indexOf("/Forgot") == -1 && to.fullPath.indexOf("/Profile/Advertisement") == -1 
     ) {
         window.scrollTo(0, 0);
-    } else if (to.fullPath.indexOf("/profile/advertisement") > -1) {
+    } else if (to.fullPath.indexOf("/Profile/Advertisement") > -1) {
         if (store.state.userSettings.hideSearchingInPrivateZone) { $("#SearchPanel").hide(); } else { $("#SearchPanel").show(); }
         window.scrollTo(0, window.scrollY);
-    } else if (to.fullPath.indexOf("/hotels/") > -1) {
+    } else if (to.fullPath.indexOf("/Hotels/") > -1) {
         window.scrollTo(0, 620);
-    } else if (to.fullPath.indexOf("/profile") > -1 && to.fullPath.indexOf("/profile/advertisement") == -1) {
+    } else if (to.fullPath.indexOf("/Profile") > -1 && to.fullPath.indexOf("/Profile/Advertisement") == -1) {
         //hide searching in private zone
         if (store.state.userSettings.hideSearchingInPrivateZone) {
             $("#SearchPanel").hide(); window.scrollTo(0, 0);
         } else { $("#SearchPanel").show(); window.scrollTo(0, 620); }
             
-    } else if (to.fullPath.indexOf("/login") > -1 || to.fullPath.indexOf("/registration") > -1 || to.fullPath.indexOf("/forgot") > -1) {
+    } else if (to.fullPath.indexOf("/Login") > -1 || to.fullPath.indexOf("/Registration") > -1 || to.fullPath.indexOf("/Forgot") > -1) {
         $("#SearchPanel").hide(); window.scrollTo(0, 0);
     } else if (store.state.backRoute == to.fullPath) {
         window.scrollTo(0, store.state.backRouteScroll);
@@ -365,6 +366,6 @@ router.afterEach((to, from, next) => {
 
 
 //Go to root page on hard reload
-if (router.options.history.state.back == null) { router.push("/"); }
+if (router.options.history.location != "/" && window.location.pathname != "/") { window.location.href = "/"; }
 
 export default router;

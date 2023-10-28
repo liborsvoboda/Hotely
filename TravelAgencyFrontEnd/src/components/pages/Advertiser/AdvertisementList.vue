@@ -6,7 +6,6 @@
                     <ul class="h-menu open large pos-static bg-cyan fg-cyan" style="background-color:transparent !important;">
                         <li :title="$t('labels.editLease')" @click="editAdvertisement(hotel.id)"><a href="#" class="p-2"><span class="mif-description icon mif-2"></span></a></li>
                         <li :title="$t('labels.requestOfApproval')" @click="setApprovalRequest(hotel.id)" :class="(hotel.approved ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-traff icon"></span></a></li>
-                        <!--  <li :title="$t('labels.setTimeline')"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li> -->
                         <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon"></span></a></li>
                         <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon"></span></a></li>
                         <li :title="$t('labels.tasks')" @click="newCommentHotelId = hotel.id;generateMessageBox();" onclick="Metro.infobox.open('#CommentBox');">
@@ -18,19 +17,20 @@
                         </li>
                         <!--  <li :title="$t('labels.showOnMap')"><a href="#" class="p-2"><span class="mif-my-location icon"></span></a></li> -->
                         <!-- <li :title="$t('labels.publish')"><a href="#" class="p-2"><span class="mif-feed icon"></span></a></li> -->
-                        <li :title="$t('labels.reservation')" @click="openReservation();" onclick="Metro.infobox.open('#ReservationBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length == 0 ? 'disabled' : '')">
+                        <li :title="$t('labels.reservation')" @click="openReservation();" onclick="Metro.infobox.open('#ReservationBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) >= new Date();}).length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
                                 <span class="mif-shop icon"></span>
                                 <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getUnshownDetailCount == 0 ? ' display: none ': ' display: inline ')">{{ getUnshownDetailCount }}</span>
-                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) > new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) > new Date();}).length }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) >= new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) >= new Date();}).length }}</span>
                             </a>
                         </li>
-                        <li :title="$t('labels.reservationsHistoryOverview')" @click="openHistory();" onclick="Metro.infobox.open('#HistoryBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length == 0 ? 'disabled' : '')">
+                        <li :title="$t('labels.reservationsHistoryOverview')" @click="openHistory();" onclick="Metro.infobox.open('#HistoryBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
                                 <span class="mif-history icon"></span>
-                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) <= new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.startDate) <= new Date();}).length }}</span>
+                                <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length }}</span>
                             </a>
                         </li>
+                        <li :title="$t('labels.showBookedCalendar')" @click="openCalendar()" onclick="Metro.infobox.open('#CalendarBox');"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li>
                         <li :title="$t('labels.reviews')" @click="openReview()" onclick="Metro.infobox.open('#ReviewBox');" :class="(hotel.hotelReservationReviewLists.length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
                                 <span class="mif-blogger icon"></span>
@@ -200,24 +200,24 @@
                 <div id="_reservationInfo">
                     <div class="d-flex row ">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <h5>{{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].reservationNumber : "")}}</h5>
+                            <h5>{{ (reservationId > 0 ? getSelectedReservationByReservationId.reservationNumber : "")}}</h5>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">
-                            {{ (reservationId > 0 ? new Date(hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].startDate).toLocaleDateString('cs-CZ') : "" ) + " - " + (reservationId > 0 ? new Date(hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].endDate).toLocaleDateString('cs-CZ') : "") }}
+                            {{ (reservationId > 0 ? new Date(getSelectedReservationByReservationId.startDate).toLocaleDateString('cs-CZ') : "" ) + " - " + (reservationId > 0 ? new Date(getSelectedReservationByReservationId.endDate).toLocaleDateString('cs-CZ') : "") }}
                         </div>
 
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].firstName : "") + " " + (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].lastName : "") }}
+                            {{ (reservationId > 0 ? getSelectedReservationByReservationId.firstName : "") + " " + (reservationId > 0 ? getSelectedReservationByReservationId.lastName : "") }}
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.email') }}: {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].email : "") }} </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"> {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].street : "") }} </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.phone') }}:  {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].phone : "") }} </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.email') }}: {{ (reservationId > 0 ? getSelectedReservationByReservationId.email : "") }} </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"> {{ (reservationId > 0 ? getSelectedReservationByReservationId.street : "") }} </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.phone') }}:  {{ (reservationId > 0 ? getSelectedReservationByReservationId.phone : "") }} </div>
 
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"> {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].city : "") }} {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].zipcode : "") }}</div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.adults') }}/{{ $t('labels.children') }}:  {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].adult : "") }} / {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].children : "") }} </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"> {{ (reservationId > 0 ? getSelectedReservationByReservationId.city : "") }} {{ (reservationId > 0 ? getSelectedReservationByReservationId.zipcode : "") }}</div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.adults') }}/{{ $t('labels.children') }}:  {{ (reservationId > 0 ? getSelectedReservationByReservationId.adult : "") }} / {{ (reservationId > 0 ? getSelectedReservationByReservationId.children : "") }} </div>
 
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"> {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].country : "") }}</div>
-                        <div class="h5 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.totalPrice') }}: {{ (reservationId > 0 ? hotel.hotelReservationLists.filter(obj => {return obj.id == reservationId;})[0].totalPrice : "") }} {{ hotel.defaultCurrency.name }} </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"> {{ (reservationId > 0 ? getSelectedReservationByReservationId.country : "") }}</div>
+                        <div class="h5 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right">{{ $t('labels.totalPrice') }}: {{ (reservationId > 0 ? getSelectedReservationByReservationId.totalPrice : "") }} {{ hotel.defaultCurrency.name }} </div>
 
                     </div>
                 </div>
@@ -301,6 +301,56 @@
             </div>
         </div>
 
+        <div id="CalendarBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600">
+            <span class="button square closer"></span>
+            <div class="info-box-content" style="overflow-y:auto;">
+                <div class="d-flex row ">
+                    <div class="h3 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
+                        {{ $t('labels.availableCalendar') }}
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 text-right pr-5">
+                        <select id="roomSelection" data-role="select" data-add-empty-value="true" data-clear-button="false" @change='changeSelectedRoom()'></select>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <ul data-role="tabs" data-expand="true">
+                        <li class="fg-black"><a href="#_calendarRoom">{{ $t('labels.selectedRoom') }}</a></li>
+                        <li class="fg-black"><a href="#_calendar">{{ $t('labels.availableCalendar') }}</a></li>
+                        <li class="fg-black"><a href="#_calendarDataTable">{{ $t('labels.calendarDataTable') }}</a></li>
+                        <li class="fg-black"><a href="#_bookingData">{{ $t('labels.bookingData') }}</a></li>
+                    </ul>
+                </div>
+
+                <div id="_calendarRoom">
+                    <div id="CalendarRoomBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;"></div>
+                </div>
+                <div id="_calendar">
+                    <div class="d-flex row ">
+                        <div id="BookedRoomCalendar" data-role="calendar" data-wide-point="sm" data-week-start="1" data-input-format="yyyy-mm-dd" data-buttons="today" data-multi-select="true"></div>
+                    </div>
+                </div>
+                <div id="_calendarDataTable">
+                    <div id="CalendarDataTableBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;">
+                        <table id="CalendarDataTable" class="table striped table-border mt-4" data-role="table" data-cls-component="mt-10" data-show-activity="true" data-rows="30" data-pagination="true" data-show-all-pages="false">
+                            <thead>
+                                <tr>
+                                    <th data-sortable="true">{{ $t('labels.date') }}</th>
+                                    <th data-sortable="true">{{ $t('labels.totalRoomsCount') }}</th>
+                                    <!-- <th data-sortable="true">Poptáno</th> -->
+                                    <th data-sortable="true">{{ $t('labels.booked') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="_bookingData">
+                    <div id="BookingDataBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;"></div>
+                </div>
+
+            </div>
+        </div>
+
         <div id="ReviewBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600">
             <span class="button square closer"></span>
             <div class="info-box-content" style="overflow-y:auto;">
@@ -361,23 +411,30 @@ export default {
             reservationId: null,
             historyId: null,
             reviewId: null,
+            roomId: null
         };
     },
     props: {
         hotel: {},
     },
     computed: {
+        getSelectedReservationByReservationId() {
+            if (this.reservationId > 0) {
+                return this.hotel.hotelReservationLists.filter(obj => { return obj.id == this.reservationId; })[0];
+            } else return "";
+        },
+    
         getOpenedCommentsCount() {
             return this.hotel.guestAdvertiserNoteLists.filter(obj => { return obj.solved == false; }).length;
         },
         getUnshownDetailCount() {
             let count = 0; let recNo = 0;
-            this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.endDate) > new Date(); }).forEach(reservation => {
+            this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.endDate) >= new Date(); }).forEach(reservation => {
                 recNo++; let subrecNo = 0;
                 reservation.hotelReservationDetailLists.forEach(detail => {
                     subrecNo++;
                     if (detail.shown == false && detail.guestSender) { count++; }
-                    if (recNo == this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.endDate) > new Date(); }).length && subrecNo == reservation.hotelReservationDetailLists.length) {
+                    if (recNo == this.hotel.hotelReservationLists.filter(obj => { return new Date(obj.endDate) >= new Date(); }).length && subrecNo == reservation.hotelReservationDetailLists.length) {
                         return count;
                     }
                 });
@@ -430,8 +487,75 @@ export default {
 
     },
     methods: {
+        async changeSelectedRoom() {
+            if ($("#roomSelection")[0] != undefined && $("#roomSelection")[0].selectedOptions[0] != undefined && $("#roomSelection")[0].selectedOptions[0].value != "") {
+                this.roomId = $("#roomSelection")[0].selectedOptions[0].value;
+
+                //fill room info Card
+                let messageData = ""; let availableCount = 0;
+                this.hotel.hotelRoomLists.forEach(room => {
+                    if (this.roomId == room.id) { availableCount = room.roomsCount;
+
+                        messageData = "<ul class='feed-list'>";
+                        messageData += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.id + "' >";
+                        messageData += "<span class='label'>" + room.name + "</span>";
+                        messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.roomsCount + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
+                        messageData += "<span class='second-label fg-black bold''>" + room.price + " " + this.hotel.defaultCurrency.name + "</span>";
+                        messageData += "</li>";
+                        messageData += "</ul>";
+                        messageData += "<div>" + room.descriptionCz + "</div>";
+                        $("#CalendarRoomBox").html(messageData);
+                    }
+                });
+
+                //prepare calendar Array
+                await this.$store.dispatch("getRoomBookingList", this.roomId).then(() => {
+                    let bookingCalendar = [];
+                    this.$store.state.roomBookingList.forEach(booking => {
+                        if (booking.statusId == 2) {
+                            let startDate = new Date(booking.startDate);
+                            while (new Date(startDate).toLocaleDateString('sv-SE') <= new Date(booking.endDate).toLocaleDateString('sv-SE')) {
+                                if (bookingCalendar.filter(obj => { return obj.date == new Date(startDate).toLocaleDateString('sv-SE') }).length > 0) {
+                                    bookingCalendar.forEach(book => {
+                                        if (book.date == new Date(startDate).toLocaleDateString('sv-SE')) { book.booked = book.booked + booking.count; }
+                                    });
+                                }
+                                if (bookingCalendar.filter(obj => { return obj.date == new Date(startDate).toLocaleDateString('sv-SE') }).length == 0) {
+                                    bookingCalendar.push({ date: new Date(startDate).toLocaleDateString('sv-SE'), availableRooms: availableCount, booked: booking.count });
+                                }
+                                startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
+                            }
+                        }
+                    });
+
+                    //Convert to Exclude calendar Array
+                    let bookedList = []; bookingCalendar.forEach(booking => { if (booking.availableRooms <= booking.booked) { bookedList.push(booking.date); } });
+                    let selectedList = []; bookingCalendar.forEach(booking => { if (booking.booked > 0 && booking.availableRooms > booking.booked) { selectedList.push(booking.date); } });
+                    let calendar = Metro.getPlugin("#BookedRoomCalendar", "calendar");
+                    calendar.selected = []; calendar.exclude = []; calendar.clearSelected();
+                    calendar.setExclude(bookedList); calendar.setPreset(selectedList); calendar.setShow(new Date());
+
+                    //Fill Table Data
+                    let tableData = []; bookingCalendar.forEach(booking => { tableData.push([booking.date, booking.availableRooms , booking.booked  ]) });
+                    var table = Metro.getPlugin("#CalendarDataTable", "table"); table.setItems(tableData); table.reload();
+
+                    // Fill All Status Data
+                    messageData = "<ul data-role='treeview'>"; 
+                    this.$store.state.roomBookingList.forEach(booking => {
+                        messageData += "<li data-caption='" + booking.reservation.reservationNumber + " <b>" + booking.reservation.totalPrice + this.hotel.defaultCurrency.name + "</b> " + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + booking.status.systemName + " <b>" + booking.count + "x</b> " +" ' >";
+                        messageData += "<ul><li data-caption='" + booking.count + "x " + booking.name + " "  + (!booking.extraBed ? "" : " + <span class=\"mif-hotel mif-2x fg-cyan\" style=\"top:3px;\" data-role=\"hint\" data-cls-hint=\"bg-cyan fg-white drop-shadow\" :data-hint-text=\"" + window.dictionary('labels.extraBed') + "\" ></span>") + "' ></li>";
+                        messageData += "<li data-caption='" + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + window.dictionary("labels.nightCount") + ": <b>" + parseInt(((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) + "x</b> " + "' ></li>";
+                        messageData += "<li data-caption='" + window.dictionary('labels.adults') + ": " + booking.reservation.adult + " " + window.dictionary('labels.children') + ": " + booking.reservation.children + "' ></li>";
+                        messageData += "</ul></li>";
+                    }); messageData += "</ul>";
+                    $("#BookingDataBox").html(messageData);
+                });
+                
+                
+            }
+        },
         async changeSelectedHistory() {
-            if ($("#history")[0] != undefined && $("#history")[0].selectedOptions[0] != undefined) {
+            if ($("#history")[0] != undefined && $("#history")[0].selectedOptions[0] != undefined && $("#history")[0].selectedOptions[0].value != "") {
                 this.historyId = $("#history")[0].selectedOptions[0].value;
                 this.hotel.hotelReservationLists.forEach(async reservation => {
                     if (reservation.id == this.historyId) {
@@ -441,7 +565,7 @@ export default {
                         reservation.hotelReservedRoomLists.forEach((room) => {
                             messageData += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.hotelRoomId + "' >";
                             messageData += "<span class='label'>" + room.name + "</span>";
-                            messageData += "<span class='second-label fg-black bold'>" + room.count + "x </span>";
+                            messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.count + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
                             messageData += "</li>";
                         }); messageData += "</ul>";
                         $("#HistoryRoomsBox").html(messageData);
@@ -466,10 +590,11 @@ export default {
             }
         },
         async changeSelectedReservation() {
-            if ($("#reservations")[0] != undefined && $("#reservations")[0].selectedOptions[0] != undefined) {
+            if ($("#reservations")[0] != undefined && $("#reservations")[0].selectedOptions[0] != undefined && $("#reservations")[0].selectedOptions[0].value != "") {
                 this.reservationId = $("#reservations")[0].selectedOptions[0].value;
+
                 let setShown = false;
-                this.hotel.hotelReservationLists.forEach(async reservation => {
+                await this.hotel.hotelReservationLists.forEach(async reservation => {
                     if (reservation.id == this.reservationId) {
 
                         let select = Metro.getPlugin("#hotelStatus", "select");
@@ -480,7 +605,7 @@ export default {
                         reservation.hotelReservedRoomLists.forEach((room) => {
                             messageData += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.hotelRoomId + "' >";
                             messageData += "<span class='label'>" + room.name + "</span>";
-                            messageData += "<span class='second-label fg-black bold'>" + room.count + "x </span>";
+                            messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.count + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
                             messageData += "</li>";
                         }); messageData += "</ul>";
                         $("#ReservationRoomsBox").html(messageData);
@@ -581,7 +706,7 @@ export default {
             let select = Metro.getPlugin("#reservations", "select"); let options = [];
             this.hotel.hotelReservationLists.forEach(reservation => {
                 let newMessage = false;
-                if (new Date(reservation.endDate) > new Date()) {
+                if (new Date(reservation.endDate) >= new Date()) {
                     reservation.hotelReservationDetailLists.forEach((detail, index) => {
                         if (!detail.shown && detail.guestSender) { newMessage = true; }
                         if (reservation.hotelReservationDetailLists.length == index + 1) {
@@ -602,11 +727,22 @@ export default {
             $("#ReservationRoomsBox").html('');
             $("#ReservationMessageBox").html('');
         },
+        openCalendar() {
+            let select = Metro.getPlugin("#roomSelection", "select"); let options = [];
+            this.hotel.hotelRoomLists.forEach(room => {
+                options.push({ val: room.id, title: room.roomsCount + "x " + room.name + " ", selected: false });
+            });
+            select.data(""); select.addOptions(options);
+
+            this.roomId = null;
+            $("#CalendarRoomBox").html('');
+            $("#BookingDataBox").html('');
+        },
         openHistory() {
             let select = Metro.getPlugin("#history", "select"); let options = [];
             this.hotel.hotelReservationLists.forEach(reservation => {
                 let newMessage = false;
-                if (new Date(reservation.endDate) <= new Date()) {
+                if (new Date(reservation.endDate) < new Date()) {
                     reservation.hotelReservationDetailLists.forEach((detail, index) => {
                         if (!detail.shown && detail.guestSender) { newMessage = true; }
                         if (reservation.hotelReservationDetailLists.length == index + 1) {
@@ -712,7 +848,7 @@ export default {
                 Properties: this.hotel.hotelPropertyAndServiceLists,
                 LimitGuestCommDays: this.hotel.enabledCommDaysBeforeStart
             };
-            this.$router.push('/profile/advertisementWizard');
+            this.$router.push('/Profile/AdvertisementWizard');
         },
         createRoomListBox() {
             if (this.roomListBox != null) { Metro.infobox.close(this.roomListBox); }
@@ -829,11 +965,11 @@ export default {
             });
         },
         hotelDetailsClick(event) {
-            this.$store.state.backRoute = "/profile/advertisement";
+            this.$store.state.backRoute = "/Profile/Advertisement";
             this.$store.state.backRouteScroll = window.scrollY;
 
             this.$store.dispatch("setHotel", this.hotel);
-            this.$router.push('/hotels/' + this.hotel.id);
+            this.$router.push('/Hotels/' + this.hotel.id);
         },
     },
     created() {

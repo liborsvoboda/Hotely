@@ -6,8 +6,8 @@
             <input class="pass" type="password" align="center" placeholder="Password" required :minLength="$store.state.system.passwordMin" v-model="Password" />
             <button class="submit shadowed" :onclick="checkValid">{{ $t('user.signIn') }}</button>
 
-            <div class="forgot" align="center"><router-link to="/forgot">{{ $t('user.forgotPassword') }}</router-link></div>
-            <div class="forgot p-0" align="center"><router-link to="/registration">{{ $t('labels.registration') }}</router-link></div>
+            <div class="forgot" align="center"><router-link to="/Forgot">{{ $t('user.forgotPassword') }}</router-link></div>
+            <div class="forgot p-0" align="center"><router-link to="/Registration">{{ $t('labels.registration') }}</router-link></div>
         <!--  </form> -->
     </div>
 </template>

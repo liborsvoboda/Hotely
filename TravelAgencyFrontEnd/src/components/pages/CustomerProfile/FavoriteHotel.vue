@@ -52,11 +52,11 @@ export default {
     },
     methods: {
        hotelDetailsClick(event) {
-            this.$store.state.backRoute = "/profile/favorite";
+            this.$store.state.backRoute = "/Profile/Favorite";
             this.$store.state.backRouteScroll = window.scrollY;
 
             this.$store.dispatch("setHotel", this.hotel.hotel);
-            this.$router.push('/hotels/' + this.hotel.hotel.id);
+            this.$router.push('/Hotels/' + this.hotel.hotel.id);
        },
        async RemoveFavorite() {
 

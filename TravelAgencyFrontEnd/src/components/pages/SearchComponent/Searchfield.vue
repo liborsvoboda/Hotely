@@ -43,13 +43,13 @@ export default {
         //Load Top If nothing loaded
         if (this.$route.fullPath == '/' &&
             (this.$store.state.searchResults == [] || this.$store.state.searchResults.hotelList == undefined || !this.$store.state.searchResults.hotelList.length))
-        { this.$store.dispatch("getTopList"); }
+        { this.$store.dispatch("getMainTopList"); }
 
         this.searchFieldChange();
     },
     methods: {
-        async GetTopList() {
-            await this.$store.dispatch("getTopList");
+        async GetMainTopList() {
+            await this.$store.dispatch("getMainTopList");
         },
         async GetSearchAreaList() {
             await this.$store.dispatch("getSearchAreaList");

@@ -53,7 +53,7 @@ namespace UbytkacBackend.Controllers {
 
         [HttpPost("/WebApi/Guest/Review/AddReview")]
         [Consumes("application/json")]
-        public IActionResult AddReview([FromBody] AddReview record) {
+        public IActionResult AddReview([FromBody] AddGuestReview record) {
             try {
 
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;

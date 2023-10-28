@@ -37,6 +37,9 @@
                         <ul class="list-group list-group-flush">
                             <li v-for="room in hotel.hotelReservedRoomLists" class="list-group-item text-left p-0">
                                 <span class="fas fa-door-closed"></span> {{ room.name }} x {{ room.count }}
+                                <span v-if="room.extraBed">
+                                    + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                                </span>
                             </li>
                         </ul>
                     </div>
