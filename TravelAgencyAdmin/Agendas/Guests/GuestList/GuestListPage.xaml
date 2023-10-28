@@ -70,8 +70,7 @@
                 x:Name="lbl_email" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
                 x:Name="txt_email" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" AcceptsReturn="True"
-                ToolTip="You Can change Email Address. Adress will be changed for Advertiser User Acount also"/>
+                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" ToolTip="You Can change Email Address. Adress will be changed for Advertiser User Acount also" />
 
             <Label
                 x:Name="lbl_firstName" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />

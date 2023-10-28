@@ -220,7 +220,7 @@ namespace UbytkacAdmin {
                 tm_hotelReservationReviewList.Header = Resources["hotelReservationReviewList"].ToString(); tm_hotelReservationList.Header = Resources["hotelReservationList"].ToString();
                 tm_hotelReservationReviewApprovalList.Header = Resources["hotelReservationReviewApprovalList"].ToString(); tm_creditPackageList.Header = Resources["creditPackageList"].ToString();
                 tm_systemLanguageList.Header = Resources["systemLanguageList"].ToString(); tm_guestFavoriteList.Header = Resources["guestFavoriteList"].ToString();
-                tm_hotelReservedRoomList.Header = Resources["hotelReservedRoomList"].ToString();
+                tm_hotelReservedRoomList.Header = Resources["hotelReservedRoomList"].ToString(); tm_guestSettingList.Header = Resources["guestSettingList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -821,6 +821,12 @@ namespace UbytkacAdmin {
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new GuestLoginHistoryListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/GuestLoginHistoryList", App.UserData.Authentification.Token);
+                            break;
+
+                        case "tm_guestSettingList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new GuestSettingListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/GuestSettingList", App.UserData.Authentification.Token);
                             break;
 
                         case "tm_holidayTipsList":

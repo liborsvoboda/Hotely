@@ -525,6 +525,6 @@
     <system:String x:Key="hotelReservedRoomList">Room Reservations View</system:String>
     <system:String x:Key="isAdvertiser">Is advertiser</system:String>
     <system:String x:Key="generatePassword">Generate PW</system:String>
-    
-    
+    <system:String x:Key="guestSettingList">Guests Settings</system:String>
+
 </ResourceDictionary>

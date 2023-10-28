@@ -524,6 +524,7 @@
     <system:String x:Key="hotelReservedRoomList">Přehled Rezer. Pokojů</system:String>
     <system:String x:Key="isAdvertiser">Je Hostitel</system:String>
     <system:String x:Key="generatePassword">Generovat Heslo</system:String>
-    
+    <system:String x:Key="guestSettingList">Nastavení WebHostů</system:String>
+
 
 </ResourceDictionary>

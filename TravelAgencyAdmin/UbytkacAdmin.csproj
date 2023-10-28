@@ -252,6 +252,10 @@
     <Compile Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteListPage.xaml.cs">
       <DependentUpon>GuestFavoriteListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\Guests\GuestSettingList\GuestSettingList.cs" />
+    <Compile Include="Agendas\Guests\GuestSettingList\GuestSettingListPage.xaml.cs">
+      <DependentUpon>GuestSettingListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Guests\HotelReservationList\HotelReservationList.cs" />
     <Compile Include="Agendas\Guests\HotelReservationList\HotelReservationListPage.xaml.cs">
       <DependentUpon>HotelReservationListPage.xaml</DependentUpon>
@@ -499,6 +503,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Guests\GuestSettingList\GuestSettingListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

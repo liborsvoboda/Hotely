@@ -48,7 +48,7 @@
                     <input :id="'ExtraBed_'+room.id" @change="setExtraBed(room.id)" type="checkbox" data-role="checkbox" class="zoom2 pt-2" data-title="Checkbox" :disabled="availableCount == 0">
                 </div>
 
-                <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null && room.roomsCount == 1" class="col-lg-1 col-md-1" data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.showBookedCalendar')">
+                <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null" class="col-lg-1 col-md-1" data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.showBookedCalendar')">
                     <span :id="'BookedCalendar_'+room.id" class="icon c-pointer mif-calendar mif-4x pos-absolute fg-blue" style="bottom:15px;left:0px;"
                           @click="setBookedCalendar(room.name);" onclick="Metro.infobox.open('#BookedCalendarBox');" />
                 </div>
@@ -85,16 +85,22 @@
                 let startDate = new Date(resRoom.startDate);
                 while (new Date(startDate).toLocaleDateString('sv-SE') <= new Date(resRoom.endDate).toLocaleDateString('sv-SE')) {
                     if (this.bookedCalendar.filter(obj => { return obj.date == new Date(startDate).toLocaleDateString('sv-SE') }).length > 0) {
-                        this.bookedCalendar.forEach(book => {
-                            if (book.roomId == resRoom.hotelRoomId && book.date == new Date(startDate).toLocaleDateString('sv-SE')) {
-                                book.booked = book.booked + resRoom.count;
-                                if (maxBookedRooms < book.booked ) { maxBookedRooms = book.booked; }
+                        this.bookedCalendar.forEach(booking => {
+                            if (booking.roomId == resRoom.hotelRoomId && booking.date == new Date(startDate).toLocaleDateString('sv-SE')) {
+                                booking.booked = booking.booked + resRoom.count;
+                                if (maxBookedRooms < booking.booked
+                                    && new Date(booking.date).toLocaleDateString('sv-SE') >= this.$store.state.searchString.dates[0].toLocaleDateString('sv-SE')
+                                    && new Date(booking.date).toLocaleDateString('sv-SE') <= this.$store.state.searchString.dates[1].toLocaleDateString('sv-SE')
+                                ) { maxBookedRooms = booking.booked; }
                             }
                         });
                     }
                     if (this.bookedCalendar.filter(obj => { return obj.date == new Date(startDate).toLocaleDateString('sv-SE') }).length == 0) {
                         this.bookedCalendar.push({ roomId: this.room.id, date: new Date(startDate).toLocaleDateString('sv-SE'), availableRooms: this.room.roomsCount, booked: resRoom.count });
-                        if (maxBookedRooms < resRoom.count) { maxBookedRooms = resRoom.count; }
+                        if (maxBookedRooms < resRoom.count
+                            && new Date(startDate).toLocaleDateString('sv-SE') >= this.$store.state.searchString.dates[0].toLocaleDateString('sv-SE')
+                            && new Date(startDate).toLocaleDateString('sv-SE') <= this.$store.state.searchString.dates[1].toLocaleDateString('sv-SE')
+                        ) { maxBookedRooms = resRoom.count; }
                     }
                     startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
                 }
@@ -113,7 +119,6 @@
                 return this.$store.state.apiRootUrl + '/RoomImage/';
             },
             BookingDetail() {
-                console.log("roomBooking", this.$store.state.bookingDetail);
                 return this.$store.state.bookingDetail;
             },
 
@@ -121,17 +126,19 @@
     methods: {
         setBookedCalendar(roomname) {
             $("#roomName").html(roomname);
-            let bookedList = []; let minDate = null; let maxDate = null;
+            let bookedList = []; let selectedList = []; let minDate = null; let maxDate = null;
             this.bookedCalendar.forEach(booking => {
                 if (minDate == null) {
                     minDate = new Date(new Date(booking.date).getFullYear(), new Date(booking.date).getMonth(), 1);
                 }
-                if (booking.booked > 0) { bookedList.push(booking.date); }
+                if (booking.booked > 0 && booking.booked < booking.availableRooms) { selectedList.push(booking.date); }
+                if (booking.booked > 0 && booking.booked >= booking.availableRooms) { bookedList.push(booking.date); }
+
                 maxDate = new Date(new Date(booking.date).getFullYear(), new Date(booking.date).getMonth() + 1, 1);
             });
-
             let calendar = Metro.getPlugin("#BookedCalendar", "calendar"); calendar.selected = []; calendar.exclude = []; calendar.clearSelected();
-            calendar.setExclude(bookedList);
+
+            calendar.setExclude(bookedList); calendar.setPreset(selectedList);
             if (minDate != null) {
                 if (Metro.storage.getItem('BookCalendarViewMonthsBefore', null) != 1) { minDate = new Date(maxDate.getFullYear(), maxDate.getMonth() - parseInt(Metro.storage.getItem('BookCalendarViewMonthsBefore', null)), 1); }
                 calendar.min = new Date();
@@ -140,7 +147,10 @@
                 if (Metro.storage.getItem('BookCalendarViewMonthsAfter', null) != 1) { maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth() + parseInt(Metro.storage.getItem('BookCalendarViewMonthsAfter', null)) - 1, 31); }
                 calendar.max = maxDate;
             }
-            calendar.setShow(minDate);
+
+            // Set First Day
+            calendar.setShow(this.$store.state.searchString.dates[0].toLocaleDateString('sv-SE'));
+
         },
         calculateValues(id, value) {
             this.$store.state.bookingDetail.rooms.forEach(room => {
@@ -152,7 +162,6 @@
             this.$store.state.bookingDetail.rooms.forEach(room => {
                 if (room.id == id && $("#ExtraBed_" + id).val('checked')[0] != undefined) { room.extrabed = $("#ExtraBed_" + id).val('checked')[0].checked; }
             });
-            console.log("booking", this.$store.state.bookingDetail.rooms);
         },
 
     }

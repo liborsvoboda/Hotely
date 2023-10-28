@@ -25,6 +25,7 @@
         GuestFavoriteList,
         GuestList,
         GuestLoginHistoryList,
+        GuestSettingList,
         HolidayTipsList,
         HotelActionTypeList,
         HotelApprovalList,
