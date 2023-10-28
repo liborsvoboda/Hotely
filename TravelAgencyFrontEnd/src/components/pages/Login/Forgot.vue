@@ -59,6 +59,7 @@ export default {
 
         },
         sendNewPassword() {
+            window.showPageLoading();
             var def = $.ajax({
                 global: false, type: "POST",
                 url: this.$store.state.apiRootUrl + "/Guest/ResetPassword",
@@ -69,11 +70,13 @@ export default {
             var that = this;
 
             def.fail(function (data) {
+                window.hidePageLoading();
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
             });
 
             def.done(function (data) {
+                window.hidePageLoading();
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary('user.resetPasswordEmailWasSent'), "Info"); notify.reset();
             });

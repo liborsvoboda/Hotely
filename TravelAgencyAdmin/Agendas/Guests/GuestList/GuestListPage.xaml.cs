@@ -20,7 +20,7 @@ namespace UbytkacAdmin.Pages {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static GuestList selectedRecord = new GuestList();
 
-        private List<UserList> adminUserList = new List<UserList>();
+        private List<GuestList> guestList = new List<GuestList>();
 
         public GuestListPage() {
             InitializeComponent();
@@ -29,14 +29,18 @@ namespace UbytkacAdmin.Pages {
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
             lbl_email.Content = Resources["email"].ToString();
-            lbl_firstName.Content = Resources["firstName"].ToString();
-            lbl_lastName.Content = Resources["lastName"].ToString();
+            lbl_firstName.Content = Resources["name"].ToString();
+            lbl_lastName.Content = Resources["surname"].ToString();
             lbl_street.Content = Resources["street"].ToString();
             lbl_city.Content = Resources["city"].ToString();
             lbl_postCode.Content = Resources["postCode"].ToString();
             lbl_phone.Content = Resources["phone"].ToString();
             lbl_country.Content = Resources["country"].ToString();
 
+            lbl_active.Content = Resources["active"].ToString();
+            lbl_password.Content = Resources["password"].ToString();
+
+            btn_generatePassword.Content = Resources["generatePassword"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
 
@@ -48,7 +52,15 @@ namespace UbytkacAdmin.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", ""), App.UserData.Authentification.Token);
+
+                guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", ""), App.UserData.Authentification.Token);
+
+                guestList.ForEach(guest => {
+                    guest.IsAdvertiser = guest.UserId == null ? false : true;
+                });
+                DgListView.ItemsSource = guestList;
+                DgListView.Items.Refresh();
+
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -58,15 +70,19 @@ namespace UbytkacAdmin.Pages {
         private void DgListView_Translate(object sender, EventArgs ex) {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
-                if (headername == "Email") e.Header = Resources["email"].ToString();
-                else if (headername == "FirstName") e.Header = Resources["firstName"].ToString();
-                else if (headername == "LastName") e.Header = Resources["lastName"].ToString();
-                else if (headername == "Street") e.Header = Resources["street"].ToString();
-                else if (headername == "City") e.Header = Resources["city"].ToString();
-                else if (headername == "ZipCode") { e.Header = Resources["postCode"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; } else if (headername == "Country") e.Header = Resources["country"].ToString();
-                else if (headername == "Phone") e.Header = Resources["phone"].ToString();
+                if (headername == "Email") { e.Header = Resources["email"].ToString(); e.DisplayIndex = 1; }
+                else if (headername == "FirstName") { e.Header = Resources["name"].ToString(); e.DisplayIndex = 2; }
+                else if (headername == "LastName") { e.Header = Resources["surname"].ToString(); e.DisplayIndex = 3; }
+                else if (headername == "IsAdvertiser") { e.Header = Resources["isAdvertiser"].ToString(); e.DisplayIndex = 4; }
+                else if (headername == "Phone") { e.Header = Resources["phone"].ToString(); e.DisplayIndex = 5; }
+                else if (headername == "Street") { e.Header = Resources["street"].ToString(); e.DisplayIndex = 6; }
+                else if (headername == "City") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 7; }
+                else if (headername == "ZipCode") { e.Header = Resources["postCode"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; } 
+                else if (headername == "Country") e.Header = Resources["country"].ToString();
                 else if (headername == "Active") e.Header = Resources["active"].ToString();
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
+                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                
+                else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 else if (headername == "Password") e.Visibility = Visibility.Hidden;
                 else if (headername == "UserIdAccount") e.Visibility = Visibility.Hidden;
@@ -148,6 +164,9 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.ZipCode = txt_postCode.Text;
                 selectedRecord.Phone = txt_phone.Text;
                 selectedRecord.Country = txt_country.Text;
+
+                selectedRecord.Active = (bool)chb_active.IsChecked;
+                if (pb_password.Password != null && pb_password.Password.Length > 0) { selectedRecord.Password = pb_password.Password; }
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
                 string json = JsonConvert.SerializeObject(selectedRecord);
@@ -181,6 +200,9 @@ namespace UbytkacAdmin.Pages {
             txt_phone.Text = selectedRecord.Phone;
             txt_country.Text = selectedRecord.Country;
 
+            chb_active.IsChecked = selectedRecord.Active;
+            pb_password.Password = null;
+
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
                 ListView.Visibility = Visibility.Hidden; ListForm.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
@@ -188,6 +210,10 @@ namespace UbytkacAdmin.Pages {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
                 ListForm.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
             }
+        }
+
+        private void BtnGeneratePassword_Click(object sender, RoutedEventArgs e) {
+            pb_password.Password = selectedRecord.Password = SystemOperations.RandomString(10);
         }
     }
 }

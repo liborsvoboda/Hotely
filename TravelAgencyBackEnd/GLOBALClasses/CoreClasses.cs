@@ -27,7 +27,8 @@
 
     public enum DBResult {
         success,
-        error
+        error,
+        youNotHaveRight
     }
 
     /// <summary>

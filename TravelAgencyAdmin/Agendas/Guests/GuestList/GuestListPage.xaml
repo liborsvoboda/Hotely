@@ -46,7 +46,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -70,7 +70,8 @@
                 x:Name="lbl_email" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
                 x:Name="txt_email" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
-                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" />
+                Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" AcceptsReturn="True"
+                ToolTip="You Can change Email Address. Adress will be changed for Advertiser User Acount also"/>
 
             <Label
                 x:Name="lbl_firstName" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
@@ -81,7 +82,7 @@
             <Label
                 x:Name="lbl_lastName" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
             <TextBox
-                x:Name="txt_lastName" Grid.Row="4" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
+                x:Name="txt_lastName" Grid.Row="3" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
                 Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" />
 
 
@@ -114,6 +115,24 @@
             <TextBox
                 x:Name="txt_phone" Grid.Row="8" Grid.Column="1" Margin="0,2,0,2" Controls:TextBoxHelper.ClearTextButton="True"
                 Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark="" AcceptsReturn="True" />
+
+
+
+            <Label
+                x:Name="lbl_active" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <CheckBox
+                x:Name="chb_active" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" ToolTip="Can Activate / Deativate Guest + Advertiser if Exist Acount" />
+            <Label
+                x:Name="lbl_password" Grid.Row="11" Grid.Column="0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+            <PasswordBox
+                x:Name="pb_password" Grid.Row="11" Grid.Column="1" Margin="0,2,125,2" Controls:PasswordBoxHelper.CapsLockWarningToolTip="Capslock"
+                Controls:TextBoxHelper.ClearTextButton="true" Controls:TextBoxHelper.IsWaitingForData="True" Controls:TextBoxHelper.Watermark=""
+                Style="{StaticResource MetroButtonRevealedPasswordBox}"
+                ToolTip="Empty password is nothing change, For New Password you can write or generate" />
+            <Button
+                x:Name="btn_generatePassword" Grid.Row="11" Grid.Column="1" Width="120" Height="28"
+                Margin="0,2,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Controls:ButtonHelper.PreserveTextCase="True" Click="BtnGeneratePassword_Click"
+                Style="{DynamicResource AccentedSquareButtonStyle}" />
 
             <Button
                 Name="btn_save" Grid.Row="20" Grid.Column="0" Width="200" Height="40"

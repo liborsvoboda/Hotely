@@ -71,7 +71,7 @@ export default {
     methods: {
         sendVerifyEmail() {
             if (this.guest.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-
+                window.showPageLoading();
                 var def = $.ajax({
                     global: false, type: "POST",
                     url: this.$store.state.apiRootUrl + "/Guest/SendVerifyCode",
@@ -82,11 +82,13 @@ export default {
                 var that = this;
 
                 def.fail(function (data) {
+                    window.hidePageLoading();
                     var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
                     notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
                 });
 
                 def.done(function (data) {
+                    window.hidePageLoading();
                     that.ApiVerificationCode = data.verifyCode;
                     that.verifySent = true;
 

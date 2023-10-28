@@ -517,4 +517,13 @@
     <system:String x:Key="creditPrice">Cena kreditů</system:String>
     <system:String x:Key="creditPackageList">Balíčky kreditů</system:String>
 
+    <system:String x:Key="systemLanguageList">Jazyky systému</system:String>
+    <system:String x:Key="subject">Předmět</system:String>
+    <system:String x:Key="language">Jazyk</system:String>
+    <system:String x:Key="guestFavoriteList">Přehled Oblíbených</system:String>
+    <system:String x:Key="hotelReservedRoomList">Přehled Rezer. Pokojů</system:String>
+    <system:String x:Key="isAdvertiser">Je Hostitel</system:String>
+    <system:String x:Key="generatePassword">Generovat Heslo</system:String>
+    
+
 </ResourceDictionary>

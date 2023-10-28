@@ -25,13 +25,13 @@ namespace UbytkacBackend.Controllers {
                         
                         //Send Verify Email
                         string verifyCode = Functions.RandomString(10);
-                        EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "verification").FirstOrDefault();
+                        EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                         MailRequest mailRequest = new MailRequest();
                         if (template != null) {
                             mailRequest = new MailRequest() {
-                                Subject = (record.Language == "cz" ? template.SubjectCz : template.SubjectEn).Replace("[verifyCode]", verifyCode),
+                                Subject = template.Subject.Replace("[verifyCode]", verifyCode),
                                 Recipients = new List<string>() { record.EmailAddress },
-                                Content = (record.Language == "cz" ? template.EmailCz : template.EmailEn).Replace("[verifyCode]", verifyCode)
+                                Content = template.Email.Replace("[verifyCode]", verifyCode)
                             };
                         }
                         else {
@@ -133,11 +133,11 @@ namespace UbytkacBackend.Controllers {
                 //missing saving control booked rooms from foreach saving
 
                 //Send Reservation Email
-                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "reservations").FirstOrDefault();
+                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest1 = new MailRequest();
                 if (template1 != null) {
                     mailRequest1 = new MailRequest() {
-                        Subject = (record.Language == "cz" ? template1.SubjectCz : template1.SubjectEn)
+                        Subject = template1.Subject
                         .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                         .Replace("[email]", record.Booking.User.Email).Replace("[totalprice]", record.Booking.TotalPrice.ToString())
                         .Replace("[hotelname]", record.Booking.HotelName).Replace("[message]", record.Booking.Message).Replace("[currency]", record.Booking.Currency)
@@ -145,7 +145,7 @@ namespace UbytkacBackend.Controllers {
                         .Replace("[adult]", record.Booking.AdultInput.ToString()).Replace("[children]", record.Booking.ChildrenInput.ToString())
                         ,
                         Recipients = new List<string>() { record.Booking.User.Email },
-                        Content = (record.Language == "cz" ? template1.EmailCz : template1.EmailEn)
+                        Content = template1.Email
                         .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                         .Replace("[email]", record.Booking.User.Email).Replace("[totalprice]", record.Booking.TotalPrice.ToString())
                         .Replace("[hotelname]", record.Booking.HotelName).Replace("[message]", record.Booking.Message).Replace("[currency]", record.Booking.Currency)
@@ -208,15 +208,15 @@ namespace UbytkacBackend.Controllers {
 
                 //Send Registration Email
                 if (result > 0) {
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "registration").FirstOrDefault();
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
-                            Subject = (record.Language == "cz" ? template.SubjectCz : template.SubjectEn)
+                            Subject = template.Subject
                             .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                             .Replace("[email]", record.Booking.User.Email).Replace("[password]", password),
                             Recipients = new List<string>() { record.Booking.User.Email },
-                            Content = (record.Language == "cz" ? template.EmailCz : template.EmailEn)
+                            Content = template.Email
                             .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                             .Replace("[email]", record.Booking.User.Email).Replace("[password]", password),
                         };
@@ -296,11 +296,11 @@ namespace UbytkacBackend.Controllers {
                 //missing saving control booked rooms from foreach saving
 
                 //Send Reservation Email
-                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "reservations").FirstOrDefault();
+                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest1 = new MailRequest();
                 if (template1 != null) {
                     mailRequest1 = new MailRequest() {
-                        Subject = (record.Language == "cz" ? template1.SubjectCz : template1.SubjectEn)
+                        Subject = template1.Subject
                         .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                         .Replace("[email]", record.Booking.User.Email).Replace("[totalprice]", record.Booking.TotalPrice.ToString())
                         .Replace("[hotelname]", record.Booking.HotelName).Replace("[message]", record.Booking.Message).Replace("[currency]", record.Booking.Currency)
@@ -308,7 +308,7 @@ namespace UbytkacBackend.Controllers {
                         .Replace("[adult]", record.Booking.AdultInput.ToString()).Replace("[children]", record.Booking.ChildrenInput.ToString())
                         ,
                         Recipients = new List<string>() { record.Booking.User.Email },
-                        Content = (record.Language == "cz" ? template1.EmailCz : template1.EmailEn)
+                        Content = template1.Email
                         .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                         .Replace("[email]", record.Booking.User.Email).Replace("[totalprice]", record.Booking.TotalPrice.ToString())
                         .Replace("[hotelname]", record.Booking.HotelName).Replace("[message]", record.Booking.Message).Replace("[currency]", record.Booking.Currency)

@@ -159,5 +159,19 @@ namespace UbytkacAdmin.GlobalOperations {
             string appNameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace.Split('.')[0];
             return stringForRemoveNamespace.Replace(appNameSpace, string.Empty);
         }
+
+
+
+        /// <summary>
+        /// Randoms the string.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <returns></returns>
+        public static string RandomString(int length) {
+            Random random = new Random();
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }

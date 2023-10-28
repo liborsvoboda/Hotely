@@ -10,8 +10,8 @@ namespace EASYDATACenter.Controllers {
         [HttpGet("/CountryAreaCityList/{icacId}")]
         public async Task<string> GetCountryAreaCityListKey(int icacId) {
             List<CountryAreaCityList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) { 
-                data = new hotelsContext().CountryAreaCityLists.Where(a => a.Icacid == icacId).ToList(); 
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().CountryAreaCityLists.Where(a => a.Icacid == icacId).ToList();
             }
 
             return JsonSerializer.Serialize(data);
@@ -21,28 +21,34 @@ namespace EASYDATACenter.Controllers {
         [Consumes("application/json")]
         public async Task<string> InsertAllDocCountryAreaCityList([FromBody] List<CountryAreaCityList> record) {
             try {
-                int result;
-                hotelsContext data = new(); 
-                data.CountryAreaCityLists.AddRange(record);
-                result = data.SaveChanges();
+                if (Request.HttpContext.User.IsInRole("Admin")) {
+                    int result;
+                    hotelsContext data = new();
+                    data.CountryAreaCityLists.AddRange(record);
+                    result = data.SaveChanges();
 
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-                else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                }
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.youNotHaveRight.ToString() });
         }
 
         [HttpDelete("/CountryAreaCityList/{icacId}")]
         [Consumes("application/json")]
         public async Task<string> DeleteItemList(int icacId) {
             try {
-                List<CountryAreaCityList> data;
-                data = new hotelsContext().CountryAreaCityLists.Where(a => a.Icacid == icacId).ToList();
-                hotelsContext data1 = new(); 
-                data1.CountryAreaCityLists.RemoveRange(data);
-                int result = data1.SaveChanges();
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-                else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                if (Request.HttpContext.User.IsInRole("Admin")) {
+                    List<CountryAreaCityList> data;
+                    data = new hotelsContext().CountryAreaCityLists.Where(a => a.Icacid == icacId).ToList();
+                    hotelsContext data1 = new();
+                    data1.CountryAreaCityLists.RemoveRange(data);
+                    int result = data1.SaveChanges();
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                }
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.youNotHaveRight.ToString() });
         }
     }
 }

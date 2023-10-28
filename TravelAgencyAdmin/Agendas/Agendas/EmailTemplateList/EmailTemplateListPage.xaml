@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:html="clr-namespace:EASYTools.HTMLEditorNoImg;assembly=EASYTools.HTMLEditorNoImg"
+    xmlns:html="clr-namespace:EASYTools.HTMLFullEditor;assembly=EASYTools.HTMLFullEditor"
     xmlns:local="clr-namespace:UbytkacAdmin.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -66,27 +66,27 @@
                 x:Name="txt_variables" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2" HorizontalAlignment="Stretch"
                 Controls:TextBoxHelper.ClearTextButton="False" IsReadOnly="True" />
 
+
+
             <Label
-                x:Name="lbl_subjectCz" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
+                x:Name="lbl_subject" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <TextBox
-                x:Name="txt_subjectCz" Grid.Row="2" Grid.Column="0" Margin="200,2,0,2" HorizontalAlignment="Stretch"
+                x:Name="txt_subject" Grid.Row="2" Grid.Column="0" Margin="200,2,0,2" HorizontalAlignment="Stretch"
                 Controls:TextBoxHelper.ClearTextButton="True" />
 
             <Label
-                x:Name="lbl_subjectEn" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
-            <TextBox
-                x:Name="txt_subjectEn" Grid.Row="2" Grid.Column="1" Margin="200,2,0,2" HorizontalAlignment="Stretch"
-                Controls:TextBoxHelper.ClearTextButton="True" />
+                x:Name="lbl_systemLanguage" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
+            <ComboBox
+                Name="cb_systemLanguage" Grid.Row="2" Grid.Column="1" Margin="200,2,0,2" HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" Controls:TextBoxHelper.ClearTextButton="false" DisplayMemberPath="Translation" IsEnabled="true" SelectedValuePath="Id" />
 
             <Label
-                x:Name="lbl_emailCz" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
-            <Label
-                x:Name="lbl_emailEn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                x:Name="lbl_email" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
 
-            <html:RichTextEditor
-                x:Name="html_emailCz" Grid.Row="4" Grid.Column="0" Margin="0,2,0,2" BorderThickness="0.5" />
-            <html:RichTextEditor
-                x:Name="html_emailEn" Grid.Row="4" Grid.Column="1" Margin="0,2,0,2" BorderThickness="0.5" />
+            <html:HtmlEditor
+                x:Name="html_email" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,2"
+                BorderThickness="0.5"
+                HtmlContent="{Binding SourceCode}" />
 
 
             <Button

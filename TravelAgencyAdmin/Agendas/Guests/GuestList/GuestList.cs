@@ -13,8 +13,11 @@ namespace UbytkacAdmin.Classes {
         public string City { get; set; }
         public string Country { get; set; }
         public string Phone { get; set; }
-        public int UserIdAccount { get; set; }
+        public int? UserId { get; set; }
         public bool Active { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public bool IsAdvertiser { get; set; }
+
     }
 }

@@ -38,7 +38,7 @@
                 record.Settings.ForEach(setting => {
 
                     if (guestSettingList.FirstOrDefault(a => a.Key == setting.Key) == null) {
-                        var data = new hotelsContext().GuestSettingLists.Add(new GuestSettingList() { Key = setting.Key , Value = setting.Value , GuestId = int.Parse(authId)});
+                        EntityEntry<GuestSettingList> data = new hotelsContext().GuestSettingLists.Add(new GuestSettingList() { Key = setting.Key , Value = setting.Value , GuestId = int.Parse(authId)});
                         int result = data.Context.SaveChanges();
                     } else {
                         guestSettingList.FirstOrDefault(a => a.Key == setting.Key).Value = setting.Value;

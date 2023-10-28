@@ -15,6 +15,7 @@ using UbytkacAdmin.Api;
 using UbytkacAdmin.Classes;
 using UbytkacAdmin.GlobalOperations;
 using UbytkacAdmin.GlobalStyles;
+using Xamarin.Essentials;
 
 namespace UbytkacAdmin.Pages {
 
@@ -23,6 +24,7 @@ namespace UbytkacAdmin.Pages {
         public static EmailTemplateList selectedRecord = new EmailTemplateList();
 
         private List<EmailTemplateList> emailTemplateList = new List<EmailTemplateList>();
+        private List<SystemLanguageList> systemLanguageList = new List<SystemLanguageList>();
 
         public EmailTemplateListPage() {
             InitializeComponent();
@@ -40,11 +42,9 @@ namespace UbytkacAdmin.Pages {
                 lbl_id.Content = Resources["id"].ToString();
                 lbl_templateName.Content = Resources["templateName"].ToString();
                 lbl_variables.Content = Resources["variables"].ToString();
-                lbl_subjectCz.Content = Resources["subjectCz"].ToString();
-                lbl_subjectEn.Content = Resources["subjectEn"].ToString();
-
-                lbl_emailCz.Content = Resources["emailCz"].ToString();
-                lbl_emailEn.Content = Resources["emailEn"].ToString();
+                lbl_subject.Content = Resources["subject"].ToString();
+                lbl_email.Content = Resources["email"].ToString();
+                lbl_systemLanguage.Content = Resources["language"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -62,13 +62,20 @@ namespace UbytkacAdmin.Pages {
             try {
 
                 emailTemplateList = await ApiCommunication.GetApiRequest<List<EmailTemplateList>>(ApiUrls.EmailTemplateList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                systemLanguageList = await ApiCommunication.GetApiRequest<List<SystemLanguageList>>(ApiUrls.SystemLanguageList, null, App.UserData.Authentification.Token);
+
+                systemLanguageList.ForEach(async language => {
+                    language.Translation = await DBOperations.DBTranslation(language.SystemName);
+                });
 
                 emailTemplateList.ForEach(async template => {
                     template.TemplateNameTranslation = await DBOperations.DBTranslation(template.TemplateName);
+                    template.SystemLanguageTranslation = systemLanguageList.First(a=> a.Id == template.SystemLanguageId).Translation;
                 });
 
                 DgListView.ItemsSource = emailTemplateList;
-                DgListView.Items.Refresh();
+                DgListView.Items.Refresh(); 
+                cb_systemLanguage.ItemsSource = systemLanguageList;
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
 
@@ -80,14 +87,15 @@ namespace UbytkacAdmin.Pages {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
                     if (headername == "TemplateNameTranslation") { e.Header = Resources["templateName"].ToString(); e.DisplayIndex = 1; }
+                    else if (headername == "Subject") { e.Header = Resources["subject"].ToString(); e.DisplayIndex = 2; }
+                    else if (headername == "SystemLanguageTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 3; }
+
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
+                    else if (headername == "SystemLanguageId") e.Visibility = Visibility.Hidden;
                     else if (headername == "TemplateName") e.Visibility = Visibility.Hidden;
-                    else if (headername == "SubjectCz") e.Visibility = Visibility.Hidden;
-                    else if (headername == "EmailCz") e.Visibility = Visibility.Hidden;
-                    else if (headername == "SubjectEn") e.Visibility = Visibility.Hidden;
-                    else if (headername == "EmailEn") e.Visibility = Visibility.Hidden;
+                    else if (headername == "Email") e.Visibility = Visibility.Hidden;
                     else if (headername == "Variables") e.Visibility = Visibility.Hidden;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 });
@@ -101,10 +109,8 @@ namespace UbytkacAdmin.Pages {
                 DgListView.Items.Filter = (e) => {
                     EmailTemplateList user = e as EmailTemplateList;
                     return user.TemplateName.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.SubjectCz) && user.SubjectCz.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.EmailCz) && user.EmailCz.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.SubjectEn) && user.SubjectEn.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.EmailEn) && user.EmailEn.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(user.Subject) && user.Subject.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(user.Email) && user.Email.ToLower().Contains(filter.ToLower())
                     ;
                 };
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -150,14 +156,13 @@ namespace UbytkacAdmin.Pages {
             try {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
+
+                selectedRecord.SystemLanguageId = ((SystemLanguageList)cb_systemLanguage.SelectedItem).Id;
                 selectedRecord.TemplateName = (string)cb_templateName.SelectedValue;
                 selectedRecord.Variables = txt_variables.Text;
 
-                selectedRecord.SubjectCz = txt_subjectCz.Text;
-                selectedRecord.SubjectEn = txt_subjectEn.Text;
-                
-                selectedRecord.EmailCz = html_emailCz.Text;
-                selectedRecord.EmailEn = html_emailEn.Text;
+                selectedRecord.Subject = txt_subject.Text;
+                selectedRecord.Email = html_email.Browser.GetCurrentHtml();
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
@@ -183,14 +188,13 @@ namespace UbytkacAdmin.Pages {
 
         private void SetRecord(bool showForm, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
+
+            cb_systemLanguage.SelectedItem = (selectedRecord.Id == 0) ? systemLanguageList.FirstOrDefault() : systemLanguageList.First(a => a.Id == selectedRecord.SystemLanguageId);
             cb_templateName.SelectedValue = txt_id.Value == 0 ? "" : selectedRecord.TemplateName;
             txt_variables.Text = selectedRecord.Variables;
 
-            txt_subjectCz.Text = selectedRecord.SubjectCz;
-            txt_subjectEn.Text = selectedRecord.SubjectEn;
-
-            html_emailCz.Text = selectedRecord.EmailCz;
-            html_emailEn.Text = selectedRecord.EmailEn;
+            txt_subject.Text = selectedRecord.Subject;
+            html_email.HtmlContent = selectedRecord.Email;
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

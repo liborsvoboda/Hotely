@@ -9,11 +9,9 @@
         [HttpGet("/LanguageList")]
         public async Task<string> GetLanguageList() {
             List<LanguageList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
-            }))
-            {
+            })) {
                 data = new hotelsContext().LanguageLists.ToList();
             }
 
@@ -24,11 +22,9 @@
         [HttpGet("/LanguageList/Filter/{filter}")]
         public async Task<string> GetLanguageListByFilter(string filter) {
             List<LanguageList> data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
-            }))
-            {
+            })) {
                 data = new hotelsContext().LanguageLists.FromSqlRaw("SELECT * FROM LanguageList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 
@@ -39,11 +35,9 @@
         [HttpGet("/LanguageList/{id}")]
         public async Task<string> GetLanguageListKey(int id) {
             LanguageList data;
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted
-            }))
-            {
+            })) {
                 data = new hotelsContext().LanguageLists.Where(a => a.Id == id).First();
             }
 
@@ -53,52 +47,48 @@
         [HttpPut("/LanguageList")]
         [Consumes("application/json")]
         public async Task<string> InsertLanguageList([FromBody] LanguageList record) {
-            try
-            {
-                record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
-                var data = new hotelsContext().LanguageLists.Add(record);
-                int result = await data.Context.SaveChangesAsync();
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-                else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            }
-            catch (Exception ex)
-            {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) });
-            }
+            try {
+                if (Request.HttpContext.User.IsInRole("Admin")) {
+                    record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
+                    var data = new hotelsContext().LanguageLists.Add(record);
+                    int result = await data.Context.SaveChangesAsync();
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.youNotHaveRight.ToString() });
         }
 
         [HttpPost("/LanguageList")]
         [Consumes("application/json")]
         public async Task<string> UpdateLanguageList([FromBody] LanguageList record) {
-            try
-            {
-                var data = new hotelsContext().LanguageLists.Update(record);
-                int result = await data.Context.SaveChangesAsync();
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-                else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            }
-            catch (Exception ex)
-            { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            try {
+                if (Request.HttpContext.User.IsInRole("Admin")) {
+                    var data = new hotelsContext().LanguageLists.Update(record);
+                    int result = await data.Context.SaveChangesAsync();
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.youNotHaveRight.ToString() });
         }
 
         [HttpDelete("/LanguageList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteLanguageList(string id) {
-            try
-            {
-                if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
+            try {
+                if (Request.HttpContext.User.IsInRole("Admin")) {
+                    if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
-                LanguageList record = new() { Id = int.Parse(id) };
+                    LanguageList record = new() { Id = int.Parse(id) };
 
-                var data = new hotelsContext().LanguageLists.Remove(record);
-                int result = await data.Context.SaveChangesAsync();
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-                else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            }
-            catch (Exception ex)
-            {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) });
-            }
+                    var data = new hotelsContext().LanguageLists.Remove(record);
+                    int result = await data.Context.SaveChangesAsync();
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
+                }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.youNotHaveRight.ToString() });
         }
     }
 }

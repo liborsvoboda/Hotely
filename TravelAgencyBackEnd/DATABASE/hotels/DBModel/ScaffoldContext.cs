@@ -66,6 +66,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<ReportList> ReportLists { get; set; }
         public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
         public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
+        public virtual DbSet<SystemLanguageList> SystemLanguageLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
         public virtual DbSet<TermsList> TermsLists { get; set; }
         public virtual DbSet<UbytkacInfoList> UbytkacInfoLists { get; set; }
@@ -272,6 +273,12 @@ namespace UbytkacBackend.DBModel
             modelBuilder.Entity<EmailTemplateList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.SystemLanguage)
+                    .WithMany(p => p.EmailTemplateLists)
+                    .HasForeignKey(d => d.SystemLanguageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmailTemplateList_SystemLanguageList");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.EmailTemplateLists)
@@ -843,6 +850,17 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.SystemFailLists)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_SystemFailList_UserList");
+            });
+
+            modelBuilder.Entity<SystemLanguageList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemLanguageLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SystemLanguageList_UserList");
             });
 
             modelBuilder.Entity<TemplateList>(entity =>

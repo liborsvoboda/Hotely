@@ -32,15 +32,15 @@ namespace UbytkacBackend.Controllers {
 
 
                     //Send ResetPassword Email
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "resetPassword").FirstOrDefault();
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
-                            Subject = (record.Language == "cz" ? template.SubjectCz : template.SubjectEn)
+                            Subject = template.Subject
                             .Replace("[firstname]", data.FirstName).Replace("[lastname]", data.LastName)
                             .Replace("[password]", newPassword).Replace("[email]", record.EmailAddress),
                             Recipients = new List<string>() { record.EmailAddress },
-                            Content = (record.Language == "cz" ? template.EmailCz : template.EmailEn)
+                            Content = template.Email
                             .Replace("[firstname]", data.FirstName).Replace("[lastname]", data.LastName)
                             .Replace("[password]", newPassword).Replace("[email]", record.EmailAddress)
                         };
@@ -82,13 +82,13 @@ namespace UbytkacBackend.Controllers {
                     }
 
                     //Send Verify Email
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "verification").FirstOrDefault();
+                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
-                            Subject = (record.Language == "cz" ? template.SubjectCz : template.SubjectEn).Replace("[verifyCode]", verifyCode),
+                            Subject = template.Subject.Replace("[verifyCode]", verifyCode),
                             Recipients = new List<string>() { record.EmailAddress },
-                            Content = (record.Language == "cz" ? template.EmailCz : template.EmailEn).Replace("[verifyCode]", verifyCode)
+                            Content = template.Email.Replace("[verifyCode]", verifyCode)
                         };
                     }
                     else {
@@ -154,15 +154,15 @@ namespace UbytkacBackend.Controllers {
 
 
                 //Send Reg Email
-                EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a=>a.TemplateName == "registration").FirstOrDefault();
+                EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a=>a.TemplateName == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest = new MailRequest();
                 if (template != null) {
                     mailRequest = new MailRequest() {
-                        Subject = (record.Language == "cz" ? template.SubjectCz : template.SubjectEn)
+                        Subject = template.Subject
                         .Replace("[firstname]", record.User.FirstName).Replace("[lastname]", record.User.LastName)
                         .Replace("[email]", record.User.Email).Replace("[password]", origPassword),
                         Recipients = new List<string>() { record.User.Email },
-                        Content = (record.Language == "cz" ? template.EmailCz : template.EmailEn)
+                        Content = template.Email
                         .Replace("[firstname]", record.User.FirstName).Replace("[lastname]", record.User.LastName)
                         .Replace("[email]", record.User.Email).Replace("[password]", origPassword),
                     };
@@ -188,21 +188,20 @@ namespace UbytkacBackend.Controllers {
                 if (User.Claims.First(a => a.Issuer != null).Issuer.ToLower() == record.User.Email.ToLower()) {
                     int result = 0; UserList newUser = new();
 
-                    //prepare DB guest without password
+                    //prepare DB guest for update
                     GuestList guest = new GuestList() {
                         Id = record.User.Id, Email = record.User.Email, FirstName = record.User.FirstName, LastName = record.User.LastName,
                         Street = record.User.Street, ZipCode = record.User.ZipCode, City = record.User.City, Country = record.User.Country,
-                        Phone = record.User.Phone, Active = true, UserId = record.User.UserId, Timestamp = DateTimeOffset.Now.DateTime
+                        Phone = record.User.Phone, Active = true, UserId = record.User.UserId, Timestamp = DateTimeOffset.Now.DateTime,
+                        Password = BCrypt.Net.BCrypt.HashPassword(record.User.Password)
                     };
 
                     //insert new systemuser
                     if (record.User.UserId == 0) {
-                        newUser = new() { UserName = record.User.Email, RoleId = 1, Password = record.User.Password, Name = record.User.FirstName, SurName = record.User.LastName, Active = true };
+                        newUser = new UserList() { UserName = record.User.Email, RoleId = 5, Password = record.User.Password, Name = record.User.FirstName, SurName = record.User.LastName, Active = true };
                         var insData = new hotelsContext().UserLists.Add(newUser);
                         result = await insData.Context.SaveChangesAsync();
                     }
-
-
                     if (result > 0) { guest.UserId = newUser.Id; }
 
 

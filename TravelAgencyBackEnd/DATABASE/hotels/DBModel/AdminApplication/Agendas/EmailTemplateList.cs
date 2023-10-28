@@ -7,11 +7,12 @@ using Microsoft.EntityFrameworkCore;
 namespace UbytkacBackend.DBModel
 {
     [Table("EmailTemplateList")]
-    [Index("TemplateName", Name = "IX_EmailTemplateList", IsUnique = true)]
+    [Index("SystemLanguageId", "TemplateName", Name = "IX_EmailTemplateList", IsUnique = true)]
     public partial class EmailTemplateList
     {
         [Key]
         public int Id { get; set; }
+        public int SystemLanguageId { get; set; }
         [Required]
         [StringLength(50)]
         [Unicode(false)]
@@ -22,18 +23,15 @@ namespace UbytkacBackend.DBModel
         [Required]
         [StringLength(255)]
         [Unicode(false)]
-        public string SubjectCz { get; set; }
-        [Required]
-        [StringLength(255)]
-        [Unicode(false)]
-        public string SubjectEn { get; set; }
+        public string Subject { get; set; }
         [Column(TypeName = "text")]
-        public string EmailCz { get; set; }
-        [Column(TypeName = "text")]
-        public string EmailEn { get; set; }
+        public string Email { get; set; }
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
 
+        [ForeignKey("SystemLanguageId")]
+        [InverseProperty("EmailTemplateLists")]
+        public virtual SystemLanguageList SystemLanguage { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("EmailTemplateLists")]
         public virtual UserList User { get; set; }

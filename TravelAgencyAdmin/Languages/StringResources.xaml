@@ -518,4 +518,13 @@
     <system:String x:Key="creditPrice">Credit price</system:String>
     <system:String x:Key="creditPackageList">Credit packages</system:String>
 
+    <system:String x:Key="systemLanguageList">System Languages</system:String>
+    <system:String x:Key="subject">Subject</system:String>
+    <system:String x:Key="language">Language</system:String>
+    <system:String x:Key="guestFavoriteList">Favorites list</system:String>
+    <system:String x:Key="hotelReservedRoomList">Room Reservations View</system:String>
+    <system:String x:Key="isAdvertiser">Is advertiser</system:String>
+    <system:String x:Key="generatePassword">Generate PW</system:String>
+    
+    
 </ResourceDictionary>

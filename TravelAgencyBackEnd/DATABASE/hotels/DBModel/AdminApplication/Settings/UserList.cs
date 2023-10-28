@@ -50,6 +50,7 @@ namespace UbytkacBackend.DBModel
             ReportLists = new HashSet<ReportList>();
             ReportQueueLists = new HashSet<ReportQueueList>();
             SystemFailLists = new HashSet<SystemFailList>();
+            SystemLanguageLists = new HashSet<SystemLanguageList>();
             TemplateLists = new HashSet<TemplateList>();
             TermsLists = new HashSet<TermsList>();
             UbytkacInfoLists = new HashSet<UbytkacInfoList>();
@@ -167,6 +168,8 @@ namespace UbytkacBackend.DBModel
         public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<SystemFailList> SystemFailLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<SystemLanguageList> SystemLanguageLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<TemplateList> TemplateLists { get; set; }
         [InverseProperty("User")]

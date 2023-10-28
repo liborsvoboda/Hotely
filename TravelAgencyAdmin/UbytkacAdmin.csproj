@@ -248,13 +248,21 @@
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
       <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Hosts\HotelReservationList\HotelReservationList.cs" />
-    <Compile Include="Agendas\Hosts\HotelReservationList\HotelReservationListPage.xaml.cs">
+    <Compile Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteList.cs" />
+    <Compile Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteListPage.xaml.cs">
+      <DependentUpon>GuestFavoriteListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Guests\HotelReservationList\HotelReservationList.cs" />
+    <Compile Include="Agendas\Guests\HotelReservationList\HotelReservationListPage.xaml.cs">
       <DependentUpon>HotelReservationListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Hosts\HotelReservationReviewList\HotelReservationReviewList.cs" />
     <Compile Include="Agendas\Hosts\HotelReservationReviewList\HotelReservationReviewListPage.xaml.cs">
       <DependentUpon>HotelReservationReviewListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Hosts\HotelReservedRoomList\HotelReservedRoomList.cs" />
+    <Compile Include="Agendas\Hosts\HotelReservedRoomList\HotelReservedRoomListPage.xaml.cs">
+      <DependentUpon>HotelReservedRoomListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusList.cs" />
     <Compile Include="Agendas\HotelConfigurations\HotelReservationStatusList\HotelReservationStatusListPage.xaml.cs">
@@ -264,9 +272,13 @@
     <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml.cs">
       <DependentUpon>PropertyGroupListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Settings\EmailTemplateList\EmailTemplateList.cs" />
-    <Compile Include="Agendas\Settings\EmailTemplateList\EmailTemplateListPage.xaml.cs">
+    <Compile Include="Agendas\Agendas\EmailTemplateList\EmailTemplateList.cs" />
+    <Compile Include="Agendas\Agendas\EmailTemplateList\EmailTemplateListPage.xaml.cs">
       <DependentUpon>EmailTemplateListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageList.cs" />
+    <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageListPage.xaml.cs">
+      <DependentUpon>SystemLanguageListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsList.cs" />
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsListPage.xaml.cs">
@@ -312,12 +324,12 @@
     <Compile Include="Agendas\Dials\CurrencyList\CurrencyListPage.xaml.cs">
       <DependentUpon>CurrencyListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Settings\DocumentAdviceList\DocumentAdviceList.cs" />
-    <Compile Include="Agendas\Settings\DocumentAdviceList\DocumentAdviceListPage.xaml.cs">
+    <Compile Include="Agendas\Agendas\DocumentAdviceList\DocumentAdviceList.cs" />
+    <Compile Include="Agendas\Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml.cs">
       <DependentUpon>DocumentAdviceListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Settings\DocumentTypeList\DocumentTypeList.cs" />
-    <Compile Include="Agendas\Settings\DocumentTypeList\DocumentTypeListPage.xaml.cs">
+    <Compile Include="Agendas\Agendas\DocumentTypeList\DocumentTypeList.cs" />
+    <Compile Include="Agendas\Agendas\DocumentTypeList\DocumentTypeListPage.xaml.cs">
       <DependentUpon>DocumentTypeListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Dials\ExchangeRateList\ExchangeRateList.cs" />
@@ -426,7 +438,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Hosts\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
+    <Compile Include="Agendas\System\AdminLoginHistoryList\AdminLoginHistoryList.cs" />
     <Compile Include="Agendas\Settings\ReportList\ReportList.cs" />
     <Compile Include="GlobalClasses\ConcurrentObservableList.cs" />
     <Compile Include="GlobalClasses\PhotoCollectionClasses.cs" />
@@ -434,7 +446,7 @@
     <Compile Include="SystemCore\SystemHelpers\SystemUpdater.cs" />
     <Compile Include="Agendas\Settings\UserList\UserList.cs" />
     <Compile Include="Agendas\Settings\UserRoleList\UserRoleList.cs" />
-    <Compile Include="Agendas\Hosts\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
+    <Compile Include="Agendas\System\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml.cs">
       <DependentUpon>AdminLoginHistoryListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Settings\ReportList\ReportListPage.xaml.cs">
@@ -486,11 +498,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Hosts\HotelReservationList\HotelReservationListPage.xaml">
+    <Page Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Guests\HotelReservationList\HotelReservationListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Hosts\HotelReservationReviewList\HotelReservationReviewListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Hosts\HotelReservedRoomList\HotelReservedRoomListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -502,7 +522,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Settings\EmailTemplateList\EmailTemplateListPage.xaml">
+    <Page Include="Agendas\Agendas\EmailTemplateList\EmailTemplateListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Settings\SystemLanguageList\SystemLanguageListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -562,11 +586,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Settings\DocumentAdviceList\DocumentAdviceListPage.xaml">
+    <Page Include="Agendas\Agendas\DocumentAdviceList\DocumentAdviceListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Settings\DocumentTypeList\DocumentTypeListPage.xaml">
+    <Page Include="Agendas\Agendas\DocumentTypeList\DocumentTypeListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -602,7 +626,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Hosts\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml">
+    <Page Include="Agendas\System\AdminLoginHistoryList\AdminLoginHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
