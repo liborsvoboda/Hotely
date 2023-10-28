@@ -3,7 +3,7 @@ using System.Net.Mail;
 
 namespace UbytkacBackend {
 
-    internal class SystemFunctions {
+    internal class ServerCoreFunctions {
 
         public static string GetUserApiErrMessage(Exception exception, int msgCount = 1) {
             return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetUserApiErrMessage(exception.InnerException, ++msgCount)) : string.Empty;

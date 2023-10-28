@@ -52,7 +52,7 @@ namespace UbytkacBackend.Controllers {
                             Content = "Your new password for login is: " + newPassword + Environment.NewLine
                         };
                     }
-                    string result = SystemFunctions.SendEmail(mailRequest);
+                    string result = ServerCoreFunctions.SendEmail(mailRequest);
 
 
                     if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { message = DBResult.success.ToString() })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
@@ -98,7 +98,7 @@ namespace UbytkacBackend.Controllers {
                             Content = "Your Registration Verify Code is: " + verifyCode + Environment.NewLine
                         };
                     }
-                    string result = SystemFunctions.SendEmail(mailRequest);
+                    string result = ServerCoreFunctions.SendEmail(mailRequest);
 
 
                     if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { verifyCode = verifyCode })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
@@ -173,11 +173,11 @@ namespace UbytkacBackend.Controllers {
                         Content = "Registration for " + record.User.Email + Environment.NewLine + " with password " + origPassword
                     }; 
                 }
-                SystemFunctions.SendEmail(mailRequest);
+                ServerCoreFunctions.SendEmail(mailRequest);
 
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
 
         [Authorize]
@@ -224,7 +224,7 @@ namespace UbytkacBackend.Controllers {
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
                     else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.saveDataError.ToString())  });
                 } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.inputDataError.ToString()) });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
 
         [Authorize]
@@ -259,7 +259,7 @@ namespace UbytkacBackend.Controllers {
 
                 }
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
     }
 }

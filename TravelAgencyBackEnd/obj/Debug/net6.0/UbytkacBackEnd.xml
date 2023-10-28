@@ -174,13 +174,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.SystemFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
+        <member name="M:UbytkacBackend.ServerCoreFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
             <summary>
             Sends the mass mail.
             </summary>
             <param name="mailRequests">The mail requests.</param>
         </member>
-        <member name="M:UbytkacBackend.SystemFunctions.SendEmail(UbytkacBackend.CoreClasses.MailRequest)">
+        <member name="M:UbytkacBackend.ServerCoreFunctions.SendEmail(UbytkacBackend.CoreClasses.MailRequest)">
             <summary>
             System Mailer sending Emails To service email with detected fail for analyze and
             corrections on the Way provide better services every time !!! This You can implement

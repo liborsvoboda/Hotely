@@ -185,7 +185,7 @@ namespace UbytkacBackend {
                 certificate = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data", FileNameFromDataPath));
                 password = "CertPassword";//ServerConfigSettings.ConfigCertificatePassword;
                 return new X509Certificate2(certificate, password);
-            } catch (Exception Ex) { SystemFunctions.SendEmail(new MailRequest() { Content = "Incorrect Certificate Path or Password, " + SystemFunctions.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { ServerCoreFunctions.SendEmail(new MailRequest() { Content = "Incorrect Certificate Path or Password, " + ServerCoreFunctions.GetSystemErrMessage(Ex) }); }
             return GetSelfSignedCertificate("CertPassword");
         }
     }

@@ -41,7 +41,7 @@ namespace UbytkacBackend.Controllers {
                                 Content = "Your Registration Verify Code is: " + verifyCode + Environment.NewLine
                             };
                         }
-                        string result = SystemFunctions.SendEmail(mailRequest);
+                        string result = ServerCoreFunctions.SendEmail(mailRequest);
 
                         return Ok(JsonSerializer.Serialize(
                         new DBResultMessage() {
@@ -160,7 +160,7 @@ namespace UbytkacBackend.Controllers {
                         Content = "Reservation for " + record.Booking.User.Email + Environment.NewLine + " was success "
                     };
                 }
-                SystemFunctions.SendEmail(mailRequest1);
+                ServerCoreFunctions.SendEmail(mailRequest1);
 
 
                 return Ok(JsonSerializer.Serialize(
@@ -228,7 +228,7 @@ namespace UbytkacBackend.Controllers {
                             Content = "Registration for " + record.Booking.User.Email + Environment.NewLine + " with password " + password
                         };
                     }
-                    SystemFunctions.SendEmail(mailRequest);
+                    ServerCoreFunctions.SendEmail(mailRequest);
 
                 } else { /* Error save New Guest */}
 
@@ -323,7 +323,7 @@ namespace UbytkacBackend.Controllers {
                         Content = "Reservation for " + record.Booking.User.Email + Environment.NewLine + " was success "
                     };
                 }
-                SystemFunctions.SendEmail(mailRequest1);
+                ServerCoreFunctions.SendEmail(mailRequest1);
 
                 return Ok(JsonSerializer.Serialize(
                 new DBResultMessage() {
