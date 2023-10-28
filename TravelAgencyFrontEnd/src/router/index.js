@@ -55,7 +55,7 @@ const routes = [
                 name: "TopFive",
                 component: TopFive,
                 meta: {
-                    requiresAuth: false, title: "Nejlepších 5"
+                    requiresAuth: false, title: "Nejlepších XXX"
                 },
             },
             {

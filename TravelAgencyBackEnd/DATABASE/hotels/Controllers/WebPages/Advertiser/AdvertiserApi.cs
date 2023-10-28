@@ -76,7 +76,7 @@ namespace UbytkacBackend.Controllers {
 
                     hotel.HotelImagesLists.ToList().ForEach(attachment => {
                         attachment.Hotel = null;
-                        attachment.Attachment = null;
+                        //attachment.Attachment = null;  need for wizard
                     });
 
                     hotel.City.HotelLists = null;
@@ -86,7 +86,7 @@ namespace UbytkacBackend.Controllers {
                     hotel.DefaultCurrency.HotelLists = null;
                     hotel.HotelRoomLists.ToList().ForEach(room => {
                         room.Hotel = null;
-                        room.Image = null;
+                        //room.Image = null; need for wizard
                     });
 
                     //hotel.HotelReservationLists = hotel.HotelReservationLists.OrderByDescending(a => a.StartDate).ToList();
