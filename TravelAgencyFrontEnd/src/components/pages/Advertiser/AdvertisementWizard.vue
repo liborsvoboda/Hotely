@@ -48,7 +48,20 @@
                                        data-cls-spinner-button="info" data-step="1" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                             </div>
 
-                            <div class="form-group w-50 mt-0">
+                            <div class="form-group w-50 mt-0" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.stornoDaysCountBeforeStart')">
+                                <input id="StornoDaysCountBeforeStart" type="text" data-role="spinner" data-min-value="0" data-max-value="60" data-cls-spinner-value="text-bold bg-cyan fg-white" data-validate="required"
+                                       data-cls-spinner-button="info" data-step="1" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
+                            </div>
+                        </div>
+
+                        <div class="row flex-align-center">
+                            <div class="form-group w-50" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.guestStornoEnabled')">
+                                {{$t('labels.byRequest')}} 
+                                <input id="GuestStornoEnabled" type="checkbox" checked data-role="switch" data-material="true">
+                                {{$t('labels.directly')}}
+                            </div>
+
+                            <div class="form-group w-50 mt-0" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.stornoDaysCountBeforeStart')">
                             </div>
                         </div>
 

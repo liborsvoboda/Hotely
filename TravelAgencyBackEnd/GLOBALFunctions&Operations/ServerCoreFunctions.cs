@@ -1,9 +1,13 @@
-﻿using System.Net;
+﻿using System;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
+using UbytkacBackend.CoreClasses;
 
 namespace UbytkacBackend {
 
-    internal class ServerCoreFunctions {
+    internal static class ServerCoreFunctions {
 
         public static string GetUserApiErrMessage(Exception exception, int msgCount = 1) {
             return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetUserApiErrMessage(exception.InnerException, ++msgCount)) : string.Empty;
@@ -21,6 +25,27 @@ namespace UbytkacBackend {
             mailRequests.ForEach(mailRequest => { SendEmail(mailRequest); });
         }
 
+        /// <summary>
+        /// Creates the path recursively.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        public static bool CreatePath(string path) {
+            try {
+                string[] pathParts = path.Split('\\');
+
+                for (int i = 0; i < pathParts.Length; i++) {
+                    if (i > 0)
+                        pathParts[i] = Path.Combine(pathParts[i - 1], pathParts[i]);
+
+                    if (!Directory.Exists(pathParts[i]))
+                        Directory.CreateDirectory(pathParts[i]);
+                }
+                return true;
+            } catch {
+                return false;
+            }
+        }
 
         /// <summary>
         /// System Mailer sending Emails To service email with detected fail for analyze and
@@ -55,6 +80,78 @@ namespace UbytkacBackend {
             } catch (Exception ex) {
                 return DBResult.error.ToString();
             }
+        }
+
+        /// <summary>
+        /// Removes the whitespace from the String.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
+        public static string RemoveWhitespace(this string input) {
+            return new string(input.ToCharArray()
+                .Where(c => !Char.IsWhiteSpace(c))
+                .ToArray());
+        }
+
+
+        /// <summary>
+        /// Server Function For Running External Processes
+        /// </summary>
+        /// <param name="processDefinition">The process definition.</param>
+        /// <returns></returns>
+        public static bool RunProcess(ProcessClass processDefinition) {
+            string resultOutput = "", resultError = "";
+
+            try {
+                using (Process proc = new Process()) {
+                    proc.StartInfo.FileName = processDefinition.Command;
+                    if (OperatingSystem.IsWindows()) { proc.StartInfo.WorkingDirectory = processDefinition.WorkingDirectory + "\\" ?? null; }
+                    proc.StartInfo.Arguments = processDefinition.Arguments ?? null;
+                    //proc.StartInfo.LoadUserProfile = false; 
+                    proc.StartInfo.CreateNoWindow = true;
+                    proc.StartInfo.UseShellExecute = false;
+                    proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    proc.StartInfo.RedirectStandardOutput = true;
+                    proc.StartInfo.RedirectStandardError = true;
+                    proc.StartInfo.Verb = (Environment.OSVersion.Version.Major >= 6) ? "runas" : "";
+                    proc.Start();
+
+                    resultOutput += proc.StandardOutput.ReadToEnd();
+                    resultError += proc.StandardError.ReadToEnd();
+
+                    if (processDefinition.WaitForExit) { proc.WaitForExit(); }
+                    Console.WriteLine(resultError);
+                }
+                return true;
+            } catch { }
+            return false;
+
+        }
+
+
+        /// <summary>
+        /// Full Clear Folder
+        /// </summary>
+        /// <param name="FolderName">Name of the folder.</param>
+        public static void ClearFolder(string FolderName) {
+            if (Directory.Exists(FolderName)) Directory.Delete(FolderName, true);
+            if (!Directory.Exists(FolderName)) CreatePath(FolderName);
+        }
+
+
+        /// <summary>
+        /// Extension For Checking Operation System 
+        /// of Server Running
+        /// </summary>
+        public static class OperatingSystem {
+            public static bool IsWindows() =>
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+            public static bool IsMacOS() =>
+                RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+
+            public static bool IsLinux() =>
+                RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         }
     }
 }

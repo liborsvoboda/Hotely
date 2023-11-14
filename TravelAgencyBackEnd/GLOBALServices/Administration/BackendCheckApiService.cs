@@ -7,6 +7,6 @@ namespace UbytkacBackend.Controllers {
     public class BackendCheckApiService : ControllerBase {
 
         [HttpGet("/BackendCheck")]
-        public Task<string> GetBackendCheckApi() { return Task.FromResult(DBOperations.DBTranslate("ServerRunning", "cz")); }
+        public Task<string> GetBackendCheckApi() { return Task.FromResult(ServerCoreDbOperations.DBTranslate("ServerRunning", "cz")); }
     }
 }

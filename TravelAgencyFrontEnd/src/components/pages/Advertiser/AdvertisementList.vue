@@ -846,7 +846,9 @@ export default {
                 Images: this.hotel.hotelImagesLists, 
                 Rooms: this.hotel.hotelRoomLists,
                 Properties: this.hotel.hotelPropertyAndServiceLists,
-                LimitGuestCommDays: this.hotel.enabledCommDaysBeforeStart
+                LimitGuestCommDays: this.hotel.enabledCommDaysBeforeStart,
+                StornoDaysCountBeforeStart: this.hotel.stornoDaysCountBeforeStart,
+                GuestStornoEnabled: this.hotel.guestStornoEnabled
             };
             this.$router.push('/Profile/AdvertisementWizard');
         },

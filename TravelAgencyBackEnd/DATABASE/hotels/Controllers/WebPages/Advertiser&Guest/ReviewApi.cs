@@ -83,7 +83,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
             });
         }
 
@@ -117,7 +117,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
             });
         }
 

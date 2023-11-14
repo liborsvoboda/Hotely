@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 rounded shadow-sm mb-4" style="background-color: rgb(241, 241, 241);">
+    <div class="p-2 rounded drop-shadow shadowed shadow-sm mb-4" style="background-color: rgb(241, 241, 241);">
         <div id="testOmega">
             <div class="row">
                 <div class="col-md-4">
@@ -11,7 +11,7 @@
                             <b>{{ hotel.name }}</b>
                             <div>{{ hotel.city.city }}, {{ hotel.country.systemName }}</div>
                             <p v-if="hotel.hotelReservationReviewLists.length">
-                                <input data-role="rating" :data-value="hotel.averageRating" data-stared-color="cyan" data-static="true">
+                                <input data-role="rating" :data-value="hotel.averageRating" data-stared-color="#b59a09" data-static="true">
                                 <!--  {{ $t('labels.averageRating') }}: <span class="rounded-pill"> {{ hotel.averageRating }} z 5 </span> -->
                             </p>
                             <p></p>

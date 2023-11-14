@@ -40,7 +40,7 @@ namespace UbytkacBackend {
         /// Example: LanguageList
         /// </summary>
         private static void ServerStartupDbDataLoading() {
-            DBOperations.LoadStaticDbDials();
+            ServerCoreDbOperations.LoadStaticDbDials();
         }
     }
 }

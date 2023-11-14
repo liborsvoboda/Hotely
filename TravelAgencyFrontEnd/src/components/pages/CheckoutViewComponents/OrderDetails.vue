@@ -30,7 +30,7 @@
                             <li class="list-group-item leftTexAlignt"><span class="fas fa-check-square"></span> <b> {{ $t('labels.fromDate') }}:</b> {{new Date(BookingDetail.startDate).toLocaleDateString('cs-CZ')}}</li>
                             <li class="list-group-item leftTexAlignt"><span class="far fa-check-square"></span> <b> {{ $t('labels.toDate') }}:</b> {{new Date(BookingDetail.endDate).toLocaleDateString('cs-CZ')}}</li>
                             <li class="list-group-item leftTexAlignt"><span class="icon mif-cloud2"></span> <b> {{ $t('labels.nightCount') }}:</b> {{ nightCount }}x</li>
-                            <li class="list-group-item leftTexAlignt" :class="(checkPersons ? 'error' : '')"><span class="icon mif-users"></span> <b> {{ $t('labels.personCount') }}:</b> {{BookingDetail.adultInput}} {{ $t('labels.adults') }}, {{BookingDetail.childrenInput}} {{ $t('labels.children') }}</li>
+                            <li class="list-group-item leftTexAlignt" :class="(checkPersons ? 'error c-pointer' : '')" @click="ScrollToTop()"><span class="icon mif-users"></span> <b> {{ $t('labels.personCount') }}:</b> {{BookingDetail.adultInput}} {{ $t('labels.adults') }}, {{BookingDetail.childrenInput}} {{ $t('labels.children') }}</li>
                             <li class="list-group-item leftTexAlignt"><span class="fas fa-money-check-alt"></span> <b> {{ $t('labels.totalPrice') }}:</b> {{BookingDetail.totalPrice}} {{BookingDetail.currency}}</li>
                         </ul>
                         <hr />
@@ -86,6 +86,10 @@ export default {
         }
     },
     methods: {
+        ScrollToTop() {
+            window.scrollTo(0, 0);
+        },
+
     },
     created(){
     },

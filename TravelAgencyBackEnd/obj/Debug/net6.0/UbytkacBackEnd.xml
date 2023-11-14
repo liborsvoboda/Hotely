@@ -9,6 +9,31 @@
             Auto Updated LocalDials - in Future Can be setted as Server Configurator
             </summary>
         </member>
+        <member name="T:UbytkacBackend.CoreClasses.ProcessClass">
+            <summary>
+            Server Process class for running external prrocesses
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.ServerDocApi.GenerateMdBook">
+            <summary>
+            Server Inteligent Documentation Generator Api
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.SystemDocApi.GetMdLibraryPreview(System.Int32)">
+            <summary>
+            Documentation Code Manager Html Preview Api
+            Startup Viewer
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:UbytkacBackend.Controllers.SystemDocApi.GetMdPreviewFile(System.Int32)" -->
+        <member name="M:UbytkacBackend.Controllers.SystemDocApi.GetMdDocumentPreview(System.Int32)">
+            <summary>
+            Documentation Code Manager Html Preview Api
+            Startup Viewer
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer
@@ -51,6 +76,12 @@
             <param name="username">The username.</param>
             <param name="token">   The token.</param>
             <returns>The result.</returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.ServerEmailerApi">
+            <summary>
+            Server Email sender Api for logged Communication
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>
         <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
             <summary>
@@ -102,49 +133,6 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="T:UbytkacBackend.DBOperations">
-            <summary>
-            All Server Definitions of Database Operation method
-            </summary>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.LoadStaticDbDials(System.Nullable{UbytkacBackend.CoreClasses.ServerLocalDbDials})">
-            <summary>
-            Method for All Server Defined Table for Local Using As OffLine AutoUpdated Tables
-            </summary>
-            <param name="onlyThis"></param>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.WriteAppLogin(System.String,System.Int32,System.String)">
-            <summary>
-            Trigger User Login History
-            </summary>
-            <param name="ipAddress"></param>
-            <param name="userId">   </param>
-            <param name="userName"> </param>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.WriteWebLogin(System.String,System.Int32,System.String)">
-            <summary>
-            Trigger Web Guest Login History
-            </summary>
-            <param name="ipAddress"></param>
-            <param name="guestId">  </param>
-            <param name="email">    </param>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.DBTranslateOffline(System.String,System.String)">
-            <summary>
-            Database LanuageList for Off-line Using Definitions
-            </summary>
-            <param name="word">    </param>
-            <param name="language"></param>
-            <returns></returns>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.DBTranslateOnline(System.String,System.String)">
-            <summary>
-            Database LanuageList for On-line Using Definitions
-            </summary>
-            <param name="word">    </param>
-            <param name="language"></param>
-            <returns></returns>
-        </member>
         <member name="M:UbytkacBackend.Functions.RandomString(System.Int32)">
             <summary>
             Randoms the string.
@@ -174,11 +162,61 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:UbytkacBackend.ServerCoreDbOperations">
+            <summary>
+            All Server Definitions of Database Operation method
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.LoadStaticDbDials(System.Nullable{UbytkacBackend.CoreClasses.ServerLocalDbDials})">
+            <summary>
+            Method for All Server Defined Table for Local Using As OffLine AutoUpdated Tables
+            </summary>
+            <param name="onlyThis"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.WriteAppLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger User Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="userId">   </param>
+            <param name="userName"> </param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.WriteWebLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger Web Guest Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="guestId">  </param>
+            <param name="email">    </param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.DBTranslateOffline(System.String,System.String)">
+            <summary>
+            Database LanuageList for Off-line Using Definitions
+            </summary>
+            <param name="word">    </param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.DBTranslateOnline(System.String,System.String)">
+            <summary>
+            Database LanuageList for On-line Using Definitions
+            </summary>
+            <param name="word">    </param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.ServerCoreFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
             <summary>
             Sends the mass mail.
             </summary>
             <param name="mailRequests">The mail requests.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.CreatePath(System.String)">
+            <summary>
+            Creates the path recursively.
+            </summary>
+            <param name="path">The path.</param>
+            <returns></returns>
         </member>
         <member name="M:UbytkacBackend.ServerCoreFunctions.SendEmail(UbytkacBackend.CoreClasses.MailRequest)">
             <summary>
@@ -189,6 +227,32 @@
             </summary>
             <param name="mailRequest"></param>
             <param name="sendImmediately"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.RemoveWhitespace(System.String)">
+            <summary>
+            Removes the whitespace from the String.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.RunProcess(UbytkacBackend.CoreClasses.ProcessClass)">
+            <summary>
+            Server Function For Running External Processes
+            </summary>
+            <param name="processDefinition">The process definition.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.ClearFolder(System.String)">
+            <summary>
+            Full Clear Folder
+            </summary>
+            <param name="FolderName">Name of the folder.</param>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreFunctions.OperatingSystem">
+            <summary>
+            Extension For Checking Operation System 
+            of Server Running
+            </summary>
         </member>
         <member name="F:UbytkacBackend.Program.ServerDBLanguageList">
             <summary>
@@ -221,12 +285,6 @@
             </summary>
             <param name="app"></param>
             <param name="env"></param>
-        </member>
-        <member name="T:EASYDATACenter.ServerCoreDBSettings.ServerEmailerApi">
-            <summary>
-            Server Email sender Api for logged Communication
-            </summary>
-            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>
         <member name="T:UbytkacBackEnd.MimeTypes">
             <summary>

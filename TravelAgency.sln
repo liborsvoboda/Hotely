@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EASYTools.HTMLFullEditor.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EASYTools.HTMLFullEditor", "..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.csproj", "{04009E2D-9E54-423F-B6F0-62E15F1C8AE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EASYTools.MarkdownToHtml", "..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.MarkdownToHtml\EASYTools.MarkdownToHtml.csproj", "{37619116-CCE8-465A-8B1F-081CA53364BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{04009E2D-9E54-423F-B6F0-62E15F1C8AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04009E2D-9E54-423F-B6F0-62E15F1C8AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04009E2D-9E54-423F-B6F0-62E15F1C8AE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{CC1FF81E-F694-4B1B-9E04-3DEB2DE00B6A} = {58C579A9-6E68-44AE-B018-3BE8FA9B5397}
 		{0E9B62BC-442C-440A-86A8-B9F2ECE40209} = {58C579A9-6E68-44AE-B018-3BE8FA9B5397}
 		{04009E2D-9E54-423F-B6F0-62E15F1C8AE8} = {58C579A9-6E68-44AE-B018-3BE8FA9B5397}
+		{37619116-CCE8-465A-8B1F-081CA53364BB} = {D6C46BAA-44A1-451F-BAF4-680BACD5488B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B41EB32-9F4B-416C-B1A9-2E3B6457F65F}

@@ -15,7 +15,7 @@
                          @click="RemoveFavorite" style="top:0px;right:5px;">
                         <i class="fa fa-trash"></i>
                     </div>
-                    <h5 class="card-title">{{hotel.hotel.name}} <input v-if="hotel.hotel.averageRating > 0" data-role="rating" :data-value="hotel.hotel.averageRating" data-static="true"></h5>
+                    <h5 class="card-title">{{hotel.hotel.name}} <input v-if="hotel.hotel.averageRating > 0" data-role="rating" data-stared-color="#b59a09" :data-value="hotel.hotel.averageRating" data-static="true"></h5>
                     <div class="textS" v-html="($store.state.language == 'cz') ? hotel.hotel.descriptionCz : hotel.hotel.descriptionEn" />
 
 

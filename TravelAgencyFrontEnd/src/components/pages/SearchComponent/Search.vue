@@ -1,35 +1,37 @@
 <template>
  <Card id="SearchPanel">
-   <template #content>
-       <div class="p-grid">
-           <div class="p-col-12 p-md-12 p-lg-12 d-flex text-center" style="height:335px;">
-               <div class="card pt-0" style="font-size:38px;width:600px;background: transparent;border: none;" v-html="InputInfoText">
-               </div>
-           </div>
+     <template #content>
+         <div class="p-grid">
+             <div class="p-col-12 p-md-12 p-lg-12 d-flex text-center" style="height:335px;">
+                 <div class="card pt-0" style="font-size:38px;width:600px;background: transparent;border: none;" v-html="InputInfoText">
+                 </div>
+             </div>
 
-           <div class="p-col-12 p-md-6 p-lg-2">
-           </div>
-           <div class="p-col-12 p-md-6 p-lg-3">
-               <!-- <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label> -->
-               <Searchfield @input-changed="setSearchText" />
-           </div>
-           <div class="p-col-12 p-md-6 p-lg-2 mt-1">
-               <!-- <label for="range" id="range">{{ $t('labels.dates') }}</label> -->
+             <div class="p-col-12 p-md-6 p-lg-2">
+             </div>
+             <div class="p-col-12 p-md-6 p-lg-3">
+                 <!-- <label for="searchInput" id="searchField">{{ $t('labels.locationObject') }}</label> -->
+                 <Searchfield @input-changed="setSearchText" />
+             </div>
+             <div class="p-col-12 p-md-6 p-lg-2 mt-1">
+                 <!-- <label for="range" id="range">{{ $t('labels.dates') }}</label> -->
 
-               <div class="p-fluid" id="calendar">
-                   <Calendar />
-               </div>
-           </div>
-           <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
-               <!-- <label for="guest">{{ $t('labels.personCount') }}</label> -->
-               <SearchDropdown />
-           </div>
-           <div class="p-col-12 p-md-6 p-lg-1" id="searchBtn" style="top:13px;height:50px;">
-               <Button class="button shadowed" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
-           </div>
-
-       </div>
-</template>
+                 <div class="p-fluid" id="calendar">
+                     <Calendar />
+                 </div>
+             </div>
+             <div class="p-col-12 p-md-6 p-lg-2" id="guestsBtn">
+                 <!-- <label for="guest">{{ $t('labels.personCount') }}</label> -->
+                 <SearchDropdown />
+             </div>
+             <div class="p-col-12 p-md-6 p-lg-1" id="searchBtn" style="top:13px;height:50px;">
+                 <Button class="button shadowed" :label="$t('labels.search')" @click="Search" :loading="isLoading" />
+             </div>
+         </div>
+         <div class="pos-absolute" style="top:0px;right:0px;">
+             <span class="icon mif-info pt-2 c-help mif-3x c-pointer fg-orange" />
+         </div>
+     </template>
  </Card>
 </template>
 
@@ -70,7 +72,11 @@ export default {
     },
     computed: {
         InputInfoText() {
-            return Metro.storage.getItem('InputInfoText', null);
+            let motto = "";
+            if (this.$store.state.webMottoList.length > 0) {
+                motto = this.$store.state.webMottoList[Math.floor(Math.random() * this.$store.state.webMottoList.length)].htmlContent
+            }
+            return motto;
         },
         isLoading() {
             return this.$store.state.searchButtonLoading;

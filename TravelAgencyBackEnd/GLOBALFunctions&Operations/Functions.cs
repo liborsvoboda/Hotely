@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
@@ -188,5 +189,6 @@ namespace UbytkacBackend {
             } catch (Exception Ex) { ServerCoreFunctions.SendEmail(new MailRequest() { Content = "Incorrect Certificate Path or Password, " + ServerCoreFunctions.GetSystemErrMessage(Ex) }); }
             return GetSelfSignedCertificate("CertPassword");
         }
+
     }
 }

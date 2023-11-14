@@ -50,17 +50,17 @@ namespace UbytkacBackend.Controllers {
                         })); } else {
                         return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
                             Status = DBResult.error.ToString(),
-                            ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
+                            ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
                         })); }
                 }
                 else { return BadRequest(new DBResultMessage() {
                     Status = DBResult.error.ToString(),
-                    ErrorMessage = DBOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
+                    ErrorMessage = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
                 }); }
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
             });
         }
 
@@ -172,7 +172,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
 
@@ -334,7 +334,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
     }

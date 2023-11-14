@@ -41,7 +41,7 @@
                                      :max="availableCount"
                                      :value="room.roomType" />
                     </div>
-                    <span v-else><span style="color: red">{{ $t('labels.fillDateMessage') }}</span></span>
+                    <span v-else><span class="c-pointer" @click="ScrollToTop()" style="color: red">{{ $t('labels.fillDateMessage') }}</span></span>
                 </div>
 
                 <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null && room.extraBed" class="col-lg-1 col-md-1" data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.iwantExtraBed')">
@@ -124,6 +124,9 @@
 
         },
     methods: {
+        ScrollToTop() {
+            window.scrollTo(0, 0);
+        },
         setBookedCalendar(roomname) {
             $("#roomName").html(roomname);
             let bookedList = []; let selectedList = []; let minDate = null; let maxDate = null;

@@ -8,6 +8,9 @@
         public int CityId { get; set; }
         public string Description { get; set; }
         public int LimitGuestCommDays { get; set; }
+        public int StornoDaysCountBeforeStart { get; set; }
+        public bool GuestStornoEnabled { get; set; }
+        
     }
 
     public class AvertiserImages {

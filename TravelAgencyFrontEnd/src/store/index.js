@@ -33,6 +33,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        webMottoList:[],
         roomBookingList:[],
         reviewList:[],
         statusList: [],
@@ -97,6 +98,10 @@ const store = createStore({
 
     },
     mutations: {
+        setWebMottoList(store, value) {
+            store.webMottoList = value;
+            console.log("setWebMottoList", store.webMottoList);
+        },
         setReviewList(store, value) {
             store.reviewList = value;
             console.log("setReviewList", store.reviewList);
@@ -429,6 +434,15 @@ const store = createStore({
             commit('setStatusList', result);
             window.hidePageLoading();
         },
+        async getWebMottoList({ commit }) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/WebPages/GetWebMottoList', {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' }
+            });
+            let result = await response.json();
+            commit('setWebMottoList', result);
+        },
         async getRoomTypeList({ commit }) {
             let mainloader; if (!this.state.roomTypeList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let response = await fetch(
@@ -725,7 +739,6 @@ const store = createStore({
                         case "BackgroundImageSetting": Metro.storage.setItem('BackgroundImageSetting', setting.value); break;
                         case "BackgroundColor": Metro.storage.setItem('BackgroundColor', setting.value); break;
                         case "InputBanner": Metro.storage.setItem('InputBanner', setting.value); break;
-                        case "InputInfoText": Metro.storage.setItem('InputInfoText', setting.value); break;
                         case "ReviewInsertDaysLimit": Metro.storage.setItem('ReviewInsertDaysLimit', setting.value); break;
                         case "BookCalendarViewMonthsBefore": Metro.storage.setItem('BookCalendarViewMonthsBefore', setting.value); break;
                         case "BookCalendarViewMonthsAfter": Metro.storage.setItem('BookCalendarViewMonthsAfter', setting.value); break;

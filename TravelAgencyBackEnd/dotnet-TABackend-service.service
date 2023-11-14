@@ -2,7 +2,7 @@
 Description=Dotnet Core Travel Agency Backend service  
   
 [Service]  
-ExecStart=dotnet /root/UbytkacBackend/UbytkacBackend.dll  
+ExecStart=sudo dotnet /root/UbytkacBackend/UbytkacBackend.dll  
 WorkingDirectory=/root/UbytkacBackend/
 User=root  
 Group=root  

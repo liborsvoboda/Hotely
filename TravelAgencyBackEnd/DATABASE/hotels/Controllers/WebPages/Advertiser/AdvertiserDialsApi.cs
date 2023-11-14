@@ -51,7 +51,7 @@ namespace UbytkacBackend.Controllers {
                 data = new hotelsContext().HotelRoomTypeLists.ToList();
             }
 
-            data.ForEach(roomType => { roomType.SystemName = DBOperations.DBTranslate(roomType.SystemName, language); });
+            data.ForEach(roomType => { roomType.SystemName = ServerCoreDbOperations.DBTranslate(roomType.SystemName, language); });
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
@@ -70,7 +70,7 @@ namespace UbytkacBackend.Controllers {
                 result.Add(new Translation() {
                     Id = status.Id,
                     SystemName = status.SystemName,
-                    TranslationName = DBOperations.DBTranslate(status.SystemName, language)
+                    TranslationName = ServerCoreDbOperations.DBTranslate(status.SystemName, language)
                 });
             });
 
@@ -94,7 +94,7 @@ namespace UbytkacBackend.Controllers {
             }
 
             result.ForEach(reservation => {
-                reservation.Status.SystemName = DBOperations.DBTranslate(reservation.Status.SystemName, language);
+                reservation.Status.SystemName = ServerCoreDbOperations.DBTranslate(reservation.Status.SystemName, language);
             });
 
 

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UbytkacAdmin</RootNamespace>
     <AssemblyName>UbytkacAdmin</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -232,9 +232,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Agendas\Agendas\CodeLibraryList\CodeLibraryList.cs" />
+    <Compile Include="Agendas\Agendas\CodeLibraryList\CodeLibraryListPage.xaml.cs">
+      <DependentUpon>CodeLibraryListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Agendas\CreditPackageList\CreditPackageList.cs" />
     <Compile Include="Agendas\Agendas\CreditPackageList\CreditPackageListPage.xaml.cs">
       <DependentUpon>CreditPackageListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Agendas\ToolPanelDefinitionList\ToolPanelDefinitionList.cs" />
+    <Compile Include="Agendas\Agendas\ToolPanelDefinitionList\ToolPanelDefinitionListPage.xaml.cs">
+      <DependentUpon>ToolPanelDefinitionListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalList.cs" />
     <Compile Include="Agendas\ApprovalProcesses\HotelReservationReviewApprovalList\HotelReservationReviewApprovalListPage.xaml.cs">
@@ -247,6 +255,26 @@
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaList.cs" />
     <Compile Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml.cs">
       <DependentUpon>InterestAreaListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Dials\ToolTypeList\ToolTypeList.cs" />
+    <Compile Include="Agendas\Dials\ToolTypeList\ToolTypeListPage.xaml.cs">
+      <DependentUpon>ToolTypeListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Dials\SvgIconList\SvgIconList.cs" />
+    <Compile Include="Agendas\Dials\SvgIconList\SvgIconListPage.xaml.cs">
+      <DependentUpon>SvgIconListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Documentation\DocumentationCodeLibraryList\DocumentationCodeLibraryList.cs" />
+    <Compile Include="Agendas\Documentation\DocumentationCodeLibraryList\DocumentationCodeLibraryListPage.xaml.cs">
+      <DependentUpon>DocumentationCodeLibraryListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Documentation\DocumentationGroupList\DocumentationGroupList.cs" />
+    <Compile Include="Agendas\Documentation\DocumentationGroupList\DocumentationGroupListPage.xaml.cs">
+      <DependentUpon>DocumentationGroupListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Documentation\DocumentationList\DocumentationList.cs" />
+    <Compile Include="Agendas\Documentation\DocumentationList\DocumentationListPage.xaml.cs">
+      <DependentUpon>DocumentationListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteList.cs" />
     <Compile Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteListPage.xaml.cs">
@@ -283,6 +311,10 @@
     <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageList.cs" />
     <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageListPage.xaml.cs">
       <DependentUpon>SystemLanguageListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Tools\ToolPanelList\ToolPanelList.cs" />
+    <Compile Include="Agendas\Tools\ToolPanelList\ToolPanelListPage.xaml.cs">
+      <DependentUpon>ToolPanelListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsList.cs" />
     <Compile Include="Agendas\WebAdmin\HolidayTipsList\HolidayTipsListPage.xaml.cs">
@@ -387,25 +419,29 @@
     <Compile Include="Agendas\Views\ScreenSaverPage\ScreenSaverPage.xaml.cs">
       <DependentUpon>ScreenSaverPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\WebAdmin\OftenQuestionList\OftenQuestionList.cs" />
     <Compile Include="Agendas\WebAdmin\OftenQuestionList\OftenQuestionListPage.xaml.cs">
       <DependentUpon>OftenQuestionListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\WebAdmin\PrivacyPolicyList\PrivacyPolicyList.cs" />
+    <Compile Include="Agendas\WebAdmin\OftenQuestionList\OftenQuestionList.cs" />
     <Compile Include="Agendas\WebAdmin\PrivacyPolicyList\PrivacyPolicyListPage.xaml.cs">
       <DependentUpon>PrivacyPolicyListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\WebAdmin\RegistrationInfoList\RegistrationInfoList.cs" />
+    <Compile Include="Agendas\WebAdmin\PrivacyPolicyList\PrivacyPolicyList.cs" />
     <Compile Include="Agendas\WebAdmin\RegistrationInfoList\RegistrationInfoListPage.xaml.cs">
       <DependentUpon>RegistrationInfoListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\WebAdmin\TermsList\TermsListList.cs" />
+    <Compile Include="Agendas\WebAdmin\RegistrationInfoList\RegistrationInfoList.cs" />
     <Compile Include="Agendas\WebAdmin\TermsList\TermsListPage.xaml.cs">
       <DependentUpon>TermsListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\WebAdmin\UbytkacInfoList\UbytkacInfoList.cs" />
+    <Compile Include="Agendas\WebAdmin\TermsList\TermsListList.cs" />
     <Compile Include="Agendas\WebAdmin\UbytkacInfoList\UbytkacInfoListPage.xaml.cs">
       <DependentUpon>UbytkacInfoListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\WebAdmin\UbytkacInfoList\UbytkacInfoList.cs" />
+    <Compile Include="Agendas\WebAdmin\WebMottoList\WebMottoList.cs" />
+    <Compile Include="Agendas\WebAdmin\WebMottoList\WebMottoListPage.xaml.cs">
+      <DependentUpon>WebMottoListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\WebAdmin\WebSettingList\WebSettingList.cs" />
     <Compile Include="Agendas\WebAdmin\WebSettingList\WebSettingListPage.xaml.cs">
@@ -486,7 +522,15 @@
       <DependentUpon>TemplateListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\TemplateClassList.cs" />
+    <Page Include="Agendas\Agendas\CodeLibraryList\CodeLibraryListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\Agendas\CreditPackageList\CreditPackageListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Agendas\ToolPanelDefinitionList\ToolPanelDefinitionListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -499,6 +543,26 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Dials\InterestAreaList\InterestAreaListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Dials\ToolTypeList\ToolTypeListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Dials\SvgIconList\SvgIconListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Documentation\DocumentationCodeLibraryList\DocumentationCodeLibraryListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Documentation\DocumentationGroupList\DocumentationGroupListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Documentation\DocumentationList\DocumentationListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -535,6 +599,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Settings\SystemLanguageList\SystemLanguageListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Tools\ToolPanelList\ToolPanelListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -710,11 +778,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Agendas\WebAdmin\WebMottoList\WebMottoListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Agendas\WebAdmin\WebSettingList\WebSettingListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GlobalStyles\MetroFix\MetroCheckComboBoxStyleFix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\MetroFix\ProgressBarFix.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -735,6 +811,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GlobalStyles\System\SystemSpecificFieldsStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\Tools\MarkdownStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\Tools\ToolsStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -840,6 +924,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AvalonEdit">
+      <Version>6.3.0.90</Version>
+    </PackageReference>
     <PackageReference Include="ControlzEx">
       <Version>3.0.2.4</Version>
     </PackageReference>
@@ -1024,6 +1111,10 @@
     <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
       <Project>{ebb29b9e-5b4b-4d2c-a566-387ae8688356}</Project>
       <Name>EASYTools.ImageEffectLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.MarkdownToHtml\EASYTools.MarkdownToHtml.csproj">
+      <Project>{37619116-cce8-465a-8b1f-081ca53364bb}</Project>
+      <Name>EASYTools.MarkdownToHtml</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
       <Project>{ec61d2c4-7eab-474f-9c4f-d93de57a64f1}</Project>

@@ -1,0 +1,2549 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\.nojekyll",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\.nojekyll"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\404.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\404.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\css\\font-awesome.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\css\\font-awesome.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\fonts\\FontAwesome.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\FontAwesome.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\VyhledávánívInzerátech.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\VyhledávánívInzerátech.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\ayu-highlight.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\ayu-highlight.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\book.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\book.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\clipboard.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\clipboard.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\css\\chrome.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\css\\chrome.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\css\\general.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\css\\general.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\css\\print.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\css\\print.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\css\\variables.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\css\\variables.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\elasticlunr.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\elasticlunr.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\favicon.png",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\favicon.png"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\favicon.svg",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\favicon.svg"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\OPEN-SANS-LICENSE.txt",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\OPEN-SANS-LICENSE.txt"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\SOURCE-CODE-PRO-LICENSE.txt",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\SOURCE-CODE-PRO-LICENSE.txt"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\fonts.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\fonts.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-300.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-300.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-300italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-300italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-600.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-600.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-600italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-600italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-700.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-700.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-700italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-700italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-800.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-800.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-800italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-800italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\open-sans-v17-all-charsets-regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\fonts\\source-code-pro-v11-all-charsets-500.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\fonts\\source-code-pro-v11-all-charsets-500.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\highlight.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\highlight.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\highlight.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\highlight.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\index.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\index.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\mark.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\mark.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\print.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\print.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\searcher.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\searcher.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\searchindex.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\searchindex.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\searchindex.json",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\searchindex.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\tomorrow-night.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\tomorrow-night.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\generate-mdbook.bat",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\generate-mdbook.bat"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\generate-mdbook.sh",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\generate-mdbook.sh"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\mdbook",
+      "PackagePath": "staticwebassets\\server-doc\\md-book"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\mdbook.exe",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\mdbook.exe"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\SUMMARY.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\SUMMARY.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\css\\3.2.0_css_bootstrap.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\css\\3.2.0_css_bootstrap.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\css\\9.1.0_styles_github.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\css\\9.1.0_styles_github.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\css\\index.css",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\css\\index.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\index.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\index.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\1.11.1_jquery.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\1.11.1_jquery.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\14.0.2_dist_twemoji.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\14.0.2_dist_twemoji.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\2.4.1_lodash.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\2.4.1_lodash.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\3.2.0_js_bootstrap.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\3.2.0_js_bootstrap.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\4.0.5_es5-shim.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\4.0.5_es5-shim.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\index.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\index.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\markdown-it.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\markdown-it.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\js\\markdown-it.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\js\\markdown-it.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\original.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-viewer\\original.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\README.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\README.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\config\\config.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\config\\config.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\config\\configExample.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\config\\configExample.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\config\\defaultTemplate.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\config\\defaultTemplate.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\config\\logo.png",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\config\\logo.png"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\default.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\default.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\metro-all.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\metro-all.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\metro-colors.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\metro-colors.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\reveal.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\reveal.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\darcula.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\darcula.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\darcula.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\darcula.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\red-alert.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\red-alert.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\red-alert.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\red-alert.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\red-dark.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\red-dark.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\red-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\red-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\red-mirohost.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\red-mirohost.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\red-mirohost.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\red-mirohost.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\sky-net.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\sky-net.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\schemes\\sky-net.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\schemes\\sky-net.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\css\\style.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\css\\style.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\data\\preview.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\data\\preview.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\favicon.ico",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\favicon.ico"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\index.html",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\index.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\install\\Toto.mp3",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\install\\Toto.mp3"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\axios.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\axios.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\globalFunctions.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\globalFunctions.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\globalVariables.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\globalVariables.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\highlight.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\highlight.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\html2canvas.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\html2canvas.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\jspdf.umd.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\jspdf.umd.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\markdown-it.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\markdown-it.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\markdown-it.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\markdown-it.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\metro.min.4.5.2.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\metro.min.4.5.2.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\vue2.global.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\vue2.global.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\vue3-highlight.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\vue3-highlight.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\js\\vue3.global.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\js\\vue3.global.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\css\\index.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\css\\index.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\font\\fontello.eot",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\font\\fontello.eot"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\font\\fontello.svg",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\font\\fontello.svg"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\font\\fontello.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\font\\fontello.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\font\\fontello.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\font\\fontello.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\font\\fontello.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\font\\fontello.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\highlight.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\highlight.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\1c.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\1c.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\abnf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\abnf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\accesslog.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\accesslog.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\actionscript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\actionscript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ada.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ada.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\angelscript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\angelscript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\apache.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\apache.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\applescript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\applescript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\arcade.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\arcade.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\arduino.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\arduino.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\armasm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\armasm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\asciidoc.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\asciidoc.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\aspectj.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\aspectj.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\autohotkey.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\autohotkey.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\autoit.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\autoit.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\avrasm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\avrasm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\awk.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\awk.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\axapta.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\axapta.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\bash.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\bash.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\basic.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\basic.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\bnf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\bnf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\brainfuck.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\brainfuck.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\c.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\c.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\cal.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\cal.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\capnproto.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\capnproto.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ceylon.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ceylon.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\clean.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\clean.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\clojure-repl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\clojure-repl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\clojure.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\clojure.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\cmake.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\cmake.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\coffeescript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\coffeescript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\coq.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\coq.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\cos.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\cos.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\cpp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\cpp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\crmsh.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\crmsh.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\crystal.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\crystal.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\csharp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\csharp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\csp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\csp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\css.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\css.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\d.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\d.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dart.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dart.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\delphi.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\delphi.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\diff.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\diff.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\django.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\django.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dns.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dns.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dockerfile.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dockerfile.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dos.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dos.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dsconfig.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dsconfig.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dts.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dts.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\dust.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\dust.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ebnf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ebnf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\elixir.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\elixir.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\elm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\elm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\erb.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\erb.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\erlang-repl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\erlang-repl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\erlang.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\erlang.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\excel.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\excel.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\fix.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\fix.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\flix.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\flix.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\fortran.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\fortran.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\fsharp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\fsharp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\gams.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\gams.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\gauss.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\gauss.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\gcode.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\gcode.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\gherkin.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\gherkin.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\glsl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\glsl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\gml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\gml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\go.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\go.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\golo.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\golo.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\gradle.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\gradle.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\groovy.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\groovy.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\haml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\haml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\handlebars.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\handlebars.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\haskell.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\haskell.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\haxe.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\haxe.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\hsp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\hsp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\http.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\http.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\hy.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\hy.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\inform7.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\inform7.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ini.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ini.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\irpf90.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\irpf90.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\isbl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\isbl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\java.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\java.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\javascript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\javascript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\jboss-cli.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\jboss-cli.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\json.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\json.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\julia-repl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\julia-repl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\julia.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\julia.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\kotlin.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\kotlin.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\lasso.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\lasso.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\latex.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\latex.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ldif.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ldif.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\leaf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\leaf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\less.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\less.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\lisp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\lisp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\livecodeserver.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\livecodeserver.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\livescript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\livescript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\llvm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\llvm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\lsl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\lsl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\lua.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\lua.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\makefile.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\makefile.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\markdown.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\markdown.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\mathematica.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\mathematica.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\matlab.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\matlab.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\maxima.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\maxima.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\mel.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\mel.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\mercury.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\mercury.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\mipsasm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\mipsasm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\mizar.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\mizar.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\mojolicious.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\mojolicious.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\monkey.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\monkey.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\moonscript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\moonscript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\n1ql.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\n1ql.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\nestedtext.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\nestedtext.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\nginx.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\nginx.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\nim.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\nim.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\nix.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\nix.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\node-repl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\node-repl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\nsis.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\nsis.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\objectivec.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\objectivec.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ocaml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ocaml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\openscad.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\openscad.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\oxygene.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\oxygene.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\parser3.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\parser3.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\perl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\perl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\pf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\pf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\pgsql.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\pgsql.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\php-template.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\php-template.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\php.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\php.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\plaintext.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\plaintext.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\pony.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\pony.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\powershell.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\powershell.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\processing.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\processing.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\profile.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\profile.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\prolog.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\prolog.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\properties.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\properties.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\protobuf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\protobuf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\puppet.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\puppet.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\purebasic.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\purebasic.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\python-repl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\python-repl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\python.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\python.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\q.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\q.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\qml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\qml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\r.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\r.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\reasonml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\reasonml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\rib.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\rib.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\roboconf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\roboconf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\routeros.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\routeros.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\rsl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\rsl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ruby.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ruby.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\ruleslanguage.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\ruleslanguage.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\rust.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\rust.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\sas.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\sas.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\scala.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\scala.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\scheme.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\scheme.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\scilab.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\scilab.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\scss.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\scss.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\shell.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\shell.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\smali.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\smali.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\smalltalk.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\smalltalk.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\sml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\sml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\sqf.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\sqf.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\sql.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\sql.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\stan.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\stan.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\stata.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\stata.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\step21.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\step21.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\stylus.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\stylus.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\subunit.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\subunit.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\swift.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\swift.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\taggerscript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\taggerscript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\tap.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\tap.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\tcl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\tcl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\thrift.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\thrift.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\tp.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\tp.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\twig.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\twig.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\typescript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\typescript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\vala.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\vala.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\vbnet.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\vbnet.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\vbscript-html.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\vbscript-html.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\vbscript.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\vbscript.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\verilog.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\verilog.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\vhdl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\vhdl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\vim.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\vim.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\wasm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\wasm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\wren.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\wren.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\x86asm.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\x86asm.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\xl.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\xl.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\xml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\xml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\xquery.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\xquery.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\yaml.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\yaml.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\languages\\zephir.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\languages\\zephir.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\a11y-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\a11y-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\a11y-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\a11y-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\agate.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\agate.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\an-old-hope.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\an-old-hope.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\androidstudio.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\androidstudio.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\arduino-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\arduino-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\arta.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\arta.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\ascetic.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\ascetic.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\atom-one-dark-reasonable.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\atom-one-dark-reasonable.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\atom-one-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\atom-one-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\atom-one-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\atom-one-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\3024.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\3024.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\apathy.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\apathy.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\apprentice.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\apprentice.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ashes.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ashes.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-cave-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-cave-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-cave.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-cave.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-dune-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-dune-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-dune.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-dune.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-estuary-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-estuary-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-estuary.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-estuary.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-forest-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-forest-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-forest.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-forest.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-heath-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-heath-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-heath.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-heath.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-lakeside-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-lakeside-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-lakeside.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-lakeside.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-plateau-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-plateau-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-plateau.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-plateau.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-savanna-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-savanna-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-savanna.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-savanna.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-seaside-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-seaside-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-seaside.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-seaside.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-sulphurpool-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-sulphurpool-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-sulphurpool.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atelier-sulphurpool.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atlas.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\atlas.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\bespin.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\bespin.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-bathory.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-bathory.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-burzum.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-burzum.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-dark-funeral.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-dark-funeral.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-gorgoroth.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-gorgoroth.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-immortal.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-immortal.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-khold.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-khold.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-marduk.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-marduk.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-mayhem.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-mayhem.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-nile.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-nile.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-venom.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal-venom.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\black-metal.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brewer.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brewer.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\bright.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\bright.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brogrammer.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brogrammer.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brush-trees-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brush-trees-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brush-trees.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\brush-trees.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\chalk.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\chalk.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\circus.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\circus.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\classic-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\classic-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\classic-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\classic-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\codeschool.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\codeschool.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\colors.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\colors.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\cupcake.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\cupcake.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\cupertino.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\cupertino.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\danqing.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\danqing.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\darcula.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\darcula.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\dark-violet.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\dark-violet.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\darkmoss.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\darkmoss.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\darktooth.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\darktooth.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\decaf.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\decaf.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\default-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\default-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\default-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\default-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\dirtysea.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\dirtysea.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\dracula.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\dracula.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\edge-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\edge-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\edge-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\edge-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\eighties.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\eighties.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\embers.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\embers.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-gray-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-gray-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-gray-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-gray-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\equilibrium-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\espresso.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\espresso.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\eva-dim.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\eva-dim.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\eva.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\eva.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\flat.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\flat.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\framer.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\framer.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\fruit-soda.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\fruit-soda.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gigavolt.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gigavolt.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\github.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\github.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\google-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\google-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\google-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\google-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\grayscale-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\grayscale-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\grayscale-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\grayscale-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\green-screen.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\green-screen.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-hard.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-hard.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-medium.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-medium.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-pale.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-pale.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-soft.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-dark-soft.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-light-hard.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-light-hard.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-light-medium.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-light-medium.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-light-soft.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\gruvbox-light-soft.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\hardcore.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\hardcore.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\harmonic16-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\harmonic16-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\harmonic16-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\harmonic16-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\heetch-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\heetch-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\heetch-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\heetch-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\helios.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\helios.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\hopscotch.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\hopscotch.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\horizon-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\horizon-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\horizon-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\horizon-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\humanoid-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\humanoid-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\humanoid-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\humanoid-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ia-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ia-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ia-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ia-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\icy-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\icy-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ir-black.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ir-black.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\isotope.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\isotope.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\kimber.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\kimber.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\london-tube.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\london-tube.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\macintosh.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\macintosh.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\marrakesh.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\marrakesh.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\materia.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\materia.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-darker.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-darker.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-lighter.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-lighter.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-palenight.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-palenight.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-vivid.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material-vivid.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\material.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\mellow-purple.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\mellow-purple.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\mexico-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\mexico-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\mocha.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\mocha.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\monokai.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\monokai.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\nebula.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\nebula.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\nord.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\nord.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\nova.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\nova.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ocean.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ocean.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\oceanicnext.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\oceanicnext.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\one-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\one-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\onedark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\onedark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\outrun-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\outrun-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\papercolor-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\papercolor-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\papercolor-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\papercolor-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\paraiso.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\paraiso.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\pasque.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\pasque.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\phd.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\phd.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\pico.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\pico.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\pop.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\pop.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\porple.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\porple.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\qualia.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\qualia.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\railscasts.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\railscasts.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\rebecca.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\rebecca.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ros-pine-dawn.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ros-pine-dawn.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ros-pine-moon.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ros-pine-moon.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ros-pine.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\ros-pine.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\sagelight.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\sagelight.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\sandcastle.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\sandcastle.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\seti-ui.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\seti-ui.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\shapeshifter.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\shapeshifter.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\silk-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\silk-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\silk-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\silk-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\snazzy.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\snazzy.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solar-flare-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solar-flare-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solar-flare.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solar-flare.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solarized-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solarized-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solarized-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\solarized-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\spacemacs.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\spacemacs.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\summercamp.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\summercamp.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\summerfruit-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\summerfruit-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\summerfruit-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\summerfruit-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\synth-midnight-terminal-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\synth-midnight-terminal-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\synth-midnight-terminal-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\synth-midnight-terminal-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tango.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tango.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tender.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tender.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tomorrow-night.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tomorrow-night.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tomorrow.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\tomorrow.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\twilight.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\twilight.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\unikitty-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\unikitty-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\unikitty-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\unikitty-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\vulcan.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\vulcan.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-10-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-10-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-10.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-10.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-95-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-95-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-95.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-95.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-high-contrast-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-high-contrast-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-high-contrast.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-high-contrast.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-nt-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-nt-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-nt.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\windows-nt.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\woodland.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\woodland.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\xcode-dusk.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\xcode-dusk.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\zenburn.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\base16\\zenburn.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\brown-paper.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\brown-paper.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\brown-papersq.png",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\brown-papersq.png"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\codepen-embed.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\codepen-embed.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\color-brewer.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\color-brewer.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\default.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\default.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\devibeans.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\devibeans.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\docco.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\docco.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\far.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\far.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\foundation.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\foundation.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\github-dark-dimmed.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\github-dark-dimmed.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\github-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\github-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\github.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\github.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\gml.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\gml.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\googlecode.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\googlecode.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\gradient-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\gradient-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\gradient-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\gradient-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\grayscale.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\grayscale.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\hybrid.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\hybrid.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\idea.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\idea.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\ir-black.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\ir-black.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\isbl-editor-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\isbl-editor-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\isbl-editor-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\isbl-editor-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\kimbie-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\kimbie-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\kimbie-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\kimbie-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\lightfair.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\lightfair.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\lioshi.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\lioshi.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\magula.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\magula.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\mono-blue.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\mono-blue.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\monokai-sublime.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\monokai-sublime.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\monokai.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\monokai.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\night-owl.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\night-owl.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\nnfx-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\nnfx-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\nnfx-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\nnfx-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\nord.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\nord.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\obsidian.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\obsidian.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\paraiso-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\paraiso-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\paraiso-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\paraiso-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\pojoaque.jpg",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\pojoaque.jpg"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\pojoaque.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\pojoaque.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\purebasic.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\purebasic.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\qtcreator-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\qtcreator-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\qtcreator-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\qtcreator-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\rainbow.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\rainbow.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\routeros.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\routeros.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\school-book.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\school-book.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\shades-of-purple.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\shades-of-purple.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\srcery.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\srcery.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\stackoverflow-dark.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\stackoverflow-dark.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\stackoverflow-light.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\stackoverflow-light.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\sunburst.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\sunburst.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\tomorrow-night-blue.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\tomorrow-night-blue.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\tomorrow-night-bright.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\tomorrow-night-bright.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\vs.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\vs.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\vs2015.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\vs2015.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\xcode.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\xcode.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\highlightjs\\styles\\xt256.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\highlightjs\\styles\\xt256.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\jquery-3.6.0.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\jquery-3.6.0.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\contrib\\auto-render.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\contrib\\auto-render.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\contrib\\copy-tex.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\contrib\\copy-tex.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\contrib\\copy-tex.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\contrib\\copy-tex.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\contrib\\mathtex-script-type.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\contrib\\mathtex-script-type.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\contrib\\mhchem.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\contrib\\mhchem.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\contrib\\render-a11y-string.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\contrib\\render-a11y-string.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_AMS-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_AMS-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_AMS-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_AMS-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_AMS-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_AMS-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Bold.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Bold.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Bold.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Bold.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Bold.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Bold.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Caligraphic-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Bold.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Bold.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Bold.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Bold.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Bold.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Bold.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Fraktur-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Bold.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Bold.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Bold.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Bold.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Bold.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Bold.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-BoldItalic.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-BoldItalic.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-BoldItalic.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-BoldItalic.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-BoldItalic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-BoldItalic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Italic.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Italic.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Italic.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Italic.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Main-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-BoldItalic.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-BoldItalic.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-BoldItalic.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-BoldItalic.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-BoldItalic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-BoldItalic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-Italic.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-Italic.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-Italic.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-Italic.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-Italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Math-Italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Bold.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Bold.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Bold.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Bold.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Bold.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Bold.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Italic.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Italic.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Italic.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Italic.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Italic.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Italic.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_SansSerif-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Script-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Script-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Script-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Script-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Script-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Script-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size1-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size1-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size1-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size1-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size1-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size1-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size2-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size2-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size2-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size2-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size2-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size2-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size3-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size3-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size3-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size3-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size3-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size3-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size4-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size4-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size4-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size4-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size4-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Size4-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Typewriter-Regular.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Typewriter-Regular.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Typewriter-Regular.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Typewriter-Regular.woff"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Typewriter-Regular.woff2",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\fonts\\KaTeX_Typewriter-Regular.woff2"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\katex.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\katex.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\katex\\katex.min.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\katex\\katex.min.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\de\\help_de.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\de\\help_de.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\de\\words_de.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\de\\words_de.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\en\\help_en.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\en\\help_en.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\en\\words_en.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\en\\words_en.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\fr\\help_fr.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\fr\\help_fr.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\fr\\words_fr.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\fr\\words_fr.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\ja\\help_ja.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\ja\\help_ja.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\ja\\words_ja.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\ja\\words_ja.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\pt-BR\\help_pt-BR.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\pt-BR\\help_pt-BR.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\pt-BR\\words_pt-BR.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\pt-BR\\words_pt-BR.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\ru\\help_ru.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\ru\\help_ru.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\ru\\words_ru.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\ru\\words_ru.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\zh-CN\\help_zh-CN.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\zh-CN\\help_zh-CN.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\zh-CN\\words_zh-CN.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\zh-CN\\words_zh-CN.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\zh-TW\\help_zh-TW.md",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\zh-TW\\help_zh-TW.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\lang\\zh-TW\\words_zh-TW.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\lang\\zh-TW\\words_zh-TW.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\markdown\\github-markdown.min.css",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\markdown\\github-markdown.min.css"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\mavon-editor.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\mavon-editor.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mavon\\mermaid\\mermaid.min.cdn.js",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mavon\\mermaid\\mermaid.min.cdn.js"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mif\\metro.json",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mif\\metro.json"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mif\\metro.svg",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mif\\metro.svg"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mif\\metro.ttf",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mif\\metro.ttf"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\preview\\mif\\metro.woff",
+      "PackagePath": "staticwebassets\\server-doc\\preview\\mif\\metro.woff"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.UbytkacBackEnd.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.UbytkacBackEnd.props",
+      "PackagePath": "build\\UbytkacBackEnd.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.UbytkacBackEnd.props",
+      "PackagePath": "buildMultiTargeting\\UbytkacBackEnd.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.UbytkacBackEnd.props",
+      "PackagePath": "buildTransitive\\UbytkacBackEnd.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -41,6 +41,10 @@ namespace UbytkacAdmin.Pages {
                 lbl_currencyId.Content = Resources["currency"].ToString();
                 lbl_enabledCommDaysBeforeStart.Content = Resources["enabledCommDaysBeforeStart"].ToString();
 
+                lbl_stornoDaysCountBeforeStart.Content = Resources["stornoDaysCountBeforeStart"].ToString();
+                lbl_guestStornoEnabled.Content = Resources["guestStornoEnabled"].ToString();
+
+
                 lbl_owner.Content = Resources["owner"].ToString();
                 lbl_approveRequest.Content = Resources["approveRequest"].ToString();
                 lbl_approved.Content = Resources["approved"].ToString();
@@ -68,7 +72,7 @@ namespace UbytkacAdmin.Pages {
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin") {
+                if (App.UserData.Authentification.Role == "admin") {
                     cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
@@ -103,7 +107,10 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } 
                     else if (headername == "AverageRating") { e.Header = Resources["averageRating"].ToString(); e.DisplayIndex = 9; }
                     else if (headername == "EnabledCommDaysBeforeStart") { e.Header = Resources["enabledCommDaysBeforeStart"].ToString(); e.DisplayIndex = 10; }
-                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 11; }
+                    else if (headername == "StornoDaysCountBeforeStart") { e.Header = Resources["stornoDaysCountBeforeStart"].ToString(); e.DisplayIndex = 11; }
+                    else if (headername == "GuestStornoEnabled") { e.Header = Resources["guestStornoEnabled"].ToString(); e.DisplayIndex = 12; }
+                    
+                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 13; }
                     
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
 
@@ -183,6 +190,9 @@ namespace UbytkacAdmin.Pages {
                 //selectedRecord.DescriptionEn = html_descriptionEn.Text;
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
 
+                selectedRecord.StornoDaysCountBeforeStart = (int)txt_stornoDaysCountBeforeStart.Value;
+                selectedRecord.GuestStornoEnabled = (bool)chb_guestStornoEnabled.IsChecked;
+
                 selectedRecord.EnabledCommDaysBeforeStart = (int)txt_enabledCommDaysBeforeStart.Value;
                 selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
@@ -191,7 +201,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
                 //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin")
+                if (App.UserData.Authentification.Role == "admin")
                     selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
                 selectedRecord.Currency = null; selectedRecord.City = null;
@@ -223,12 +233,16 @@ namespace UbytkacAdmin.Pages {
             //html_descriptionEn.Text = selectedRecord.DescriptionEn;
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
             txt_enabledCommDaysBeforeStart.Value = selectedRecord.EnabledCommDaysBeforeStart;
+
+            txt_stornoDaysCountBeforeStart.Value = selectedRecord.StornoDaysCountBeforeStart;
+            chb_guestStornoEnabled.IsChecked = selectedRecord.GuestStornoEnabled;
+
             chb_approveRequest.IsChecked = selectedRecord.ApproveRequest;
             chb_approved.IsChecked = false;
             chb_advertised.IsChecked = selectedRecord.Advertised;
 
             //Only for Admin: Owner/UserId Selection
-            if (App.UserData.Authentification.Role == "Admin")
+            if (App.UserData.Authentification.Role == "admin")
                 cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm) {

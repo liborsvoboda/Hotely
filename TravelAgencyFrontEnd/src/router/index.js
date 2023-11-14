@@ -333,7 +333,7 @@ router.afterEach((to, from, next) => {
 
     //load webSetting if not exist - After Logout/New
     store.dispatch('getWebSettings');
-
+    store.dispatch("getWebMottoList");
 
 
     $(document).ready(function () {

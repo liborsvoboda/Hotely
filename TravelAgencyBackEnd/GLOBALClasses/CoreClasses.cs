@@ -1,4 +1,6 @@
-﻿namespace UbytkacBackend.CoreClasses {
+﻿using System.Reflection;
+
+namespace UbytkacBackend.CoreClasses {
 
     public class ServerConfigSettings {
         public static string SpecialServerServiceName { get; set; } = "Úbytkáč Emailer";
@@ -9,6 +11,8 @@
         public static string EmailerSMTPLoginPassword { get; set; } = "Hb@6u4NkmC";
         public static int EmailerSMTPPort { get; set; } = 25;
         public static bool EmailerSMTPSslIsEnabled { get; set; } = false;
+
+        public static string StartupPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
     }
 
@@ -28,7 +32,8 @@
     public enum DBResult {
         success,
         error,
-        youNotHaveRight
+        youNotHaveRight,
+        DeniedYouAreNotAdmin
     }
 
     /// <summary>
@@ -71,5 +76,15 @@
         loginInfoSentToEmail,
         inputDataError,
         saveDataError
+    }
+
+    /// <summary>
+    /// Server Process class for running external prrocesses
+    /// </summary>
+    public class ProcessClass {
+        public string Command { get; set; }
+        public string? WorkingDirectory { get; set; } = null;
+        public string? Arguments { get; set; } = null;
+        public bool WaitForExit = true;
     }
 }

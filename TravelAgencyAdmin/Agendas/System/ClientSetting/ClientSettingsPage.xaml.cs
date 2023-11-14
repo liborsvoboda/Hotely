@@ -103,6 +103,7 @@ namespace UbytkacAdmin.Pages {
                         tbOutputMessageBox.Foreground = new SolidColorBrush(Colors.Green); tbOutputMessageBox.Text = json;
                         MainWindow.ProgressRing = Visibility.Hidden;
                     } catch (Exception ex) {
+                        MainWindow.ProgressRing = Visibility.Hidden;
                         tbOutputMessageBox.Text = null;
                         await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + ex.Message + Environment.NewLine + ex.StackTrace);
                     }

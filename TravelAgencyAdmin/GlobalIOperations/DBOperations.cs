@@ -68,39 +68,40 @@ namespace UbytkacAdmin.GlobalOperations {
                     try {
                         if (!string.IsNullOrWhiteSpace(word)) {
                             if (App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Count() == 0) {
-                                dictionaryUpdated = true;
-
-                                if (!notCreateNew) {
+                                if (!notCreateNew && App.UserData.Authentification != null) {
+                                    dictionaryUpdated = true;
                                     LanguageList newWord = new LanguageList() { SystemName = word, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
                                     string json = JsonConvert.SerializeObject(newWord);
                                     StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
                                     _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
                                 }
                                 result += word + ",";
-                            } else {
+                            }
+                            else {
                                 translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == word.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
                                 result += (string.IsNullOrWhiteSpace(translated) ? word : translated) + ",";
                             }
                         }
-                    } catch (Exception ex) { result += word + ","; }
+                    } catch { result += word + ","; }
                 });
-            } else {
+            }
+            else {
                 try {
-                    if (App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Count() == 0) {
-                        dictionaryUpdated = true;
-
-                        if (!notCreateNew) {
+                    if (!string.IsNullOrWhiteSpace(systemName) && App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Count() == 0) {
+                        if (!notCreateNew && App.UserData.Authentification != null) {
+                            dictionaryUpdated = true;
                             LanguageList newWord = new LanguageList() { SystemName = systemName, DescriptionCz = "", DescriptionEn = "", UserId = 1 };
                             string json = JsonConvert.SerializeObject(newWord);
                             StringContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
                             _ = await ApiCommunication.PutApiRequest(ApiUrls.LanguageList, httpContent, null, App.UserData.Authentification.Token);
                         }
                         result = systemName;
-                    } else {
+                    }
+                    else if (!string.IsNullOrWhiteSpace(systemName)) {
                         translated = ((App.appLanguage == "cs-CZ" && lang == null) || lang == "cz") ? App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionCz).FirstOrDefault() : App.LanguageList.Where(a => a.SystemName.ToLower() == systemName.ToLower()).Select(a => a.DescriptionEn).FirstOrDefault();
                         result = string.IsNullOrWhiteSpace(translated) ? systemName : translated;
                     }
-                } catch (Exception ex) { result = systemName; }
+                } catch { result = systemName; }
             }
 
             if (dictionaryUpdated && !notCreateNew) { App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token); }

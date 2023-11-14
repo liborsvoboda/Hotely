@@ -42,6 +42,9 @@ namespace UbytkacAdmin.Pages {
                 lbl_currencyId.Content = Resources["currency"].ToString();
                 lbl_enabledCommDaysBeforeStart.Content = Resources["enabledCommDaysBeforeStart"].ToString();
 
+                lbl_stornoDaysCountBeforeStart.Content = Resources["stornoDaysCountBeforeStart"].ToString();
+                lbl_guestStornoEnabled.Content = Resources["guestStornoEnabled"].ToString();
+
                 lbl_owner.Content = lbl_owner1.Content = Resources["owner"].ToString();
                 lbl_approveRequest.Content = Resources["approveRequest"].ToString();
                 lbl_approved.Content = Resources["approved"].ToString();
@@ -80,7 +83,7 @@ namespace UbytkacAdmin.Pages {
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin") {
+                if (App.UserData.Authentification.Role == "admin") {
                     cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
@@ -115,7 +118,11 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 7; } 
                     else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 8; }
                     else if (headername == "EnabledCommDaysBeforeStart") { e.Header = Resources["enabledCommDaysBeforeStart"].ToString(); e.DisplayIndex = 9; }
-                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 10; }
+
+                    else if (headername == "StornoDaysCountBeforeStart") { e.Header = Resources["stornoDaysCountBeforeStart"].ToString(); e.DisplayIndex = 10; }
+                    else if (headername == "GuestStornoEnabled") { e.Header = Resources["guestStornoEnabled"].ToString(); e.DisplayIndex = 11; }
+
+                    else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 12; }
                     else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
@@ -185,6 +192,10 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
 
                 selectedRecord.EnabledCommDaysBeforeStart = (int)txt_enabledCommDaysBeforeStart.Value;
+
+                selectedRecord.StornoDaysCountBeforeStart = (int)txt_stornoDaysCountBeforeStart.Value;
+                selectedRecord.GuestStornoEnabled = (bool)chb_guestStornoEnabled.IsChecked;
+
                 selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
                 selectedRecord.Advertised = (bool)chb_advertised.IsChecked;
@@ -192,7 +203,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Timestamp = DateTimeOffset.Now.DateTime;
 
                 //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin")
+                if (App.UserData.Authentification.Role == "admin")
                     selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
 
                 selectedRecord.CountryTranslation = selectedRecord.Currency = null; selectedRecord.City = null;
@@ -219,6 +230,10 @@ namespace UbytkacAdmin.Pages {
             cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
             txt_enabledCommDaysBeforeStart.Value = selectedRecord.EnabledCommDaysBeforeStart;
+
+            txt_stornoDaysCountBeforeStart.Value = selectedRecord.StornoDaysCountBeforeStart;
+            chb_guestStornoEnabled.IsChecked = selectedRecord.GuestStornoEnabled;
+
             chb_approveRequest.IsChecked = false;
             btn_save1.IsEnabled = selectedRecord.ApproveRequest;
             chb_approved.IsChecked = selectedRecord.Approved;
@@ -227,7 +242,7 @@ namespace UbytkacAdmin.Pages {
             hotelList = selectedRecord;
 
             //Only for Admin: Owner/UserId Selection
-            if (App.UserData.Authentification.Role == "Admin")
+            if (App.UserData.Authentification.Role == "admin")
                 cb_owner.Text = selectedRecord.Id == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
             if (showForm) {
@@ -283,7 +298,7 @@ namespace UbytkacAdmin.Pages {
                     hotelRoomTypeList.ForEach(async roomType => { roomType.Translation = await DBOperations.DBTranslation(roomType.SystemName); });
 
                     //Only for Admin: Owner/UserId Selection
-                    if (App.UserData.Authentification.Role == "Admin") {
+                    if (App.UserData.Authentification.Role == "admin") {
                         cb_owner1.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
                         lbl_owner1.Visibility = cb_owner1.Visibility = Visibility.Visible;
                     }
@@ -356,7 +371,7 @@ namespace UbytkacAdmin.Pages {
                 btn_save1.IsEnabled = true;
 
                 //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin")
+                if (App.UserData.Authentification.Role == "admin")
                     cb_owner1.Text = adminUserList.Where(a => a.Id == selectedRoom.UserId).Select(a => a.UserName).FirstOrDefault();
 
                 cb_roomTypeId.IsEnabled = txt_name2.IsEnabled = txt_descriptionCz2.IsEnabled = 
@@ -377,11 +392,10 @@ namespace UbytkacAdmin.Pages {
                 selectedRoom.ExtraBed = (bool)chb_extraBed.IsChecked;
                 selectedRoom.RoomsCount = (int)txt_roomsCount.Value;
 
-                selectedRoom.UserId = App.UserData.Authentification.Id;
                 selectedRoom.Timestamp = DateTimeOffset.Now.DateTime;
 
                 //Only for Admin: Owner/UserId Selection
-                if (App.UserData.Authentification.Role == "Admin")
+                if (App.UserData.Authentification.Role == "admin")
                     selectedRoom.UserId = ((UserList)cb_owner1.SelectedItem).Id;
 
                 selectedRoom.Accommodation = selectedRoom.RoomType = null;

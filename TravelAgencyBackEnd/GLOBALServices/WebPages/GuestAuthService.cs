@@ -27,13 +27,13 @@
                 if (HttpContext.Connection.RemoteIpAddress != null && guest != null)
                 {
                     string clientIPAddr = System.Net.Dns.GetHostEntry(HttpContext.Connection.RemoteIpAddress).AddressList.First(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
-                    if (!string.IsNullOrWhiteSpace(clientIPAddr)) { DBOperations.WriteWebLogin(clientIPAddr, guest.Id, email); }
+                    if (!string.IsNullOrWhiteSpace(clientIPAddr)) { ServerCoreDbOperations.WriteWebLogin(clientIPAddr, guest.Id, email); }
                 }
             }
             catch { }
 
             if (guest == null)
-                return BadRequest(new { message = DBOperations.DBTranslate("IncorrectEmailOrPassword", language.Language) });
+                return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("IncorrectEmailOrPassword", language.Language) });
 
             RefreshGuestToken(email, guest);
             return Ok(JsonSerializer.Serialize(guest));

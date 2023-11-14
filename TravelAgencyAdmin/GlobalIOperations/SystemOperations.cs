@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,13 @@ namespace UbytkacAdmin.GlobalOperations {
     /// Centralised System Functions for work with Types, methods, Formats, Logic, supported methods
     /// </summary>
     internal class SystemOperations {
+
+
+        public static ObservableCollection<Language> ProcessTypes = new ObservableCollection<Language>() {
+                                                                new Language() { Name = "EDCservice", Value = "EDCservice" },
+                                                                new Language() { Name = "WINcmd", Value = "WINcmd" },
+                                                                new Language() { Name = "URL", Value = "URL" }
+                                                             };
 
         /// <summary>
         /// Settings Local Application Translation dictionaries (Resources Files) for Pages Will be
@@ -172,6 +180,56 @@ namespace UbytkacAdmin.GlobalOperations {
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+
+        /// <summary>
+        /// System External Process Starter for Conrtalized Using
+        /// Return the processId when is started or null
+        /// 
+        /// TODO
+        /// - create process Monitor
+        /// - save the monitored procceses to System Monitor
+        /// - must be refactored actual status
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="processCommand"></param>
+        /// <param name="startupPath">The startup path.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns></returns>
+        public static int? StartExternalProccess(string type, string processCommand, string startupPath = null, string arguments = null) {
+            try {
+
+                Process tmpProcess = new Process();
+                switch (type) {
+                    case "WINcmd":
+                        ProcessStartInfo info = new ProcessStartInfo() {
+                            FileName = processCommand,
+                            WorkingDirectory = startupPath,
+                            Arguments = arguments,
+                            LoadUserProfile = true,
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            Verb = (Environment.OSVersion.Version.Major >= 6) ? "runas" : "",
+                        };
+                        tmpProcess.StartInfo = info;
+                        tmpProcess.Start();
+                        break;
+                    case "URL":
+                        tmpProcess = Process.Start(processCommand);
+                        break;
+                    case "EDCservice":
+                        tmpProcess = Process.Start(processCommand);
+                        break;
+                    default: break;
+                }
+
+                return tmpProcess?.Id; ;
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
+            return null;
         }
     }
 }

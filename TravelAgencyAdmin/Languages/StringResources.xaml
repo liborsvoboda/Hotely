@@ -137,7 +137,7 @@
     <system:String x:Key="internalCachingEnabled">Use internal Entity cache</system:String>
     <system:String x:Key="loggingCacheTimeMinutes">Logging cache time in minutes</system:String>
     <system:String x:Key="calendar">Calendar</system:String>
-    <system:String x:Key="tools">Nástroje</system:String>
+    <system:String x:Key="tools">Tools</system:String>
 
     <system:String x:Key="exceptionLogin">Exceptionally allowed without Verification. You do not have a database connection.</system:String>
     <system:String x:Key="exceptionHelp">In Client Setting in URL you can set own HTTP://109.164.71.204:5000</system:String>
@@ -526,5 +526,43 @@
     <system:String x:Key="isAdvertiser">Is advertiser</system:String>
     <system:String x:Key="generatePassword">Generate PW</system:String>
     <system:String x:Key="guestSettingList">Guests Settings</system:String>
+
+    <system:String x:Key="codeLibraryList">Codes Library</system:String>
+    <system:String x:Key="loadFromFile" xml:space="preserve">Load from File</system:String>
+    <system:String x:Key="saveClose" xml:space="preserve">Save, Close</system:String>
+    <system:String x:Key="saveAsNew" xml:space="preserve">Save as New</system:String>
+    <system:String x:Key="openInBrowser" xml:space="preserve">Save, Open in Browser</system:String>
+    <system:String x:Key="webMottoList" xml:space="preserve">Web mottos</system:String>
+
+    <system:String x:Key="stornoDaysCountBeforeStart" xml:space="preserve">Storno, Days count before start </system:String>
+    <system:String x:Key="guestStornoEnabled" xml:space="preserve">Guest can Storno directly</system:String>
+
+    <system:String x:Key="documentationGroup" xml:space="preserve">Documentation group</system:String>
+    <system:String x:Key="autoVersion" xml:space="preserve">Auto version</system:String>
+    <system:String x:Key="saveNewVersion" xml:space="preserve">Save new version</system:String>
+    <system:String x:Key="documentationGroupList" xml:space="preserve">Documentation Groups</system:String>
+    <system:String x:Key="documentationCodeLibraryList" xml:space="preserve">Doc Code Library</system:String>
+    <system:String x:Key="documentationList" xml:space="preserve">Documentations</system:String>
+    <system:String x:Key="documentations" xml:space="preserve">Documentations</system:String>
+
+    <system:String x:Key="generateInteliDoc" xml:space="preserve">Generate InteliDoc</system:String>
+    <system:String x:Key="inteliDocsGeneratedSuccesfully" xml:space="preserve">Inteli Documentation generation was succesfully</system:String>
+    <system:String x:Key="inteliDocsGenerationFailed" xml:space="preserve">Inteli Documentation generation failed</system:String>
+
+    <system:String x:Key="toolPanel" xml:space="preserve">Tool panel</system:String>
+    <system:String x:Key="toolTypeList" xml:space="preserve">Tool Types</system:String>
+    <system:String x:Key="toolType" xml:space="preserve">Tool type</system:String>
+    <system:String x:Key="toolTypeId" xml:space="preserve">Id</system:String>
+    <system:String x:Key="toolPanelDefinitionList" xml:space="preserve">Tool panel definition</system:String>
+    <system:String x:Key="svgIconPath" xml:space="preserve">SvgIcon Path</system:String>
+    <system:String x:Key="svgIconList" xml:space="preserve">System Icons</system:String>
+
+    <system:String x:Key="processType" xml:space="preserve">Process type</system:String>
+    <system:String x:Key="command" xml:space="preserve">Command</system:String>
+    <system:String x:Key="iconColor" xml:space="preserve">Icon color</system:String>
+    <system:String x:Key="backgroundColor" xml:space="preserve">Background color</system:String>
+    <system:String x:Key="iconName" xml:space="preserve">Icon name</system:String>
+    <system:String x:Key="commandTest" xml:space="preserve">Command test</system:String>
+    <system:String x:Key="selectIcon" xml:space="preserve">Select icon</system:String>
 
 </ResourceDictionary>

@@ -1,5 +1,14 @@
 <template>
     <div class="profile-content mt-10">
+        <div class="rounded drop-shadow row">
+            <div class="col-md-6 text-left">
+                <h1>{{ $t('user.settings') }}</h1>
+            </div>
+            <div class="col-md-6 text-right">
+                <span class="icon mif-info pt-2 c-help mif-3x" />
+            </div>
+        </div>
+        <hr>
         <form class="form1" @submit.prevent="checkPasswords" autocomplete="off">
             <div class="card-body">
 

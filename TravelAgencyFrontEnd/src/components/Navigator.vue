@@ -1,12 +1,12 @@
 <template>
     <header id="header">
-        <div class="header-top" style="background-color: #0CA9F2 !important">
+        <div class="header-top" style="background-color: white !important;">
             <div class="container">
 
 
                 <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 85%; z-index:10000;min-width:470px;">
                     <div class="w-100 text-left">
-                        <audio id="radio" class="light bg-transparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5"></audio>
+                        <audio id="radio" class="light bg-tra;nsparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5"></audio>
                     </div>
                     <div class="w-100 text-left" style="z-index: 1000000;">
                         <div id="google_translate_element"></div>
@@ -29,27 +29,27 @@
                     <div class="col-lg-9 col-sm-9 col-9 header-top-left">
                         <div class="nav-menu">
                             <div class="d-flex w-100" style="font-size:16px;">
-                                <router-link :to="'/Profile/'" class="ani-hover-heartbeat">
+                                <router-link :to="'/Profile/'" >
                                     <!--  <span class="icon mif-star-full " /> -->
                                     {{ $t('labels.top') }} {{ userSettings.topFiveCount }}
                                 </router-link>
 
-                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')" class="ani-hover-heartbeat">
+                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')" >
                                     <!-- <span class="icon mif-list " /> -->
                                     {{ $t('user.bookings') }}
                                 </a>
 
-                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')" class="ani-hover-heartbeat">
+                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')" >
                                     <!-- <span class="icon mif-favorite " /> -->
                                     {{ $t('user.favorites') }}
                                 </a>
 
-                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')" class="ani-hover-heartbeat">
+                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')" >
                                     <!-- <i class="fas fa-users-cog"></i> -->
                                     {{ $t('user.settings') }}
                                 </a>
 
-                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')" class="ani-hover-heartbeat">
+                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')" >
                                     <!-- <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-shuttle ')"></span> -->
                                     {{ $t('labels.accommodationAdvertisement') }}
                                 </a>
@@ -61,8 +61,8 @@
                     <div class="col-lg-3 col-sm-3 col-3 header-top-right">
                         <div class="nav-menu">
                             <div v-if="!loggedIn">
-                                <a href="#" class="ani-hover-heartbeat"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
-                                <a href="#" class="ani-hover-heartbeat"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
+                                <a href="#" ><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#" ><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
                             </div>
                             <div v-if="loggedIn">
                                 <a href="#" @click="logout()">{{ $t('user.logout') }}</a>
@@ -74,7 +74,7 @@
             </div>
         </div>
         <div class="container">
-            <div data-role="appbar" data-expand-point="md" style="top:initial;" class="flex-justify-center bg-brandColor1">
+            <div data-role="appbar" data-expand-point="md" style="top:initial;background-color:#53c16e !important;color: white !important;" class="flex-justify-center bg-brandColor1">
                 <ul id="helpMenu" class="app-bar-menu" @click="closeHelpMenu">
                     <li @click="home"><router-link to="/">{{ $t('labels.home') }}</router-link></li>
                     <li><router-link to="/UbytkacInfo">{{ $t('labels.ubytkacInfo') }}</router-link></li>
@@ -233,7 +233,8 @@ export default {
     }
 
         .header-top a {
-            color: rgb(255, 255, 255);
+
+            color: #495057 !important;
             -webkit-transition: all 0.3s ease 0s;
             -moz-transition: all 0.3s ease 0s;
             -o-transition: all 0.3s ease 0s;
@@ -241,8 +242,9 @@ export default {
         }
 
             .header-top a:hover {
-                /* color:darkblue ; */
                 font-weight:bold;
+
+                color: #14a04d !important;
             }
 
         .header-top ul li {
@@ -382,7 +384,7 @@ export default {
         text-decoration: none;
         display: inline-block;
         color: #fff;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 12px;
         text-transform: uppercase;
         outline: none;

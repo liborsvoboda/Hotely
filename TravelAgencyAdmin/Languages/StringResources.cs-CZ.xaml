@@ -137,7 +137,7 @@
     <system:String x:Key="internalCachingEnabled">Použít interní cache Entity</system:String>
     <system:String x:Key="loggingCacheTimeMinutes">Logovací čas cache v minutách</system:String>
     <system:String x:Key="calendar">Kalendář</system:String>
-    <system:String x:Key="tools">Tools</system:String>
+    <system:String x:Key="tools">Nástroje</system:String>
 
     <system:String x:Key="exceptionLogin">Vyjímečně povoleno bez Ověření. Nemáte Připojení k databázi.</system:String>
     <system:String x:Key="exceptionHelp">V nastavení klienta na URL poli si nastavte naši HTTP://109.164.71.204:5000</system:String>
@@ -526,5 +526,43 @@
     <system:String x:Key="generatePassword">Generovat Heslo</system:String>
     <system:String x:Key="guestSettingList">Nastavení WebHostů</system:String>
 
+    <system:String x:Key="codeLibraryList">Knihovna Kódů</system:String>
+    <system:String x:Key="loadFromFile" xml:space="preserve">Načíst ze Souboru</system:String>
+    <system:String x:Key="saveClose" xml:space="preserve">Uložit a Zavřít</system:String>
+    <system:String x:Key="saveAsNew" xml:space="preserve">Uložit jako Nový</system:String>
+    <system:String x:Key="openInBrowser" xml:space="preserve">Uložit a Otevřít v Prohlížeči</system:String>
+    <system:String x:Key="webMottoList" xml:space="preserve">Webová motta</system:String>
+
+    <system:String x:Key="stornoDaysCountBeforeStart" xml:space="preserve">Storno, Počet dní před zahájením </system:String>
+    <system:String x:Key="guestStornoEnabled" xml:space="preserve">Host může Stornovat napřímo</system:String>
+
+    <system:String x:Key="documentationGroup" xml:space="preserve">Skupina Dokumentace</system:String>
+    <system:String x:Key="autoVersion" xml:space="preserve">Automatická verze</system:String>
+    <system:String x:Key="saveNewVersion" xml:space="preserve">Uložit novou verzi</system:String>
+    <system:String x:Key="documentationGroupList" xml:space="preserve">Skupiny Dokumentace</system:String>
+    <system:String x:Key="documentationCodeLibraryList" xml:space="preserve">Knihovna kódů Doc</system:String>
+    <system:String x:Key="documentationList" xml:space="preserve">Dokumentace</system:String>
+    <system:String x:Key="documentations" xml:space="preserve">Dokumentace</system:String>
+
+    <system:String x:Key="generateInteliDoc" xml:space="preserve">Generovat InteliDoc</system:String>
+    <system:String x:Key="inteliDocsGeneratedSuccesfully" xml:space="preserve">Vygenerování Inteli Dokumentace proběhlo úspěšně</system:String>
+    <system:String x:Key="inteliDocsGenerationFailed" xml:space="preserve">Vygenerování Inteli Dokumentace se nezdařilo</system:String>
+
+
+    <system:String x:Key="toolPanel" xml:space="preserve">Panel nástrojů</system:String>
+    <system:String x:Key="toolTypeList" xml:space="preserve">Typy nástrojů</system:String>
+    <system:String x:Key="toolType" xml:space="preserve">Typ nástroje</system:String>
+    <system:String x:Key="toolTypeId" xml:space="preserve">Id</system:String>
+    <system:String x:Key="toolPanelDefinitionList" xml:space="preserve">Panel Nástrojů</system:String>
+    <system:String x:Key="svgIconPath" xml:space="preserve">Cesta Svg Ikony</system:String>
+    <system:String x:Key="svgIconList" xml:space="preserve">Systémové Ikony</system:String>
+
+    <system:String x:Key="processType" xml:space="preserve">Typ Procesu</system:String>
+    <system:String x:Key="command" xml:space="preserve">Příkaz</system:String>
+    <system:String x:Key="iconColor" xml:space="preserve">Barva Ikony</system:String>
+    <system:String x:Key="backgroundColor" xml:space="preserve">Barva pozadí</system:String>
+    <system:String x:Key="iconName" xml:space="preserve">Název ikony</system:String>
+    <system:String x:Key="commandTest" xml:space="preserve">Test příkazu</system:String>
+    <system:String x:Key="selectIcon" xml:space="preserve">Vyberte ikonu</system:String>
 
 </ResourceDictionary>

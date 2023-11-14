@@ -1,7 +1,7 @@
 <template>
     <div class="pt-4 mt-0">
         <h5>{{ $t('labels.averageRating') }}:</h5>
-        <input data-role="rating" :data-value="hotel.averageRating" data-static="true">
+        <input data-role="rating" :data-value="hotel.averageRating" data-stared-color="#b59a09" data-static="true">
         <div class="row mb-2" v-for="review in hotel.hotelReservationReviewLists">
             <div class="col-md-12 d-flex">
                 <div class="col-lg-3 col-md-3 meta-details">
@@ -10,7 +10,7 @@
                             {{new Date(review.timestamp).toLocaleString('cs-CZ')}}
                         </p>
                         <p class="user-name col-lg-12 col-md-12 col-6">
-                            <input data-role="rating" :data-value="review.rating" data-stared-color="cyan" data-static="true">
+                            <input data-role="rating" :data-value="review.rating" data-stared-color="#b59a09" data-static="true">
                         </p>
                     </div>
                 </div>

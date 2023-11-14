@@ -30,7 +30,7 @@ namespace UbytkacBackend.Controllers {
                     reservation.Currency.HotelLists = null;
                     reservation.Currency.HotelReservationLists = null;
                     reservation.Currency.HotelReservationDetailLists = null;
-                    reservation.Status.SystemName = DBOperations.DBTranslate(reservation.Status.SystemName, language);
+                    reservation.Status.SystemName = ServerCoreDbOperations.DBTranslate(reservation.Status.SystemName, language);
                     reservation.Hotel.HotelImagesLists.ToList().ForEach(image => {
                         image.Hotel = null;
                         image.Attachment = null;
@@ -41,7 +41,7 @@ namespace UbytkacBackend.Controllers {
                             reservationDetail.Hotel = null;
                             reservationDetail.Reservation = null;
                             if (reservationDetail.Status != null) {
-                                reservationDetail.Status.SystemName = DBOperations.DBTranslate(reservationDetail.Status.SystemName, language);
+                                reservationDetail.Status.SystemName = ServerCoreDbOperations.DBTranslate(reservationDetail.Status.SystemName, language);
                                 reservationDetail.Status.HotelReservationLists = null;
                                 reservationDetail.Status.HotelReservedRoomLists = null;
                                 reservationDetail.Status.HotelReservationDetailLists = null;
@@ -106,7 +106,54 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
             Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
+            });
+        }
+
+
+        [Authorize]
+        [HttpPost("/WebApi/Guest/Booking/CancelRequestBooking")]
+        [Consumes("application/json")]
+        public IActionResult CancelRequestBooking([FromBody] BookingCancel record) {
+            try {
+
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+                HotelReservationList reservationList;
+                reservationList = new hotelsContext().HotelReservationLists.Where(a => a.GuestId == int.Parse(authId) && a.Id == record.ReservationId).FirstOrDefault();
+
+                if (reservationList != null) {
+                    HotelReservationDetailList reservationDetailList = new HotelReservationDetailList() {
+                        GuestId = int.Parse(authId),
+                        HotelId = reservationList.HotelId,
+                        ReservationId = record.ReservationId,
+                        StatusId = 4,
+                        CurrencyId = reservationList.CurrencyId,
+                        HotelAccommodationActionId = reservationList.HotelAccommodationActionId,
+                        StartDate = reservationList.StartDate,
+                        EndDate = reservationList.EndDate,
+                        TotalPrice = reservationList.TotalPrice,
+                        Adult = reservationList.Adult,
+                        Children = reservationList.Children,
+                        Message = record.Message,
+                        GuestSender = true,
+                        Shown = false,
+                        Timestamp = DateTimeOffset.Now.DateTime
+                    };
+                    var data = new hotelsContext().HotelReservationDetailLists.Add(reservationDetailList);
+                    int result = data.Context.SaveChanges();
+
+                    if (result > 0) {
+                        return Ok(JsonSerializer.Serialize(
+                        new DBResultMessage() {
+                            Status = DBResult.success.ToString(),
+                            ErrorMessage = string.Empty
+                        }));
+                    }
+                }
+            } catch { }
+            return BadRequest(new DBResultMessage() {
+                Status = DBResult.error.ToString(),
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
 
@@ -165,7 +212,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
     }

@@ -55,6 +55,8 @@ namespace UbytkacBackend.DBModel
         public int PopularCount { get; set; }
         public int EnabledCommDaysBeforeStart { get; set; }
         public int AverageRatingAmount { get; set; }
+        public int StornoDaysCountBeforeStart { get; set; }
+        public bool GuestStornoEnabled { get; set; }
 
         [ForeignKey("CityId")]
         [InverseProperty("HotelLists")]

@@ -1,6 +1,6 @@
 ﻿using UbytkacBackend;
 
-namespace EASYDATACenter.Controllers {
+namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]

@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <StartupObject>UbytkacBackend.Program</StartupObject>
+    <SqlQueryToolsConnectionString />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\tools\md-book\NováSložka\**" />
+    <Content Remove="wwwroot\tools\md-book\NováSložka\**" />
+    <EmbeddedResource Remove="wwwroot\tools\md-book\NováSložka\**" />
+    <None Remove="wwwroot\tools\md-book\NováSložka\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MimeTypes" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\server-doc\md-book\book\.nojekyll" />
+    <None Include="wwwroot\server-doc\md-book\book\book.js" />
+    <None Include="wwwroot\server-doc\md-book\book\clipboard.min.js" />
+    <None Include="wwwroot\server-doc\md-book\book\elasticlunr.min.js" />
+    <None Include="wwwroot\server-doc\md-book\book\favicon.svg" />
+    <None Include="wwwroot\server-doc\md-book\book\FontAwesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\server-doc\md-book\book\FontAwesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-300.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-300italic.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-600.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-600italic.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-700.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-700italic.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-800.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-800italic.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-italic.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\open-sans-v17-all-charsets-regular.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\fonts\source-code-pro-v11-all-charsets-500.woff2" />
+    <None Include="wwwroot\server-doc\md-book\book\highlight.js" />
+    <None Include="wwwroot\server-doc\md-book\book\mark.min.js" />
+    <None Include="wwwroot\server-doc\md-book\book\searcher.js" />
+    <None Include="wwwroot\server-doc\md-book\book\searchindex.js" />
+    <None Include="wwwroot\server-doc\md-book\src\SUMMARY.md" />
+    <None Include="wwwroot\server-doc\md-book\src\VyhledávánívInzerátech.md" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="robocopy &quot;$(ProjectDir)wwwroot&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net6.0\wwwroot&quot; /s /e &#xD;&#xA; exit /b 0" />
+  </Target>
+
+</Project>

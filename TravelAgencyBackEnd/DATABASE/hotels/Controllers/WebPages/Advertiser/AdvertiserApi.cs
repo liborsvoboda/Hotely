@@ -50,7 +50,7 @@ namespace UbytkacBackend.Controllers {
                         .Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
 
                         props.ForEach(property => {
-                            property.PropertyOrService.SystemName = DBOperations.DBTranslate(property.PropertyOrService.SystemName, language);
+                            property.PropertyOrService.SystemName = ServerCoreDbOperations.DBTranslate(property.PropertyOrService.SystemName, language);
                         });
                         hotel.HotelPropertyAndServiceLists = props;
 
@@ -129,7 +129,9 @@ namespace UbytkacBackend.Controllers {
                             UserId = int.Parse(userId), 
                             ApproveRequest = false,
                             Approved = false,
-                            EnabledCommDaysBeforeStart = record.LimitGuestCommDays
+                            EnabledCommDaysBeforeStart = record.LimitGuestCommDays,
+                            StornoDaysCountBeforeStart = record.StornoDaysCountBeforeStart,
+                            GuestStornoEnabled = record.GuestStornoEnabled
 
                         };
                         var data = new hotelsContext().HotelLists.Add(hotelRec);
@@ -148,7 +150,7 @@ namespace UbytkacBackend.Controllers {
                         hotelRec = new hotelsContext().HotelLists.Where(a => a.Id == (int)record.HotelRecId).FirstOrDefault();
                         hotelRec.Name = record.HotelName; hotelRec.CountryId = record.CountryId; hotelRec.CityId = record.CityId;
                         hotelRec.DescriptionCz = record.Description; hotelRec.DefaultCurrencyId = record.CurrencyId; hotelRec.ApproveRequest = false; hotelRec.Approved = false;
-                        hotelRec.EnabledCommDaysBeforeStart = record.LimitGuestCommDays;
+                        hotelRec.EnabledCommDaysBeforeStart = record.LimitGuestCommDays;hotelRec.StornoDaysCountBeforeStart = record.StornoDaysCountBeforeStart;hotelRec.GuestStornoEnabled = record.GuestStornoEnabled;
                         var data = new hotelsContext().HotelLists.Update(hotelRec);
                         result = await data.Context.SaveChangesAsync();
                     }

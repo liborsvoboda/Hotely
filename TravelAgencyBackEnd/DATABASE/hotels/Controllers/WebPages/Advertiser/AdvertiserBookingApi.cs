@@ -43,21 +43,23 @@ namespace UbytkacBackend.Controllers {
                 var data = new hotelsContext().HotelReservationDetailLists.Add(reservationDetailList);
                 int result = data.Context.SaveChanges();
 
-                //update status in reservationList
-                HotelReservationList reservationList;
-                reservationList = new hotelsContext().HotelReservationLists.Where(a => a.Id == record.ReservationId).FirstOrDefault();
-                reservationList.StatusId = record.StatusId;
-                var data1 = new hotelsContext().HotelReservationLists.Update(reservationList);
-                result = data1.Context.SaveChanges();
 
-                //update status in reservationRoomList
-                List<HotelReservedRoomList> reservedRoomList;
-                reservedRoomList = new hotelsContext().HotelReservedRoomLists.Where(a => a.ReservationId == record.ReservationId).ToList();
-                reservedRoomList.ForEach(async room => {
-                    room.StatusId = record.StatusId;
-                    var data2 = new hotelsContext().HotelReservedRoomLists.Update(room);
-                    result = await data2.Context.SaveChangesAsync();
-                });
+                //UPDATED BY TRIGGER
+                ////update status in reservationList
+                //HotelReservationList reservationList;
+                //reservationList = new hotelsContext().HotelReservationLists.Where(a => a.Id == record.ReservationId).FirstOrDefault();
+                //reservationList.StatusId = record.StatusId;
+                //var data1 = new hotelsContext().HotelReservationLists.Update(reservationList);
+                //result = data1.Context.SaveChanges();
+
+                ////update status in reservationRoomList
+                //List<HotelReservedRoomList> reservedRoomList;
+                //reservedRoomList = new hotelsContext().HotelReservedRoomLists.Where(a => a.ReservationId == record.ReservationId).ToList();
+                //reservedRoomList.ForEach(async room => {
+                //    room.StatusId = record.StatusId;
+                //    var data2 = new hotelsContext().HotelReservedRoomLists.Update(room);
+                //    result = await data2.Context.SaveChangesAsync();
+                //});
 
                 //send modified reservation email
 
@@ -73,7 +75,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
     }

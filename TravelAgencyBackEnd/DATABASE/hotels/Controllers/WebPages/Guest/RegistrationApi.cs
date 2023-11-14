@@ -21,7 +21,7 @@ namespace UbytkacBackend.Controllers {
                     if (data == null) {
                         return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
                             Status = DBWebApiResponses.emailNotExist.ToString(),
-                            ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.emailNotExist.ToString(), record.Language)
+                            ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailNotExist.ToString(), record.Language)
                         }));
                     }
 
@@ -57,9 +57,9 @@ namespace UbytkacBackend.Controllers {
 
                     if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { message = DBResult.success.ToString() })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
                 }
-                else { return BadRequest(new { message = DBOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
+                else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
             } catch { }
-            return BadRequest(new { message = DBOperations.DBTranslate("EmailCannotBeSend", record.Language) });
+            return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailCannotBeSend", record.Language) });
         }
 
         [HttpPost("/WebApi/Guest/SendVerifyCode")]
@@ -77,7 +77,7 @@ namespace UbytkacBackend.Controllers {
                     if (count > 0) {
                         return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
                             Status = DBWebApiResponses.emailExist.ToString(),
-                            ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
+                            ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
                         }));
                     }
 
@@ -103,9 +103,9 @@ namespace UbytkacBackend.Controllers {
 
                     if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { verifyCode = verifyCode })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
                 }
-                else { return BadRequest(new { message = DBOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
+                else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
             } catch { }
-            return BadRequest(new { message = DBOperations.DBTranslate("EmailCannotBeSend", record.Language) });
+            return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailCannotBeSend", record.Language) });
         }
 
 
@@ -120,7 +120,7 @@ namespace UbytkacBackend.Controllers {
                 if (count > 0) {
                     return JsonSerializer.Serialize(new DBResultMessage() {
                         Status = DBWebApiResponses.emailExist.ToString(),
-                        ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
+                        ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
                     });
                 }
 
@@ -175,7 +175,7 @@ namespace UbytkacBackend.Controllers {
                 }
                 ServerCoreFunctions.SendEmail(mailRequest);
 
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
+                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
@@ -221,9 +221,9 @@ namespace UbytkacBackend.Controllers {
 
                     var data = new hotelsContext().GuestLists.Update(guest);
                     result = await data.Context.SaveChangesAsync();
-                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
-                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.saveDataError.ToString())  });
-                } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBOperations.DBTranslate(DBWebApiResponses.inputDataError.ToString()) });
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.saveDataError.ToString())  });
+                } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.inputDataError.ToString()) });
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
 

@@ -10,7 +10,7 @@
                     <h1>{{ $t('labels.accommodationAdvertisement') }}</h1>
                 </div>
                 <div class="col-md-6">
-                    <div class="pos-absolute p-button p-component button info shadowed" style="top:17px;right:0px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</div>
+                    <button class="pos-absolute p-button p-component button info shadowed" style="top:17px;right:0px;" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</button>
                 </div>
             </div>
         </div>
@@ -98,5 +98,18 @@ export default {
 img{
     padding-right: 6px;
 }
+
+button.p-button.p-component {
+    background: #53c16e;
+    border: #14a04d;
+    text-decoration: none;
+}
+
+.p-button:enabled:hover {
+    background: #348047 !important;
+    border-color: #14a04d;
+    text-decoration: none;
+}
+
 
 </style>

@@ -81,3 +81,4 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\UbytkacBackEnd.xml
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\UbytkacBackEnd.pdb
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\UbytkacBackEnd.genruntimeconfig.cache
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Debug\net6.0\ref\UbytkacBackEnd.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Debug\net6.0\UbytkacBackEnd.staticwebassets.runtime.json

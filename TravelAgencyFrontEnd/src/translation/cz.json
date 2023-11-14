@@ -4,7 +4,7 @@
     "maxCapacity": "Max. kapacita",
     "reserv": "Rezervovat",
     "price": "Cena",
-    "fillDateMessage": "Vyplňte období pro vytvoření poptávky",
+    "fillDateMessage": "Zadejte období pro vytvoření poptávky",
     "totalRoomsCount": "Počet pokojů celkem",
     "availableRoomsCount": "Počet volných",
     "fromTotalCount": " z celkového počtu",
@@ -74,6 +74,7 @@
     "editLease": "Editace pronájmu",
     "sendBookingRequest": "Odeslaní poptávky",
     "cancelBooking": "Zrušení rezervace",
+    "cancelRequestBooking": "Žádost o zrušení rezervace",
     "reservationNumber": "Číslo rezervace",
     "messagesHistory": "Historie zpráv",
     "status": "Status",
@@ -211,7 +212,11 @@
     "calendarData": "Data Rezervací",
     "bookingData": "Všechna Data",
     "calendarDataTable": "Tabulka rezervací",
-    "date": "Datum"
+    "date": "Datum",
+    "stornoDaysCountBeforeStart": "Host může Stornovat, počet dní před zahájením",
+    "guestStornoEnabled": "Host může stornovat",
+    "directly": "přímo",
+    "byRequest": "přes požadavek"
   },
   "user": {
     "newPassword": "Nové Heslo",
@@ -268,6 +273,8 @@
     "translateAutomatically": "Automaticky Překládat v jazyce prohlížeče",
     "passwordNotHaveMinimalLength": "heslo nemá minimální délku: ",
     "passwordNotHaveMinimalLengthOrMailNotValid": "Email není správný nebo heslo nemá minimální délku: ",
-    "addReviewWasSuccess": "Vložení hodnocení proběhlo v pořádku"
+    "addReviewWasSuccess": "Vložení hodnocení proběhlo v pořádku",
+    "doYouReallyCancelRequestBooking": "Opravdu chcete požádat o zrušení rezervace:",
+    "cancelbookingRequestWasSent": "Žádost o zrušení rezervace byla odeslána"
   }
 }

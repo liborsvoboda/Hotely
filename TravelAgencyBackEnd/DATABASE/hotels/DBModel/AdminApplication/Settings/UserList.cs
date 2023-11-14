@@ -17,6 +17,7 @@ namespace UbytkacBackend.DBModel
             BranchLists = new HashSet<BranchList>();
             Calendars = new HashSet<Calendar>();
             CityLists = new HashSet<CityList>();
+            CodeLibraryLists = new HashSet<CodeLibraryList>();
             CountryAreaCityLists = new HashSet<CountryAreaCityList>();
             CountryAreaLists = new HashSet<CountryAreaList>();
             CountryLists = new HashSet<CountryList>();
@@ -24,6 +25,9 @@ namespace UbytkacBackend.DBModel
             CurrencyLists = new HashSet<CurrencyList>();
             DocumentAdviceLists = new HashSet<DocumentAdviceList>();
             DocumentTypeLists = new HashSet<DocumentTypeList>();
+            DocumentationCodeLibraryLists = new HashSet<DocumentationCodeLibraryList>();
+            DocumentationGroupLists = new HashSet<DocumentationGroupList>();
+            DocumentationLists = new HashSet<DocumentationList>();
             EmailTemplateLists = new HashSet<EmailTemplateList>();
             ExchangeRateLists = new HashSet<ExchangeRateList>();
             GuestLists = new HashSet<GuestList>();
@@ -49,11 +53,15 @@ namespace UbytkacBackend.DBModel
             RegistrationInfoLists = new HashSet<RegistrationInfoList>();
             ReportLists = new HashSet<ReportList>();
             ReportQueueLists = new HashSet<ReportQueueList>();
+            SvgIconLists = new HashSet<SvgIconList>();
             SystemFailLists = new HashSet<SystemFailList>();
             SystemLanguageLists = new HashSet<SystemLanguageList>();
             TemplateLists = new HashSet<TemplateList>();
             TermsLists = new HashSet<TermsList>();
+            ToolPanelDefinitionLists = new HashSet<ToolPanelDefinitionList>();
+            ToolTypeLists = new HashSet<ToolTypeList>();
             UbytkacInfoLists = new HashSet<UbytkacInfoList>();
+            WebMottoLists = new HashSet<WebMottoList>();
             WebSettingLists = new HashSet<WebSettingList>();
         }
 
@@ -103,6 +111,8 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("User")]
         public virtual ICollection<CityList> CityLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<CodeLibraryList> CodeLibraryLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<CountryAreaCityList> CountryAreaCityLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<CountryAreaList> CountryAreaLists { get; set; }
@@ -116,6 +126,12 @@ namespace UbytkacBackend.DBModel
         public virtual ICollection<DocumentAdviceList> DocumentAdviceLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<DocumentTypeList> DocumentTypeLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<DocumentationCodeLibraryList> DocumentationCodeLibraryLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<DocumentationGroupList> DocumentationGroupLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<DocumentationList> DocumentationLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<EmailTemplateList> EmailTemplateLists { get; set; }
         [InverseProperty("User")]
@@ -167,6 +183,8 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("User")]
         public virtual ICollection<ReportQueueList> ReportQueueLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<SvgIconList> SvgIconLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<SystemFailList> SystemFailLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<SystemLanguageList> SystemLanguageLists { get; set; }
@@ -175,7 +193,13 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("User")]
         public virtual ICollection<TermsList> TermsLists { get; set; }
         [InverseProperty("User")]
+        public virtual ICollection<ToolPanelDefinitionList> ToolPanelDefinitionLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<ToolTypeList> ToolTypeLists { get; set; }
+        [InverseProperty("User")]
         public virtual ICollection<UbytkacInfoList> UbytkacInfoLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<WebMottoList> WebMottoLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<WebSettingList> WebSettingLists { get; set; }
     }

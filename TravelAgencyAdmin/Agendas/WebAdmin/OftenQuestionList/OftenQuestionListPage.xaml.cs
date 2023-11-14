@@ -1,7 +1,10 @@
-﻿using MahApps.Metro.Controls.Dialogs;
+﻿using ICSharpCode.AvalonEdit.Highlighting;
+using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,6 +24,8 @@ namespace UbytkacAdmin.Pages {
         public static OftenQuestionList selectedRecord = new OftenQuestionList();
 
         private List<OftenQuestionList> OftenQuestionList = new List<OftenQuestionList>();
+        private List<CodeLibraryList> codeLibraryList = new List<CodeLibraryList>();
+
 
         public OftenQuestionListPage() {
             InitializeComponent();
@@ -30,10 +35,11 @@ namespace UbytkacAdmin.Pages {
                 lbl_id.Content = Resources["id"].ToString();
                 lbl_name.Content = Resources["fname"].ToString();
                 lbl_sequence.Content = Resources["sequence"].ToString();
-                lbl_descriptionCz.Content = Resources["descriptionCz"].ToString();
-                //lbl_descriptionEn.Content = Resources["descriptionEn"].ToString();
+
+                btn_loadFromFile.Content = Resources["loadFromFile"].ToString();
 
                 btn_save.Content = Resources["btn_save"].ToString();
+                btn_saveClose.Content = Resources["saveClose"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
@@ -44,8 +50,10 @@ namespace UbytkacAdmin.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-
+                codeLibraryList = await ApiCommunication.GetApiRequest<List<CodeLibraryList>>(ApiUrls.CodeLibraryList, null, App.UserData.Authentification.Token);
                 DgListView.ItemsSource = OftenQuestionList = await ApiCommunication.GetApiRequest<List<OftenQuestionList>>(ApiUrls.OftenQuestionList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+
+                lb_dataList.ItemsSource = codeLibraryList;
 
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
@@ -119,14 +127,59 @@ namespace UbytkacAdmin.Pages {
             SetRecord(false);
         }
 
-        private async void BtnSave_Click(object sender, RoutedEventArgs e) {
+        private void SetRecord(bool showForm, bool copy = false) {
+            txt_id.Value = (copy) ? 0 : selectedRecord.Id;
+            txt_name.Text = selectedRecord.Name;
+            txt_sequence.Value = (txt_id.Value == 0) ? OftenQuestionList.Any() ? OftenQuestionList.Max(a => a.Sequence) + 10 : 10 : selectedRecord.Sequence;
+
+            //html_htmlContent.HtmlContent = selectedRecord.DescriptionCz;
+            html_htmlContent.Browser.OpenDocument(selectedRecord.DescriptionCz);
+            if ((bool)EditorSelector.IsChecked) { html_htmlContent.Browser.OpenDocument(selectedRecord.DescriptionCz); }
+            else { txt_codeContent.Text = selectedRecord.DescriptionCz; }
+
+
+            if (showForm) {
+                MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
+                ListView.Visibility = Visibility.Hidden; ListForm.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
+            } else {
+                MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
+                ListForm.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
+            }
+        }
+
+        private async void BtnSave_Click(object sender, RoutedEventArgs e) => await SaveRecord(false, false);
+        private async void BtnSaveClose_Click(object sender, RoutedEventArgs e) => await SaveRecord(true, false);
+        private async void BtnSaveAsNew_Click(object sender, RoutedEventArgs e) => await SaveRecord(false, true);
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e) {
+            selectedRecord = (DgListView.SelectedItems.Count > 0) ? (OftenQuestionList)DgListView.SelectedItem : new OftenQuestionList();
+            SetRecord(false);
+        }
+
+        private void BtnLoadFromFile_Click(object sender, RoutedEventArgs e) {
             try {
+                OpenFileDialog dlg = new OpenFileDialog() { DefaultExt = ".html", Filter = "Html files |*.html|All files (*.*)|*.*", Title = Resources["fileOpenDescription"].ToString() };
+                if (dlg.ShowDialog() == true) {
+                    if ((bool)EditorSelector.IsChecked) { html_htmlContent.Browser.OpenDocument(File.ReadAllText(dlg.FileName, FileOperations.FileDetectEncoding(dlg.FileName))); }
+                    else { txt_codeContent.Text = File.ReadAllText(dlg.FileName, FileOperations.FileDetectEncoding(dlg.FileName)); }
+                }
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
+        }
+
+        private async Task<bool> SaveRecord(bool closeForm, bool asNew) {
+            try {
+                MainWindow.ProgressRing = Visibility.Visible;
+
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.Name = txt_name.Text;
                 selectedRecord.Sequence = int.Parse(txt_sequence.Value.ToString());
-                selectedRecord.DescriptionCz = html_descriptionCz.Browser.GetCurrentHtml();
-                //selectedRecord.DescriptionEn = html_descriptionEn.Text;
+
+                if ((bool)EditorSelector.IsChecked) { selectedRecord.DescriptionCz = html_htmlContent.Browser.GetCurrentHtml(); }
+                else { selectedRecord.DescriptionCz = txt_codeContent.Text; }
+
+                selectedRecord.UserId = App.UserData.Authentification.Id;
+                selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
@@ -135,35 +188,43 @@ namespace UbytkacAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
                     dBResult = await ApiCommunication.PutApiRequest(ApiUrls.OftenQuestionList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.OftenQuestionList, httpContent, null, App.UserData.Authentification.Token); }
+                }
+                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.OftenQuestionList, httpContent, null, App.UserData.Authentification.Token); }
 
-                if (dBResult.RecordCount > 0) {
-                    selectedRecord = new OftenQuestionList();
-                    await LoadDataList();
-                    SetRecord(false);
-                } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
+                if (closeForm) { await LoadDataList(); selectedRecord = new OftenQuestionList(); SetRecord(false); }
+                if (dBResult.RecordCount == 0) { await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage); }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
+            MainWindow.ProgressRing = Visibility.Hidden;
+            return true;
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e) {
-            selectedRecord = (DgListView.SelectedItems.Count > 0) ? (OftenQuestionList)DgListView.SelectedItem : new OftenQuestionList();
-            SetRecord(false);
+
+        //Include Template on end in Editor
+        private void DataListDoubleClick(object sender, MouseButtonEventArgs e) {
+            if (lb_dataList.SelectedItems.Count > 0) {
+                if ((bool)EditorSelector.IsChecked) { html_htmlContent.HtmlContent += ((CodeLibraryList)lb_dataList.SelectedItem).HtmlContent; }
+                else { txt_codeContent.Text += ((CodeLibraryList)lb_dataList.SelectedItem).HtmlContent; }
+
+            }
         }
 
-        private void SetRecord(bool showForm, bool copy = false) {
-            txt_id.Value = (copy) ? 0 : selectedRecord.Id;
-            txt_name.Text = selectedRecord.Name;
-            txt_sequence.Value = (txt_id.Value == 0) ? OftenQuestionList.Any() ? OftenQuestionList.Max(a => a.Sequence) + 10 : 10 : selectedRecord.Sequence;
 
-            html_descriptionCz.HtmlContent = selectedRecord.DescriptionCz;
-            //html_descriptionEn.Text = selectedRecord.DescriptionEn;
+        private void HighlightCodeChanged(object sender, SelectionChangedEventArgs e) {
+            txt_codeContent.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition(((ListBoxItem)code_selector.SelectedValue).Content.ToString());
+        }
 
-            if (showForm) {
-                MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
-                ListView.Visibility = Visibility.Hidden; ListForm.Visibility = Visibility.Visible; dataViewSupport.FormShown = true;
-            } else {
-                MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = true;
-                ListForm.Visibility = Visibility.Hidden; ListView.Visibility = Visibility.Visible; dataViewSupport.FormShown = false;
+        private void EditorSelectorStatus(object sender, RoutedEventArgs e) {
+            if ((bool)EditorSelector.IsChecked) {
+                html_htmlContent.Browser.OpenDocument(selectedRecord.DescriptionCz);
+                html_htmlContent.Visibility = Visibility.Visible;
+                txt_codeContent.Visibility = Visibility.Hidden;
+                code_selector.Visibility = Visibility.Hidden;
+            }
+            else {
+                code_selector.Visibility = Visibility.Visible;
+                txt_codeContent.Text = selectedRecord.DescriptionCz;
+                txt_codeContent.Visibility = Visibility.Visible;
+                html_htmlContent.Visibility = Visibility.Hidden;
             }
         }
     }

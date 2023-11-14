@@ -29,7 +29,7 @@
     WindowTransitionsEnabled="True"
     mc:Ignorable="d">
 
-    <Controls:MetroWindow.Resources>
+    <!--<Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <Image
                 x:Key="GroupwareSolution" x:Name="GroupwareSolution" Source="Data\groupware-solution.png" />
@@ -77,7 +77,7 @@
                 <Setter Property="Cursor" Value="Hand" />
             </Style>
         </ResourceDictionary>
-    </Controls:MetroWindow.Resources>
+    </Controls:MetroWindow.Resources>-->
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -157,10 +157,9 @@
                 <ToolBar
                     x:Name="tb_verticalMenu" Width="120" Height="34" Margin="0" Padding="0"
                     HorizontalAlignment="Left"
-                    Style="{StaticResource SystemMenu}"
                     ToolBarTray.IsLocked="True">
                     <TreeViewItem
-                        x:Name="tv_agendas" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_agendas" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_calendar" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -189,10 +188,18 @@
                             x:Name="tm_documentTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_codeLibraryList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                         <TreeViewItem
+                            x:Name="tm_toolPanelDefinitionList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
 
                     <TreeViewItem
-                        x:Name="tv_approvalProcesses" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_approvalProcesses" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_approvingProcess" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -204,7 +211,23 @@
                     </TreeViewItem>
 
                     <TreeViewItem
-                        x:Name="tv_dials" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_documentations" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        <TreeViewItem
+                            x:Name="tm_documentationCodeLibraryList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_documentationGroupList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_documentationList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />                      
+                    </TreeViewItem>
+                  
+                    <TreeViewItem
+                        x:Name="tv_dials" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_cityList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -229,9 +252,17 @@
                             x:Name="tm_countryAreaList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_toolTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_svgIconList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_accommodationConfiguration" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_accommodationConfiguration" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_hotelActionTypeList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -258,7 +289,7 @@
                             PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_accommodations" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_accommodations" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
 
                         <TreeViewItem
                             x:Name="tm_accommodation" HorizontalAlignment="Stretch" Cursor="Hand"
@@ -278,7 +309,7 @@
                             PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_webAdmin" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_webAdmin" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_holidayTipsList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -307,10 +338,14 @@
                             x:Name="tm_webSettingList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_webMottoList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
 
                     <TreeViewItem
-                        x:Name="tv_hosts" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_hosts" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_hotelReservationReviewList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -321,9 +356,19 @@
                             PreviewMouseDown="Menu_Selected" />
 
                     </TreeViewItem>
+                  
+                    <TreeViewItem
+                        x:Name="tv_tools" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        <TreeViewItem
+                            x:Name="tm_toolPanel" Width="280" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand"
+                            FontSize="20"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+
+                    </TreeViewItem>
 
                     <TreeViewItem
-                        x:Name="tv_guests" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_guests" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_guestList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -340,15 +385,15 @@
                             x:Name="tm_hotelReservationList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
-                      <TreeViewItem
-                          x:Name="tm_guestSettingList" HorizontalAlignment="Stretch" Cursor="Hand"
-                          IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                          PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_guestSettingList" HorizontalAlignment="Stretch" Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
 
                     </TreeViewItem>
 
                     <TreeViewItem
-                        x:Name="tv_settings" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_settings" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_accessRoleList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
@@ -387,7 +432,7 @@
                             PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
                     <TreeViewItem
-                        x:Name="tv_system" Width="230" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
+                        x:Name="tv_system" Width="280" Margin="0" FontSize="20" PreviewMouseDown="Menu_Selected">
                         <TreeViewItem
                             x:Name="tm_clientSettings" HorizontalAlignment="Stretch" Cursor="Hand" PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
@@ -398,7 +443,7 @@
                             x:Name="tm_systemFailList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
-                      <TreeViewItem
+                        <TreeViewItem
                             x:Name="tm_adminLoginHistoryList" HorizontalAlignment="Stretch" Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />

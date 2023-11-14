@@ -2,7 +2,7 @@
     <div class="pt-0 mt-0">
         <div class="p-4 bg-light rounded shadow-sm">
             <h5>{{ $t('labels.averageRating') }}:</h5>
-            <input data-role="rating" :data-value="hotel.averageRating" data-static="true">
+            <input data-role="rating" :data-value="hotel.averageRating" data-stared-color="#b59a09" data-static="true">
             <div class="col-lg-12 col-md-12" v-html="($store.state.language == 'cz') ? hotel.descriptionCz : hotel.descriptionEn" />
             <h4>{{ $t('labels.servicesAndProperties') }}:</h4>
 

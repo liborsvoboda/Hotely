@@ -18,7 +18,8 @@ namespace UbytkacAdmin.Classes {
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public int EnabledCommDaysBeforeStart { get; set; }
-
+        public int StornoDaysCountBeforeStart { get; set; }
+        public bool GuestStornoEnabled { get; set; }
 
         public string CountryTranslation { get; set; }
         public string CityTranslation { get; set; }

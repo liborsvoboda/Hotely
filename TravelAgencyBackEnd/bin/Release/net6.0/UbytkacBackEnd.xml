@@ -9,6 +9,31 @@
             Auto Updated LocalDials - in Future Can be setted as Server Configurator
             </summary>
         </member>
+        <member name="T:UbytkacBackend.CoreClasses.ProcessClass">
+            <summary>
+            Server Process class for running external prrocesses
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.ServerDocApi.GenerateMdBook">
+            <summary>
+            Server Inteligent Documentation Generator Api
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.SystemDocApi.GetMdLibraryPreview(System.Int32)">
+            <summary>
+            Documentation Code Manager Html Preview Api
+            Startup Viewer
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:UbytkacBackend.Controllers.SystemDocApi.GetMdPreviewFile(System.Int32)" -->
+        <member name="M:UbytkacBackend.Controllers.SystemDocApi.GetMdDocumentPreview(System.Int32)">
+            <summary>
+            Documentation Code Manager Html Preview Api
+            Startup Viewer
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer
@@ -174,13 +199,20 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.SystemFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
+        <member name="M:UbytkacBackend.ServerCoreFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
             <summary>
             Sends the mass mail.
             </summary>
             <param name="mailRequests">The mail requests.</param>
         </member>
-        <member name="M:UbytkacBackend.SystemFunctions.SendEmail(UbytkacBackend.CoreClasses.MailRequest)">
+        <member name="M:UbytkacBackend.ServerCoreFunctions.CreatePath(System.String)">
+            <summary>
+            Creates the path recursively.
+            </summary>
+            <param name="path">The path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.SendEmail(UbytkacBackend.CoreClasses.MailRequest)">
             <summary>
             System Mailer sending Emails To service email with detected fail for analyze and
             corrections on the Way provide better services every time !!! This You can implement
@@ -189,6 +221,32 @@
             </summary>
             <param name="mailRequest"></param>
             <param name="sendImmediately"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.RemoveWhitespace(System.String)">
+            <summary>
+            Removes the whitespace from the String.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.RunProcess(UbytkacBackend.CoreClasses.ProcessClass)">
+            <summary>
+            Server Function For Running External Processes
+            </summary>
+            <param name="processDefinition">The process definition.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.ClearFolder(System.String)">
+            <summary>
+            Full Clear Folder
+            </summary>
+            <param name="FolderName">Name of the folder.</param>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreFunctions.OperatingSystem">
+            <summary>
+            Extension For Checking Operation System 
+            of Server Running
+            </summary>
         </member>
         <member name="F:UbytkacBackend.Program.ServerDBLanguageList">
             <summary>

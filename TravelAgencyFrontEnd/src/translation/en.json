@@ -74,6 +74,7 @@
     "editLease": "Lease edit",
     "sendBookingRequest": "Send booking request",
     "cancelBooking": "Cancel booking",
+    "cancelRequestBooking": "Request of cancel booking",
     "reservationNumber": "Reservation number",
     "messagesHistory": "Messages history",
     "status": "Status",
@@ -211,7 +212,12 @@
     "calendarData": "Raservations Data",
     "bookingData": "All Data",
     "calendarDataTable": "Rezervation Table",
-    "date": "Date"
+    "date": "Date",
+    "stornoDaysCountBeforeStart": "Guest can Storno, Days count before start",
+    "guestStornoEnabled": "Host can storno",
+    "directly": "directly",
+    "byRequest": "by request"
+
   },
   "user": {
     "newPassword": "New Password",
@@ -268,7 +274,9 @@
     "translateAutomatically": "Translate automatically to browser language",
     "passwordNotHaveMinimalLength": "password not have Minimal Length: ",
     "passwordNotHaveMinimalLengthOrMailNotValid": "Email not Valid or password not have Minimal Length: ",
-    "addReviewWasSuccess": "Review insert was success"
+    "addReviewWasSuccess": "Review insert was success",
+    "doYouReallyCancelRequestBooking": "Do you really do request of cancel Booking:",
+    "cancelbookingRequestWasSent": "Request of cancel booking was sent"
 
   }
 }

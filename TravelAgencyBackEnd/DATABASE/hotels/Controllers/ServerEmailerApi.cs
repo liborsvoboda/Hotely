@@ -1,6 +1,6 @@
 ﻿using UbytkacBackend;
 
-namespace EASYDATACenter.ServerCoreDBSettings {
+namespace UbytkacBackend.ServerCoreDBSettings {
 
     /// <summary>
     /// Server Email sender Api for logged Communication

@@ -25,7 +25,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("AdvertiseCommentIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("AdvertiseCommentIsNotValid", record.Language)
             });
         }
 
@@ -54,7 +54,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("AdvertiseCommentIsNotValid", language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("AdvertiseCommentIsNotValid", language)
             });
         }
 
@@ -82,7 +82,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("AdvertiseCommentIsNotValid", language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("AdvertiseCommentIsNotValid", language)
             });
         }
     }

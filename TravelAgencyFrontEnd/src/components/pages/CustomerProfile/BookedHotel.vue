@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="text-right">{{ hotel.totalPrice }} {{ hotel.currency.name }}</div>
                                 <div v-if="hotel.hotelReservationReviewList != null" class="text-right">
-                                    <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-stared-color="cyan" data-static="true">
+                                    <input data-role="rating" :data-value="hotel.hotelReservationReviewList.rating" data-stared-color="#b59a09" data-static="true">
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,10 @@
                         {{ $t('labels.editLease') }}
                         <span v-if="newDetailCount > 0" class="badge fg-green mt-1 mr-2">{{ newDetailCount }}</span>
                     </div>
-                    <div :id="'CancelButton_'+hotel.reservationNumber" :class="(notEdit ? 'disabled' : '')" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelBooking') }}</div>
+
+                    <div v-if="hotel.hotel.guestStornoEnabled && !notCancel" @click="cancel(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelBooking') }}</div>
+                    <div v-if="!hotel.hotel.guestStornoEnabled && !notCancel" @click="cancelRequest(hotel.reservationNumber,hotel.id)" class="p-button p-component button info outline shadowed p-button-danger">{{ $t('labels.cancelRequestBooking') }}</div>
+
                     <div :id="'ReviewButton_'+hotel.reservationNumber" :class="(notReview ? 'disabled' : '')" class="p-button p-component button warning outline shadowed" @click="addRewiew">{{ $t('labels.ratings') }}</div>
                 </div>
                 <div v-else class="d-flex mb-2" style="font-weight:bold;color: red;bottom: -5px !important; position: absolute; left: 10px;">
@@ -99,6 +102,9 @@ export default {
         notEdit() {
             return new Date(new Date(this.hotel.startDate).getTime() - this.hotel.hotel.enabledCommDaysBeforeStart * 86400000) < new Date() || this.hotel.statusId != 1;
         },
+        notCancel() {
+            return new Date(new Date(this.hotel.startDate).getTime() - this.hotel.hotel.stornoDaysCountBeforeStart * 86400000) < new Date() || this.hotel.statusId != 1;
+        },
         notReview() {
             return this.hotel.hotelReservationReviewList != null;
         },
@@ -122,7 +128,7 @@ export default {
     mounted() {
         if (new Date(new Date(this.hotel.startDate).getTime() - this.hotel.hotel.enabledCommDaysBeforeStart * 86400000) < new Date() || this.hotel.statusId != 1) {
             $("#EditButton_" + this.hotel.reservationNumber).hide();
-            $("#CancelButton_" + this.hotel.reservationNumber).hide();
+            //$("#CancelButton_" + this.hotel.reservationNumber).hide();
         }
         if (new Date(this.hotel.endDate) <= new Date() && new Date(new Date(this.hotel.endDate).getTime() + Metro.storage.getItem('ReviewInsertDaysLimit', null) * 86400000) >= new Date() && this.hotel.statusId == 2 && this.hotel.hotelReservationReviewList == null) {
             $("#ReviewButton_" + this.hotel.reservationNumber).show();
@@ -157,6 +163,28 @@ export default {
             this.detail = false;
             this.edit = false;
             this.review = !this.review;
+        },
+        async cancelRequest(bookingNr, id) {
+            let message = prompt(this.$i18n.t("messages.doYouReallyCancelRequestBooking") + ' ' + bookingNr + this.$i18n.t("messages.writeCancelReason"));
+
+            if (message == null || message == "") {
+
+            } else {
+                var response = await fetch(
+                    this.$store.state.apiRootUrl + '/Guest/Booking/CancelRequestBooking', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + this.$store.state.user.Token,
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({ ReservationId: id, Message: message, Language: this.$store.state.language })
+                });
+                var result = await response.json()
+                await this.$store.dispatch('getBookingList');
+
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(this.$i18n.t("messages.cancelbookingRequestWasSent"), "Success", { cls: "success" }); notify.reset();
+            }
         },
         async cancel(bookingNr ,id) {
             let message = prompt(this.$i18n.t("messages.doYouReallyCancelBooking") + ' ' + bookingNr + this.$i18n.t("messages.writeCancelReason"));

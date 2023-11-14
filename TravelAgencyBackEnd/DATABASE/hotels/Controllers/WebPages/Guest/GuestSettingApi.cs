@@ -55,7 +55,7 @@
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = DBOperations.DBTranslate("SettingsIsNotValid", record.Language)
+                ErrorMessage = ServerCoreDbOperations.DBTranslate("SettingsIsNotValid", record.Language)
             });
         }
 

@@ -22,6 +22,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<BranchList> BranchLists { get; set; }
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<CityList> CityLists { get; set; }
+        public virtual DbSet<CodeLibraryList> CodeLibraryLists { get; set; }
         public virtual DbSet<CountryAreaCityList> CountryAreaCityLists { get; set; }
         public virtual DbSet<CountryAreaList> CountryAreaLists { get; set; }
         public virtual DbSet<CountryList> CountryLists { get; set; }
@@ -29,6 +30,9 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
         public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
+        public virtual DbSet<DocumentationCodeLibraryList> DocumentationCodeLibraryLists { get; set; }
+        public virtual DbSet<DocumentationGroupList> DocumentationGroupLists { get; set; }
+        public virtual DbSet<DocumentationList> DocumentationLists { get; set; }
         public virtual DbSet<EmailTemplateList> EmailTemplateLists { get; set; }
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GetTopFiveFavoriteList> GetTopFiveFavoriteLists { get; set; }
@@ -65,13 +69,17 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<RegistrationInfoList> RegistrationInfoLists { get; set; }
         public virtual DbSet<ReportList> ReportLists { get; set; }
         public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
+        public virtual DbSet<SvgIconList> SvgIconLists { get; set; }
         public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
         public virtual DbSet<SystemLanguageList> SystemLanguageLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
         public virtual DbSet<TermsList> TermsLists { get; set; }
+        public virtual DbSet<ToolPanelDefinitionList> ToolPanelDefinitionLists { get; set; }
+        public virtual DbSet<ToolTypeList> ToolTypeLists { get; set; }
         public virtual DbSet<UbytkacInfoList> UbytkacInfoLists { get; set; }
         public virtual DbSet<UserList> UserLists { get; set; }
         public virtual DbSet<UserRoleList> UserRoleLists { get; set; }
+        public virtual DbSet<WebMottoList> WebMottoLists { get; set; }
         public virtual DbSet<WebSettingList> WebSettingLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -149,6 +157,17 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_City_UserList");
+            });
+
+            modelBuilder.Entity<CodeLibraryList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CodeLibraryLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CodeLibraryList_UserList");
             });
 
             modelBuilder.Entity<CountryAreaCityList>(entity =>
@@ -268,6 +287,49 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentTypeList_UserList");
+            });
+
+            modelBuilder.Entity<DocumentationCodeLibraryList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.DocumentationCodeLibraryLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentationCodeLibraryList_UserList");
+            });
+
+            modelBuilder.Entity<DocumentationGroupList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.DocumentationGroupLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentationGroupList_UserList");
+            });
+
+            modelBuilder.Entity<DocumentationList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentationGroup)
+                    .WithMany(p => p.DocumentationLists)
+                    .HasForeignKey(d => d.DocumentationGroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentationList_DocumentationGroupList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.DocumentationLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentationList_UserList");
             });
 
             modelBuilder.Entity<EmailTemplateList>(entity =>
@@ -842,6 +904,17 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_ReportQueueList_UserList");
             });
 
+            modelBuilder.Entity<SvgIconList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SvgIconLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SvgIconList_UserList");
+            });
+
             modelBuilder.Entity<SystemFailList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -887,6 +960,34 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_TermsList_UserList");
             });
 
+            modelBuilder.Entity<ToolPanelDefinitionList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.ToolType)
+                    .WithMany(p => p.ToolPanelDefinitionLists)
+                    .HasForeignKey(d => d.ToolTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ToolPanelDefinitionList_ToolTypeList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ToolPanelDefinitionLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ToolPanelDefinitionList_UserList");
+            });
+
+            modelBuilder.Entity<ToolTypeList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ToolTypeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ToolTypeList_UserList");
+            });
+
             modelBuilder.Entity<UbytkacInfoList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -913,6 +1014,19 @@ namespace UbytkacBackend.DBModel
             modelBuilder.Entity<UserRoleList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<WebMottoList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.WebMottoLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WebMottoList_UserList");
             });
 
             modelBuilder.Entity<WebSettingList>(entity =>
