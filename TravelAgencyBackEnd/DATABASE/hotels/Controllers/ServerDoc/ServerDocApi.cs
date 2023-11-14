@@ -1,6 +1,4 @@
-﻿using UbytkacBackend.DBModel;
-using UbytkacBackend;
-
+﻿
 namespace UbytkacBackend.Controllers {
 
     [Authorize]
@@ -9,6 +7,15 @@ namespace UbytkacBackend.Controllers {
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerDocApi : ControllerBase {
 
+        /// <summary>
+        /// For wwwroot folder Update 
+        /// with detect changes 
+        /// and modify static pages
+        /// </summary>
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
+        public ServerDocApi(Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment) {
+            _hostingEnvironment = hostingEnvironment;
+        }
 
         /// <summary>
         /// Server Inteligent Documentation Generator Api
@@ -27,8 +34,8 @@ namespace UbytkacBackend.Controllers {
                     }
 
                     if (data.Any()) {
-                        ServerCoreFunctions.CreatePath(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book", "src"));
-                        ServerCoreFunctions.ClearFolder(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book", "src"));
+                        ServerCoreFunctions.CreatePath(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src"));
+                        ServerCoreFunctions.ClearFolder(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src"));
 
                         string lastDocGroup = "", summary = "";
                         data.ForEach(documentation => {
@@ -40,16 +47,16 @@ namespace UbytkacBackend.Controllers {
 
                             summary += "[" + documentation.Name + "](./" + ServerCoreFunctions.RemoveWhitespace(documentation.Name) + ".md" + ")   " + Environment.NewLine;
 
-                            System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book", "src", ServerCoreFunctions.RemoveWhitespace(documentation.Name) + ".md"), documentation.MdContent);
+                            System.IO.File.WriteAllText(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src", ServerCoreFunctions.RemoveWhitespace(documentation.Name) + ".md"), documentation.MdContent);
 
                         }); summary += "    ```  " + Environment.NewLine + Environment.NewLine + "---" + Environment.NewLine;
-                        System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book", "src", "SUMMARY.md"), summary);
+                        System.IO.File.WriteAllText(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src", "SUMMARY.md"), summary);
 
                         ProcessClass process = new ProcessClass();
                         if (ServerCoreFunctions.OperatingSystem.IsWindows()) {
-                            process = new ProcessClass() { Command = Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book", "generate-mdbook.bat"), Arguments = "", WorkingDirectory = Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book") };
+                            process = new ProcessClass() { Command = Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "generate-mdbook.bat"), Arguments = "", WorkingDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book") };
                         } else {
-                            process = new ProcessClass() { Command = "/bin/bash", Arguments = string.Format(" \"{0}\"", Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-book", "generate-mdbook.sh")) };
+                            process = new ProcessClass() { Command = "/bin/bash", Arguments = string.Format(" \"{0}\"", Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "generate-mdbook.sh")) };
                         }
 
                         ServerCoreFunctions.RunProcess(process);
@@ -60,6 +67,25 @@ namespace UbytkacBackend.Controllers {
             return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.youNotHaveRight.ToString() });
         }
 
+
+        //[HttpGet("GetHtml")]
+        //public IActionResult Index() {
+
+        //internal string ParseHtml(string Html) {
+        //    var doc = new HtmlDocument();
+        //    doc.LoadHtml(Html);
+
+        //    var htmlNodes = doc.DocumentNode.SelectSingleNode("//p[@class='pt-3']");
+
+        //    string rawText = htmlNodes.InnerText.Trim();
+
+        //    return rawText;
+        //}
+
+        //    var path = Path.Combine(_hostingEnvironment.WebRootPath, "Content", "Hello.html");
+        //    var fileStream = System.IO.File.OpenRead(path);
+        //    return File(fileStream, "text/html");
+        //}
 
 
 

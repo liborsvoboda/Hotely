@@ -31,6 +31,8 @@ namespace UbytkacBackend {
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=ServerCorePages}/{action=Index}/{id?}");
             });
         }
     }

@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\UbytkacBackEnd.bundle.scp.css",
+      "PackagePath": "staticwebassets\\UbytkacBackEnd.bundle.scp.css"
+    },
+    {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\.nojekyll",
       "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\.nojekyll"
     },
@@ -187,14 +191,6 @@
     {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\mdbook.exe",
       "PackagePath": "staticwebassets\\server-doc\\md-book\\mdbook.exe"
-    },
-    {
-      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\SUMMARY.md",
-      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\SUMMARY.md"
-    },
-    {
-      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md",
-      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md"
     },
     {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-viewer\\css\\3.2.0_css_bootstrap.css",

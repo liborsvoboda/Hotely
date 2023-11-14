@@ -82,3 +82,8 @@ E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\UbytkacBackEnd.pdb
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\UbytkacBackEnd.genruntimeconfig.cache
 E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\ref\UbytkacBackEnd.dll
 E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\UbytkacBackEnd.staticwebassets.runtime.json
+E:\Projekty\Hotely\TravelAgencyBackEnd\bin\Release\net6.0\Westwind.AspNetCore.LiveReload.dll
+E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\UbytkacBackEnd.RazorAssemblyInfo.cache
+E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\UbytkacBackEnd.RazorAssemblyInfo.cs
+E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\scopedcss\ServerCorePages\Shared\_Layout.cshtml.rz.scp.css
+E:\Projekty\Hotely\TravelAgencyBackEnd\obj\Release\net6.0\scopedcss\projectbundle\UbytkacBackEnd.bundle.scp.css

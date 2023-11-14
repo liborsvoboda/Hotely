@@ -14,6 +14,13 @@
             Server Process class for running external prrocesses
             </summary>
         </member>
+        <member name="F:UbytkacBackend.Controllers.ServerDocApi._hostingEnvironment">
+            <summary>
+            For wwwroot folder Update 
+            with detect changes 
+            and modify static pages
+            </summary>
+        </member>
         <member name="M:UbytkacBackend.Controllers.ServerDocApi.GenerateMdBook">
             <summary>
             Server Inteligent Documentation Generator Api
@@ -77,6 +84,12 @@
             <param name="token">   The token.</param>
             <returns>The result.</returns>
         </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.ServerEmailerApi">
+            <summary>
+            Server Email sender Api for logged Communication
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
+        </member>
         <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
             <summary>
             Server Core: Configure Server Logging
@@ -127,49 +140,6 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="T:UbytkacBackend.DBOperations">
-            <summary>
-            All Server Definitions of Database Operation method
-            </summary>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.LoadStaticDbDials(System.Nullable{UbytkacBackend.CoreClasses.ServerLocalDbDials})">
-            <summary>
-            Method for All Server Defined Table for Local Using As OffLine AutoUpdated Tables
-            </summary>
-            <param name="onlyThis"></param>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.WriteAppLogin(System.String,System.Int32,System.String)">
-            <summary>
-            Trigger User Login History
-            </summary>
-            <param name="ipAddress"></param>
-            <param name="userId">   </param>
-            <param name="userName"> </param>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.WriteWebLogin(System.String,System.Int32,System.String)">
-            <summary>
-            Trigger Web Guest Login History
-            </summary>
-            <param name="ipAddress"></param>
-            <param name="guestId">  </param>
-            <param name="email">    </param>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.DBTranslateOffline(System.String,System.String)">
-            <summary>
-            Database LanuageList for Off-line Using Definitions
-            </summary>
-            <param name="word">    </param>
-            <param name="language"></param>
-            <returns></returns>
-        </member>
-        <member name="M:UbytkacBackend.DBOperations.DBTranslateOnline(System.String,System.String)">
-            <summary>
-            Database LanuageList for On-line Using Definitions
-            </summary>
-            <param name="word">    </param>
-            <param name="language"></param>
-            <returns></returns>
-        </member>
         <member name="M:UbytkacBackend.Functions.RandomString(System.Int32)">
             <summary>
             Randoms the string.
@@ -197,6 +167,49 @@
             Set Imported Certificate from file on Server for Https 
             File must has Valid path from Startup Data Path
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDbOperations">
+            <summary>
+            All Server Definitions of Database Operation method
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.LoadStaticDbDials(System.Nullable{UbytkacBackend.CoreClasses.ServerLocalDbDials})">
+            <summary>
+            Method for All Server Defined Table for Local Using As OffLine AutoUpdated Tables
+            </summary>
+            <param name="onlyThis"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.WriteAppLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger User Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="userId">   </param>
+            <param name="userName"> </param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.WriteWebLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger Web Guest Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="guestId">  </param>
+            <param name="email">    </param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.DBTranslateOffline(System.String,System.String)">
+            <summary>
+            Database LanuageList for Off-line Using Definitions
+            </summary>
+            <param name="word">    </param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDbOperations.DBTranslateOnline(System.String,System.String)">
+            <summary>
+            Database LanuageList for On-line Using Definitions
+            </summary>
+            <param name="word">    </param>
+            <param name="language"></param>
             <returns></returns>
         </member>
         <member name="M:UbytkacBackend.ServerCoreFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
@@ -279,12 +292,6 @@
             </summary>
             <param name="app"></param>
             <param name="env"></param>
-        </member>
-        <member name="T:EASYDATACenter.ServerCoreDBSettings.ServerEmailerApi">
-            <summary>
-            Server Email sender Api for logged Communication
-            </summary>
-            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>
         <member name="T:UbytkacBackEnd.MimeTypes">
             <summary>

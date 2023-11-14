@@ -32,6 +32,7 @@ namespace UbytkacBackend {
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStaticWebAssets();
                     webBuilder.UseUrls(new string[] { "http://*:5000", "https://*:5001" });
                 });
 

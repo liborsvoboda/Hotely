@@ -20,9 +20,9 @@ namespace UbytkacBackend.Controllers {
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted })) { data = new hotelsContext().DocumentationCodeLibraryLists.Where(a => a.Id == id).First().MdContent;
             }
-            ServerCoreFunctions.ClearFolder(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "preview", "data"));
-            System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "preview", "data", "preview.md"), data);
-            return new RedirectResult("/server-doc/preview");
+            ServerCoreFunctions.ClearFolder(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-preview", "data"));
+            System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-preview", "data", "preview.md"), data);
+            return new RedirectResult("/server-doc/md-preview");
         }
 
 
@@ -34,7 +34,7 @@ namespace UbytkacBackend.Controllers {
         /// <returns></returns>
         [HttpGet("/WebApi/WebDocumentation/MdPreviewFile")]
         public string GetMdPreviewFile(int id) {
-            string previewMd = System.IO.File.ReadAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "preview", "data", "preview.md"));
+            string previewMd = System.IO.File.ReadAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-preview", "data", "preview.md"));
             return previewMd.ToString(); 
         }
 
@@ -52,9 +52,9 @@ namespace UbytkacBackend.Controllers {
             })) {
                 data = new hotelsContext().DocumentationLists.Where(a => a.Id == id).First().MdContent;
             }
-            ServerCoreFunctions.ClearFolder(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "preview", "data"));
-            System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "preview", "data", "preview.md"), data);
-            return new RedirectResult("/server-doc/preview");
+            ServerCoreFunctions.ClearFolder(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-preview", "data"));
+            System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-doc", "md-preview", "data", "preview.md"), data);
+            return new RedirectResult("/server-doc/md-preview");
         }
 
 

@@ -17,6 +17,7 @@ namespace UbytkacBackend {
 
         internal static void ConfigureControllers(ref IServiceCollection services) {
             services.AddRouting(options => { options.LowercaseUrls = true; });
+            services.AddRazorPages();
             services.AddControllersWithViews(options =>
             {
                 options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;

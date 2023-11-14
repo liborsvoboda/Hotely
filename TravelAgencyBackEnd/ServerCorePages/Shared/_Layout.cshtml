@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="charset" content="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Libor Svoboda">
+    <meta name="description" content="Golden">
+    <meta name="keywords" content="System, Backend, API, EASY-DATA-Center, EASY-SYSTEM-Builder, Application, Server, IT, Solution, Help, HowTo, Javascript, HTML5, UI, Library, Web, Development, Framework">
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    @* <title>@ViewData["Title"]</title> *@
+    @RenderSection( "HeadLink", required: false )
+    @RenderSection( "CssPart", required: false )
+
+
+</head>
+<body id="body" data-section="body">
+    
+    @* BODY *@
+    <div class="container">
+        <main id="WebPageHTMLContent" role="main" class="" style="top: 50px; position: relative;">
+            @RenderBody()
+        </main>
+    </div>
+    
+   @*START FOOTER PART*@
+    <footer class="fixed-bottom bg-black fixed-top z-top ">
+
+    </footer>
+
+
+@*     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="~/metro/js/common.js"></script>
+    <script type="text/javascript" src="~/metro/js/browser.js"></script>
+    <script type="text/javascript" src="~/metro/js/history.js"></script>
+    <script type="text/javascript" src="~/metro/js/addBlocker.js"></script> *@
+
+    @await RenderSectionAsync( "JsPart", required: false )
+    @await RenderSectionAsync( "ScriptPart", required: false )
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
