@@ -553,7 +553,7 @@
     <system:String x:Key="toolTypeList" xml:space="preserve">Typy nástrojů</system:String>
     <system:String x:Key="toolType" xml:space="preserve">Typ nástroje</system:String>
     <system:String x:Key="toolTypeId" xml:space="preserve">Id</system:String>
-    <system:String x:Key="toolPanelDefinitionList" xml:space="preserve">Panel Nástrojů</system:String>
+    <system:String x:Key="toolPanelDefinitionList" xml:space="preserve">Definice Nástrojů</system:String>
     <system:String x:Key="svgIconPath" xml:space="preserve">Cesta Svg Ikony</system:String>
     <system:String x:Key="svgIconList" xml:space="preserve">Systémové Ikony</system:String>
 

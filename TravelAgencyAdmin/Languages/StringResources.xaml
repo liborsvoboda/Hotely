@@ -553,7 +553,7 @@
     <system:String x:Key="toolTypeList" xml:space="preserve">Tool Types</system:String>
     <system:String x:Key="toolType" xml:space="preserve">Tool type</system:String>
     <system:String x:Key="toolTypeId" xml:space="preserve">Id</system:String>
-    <system:String x:Key="toolPanelDefinitionList" xml:space="preserve">Tool panel definition</system:String>
+    <system:String x:Key="toolPanelDefinitionList" xml:space="preserve">Tool Definitions</system:String>
     <system:String x:Key="svgIconPath" xml:space="preserve">SvgIcon Path</system:String>
     <system:String x:Key="svgIconList" xml:space="preserve">System Icons</system:String>
 

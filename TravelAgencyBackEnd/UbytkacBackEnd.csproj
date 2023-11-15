@@ -46,6 +46,10 @@
     <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DATABASE\hotels\Controllers\ServerDoc\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="robocopy &quot;$(ProjectDir)wwwroot&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net6.0\wwwroot&quot; /s /e &#xD;&#xA; exit /b 0" />
   </Target>

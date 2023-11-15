@@ -42,42 +42,6 @@
 
             <TabControl
                 x:Name="TabMenuList" Background="Transparent" FontSize="10" TabStripPlacement="Left">
-
-                <!--<TabItem x:Name="ti_onlineManuals" Header="OnlineManuals">
-                    <WrapPanel
-                        x:Name="wp_onlineManuals" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>
-
-                <TabItem x:Name="ti_docTools" Header="DocTools">
-                    <WrapPanel
-                        x:Name="wp_docTools" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>
-
-                <TabItem x:Name="ti_webTools" Header="WebTools">
-                    <WrapPanel
-                        x:Name="wp_webTools" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>
-
-                <TabItem x:Name="ti_serverTools" Header="ServerTools">
-                    <WrapPanel
-                        x:Name="wp_serverTools" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>
-
-                <TabItem x:Name="ti_solutionTools" Header="SolutionTools">
-                    <WrapPanel
-                        x:Name="wp_solutionTools" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>
-
-                <TabItem x:Name="ti_moreProducts" Header="MoreProducts">
-                    <WrapPanel
-                        x:Name="wp_moreProducts" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>
-
-                <TabItem x:Name="ti_devTools" Header="DevTools">
-                    <WrapPanel
-                        x:Name="wp_devTools" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </TabItem>-->
-
             </TabControl>
         </ScrollViewer>
     </Grid>

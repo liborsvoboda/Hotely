@@ -32,7 +32,6 @@ namespace UbytkacBackend.CoreClasses {
     public enum DBResult {
         success,
         error,
-        youNotHaveRight,
         DeniedYouAreNotAdmin
     }
 
