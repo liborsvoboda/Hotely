@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+	<title>Doc Expert Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="charset" content="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Libor Svoboda">
+    <meta name="description" content="Documentation MultiMedia Expert Manager">
+    <meta name="keywords" content="Documentation, DocumentFlow, MarkDown, Graph, Structure, Version, MindMap, Uml">
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+	
+    <!-- <link id="color-scheme" href="./css/schemes/sky-net.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/default.min.css" />
+	<link rel="stylesheet" href="./mavon/css/index.css" />
+	<link rel="stylesheet" href="./mavon/markdown/github-markdown.min.css" />
+	<link rel="stylesheet" href="./mavon/katex/katex.min.css" />
+	<link rel="stylesheet" href="./css/metro-all.min.css" />
+	
+	<script>
+		const ColorStyles = ["agate","androidstudio","arduino-light","arta","ascetic","atom-one-dark","atom-one-light","brown-paper","codepen-embed","color-brewer","dark","default","docco","far","foundation","github","googlecode","grayscale","hybrid","idea","ir-black","magula","mono-blue","monokai-sublime","monokai","obsidian","paraiso-dark","paraiso-light","pojoaque","purebasic","rainbow","routeros","school-book","sunburst","tomorrow-night-blue","tomorrow-night-bright","vs","vs2015","xcode","xt256","a11y-dark","a11y-light","an-old-hope","atom-one-dark-reasonable","brown-pap","devibeans","github-dark","github-dark-dimmed","gml","gradient-dark","gradient-light","isbl-editor-dark","isbl-editor-light","kimbie-dark","kimbie-light","lightfair","lioshi","night-owl","nnfx-dark","nnfx-light","nord","pojo","qtcreator-dark","qtcreator-light","shades-of-purple","srcery","stackoverflow-dark","stackoverflow-light"];
+	</script>
+  </head>
+
+  <body id="body" class="editor-light">
+	  <div id="app">
+		  <mavon-editor id="Mavon"
+					:autofocus="true"
+					:scrollStyle="true"
+					:shortCut="true"
+					:transition="true"
+					:toolbarsFlag="false"
+					:editable="true"
+					:subfield="subfield"
+					:codeStyle="codeStyle"
+					:boxShadow="false"
+					:ishljs="true"
+					:toolbars="toolbar"
+					v-model="DocContent"
+					:externalLink="externalLink"
+					ref=md @imgAdd="$imgAdd" @imgDel="$imgDel"
+					:navigation="false"
+					:xssOptions="xssOptions"
+					@change="change" @save="saveone"
+					class="item-editor"
+					style="min-height: 100%;">
+			  <template slot="left-toolbar-before">
+			  </template>
+			  <template slot="left-toolbar-after">
+				   <div type="button" class="p-0 m-0 button c-help" style="margin-left:0px !important;width:350px;">
+					<div class="text-left c-help" title="Play music for Comfortable Work">
+						<audio id="radio" class="light bg-transparent" data-role="audio-player" :data-src="AudioFileUrl" data-volume=".5"></audio>
+					</div>
+				</div>
+				  <div type="button" class="p-0 m-0 button c-help" style="width:400px;">
+					  <div class="text-left c-help" title="Automatic Translation">
+						  <div id="google_translate_element"></div>
+					  </div>
+				  </div>
+
+			  </template>
+			  <template slot="right-toolbar-before">
+<!-- 				  <div type="button" class="p-0 m-0 button c-help" style="width:280px;">
+					  <div id="MemoryDocFilesCounter" type="button" class="p-0 m-0 c-default">Files Loaded in Memory: 0 </div>
+					  <div id="ReloadFilesMenu" type="button" class="mif-spinner4 mif-2x p-2 m-0 c-pointer mif-3  ani-hover-pulse" @click="ReloadFiles" title="Reload Files"></div>
+				  </div>
+ -->
+				  <div type="button" class="op-icon mif-delicious mif-2x p-2 m-0 c-pointer mif-3" @click="MermaidConvert" title="Convert Mermaid Graphics Objects"></div>
+
+				  <span class="m-0 button" style="width:230px;" title="Export & Multiple Export Md,Html,Pdf Files">
+					  <select id="OutputMenu" data-role="select" data-filter="false" data-on-change='OutputAction' data-add-empty-value="true">
+						  <option value="html" data-template="<span class='mif-document-file-html pt-1 icon'></span> $1">Html Export</option>
+						  <option value="md" data-template="<span class='mif-leanpub pt-1 icon'></span> $1">Md Export</option>
+						  <option value="pdf" data-template="<span class='mif-document-file-pdf pt-1 icon'></span> $1">Pdf Export</option>
+					  </select>
+				  </span>
+			  </template>
+		  </mavon-editor>
+	  </div>
+
+	 <!--  <aside class="sidebar pos-absolute z-2"
+		   data-role="sidebar"
+		   data-toggle="#sidebar-toggle-4"
+		   id="sb4"
+		   data-shift=".shifted-content-2"
+		   data-static-shift=".shifted-content-2"
+		   style="z-index: 10000 !important;width: 250px;height:100%;"
+		   data-static="md">
+		  <div class="sidebar-header">
+			  <input type="text" data-role="input" data-search-button="true" data-history="true">
+
+			  <div class="d-block">
+				  <video data-role="video-player" data-src="https://metroui.org.ua/res/oceans.mp4"></video>
+			  </div>
+		  </div>
+		  <div id="FileMenuRoot" class="pt-4">
+			  <ul id="FileMenu" class="sidebar-menu">
+				 <!--  <li class="divider"></li>
+				  <li class="group-title">Group one</li>
+				  <li><a><span class="mif-books icon"></span>Guide</a></li> -->
+			  </ul>
+		  </div>
+	  </aside> -->
+
+		  <script src="./config/config.js"></script>
+		  <script src="./mavon/jquery-3.6.0.min.js"></script>
+		  <script src="./js/vue2.global.js"></script>
+		  <script src="./js/axios.min.js"></script>
+		  <script src="./js/highlight.min.js"></script>
+		  <script src="./js/vue3-highlight.min.js"></script>
+		  <script src="./js/markdown-it.min.js"></script>
+		  <script src="./mavon/highlightjs/highlight.min.js"></script>
+		  <script src="./mavon/mavon-editor.js"></script>
+		  <script src="./mavon/katex/katex.min.js"></script>
+		  <script src="./mavon/mermaid/mermaid.min.cdn.js"></script>
+		  <script src="./js/metro.min.4.5.2.js"></script>
+		  <script src="./js/jspdf.umd.min.js"></script>
+		  <script src="./js/html2canvas.min.js"></script>
+
+		  <script src="./js/globalVariables.js"></script>
+		  <script src="./js/globalFunctions.js"></script>
+
+
+		  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+		  <script>
+		  //Startup Running
+		  jsPDF = jspdf.jsPDF;
+		  showPageLoading();
+
+		  //initiate graphs on Startup
+		  $(document).ready(async function () {
+			  PrintArea = $("#Mavon > div.v-note-panel > div.v-note-show > div.v-show-content.scroll-style.scroll-style-border-radius");
+			  mermaid.init({}, "lang-mermaid");
+			  await mermaid.run({
+				  nodes: document.querySelectorAll('.lang-mermaid'),
+			  });
+			  hidePageLoading();
+		  });
+
+
+		  // Vue Part
+		  Vue.use(MavonEditor);
+		  MavonEditor.markdownIt = markdownit();
+		  let markdownItPlugin = MavonEditor.mavonEditor.getMarkdownIt();
+		  markdownItPlugin.set({ html: true, linkify: true, typographer: true, breaks: false, xhtmlOut: true }); markdownItPlugin.linkify.set({ fuzzyEmail: false });
+
+
+
+		  Vue.use(Vue3Highlightjs);
+		  Vue.use(mermaid);
+		  var app = new Vue({
+			  el: '#app',
+			  data() {
+				  return {
+					  subfield: true,
+					  codeStyle: 'github-dark',
+					  xssOptions: { whiteList: { span: ['style'] } },
+					  toolbar: {
+						  bold: false, italic: false, header: false, underline: false, strikethrough: false, mark: false,
+						  superscript: false, subscript: false, quote: false, ol: false, ul: false, link: false, imagelink: false,
+						  code: false, table: false, fullscreen: false, readmodel: false, htmlcode: false, help: false,
+						  undo: false, redo: false, trash: false, save: false, navigation: false,
+						  alignleft: false, aligncenter: false, alignright: false, subfield: false, preview: false, toolbarsFlag: false, defaultOpen: "preview"
+					  },
+					  externalLink: {
+						  markdown_css: function () { return './mavon/markdown/github-markdown.min.css'; },
+						  hljs_js: function () { return './mavon/highlightjs/highlight.min.js'; },
+						  hljs_css: function (css) { console.log("hljs_css", css); return './mavon/highlightjs/styles/' + css + '.min.css'; },
+						  hljs_lang: function (lang) { return './mavon/highlightjs/languages/' + lang + '.min.js'; },
+						  katex_css: function () { return './mavon/katex/katex.min.css'; },
+						  katex_js: function () { return './mavon/katex/katex.min.js'; },
+					  }
+				  }
+			  },
+			  async mounted() {
+
+				  let logged = null;
+				  if (ConfigApiServer.ServerApiAddress != null && ConfigApiServer.ServerApiAddress.length > 0) {
+					  showPageLoading();
+					  logged = await ApiLogin();
+				  } else { logged = false; }
+
+				  if (!logged) { await startupLoading(); }
+
+			  },
+			  methods: {
+				  $imgAdd(pos, $file) {
+					  this.img_file[pos] = $file;
+				  },
+				  $imgDel(pos) {
+					  delete this.img_file[pos];
+				  },
+				  uploadimg($e) {
+					  var formdata = new FormData();
+					  for (var _img in this.img_file) {
+						  formdata.append(_img, this.img_file[_img]);
+					  }
+					  axios({
+						  url: 'server url',
+						  method: 'post',
+						  data: formdata,
+						  headers: { 'Content-Type': 'multipart/form-data' },
+					  }).then((res) => {
+						  for (var img of res) {
+							  $vm.$img2Url(img[0], img[1]);
+						  }
+					  })
+				  },
+				  clearCache() {
+					  this.$refs.md.$emptyHistory();
+				  },
+				  async saveone(val, render) {
+					  if (ManagerMode == "filesEditor") {
+						  DocFiles.forEach(async file => {
+							  if (file.filename == $("#FileMenu")[0].selectedOptions[0].text) {
+								  file.content = $("#Mavon")[0].__vue__.d_value;
+
+								  var notify = Metro.notify; notify.setup({ width: 300, duration: ConfigSystemMessageShowTime * 1000, animation: 'easeOutBounce' });
+								  notify.create("SuccesFully Saved to memory.Not Forgot Export File and Manually replace Source", "Info", { cls: "supertop" }); notify.reset();
+								  if (ConfigExportFileOnSaving) {
+									  notify.create("SuccesFully Saved and Exported. Not Forgor Replace source file by Downloaded File", "Info", { cls: "supertop" }); notify.reset();
+									  await OutputAction(['md']);
+								  } else { notify.create("SuccesFully Saved to memory.Not Forgot Export File and Manually replace Source", "Info", { cls: "supertop" }); notify.reset(); }
+							  }
+						  });
+					  } else if (ManagerMode == "apiManager") {
+						  showPageLoading();
+						  DocFiles.forEach(async file => {
+
+							  if (file.filename == $("#FileMenu")[0].selectedOptions[0].text) {
+								  file.content = $("#Mavon")[0].__vue__.d_value;
+
+								  var def = $.ajax({
+									  global: false, type: "POST", url: "/GLOBALNETDocumentationList/ByGroup", dataType: 'json',
+									  contentType: 'application/json',
+									  headers: { "Authorization": 'Bearer ' + Metro.storage.getItem('ApiToken', null) },
+									  data: JSON.stringify({ DocumentationGroupId: file.groupId, Name: file.filename, Description: file.content })
+								  }).fail(function (data) {
+									  var notify = Metro.notify; notify.setup({ width: 300, duration: 1000, animation: 'easeOutBounce' });
+									  notify.create("Failed Save Api Documenation List", "Alert", { cls: "alert" }); notify.reset();
+									  hidePageLoading();
+								  }).done(function (data) {
+									  hidePageLoading();
+									  if (data.length > 0) {
+										  data.forEach(doc => {
+											  DocFiles = [];
+											  DocFiles.push({
+												  groupId: doc.DocumentationGroupId,
+												  filename: doc.Name, content: (doc.Description == null) ? "" : doc.Description,
+												  version: doc.AutoVersion, lastUpdate: new Date(doc.TimeStamp).toLocaleString()
+											  });
+										  });
+										  UpdateFileMenu();
+									  }
+								  });
+
+								  var notify = Metro.notify; notify.setup({ width: 300, duration: ConfigSystemMessageShowTime * 1000, animation: 'easeOutBounce' });
+								  notify.create("SuccesFully Saved and Updated All", "Info", { cls: "supertop" }); notify.reset();
+								  if (ConfigExportFileOnSaving) {
+									  await OutputAction(['md']);
+								  }
+							  }
+						  });
+
+					  }
+					  DocContentChanged = false;
+				  },
+				  async change(val, render) {
+					  DocContentChanged = true;
+					  await ToMermaid();
+				  },
+			  },
+			  async created() {
+				  $("#FileMenu").click();
+			  }
+		  });
+
+
+
+		  </script>
+
+		  <style scoped>
+		  </style>
+  </body>
+</html>

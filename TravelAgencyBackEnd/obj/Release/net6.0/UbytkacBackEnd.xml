@@ -261,6 +261,14 @@
             of Server Running
             </summary>
         </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.MarkDownLineEndSpacesResolve(System.String)">
+            <summary>
+            MarkDown Global Resolve End Spaces Characters
+            On Insert/Update API CALS of Managing
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
         <member name="F:UbytkacBackend.Program.ServerDBLanguageList">
             <summary>
             Local DB dials: LanguageList

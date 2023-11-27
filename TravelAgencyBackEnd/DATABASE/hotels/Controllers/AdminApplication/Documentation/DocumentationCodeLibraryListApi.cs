@@ -47,7 +47,7 @@
         public async Task<string> InsertDocumentationCodeLibraryList([FromBody] DocumentationCodeLibraryList record) {
             try {
                 if (Request.HttpContext.User.IsInRole("admin")) {
-                    record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
+                    record.MdContent = ServerCoreFunctions.MarkDownLineEndSpacesResolve(record.MdContent);
                     var data = new hotelsContext().DocumentationCodeLibraryLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -62,6 +62,7 @@
         public async Task<string> UpdateDocumentationCodeLibraryList([FromBody] DocumentationCodeLibraryList record) {
             try {
                 if (Request.HttpContext.User.IsInRole("admin")) {
+					record.MdContent = ServerCoreFunctions.MarkDownLineEndSpacesResolve(record.MdContent);
                     var data = new hotelsContext().DocumentationCodeLibraryLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });

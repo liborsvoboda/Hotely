@@ -14,6 +14,13 @@
             Server Process class for running external prrocesses
             </summary>
         </member>
+        <member name="F:UbytkacBackend.Controllers.ServerDocApi._hostingEnvironment">
+            <summary>
+            For wwwroot folder Update 
+            with detect changes 
+            and modify static pages
+            </summary>
+        </member>
         <member name="M:UbytkacBackend.Controllers.ServerDocApi.GenerateMdBook">
             <summary>
             Server Inteligent Documentation Generator Api
@@ -253,6 +260,14 @@
             Extension For Checking Operation System 
             of Server Running
             </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreFunctions.MarkDownLineEndSpacesResolve(System.String)">
+            <summary>
+            MarkDown Global Resolve End Spaces Characters
+            On Insert/Update API CALS of Managing
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
         </member>
         <member name="F:UbytkacBackend.Program.ServerDBLanguageList">
             <summary>

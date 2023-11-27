@@ -57,10 +57,5 @@ namespace UbytkacBackend.Controllers {
             return new RedirectResult("/server-doc/md-preview");
         }
 
-
-       
-
-
-
     }
 }

@@ -153,5 +153,17 @@ namespace UbytkacBackend {
             public static bool IsLinux() =>
                 RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         }
+
+
+        /// <summary>
+        /// MarkDown Global Resolve End Spaces Characters
+        /// On Insert/Update API CALS of Managing
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns></returns>
+        public static string MarkDownLineEndSpacesResolve(string input) {
+            input.Split(new[] { '\r', '\n' }).ToList().ForEach(line => { line = line.TrimEnd() + "    "; });
+            return input;
+        }
     }
 }

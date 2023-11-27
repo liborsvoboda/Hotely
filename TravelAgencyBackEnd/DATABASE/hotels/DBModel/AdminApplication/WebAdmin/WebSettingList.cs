@@ -15,7 +15,7 @@ namespace UbytkacBackend.DBModel
         [Required]
         [StringLength(50)]
         public string Key { get; set; }
-        [StringLength(250)]
+        [Column(TypeName = "text")]
         public string Value { get; set; }
         [Column(TypeName = "text")]
         public string Description { get; set; }

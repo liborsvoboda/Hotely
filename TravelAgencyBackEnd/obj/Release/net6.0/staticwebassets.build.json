@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ifKx5dH6Y8Pvug7fVH0sUTyRVLR67j0fbq/W3gBxbtU=",
+  "Hash": "oGXGSJA/yf7VS1xXMZ4Gvbr3wV2Vzz8ArjmRaKol4NI=",
   "Source": "UbytkacBackEnd",
   "BasePath": "_content/UbytkacBackEnd",
   "Mode": "Default",
@@ -748,6 +748,23 @@
       "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\book\\searchindex.json"
     },
     {
+      "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\SearchInput.html",
+      "SourceId": "UbytkacBackEnd",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\",
+      "BasePath": "_content/UbytkacBackEnd",
+      "RelativePath": "server-doc/md-book/book/SearchInput.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\book\\SearchInput.html"
+    },
+    {
       "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\tomorrow-night.css",
       "SourceId": "UbytkacBackEnd",
       "SourceType": "Discovered",
@@ -763,23 +780,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\book\\tomorrow-night.css"
-    },
-    {
-      "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\VyhledávánívInzerátech.html",
-      "SourceId": "UbytkacBackEnd",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\",
-      "BasePath": "_content/UbytkacBackEnd",
-      "RelativePath": "server-doc/md-book/book/VyhledávánívInzerátech.html",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\book\\VyhledávánívInzerátech.html"
     },
     {
       "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\generate-mdbook.bat",
@@ -850,6 +850,23 @@
       "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\mdbook.exe"
     },
     {
+      "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\SearchInput.md",
+      "SourceId": "UbytkacBackEnd",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\",
+      "BasePath": "_content/UbytkacBackEnd",
+      "RelativePath": "server-doc/md-book/src/SearchInput.md",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\src\\SearchInput.md"
+    },
+    {
       "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\SUMMARY.md",
       "SourceId": "UbytkacBackEnd",
       "SourceType": "Discovered",
@@ -865,23 +882,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\src\\SUMMARY.md"
-    },
-    {
-      "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md",
-      "SourceId": "UbytkacBackEnd",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\",
-      "BasePath": "_content/UbytkacBackEnd",
-      "RelativePath": "server-doc/md-book/src/VyhledávánívInzerátech.md",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md"
     },
     {
       "Identity": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-preview\\config\\config.js",

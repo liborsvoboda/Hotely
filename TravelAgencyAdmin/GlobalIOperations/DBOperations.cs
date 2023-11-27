@@ -106,7 +106,7 @@ namespace UbytkacAdmin.GlobalOperations {
 
             if (dictionaryUpdated && !notCreateNew) { App.LanguageList = await ApiCommunication.GetApiRequest<List<LanguageList>>(ApiUrls.LanguageList, null, App.UserData.Authentification.Token); }
 
-            return result;
+            return result.Length == 0 ? systemName : result;;
         }
     }
 }
