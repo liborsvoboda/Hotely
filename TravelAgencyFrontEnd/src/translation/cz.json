@@ -201,7 +201,7 @@
     "saveAnswer": "Uložit Odpověď",
     "availableCalendar": "Kalendář dostupnosti",
     "iwantExtraBed": "Chci přistýlku",
-    "showBookedCalendar": "Zobrazit kalendář obsazenosti",
+    "showBookedCalendar": "Zobrazit kalendář dostupnosti",
     "roomName": "Název Pokoje",
     "booked": "Rezervováno",
     "nightCount": "Počet nocí",
@@ -216,7 +216,14 @@
     "stornoDaysCountBeforeStart": "Host může Stornovat, počet dní před zahájením",
     "guestStornoEnabled": "Host může stornovat",
     "directly": "přímo",
-    "byRequest": "přes požadavek"
+    "byRequest": "přes požadavek",
+    "setUnavailable": "Nastavit Nedostupnost",
+    "unavailableSettings": "Nastavení Nedostupnosti",
+    "unavailableFromDate": "Nedostupnost od Data",
+    "unavailableToDate": "Nedostupnost do Data",
+    "saveUnavailable": "Uložit Nedostupnost",
+    "forEquipmentForRent": "pro Zařízení k Pronájmu",
+    "unavailableRoomList": "Přehled nedostupností"
   },
   "user": {
     "newPassword": "Nové Heslo",
@@ -275,6 +282,7 @@
     "passwordNotHaveMinimalLengthOrMailNotValid": "Email není správný nebo heslo nemá minimální délku: ",
     "addReviewWasSuccess": "Vložení hodnocení proběhlo v pořádku",
     "doYouReallyCancelRequestBooking": "Opravdu chcete požádat o zrušení rezervace:",
-    "cancelbookingRequestWasSent": "Žádost o zrušení rezervace byla odeslána"
+    "cancelbookingRequestWasSent": "Žádost o zrušení rezervace byla odeslána",
+    "doYouReallyWantDeleteAdvertisement": "Opravdu chcete smazat Inzerát?"
   }
 }

@@ -31,7 +31,7 @@ namespace UbytkacBackend.Controllers {
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 result = new hotelsContext().HotelReservedRoomLists
                     .Where(a => 
-                    a.HotelId == hotelId && a.StatusId == 2 &&
+                    a.HotelId == hotelId && (a.StatusId == 2 || a.StatusId == 5) &&
                     ((a.StartDate <= startDate && a.EndDate > startDate) 
                     || (a.StartDate >= startDate && a.EndDate <= endDate)
                     || (a.StartDate < endDate && a.EndDate >= endDate)

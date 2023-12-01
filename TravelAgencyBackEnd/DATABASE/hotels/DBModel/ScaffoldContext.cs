@@ -673,7 +673,6 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.Reservation)
                     .WithMany(p => p.HotelReservedRoomLists)
                     .HasForeignKey(d => d.ReservationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_HotelReservedRoomList_ReservationList");
 
                 entity.HasOne(d => d.RoomType)

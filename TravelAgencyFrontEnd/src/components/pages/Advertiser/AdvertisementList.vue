@@ -30,6 +30,7 @@
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length }}</span>
                             </a>
                         </li>
+                        <li :title="$t('labels.unavailableSettings')" @click="openUnavailableSettings()" onclick="Metro.infobox.open('#UnavailableSettingsBox');"><a href="#" class="p-2"><span class="mif-blocked icon"></span></a></li>
                         <li :title="$t('labels.showBookedCalendar')" @click="openCalendar()" onclick="Metro.infobox.open('#CalendarBox');"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li>
                         <li :title="$t('labels.reviews')" @click="openReview()" onclick="Metro.infobox.open('#ReviewBox');" :class="(hotel.hotelReservationReviewLists.length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
@@ -392,6 +393,52 @@
             </div>
         </div>
 
+        <div id="UnavailableSettingsBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600">
+            <span class="button square closer"></span>
+            <div class="info-box-content" style="overflow-y:auto;">
+                <div class="d-flex row ">
+                    <div class="h3 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        {{ $t('labels.unavailableSettings') }}
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <ul data-role="tabs" data-expand="true">
+                        <li class="fg-black"><a href="#_setUnavailable">{{ $t('labels.setUnavailable') }}</a></li>
+                        <li class="fg-black"><a href="#_unavailableRoomList">{{ $t('labels.unavailableRoomList') }}</a></li>
+                    </ul>
+                </div>
+
+                <div id="_setUnavailable">
+                    <div class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;">
+                        <form id="UnavailableForm" data-role="validator" action="javascript:" data-on-submit="newUnavailableIsValid = true;" data-interactive-check="true" autocomplete="off" data-on-error="newUnavailableIsValid = false;">
+                            <div class="row ">
+                                <div class="w-50 text-left"> {{ $t('labels.unavailableFromDate') }} </div>
+                                <div class="w-50"> <input id="UnavailableFromDate" type="text" data-role="calendarpicker" data-cls-calendar="compact" data-validate="required" data-format="DD.MM.YYYY" style="height: auto"> </div>
+
+                                <div class="w-50 text-left"> {{ $t('labels.unavailableToDate') }} </div>
+                                <div class="w-50"> <input id="UnavailableToDate" type="text" data-role="calendarpicker" data-cls-calendar="compact" data-validate="required" data-format="DD.MM.YYYY" style="height: auto"> </div>
+
+                                <div class="w-100 text-left"> {{ $t('labels.forEquipmentForRent') }} </div>
+                                <div class="w-100">
+                                    <select id="RoomSelectionUnv" data-role="select" data-clear-button="true" multiple data-validate="required" data-cls-selected-item="bg-teal fg-white"
+                                            data-cls-selected-item-remover="bg-darkTeal fg-white"></select>
+                                </div>
+                                <p></p>
+                                <div class="w-100 text-right">
+                                    <button class="button success outline shadowed mr-2" type="submit" @click="setNewUnavailable()"> {{ $t('labels.saveUnavailable') }} </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="_unavailableRoomList">
+                    <div id="UnavailableRoomListBox" class="d-block m-0 p-0" style="overflow-y: scroll;height:460px;max-height: 460px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </template>
 
@@ -512,7 +559,7 @@ export default {
                 await this.$store.dispatch("getRoomBookingList", this.roomId).then(() => {
                     let bookingCalendar = [];
                     this.$store.state.roomBookingList.forEach(booking => {
-                        if (booking.statusId == 2) {
+                        if (booking.statusId == 2 || booking.statusId == 5) {
                             let startDate = new Date(booking.startDate);
                             while (new Date(startDate).toLocaleDateString('sv-SE') <= new Date(booking.endDate).toLocaleDateString('sv-SE')) {
                                 if (bookingCalendar.filter(obj => { return obj.date == new Date(startDate).toLocaleDateString('sv-SE') }).length > 0) {
@@ -542,11 +589,13 @@ export default {
                     // Fill All Status Data
                     messageData = "<ul data-role='treeview'>"; 
                     this.$store.state.roomBookingList.forEach(booking => {
-                        messageData += "<li data-caption='" + booking.reservation.reservationNumber + " <b>" + booking.reservation.totalPrice + this.hotel.defaultCurrency.name + "</b> " + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + booking.status.systemName + " <b>" + booking.count + "x</b> " +" ' >";
-                        messageData += "<ul><li data-caption='" + booking.count + "x " + booking.name + " "  + (!booking.extraBed ? "" : " + <span class=\"mif-hotel mif-2x fg-cyan\" style=\"top:3px;\" data-role=\"hint\" data-cls-hint=\"bg-cyan fg-white drop-shadow\" :data-hint-text=\"" + window.dictionary('labels.extraBed') + "\" ></span>") + "' ></li>";
-                        messageData += "<li data-caption='" + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + window.dictionary("labels.nightCount") + ": <b>" + parseInt(((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) + "x</b> " + "' ></li>";
-                        messageData += "<li data-caption='" + window.dictionary('labels.adults') + ": " + booking.reservation.adult + " " + window.dictionary('labels.children') + ": " + booking.reservation.children + "' ></li>";
-                        messageData += "</ul></li>";
+                        if (booking.reservation != null) {
+                            messageData += "<li data-caption='" + booking.reservation.reservationNumber + " <b>" + booking.reservation.totalPrice + this.hotel.defaultCurrency.name + "</b> " + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + booking.status.systemName + " <b>" + booking.count + "x</b> " + " ' >";
+                            messageData += "<ul><li data-caption='" + booking.count + "x " + booking.name + " " + (!booking.extraBed ? "" : " + <span class=\"mif-hotel mif-2x fg-cyan\" style=\"top:3px;\" data-role=\"hint\" data-cls-hint=\"bg-cyan fg-white drop-shadow\" :data-hint-text=\"" + window.dictionary('labels.extraBed') + "\" ></span>") + "' ></li>";
+                            messageData += "<li data-caption='" + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + window.dictionary("labels.nightCount") + ": <b>" + parseInt(((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) + "x</b> " + "' ></li>";
+                            messageData += "<li data-caption='" + window.dictionary('labels.adults') + ": " + booking.reservation.adult + " " + window.dictionary('labels.children') + ": " + booking.reservation.children + "' ></li>";
+                            messageData += "</ul></li>";
+                        }
                     }); messageData += "</ul>";
                     $("#BookingDataBox").html(messageData);
                 });
@@ -572,7 +621,7 @@ export default {
                         messageData = "";
 
                         reservation.hotelReservationDetailLists.forEach(async (detail, index) => {
-                            messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!detail.shown && detail.guestSender ? " bg-gitlab " : !detail.guestSender ? " bg-brandColor1 " : " bg-lightOlive ") + "\">";
+                            messageData += "<div class=\"card image-header\"><div class=\"d-block card-content p-0 " + (!detail.shown && detail.guestSender ? " bg-gitlab " : !detail.guestSender ? " bg-brandColor1 " : " bg-lightOlive ") + "\">";
                             messageData += "<div class=\"d-flex\"><div class=\"h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0\">" + this.$store.state.statusList.filter(obj => { return obj.Id == detail.statusId })[0].TranslationName + "</div>";
                             messageData += "<div class=\"h5 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-center p-1 m-0\">" + new Date(detail.startDate).toLocaleDateString('cs-CZ') + " - " + new Date(detail.endDate).toLocaleDateString('cs-CZ') + "</div>";
                             messageData += "<div class=\"h5 fg-black col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right m-0\">" + detail.adult + "/" + detail.children + " | " + detail.totalPrice + "</div>";
@@ -612,7 +661,7 @@ export default {
                         messageData = "";
 
                         reservation.hotelReservationDetailLists.forEach(async (detail, index) => {
-                            messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!detail.shown && detail.guestSender ? " bg-gitlab " : !detail.guestSender ? " bg-brandColor1 " : " bg-lightOlive ") + "\">";
+                            messageData += "<div class=\"card image-header\"><div class=\"d-block card-content p-0 " + (!detail.shown && detail.guestSender ? " bg-gitlab " : !detail.guestSender ? " bg-brandColor1 " : " bg-lightOlive ") + "\">";
                             messageData += "<div class=\"d-flex\"><div class=\"h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0\">" + this.$store.state.statusList.filter(obj => { return obj.Id == detail.statusId })[0].TranslationName + "</div>";
                             messageData += "<div class=\"h5 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-center p-1 m-0\">" + new Date(detail.startDate).toLocaleDateString('cs-CZ') + " - " + new Date(detail.endDate).toLocaleDateString('cs-CZ') + "</div>";
                             messageData += "<div class=\"h5 fg-black col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right m-0\">" + detail.adult + "/" + detail.children + " | " + detail.totalPrice + "</div>";
@@ -639,7 +688,7 @@ export default {
             if (this.hotel.id == this.newCommentHotelId) {
                 let messageData = "";
                 this.hotel.guestAdvertiserNoteLists.forEach(message => {
-                    messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>";
+                    messageData += "<div class=\"card image-header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>";
                     messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + message.note + "</div>";
                     messageData += "<div class=\"col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right\"><div class=\"d-block \">";
                     messageData += "<div class=\"mb-1 p-button p-component button shadowed small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setOpened") + "</div>";
@@ -727,6 +776,56 @@ export default {
             $("#ReservationRoomsBox").html('');
             $("#ReservationMessageBox").html('');
         },
+        async openUnavailableSettings() {
+            let select = Metro.getPlugin("#RoomSelectionUnv", "select"); let options = [];
+            this.hotel.hotelRoomLists.forEach(room => {
+                options.push({ val: room.id, title: room.roomsCount + "x " + room.name + " ", selected: false });
+            });
+            select.data(""); select.addOptions(options);
+            await this.generateUnavailableRoomListBox();
+        },
+        async generateUnavailableRoomListBox() {
+            let result = await this.$store.dispatch("getUnavailableRoomList", this.hotel.id);
+            let messageData = "<ul>";
+
+            this.$store.state.unavailableRoomList.forEach(unavailable => {
+                messageData += "<li><span class='mif-cancel fg-red c-pointer' onclick=\"deleteUnavailableRoom('" + unavailable.Id + "','" + this.$store.state.apiRootUrl + "' )\"></span> " + unavailable.Count + "x " + unavailable.Name + " <b>" + new Date(unavailable.StartDate).toLocaleDateString() + " - " + new Date(unavailable.EndDate).toLocaleDateString() + "</b></li>";
+            });
+
+            messageData += "</ul>";
+            $("#UnavailableRoomListBox").html(messageData);
+        },
+        async setNewUnavailable() {
+            $("#UnavailableForm").submit();
+
+            var that = this;
+            setTimeout(async function () {
+                if (newUnavailableIsValid) {
+                    window.showPageLoading();
+                    let response = await fetch(
+                        that.$store.state.apiRootUrl + '/Advertiser/SetUnavailableRooms', {
+                        method: 'POST', headers: { 'Authorization': 'Bearer ' + that.$store.state.user.Token, 'Content-type': 'application/json' },
+                            body: JSON.stringify({
+                                HotelId: that.hotel.id,
+                                RoomsId: $("#RoomSelectionUnv").val(),
+                                StartDate: $("#UnavailableFromDate").val().split('.')[2] + "-" + $("#UnavailableFromDate").val().split('.')[1] + "-" + $("#UnavailableFromDate").val().split('.')[0],
+                                EndDate: $("#UnavailableToDate").val().split('.')[2] + "-" + $("#UnavailableToDate").val().split('.')[1] + "-" + $("#UnavailableToDate").val().split('.')[0],
+                                Language: that.$store.state.language
+                            })
+                    }); let result = await response.json();
+
+                    if (result.Status == "error") {
+                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
+                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                    } else {
+                        if (document.getElementById("UnavailableForm") != null) {
+                            document.getElementById("UnavailableForm").reset(); let select = Metro.getPlugin("#RoomSelectionUnv", "select"); select.reset();
+                        }
+                    }
+                    window.hidePageLoading();
+                }
+            }, 1000);
+        },
         openCalendar() {
             let select = Metro.getPlugin("#roomSelection", "select"); let options = [];
             this.hotel.hotelRoomLists.forEach(room => {
@@ -763,7 +862,7 @@ export default {
             let messageData = ""; let setShown = false;
             this.hotel.hotelReservationReviewLists.forEach(async (review, index) => {
 
-                messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!review.advertiserShown ? " bg-gitlab " : " bg-lightOlive ") + "\">";
+                messageData += "<div class=\"card image-header\"><div class=\"d-block card-content p-0 " + (!review.advertiserShown ? " bg-gitlab " : " bg-lightOlive ") + "\">";
                 messageData += "<div class=\"d-flex\"><div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0\"><input data-role=\"rating\" data-value=\"" + review.rating + "\" data-stared-color=\"cyan\" data-static=\"true\" ></div>";
                 messageData += "<div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right p-1 m-0\">" + new Date(review.timestamp).toLocaleString('cs-CZ') + "</div></div>";
                 messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + window.dictionary('labels.comment') + ": " + review.description + "</div></div>";
@@ -791,7 +890,7 @@ export default {
                 let messageData = "";
                 this.hotel.hotelReservationReviewLists.forEach(async review => {
                     if (review.id == this.reviewId) {
-                        messageData += "<div class=\"card image - header\"><div class=\"d-block card-content p-0 " + (!review.advertiserShown ? " bg-gitlab " : " bg-lightOlive ") + "\">";
+                        messageData += "<div class=\"card image-header\"><div class=\"d-block card-content p-0 " + (!review.advertiserShown ? " bg-gitlab " : " bg-lightOlive ") + "\">";
                         messageData += "<div class=\"d-flex\"><div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0\"><input data-role=\"rating\" data-value=\"" + review.rating + "\" data-stared-color=\"cyan\" data-static=\"true\" ></div>";
                         messageData += "<div class=\"h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 text-right p-1 m-0\">" + new Date(review.timestamp).toLocaleString('cs-CZ') + "</div></div>";
                         messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + window.dictionary('labels.comment') + ": " + review.description + "</div></div>";
@@ -883,24 +982,26 @@ export default {
             enableScroll();
         },
         async deleteAdvertisement(hotelId) {
-            window.showPartPageLoading();
-            disableScroll();
-            var response = await fetch(
-                this.$store.state.apiRootUrl + '/Advertiser/DeleteAdvertisement/' + hotelId, {
-                method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
-            }); let result = await response.json();
-            if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
-                window.hidePartPageLoading();
-            } else {
-                if (this.$store.state.user.UserId != '') {
-                    await this.$store.dispatch("getAdvertisementList");
-                    if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+            if (confirm(window.dictionary("messages.doYouReallyWantDeleteAdvertisement"))) {
+                window.showPartPageLoading();
+                disableScroll();
+                var response = await fetch(
+                    this.$store.state.apiRootUrl + '/Advertiser/DeleteAdvertisement/' + hotelId, {
+                    method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
+                }); let result = await response.json();
+                if (result.Status == "error") {
+                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                    notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
+                    window.hidePartPageLoading();
+                } else {
+                    if (this.$store.state.user.UserId != '') {
+                        await this.$store.dispatch("getAdvertisementList");
+                        if (!this.$store.state.advertisementList.length) { this.errorText = true; }
+                    }
+                    window.hidePartPageLoading();
                 }
-                window.hidePartPageLoading();
+                enableScroll();
             }
-            enableScroll();
         },
         async setActivation(hotelId) {
             window.showPartPageLoading();
@@ -989,6 +1090,10 @@ export default {
                 window.watchAdvertisementVariables.reloadAdvertisement = false;
                 let result = await this.$store.dispatch("getAdvertisementList");
                 this.generateMessageBox();
+            }
+            if (window.watchAdvertisementVariables.reloadUnavailable) {
+                window.watchAdvertisementVariables.reloadUnavailable = false;
+                await this.generateUnavailableRoomListBox();
             }
         });
     }

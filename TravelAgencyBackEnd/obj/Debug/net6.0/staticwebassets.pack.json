@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\404.html"
     },
     {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\Advertisements.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\Advertisements.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\Bookings.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\Bookings.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\Favorites.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\Favorites.html"
+    },
+    {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\FontAwesome\\css\\font-awesome.css",
       "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\css\\font-awesome.css"
     },
@@ -41,8 +53,12 @@
       "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\FontAwesome\\fonts\\fontawesome-webfont.woff2"
     },
     {
-      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\VyhledávánívInzerátech.html",
-      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\VyhledávánívInzerátech.html"
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\SearchInput.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\SearchInput.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\Settings.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\Settings.html"
     },
     {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\ayu-highlight.css",
@@ -193,12 +209,28 @@
       "PackagePath": "staticwebassets\\server-doc\\md-book\\mdbook.exe"
     },
     {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\Advertisements.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\Advertisements.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\Bookings.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\Bookings.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\Favorites.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\Favorites.md"
+    },
+    {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\SUMMARY.md",
       "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\SUMMARY.md"
     },
     {
-      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md",
-      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\VyhledávánívInzerátech.md"
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\SearchInput.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\SearchInput.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\Settings.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\Settings.md"
     },
     {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-preview\\README.md",

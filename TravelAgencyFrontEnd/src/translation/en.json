@@ -216,7 +216,14 @@
     "stornoDaysCountBeforeStart": "Guest can Storno, Days count before start",
     "guestStornoEnabled": "Host can storno",
     "directly": "directly",
-    "byRequest": "by request"
+    "byRequest": "by request",
+    "setUnavailable": "Set Unavailable",
+    "unavailableSettings": "Unavailable Settings",
+    "unavailableFromDate": "Unavailable from Date",
+    "unavailableToDate": "Unavailable to Date",
+    "saveUnavailable": "Save Unavailable",
+    "forEquipmentForRent": "for Equipment for Rent",
+    "unavailableRoomList": "Unavailables List"
 
   },
   "user": {
@@ -276,7 +283,8 @@
     "passwordNotHaveMinimalLengthOrMailNotValid": "Email not Valid or password not have Minimal Length: ",
     "addReviewWasSuccess": "Review insert was success",
     "doYouReallyCancelRequestBooking": "Do you really do request of cancel Booking:",
-    "cancelbookingRequestWasSent": "Request of cancel booking was sent"
+    "cancelbookingRequestWasSent": "Request of cancel booking was sent",
+    "doYouReallyWantDeleteAdvertisement": "Do you really delete Advertisement?"
 
   }
 }

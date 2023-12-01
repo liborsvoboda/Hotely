@@ -63,7 +63,7 @@ app.config.globalProperties.window.watchChangeVariables = reactive({
 
 app.config.globalProperties.window.watchAdvertisementVariables = reactive({
     reloadAdvertisement: false,
-
+    reloadUnavailable: false
 });
 
 

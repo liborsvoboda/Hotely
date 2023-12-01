@@ -145,4 +145,12 @@ namespace UbytkacBackend.WebPages {
         public string Message { get; set; }
         public string Language { get; set; }
     }
+
+    public class UnavailableRooms {
+        public int HotelId { get; set; }
+        public List<int> RoomsId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Language { get; set; }
+    }
 }

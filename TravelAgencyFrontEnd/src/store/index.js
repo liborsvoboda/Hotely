@@ -33,9 +33,10 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
-        webMottoList:[],
-        roomBookingList:[],
-        reviewList:[],
+        unavailableRoomList: [],
+        webMottoList: [],
+        roomBookingList: [],
+        reviewList: [],
         statusList: [],
         privacyPolicyList: [],
         termsList: [],
@@ -118,6 +119,10 @@ const store = createStore({
         setAdvertisementList(store, value) {
             store.advertisementList = value;
             console.log("setAdvertisementList", store.advertisementList);
+        },
+        setUnavailableRoomList(store, value) {
+            store.unavailableRoomList = value;
+            console.log("setUnavailableRoomList  ", store.unavailableRoomList);
         },
         setRoomBookingList(store, value) {
             store.roomBookingList = value;
@@ -392,6 +397,21 @@ const store = createStore({
             commit('setAdvertisementList', result);
             window.hidePageLoading();
         },
+        async getUnavailableRoomList({ commit }, hotelId) {
+            window.showPageLoading();
+            let response = await fetch(
+                this.state.apiRootUrl + '/Advertiser/GetUnavailableRooms/' + hotelId, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.state.user.Token,
+                    'Content-type': 'application/json',
+                }
+            });
+            let result = await response.json();
+            commit('setUnavailableRoomList', result);
+            window.hidePageLoading();
+        },
+
         async getRoomBookingList({ commit }, hotelRoomId) {
             window.showPageLoading();
             let response = await fetch(

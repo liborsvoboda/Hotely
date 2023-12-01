@@ -14,7 +14,7 @@ namespace UbytkacBackend.DBModel
         public int Id { get; set; }
         public int HotelId { get; set; }
         public int HotelRoomId { get; set; }
-        public int ReservationId { get; set; }
+        public int? ReservationId { get; set; }
         public int RoomTypeId { get; set; }
         public int StatusId { get; set; }
         [Required]

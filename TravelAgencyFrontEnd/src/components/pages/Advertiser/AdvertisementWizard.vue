@@ -115,7 +115,7 @@
 
                                 <div class="row flex-align-center">
                                     <div class="form-group w-50">
-                                        <input id="RoomName" type="text" data-role="input" :placeholder="$t('labels.equipmentForRentName')" data-clear-button="true">
+                                        <input id="RoomName" type="text" data-role="input" :placeholder="$t('labels.equipmentForRentName')" data-clear-button="true" style="height: auto">
                                     </div>
 
                                     <div id="roomTypeGroup" class="form-group w-50 mt-0">

@@ -55,6 +55,21 @@ async function deleteComment(commentId, apiUrl) {
 };
 
 
+async function deleteUnavailableRoom(recId, apiUrl) {
+    window.showPageLoading();
+    let response = await fetch(
+        apiUrl + '/Advertiser/DeleteUnavailableRoom/' + recId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
+        method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
+    }); let result = await response.json();
+    if (result.Status == "error") {
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: 2000, duration: 500 });
+        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+    } else {
+        window.watchAdvertisementVariables.reloadUnavailable = true;
+    }
+    window.hidePageLoading();
+};
+
 window.str2bytes =function str2bytes(str) {
     var bytes = new Uint8Array(str.length);
     for (var i = 0; i < str.length; i++) {
