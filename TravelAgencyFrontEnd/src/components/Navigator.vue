@@ -14,14 +14,14 @@
 
                     <div class="w-100 text-left"><input id="UserAutoTranslate" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" :data-caption="$t('messages.translateAutomatically')" :onchange="userChangeTranslateSetting"></div>
                     <div class="divider"></div>
-                    <!--
+                    
                         <div class="d-flex w-100">
                                 <button class="button w-25 mt-1" style="background-color: #585b5d; width:50px;" onclick="ChangeSchemeTo('darcula.css')"></button>
                                 <button class="button w-25 mt-1" style="background-color: #AF0015; width:50px;" onclick="ChangeSchemeTo('red-alert.css')"></button>
                                 <button class="button w-25 mt-1" style="background-color: #690012; width:50px;" onclick="ChangeSchemeTo('red-dark.css')"></button>
                                 <button class="button w-25 mt-1" style="background-color: #0CA9F2; width:50px;" onclick="ChangeSchemeTo('sky-net.css')"></button>
                         </div>
-     -->
+    
                     <div class="c-pointer mif-cancel icon pos-absolute fg-red" style="top:5px;right:5px;" @click="showToolPanel()"></div>
                 </div>
 

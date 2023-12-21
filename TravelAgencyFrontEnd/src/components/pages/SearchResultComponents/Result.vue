@@ -9,20 +9,12 @@
                 <div class="col-md-6 mb-5">
                     <div class="row">
                         <div class="col-md-6 pt-0 mt-0 text-start">
-                            <b data-role="popover" :data-popover-text="'<div v-html='+hotel.descriptionCz+''" data-popover-hide="3000" data-popover-position="top" data-close-button="true" data-cls-popover=" width-600 drop-shadow">{{ hotel.name }}</b>
+                            <b data-role="popover" :data-popover-text="'<div v-html='+hotel.descriptionCz+'' " data-popover-hide="3000" data-popover-position="top" data-close-button="true" data-cls-popover=" width-600 drop-shadow">{{ hotel.name }}</b>
                             <div>{{ hotel.city.city }}, {{ hotel.country.systemName }}</div>
                             <p v-if="hotel.hotelReservationReviewLists.length">
                                 <input data-role="rating" :data-value="hotel.averageRating" data-stared-color="#b59a09" data-static="true">
                                 <!--  {{ $t('labels.averageRating') }}: <span class="rounded-pill"> {{ hotel.averageRating }} z 5 </span> -->
                             </p>
-<!--                             <p></p>
-                            <p v-for="property in valueProperties.slice(0, 3)" class="c-help" style="margin-bottom:0px;" @click="createValueInfoBox()"
-                               :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                                {{property.name}}:
-                                <span class="rounded-pill">
-                                    {{ property.value }} {{ property.unit }}
-                                </span>
-                            </p> -->
                         </div>
 
                         <div class=" col-md-6 pt-0 mt-0 text-start">
@@ -33,11 +25,6 @@
                             <p v-for="property in getUsedPropertyGroups" class="c-help" style="margin-bottom:0px;" @click="createPriceInfoBox()" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.clickForShowPriceList')">
                                 <i class="fas fa-check"></i> {{property.name}}
                             </p>
-                            <!--
-                                <p v-for="property in bitProperties.slice(0, 4)" class="c-help" style="margin-bottom:0px;" @click="createBitInfoBox()"
-                                   :title="(property.fee) ? (property.feeValue != null) ? $t('labels.fee') + ' ' + property.feeValue + ' ' + hotel.defaultCurrency.name : $t('labels.fee') + ' ' + property.feeRangeMin + ' - ' + property.feeRangeMax + ' ' + hotel.defaultCurrency.name : ''">
-                                    <i class="fas fa-check"></i> {{property.name}}
-                                </p> -->
                         </div>
                     </div>
                     <div class="p-button pos-absolute p-component button info outline shadowed" for="btn-check-outlined" @click="hotelDetailsClick" style="bottom:-52px; right:10px;">
@@ -148,8 +135,41 @@ export default {
         },
         createPriceInfoBox() {
             if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
-            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5>";
-            let lastGroup = null;
+            let htmlContent = "<div class='skill-box bg-transparent'>";
+            htmlContent += "<div class='d-flex' ><span class='h5 w-75' > " + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</span>";
+            htmlContent += "<span id='PriceInfoBoxSwitch' onclick='PriceInfoBoxSwitchView()' class='c-pointer fg-blue w-25 pr-4 text-right'>" + window.dictionary('labels.list') + "</span></div>";
+
+            htmlContent += "<div id='PriceInfoList' style='display: none;'>";
+            let lastGroup = null; let newLineSplitter = 0;
+            this.getPriceListProperties.forEach((property) => {
+
+                if (lastGroup == null || (lastGroup != null && property.group != lastGroup)) {
+                    if (newLineSplitter != 0) { htmlContent += "</div></li>"; } newLineSplitter = 0;
+
+                    if (lastGroup != null) { htmlContent += "</ul></div>"; }
+
+
+                    htmlContent += "<div  class='label drop-shadow' ><b>" + property.group + "</b><ul class='skills'>";
+                }
+                if (newLineSplitter == 0 || newLineSplitter == 3) {
+                    if (newLineSplitter != 0) { htmlContent += "</div></li>"; }
+                    htmlContent += "<li class='d-flex'><div class='d-flex w-100'>";
+                }
+
+                htmlContent += "<div class='d-flex w-33'><span class='w-100'>" + property.name + (!property.isBit ? " <span class='rounded-pill'>" + property.value + " " + property.unit : "") + "</span>";
+                htmlContent += ((property.fee) ? (property.feeValue != null) ?
+                    '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'top:0px;right: 10px;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                    : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'top:0px;right: 10px;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                    : '')
+                    + "</div>";
+
+                newLineSplitter += 1;
+                lastGroup = property.group;
+            });
+            htmlContent += "</ul></div></div>";
+
+            htmlContent += "<div id='PriceInfoGroups' style='display: inline;'>";
+            lastGroup = null;
             this.getPriceListProperties.forEach((property) => {
 
                 if (lastGroup == null || (lastGroup != null && property.group != lastGroup)) {
@@ -167,14 +187,17 @@ export default {
 
                 lastGroup = property.group;
             });
+            htmlContent += "</div>";
 
             this.infoBox = Metro.infobox.create(htmlContent + "</div>", "", {
                 closeButton: true,
                 type: "",
                 removeOnClose: true,
                 width: "400",
-                height: "auto"
-            });
+                height: "auto",
+                tag: window.dictionary('labels.groups')
+            }); this.infoBox.id("PriceInfoBox");
+
         },
         hotelDetailsClick(event) {
             this.$store.state.backRoute = "/Result";

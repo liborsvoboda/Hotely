@@ -226,7 +226,9 @@
     "forEquipmentForRent": "pro Ubytování k Pronájmu",
     "unavailableRoomList": "Přehled nedostupností",
     "clickForShowPriceList": "klikněte pro zobrazení Ceníku Služeb, Zařízení a Vybavení",
-    "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor"
+    "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor",
+    "groups": "Skupiny",
+    "list": "Seznam"
   },
   "user": {
     "newPassword": "Nové Heslo",

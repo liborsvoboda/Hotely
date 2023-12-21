@@ -8,7 +8,7 @@
                 <div class="col-md-7 mb-5">
                     <div class="row">
                         <div class="col-md-6 pt-0 mt-0 text-start">
-                            <b data-role="popover" :data-popover-text="'<div v-html='+hotel.descriptionCz+''" data-popover-hide="3000" data-popover-position="top" data-close-button="true" data-cls-popover=" width-600 drop-shadow">{{ hotel.name }}</b>
+                            <b data-role="popover" :data-popover-text="'<div v-html='+hotel.descriptionCz+'' " data-popover-hide="3000" data-popover-position="top" data-close-button="true" data-cls-popover=" width-600 drop-shadow">{{ hotel.name }}</b>
                             <div>
                                 {{ hotel.city.city }}, {{ hotel.country.systemName }}
                             </div>
@@ -53,6 +53,9 @@ export default {
         return {
             infoBox: null,
             roomListBox: null,
+            changePriceListView: function () {
+                this.createPriceInfoBox();
+            }
         };
     },
     mounted() {
@@ -139,13 +142,46 @@ export default {
         },
         createPriceInfoBox() {
             if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
-            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5>";
-            let lastGroup = null; 
+            let htmlContent = "<div class='skill-box bg-transparent'>";
+            htmlContent += "<div class='d-flex' ><span class='h5 w-75' > " + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</span>";
+            htmlContent += "<span id='PriceInfoBoxSwitch' onclick='PriceInfoBoxSwitchView()' class='c-pointer fg-blue w-25 pr-4 text-right'>" + window.dictionary('labels.list') + "</span></div>";
+
+            htmlContent += "<div id='PriceInfoList' style='display: none;'>";
+            let lastGroup = null; let newLineSplitter = 0;
+            this.getPriceListProperties.forEach((property) => {
+
+                if (lastGroup == null || (lastGroup != null && property.group != lastGroup)) {
+                    if (newLineSplitter != 0) { htmlContent += "</div></li>"; } newLineSplitter = 0;
+
+                    if (lastGroup != null) { htmlContent += "</ul></div>"; }
+                   
+                    
+                    htmlContent += "<div  class='label drop-shadow' ><b>" + property.group + "</b><ul class='skills'>";
+                }
+                if (newLineSplitter == 0 || newLineSplitter == 3) {
+                    if (newLineSplitter != 0) { htmlContent += "</div></li>"; }
+                    htmlContent += "<li class='d-flex'><div class='d-flex w-100'>";
+                }
+
+                htmlContent += "<div class='d-flex w-33'><span class='w-100'>" + property.name + (!property.isBit ? " <span class='rounded-pill'>" + property.value + " " + property.unit : "") + "</span>";
+                htmlContent += ((property.fee) ? (property.feeValue != null) ?
+                    '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'top:0px;right: 10px;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                    : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'top:0px;right: 10px;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        : '')
+                    + "</div>";
+
+                newLineSplitter += 1;
+                lastGroup = property.group;
+            });
+            htmlContent += "</ul></div></div>"; 
+
+            htmlContent += "<div id='PriceInfoGroups' style='display: inline;'>";
+            lastGroup = null;
             this.getPriceListProperties.forEach((property) => {
 
                 if (lastGroup == null || (lastGroup != null && property.group != lastGroup)) {
                     if (lastGroup != null) { htmlContent += "</ul></div></div>"; }
-                    htmlContent += "<div id='priceGroup_" + (property.groupSequence != null ? property.groupSequence : 1000000 ) + "'  data-role='panel' data-on-expand='CloseOtherPriceListGroups' data-title-caption='" + property.group + "' class='panel drop-shadow' data-cls-title-caption='h5 pl-3 mt-2 text-left' data-collapsed='" + (lastGroup == null ? 'false' : 'true') + "' data-collapsible='true'><div class='info-box-content p-0 m-0' ><ul class='skills'>";
+                    htmlContent += "<div id='priceGroup_" + (property.groupSequence != null ? property.groupSequence : 1000000) + "'  data-role='panel' data-on-expand='CloseOtherPriceListGroups' data-title-caption='" + property.group + "' class='panel drop-shadow' data-cls-title-caption='h5 pl-3 mt-2 text-left' data-collapsed='" + (lastGroup == null ? 'false' : 'true') + "' data-collapsible='true'><div class='info-box-content p-0 m-0' ><ul class='skills'>";
                 }
 
                 htmlContent += "<li><div class='d-flex w-100'><span>" + property.name + (!property.isBit ? " <span class='rounded-pill'>" + property.value + " " + property.unit : "") + "</span>" +
@@ -158,14 +194,17 @@ export default {
 
                 lastGroup = property.group;
             });
+            htmlContent += "</div>";
 
             this.infoBox = Metro.infobox.create(htmlContent + "</div>", "", {
                 closeButton: true,
                 type: "",
                 removeOnClose: true,
                 width: "400",
-                height: "auto"
-            });
+                height: "auto",
+                tag: window.dictionary('labels.groups')
+            }); this.infoBox.id("PriceInfoBox");
+        
         },
         hotelDetailsClick(event) {
             this.$store.state.backRoute = "/";

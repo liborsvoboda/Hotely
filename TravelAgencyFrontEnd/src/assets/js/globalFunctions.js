@@ -91,5 +91,25 @@ function CloseOtherPriceListGroups(element) {
         }
     });
     //more filters
-    if (1000000 != element.id.split("_")[1]) { pricePanel = Metro.getPlugin('#priceGroup_1000000', 'panel'); pricePanel.collapse(); }
+    if (1000000 != element.id.split("_")[1]) {
+        pricePanel = Metro.getPlugin('#priceGroup_1000000', 'panel'); if (pricePanel != undefined) { pricePanel.collapse(); }
+    }
+}
+
+
+function PriceInfoBoxSwitchView() {
+    let el = Metro.getPlugin($("#PriceInfoBox"), 'info-box');
+    if (el != undefined) {
+        if ($("#PriceInfoBoxSwitch").html() == window.dictionary('labels.list')) {
+            $("#PriceInfoBoxSwitch").html(window.dictionary('labels.groups'));
+            el.element.width("60%");
+            $("#PriceInfoGroups")[0].style.display = 'none'; $("#PriceInfoList")[0].style.display = 'inline';
+        } else {
+            $("#PriceInfoBoxSwitch").html(window.dictionary('labels.list'));
+            el.element.width("400");
+            $("#PriceInfoList")[0].style.display = 'none'; $("#PriceInfoGroups")[0].style.display = 'inline';
+        }
+        el.reposition();
+    }
+
 }

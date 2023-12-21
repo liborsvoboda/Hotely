@@ -226,7 +226,10 @@
     "forEquipmentForRent": "for Equipment for Rent",
     "unavailableRoomList": "Unavailables List",
     "clickForShowPriceList": "Click for show Price List of Services, Devices and Equipments",
-    "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor"
+    "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor",
+    "groups": "Groups",
+    "list": "List"
+
   },
   "user": {
     "newPassword": "New Password",

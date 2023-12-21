@@ -1,6 +1,6 @@
 <template>
     <div class="row container d-flex align-items-center justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="">
                 <!-- class="profile-content" -->
                 <router-view></router-view>
