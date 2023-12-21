@@ -37,7 +37,7 @@ namespace UbytkacBackend.DBModel
         [Unicode(false)]
         public string DescriptionEn { get; set; }
         public int DefaultCurrencyId { get; set; }
-        public bool ApproveRequest { get; set; }
+        public bool? ApproveRequest { get; set; }
         public bool Approved { get; set; }
         [Required]
         public bool Advertised { get; set; }

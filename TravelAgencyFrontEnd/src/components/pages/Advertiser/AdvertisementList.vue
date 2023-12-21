@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="p-4 rounded drop-shadow" :style="(hotel.deactivated ? 'background-color: rgb(242 214 161 / 70%);' : '')">
+    <div class="p-4 rounded drop-shadow" :style="getAdvertisementStyle" >
         <div id="testOmega" style="opacity:1.0;">
             <div class="row">
                 <div class="col-md-12 pt-0 mt-0">
@@ -81,14 +81,14 @@
 
                         <div class="col-md-4 pt-0 mt-0 text-start">
                             <h5 class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createRoomListBox()">
-                                <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
+                                <small class="fg-black">{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
-                            <p class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createValueInfoBox()">
-                                {{ $t('labels.valueInformations') }}
+                            <p class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createPriceInfoBox()">
+                                {{ $t('labels.servicesAndFacilitiesAvailable') }}
                             </p>
-                            <p class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createBitInfoBox()">
+<!--                             <p class="c-help ani-hover-heartbeat" style="margin-bottom:0px;" @click="createBitInfoBox()">
                                 {{ $t('labels.availableInformations') }}
-                            </p>
+                            </p> -->
                             <div class="c-help ani-hover-heartbeat">
                                 {{ $t('labels.reservationCount') }}:
                                 <span class="rounded-pill ">
@@ -113,7 +113,7 @@
                             <div>
                                 {{ $t('labels.state') }}:
                                 <span class="rounded-pill ">
-                                    {{ ( hotel.approveRequest ? $t('labels.approvalRequest') : hotel.approved ? $t('labels.approved') : $t('labels.processed') ) }}
+                                    {{ ( hotel.approveRequest != null && !hotel.approveRequest && !hotel.approved  ? $t('labels.denied') : hotel.approveRequest ? $t('labels.approvalRequest') : hotel.approved ? $t('labels.approved') : $t('labels.processed') ) }}
                                 </span>
                             </div>
 
@@ -465,12 +465,20 @@ export default {
         hotel: {},
     },
     computed: {
+        getAdvertisementStyle() {
+            let backgroundStyle = "";
+           /*deactivated*/ if (this.hotel.deactivated) { backgroundStyle += "background-color: #c1c5c9;"; backgroundStyle += "opacity: 0.7;"; } 
+           /*rozpracovano*/ else if (!this.hotel.deactivated && this.hotel.approveRequest == null) { backgroundStyle += "background-color: #9ecfff;"; backgroundStyle += "opacity: 0.7;"; }
+           /*ceka na schvaleni*/ else if (!this.hotel.deactivated && this.hotel.approveRequest && !this.hotel.approved) { backgroundStyle += "background-color: #f1ce22;"; backgroundStyle += "opacity: 0.7;"; }
+           /*zamitnuto*/ else if (!this.hotel.deactivated && this.hotel.approveRequest != null && !this.hotel.approveRequest && !this.hotel.approved) { backgroundStyle += "background-color: #a31212cf;"; backgroundStyle += "opacity: 0.7;"; }
+           /*schvaleno*/ else if (!this.hotel.deactivated && this.hotel.approveRequest != null && !this.hotel.approveRequest && this.hotel.approved) { backgroundStyle += "background-color: #098b01cf;"; backgroundStyle += "opacity: 0.7;"; }
+            return backgroundStyle;
+        },
         getSelectedReservationByReservationId() {
             if (this.reservationId > 0) {
                 return this.hotel.hotelReservationLists.filter(obj => { return obj.id == this.reservationId; })[0];
             } else return "";
         },
-    
         getOpenedCommentsCount() {
             return this.hotel.guestAdvertiserNoteLists.filter(obj => { return obj.solved == false; }).length;
         },
@@ -511,23 +519,39 @@ export default {
             });
             return photos;
         },
-        valueProperties() {
-            var valueProperties = [];
-            this.hotel.hotelPropertyAndServiceLists.forEach(property => {
-                var valueProperty = this.$store.state.propertyList.filter(obj => { return obj.id === property.propertyOrServiceId; })[0];
-                if (property.isAvailable && valueProperty.isValue) { valueProperties.push({ name: valueProperty.systemName, value: property.value, unit: valueProperty.propertyOrServiceUnitType.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax }); }
+        getUsedPropertyGroups() {
+            let usedGroups = []; let lastGroup = null;
+            this.getPriceListProperties.forEach(property => {
+                if (lastGroup == null || (lastGroup != null && property.group != lastGroup)) { usedGroups.push({ name: property.group }); }
+                lastGroup = property.group;
             });
-            return valueProperties;
+            return usedGroups;
         },
-        bitProperties() {
-            var bitProperties = [];
+        getPriceListProperties() {
+            var priceListProperties = [];
             this.hotel.hotelPropertyAndServiceLists.forEach(property => {
                 var valueProperty = this.$store.state.propertyList.filter(obj => { return obj.id === property.propertyOrServiceId; })[0];
-                if (property.isAvailable && valueProperty.isBit) { bitProperties.push({ name: valueProperty.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax }); }
+                if (property.isAvailable && valueProperty.isBit) {
+                    priceListProperties.push({
+                        isBit: true,
+                        groupSequence: valueProperty.propertyGroup != null ? valueProperty.propertyGroup.sequence : 1000000,
+                        group: valueProperty.propertyGroup != null ? valueProperty.propertyGroup.systemName : this.$i18n.t('labels.moreFilters'),
+                        name: valueProperty.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax
+                    });
+                }
+                if (property.isAvailable && valueProperty.isValue) {
+                    priceListProperties.push({
+                        isBit: false,
+                        groupSequence: valueProperty.propertyGroup != null ? valueProperty.propertyGroup.sequence : 1000000,
+                        group: valueProperty.propertyGroup != null ? valueProperty.propertyGroup.systemName : this.$i18n.t('labels.moreFilters'),
+                        name: valueProperty.systemName, value: property.value, unit: valueProperty.propertyOrServiceUnitType.systemName, fee: property.fee, feeValue: property.feeValue, feeRangeMin: property.feeRangeMin, feeRangeMax: property.feeRangeMax
+                    });
+                }
             });
-            return bitProperties;
-        }
 
+            priceListProperties = priceListProperties.sort((a, b) => a.groupSequence - b.groupSequence);
+            return priceListProperties;
+        }
     },
     mounted() {
 
@@ -964,8 +988,9 @@ export default {
 
             this.infoBox = Metro.infobox.create(htmlContent, "", {
                 closeButton: true,
-                type: "info",
+                type: "",
                 removeOnClose: true,
+                width: "600",
                 height: "auto"
             });
         },
@@ -1017,53 +1042,33 @@ export default {
             window.hidePartPageLoading();
             enableScroll();
         },
-        createBitInfoBox() {
+        createPriceInfoBox() {
             if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
+            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5>";
+            let lastGroup = null;
+            this.getPriceListProperties.forEach((property) => {
 
-            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5><ul class='skills'>";
-            let lineSeparator = true;
-            this.bitProperties.forEach((property) => {
-                htmlContent += lineSeparator ? "<li><div class='d-flex w-100'>" : "";
-                htmlContent += "<div class='d-flex w-50'><span>" + property.name + "</span>" +
+                if (lastGroup == null || (lastGroup != null && property.group != lastGroup)) {
+                    if (lastGroup != null) { htmlContent += "</ul></div></div>"; }
+                    htmlContent += "<div id='priceGroup_" + (property.groupSequence != null ? property.groupSequence : 1000000) + "'  data-role='panel' data-on-expand='CloseOtherPriceListGroups' data-title-caption='" + property.group + "' class='panel drop-shadow' data-cls-title-caption='h5 pl-3 mt-2 text-left' data-collapsed='" + (lastGroup == null ? 'false' : 'true') + "' data-collapsible='true'><div class='info-box-content p-0 m-0' ><ul class='skills'>";
+                }
+
+                htmlContent += "<li><div class='d-flex w-100'><span>" + property.name + (!property.isBit ? " <span class='rounded-pill'>" + property.value + " " + property.unit : "") + "</span>" +
+
                     ((property.fee) ? (property.feeValue != null) ?
-                        '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
-                        : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 0px;position: absolute;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
+                        : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 0px;position: absolute;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
                         : '')
-                    + "</div>";
+                    + "</div></li>";
 
-                htmlContent += !lineSeparator ? "</div></li>" : "";
-                lineSeparator = !lineSeparator;
+                lastGroup = property.group;
             });
 
-            this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
+            this.infoBox = Metro.infobox.create(htmlContent + "</div>", "", {
                 closeButton: true,
-                type: "info",
+                type: "",
                 removeOnClose: true,
-                height: "auto"
-            });
-        },
-        createValueInfoBox() {
-            if (this.infoBox != null) { Metro.infobox.close(this.infoBox); }
-
-            let htmlContent = "<div class='skill-box bg-transparent'><h5>" + this.$i18n.t('labels.servicesAndFacilitiesAvailable') + "</h5><ul class='skills'>";
-            let lineSeparator = true;
-            this.valueProperties.forEach((property) => {
-                htmlContent += lineSeparator ? "<li><div class='d-flex w-100'>" : "";
-                htmlContent += "<div class='d-flex w-50'><span>" + property.name + ": <span class='rounded-pill'>" + property.value + " " + property.unit + "</span>" + "</span>" +
-                    ((property.fee) ? (property.feeValue != null) ?
-                        '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeValue + ' ' + this.hotel.defaultCurrency.name + ' </span>'
-                        : '<span title=\'' + this.$i18n.t('labels.fee') + '\' class=\'badge bg-green fg-white\' style=\'right: 10px;position: absolute;\'>' + property.feeRangeMin + " - " + property.feeRangeMax + ' ' + this.hotel.defaultCurrency.name + ' </span>'
-                        : '')
-                    + "</div>";
-
-                htmlContent += !lineSeparator ? "</div></li>" : "";
-                lineSeparator = !lineSeparator;
-            });
-
-            this.infoBox = Metro.infobox.create(htmlContent + "</ul></div>", "", {
-                closeButton: true,
-                type: "info",
-                removeOnClose: true,
+                width: "400",
                 height: "auto"
             });
         },

@@ -1,6 +1,7 @@
 <template>
     <div>
-        <input class="form-control"
+        <input type="text"
+                class="form-control"
                id="searchInput"
                :placeholder="$t('labels.insertSearchValue')"
                @input="searchFieldChange"

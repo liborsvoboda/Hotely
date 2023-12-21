@@ -11,7 +11,7 @@ namespace UbytkacAdmin.Classes {
         public string DescriptionCz { get; set; }
         public string DescriptionEn { get; set; }
         public int? DefaultCurrencyId { get; set; } = null;
-        public bool ApproveRequest { get; set; }
+        public bool? ApproveRequest { get; set; }
         public bool Approved { get; set; }
         public bool Advertised { get; set; }
         public int TotalCapacity { get; set; }

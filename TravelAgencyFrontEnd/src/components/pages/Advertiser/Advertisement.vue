@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-6 text-right pt-3 pr-0 mr-0">
                     <button class="p-button p-component button info shadowed" @click="startAdvertisement()">{{ $t('labels.newAccommodationAdvertisement') }}</button>
-                    <span class="icon mif-info pl-3 mif-3x c-pointer fg-orange" @click="OpenDocView()" />
+                    <span class="icon mif-info pl-3 mif-3x c-pointer fg-orange" onclick="OpenDocView('Advertisements')" />
                 </div>
             </div>
         </div>
@@ -63,31 +63,6 @@ export default {
         }
     },
     methods: {
-        OpenDocView() {
-            Metro.window.create({
-                title: "Nápověda", shadow: true, draggable: true, modal: false, icon: "<span class=\"mif-info\"</span>",
-                btnClose: true, width: 1000, height: 680, place: "top-center", btnMin: false, btnMax: false, clsWindow: "", dragArea: "#AppContainer",
-                content: "<iframe id=\"DocView\" height=\"650\" style=\"width:100%;height:650px;\"></iframe>"
-            });
-
-            var that = this;
-            setTimeout(async function () {
-                window.showPageLoading();
-                let response = await fetch(
-                    that.$store.state.apiRootUrl + '/WebPages/GetWebDocumentationList/Advertisements', {
-                    method: 'GET', headers: { 'Content-type': 'application/json' }
-                }); let result = await response.json();
-
-                if (result.Status == "error") {
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-                } else {
-                    document.getElementById("DocView").srcdoc = result;
-                }
-                window.hidePageLoading();
-            }, 1000);
-
-        },
         startAdvertisement() {
             ActualValidationFormName = "hotelForm";
             ActualWizardPage = 1;

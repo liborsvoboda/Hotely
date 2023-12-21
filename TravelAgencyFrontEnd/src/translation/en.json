@@ -155,6 +155,7 @@
     "state": "State",
     "approvalRequest": "Approval request",
     "approved": "Approved",
+    "denied": "Denied",
     "advertised": "Advertised",
     "unadvertised": "Unadvertised",
     "processed": "Processed",
@@ -223,8 +224,9 @@
     "unavailableToDate": "Unavailable to Date",
     "saveUnavailable": "Save Unavailable",
     "forEquipmentForRent": "for Equipment for Rent",
-    "unavailableRoomList": "Unavailables List"
-
+    "unavailableRoomList": "Unavailables List",
+    "clickForShowPriceList": "Click for show Price List of Services, Devices and Equipments",
+    "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor"
   },
   "user": {
     "newPassword": "New Password",

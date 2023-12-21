@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\tools\md-book\NováSložka\**" />
-    <Content Remove="wwwroot\tools\md-book\NováSložka\**" />
-    <EmbeddedResource Remove="wwwroot\tools\md-book\NováSložka\**" />
-    <None Remove="wwwroot\tools\md-book\NováSložka\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="ServerCorePages\Error.cshtml" />
     <None Include="ServerCorePages\Index.cshtml" />
     <None Include="ServerCorePages\Shared\_Layout.cshtml" />

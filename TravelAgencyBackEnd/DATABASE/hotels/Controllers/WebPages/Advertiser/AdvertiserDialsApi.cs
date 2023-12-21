@@ -7,13 +7,17 @@ namespace UbytkacBackend.Controllers {
     [Route("WebApi/Advertiser")]
     public class AdvertiserDialsApi : ControllerBase {
 
-        [HttpGet("/WebApi/Advertiser/GetCountryList")]
-        public async Task<string> GetCountryList() {
+        [HttpGet("/WebApi/Advertiser/GetCountryList/{language}")]
+        public async Task<string> GetCountryList(string language = null) {
 
             List<CountryList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 data = new hotelsContext().CountryLists.ToList();
             }
+
+            data.ForEach(country => {
+                country.SystemName = ServerCoreDbOperations.DBTranslate(country.SystemName, language);
+            });
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }

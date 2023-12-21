@@ -11,7 +11,9 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                data = new hotelsContext().DocumentationLists.Take(500).ToList();
+                data = new hotelsContext().DocumentationLists
+                    .OrderBy(a => a.DocumentationGroup.Sequence).ThenBy(a => a.Sequence).ThenBy(a=>a.Name)
+                    .ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });

@@ -196,7 +196,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.StornoDaysCountBeforeStart = (int)txt_stornoDaysCountBeforeStart.Value;
                 selectedRecord.GuestStornoEnabled = (bool)chb_guestStornoEnabled.IsChecked;
 
-                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
+                selectedRecord.ApproveRequest = false;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
                 selectedRecord.Advertised = (bool)chb_advertised.IsChecked;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
@@ -222,28 +222,30 @@ namespace UbytkacAdmin.Pages {
         }
 
         private async void SetRecord(bool showForm, bool copy = false) {
+            try {
+                cb_cityId.SelectedItem = cityList.FirstOrDefault(a => a.Id == selectedRecord.CityId);
+                cb_countryId.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
+                txt_name.Text = selectedRecord.Name;
+                txt_descriptionCz.Text = selectedRecord.DescriptionCz;
+                cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
 
-            cb_cityId.SelectedItem = cityList.FirstOrDefault(a => a.Id == selectedRecord.CityId);
-            cb_countryId.SelectedItem = countryList.FirstOrDefault(a => a.Id == selectedRecord.CountryId);
-            txt_name.Text = selectedRecord.Name;
-            txt_descriptionCz.Text = selectedRecord.DescriptionCz;
-            cb_currencyId.SelectedItem = currencyList.FirstOrDefault(a => a.Id == selectedRecord.DefaultCurrencyId);
+                txt_enabledCommDaysBeforeStart.Value = selectedRecord.EnabledCommDaysBeforeStart;
 
-            txt_enabledCommDaysBeforeStart.Value = selectedRecord.EnabledCommDaysBeforeStart;
+                txt_stornoDaysCountBeforeStart.Value = selectedRecord.StornoDaysCountBeforeStart;
+                chb_guestStornoEnabled.IsChecked = selectedRecord.GuestStornoEnabled;
 
-            txt_stornoDaysCountBeforeStart.Value = selectedRecord.StornoDaysCountBeforeStart;
-            chb_guestStornoEnabled.IsChecked = selectedRecord.GuestStornoEnabled;
+                chb_approveRequest.IsChecked = false;
+                btn_save1.IsEnabled = (bool)selectedRecord.ApproveRequest ? true : false;
+                chb_approved.IsChecked = selectedRecord.Approved;
+                chb_advertised.IsChecked = selectedRecord.Advertised;
 
-            chb_approveRequest.IsChecked = false;
-            btn_save1.IsEnabled = selectedRecord.ApproveRequest;
-            chb_approved.IsChecked = selectedRecord.Approved;
-            chb_advertised.IsChecked = selectedRecord.Advertised;
+                hotelList = selectedRecord;
 
-            hotelList = selectedRecord;
+                //Only for Admin: Owner/UserId Selection
+                if (App.UserData.Authentification.Role == "admin")
+                    cb_owner.Text = selectedRecord.Id == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
 
-            //Only for Admin: Owner/UserId Selection
-            if (App.UserData.Authentification.Role == "admin")
-                cb_owner.Text = selectedRecord.Id == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

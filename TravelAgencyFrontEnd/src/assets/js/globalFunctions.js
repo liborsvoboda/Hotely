@@ -77,3 +77,19 @@ window.str2bytes =function str2bytes(str) {
     }
     return bytes;
 }
+
+
+//Closing PriceList Other Groups on Panel Expand
+//filled on loaded groups 
+//window.propertyGroupList = []; 
+function CloseOtherPriceListGroups(element) {
+    let pricePanel = null;
+    window.propertyGroupList.forEach(group => {
+        if (group.sequence != element.id.split("_")[1]) {
+            pricePanel = Metro.getPlugin('#priceGroup_' + group.sequence, 'panel');
+            if (pricePanel != undefined) { pricePanel.collapse(); }
+        }
+    });
+    //more filters
+    if (1000000 != element.id.split("_")[1]) { pricePanel = Metro.getPlugin('#priceGroup_1000000', 'panel'); pricePanel.collapse(); }
+}

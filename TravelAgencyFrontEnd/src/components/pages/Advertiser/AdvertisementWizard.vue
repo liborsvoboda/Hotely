@@ -1,7 +1,7 @@
 <template>
     <div class="card h-100">
 
-        <div id="AdvertisementWizard" data-role="wizard" data-button-outline="false" class="wizard-wide-fs"
+        <div id="AdvertisementWizard" data-role="wizard" data-button-outline="false" class="wizard-wide-fs" data-on-help-click="WizardOpenHelp()" data-icon-help="<span class='icon mif-info mif-3x c-pointer fg-orange'></span>"
              data-button-mode="square" data-on-before-next="return false;" data-on-next-click="$('#'+ActualValidationFormName).submit();" data-on-finish-click="SaveHotel">
             <section>
                 <div class="page-content p-0 h-100">
@@ -56,7 +56,7 @@
 
                         <div class="row flex-align-center">
                             <div class="form-group w-50" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.guestStornoEnabled')">
-                                {{$t('labels.byRequest')}} 
+                                {{$t('labels.byRequest')}}
                                 <input id="GuestStornoEnabled" type="checkbox" checked data-role="switch" data-material="true">
                                 {{$t('labels.directly')}}
                             </div>
@@ -96,12 +96,6 @@
                 <div class="page-content p-0 h-100">
                     <div class="page-content p-0">
 
-                        <span class="mif-eye pos-absolute mif-4x fg-blue c-pointer" style="left:5px;top:5px" :onclick="WizardShowRoomPreview" data-role="hint"
-                              data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.showPreview')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
-
-                        <span class="mif-stack3 pos-absolute mif-4x fg-blue c-pointer" style="left:55px;top:5px" :onclick="WizardInsertNewRoom" data-role="hint"
-                              data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveNew')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
-
                         <h2 class="fg-brandColor2">{{ $t('labels.equipmentForRent') }}</h2>
                         <div class="d-block" style="height:400px;overflow-y:auto;">
 
@@ -110,8 +104,18 @@
                                 </div>
                             </div>
 
+                            <div class="d-flex align-left mb-3 p-3">
+                                <div class="mif-eye pos-absolute fg-orange mif-4x fg-blue c-pointer" style="left:5px;top:5px" :onclick="WizardShowRoomPreview" data-role="hint"
+                                     data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.showPreview')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
+
+                                <div class="mif-done_all pos-absolute fg-orange mif-4x fg-blue c-pointer" style="left:55px;top:5px" :onclick="WizardInsertNewRoom" data-role="hint"
+                                     data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveNew')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
+                            </div>
+
                             <form id="roomForm" class="login-form bg-white p-1 mx-auto" data-role="validator" action="javascript:"
                                   data-clear-invalid="2000" data-on-error-form="WizardValidateForm" data-on-validate-form="WizardValidateForm">
+
+
 
                                 <div class="row flex-align-center">
                                     <div class="form-group w-50">
@@ -188,15 +192,17 @@
                 <div class="page-content p-0 h-100">
                     <div class="page-content p-0">
 
-                        <span class="mif-done_all pos-absolute mif-4x fg-blue c-pointer" style="left:5px;top:5px" :onclick="WizardUpdateProperty" data-role="hint"
-                              data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveChanges')" :class="(!window.watchChangeVariables.propertySelected ? 'disabled' : '')" />
-
                         <h2 class="fg-brandColor2">{{ $t('labels.servicesAndPropertiesSettings') }}</h2>
                         <div class="d-block" style="height:400px;overflow-y:auto;">
 
                             <div class="container bg-grayBlue p-1 text-center" style="height:200px;overflow-y:auto;">
                                 <div id="propSettingsContainer" class="d-block w-100 ">
                                 </div>
+                            </div>
+
+                            <div class="d-flex align-left mb-3 p-3">
+                                <div class="mif-done pos-absolute fg-orange mif-4x fg-blue c-pointer" style="left:5px;top:5px" :onclick="WizardUpdateProperty" data-role="hint"
+                                     data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveChanges')" :class="(!window.watchChangeVariables.propertySelected ? 'disabled' : '')" />
                             </div>
 
                             <form id="propertySettingsForm" class="login-form bg-white p-1 mx-auto" data-role="validator" action="javascript:"
@@ -338,7 +344,7 @@ export default {
         async getCountryList() {
             window.showPageLoading();
             var response = await fetch(
-                this.$store.state.apiRootUrl + '/Advertiser/GetCountryList',
+                this.$store.state.apiRootUrl + '/Advertiser/GetCountryList/' + this.$store.state.language,
                 { method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' } }
             ); let result = await response.json();
 
@@ -392,7 +398,7 @@ export default {
 
             Metro.infobox.create(htmlContent, "", {
                 closeButton: true,
-                type: "info",
+                type: "",
                 removeOnClose: true,
                 height: "auto"
             });

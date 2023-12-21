@@ -25,13 +25,23 @@ function WizardRequestCityList(value) {
     watchGlobalVariables.wizardRequestCityList = value;
 };
 
+async function WizardOpenHelp() {
+    let step = Metro.getPlugin($("#AdvertisementWizard"), 'wizard').current;
+
+    if (step == 1) { OpenDocView('WizardBasicSetting'); }
+    else if (step == 2) { OpenDocView('WizardImageGallery'); }
+    else if (step == 3) { OpenDocView('WizardAdvertisement'); }
+    else if (step == 4) { OpenDocView('WizardPropertyList'); }
+    else if (step == 5) { OpenDocView('WizardPropertiesSet'); }
+    else if (step == 6) { OpenDocView('WizardFinalView'); }
+}
+
 //Validation
 async function WizardValidateForm() {
-    console.log("validating", $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current, ActualValidationFormName);
-
+    let wizard = Metro.getPlugin($("#AdvertisementWizard"), 'wizard');
 
     //prepare properties array
-    if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 4) {
+    if (wizard.current == 4) {
         propertyList.forEach(property => {
             if ($("#prop_" + property.id) != undefined && $("#prop_" + property.id).val('checked')[0].checked
                 && (
@@ -52,7 +62,7 @@ async function WizardValidateForm() {
     }
 
 
-    if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 &&
+    if (wizard.current == 1 &&
         $("#HotelName").val().length > 0 && $("#LimitGuestCommDays").val().length > 0 && $("#StornoDaysCountBeforeStart").val().length > 0 && 
         $("#HotelCurrency")[0].selectedOptions[0] != undefined && $("#HotelCity")[0].selectedOptions[0] != undefined) {
         window.ActualValidationFormName = ActualValidationFormName = "galleryForm";
@@ -62,56 +72,54 @@ async function WizardValidateForm() {
         $("#galleryContainer").html(htmlContent);
         WizardUploadImagesCheck();
 
-        $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
+        wizard.toPage(wizard.current + 1);
     }
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 1 &&
+    else if (wizard.current == 1 &&
         ($("#HotelName").val().length == 0 || $("#LimitGuestCommDays").val().length == 0 || $("#StornoDaysCountBeforeStart").val().length == 0 ||
             $("#HotelCurrency")[0].selectedOptions[0] == undefined || $("#HotelCity")[0].selectedOptions[0] == undefined)) {
         var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
         notify.create(window.dictionary('labels.missingSetting'), "Info"); notify.reset();
     }
 
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 2 && WizardImageGallery.length > 0) {
+    else if (wizard.current == 2 && WizardImageGallery.length > 0) {
         window.ActualValidationFormName = ActualValidationFormName = "roomForm";
         window.ActualWizardPage = ActualWizardPage = 3;
-        $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
+        wizard.toPage(wizard.current + 1);
     }
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 2 && WizardImageGallery.length == 0) {
+    else if (wizard.current == 2 && WizardImageGallery.length == 0) {
         var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
         notify.create(window.dictionary('labels.missingAnyImage'), "Info"); notify.reset();
     }
 
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 3 && WizardRooms.length > 0) {
+    else if (wizard.current == 3 && WizardRooms.length > 0) {
         window.ActualValidationFormName = ActualValidationFormName = "propertyForm";
         window.ActualWizardPage = ActualWizardPage = 4;
-        //if (WizardHotel.Properties != []) {
-            WizardSetUpdateData2();
-        //}
-        $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
+        WizardSetUpdateData2();
+        wizard.toPage(wizard.current + 1);
     }
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 3 && WizardRooms.length == 0) {
+    else if (wizard.current == 3 && WizardRooms.length == 0) {
         var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
         notify.create(window.dictionary('labels.missingAnyRoom'), "Info"); notify.reset();
     }
 
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 4 && WizardProperties.length > 0) {
+    else if (wizard.current == 4 && WizardProperties.length > 0) {
         window.ActualValidationFormName = ActualValidationFormName = "propertySettingsForm";
         window.ActualWizardPage = ActualWizardPage = 5;
         WizardGeneratePropertySettingsPanel();
         window.watchChangeVariables.propertySelected = false;
 
-        $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
+        wizard.toPage(wizard.current + 1);
     }
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 4 && WizardProperties.length == 0) {
+    else if (wizard.current == 4 && WizardProperties.length == 0) {
         var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
         notify.create(window.dictionary('labels.missingAnyProperties'), "Info"); notify.reset();
     }
 
-    else if ($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current == 5 && WizardProperties.length > 0) {
+    else if (wizard.current == 5 && WizardProperties.length > 0) {
         window.ActualValidationFormName = ActualValidationFormName = "previewForm";
         window.ActualWizardPage = ActualWizardPage = 6;
         WizardGeneratePreview();
-        $("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.toPage($("#AdvertisementWizard")[0]["DATASET:UID:M4Q"].wizard.current + 1);
+        wizard.toPage(wizard.current + 1);
     }
 };
 
@@ -122,6 +130,12 @@ function WizardGallerySetPrimaryImage(filename) {
     });
     WizardUploadImagesCheck();
 }
+
+function WizardGalleryRemoveImage(index) {
+    WizardImageGallery.splice(index, 1);
+    WizardUploadImagesCheck();
+}
+
 function WizardUploadImagesCheck() {
     let status = false;
     if (WizardImageGallery.length == 0) {
@@ -132,9 +146,10 @@ function WizardUploadImagesCheck() {
     else {
 
         let htmlGallery = "<div data-role='lightbox' data-role-lightbox='false' class='m-2' data-cls-image='border border-1 bd-white' >"; 
-        WizardImageGallery.forEach(image => {
+        WizardImageGallery.forEach((image,index) => {
             if (image.IsPrimary) { status = true; }
             htmlGallery += "<img id='" + image.FileName + "' src='" + image.Attachment + "' :data-original='" + image.Attachment + "' class='c-pointer drop-shadow " + (image.IsPrimary ? " selected " : "") + "' style='max-width:150px;margin:10px;' title='" + window.dictionary('labels.selectDefault') + "'/>";
+            htmlGallery += "<span class='mif-cancel c-pointer pos-relative fg-red mif-3x' style='top:-35px;right:25px;' onclick=WizardGalleryRemoveImage(" + index + "); title='" + window.dictionary('labels.delete') + "'></span>";
         }); htmlGallery += "</div>";
         $("#HotelImageGallery").html(htmlGallery);
 
@@ -150,7 +165,7 @@ function WizardUploadImagesCheck() {
     ValidationWizardStatus = status;
 }
 async function WizardUploadImages(files) {
-    console.log("uploading images", files);
+    //console.log("uploading images", files);
 
 
     if (files.length > 0) {
@@ -218,6 +233,7 @@ async function WizardRoomUploadImage(files) {
             WizardTempRoomPhoto = [];
             var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
             notify.create(window.dictionary('labels.maxFileSize') + files[0].name, "Info"); notify.reset();
+            Metro.getPlugin($("#roomImage"), 'file').clear();
         }
 
         window.WizardTempRoomPhoto = WizardTempRoomPhoto;
@@ -226,6 +242,7 @@ async function WizardRoomUploadImage(files) {
         WizardTempRoomPhoto = [];
         var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
         notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info"); notify.reset();
+        Metro.getPlugin($("#roomImage"), 'file').clear();
     }
 
     window.watchChangeVariables.roomShowPreviewEnabled = window.WizardTempRoomPhoto != undefined && window.WizardTempRoomPhoto.length > 0;
@@ -237,19 +254,17 @@ function WizardRemoveRoom(index) {
 function WizardGenerateRooms() {
     let htmlContent = "";
 
-    let index = 0;
     let currency = $("#HotelCurrency option:selected").text();
-    WizardRooms.forEach(room => {
+    WizardRooms.forEach((room, index) => {
 
         htmlContent += " <div id='" + room.RoomName + "' data-role='panel' class='p-1' data-title-caption='" + room.RoomName + "' data-cls-panel='shadow-3' data-cls-content='fg-white' data-collapsible='true' data-collapsed='true' >"
         htmlContent += "<ul class='feed-list fg-black text-left'>";
-        htmlContent += "<li><img class='avatar dropshadow' src='" + room.Attachment + "'><span class='c-pointer mif-cancel mif-2x pos-absolute' style='top:5px;left:5px;' title='" + window.dictionary('labels.remove') + "' onclick='WizardRemoveRoom(" + index +")'></span>";
+        htmlContent += "<li><img class='avatar dropshadow' src='" + room.Attachment + "'>";
+        htmlContent += "<span class='c-pointer mif-cancel mif-3x pos-absolute fg-red' style='top:5px;left:0px;' title='" + window.dictionary('labels.remove') + "' onclick='WizardRemoveRoom(" + index + ")'></span>";
         htmlContent += "<span class='second-label fg-black bold'>" + room.RoomsCount + "x " + window.dictionary('labels.maxCapacity') + ": " + room.MaxCapacity + ", " + room.Price + " " + currency + " <i class='fas fa-user-alt'></i>" + (room.ExtraBed ? " + <span class='mif-hotel mif-3x ' style = 'top:5px;' data-role='hint' data-cls hint='bg-cyan fg-white drop-shadow' data-hint-text='" + window.dictionary('labels.extraBed') + "' > </span>" : "") + "</span>";
         htmlContent += "<span class='second-label' style='zoom: 1;'>" + room.Description + "</span></li>";
         htmlContent += "</ul>";
         htmlContent += "</div>";
-
-        index++;
     });
 
     $("#roomContainer").html(htmlContent);
@@ -410,7 +425,7 @@ async function SaveHotel() {
     notify.create(window.dictionary('labels.advertisementHasBeenSaved'), "Info"); notify.reset();
 
     window.hidePageLoading();
-    Router.push('/');
+    Router.push('/Profile/Advertisement');
 }
 
 function WizardSetUpdateData() {

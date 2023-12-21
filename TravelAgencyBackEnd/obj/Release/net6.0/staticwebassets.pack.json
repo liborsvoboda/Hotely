@@ -61,6 +61,30 @@
       "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\Settings.html"
     },
     {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\WizardAdvertisement.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\WizardAdvertisement.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\WizardBasicSetting.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\WizardBasicSetting.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\WizardFinalView.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\WizardFinalView.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\WizardImageGallery.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\WizardImageGallery.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\WizardPropertiesSet.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\WizardPropertiesSet.html"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\WizardPropertyList.html",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\WizardPropertyList.html"
+    },
+    {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\book\\ayu-highlight.css",
       "PackagePath": "staticwebassets\\server-doc\\md-book\\book\\ayu-highlight.css"
     },
@@ -231,6 +255,30 @@
     {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\Settings.md",
       "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\Settings.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\WizardAdvertisement.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\WizardAdvertisement.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\WizardBasicSetting.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\WizardBasicSetting.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\WizardFinalView.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\WizardFinalView.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\WizardImageGallery.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\WizardImageGallery.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\WizardPropertiesSet.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\WizardPropertiesSet.md"
+    },
+    {
+      "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-book\\src\\WizardPropertyList.md",
+      "PackagePath": "staticwebassets\\server-doc\\md-book\\src\\WizardPropertyList.md"
     },
     {
       "Id": "E:\\Projekty\\Hotely\\TravelAgencyBackEnd\\wwwroot\\server-doc\\md-preview\\README.md",

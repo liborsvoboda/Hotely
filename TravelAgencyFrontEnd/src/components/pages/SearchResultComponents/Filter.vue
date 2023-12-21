@@ -22,7 +22,7 @@
 
                               <div v-for="subproperty in propertyList">
                                   <div v-if="subproperty.propertyGroupId == property.propertyGroupId && subproperty.isValue">
-                                      <p>{{subproperty.systemName}}</p>
+                                      <p class="pb-4">{{subproperty.systemName}}</p>
                                       <Slider v-model="subproperty.searchDefaultValue"
                                               :id="'prop'+subproperty.id"
                                               :step="0.1"
@@ -71,7 +71,7 @@
                               <div class="accordion-body text-start">
                                   <div v-for="property in propertyList">
                                       <div v-if="property.isValue && property.propertyGroupId == null">
-                                          <p>{{property.systemName}}</p>
+                                          <p class="pb-4">{{property.systemName}}</p>
                                           <Slider v-model="property.searchDefaultValue"
                                                   :id="'prop'+property.id"
                                                   :step="0.1"

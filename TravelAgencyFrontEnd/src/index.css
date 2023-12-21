@@ -111,5 +111,38 @@ body {
 }
 
 .zoom2 {
-    zoom:2;
+    zoom: 2;
+}
+
+
+.slider-tooltip {
+    background: var(--slider-tooltip-bg,rgb(83, 193, 110)) !important;
+    border: 1px solid var(--slider-tooltip-bg,rgb(83, 193, 110)) !important;
+    border-radius: var(--slider-tooltip-radius,5px);
+    color: var(--slider-tooltip-color,#fff);
+}
+
+.slider-connect {
+    background: var(--slider-connect-bg,rgb(83, 193, 110)) !important;
+    cursor: pointer;
+}
+
+.panel .panel-title .dropdown-toggle {
+    padding-left: 20px !important;
+}
+
+.popover {
+    position: fixed !important;
+}
+
+.width-400 {
+    min-width: 400px !important;
+    width: 400px !important;
+    max-width: 400px !important;
+}
+
+.width-600 {
+    min-width: 600px !important;
+    width: 600px !important;
+    max-width: 600px !important;
 }

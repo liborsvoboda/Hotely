@@ -127,7 +127,7 @@ namespace UbytkacBackend.Controllers {
                             DescriptionCz = record.Description,
                             DefaultCurrencyId = record.CurrencyId,
                             UserId = int.Parse(userId), 
-                            ApproveRequest = false,
+                            ApproveRequest = null,
                             Approved = false,
                             EnabledCommDaysBeforeStart = record.LimitGuestCommDays,
                             StornoDaysCountBeforeStart = record.StornoDaysCountBeforeStart,
@@ -149,7 +149,7 @@ namespace UbytkacBackend.Controllers {
                     else {
                         hotelRec = new hotelsContext().HotelLists.Where(a => a.Id == (int)record.HotelRecId).FirstOrDefault();
                         hotelRec.Name = record.HotelName; hotelRec.CountryId = record.CountryId; hotelRec.CityId = record.CityId;
-                        hotelRec.DescriptionCz = record.Description; hotelRec.DefaultCurrencyId = record.CurrencyId; hotelRec.ApproveRequest = false; hotelRec.Approved = false;
+                        hotelRec.DescriptionCz = record.Description; hotelRec.DefaultCurrencyId = record.CurrencyId; hotelRec.ApproveRequest = null; hotelRec.Approved = false;
                         hotelRec.EnabledCommDaysBeforeStart = record.LimitGuestCommDays;hotelRec.StornoDaysCountBeforeStart = record.StornoDaysCountBeforeStart;hotelRec.GuestStornoEnabled = record.GuestStornoEnabled;
                         var data = new hotelsContext().HotelLists.Update(hotelRec);
                         result = await data.Context.SaveChangesAsync();

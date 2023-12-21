@@ -194,7 +194,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.GuestStornoEnabled = (bool)chb_guestStornoEnabled.IsChecked;
 
                 selectedRecord.EnabledCommDaysBeforeStart = (int)txt_enabledCommDaysBeforeStart.Value;
-                selectedRecord.ApproveRequest = (bool)chb_approveRequest.IsChecked;
+                selectedRecord.ApproveRequest = chb_approveRequest.IsChecked;
                 selectedRecord.Approved = (bool)chb_approved.IsChecked;
                 selectedRecord.Advertised = (bool)chb_advertised.IsChecked;
                 selectedRecord.UserId = App.UserData.Authentification.Id;

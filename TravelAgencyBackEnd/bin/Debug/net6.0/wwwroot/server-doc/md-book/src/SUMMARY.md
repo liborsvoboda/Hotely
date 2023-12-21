@@ -17,7 +17,13 @@
 ### Inzerce  
 
     ```markdown  
+[WizardBasicSetting](./WizardBasicSetting.md)   
 [Advertisements](./Advertisements.md)   
+[WizardImageGallery](./WizardImageGallery.md)   
+[WizardAdvertisement](./WizardAdvertisement.md)   
+[WizardPropertyList](./WizardPropertyList.md)   
+[WizardPropertiesSet](./WizardPropertiesSet.md)   
+[WizardFinalView](./WizardFinalView.md)   
     ```  
 
 ---

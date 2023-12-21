@@ -130,6 +130,7 @@ const store = createStore({
         },
         setPropertyGroupList(store, value) {
             store.propertyGroupList = value;
+            window.propertyGroupList = value; //Used in Top,Result for closing PriceList Other Groups
         },
         setBookingList(store, value) {
             store.bookingList = value;
@@ -173,6 +174,7 @@ const store = createStore({
         },
         setPropertyList(store, value) {
             store.propertyList = value;
+            console.log("setpropertyList", store.propertyList);
         },
         setRoomTypeList(store, value) {
             store.roomTypeList = value;
@@ -198,6 +200,7 @@ const store = createStore({
         setMainTopList(store, value) {
             store.searchResults = value;
             store.searchButtonLoading = false;
+            console.log("setResults", store.searchResults);
         },
         setHotelSearchResultsList(store, value) {
             store.searchResults = value;
@@ -736,6 +739,11 @@ const store = createStore({
         },
 
         async getWebSettings({ commit }) {
+
+            //Set Local Variables to Storage
+            Metro.storage.setItem('ApiRootUrl', this.state.apiRootUrl);
+
+
             let response = await fetch(
                 this.state.apiRootUrl + '/WebPages/GetSettingList', {
                 method: 'GET',

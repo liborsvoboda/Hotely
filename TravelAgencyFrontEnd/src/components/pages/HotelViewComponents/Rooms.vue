@@ -22,9 +22,9 @@
                         <div v-if="CanBook">
                             <router-link to="/Checkout" class="btn btn-primary shadowed" @click="Book"><span class="far fa-bookmark"></span> {{ $t('labels.demandReservation')}} </router-link>
                         </div>
-                        <div v-else>
+                       <!--  <div v-else>
                             <b>{{ $t('labels.insertRoomsCount')}}</b>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

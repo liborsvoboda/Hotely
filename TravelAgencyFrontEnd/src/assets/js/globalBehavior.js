@@ -11,6 +11,32 @@ let bgVideo = function () { $('.player').mb_YTPlayer(); };
 $(document).ready(function () { googleTranslateElementInit(); });
 
 
+async function OpenDocView(docname) {
+    if (docname != null && docname.length > 0 && Metro.get$el($("#DocView"))[0] == undefined) {
+        Metro.window.create({
+            title: "Nápověda", shadow: true, draggable: true, modal: false, icon: "<span class=\"mif-info\"</span>",
+            btnClose: true, width: 1000, height: 680, place: "top-center", btnMin: false, btnMax: false, clsWindow: "", dragArea: "#AppContainer",
+            content: "<iframe id=\"DocView\" height=\"650\" style=\"width:100%;height:650px;\"></iframe>"
+        });
+
+        setTimeout(async function () {
+            window.showPageLoading();
+            let response = await fetch(
+                Metro.storage.getItem('ApiRootUrl', null) + '/WebPages/GetWebDocumentationList/' + docname, {
+                method: 'GET', headers: { 'Content-type': 'application/json' }
+            }); let result = await response.json();
+
+            if (result.Status == "error") {
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: Metro.storage.getItem('NotifyShowTime', null), duration: 500 });
+                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+            } else {
+                document.getElementById("DocView").srcdoc = result;
+            }
+            window.hidePageLoading();
+        }, 100);
+    }
+}
+
 
 /*Definitions  of Global System Behaviors */
 function ChangeSchemeTo(n) {

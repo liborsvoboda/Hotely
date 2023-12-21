@@ -1,6 +1,6 @@
 ﻿<template>
    <!--  showIcon -->
-    <Calendar dateFormat="yy/mm/dd"
+    <Calendar class="" dateFormat="yy/mm/dd"
               placeholder="Vyberte Období"
               v-model="dates"
               @clear-click="clearDate"
