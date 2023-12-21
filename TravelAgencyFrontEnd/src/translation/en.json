@@ -228,8 +228,8 @@
     "clickForShowPriceList": "Click for show Price List of Services, Devices and Equipments",
     "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor",
     "groups": "Groups",
-    "list": "List"
-
+    "list": "List",
+    "cancelTranslation": "Cancel translation"
   },
   "user": {
     "newPassword": "New Password",

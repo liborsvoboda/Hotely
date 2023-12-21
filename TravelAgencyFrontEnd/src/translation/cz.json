@@ -228,7 +228,8 @@
     "clickForShowPriceList": "klikněte pro zobrazení Ceníku Služeb, Zařízení a Vybavení",
     "clickForAccommodationSpace": "Klikněte pro zobrazení ubytovacích prostor",
     "groups": "Skupiny",
-    "list": "Seznam"
+    "list": "Seznam",
+    "cancelTranslation": "Zrušit Překlad"
   },
   "user": {
     "newPassword": "Nové Heslo",

@@ -138,6 +138,29 @@ function googleTranslateElementInit() {
 }
 
 
+function CancelTranslation() {
+    setTimeout(function () {
+        let selectElement = document.querySelector('#google_translate_element select');
+        selectElement.selectedIndex = 1;
+        selectElement.dispatchEvent(new Event('change'));
+        if (selectElement.value != '') {
+            setTimeout(function () {
+                let selectElement = document.querySelector('#google_translate_element select');
+                selectElement.selectedIndex = 0;
+                selectElement.dispatchEvent(new Event('change'));
+                if (selectElement.value != '') {
+                    setTimeout(function () {
+                        let selectElement = document.querySelector('#google_translate_element select');
+                        selectElement.selectedIndex = 0;
+                        selectElement.dispatchEvent(new Event('change'));
+                    }, 2000);
+                }
+            }, 2000);
+        }
+    }, 1000);
+}
+
+
 function ApplyLoadedWebSetting() {
     if (Metro.storage.getItem('InputBanner', null) != null && Metro.storage.getItem('InputBanner', null).length > 0 && $("#SearchPanel")[0] != undefined ) { $("#SearchPanel")[0].style.backgroundImage = 'url(' + Metro.storage.getItem('InputBanner', null) + ')'; }
     if (Metro.storage.getItem('BackgroundImageSetting', null) != null && Metro.storage.getItem('BackgroundImageSetting', null).length > 0) { $("#app")[0].style.backgroundImage = 'url("' + Metro.storage.getItem('BackgroundImageSetting', null) + '")'; }
