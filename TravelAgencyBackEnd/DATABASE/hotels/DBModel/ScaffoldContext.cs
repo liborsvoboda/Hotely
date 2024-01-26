@@ -59,6 +59,8 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<InterestAreaCityList> InterestAreaCityLists { get; set; }
         public virtual DbSet<InterestAreaList> InterestAreaLists { get; set; }
         public virtual DbSet<LanguageList> LanguageLists { get; set; }
+        public virtual DbSet<MessageModuleList> MessageModuleLists { get; set; }
+        public virtual DbSet<MessageTypeList> MessageTypeLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<OftenQuestionList> OftenQuestionLists { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
@@ -774,6 +776,45 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.LanguageLists)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_LanguageList_UserList");
+            });
+
+            modelBuilder.Entity<MessageModuleList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Guest)
+                    .WithMany(p => p.MessageModuleLists)
+                    .HasForeignKey(d => d.GuestId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageModuleList_GuestList");
+
+                entity.HasOne(d => d.MessageType)
+                    .WithMany(p => p.MessageModuleLists)
+                    .HasForeignKey(d => d.MessageTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageModuleList_MessageTypeList");
+
+                entity.HasOne(d => d.MesssageParent)
+                    .WithMany(p => p.InverseMesssageParent)
+                    .HasForeignKey(d => d.MesssageParentId)
+                    .HasConstraintName("FK_MessageModuleList_MessageModuleList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.MessageModuleLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageModuleList_UserList");
+            });
+
+            modelBuilder.Entity<MessageTypeList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.MessageTypeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageTypeList_UserList");
             });
 
             modelBuilder.Entity<MottoList>(entity =>

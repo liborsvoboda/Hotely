@@ -41,6 +41,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.SaveNewsletterPreview(System.Object)">
+            <summary>
+            Message Module NewsLetter Preview API
+            Saving To index.html
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.GetNewsletterPreview">
+            <summary>
+            Message Module NewsLetter Preview API
+            Redirect todsaved Index.html after POST save
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer

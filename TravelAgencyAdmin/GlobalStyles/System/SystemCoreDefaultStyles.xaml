@@ -17,13 +17,17 @@
     </Style>
 
     <Rectangle
-        x:Key="AppThemeMenuIcon" Width="16" Height="16" x:Shared="False"
+        x:Key="AppThemeMenuIcon"
+        Width="16" Height="16"
+        x:Shared="False"
         Fill="{Binding ColorBrush, Mode=OneWay}"
         Stroke="{Binding BorderColorBrush, Mode=OneWay}"
         StrokeThickness="1" />
 
     <Rectangle
-        x:Key="AccentMenuIcon" Width="20" Height="25" x:Shared="False"
+        x:Key="AccentMenuIcon"
+        Width="20" Height="25"
+        x:Shared="False"
         Fill="{Binding ColorBrush, Mode=OneWay}" />
 
     <Style
@@ -63,6 +67,7 @@
     <Style BasedOn="{StaticResource MetroButton}" TargetType="{x:Type Button}">
         <Setter Property="Controls:ButtonHelper.PreserveTextCase" Value="True" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
     </Style>
 
     <Style BasedOn="{StaticResource MetroTextBox}" TargetType="{x:Type TextBox}">
@@ -78,6 +83,7 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="SelectedIndex" Value="0" />
         <Setter Property="Background" Value="LightYellow" />
+        <Setter Property="IsTextSearchEnabled" Value="True" />
     </Style>
 
     <!--

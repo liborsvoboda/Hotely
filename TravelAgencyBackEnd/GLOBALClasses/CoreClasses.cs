@@ -11,6 +11,7 @@ namespace UbytkacBackend.CoreClasses {
         public static string EmailerSMTPLoginPassword { get; set; } = "Hb@6u4NkmC";
         public static int EmailerSMTPPort { get; set; } = 25;
         public static bool EmailerSMTPSslIsEnabled { get; set; } = false;
+        public static string EmailerBusinessEmailAddress { get; set; } = "Libor.Svoboda@GroupWare-Solution.Eu";
 
         public static string StartupPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 

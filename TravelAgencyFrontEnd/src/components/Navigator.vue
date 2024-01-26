@@ -30,32 +30,42 @@
                     <div class="c-pointer mif-cancel icon pos-absolute fg-red" style="top:5px;right:5px;" @click="showToolPanel()"></div>
                 </div>
 
+
+                <!-- NewsLetter Panel -->
+                <div id="NewsLetterInfoBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;">
+                    <span class="button square closer"></span>
+                    <div class="info-box-content" style="overflow-y:auto;">
+                        <div class="d-flex row ">
+                            <div id="NewsLetterBox" class="d-block m-0 p-0" style="overflow-y: scroll;width: calc(100% - 30px);height:550px;max-height: 550px;"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row text-left">
                     <div class="col-lg-9 col-sm-9 col-9 header-top-left">
                         <div class="nav-menu">
                             <div class="d-flex w-100" style="font-size:16px;">
-                                <router-link :to="'/Profile/'" >
-                                    <!--  <span class="icon mif-star-full " /> -->
-                                    {{ $t('labels.top') }} {{ userSettings.topFiveCount }}
+                                <router-link :to="'/Profile/'">
+                                    {{ $t('labels.top') }}{{ userSettings.topFiveCount }}
                                 </router-link>
 
-                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')" >
-                                    <!-- <span class="icon mif-list " /> -->
+                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')">
                                     {{ $t('user.bookings') }}
                                 </a>
 
-                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')" >
-                                    <!-- <span class="icon mif-favorite " /> -->
+                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')">
                                     {{ $t('user.favorites') }}
                                 </a>
 
-                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')" >
-                                    <!-- <i class="fas fa-users-cog"></i> -->
+                                <a href="#" id="MenuProfileMessages" @click="checkAllowedMenu('MenuProfileMessages')">
+                                    {{ $t('labels.messages') }}
+                                </a>
+
+                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')">
                                     {{ $t('user.settings') }}
                                 </a>
 
-                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')" >
-                                    <!-- <span class="icon mif-hotel" :class="(advertisement.length > 0 ? '' : ' ani-shuttle ')"></span> -->
+                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')">
                                     {{ $t('labels.accommodationAdvertisement') }}
                                 </a>
                             </div>
@@ -65,9 +75,13 @@
 
                     <div class="col-lg-3 col-sm-3 col-3 header-top-right">
                         <div class="nav-menu">
+                            <div data-role="hint" data-hint-position="bottom" :data-hint-text="$t('labels.messaging')" class="c-pointer mif-news pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                 style="top:-5px; z-index:100000;left:0px;" @click="showNewsLetter()">
+                            </div>
+
                             <div v-if="!loggedIn">
-                                <a href="#" ><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
-                                <a href="#" ><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
+                                <a href="#"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
                             </div>
                             <div v-if="loggedIn">
                                 <a href="#" @click="logout()">{{ $t('user.logout') }}</a>
@@ -121,6 +135,9 @@ export default {
         },
     },
     methods: {
+        showNewsLetter() {
+            Metro.infobox.open('#NewsLetterInfoBox');
+        },
         closeHelpMenu() {
             document.querySelector("#helpMenu").classList.remove("opened");
             document.querySelector("#helpMenu").classList.add("collapsed");
@@ -142,6 +159,9 @@ export default {
         checkAllowedMenu(menuName) {
             if (this.loggedIn) {
                 switch (menuName) {
+                    case "MenuProfileMessages":
+                        this.$router.push('/Profile/ProfileMessages');
+                        break;
                     case "MenuBooking":
                         this.$router.push('/Profile/Bookings');
                         break;
@@ -162,7 +182,9 @@ export default {
                         }
                         break;
                 }
-            } else {
+            }
+            else if (menuName == "Messaging") { this.$router.push('/Messaging'); }
+            else {
                 document.getElementById(menuName).classList.add("ani-flash");
                 document.getElementById(menuName).classList.add("bg-red");
                 setTimeout(function () {

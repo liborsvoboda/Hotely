@@ -150,3 +150,7 @@ validation form
 
 data-on-submit run when form is ok else not run
 data-on-error run when form is not ok ele not run
+
+---------------------------------------------------------
+
+startup sekvence je v Searchfield.vue 

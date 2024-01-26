@@ -51,7 +51,7 @@
                 return null;
 
             var user = new hotelsContext()
-                .UserLists.Include(a => a.Role).Where(a => a.Active == true && a.UserName == username && a.Password == password)
+                .UserLists.Include(a => a.Role).Where(a => a.Active && a.UserName == username && a.Password == password)
                 .FirstOrDefault();
 
             if (user == null)

@@ -18,6 +18,5 @@ namespace UbytkacAdmin.Classes {
         public DateTime Timestamp { get; set; }
 
         public bool IsAdvertiser { get; set; }
-
     }
 }

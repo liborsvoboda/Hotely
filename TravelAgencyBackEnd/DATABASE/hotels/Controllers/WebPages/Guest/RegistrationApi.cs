@@ -125,7 +125,6 @@ namespace UbytkacBackend.Controllers {
                 }
 
                 string origPassword = record.User.Password;
-                record.User.Password = BCrypt.Net.BCrypt.HashPassword(record.User.Password);
                 int result;
 
                 //checkDeactivated
@@ -136,8 +135,9 @@ namespace UbytkacBackend.Controllers {
 
                 //prepare DB guest
                 GuestList guest = new GuestList() {
-                    Email = record.User.Email, Password = record.User.Password != null ? BCrypt.Net.BCrypt.HashPassword(record.User.Password) : origUser.Password, FirstName = record.User.FirstName,
-                    LastName = record.User.LastName, Street = record.User.Street, ZipCode = record.User.ZipCode, City = record.User.City,
+                    Email = record.User.Email, 
+                    Password = record.User.Password != null ? BCrypt.Net.BCrypt.HashPassword(record.User.Password) : origUser.Password, 
+                    FirstName = record.User.FirstName,LastName = record.User.LastName, Street = record.User.Street, ZipCode = record.User.ZipCode, City = record.User.City,
                     Country = record.User.Country, Phone = record.User.Phone, Active = true, UserId = record.User.UserId, Timestamp = DateTimeOffset.Now.DateTime
                 };
 

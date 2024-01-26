@@ -565,4 +565,19 @@
     <system:String x:Key="commandTest" xml:space="preserve">Test příkazu</system:String>
     <system:String x:Key="selectIcon" xml:space="preserve">Vyberte ikonu</system:String>
 
+    <system:String x:Key="messaging" xml:space="preserve">Agenda Zpráv</system:String>
+    <system:String x:Key="messageTypeList" xml:space="preserve">Typy Zpráv</system:String>
+    <system:String x:Key="messageModuleList" xml:space="preserve">Přehled Zpráv</system:String>
+    <system:String x:Key="messageType" xml:space="preserve">Typ Zprávy</system:String>
+    <system:String x:Key="htmlMessage" xml:space="preserve">Html Zpráva</system:String>
+    <system:String x:Key="doAnswer" xml:space="preserve">Odpovědět</system:String>
+    <system:String x:Key="answerAllowed" xml:space="preserve">Odpověď Povolena</system:String>
+    <system:String x:Key="forGuest" xml:space="preserve">Pro Hosta</system:String>
+    <system:String x:Key="isSystemOnly" xml:space="preserve">Pouze Systémová</system:String>
+    <system:String x:Key="publish" xml:space="preserve">Publikovat</system:String>
+    <system:String x:Key="published" xml:space="preserve">Publikováno</system:String>
+    <system:String x:Key="showPreview" xml:space="preserve">Zobrazit Náhled</system:String>
+    <system:String x:Key="archive" xml:space="preserve">Archivovat</system:String>
+    <system:String x:Key="archived" xml:space="preserve">Archivováno</system:String>
+
 </ResourceDictionary>

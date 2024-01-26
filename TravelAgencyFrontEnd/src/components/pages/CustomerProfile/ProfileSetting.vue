@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="profile-content mt-10">
-        <div class="rounded drop-shadow row">
+        <div class="rounded row pl-3 pr-3">
             <div class="col-md-6 text-left">
                 <h1>{{ $t('user.settings') }}</h1>
             </div>
@@ -163,6 +163,21 @@
                         <input id="topFiveCount" type="text" v-model="userSettings.topFiveCount" data-role="spinner" data-min-value="5" data-step="10" data-max-value="250">
                     </div>
                 </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="sendNewsletterToEmail" class="" v-model="userSettings.sendNewsletterToEmail" type="checkbox" value="" />
+                        <span style="padding-left:0px;">{{ $t('labels.sendNewsletterToEmail') }}</span>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="sendNewMessagesToEmail" class="" v-model="userSettings.sendNewMessagesToEmail" type="checkbox" value="" />
+                        <span style="padding-left:0px;">{{ $t('labels.sendNewMessagesToEmail') }}</span>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -214,7 +229,9 @@ export default {
                 showInactiveAdvertisementAsDefault: null,
                 translationLanguage: null,
                 hideSearchingInPrivateZone: null,
-                topFiveCount : null
+                topFiveCount: null,
+                sendNewsletterToEmail: null,
+                sendNewMessagesToEmail: null
             },
 
         };
@@ -225,6 +242,8 @@ export default {
         this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
         this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
         this.userSettings.hideSearchingInPrivateZone = this.$store.state.userSettings.hideSearchingInPrivateZone;
+        this.userSettings.sendNewsletterToEmail = this.$store.state.userSettings.sendNewsletterToEmail;
+        this.userSettings.sendNewMessagesToEmail = this.$store.state.userSettings.sendNewMessagesToEmail;
         
         //get google languagelist
         try { 
@@ -264,7 +283,10 @@ export default {
             guestSettings.push({ Key: 'showInactiveAdvertisementAsDefault', Value: this.userSettings.showInactiveAdvertisementAsDefault });
             guestSettings.push({ Key: 'translationLanguage', Value: ($("#languageList")[0].selectedOptions[0] != undefined ? $("#languageList")[0].selectedOptions[0].value : "") });
             guestSettings.push({ Key: 'hideSearchingInPrivateZone', Value: this.userSettings.hideSearchingInPrivateZone });
-            
+            guestSettings.push({ Key: 'sendNewsletterToEmail', Value: this.userSettings.sendNewsletterToEmail });
+            guestSettings.push({ Key: 'sendNewMessagesToEmail', Value: this.userSettings.sendNewMessagesToEmail });
+
+
             await this.$store.dispatch('updateGuestSetting', guestSettings);
 
             let user = {
@@ -298,6 +320,8 @@ export default {
                 $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = that.userSettings.showInactiveAdvertisementAsDefault = that.$store.state.userSettings.showInactiveAdvertisementAsDefault;
                 that.userSettings.translationLanguage = that.$store.state.userSettings.translationLanguage;
                 $("#hideSearchingInPrivateZone").val('checked')[0].checked = that.userSettings.hideSearchingInPrivateZone = that.$store.state.userSettings.hideSearchingInPrivateZone;
+                $("#sendNewsletterToEmail").val('checked')[0].checked = that.userSettings.sendNewsletterToEmail = that.$store.state.userSettings.sendNewsletterToEmail;
+                $("#sendNewMessagesToEmail").val('checked')[0].checked = that.userSettings.sendNewMessagesToEmail = that.$store.state.userSettings.sendNewMessagesToEmail;
                 $("#userId").val('checked')[0].checked = that.guest.UserId != '' ? true : false;
             }, 100);
         },

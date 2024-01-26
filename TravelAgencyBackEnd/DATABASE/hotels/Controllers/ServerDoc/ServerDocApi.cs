@@ -66,28 +66,5 @@ namespace UbytkacBackend.Controllers {
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
             return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.DeniedYouAreNotAdmin.ToString() });
         }
-
-
-        //[HttpGet("GetHtml")]
-        //public IActionResult Index() {
-
-        //internal string ParseHtml(string Html) {
-        //    var doc = new HtmlDocument();
-        //    doc.LoadHtml(Html);
-
-        //    var htmlNodes = doc.DocumentNode.SelectSingleNode("//p[@class='pt-3']");
-
-        //    string rawText = htmlNodes.InnerText.Trim();
-
-        //    return rawText;
-        //}
-
-        //    var path = Path.Combine(_hostingEnvironment.WebRootPath, "Content", "Hello.html");
-        //    var fileStream = System.IO.File.OpenRead(path);
-        //    return File(fileStream, "text/html");
-        //}
-
-
-
     }
 }

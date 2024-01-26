@@ -188,6 +188,7 @@ namespace UbytkacAdmin {
                 tv_hosts.Header = Resources["hosts"].ToString();tv_webAdmin.Header = Resources["webAdmin"].ToString(); 
                 tv_guests.Header = Resources["guests"].ToString();tv_approvalProcesses.Header = Resources["approvalProcesses"].ToString();
                 tv_documentations.Header = Resources["documentations"].ToString(); tv_tools.Header = Resources["tools"].ToString();
+                tv_messaging.Header = Resources["messaging"].ToString();
 
 
                 //Standard Application menu
@@ -231,6 +232,7 @@ namespace UbytkacAdmin {
                 tm_toolPanel.Header = Resources["toolPanel"].ToString(); tm_toolPanelDefinitionList.Header = Resources["toolPanelDefinitionList"].ToString();
                 tm_toolTypeList.Header = Resources["toolTypeList"].ToString(); tm_svgIconList.Header = Resources["svgIconList"].ToString();
 
+                tm_messageTypeList.Header = Resources["messageTypeList"].ToString(); tm_messageModuleList.Header = Resources["messageModuleList"].ToString();
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -939,6 +941,18 @@ namespace UbytkacAdmin {
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new LanguageListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/LanguageList", App.UserData.Authentification.Token);
+                            break;
+
+                        case "tm_messageModuleList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new MessageModuleListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/MessageModuleList", App.UserData.Authentification.Token);
+                            break;
+
+                        case "tm_messageTypeList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new MessageTypeListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/MessageTypeList", App.UserData.Authentification.Token);
                             break;
 
                         case "tm_mottoList":

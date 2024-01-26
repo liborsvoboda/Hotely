@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 rounded drop-shadow shadowed shadow-sm mb-4" style="background-color: rgb(241, 241, 241);">
+    <div class="p-2 rounded drop-shadow shadowed shadow-sm mb-4" style="background-color: white;">
         <div id="testOmega">
             <div class="row">
                 <div class="col-md-5">

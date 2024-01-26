@@ -4,7 +4,6 @@
             <div class="hotelview">
                 <h1>{{hotel.name}}</h1>
                 <div class="container-fluid">
-                    <!-- <PhotoG :photos="photos"></PhotoG> -->
                     <div class="row">
                         <div class="col-md-12 buttons">
                             <ul class="nav nav-pills">
@@ -49,7 +48,7 @@
 
 <script>
 import Info from './HotelViewComponents/Info.vue'
-import Photos from "./HotelViewComponents/Photos.vue"
+//import Photos from "./HotelViewComponents/Photos.vue"
 import Button from 'primevue/button';
 import PhotoG from "./HotelViewComponents/RoomsViewComponents/PhotoSlider.vue"
 import Card from 'primevue/card';
@@ -57,7 +56,7 @@ import Card from 'primevue/card';
 export default {
     components:{
         Info,
-        Photos,
+        //Photos,
         Button,
         PhotoG,
         Card,    

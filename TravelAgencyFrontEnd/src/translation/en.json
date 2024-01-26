@@ -1,5 +1,16 @@
 {
   "labels": {
+    "print": "Print",
+    "download": "Download",
+    "copy": "Copy",
+    "sendNewsletterToEmail": "Send Newsletter to Email",
+    "sendNewMessagesToEmail": "Send New Messages to Email",
+    "newsletter": "Newsletter",
+    "privateMessages": "Priváte Messages",
+    "reservationMessages": "Reservation Messages",
+    "messages": "Messages",
+    "messaging": "Messaging",
+    "mainGallery": "Main Gallery",
     "verify": "Verify",
     "maxCapacity": "Max. capacity",
     "reserv": "Book",

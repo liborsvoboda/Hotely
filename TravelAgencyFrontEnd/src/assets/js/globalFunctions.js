@@ -111,5 +111,17 @@ function PriceInfoBoxSwitchView() {
         }
         el.reposition();
     }
+}
 
+
+function PreparingNewsletter(dataset) {
+    console.log("pripravuji", dataset);
+    let messageData = "";
+    dataset.forEach((record, index) => {
+        messageData += "<div id=\"" + record.subject + "\" class=\"card image-header\"><div class=\"card-content p-2\"><p class=\"container fg-black\"><b>" + new Date(record.timeStamp).toLocaleDateString() + "</b> <div class=\"h1 text-center\" style=\"top: -25px;\">" + record.subject + "</div></p>" + record.htmlMessage + "</div>";
+        messageData += "<span title='" + window.dictionary('labels.print') + "' class=\"c-pointer mif-printer rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=PrintElement('" + record.subject + "') style=\"top: 5px; right: 5px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.download') + "' class=\"c-pointer mif-download2 rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=DownloadElement('" + record.subject + "') style=\"top: 5px; right: 55px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.copy') + "' class=\"c-pointer mif-copy rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=CopyElement('" + record.subject + "') style=\"top: 5px; right: 105px\"></span></div>";
+    });
+    $("#NewsLetterBox").html(messageData);
 }

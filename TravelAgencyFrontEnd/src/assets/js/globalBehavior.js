@@ -40,7 +40,7 @@ async function OpenDocView(docname) {
 
 /*Definitions  of Global System Behaviors */
 function ChangeSchemeTo(n) {
-    $("#color-scheme").attr("href", "../src/assets/css/schemes/" + n);
+    $("#color-scheme").attr("href", window.location.origin + "/src/assets/css/schemes/" + n);
     $("#scheme-name").html(n);
     Metro.storage.setItem('WebScheme', n);
 }
@@ -193,3 +193,28 @@ function ApplyLoadedWebSetting() {
     }
 }
 
+function PrintElement(elementId) {
+    try {
+        var printContents = document.getElementById(elementId).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    } catch (err) { }
+}
+
+function DownloadElement(elementId) {
+    try {
+        var a = document.body.appendChild(document.createElement("a"));
+        a.download = elementId + ".html";
+        a.href = "data:text/html," + document.getElementById(elementId).innerHTML;
+        a.click();
+    } catch (err) { }
+}
+
+async function CopyElement(elementId) {
+    try {
+        let text = document.getElementById(elementId).innerHTML;
+        await navigator.clipboard.writeText(text);
+    } catch (err) { }
+}

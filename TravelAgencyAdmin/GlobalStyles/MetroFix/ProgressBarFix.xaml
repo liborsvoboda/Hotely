@@ -52,10 +52,12 @@
                             </Grid>
                             <Grid x:Name="DeterminateRoot" Margin="1">
                                 <Border
-                                    x:Name="PART_Indicator" Margin="-1" HorizontalAlignment="Left"
+                                    x:Name="PART_Indicator"
+                                    Margin="-1" HorizontalAlignment="Left"
                                     Background="{DynamicResource MahApps.Brushes.Progress}">
                                     <Rectangle
-                                        x:Name="GradientFill" Opacity="0.7" Visibility="Collapsed">
+                                        x:Name="GradientFill"
+                                        Opacity="0.7" Visibility="Collapsed">
                                         <Rectangle.Fill>
                                             <LinearGradientBrush MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="20,1" EndPoint="0,1">
                                                 <LinearGradientBrush.Transform>

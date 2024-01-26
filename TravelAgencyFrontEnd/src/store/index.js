@@ -27,12 +27,15 @@ const store = createStore({
             notifyShowTime: 2000,
             showInactiveAdvertisementAsDefault: true,
             translationLanguage: '',
-            hideSearchingInPrivateZone : false
+            hideSearchingInPrivateZone: false,
+            sendNewsletterToEmail: false,
+            sendNewMessagesToEmail: false
         },
 
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        newsletterList: [],
         unavailableRoomList: [],
         webMottoList: [],
         roomBookingList: [],
@@ -119,6 +122,10 @@ const store = createStore({
         setAdvertisementList(store, value) {
             store.advertisementList = value;
             console.log("setAdvertisementList", store.advertisementList);
+        },
+        setNewsletterList(store, value) {
+            store.newsletterList = value;
+            console.log("setNewsletterList  ", store.newsletterList);
         },
         setUnavailableRoomList(store, value) {
             store.unavailableRoomList = value;
@@ -413,6 +420,18 @@ const store = createStore({
             let result = await response.json();
             commit('setUnavailableRoomList', result);
             window.hidePageLoading();
+        },
+
+        async getNewsletterList({ commit }) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/MessageModule/GetNewsLetterList', {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            commit('setNewsletterList', result);
+            PreparingNewsletter(result);
+
         },
 
         async getRoomBookingList({ commit }, hotelRoomId) {
@@ -848,7 +867,12 @@ const store = createStore({
                         case "hideSearchingInPrivateZone":
                             this.state.userSettings.hideSearchingInPrivateZone = setting.value;
                             break;
-                            
+                        case "sendNewsletterToEmail":
+                            this.state.userSettings.sendNewsletterToEmail = setting.value;
+                            break;
+                        case "sendNewMessagesToEmail":
+                            this.state.userSettings.sendNewMessagesToEmail = setting.value;
+                            break;
                     }
                 });
             }
@@ -887,7 +911,13 @@ const store = createStore({
                         case "hideSearchingInPrivateZone":
                             this.state.userSettings.hideSearchingInPrivateZone = setting.Value;
                             break;
-                            
+                        case "sendNewsletterToEmail":
+                            this.state.userSettings.sendNewsletterToEmail = setting.Value;
+                            break;
+                        case "sendNewMessagesToEmail":
+                            this.state.userSettings.sendNewMessagesToEmail = setting.Value;
+                            break;
+
                     }
                 });
             }

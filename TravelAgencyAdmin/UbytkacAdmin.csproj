@@ -308,6 +308,14 @@
     <Compile Include="Agendas\Agendas\EmailTemplateList\EmailTemplateListPage.xaml.cs">
       <DependentUpon>EmailTemplateListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Agendas\Messaging\MessageModuleList\MessageModuleListPage.xaml.cs">
+      <DependentUpon>MessageModuleListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\Messaging\MessageModuleList\MessageModuleList.cs" />
+    <Compile Include="Agendas\Messaging\MessageTypeList\MessageTypeList.cs" />
+    <Compile Include="Agendas\Messaging\MessageTypeList\MessageTypeListPage.xaml.cs">
+      <DependentUpon>MessageTypeListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageList.cs" />
     <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageListPage.xaml.cs">
       <DependentUpon>SystemLanguageListPage.xaml</DependentUpon>
@@ -595,6 +603,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Agendas\Agendas\EmailTemplateList\EmailTemplateListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Messaging\MessageModuleList\MessageModuleListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\Messaging\MessageTypeList\MessageTypeListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1080,47 +1096,43 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
       <Project>{31c3b4a7-504b-4eff-bacc-c8f2ffe5af6f}</Project>
       <Name>EASYTools.Calendar</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
-      <Project>{31c3b4a7-504b-4eff-bacc-c8f2ffe5af6f}</Project>
-      <Name>EASYTools.Calendar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
       <Project>{7696262e-45fc-4f68-a65e-468cd988cbc2}</Project>
       <Name>EASYTools.CrashReporter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.HTMLEditorNoImg\EASYTools.HTMLEditorNoImg.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLEditorNoImg\EASYTools.HTMLEditorNoImg.csproj">
       <Project>{78147c43-db7b-4571-bc7a-e7f0075b4b78}</Project>
       <Name>EASYTools.HTMLEditorNoImg</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Default\EASYTools.HTMLFullEditor.Locale.Default.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Default\EASYTools.HTMLFullEditor.Locale.Default.csproj">
       <Project>{cc1ff81e-f694-4b1b-9e04-3deb2de00b6a}</Project>
       <Name>EASYTools.HTMLFullEditor.Locale.Default</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Override\EASYTools.HTMLFullEditor.Locale.Override.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Override\EASYTools.HTMLFullEditor.Locale.Override.csproj">
       <Project>{0e9b62bc-442c-440a-86a8-b9f2ece40209}</Project>
       <Name>EASYTools.HTMLFullEditor.Locale.Override</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.csproj">
       <Project>{04009e2d-9e54-423f-b6f0-62e15f1c8ae8}</Project>
       <Name>EASYTools.HTMLFullEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
-      <Project>{ebb29b9e-5b4b-4d2c-a566-387ae8688356}</Project>
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
+      <Project>{1778b9e1-445c-4bfc-aa29-1edac131bb69}</Project>
       <Name>EASYTools.ImageEffectLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.MarkdownToHtml\EASYTools.MarkdownToHtml.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.MarkdownToHtml\EASYTools.MarkdownToHtml.csproj">
       <Project>{37619116-cce8-465a-8b1f-081ca53364bb}</Project>
       <Name>EASYTools.MarkdownToHtml</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
       <Project>{ec61d2c4-7eab-474f-9c4f-d93de57a64f1}</Project>
       <Name>EASYTools.SqlConnectionDialog</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\GLOBALFRONTEND\TOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj">
+    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj">
       <Project>{0784cdc9-0f52-4b8b-9488-6589c11e94e2}</Project>
       <Name>EASYTools.TouchKeyboard</Name>
     </ProjectReference>

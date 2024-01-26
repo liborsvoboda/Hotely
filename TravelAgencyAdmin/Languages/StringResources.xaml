@@ -565,4 +565,19 @@
     <system:String x:Key="commandTest" xml:space="preserve">Command test</system:String>
     <system:String x:Key="selectIcon" xml:space="preserve">Select icon</system:String>
 
+    <system:String x:Key="messaging" xml:space="preserve">Messaging</system:String>
+    <system:String x:Key="messageTypeList" xml:space="preserve">Message Types</system:String>
+    <system:String x:Key="messageModuleList" xml:space="preserve">Mesages List</system:String>
+    <system:String x:Key="messageType" xml:space="preserve">Message type</system:String>
+    <system:String x:Key="htmlMessage" xml:space="preserve">Html Message</system:String>
+    <system:String x:Key="doAnswer" xml:space="preserve">Do answer</system:String>
+    <system:String x:Key="answerAllowed" xml:space="preserve">Answer Allowed</system:String>
+    <system:String x:Key="forGuest" xml:space="preserve">Fro Guest</system:String>
+    <system:String x:Key="isSystemOnly" xml:space="preserve">System Only</system:String>
+    <system:String x:Key="publish" xml:space="preserve">Publish</system:String>
+    <system:String x:Key="published" xml:space="preserve">Published</system:String>
+    <system:String x:Key="showPreview" xml:space="preserve">Show Preview</system:String>
+    <system:String x:Key="archive" xml:space="preserve">Archive</system:String>
+    <system:String x:Key="archived" xml:space="preserve">Archived</system:String>
+    
 </ResourceDictionary>

@@ -216,6 +216,7 @@
     <Content Include="src\components\pages\CustomerProfile\BookedHotel.vue" />
     <Content Include="src\components\pages\CustomerProfile\Bookings.vue" />
     <Content Include="src\components\pages\CustomerProfile\AddReview.vue" />
+    <Content Include="src\components\pages\CustomerProfile\ProfileMessages.vue" />
     <Content Include="src\components\pages\CustomerProfile\ReservationDetail.vue" />
     <Content Include="src\components\pages\CustomerProfile\TopFive.vue" />
     <Content Include="src\components\pages\CustomerProfile\ProfileCustomerDetail.vue" />
@@ -235,12 +236,10 @@
     <Content Include="src\components\pages\Home.vue" />
     <Content Include="src\components\pages\HotelView.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Info.vue" />
-    <Content Include="src\components\pages\HotelViewComponents\Photos.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Reviews.vue" />
     <Content Include="src\components\pages\HotelViewComponents\Rooms.vue" />
     <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\Option.vue" />
     <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\PhotoGallery.vue" />
-    <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\PhotoSlider.vue" />
     <Content Include="src\components\pages\HotelViewComponents\RoomsViewComponents\Room.vue" />
     <Content Include="src\components\pages\Login\Login.vue" />
     <Content Include="src\components\pages\Login\Forgot.vue" />

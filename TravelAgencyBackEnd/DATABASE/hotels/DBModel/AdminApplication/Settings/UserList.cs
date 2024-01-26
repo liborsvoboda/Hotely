@@ -43,6 +43,8 @@ namespace UbytkacBackend.DBModel
             InterestAreaCityLists = new HashSet<InterestAreaCityList>();
             InterestAreaLists = new HashSet<InterestAreaList>();
             LanguageLists = new HashSet<LanguageList>();
+            MessageModuleLists = new HashSet<MessageModuleList>();
+            MessageTypeLists = new HashSet<MessageTypeList>();
             MottoLists = new HashSet<MottoList>();
             OftenQuestionLists = new HashSet<OftenQuestionList>();
             ParameterLists = new HashSet<ParameterList>();
@@ -91,7 +93,7 @@ namespace UbytkacBackend.DBModel
         [Unicode(false)]
         public string PhotoPath { get; set; }
         [Required]
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
         [StringLength(4096)]
         [Unicode(false)]
         public string ApiToken { get; set; }
@@ -162,6 +164,10 @@ namespace UbytkacBackend.DBModel
         public virtual ICollection<InterestAreaList> InterestAreaLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<LanguageList> LanguageLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<MessageModuleList> MessageModuleLists { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<MessageTypeList> MessageTypeLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<MottoList> MottoLists { get; set; }
         [InverseProperty("User")]

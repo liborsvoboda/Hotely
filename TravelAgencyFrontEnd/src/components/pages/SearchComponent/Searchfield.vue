@@ -40,6 +40,8 @@ export default {
         this.GetPropertyGroupList();
         this.GetSearchAreaList();
         this.GetSearchDialList();
+        this.GetNewsletterList();
+    
 
         //Load Top If nothing loaded
         if (this.$route.fullPath == '/' &&
@@ -49,6 +51,10 @@ export default {
         this.searchFieldChange();
     },
     methods: {
+        async GetNewsletterList() {
+            if (this.$store.state.newsletterList.length == 0) { await this.$store.dispatch("getNewsletterList"); }
+        },
+        
         async GetMainTopList() {
             await this.$store.dispatch("getMainTopList");
         },

@@ -49,6 +49,10 @@
         InterestAreaList,
         InterestAreaCityList,
         LanguageList,
+
+        MessageModuleList,
+        MessageTypeList,
+
         MottoList,
         OftenQuestionList,
         ParameterList,

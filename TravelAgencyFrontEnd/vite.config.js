@@ -6,9 +6,31 @@ import path from 'path';
 // https://vitejs.dev/config/
 
 //hmr disable websocket
+function externalCSSPlugin() {
+    return {
+        name: 'external-css',
+        transformIndexHtml: {
+            enforce: 'post',
+            transform(html, ctx) {
+                return [
+                    {
+                        tag: 'link',
+                        attrs: {
+                            id: "color-scheme",
+                            rel: 'stylesheet',
+                            type: 'text/css',
+                            href: '/src/assets/css/schemes/sky-net.min.css',
+                        },
+                        injectTo: ctx.server ? 'body-prepend' : 'head',
+                    },
+                ]
+            },
+        },
+    }
+}
 
 export default defineConfig({
-    plugins: [
+    plugins: [externalCSSPlugin(),
         viteStaticCopy({
             targets: [
                 {
