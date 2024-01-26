@@ -21,7 +21,7 @@ namespace UbytkacBackend.Controllers {
         [Consumes("application/json")]
         public async Task<string> InsertAllDocCountryAreaCityList([FromBody] List<CountryAreaCityList> record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     int result;
                     hotelsContext data = new();
                     data.CountryAreaCityLists.AddRange(record);
@@ -38,7 +38,7 @@ namespace UbytkacBackend.Controllers {
         [Consumes("application/json")]
         public async Task<string> DeleteItemList(int icacId) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<CountryAreaCityList> data;
                     data = new hotelsContext().CountryAreaCityLists.Where(a => a.Icacid == icacId).ToList();
                     hotelsContext data1 = new();

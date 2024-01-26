@@ -10,7 +10,7 @@
             List<AddressList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 {
                     data = new hotelsContext().AddressLists.ToList();
                 }
@@ -28,7 +28,7 @@
             List<AddressList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().AddressLists.FromSqlRaw("SELECT * FROM AddressList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else
                 {

@@ -436,7 +436,7 @@
     <system:String x:Key="guestLoginHistoryList">Login návštěvníků</system:String>
     <system:String x:Key="overviews">Přehledy</system:String>
     <system:String x:Key="reservations">Rezervace</system:String>
-    <system:String x:Key="guestList">Návštěvníci</system:String>
+    <system:String x:Key="guestList">Web Účty Hostitelů a Hostů</system:String>
     <system:String x:Key="serverApiDocs">Server API Doc.</system:String>
     <system:String x:Key="ignoredExceptionList">Ignorované Vyjímky</system:String>
     <system:String x:Key="errorNumber">Kód Chyby</system:String>
@@ -579,5 +579,10 @@
     <system:String x:Key="showPreview" xml:space="preserve">Zobrazit Náhled</system:String>
     <system:String x:Key="archive" xml:space="preserve">Archivovat</system:String>
     <system:String x:Key="archived" xml:space="preserve">Archivováno</system:String>
+
+
+    <system:String x:Key="degradeAcountBackToHost" xml:space="preserve">Degradovat účet zpět na Hosta</system:String>
+    <system:String x:Key="setDegrade" xml:space="preserve">Nastavit Degradaci</system:String>
+
 
 </ResourceDictionary>

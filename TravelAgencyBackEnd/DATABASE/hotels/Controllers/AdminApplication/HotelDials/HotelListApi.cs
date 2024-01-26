@@ -13,7 +13,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().HotelLists.Include(a => a.City).ToList(); }
                 else
                 {
@@ -33,7 +33,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().HotelLists.FromSqlRaw("SELECT * FROM HotelList WHERE 1=1 AND " + filter.Replace("+", " "))
                         .Include(a => a.City).AsNoTracking().ToList(); }
                 else

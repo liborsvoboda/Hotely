@@ -1,5 +1,7 @@
 {
   "labels": {
+    "showArchive": "Zobrazit Archiv",
+    "lastUpdate": "Poslední Update",
     "print": "Tisk",
     "download": "Stáhnout",
     "copy": "Zkopírovat",
@@ -8,8 +10,8 @@
     "newsletter": "Novinky",
     "privateMessages": "Privátní Zprávy",
     "reservationMessages": "Zprávy z Poptávek",
-    "messages": "Zprávy",
-    "messaging": "Zpravodajství",
+    "messages": "Privántní a Info Zprávy",
+    "messaging": "Portal NewsLetter",
     "mainGallery": "Hlavní Galerie",
     "verify": "Ověřit",
     "maxCapacity": "Max. kapacita",
@@ -93,10 +95,10 @@
     "searchAccomodation": "Vyhledat Ubytování",
     "newMessage": "Nová zpráva",
     "advertiseAsHost": "Chci inzerovat jako hostitel",
-    "accommodationAdvertisement": "Inzerce",
+    "accommodationAdvertisement": "Inzerce Ubytování",
     "newAccommodationAdvertisement": "Nová inzerce Ubytování",
-    "topFive": "Nej5",
-    "top": "Nej",
+    "topFive": "Nej 5",
+    "top": "Nejlepších ",
     "servicesAndFacilitiesAvailable": "Ceník Služeb a Vybavení",
     "requestDate": "Datum poptávky",
     "editAdvertisement": "Editace pronájmu",
@@ -252,9 +254,9 @@
     "sendVerifyEmail": "Odeslat ověřovací Email",
     "verifyEmailWasSent": "Ověřovací email byl odeslán",
     "personalDetails": "Osobní Údaje",
-    "settings": "Nastavení",
-    "favorites": "Oblíbené",
-    "bookings": "Rezervace",
+    "settings": "Uživatelské Nastavení",
+    "favorites": "Oblíbené Inzeráty",
+    "bookings": "Přehled vlastních Rezervací",
     "address": "Adresa",
     "deleteAccount": "Smazat Účet",
     "saveChanges": "Uložit Změny",
@@ -300,6 +302,7 @@
     "addReviewWasSuccess": "Vložení hodnocení proběhlo v pořádku",
     "doYouReallyCancelRequestBooking": "Opravdu chcete požádat o zrušení rezervace:",
     "cancelbookingRequestWasSent": "Žádost o zrušení rezervace byla odeslána",
-    "doYouReallyWantDeleteAdvertisement": "Opravdu chcete smazat Inzerát?"
+    "doYouReallyWantDeleteAdvertisement": "Opravdu chcete smazat Inzerát?",
+    "forAdvertiserActivationYouMustInserttPassword": "Pro Aktivaci hostitelského Účtu Zadejte stávající nebo nové Heslo"
   }
 }

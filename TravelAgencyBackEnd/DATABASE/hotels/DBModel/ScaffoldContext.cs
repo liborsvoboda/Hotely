@@ -426,7 +426,6 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.GuestSettingLists)
                     .HasForeignKey(d => d.GuestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GuestSettingList_GuestList");
             });
 
@@ -785,7 +784,6 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.MessageModuleLists)
                     .HasForeignKey(d => d.GuestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageModuleList_GuestList");
 
                 entity.HasOne(d => d.MessageType)
@@ -848,6 +846,7 @@ namespace UbytkacBackend.DBModel
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ParameterLists)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_ParameterList_UserList");
             });
 

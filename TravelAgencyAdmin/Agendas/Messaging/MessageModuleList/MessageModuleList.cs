@@ -15,7 +15,7 @@ namespace UbytkacAdmin.Classes {
         public bool Archived { get; set; }
         public bool IsSystemMessage { get; set; } = true;
         public bool Published { get; set; } = false;
-        public int GuestId { get; set; }
+        public int? GuestId { get; set; } = null;
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
 

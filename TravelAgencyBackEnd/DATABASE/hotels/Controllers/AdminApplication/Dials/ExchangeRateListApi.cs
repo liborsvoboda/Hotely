@@ -11,7 +11,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     data = new hotelsContext().ExchangeRateLists.ToList();
                 }
                 else {
@@ -41,7 +41,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                if (Request.HttpContext.User.IsInRole("admin")) { data = new hotelsContext().ExchangeRateLists.FromSqlRaw("SELECT * FROM ExchangeRateList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) { data = new hotelsContext().ExchangeRateLists.FromSqlRaw("SELECT * FROM ExchangeRateList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else {
                     data = new hotelsContext().ExchangeRateLists.FromSqlRaw("SELECT * FROM ExchangeRateList WHERE 1=1 AND " + filter.Replace("+", " "))
                         .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)
@@ -68,7 +68,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertExchangeRateList([FromBody] ExchangeRateList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
                     record.Currency = null;
                     var data = new hotelsContext().ExchangeRateLists.Add(record);
@@ -84,7 +84,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateExchangeRateList([FromBody] ExchangeRateList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     var data = new hotelsContext().ExchangeRateLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -98,7 +98,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteExchangeRateList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     ExchangeRateList record = new() { Id = int.Parse(id) };

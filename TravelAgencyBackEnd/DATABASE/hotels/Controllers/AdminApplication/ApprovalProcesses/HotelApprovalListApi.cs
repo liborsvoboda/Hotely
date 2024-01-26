@@ -8,7 +8,7 @@
         [HttpGet("/HotelApprovalList")]
         public async Task<string> GetHotelApprovalList() {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<HotelApprovalList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -25,7 +25,7 @@
         [HttpGet("/HotelApprovalList/Filter/{filter}")]
         public async Task<string> GetHotelApprovalListByFilter(string filter) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<HotelApprovalList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -43,7 +43,7 @@
         [HttpGet("/HotelApprovalList/{id}")]
         public async Task<string> GetHotelApprovalListKey(int id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     HotelApprovalList data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted
@@ -60,7 +60,7 @@
         [HttpGet("/HotelApprovalList/Rooms/{hotelId}")]
         public async Task<string> GetHotelRoomListById(int hotelId) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<HotelRoomList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -77,7 +77,7 @@
         [HttpGet("/HotelApprovalList/Properties/{hotelId}")]
         public async Task<string> GetHotelPropertyListById(int hotelId) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<HotelPropertyAndServiceList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -95,7 +95,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateHotelApprovalList([FromBody] HotelApprovalList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     var data = new hotelsContext().HotelApprovalLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });

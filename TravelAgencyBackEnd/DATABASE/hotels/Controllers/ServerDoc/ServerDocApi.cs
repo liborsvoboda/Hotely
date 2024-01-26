@@ -24,7 +24,7 @@ namespace UbytkacBackend.Controllers {
         public async Task<string> GenerateMdBook() {
 
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<DocumentationList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         data = new hotelsContext().DocumentationLists.Where(a => a.DocumentationGroup.Active && a.Active)

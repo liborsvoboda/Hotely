@@ -437,7 +437,7 @@
     <system:String x:Key="guestLoginHistoryList">Guests login</system:String>
     <system:String x:Key="overviews">Overviews</system:String>
     <system:String x:Key="reservations">Reservations</system:String>
-    <system:String x:Key="guestList">Guests</system:String>
+    <system:String x:Key="guestList">Web Accounts</system:String>
     <system:String x:Key="serverApiDocs">Server API Doc.</system:String>
     <system:String x:Key="ignoredExceptionList">Ignored exceptions</system:String>
     <system:String x:Key="errorNumber">Error code</system:String>
@@ -579,5 +579,10 @@
     <system:String x:Key="showPreview" xml:space="preserve">Show Preview</system:String>
     <system:String x:Key="archive" xml:space="preserve">Archive</system:String>
     <system:String x:Key="archived" xml:space="preserve">Archived</system:String>
-    
+
+
+
+    <system:String x:Key="degradeAcountBackToHost" xml:space="preserve">Degrade Account Back to Host</system:String>
+    <system:String x:Key="setDegrade" xml:space="preserve">Set Degradation</system:String>
+
 </ResourceDictionary>

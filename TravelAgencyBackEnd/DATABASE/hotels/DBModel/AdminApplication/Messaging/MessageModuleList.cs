@@ -32,7 +32,7 @@ namespace UbytkacBackend.DBModel
         public bool Archived { get; set; }
         public bool IsSystemMessage { get; set; }
         public bool Published { get; set; }
-        public int GuestId { get; set; }
+        public int? GuestId { get; set; }
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
 

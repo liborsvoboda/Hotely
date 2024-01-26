@@ -188,12 +188,14 @@ namespace UbytkacBackend.Controllers {
                 if (User.Claims.First(a => a.Issuer != null).Issuer.ToLower() == record.User.Email.ToLower()) {
                     int result = 0; UserList newUser = new();
 
+                    GuestList origDbGuest = new hotelsContext().GuestLists.Where(a => a.Email.ToLower() == record.User.Email.ToLower()).FirstOrDefault();
+
                     //prepare DB guest for update
                     GuestList guest = new GuestList() {
                         Id = record.User.Id, Email = record.User.Email, FirstName = record.User.FirstName, LastName = record.User.LastName,
                         Street = record.User.Street, ZipCode = record.User.ZipCode, City = record.User.City, Country = record.User.Country,
                         Phone = record.User.Phone, Active = true, UserId = record.User.UserId, Timestamp = DateTimeOffset.Now.DateTime,
-                        Password = BCrypt.Net.BCrypt.HashPassword(record.User.Password)
+                        Password = record.User.Password == null ? origDbGuest.Password : BCrypt.Net.BCrypt.HashPassword(record.User.Password)
                     };
 
                     //insert new systemuser

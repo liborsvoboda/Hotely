@@ -51,7 +51,7 @@
         public async Task<string> InsertGuestList([FromBody] GuestList record) {
             try
             {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     var data = new hotelsContext().GuestLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -65,17 +65,24 @@
         [Consumes("application/json")]
         public async Task<string> UpdateGuestList([FromBody] GuestList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     GuestList existingGuest = new GuestList();
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         existingGuest = new hotelsContext().GuestLists.Where(a => a.Id == record.Id).First();
                     }
 
-                    UserList existingUser = null; 
-                    if (record.UserId != null) {
+                    UserList existingUser = null;
+                    if (record.UserId != null || existingGuest.UserId != null) {
                         using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                            existingUser = new hotelsContext().UserLists.Where(a => a.Id == ((int)record.UserId)).First();
+                            existingUser = new hotelsContext().UserLists.Where(a => a.Id == ((int?)record.UserId) || a.Id == existingGuest.UserId).First();
                         }
+                    }
+
+                    //Degrading acount Disable ystem account
+                    if(record.UserId == null || existingGuest.UserId != null) {
+                        existingUser.Active = false;
+                        var userData = new hotelsContext().UserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
+                        existingUser = null; 
                     }
 
                     //Update Advertiser Password
@@ -103,13 +110,32 @@
 
         [HttpDelete("/GuestList/{id}")]
         [Consumes("application/json")]
-        public async Task<string> DeleteGuestList(string id) {
+        public async Task<string> DeleteGuestList(int id) {
             try
             {
-                if (Request.HttpContext.User.IsInRole("Admin")) {
-                    if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
 
-                    GuestList record = new() { Id = int.Parse(id) };
+                    GuestList record = new() { Id = id };
+
+                    GuestList existingGuest = new GuestList();
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        existingGuest = new hotelsContext().GuestLists.Where(a => a.Id == record.Id).First();
+                    }
+
+                    UserList existingUser = null;
+                    if (existingGuest.UserId != null) {
+                        using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                            existingUser = new hotelsContext().UserLists.Where(a => a.Id == existingGuest.UserId).First();
+                        }
+                    }
+
+                    //Deleting acount Disable system account
+                    if (record.UserId != null || existingGuest.UserId != null) {
+                        existingUser.Active = false;
+                        var userData = new hotelsContext().UserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
+                        existingUser = null;
+                    }
+
 
                     var data = new hotelsContext().GuestLists.Remove(record);
                     int result = await data.Context.SaveChangesAsync();

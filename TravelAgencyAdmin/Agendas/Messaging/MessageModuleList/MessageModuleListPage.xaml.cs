@@ -177,7 +177,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.IsSystemMessage = true;
                 selectedRecord.Published = (bool)chb_publish.IsChecked;
 
-                selectedRecord.GuestId = selectedRecord.Id != 0 ? selectedRecord.GuestId : (int)cb_forGuest.SelectedValue;
+                selectedRecord.GuestId = selectedRecord.Id != 0 ? selectedRecord.GuestId : (int?)cb_forGuest.SelectedValue;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 

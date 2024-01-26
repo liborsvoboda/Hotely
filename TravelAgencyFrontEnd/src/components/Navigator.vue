@@ -1,9 +1,9 @@
 <template>
     <header id="header">
-        <div class="header-top" style="background-color: white !important;">
+        <div class="header-top" style="background-color: white !important;max-height: 45px;">
             <div class="container">
 
-
+                <!-- Language Tool Panel -->
                 <div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet pos-fixed list-list grid-style opened" style="top: 0px; left: 85%; z-index:10000;min-width:470px;">
                     <div class="w-100 text-left">
                         <audio id="radio" class="light bg-tra;nsparent" data-role="audio-player" data-src="/src/assets/Media/Toto.mp3" data-volume=".5"></audio>
@@ -33,7 +33,7 @@
 
                 <!-- NewsLetter Panel -->
                 <div id="NewsLetterInfoBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;">
-                    <span class="button square closer"></span>
+                    <span class="button square closer" @onclick="controlNewsLetter(true)"></span>
                     <div class="info-box-content" style="overflow-y:auto;">
                         <div class="d-flex row ">
                             <div id="NewsLetterBox" class="d-block m-0 p-0" style="overflow-y: scroll;width: calc(100% - 30px);height:550px;max-height: 550px;"></div>
@@ -42,51 +42,50 @@
                 </div>
 
                 <div class="row text-left">
-                    <div class="col-lg-9 col-sm-9 col-9 header-top-left">
+                    <div class="col-lg-7 col-sm-7 col-7 header-top-left">
                         <div class="nav-menu">
                             <div class="d-flex w-100" style="font-size:16px;">
                                 <router-link :to="'/Profile/'">
-                                    {{ $t('labels.top') }}{{ userSettings.topFiveCount }}
+                                    <span data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.top') + ' ' + userSettings.topFiveCount" class="c-pointer mif-broadcast mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                          style="top:-3px; left:5px;"></span>
                                 </router-link>
 
-                                <a href="#" id="MenuBooking" @click="checkAllowedMenu('MenuBooking')">
-                                    {{ $t('user.bookings') }}
-                                </a>
+                                <span id="MenuBooking" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.bookings')" class="c-pointer mif-open-book mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                      style="top:-9px; left:15px;" @click="checkAllowedMenu('MenuBooking')"></span>
 
-                                <a href="#" id="MenuFavorite" @click="checkAllowedMenu('MenuFavorite')">
-                                    {{ $t('user.favorites') }}
-                                </a>
+                                <span id="MenuFavorite" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.favorites')" class="c-pointer mif-favorite mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                      style="top: -10px;left: 35px;" @click="checkAllowedMenu('MenuFavorite')"></span>
 
-                                <a href="#" id="MenuProfileMessages" @click="checkAllowedMenu('MenuProfileMessages')">
-                                    {{ $t('labels.messages') }}
-                                </a>
+                                <span id="MenuProfileMessages" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.messages')" class="c-pointer mif-mail-read mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                      style="top: -10px;left: 55px;" @click="checkAllowedMenu('MenuProfileMessages')"></span>
 
-                                <a href="#" id="MenuUserSetting" @click="checkAllowedMenu('MenuUserSetting')">
-                                    {{ $t('user.settings') }}
-                                </a>
+                                <span id="MenuUserSetting" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.settings')" class="c-pointer mif-server mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                      style="top: -9px;left: 85px;" @click="checkAllowedMenu('MenuUserSetting')"></span>
 
-                                <a href="#" id="MenuAdvertisement" @click="checkAllowedMenu('MenuAdvertisement')">
-                                    {{ $t('labels.accommodationAdvertisement') }}
-                                </a>
+
+                                <span id="MenuAdvertisement" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.accommodationAdvertisement')" class="c-pointer mif-location-city mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                      style="top: -10px; left: 105px;" @click="checkAllowedMenu('MenuAdvertisement')"></span>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="col-lg-3 col-sm-3 col-3 header-top-right">
+                    <div class="col-lg-5 col-sm-5 col-5 header-top-right">
                         <div class="nav-menu">
-                            <div data-role="hint" data-hint-position="bottom" :data-hint-text="$t('labels.messaging')" class="c-pointer mif-news pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat"
-                                 style="top:-5px; z-index:100000;left:0px;" @click="showNewsLetter()">
-                            </div>
-
                             <div v-if="!loggedIn">
-                                <a href="#"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
-                                <a href="#"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
+                                <a href="#" style="right:50px;"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#" style="right:50px;"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
                             </div>
                             <div v-if="loggedIn">
-                                <a href="#" @click="logout()">{{ $t('user.logout') }}</a>
+                                <a href="#" style="right:50px;" @click="logout()">{{ $t('user.logout') }}</a>
                             </div>
-                            <div data-role="hint" data-hint-position="bottom" :data-hint-text="$t('labels.translateWeb')" class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px; z-index:100000;" @click="showToolPanel()"></div>
+
+                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.messaging') + '\r\n' + newsletterLastTimestamp " class="c-pointer mif-news pos-absolute mif-5x fg-brandColor2 ani-hover-heartbeat"
+                                 style="top: -8px;right: 10px;" @click="controlNewsLetter(false)">
+                                <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="(newsletterCount == 0 ? ' display: none ': ' display: inline ')">{{ newsletterCount }}</span>
+                            </div>
+
+                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.translateWeb')" class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px; z-index:100000;" @click="showToolPanel()"></div>
                         </div>
                     </div>
                 </div>
@@ -118,6 +117,12 @@ export default {
         };
     },
     computed: {
+        newsletterLastTimestamp() {
+            return this.$store.state.newsletterList[0] != null ? "<br />" + this.$i18n.t("labels.lastUpdate") + "<br />" + new Date(this.$store.state.newsletterList[0].timeStamp).toLocaleString('cs-CZ') : "";
+        },
+        newsletterCount() {
+            return this.$store.state.newsletterList.length;
+        },
         loggedIn() {
             return this.$store.state.user.loggedIn;
         },
@@ -132,11 +137,12 @@ export default {
         },
         actualRoutePath() {
             return this.$router.fullpath;
-        },
+        }
     },
     methods: {
-        showNewsLetter() {
-            Metro.infobox.open('#NewsLetterInfoBox');
+        controlNewsLetter(close) {
+            if (close) { Metro.infobox.close('#NewsLetterInfoBox'); }
+            else { Metro.infobox.open('#NewsLetterInfoBox'); }
         },
         closeHelpMenu() {
             document.querySelector("#helpMenu").classList.remove("opened");

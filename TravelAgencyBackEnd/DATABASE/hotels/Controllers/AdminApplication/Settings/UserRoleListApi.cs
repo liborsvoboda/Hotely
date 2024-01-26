@@ -8,7 +8,7 @@
         [HttpGet("/UserRoleList")]
         public async Task<string> GetUserRoleList() {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<UserRoleList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -25,7 +25,7 @@
         [HttpGet("/UserRoleList/Filter/{filter}")]
         public async Task<string> GetUserRoleListByFilter(string filter) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     List<UserRoleList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
@@ -42,7 +42,7 @@
         [HttpGet("/UserRoleList/{id}")]
         public async Task<string> GetUserRoleListId(int id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     UserRoleList data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                         IsolationLevel = IsolationLevel.ReadUncommitted
@@ -60,7 +60,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertUserRoleList([FromBody] UserRoleList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     var data = new hotelsContext().UserRoleLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -74,7 +74,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateUserRoleList([FromBody] UserRoleList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     var data = new hotelsContext().UserRoleLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -88,7 +88,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteUserRoleList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     UserRoleList record = new() { Id = int.Parse(id) };

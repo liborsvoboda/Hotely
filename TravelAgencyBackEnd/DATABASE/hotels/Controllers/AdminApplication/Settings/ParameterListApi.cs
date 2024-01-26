@@ -22,7 +22,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().ParameterLists.FromSqlRaw("SELECT * FROM ParameterList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else
                 {
@@ -41,7 +41,7 @@
             List<ParameterList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 {
                     data = new hotelsContext().ParameterLists.ToList();
                 }

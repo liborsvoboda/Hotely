@@ -48,7 +48,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertDocumentationList([FromBody] DocumentationList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     record.MdContent = ServerCoreFunctions.MarkDownLineEndSpacesResolve(record.MdContent);
                     var data = new hotelsContext().DocumentationLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
@@ -63,7 +63,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateDocumentationList([FromBody] DocumentationList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
 					record.MdContent = ServerCoreFunctions.MarkDownLineEndSpacesResolve(record.MdContent);
                     var data = new hotelsContext().DocumentationLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
@@ -78,7 +78,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteDocumentationList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     DocumentationList record = new() { Id = int.Parse(id) };

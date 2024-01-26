@@ -261,6 +261,8 @@ export default {
     },
     methods: {
         checkPasswords() {
+            console.log("kontrola", this.guest, this.guest.UserId);
+
             if (this.guest.Password.length > 0 && this.guest.Password.length < this.$store.state.system.passwordMin) {
 
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
@@ -271,7 +273,12 @@ export default {
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary("messages.passwordsEmptyOrNotMatch"), "Error", { cls: "alert" }); notify.reset();
 
-            } else if (this.guest.Password === this.guest.confirmPassword) {
+            } else if (this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == false) {
+                this.updateGuest();
+            } else if (this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
+                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
+                notify.create(window.dictionary("messages.forAdvertiserActivationYouMustInserttPassword"), "Error", { cls: "alert" }); notify.reset();
+            } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
                 this.updateGuest();
             }
         },

@@ -36,7 +36,7 @@ namespace UbytkacBackend.Controllers {
         [Consumes("application/json")]
         public IActionResult SetGuestSettingList([FromBody] WebSettingList1 record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
                     List<WebSettingList> webSettingList;
                     webSettingList = new hotelsContext().WebSettingLists.ToList();

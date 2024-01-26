@@ -1,5 +1,7 @@
 {
   "labels": {
+    "showArchive": "Show Archive",
+    "lastUpdate": "Last Update",
     "print": "Print",
     "download": "Download",
     "copy": "Copy",
@@ -300,7 +302,7 @@
     "addReviewWasSuccess": "Review insert was success",
     "doYouReallyCancelRequestBooking": "Do you really do request of cancel Booking:",
     "cancelbookingRequestWasSent": "Request of cancel booking was sent",
-    "doYouReallyWantDeleteAdvertisement": "Do you really delete Advertisement?"
-
+    "doYouReallyWantDeleteAdvertisement": "Do you really delete Advertisement?",
+    "forAdvertiserActivationYouMustInserttPassword": "For Advertiser Activation Please Insert Your Password"
   }
 }

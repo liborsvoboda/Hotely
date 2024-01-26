@@ -39,7 +39,9 @@ namespace UbytkacAdmin.Pages {
 
             lbl_active.Content = Resources["active"].ToString();
             lbl_password.Content = Resources["password"].ToString();
+            lbl_degradeAcountBackToHost.Content = Resources["degradeAcountBackToHost"].ToString();
 
+            btn_degradeAcountBackToHost.Content = Resources["setDegrade"].ToString();
             btn_generatePassword.Content = Resources["generatePassword"].ToString();
             btn_save.Content = Resources["btn_save"].ToString();
             btn_cancel.Content = Resources["btn_cancel"].ToString();
@@ -215,5 +217,8 @@ namespace UbytkacAdmin.Pages {
         private void BtnGeneratePassword_Click(object sender, RoutedEventArgs e) {
             pb_password.Password = selectedRecord.Password = SystemOperations.RandomString(10);
         }
+
+        private void BtnDegradeToHost_Click(object sender, RoutedEventArgs e) => selectedRecord.UserId = null;
+        
     }
 }

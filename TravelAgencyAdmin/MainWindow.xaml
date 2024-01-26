@@ -400,6 +400,12 @@
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_guestList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
                     </TreeViewItem>
 
                     <TreeViewItem
@@ -462,12 +468,6 @@
                         Width="280"
                         Margin="0"
                         FontSize="20" PreviewMouseDown="Menu_Selected">
-                        <TreeViewItem
-                            x:Name="tm_guestList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_guestLoginHistoryList"
                             HorizontalAlignment="Stretch"

@@ -13,7 +13,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().BranchLists.ToList(); }
                 else
                 {
@@ -33,7 +33,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().BranchLists.FromSqlRaw("SELECT * FROM BranchList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else
                 {

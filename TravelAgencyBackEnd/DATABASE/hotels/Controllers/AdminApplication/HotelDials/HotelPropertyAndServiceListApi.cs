@@ -13,7 +13,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     data = new hotelsContext().HotelPropertyAndServiceLists
                         .Include(a=> a.PropertyOrService)
                         .OrderBy(a => a.PropertyOrService.PropertyGroupId)
@@ -44,7 +44,7 @@
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             }))
             {
-                if (Request.HttpContext.User.IsInRole("admin"))
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()))
                 { data = new hotelsContext().HotelPropertyAndServiceLists.FromSqlRaw("SELECT * FROM HotelPropertyAndServiceList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else
                 {

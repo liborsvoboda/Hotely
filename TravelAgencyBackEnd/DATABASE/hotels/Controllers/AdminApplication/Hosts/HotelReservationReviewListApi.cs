@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertHotelReservationReviewList([FromBody] HotelReservationReviewList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin") || Request.HttpContext.User.IsInRole("advertiser")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()) || Request.HttpContext.User.IsInRole("advertiser")) {
                     var data = new hotelsContext().HotelReservationReviewLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -59,7 +59,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateHotelReservationReviewList([FromBody] HotelReservationReviewList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin") || Request.HttpContext.User.IsInRole("advertiser")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()) || Request.HttpContext.User.IsInRole("advertiser")) {
                     var data = new hotelsContext().HotelReservationReviewLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -73,7 +73,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteHotelReservationReviewList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin") || Request.HttpContext.User.IsInRole("advertiser")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower()) || Request.HttpContext.User.IsInRole("advertiser")) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     HotelReservationReviewList record = new() { Id = int.Parse(id) };

@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertAccessRoleList([FromBody] AccessRoleList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
                     var data = new hotelsContext().AccessRoleLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
@@ -60,7 +60,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateAccessRoleList([FromBody] AccessRoleList record) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     var data = new hotelsContext().AccessRoleLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -74,7 +74,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteAccessRoleList(string id) {
             try {
-                if (Request.HttpContext.User.IsInRole("admin")) {
+                if (Request.HttpContext.User.IsInRole("Admin".ToLower())) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     AccessRoleList record = new() { Id = int.Parse(id) };
