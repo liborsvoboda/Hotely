@@ -14,6 +14,8 @@ namespace UbytkacBackend.Controllers {
             _hostingEnvironment = hostingEnvironment;
         }
 
+        #region NewsLetter
+
         [AllowAnonymous]
         [HttpGet("/WebApi/MessageModule/GetNewsLetterList")]
         [Consumes("application/json")]
@@ -21,7 +23,7 @@ namespace UbytkacBackend.Controllers {
             List<MessageModuleList> data;
             try {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "newsletter" && a.Published && !a.Archived).OrderByDescending(a=>a.TimeStamp).ToList();
+                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "newsletter" && a.Published && !a.Archived).OrderByDescending(a => a.TimeStamp).ToList();
                 }
 
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
@@ -33,9 +35,6 @@ namespace UbytkacBackend.Controllers {
 
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
-
-
-
 
         /// <summary>
         /// Message Module NewsLetter Preview API
@@ -70,6 +69,72 @@ namespace UbytkacBackend.Controllers {
         [AllowAnonymous]
         [HttpGet("/WebApi/MessageModule/NewsletterPreview")]
         public IActionResult GetNewsletterPreview() { return new RedirectResult("/server-web/newsletter-preview/index.html"); }
+
+
+        #endregion NewsLetter
+
+
+        #region Web Messages Controls
+
+        /// <summary>
+        /// WebApi Get private Messages
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("/WebApi/MessageModule/GetPrivateMessageList/{archived}")]
+        [Consumes("application/json")]
+        public async Task<string> GetPrivateMessageList(bool archived) {
+            List<MessageModuleList> data;
+            try {
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    data = new hotelsContext().MessageModuleLists
+                        .Where(a => a.MessageType.Name == "private"
+                        && ((a.MesssageParentId != null && a.MesssageParent.MesssageParentId != a.Id) || a.MesssageParentId == null)
+                        && a.Published && ((!archived && !a.Archived) || archived))
+                        .Include(a => a.MesssageParent).ThenInclude(a => a.MesssageParent).ThenInclude(a => a.MesssageParent).ThenInclude(a => a.MesssageParent)
+                        .Include(a => a.MessageType)
+                        .OrderByDescending(a => a.TimeStamp).ToList();
+                }
+
+                data.ForEach(message => { message.MessageType.MessageModuleLists = null; });
+
+
+                return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    WriteIndented = true,
+                    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+        }
+
+
+        /// <summary>
+        /// WebApi Get Reservation Messages
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("/WebApi/MessageModule/GetReservationMessageList/{archived}")]
+        [Consumes("application/json")]
+        public async Task<string> GetReservationMessageList(bool archived) {
+            List<MessageModuleList> data;
+            try {
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "reservation" && a.Published && ((!archived && !a.Archived) || archived)).OrderByDescending(a => a.TimeStamp).ToList();
+                }
+
+                return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    WriteIndented = true,
+                    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+        }
+
+
+
+        #endregion Web Messages Controls
 
     }
 }

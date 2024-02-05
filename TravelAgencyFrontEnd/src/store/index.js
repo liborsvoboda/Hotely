@@ -29,12 +29,15 @@ const store = createStore({
             translationLanguage: '',
             hideSearchingInPrivateZone: false,
             sendNewsletterToEmail: false,
-            sendNewMessagesToEmail: false
+            sendNewMessagesToEmail: false,
+            showArchivedMessages: false,
         },
 
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        privateMessageList: [],
+        reservationMessageList: [],
         newsletterList: [],
         unavailableRoomList: [],
         webMottoList: [],
@@ -104,11 +107,9 @@ const store = createStore({
     mutations: {
         setWebMottoList(store, value) {
             store.webMottoList = value;
-            console.log("setWebMottoList", store.webMottoList);
         },
         setReviewList(store, value) {
             store.reviewList = value;
-            console.log("setReviewList", store.reviewList);
         },
         setStatusList(store, value) {
             store.statusList = value;
@@ -126,6 +127,14 @@ const store = createStore({
         setNewsletterList(store, value) {
             store.newsletterList = value;
             console.log("setNewsletterList  ", store.newsletterList);
+        },
+        setPrivateMessageList(store, value) {
+            store.privateMessageList = value;
+            console.log("setPrivateMessageList  ", store.privateMessageList);
+        },
+        setReservationMessageList(store, value) {
+            store.reservationMessageList = value;
+            console.log("setReservationMessageList  ", store.reservationMessageList);
         },
         setUnavailableRoomList(store, value) {
             store.unavailableRoomList = value;
@@ -262,7 +271,6 @@ const store = createStore({
     },
     actions: {
         setDates({ commit }, date) {
-            console.log("setDates", date);
             commit('setDates', date);
         },
         setLightFavoriteHotelList({ commit }, value) {
@@ -432,6 +440,28 @@ const store = createStore({
             commit('setNewsletterList', result);
             PreparingNewsletter(result);
 
+        },
+        async getPrivateMessageList({ commit }) {
+            let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            let response = await fetch(
+                this.state.apiRootUrl + '/MessageModule/GetPrivateMessageList/' + this.state.userSettings.showArchivedMessages, {
+                method: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + this.state.user.Token, 'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            commit('setPrivateMessageList', result);
+            if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+        },
+        async getReservationMessageList({ commit }) {
+            let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            let response = await fetch(
+                this.state.apiRootUrl + '/MessageModule/GetReservationMessageList/' + this.state.userSettings.showArchivedMessages, {
+                method: 'GET',
+                    headers: { 'Authorization': 'Bearer ' + this.state.user.Token, 'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            commit('setReservationMessageList', result);
+            if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
         },
 
         async getRoomBookingList({ commit }, hotelRoomId) {
@@ -873,6 +903,9 @@ const store = createStore({
                         case "sendNewMessagesToEmail":
                             this.state.userSettings.sendNewMessagesToEmail = setting.value;
                             break;
+                        case "showArchivedMessages":
+                            this.state.userSettings.showArchivedMessages = setting.value;
+                            break;
                     }
                 });
             }
@@ -917,7 +950,9 @@ const store = createStore({
                         case "sendNewMessagesToEmail":
                             this.state.userSettings.sendNewMessagesToEmail = setting.Value;
                             break;
-
+                        case "showArchivedMessages":
+                            this.state.userSettings.showArchivedMessages = setting.Value;
+                            break;
                     }
                 });
             }

@@ -11,6 +11,7 @@ let bgVideo = function () { $('.player').mb_YTPlayer(); };
 $(document).ready(function () { googleTranslateElementInit(); });
 
 
+//Global Control For Show Page MD Help
 async function OpenDocView(docname) {
     if (docname != null && docname.length > 0 && Metro.get$el($("#DocView"))[0] == undefined) {
         Metro.window.create({
@@ -48,11 +49,13 @@ function ChangeSchemeTo(n) {
 
 //Hide Google Translate Panel
 document.addEventListener('click', function () {
-    if (document.querySelector("body > div:nth-child(1)").className == "skiptranslate") {
-        if (document.querySelector("body > div:nth-child(1)").style.display != "none") {
-            document.querySelector("body > div:nth-child(1)").style.display = "none";
+    try {
+        if (document.querySelector("body > div:nth-child(1)").className == "skiptranslate") {
+            if (document.querySelector("body > div:nth-child(1)").style.display != "none") {
+                document.querySelector("body > div:nth-child(1)").style.display = "none";
+            }
         }
-    }
+    } catch {}
 });
 
 /*Start of Global Loading Indicator for All Pages*/
@@ -107,10 +110,9 @@ function hidePartPageLoading() {
         if (partPageLoader != undefined) {
             if (partPageLoader[0]["DATASET:UID:M4Q"] == undefined) { partPageLoader = null; }
             else { partPageLoader = partPageLoader[0]["DATASET:UID:M4Q"].dialog; partPageLoader.close(); partPageLoader = null; }
-        } //Metro.activity.close(partPageLoader);
+        } 
         googleTranslateElementInit();
     }
-
 }
 
 
@@ -193,28 +195,84 @@ function ApplyLoadedWebSetting() {
     }
 }
 
+
+//Fuction Open Print Dialog for selected Element by Element Id
+//Using jquery.printElement.js
 function PrintElement(elementId) {
     try {
-        var printContents = document.getElementById(elementId).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
+        $("#" + elementId).printElement({ pageTitle: elementId.split("_")[1] + '.html', printMode: 'popup' });
     } catch (err) { }
 }
 
-function DownloadElement(elementId) {
+
+//Fuction Download Html Page selected Element by Element Id
+function DownloadHtmlElement(elementId) {
     try {
         var a = document.body.appendChild(document.createElement("a"));
         a.download = elementId + ".html";
-        a.href = "data:text/html," + document.getElementById(elementId).innerHTML;
+        a.href = "data:text/html;charset=utf-8," + encodeURIComponent(document.getElementById(elementId).innerHTML);
         a.click();
     } catch (err) { }
 }
 
+
+//Fuction Copy to Clipboard Html code selected Element by Element Id
 async function CopyElement(elementId) {
     try {
         let text = document.getElementById(elementId).innerHTML;
         await navigator.clipboard.writeText(text);
     } catch (err) { }
+}
+
+
+//Fuction Generate PNG Image From selected Element by Element Id
+function ImageFromElement(elementId) {
+    try {
+        $('document').ready(function () {
+            html2canvas($("#" + elementId), {
+                onrendered: function (canvas) {
+                    $("#previewImage").append(canvas);
+                    var imageData = canvas.toDataURL("image/png");
+                    var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                    var a = document.body.appendChild(document.createElement("a"));
+                    a.download = elementId + ".png";
+                    a.href = newData;
+                    a.click();
+                }
+            });
+        });
+    } catch (err) { }
+}
+
+
+//Global Controller For Toggle All Collapse Elements
+function ElementToggle(elementId) {
+    let el = Metro.getPlugin('#' + elementId, 'collapse');
+    let elStatus = el.isCollapsed();
+    if (elStatus) { el.expand(); } else { el.collapsed(); }
+}
+
+
+//Global Controller For Show/Hide Elements
+function ElementShowHide(elementId) {
+    let el = Metro.get$el('#' + elementId);
+    //TODO set
+}
+
+
+//Global Init Standard SummernoteElement Init by Element Id
+function ElementSummernoteInit(elementId) {
+    $('#' + elementId).summernote({
+        tabsize: 2, height: 150, maxHeight: 150,
+        toolbar: [['style', ['style']], ['font', ['bold', 'underline', 'clear']], ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]]
+    });
+}
+
+
+//Global Control for Open/Close InfoBox By Element Id
+function InfoBoxOpenClose(elementId) {
+    if (Metro.infobox.isOpen('#' + elementId)) { Metro.infobox.close('#' + elementId); }
+    else { Metro.infobox.open('#' + elementId); }
 }

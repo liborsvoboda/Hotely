@@ -1,6 +1,6 @@
 ﻿<template>
-    <div class="profile-content mt-10">
-        <div class="rounded row pl-3 pr-3">
+    <div class="">
+        <div class="rounded drop-shadow row">
             <div class="col-md-6 text-left">
                 <h1>{{ $t('user.settings') }}</h1>
             </div>
@@ -119,7 +119,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="userId" class="" v-model="guest.UserId" type="checkbox" value="" :disabled="user.UserId != ''" />
+                        <input id="userId" class="" v-model="guest.UserId" type="checkbox" value="" :disabled="user.UserId != ''" onclick="AdvertiserSetingChangedEvent" />
                         <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
                     </div>
                 </div>
@@ -178,6 +178,13 @@
                     </div>
                 </div>
 
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="showArchivedMessages" class="" v-model="userSettings.showArchivedMessages" type="checkbox" value="" />
+                        <span style="padding-left:0px;">{{ $t('labels.showArchivedMessages') }}</span>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -210,6 +217,8 @@ export default {
     components: {},
     data() {
         return {
+            AdvertiserSetingChanged: false,
+
             guest: {
                 FirstName: "",
                 LastName: "",
@@ -231,7 +240,8 @@ export default {
                 hideSearchingInPrivateZone: null,
                 topFiveCount: null,
                 sendNewsletterToEmail: null,
-                sendNewMessagesToEmail: null
+                sendNewMessagesToEmail: null,
+                showArchivedMessages: null,
             },
 
         };
@@ -244,6 +254,8 @@ export default {
         this.userSettings.hideSearchingInPrivateZone = this.$store.state.userSettings.hideSearchingInPrivateZone;
         this.userSettings.sendNewsletterToEmail = this.$store.state.userSettings.sendNewsletterToEmail;
         this.userSettings.sendNewMessagesToEmail = this.$store.state.userSettings.sendNewMessagesToEmail;
+        this.userSettings.showArchivedMessages = this.$store.state.userSettings.showArchivedMessages;
+
         
         //get google languagelist
         try { 
@@ -260,30 +272,29 @@ export default {
 
     },
     methods: {
+        AdvertiserSetingChangedEvent() {
+            this.AdvertiserSetingChanged = true;
+        },
         checkPasswords() {
-            console.log("kontrola", this.guest, this.guest.UserId);
 
             if (this.guest.Password.length > 0 && this.guest.Password.length < this.$store.state.system.passwordMin) {
-
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create((window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin), "Error", { cls: "alert" }); notify.reset();
-
             } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password != this.guest.confirmPassword) {
-
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary("messages.passwordsEmptyOrNotMatch"), "Error", { cls: "alert" }); notify.reset();
-
             } else if (this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == false) {
                 this.updateGuest();
-            } else if (this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
+            } else if (this.AdvertiserSetingChanged && this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
                 var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
                 notify.create(window.dictionary("messages.forAdvertiserActivationYouMustInserttPassword"), "Error", { cls: "alert" }); notify.reset();
-            } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
+            } else if (this.AdvertiserSetingChanged && this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
+                this.updateGuest();
+            } else if (!this.AdvertiserSetingChanged && this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && isNaN(this.guest.UserId) == false) {
                 this.updateGuest();
             }
         },
         async updateGuest() {
-
             let guestSettings = [];
             guestSettings.push({ Key: 'topFiveCount', Value: $("#topFiveCount").val() });
             guestSettings.push({ Key: 'notifyShowTime', Value: $("#notifyShowTime").val() * 1000 });
@@ -292,8 +303,9 @@ export default {
             guestSettings.push({ Key: 'hideSearchingInPrivateZone', Value: this.userSettings.hideSearchingInPrivateZone });
             guestSettings.push({ Key: 'sendNewsletterToEmail', Value: this.userSettings.sendNewsletterToEmail });
             guestSettings.push({ Key: 'sendNewMessagesToEmail', Value: this.userSettings.sendNewMessagesToEmail });
+            guestSettings.push({ Key: 'showArchivedMessages', Value: this.userSettings.showArchivedMessages });
 
-
+            
             await this.$store.dispatch('updateGuestSetting', guestSettings);
 
             let user = {
@@ -313,15 +325,17 @@ export default {
 
             await this.$store.dispatch('updateRegistration', user);
             this.resetForm();
-
         },
         resetForm() {
             document.querySelector(".form1").reset();
             this.guest.UserId = this.user.UserId;
-     
+           
+
             //refil local setting
             var that = this;
             setTimeout(function () {
+                that.AdvertiserSetingChanged = false;
+
                 that.userSettings.topFiveCount = that.$store.state.userSettings.topFiveCount; $("#topFiveCount").val(that.userSettings.topFiveCount);
                 that.userSettings.notifyShowTime = that.$store.state.userSettings.notifyShowTime / 1000; $("#notifyShowTime").val(that.userSettings.notifyShowTime);
                 $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = that.userSettings.showInactiveAdvertisementAsDefault = that.$store.state.userSettings.showInactiveAdvertisementAsDefault;
@@ -329,6 +343,7 @@ export default {
                 $("#hideSearchingInPrivateZone").val('checked')[0].checked = that.userSettings.hideSearchingInPrivateZone = that.$store.state.userSettings.hideSearchingInPrivateZone;
                 $("#sendNewsletterToEmail").val('checked')[0].checked = that.userSettings.sendNewsletterToEmail = that.$store.state.userSettings.sendNewsletterToEmail;
                 $("#sendNewMessagesToEmail").val('checked')[0].checked = that.userSettings.sendNewMessagesToEmail = that.$store.state.userSettings.sendNewMessagesToEmail;
+                $("#showArchivedMessages").val('checked')[0].checked = that.userSettings.showArchivedMessages = that.$store.state.userSettings.showArchivedMessages;
                 $("#userId").val('checked')[0].checked = that.guest.UserId != '' ? true : false;
             }, 100);
         },

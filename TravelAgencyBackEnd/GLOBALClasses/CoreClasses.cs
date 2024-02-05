@@ -4,14 +4,14 @@ namespace UbytkacBackend.CoreClasses {
 
     public class ServerConfigSettings {
         public static string SpecialServerServiceName { get; set; } = "Úbytkáč Emailer";
-        public static string EmailerServiceEmailAddress { get; set; } = "Libor.Svoboda@GroupWare-Solution.Eu";
+        public static string EmailerServiceEmailAddress { get; set; } = "sender@ubytkac.cz";
 
-        public static string EmailerSMTPLoginUsername { get; set; } = "backendsolution@groupware-solution.eu";
-        public static string EmailerSMTPServerAddress { get; set; } = "imap.groupware-solution.eu";
-        public static string EmailerSMTPLoginPassword { get; set; } = "Hb@6u4NkmC";
-        public static int EmailerSMTPPort { get; set; } = 25;
-        public static bool EmailerSMTPSslIsEnabled { get; set; } = false;
-        public static string EmailerBusinessEmailAddress { get; set; } = "Libor.Svoboda@GroupWare-Solution.Eu";
+        public static string EmailerSMTPLoginUsername { get; set; } = "sender@ubytkac.cz";
+        public static string EmailerSMTPServerAddress { get; set; } = "smtp.ubytkac.cz";
+        public static string EmailerSMTPLoginPassword { get; set; } = "}t_eX4V2!SvRW-'";
+        public static int EmailerSMTPPort { get; set; } = 465;
+        public static bool EmailerSMTPSslIsEnabled { get; set; } = true;
+        public static string EmailerBusinessEmailAddress { get; set; } = "sender@ubytkac.cz";
 
         public static string StartupPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 

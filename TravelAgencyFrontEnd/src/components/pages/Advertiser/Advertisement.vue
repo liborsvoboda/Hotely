@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="py-4">
+    <div class="">
         <div class="rounded drop-shadow row">
             <div class="row pr-0">
                 <div class="col-md-6 d-flex">

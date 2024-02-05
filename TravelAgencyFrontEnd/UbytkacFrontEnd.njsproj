@@ -168,6 +168,9 @@
     <Content Include="src\assets\js\globalBehavior.js" />
     <Content Include="src\assets\js\globalFunctions.js" />
     <Content Include="src\assets\js\jquery.mb.YTPlayer.min.js" />
+    <Content Include="src\assets\js\jquery.printElement.js" />
+    <Content Include="src\assets\js\jquery.printElement.min.js" />
+    <Content Include="src\assets\js\jspdf.js" />
     <Content Include="src\assets\js\summernote-lite.min.js.map" />
     <Content Include="src\assets\js\globalStorage.js" />
     <Content Include="src\assets\js\highlight.pack.js" />

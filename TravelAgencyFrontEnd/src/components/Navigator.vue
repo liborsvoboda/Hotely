@@ -32,11 +32,11 @@
 
 
                 <!-- NewsLetter Panel -->
-                <div id="NewsLetterInfoBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;">
-                    <span class="button square closer" @onclick="controlNewsLetter(true)"></span>
+                <div id="NewsLetterInfoBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;" data-close-button="false">
+                    <span id="CloseNewsletterInfoBox" class="button square closer" onclick="InfoBoxOpenClose('NewsLetterInfoBox')"></span>
                     <div class="info-box-content" style="overflow-y:auto;">
                         <div class="d-flex row ">
-                            <div id="NewsLetterBox" class="d-block m-0 p-0" style="overflow-y: scroll;width: calc(100% - 30px);height:550px;max-height: 550px;"></div>
+                            <div id="NewsLetterBox" class="d-block m-0 p-0" style="overflow-y: scroll;width: calc(100% - 32px);height:550px;max-height: 550px;"></div>
                         </div>
                     </div>
                 </div>
@@ -80,8 +80,8 @@
                                 <a href="#" style="right:50px;" @click="logout()">{{ $t('user.logout') }}</a>
                             </div>
 
-                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.messaging') + '\r\n' + newsletterLastTimestamp " class="c-pointer mif-news pos-absolute mif-5x fg-brandColor2 ani-hover-heartbeat"
-                                 style="top: -8px;right: 10px;" @click="controlNewsLetter(false)">
+                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.newsletter') + '\r\n' + newsletterLastTimestamp " class="c-pointer mif-news pos-absolute mif-5x fg-brandColor2 ani-hover-heartbeat"
+                                 style="top: -8px;right: 10px;" onclick="InfoBoxOpenClose('NewsLetterInfoBox')">
                                 <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="(newsletterCount == 0 ? ' display: none ': ' display: inline ')">{{ newsletterCount }}</span>
                             </div>
 
@@ -140,10 +140,6 @@ export default {
         }
     },
     methods: {
-        controlNewsLetter(close) {
-            if (close) { Metro.infobox.close('#NewsLetterInfoBox'); }
-            else { Metro.infobox.open('#NewsLetterInfoBox'); }
-        },
         closeHelpMenu() {
             document.querySelector("#helpMenu").classList.remove("opened");
             document.querySelector("#helpMenu").classList.add("collapsed");

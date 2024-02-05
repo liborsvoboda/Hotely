@@ -1,10 +1,10 @@
 ﻿<template>
-    <div class="profile-content mt-10">
-        <div class="rounded row pl-3 pr-3">
-            <div class="col-md-6 text-left">
+    <div>
+        <div class="rounded drop-shadow row">
+            <div class="col-md-6 d-flex">
 
                 <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchive')">
-                    <input id="showArchive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive" :checked="$store.state.userSettings.showInactiveAdvertisementAsDefault">
+                    <input id="showArchivedMessages" type="checkbox" data-role="checkbox" :onchange="ShowArchivedMessages" :checked="userSettings.showArchivedMessages">
                 </div>
 
                 <h1>{{ $t('labels.messaging') }}</h1>
@@ -14,80 +14,36 @@
             </div>
         </div>
         <hr>
-        <div class="card-body">
 
+
+        <div class="card-body">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-5 pr-5 pt-5 mb-0">
-                <ul data-role="tabs" data-expand="true" data-on-tab="setBackgroundProfileMenu()">
-                    <li id="newsletterMenu" class="fg-black text-bold bg-brandColor1"><a href="#_newsletterMenu">{{ $t('labels.newsletter') }}</a></li>
-                    <li id="privateMessagesMenu" class="fg-black text-bold"><a href="#_privateMessagesMenu">{{ $t('user.privateMessages') }}</a></li>
-                    <li id="reservationMessagesMenu" class="fg-black text-bold"><a href="#_reservationMessagesMenu">{{ $t('labels.reservationMessages') }}</a></li>
+                <ul data-role="tabs" data-expand="true" data-on-tab="setBackgroundMessagesMenu()">
+                    <li id="privateMessagesMenu" class="fg-black text-bold bg-brandColor1" @click="GetPrivateMessageList"><a href="#_privateMessagesMenu">{{ $t('labels.privateMessages') }}</a></li>
+                    <li id="reservationMessagesMenu" class="fg-black text-bold" @click="GetReservatinMessageList"><a href="#_reservationMessagesMenu">{{ $t('labels.reservationMessages') }}</a></li>
                 </ul>
             </div>
 
-            <div id="_newsletterMenu">
-                <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="form-group FirstName">{{ $t('labels.firstname') }}</label>
-                            <input type="text" class="form-control" id="FirstName" :placeholder="user.FirstName" v-model="guest.FirstName" autocomplete="off" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div id="_privateMessagesMenu">
-                <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="form-group FirstName">{{ $t('labels.firstname') }}</label>
-                            <input type="text" class="form-control" id="FirstName" :placeholder="user.FirstName" v-model="guest.FirstName" autocomplete="off" />
-                        </div>
-                    </div>
-                </div>
+                <div id="privateMessageTree" class="p-5"></div>
             </div>
 
             <div id="_reservationMessagesMenu">
                 <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
+                        <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.reservationMessages') }}</h6>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="form-group p-3 pb-0">
                             <label for="form-group FirstName">{{ $t('labels.firstname') }}</label>
-                            <input type="text" class="form-control" id="FirstName" :placeholder="user.FirstName" v-model="guest.FirstName" autocomplete="off" />
+                            <input type="text" class="form-control" id="FirstName" autocomplete="off" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <div class="row gutters pr-5">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="text-right">
-                    <button type="button" class="button secondary outline shadowed mb-1" @click="resetForm();">
-                        {{ $t('user.cancelChanges') }}
-                    </button>
-                    <button type="button" class="button success outline shadowed ml-1 mb-1" @click="checkPasswords()">
-                        {{ $t('user.saveChanges') }}
-                    </button>
-                    <button type="button" class="button alert outline shadowed ml-1 mb-1" @click="deleteAccout()">
-                        {{ $t('user.deleteAccount') }}
-                    </button>
-                </div>
-            </div>
-        </div>
 
     </div>
 </template>
@@ -99,27 +55,64 @@ export default {
     components: {},
     data() {
         return {
-            ShowArchived: false
-
+            selectedSet: 'private',
         };
     },
-    async mounted() {
-      
-    },
-    methods: {
-
-    },
     computed: {
+        privateMessageList() {
+            return this.$store.state.privateMessageList;
+        },
+        reservationMessageList() {
+            return this.$store.state.reservationMessageList;
+        },
+        userSettings() {
+            return this.$store.state.userSettings;
+        },
         loggedIn() {
             return this.$store.state.user.loggedIn;
         },
         user() {
-            this.guest.UserId = this.$store.state.user.UserId == "" ? false : true;
             return this.$store.state.user;
         },
     },
-    created() {
+    async mounted() {
+
+    },
+    methods: {
+        ShowHideMessage(id) {
+            console.log("now");
         
+        },
+        async ShowArchivedMessages() {
+            this.$store.state.userSettings.showArchivedMessages = !this.$store.state.userSettings.showArchivedMessages;
+            if (this.selectedSet == 'private') { await this.GetPrivateMessageList(); }
+            else if (this.selectedSet == 'reservation') { await this.GetReservatinMessageList(); }
+        },
+        async GetPrivateMessageList() {
+            this.selectedSet = 'private';
+            await this.$store.dispatch('getPrivateMessageList');
+            this.GeneratePrivateMessageTree();
+        },
+        async GetReservatinMessageList() {
+            this.selectedSet = 'reservation';
+            await this.$store.dispatch('getReservationMessageList');
+        },
+        GeneratePrivateMessageTree() {
+            let htmlContent = "<ul data-role='accordion' data-one-frame='true' data-show-active='true' >";
+            this.privateMessageList.forEach(message => {
+                htmlContent += "<div class='frame'><div class='heading row d-inline-flex w-100'><div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div>";
+                htmlContent += "<div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + message.subject + "</div>";
+                htmlContent += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'><span onclick=ElementSummernoteInit('messageSummernote_" + message.id + "') data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.writeAnswer') + "' class='mif-reply_all mif-1x ani-hover-heartbeat'></span></div></div>";
+                htmlContent += "<div class='content border'>" + message.htmlMessage + "<div id='messageSummernote_" + message.id + "' style='visibility: hidden;'></div>" + " </div></div>";
+            }); htmlContent += "</ul>";
+
+            $("#privateMessageTree").html(htmlContent);
+
+        }
+    },
+    async created() {
+        await this.$store.dispatch('getPrivateMessageList');
+        this.GeneratePrivateMessageTree();
     }
 };
 </script>

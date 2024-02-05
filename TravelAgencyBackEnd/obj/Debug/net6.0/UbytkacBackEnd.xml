@@ -56,6 +56,18 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.GetPrivateMessageList(System.Boolean)">
+            <summary>
+            WebApi Get private Messages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.GetReservationMessageList(System.Boolean)">
+            <summary>
+            WebApi Get Reservation Messages
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer

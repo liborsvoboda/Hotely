@@ -1,9 +1,12 @@
 {
   "labels": {
+    "writeAnswer": "Write Answer",
+    "showArchivedMessages": "Automatic Show Archived Messages",
     "showArchive": "Show Archive",
     "lastUpdate": "Last Update",
     "print": "Print",
-    "download": "Download",
+    "downloadHtml": "Download Html",
+    "downloadImage": "Download Image",
     "copy": "Copy",
     "sendNewsletterToEmail": "Send Newsletter to Email",
     "sendNewMessagesToEmail": "Send New Messages to Email",
@@ -197,7 +200,6 @@
     "reservationsOverview": "Reservations overview",
     "reservationInfo": "Info",
     "reservationRooms": "Rooms",
-    "reservationMessages": "Messages",
     "reservationNewMessage": "New Message",
     "writeMessage": "Write message...",
     "reservationsHistoryOverview": "Reservations history",

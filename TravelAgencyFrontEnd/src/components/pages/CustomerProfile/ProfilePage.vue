@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="py-4 mt-4">
+    <div class="">
         <div class="rounded drop-shadow row">
             <div class="col-md-6 text-left">
                 <h1>{{ $t('labels.showNews') }}</h1>

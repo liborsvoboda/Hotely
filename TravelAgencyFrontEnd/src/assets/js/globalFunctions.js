@@ -24,6 +24,15 @@ function setBackgroundProfileMenu() {
     }, 10);
 };
 
+function setBackgroundMessagesMenu() {
+    let menuBackgroundColorName = 'bg-brandColor1';
+
+    setTimeout(function () {
+        if (window.$('#privateMessagesMenu').hasClass('active')) { window.$('#privateMessagesMenu')[0].classList.add(menuBackgroundColorName); } else { window.$('#privateMessagesMenu')[0].classList.remove(menuBackgroundColorName); }
+        if (window.$('#reservationMessagesMenu').hasClass('active')) { window.$('#reservationMessagesMenu')[0].classList.add(menuBackgroundColorName); } else { window.$('#reservationMessagesMenu')[0].classList.remove(menuBackgroundColorName); }
+    }, 10);
+}
+
 async function setCommentStatus(commentId, apiUrl) {
     window.showPageLoading();
     let response = await fetch(
@@ -70,6 +79,7 @@ async function deleteUnavailableRoom(recId, apiUrl) {
     window.hidePageLoading();
 };
 
+
 window.str2bytes =function str2bytes(str) {
     var bytes = new Uint8Array(str.length);
     for (var i = 0; i < str.length; i++) {
@@ -96,7 +106,7 @@ function CloseOtherPriceListGroups(element) {
     }
 }
 
-
+//InfoBox Screen Center Function on ContentChanged
 function PriceInfoBoxSwitchView() {
     let el = Metro.getPlugin($("#PriceInfoBox"), 'info-box');
     if (el != undefined) {
@@ -114,14 +124,15 @@ function PriceInfoBoxSwitchView() {
 }
 
 
+//Generate Newsletter InfoBox
 function PreparingNewsletter(dataset) {
-    console.log("pripravuji", dataset);
     let messageData = "";
-    dataset.forEach((record, index) => {
-        messageData += "<div id=\"" + record.subject + "\" class=\"card image-header\"><div class=\"card-content p-2\"><p class=\"container fg-black\"><b>" + new Date(record.timeStamp).toLocaleDateString() + "</b> <div class=\"h1 text-center\" style=\"top: -25px;\">" + record.subject + "</div></p>" + record.htmlMessage + "</div>";
-        messageData += "<span title='" + window.dictionary('labels.print') + "' class=\"c-pointer mif-printer rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=PrintElement('" + record.subject + "') style=\"top: 5px; right: 5px\"></span>";
-        messageData += "<span title='" + window.dictionary('labels.download') + "' class=\"c-pointer mif-download2 rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=DownloadElement('" + record.subject + "') style=\"top: 5px; right: 55px\"></span>";
-        messageData += "<span title='" + window.dictionary('labels.copy') + "' class=\"c-pointer mif-copy rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=CopyElement('" + record.subject + "') style=\"top: 5px; right: 105px\"></span></div>";
+    dataset.forEach( record => {
+        messageData += "<div id=\"newsletter_" + record.subject + "\" class=\"card image-header\"><div class=\"card-content p-2\"><p class=\"container fg-black\"><b>" + new Date(record.timeStamp).toLocaleDateString() + "</b> <div class=\"h1 w-50 text-left\" style=\"top: -25px;left:100px;\">" + record.subject + "</div></p>" + record.htmlMessage + "</div>";
+        messageData += "<span title='" + window.dictionary('labels.print') + "' class=\"c-pointer mif-printer rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=PrintElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 5px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.downloadHtml') + "' class=\"c-pointer mif-download2 rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=DownloadHtmlElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 55px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.downloadImage') + "' class=\"c-pointer mif-image rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=ImageFromElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 105px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.copy') + "' class=\"c-pointer mif-copy rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=CopyElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 155px\"></span></div>";
     });
     $("#NewsLetterBox").html(messageData);
 }

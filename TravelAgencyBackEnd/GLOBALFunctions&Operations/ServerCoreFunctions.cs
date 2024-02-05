@@ -71,7 +71,7 @@ namespace UbytkacBackend {
                         Credentials = new NetworkCredential(ServerConfigSettings.EmailerSMTPLoginUsername, ServerConfigSettings.EmailerSMTPLoginPassword),
                         EnableSsl = ServerConfigSettings.EmailerSMTPSslIsEnabled,
                         Host = ServerConfigSettings.EmailerSMTPServerAddress,
-                        Port = ServerConfigSettings.EmailerSMTPPort
+                        Port = ServerConfigSettings.EmailerSMTPPort, 
                     };
                     MailClient.Timeout = 5000;
                     MailClient.SendAsync(Email, Guid.NewGuid().ToString());
