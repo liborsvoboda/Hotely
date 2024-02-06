@@ -36,6 +36,7 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+        unreadPrivateMessageCount: null,
         privateMessageList: [],
         reservationMessageList: [],
         newsletterList: [],
@@ -127,6 +128,10 @@ const store = createStore({
         setNewsletterList(store, value) {
             store.newsletterList = value;
             console.log("setNewsletterList  ", store.newsletterList);
+        },
+        setUnreadPrivateMessageCount(store, value) {
+            store.unreadPrivateMessageCount = value;
+            console.log("setUnreadPrivateMessageCount  ", store.unreadPrivateMessageCount);
         },
         setPrivateMessageList(store, value) {
             store.privateMessageList = value;
@@ -258,11 +263,11 @@ const store = createStore({
             state.user.loggedIn = true;
         },
         logOutUser(state) {
-            store.advertisementList = [];
-            store.lightFavoriteHotelList = [];
-            store.favoriteHotelList = [];
-            store.bookingList = [];
-            
+            state.advertisementList = [];
+            state.lightFavoriteHotelList = [];
+            state.favoriteHotelList = [];
+            state.bookingList = [];
+            state.unreadPrivateMessageCount = 0;
             state.user = {
                 loggedIn: false,
             }
@@ -445,6 +450,15 @@ const store = createStore({
             PreparingNewsletter(result);
 
         },
+        async getUnreadPrivateMessageCount({ commit }) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/MessageModule/GetUnreadPrivateMessageCount', {
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + this.state.user.Token, 'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            commit('setUnreadPrivateMessageCount', result);
+        },
         async getPrivateMessageList({ commit }) {
             let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let response = await fetch(
@@ -454,6 +468,8 @@ const store = createStore({
             });
             let result = await response.json();
             commit('setPrivateMessageList', result);
+
+            await this.dispatch('getUnreadPrivateMessageCount');
             if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
         },
         async getReservationMessageList({ commit }) {
@@ -664,6 +680,7 @@ const store = createStore({
                     //Load Light Favorites for hearts and user settings
                     await this.dispatch("getLightFavoriteHotelList");
                     await this.dispatch("getGuestSettingList");
+                    await this.dispatch('getUnreadPrivateMessageCount');
 
                     //path after login
                     router.push('/');
@@ -674,7 +691,6 @@ const store = createStore({
                 commit('logOutUser');
                 router.push('/')
             }
-            //window.hidePageLoading();
         },
 
         async registration({ commit }, regInfo) {

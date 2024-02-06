@@ -65,10 +65,10 @@ function PreparingNewsletter(dataset) {
     let messageData = "";
     dataset.forEach( record => {
         messageData += "<div id=\"newsletter_" + record.subject + "\" class=\"card image-header\"><div class=\"card-content p-2\"><p class=\"container fg-black\"><b>" + new Date(record.timeStamp).toLocaleDateString() + "</b> <div class=\"h1 w-50 text-left\" style=\"top: -25px;left:100px;\">" + record.subject + "</div></p>" + record.htmlMessage + "</div>";
-        messageData += "<span title='" + window.dictionary('labels.print') + "' class=\"c-pointer mif-printer rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=PrintElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 5px\"></span>";
-        messageData += "<span title='" + window.dictionary('labels.downloadHtml') + "' class=\"c-pointer mif-download2 rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=DownloadHtmlElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 55px\"></span>";
-        messageData += "<span title='" + window.dictionary('labels.downloadImage') + "' class=\"c-pointer mif-image rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=ImageFromElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 105px\"></span>";
-        messageData += "<span title='" + window.dictionary('labels.copy') + "' class=\"c-pointer mif-copy rounded pos-absolute drop-shadow fg-cyan mif-4x drop-shadow shadowed p-1 \" onclick=CopyElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 155px\"></span></div>";
+        messageData += "<span title='" + window.dictionary('labels.print') + "' class=\"c-pointer mif-printer rounded pos-absolute drop-shadow fg-cyan mif-4x shadowed p-1 \" onclick=PrintElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 5px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.downloadHtml') + "' class=\"c-pointer mif-download2 rounded pos-absolute drop-shadow fg-cyan mif-4x shadowed p-1 \" onclick=DownloadHtmlElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 55px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.downloadImage') + "' class=\"c-pointer mif-image rounded pos-absolute drop-shadow fg-cyan mif-4x shadowed p-1 \" onclick=ImageFromElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 105px\"></span>";
+        messageData += "<span title='" + window.dictionary('labels.copy') + "' class=\"c-pointer mif-copy rounded pos-absolute drop-shadow fg-cyan mif-4x shadowed p-1 \" onclick=CopyElement('newsletter_" + record.subject + "') style=\"top: 5px; right: 155px\"></span></div>";
     });
     $("#NewsLetterBox").html(messageData);
 }

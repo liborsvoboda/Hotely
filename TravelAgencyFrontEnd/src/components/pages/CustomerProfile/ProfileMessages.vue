@@ -3,8 +3,8 @@
         <div class="rounded drop-shadow row">
             <div class="col-md-6 d-flex">
 
-                <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchive')">
-                    <input id="showArchivedMessages" type="checkbox" data-role="checkbox" :onchange="ShowArchivedMessages" :checked="userSettings.showArchivedMessages">
+                <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchive')" data-hint-position='bottom' data-cls-hint='text-bold drop-shadow'>
+                    <input id="ShowArchivedMessages" data-role="checkbox" :onchange="ShowArchivedMessages" :checked="JSON.parse($store.state.userSettings.showArchivedMessages.toString().toLowerCase())">
                 </div>
 
                 <h1>{{ $t('labels.messaging') }}</h1>
@@ -29,18 +29,7 @@
             </div>
 
             <div id="_reservationMessagesMenu">
-                <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.reservationMessages') }}</h6>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="form-group FirstName">{{ $t('labels.firstname') }}</label>
-                            <input type="text" class="form-control" id="FirstName" autocomplete="off" />
-                        </div>
-                    </div>
-                </div>
+                <div id="reservationMessageList" class="p-5"></div>
             </div>
         </div>
 
@@ -65,9 +54,6 @@ export default {
         reservationMessageList() {
             return this.$store.state.reservationMessageList;
         },
-        userSettings() {
-            return this.$store.state.userSettings;
-        },
         loggedIn() {
             return this.$store.state.user.loggedIn;
         },
@@ -79,39 +65,68 @@ export default {
 
     },
     methods: {
-        ShowHideMessage(id) {
-            console.log("now");
-
-        },
         async ShowArchivedMessages() {
-            this.$store.state.userSettings.showArchivedMessages = !this.$store.state.userSettings.showArchivedMessages;
+            this.$store.state.userSettings.showArchivedMessages = JSON.parse(this.$store.state.userSettings.showArchivedMessages.toString().toLowerCase()) ? false : true;
             if (this.selectedSet == 'private') { await this.GetPrivateMessageList(); }
             else if (this.selectedSet == 'reservation') { await this.GetReservatinMessageList(); }
         },
         async GetPrivateMessageList() {
             this.selectedSet = 'private';
+            ElementSetCheckBox("ShowArchivedMessages", this.$store.state.userSettings.showArchivedMessages);
             await this.$store.dispatch('getPrivateMessageList');
             this.GeneratePrivateMessageTree();
         },
         async GetReservatinMessageList() {
             this.selectedSet = 'reservation';
+            ElementSetCheckBox("ShowArchivedMessages", this.$store.state.userSettings.showArchivedMessages);
             await this.$store.dispatch('getReservationMessageList');
         },
         GeneratePrivateMessageTree() {
-            let ignoredMessageIds = [];
-            let htmlContent = "<ul data-role='accordion' data-one-frame='true' data-show-active='true' >";
+            let htmlContent = "<ul data-role='accordion' data-one-frame='true' data-show-active='false' >";
             this.privateMessageList.forEach(message => {
 
-                if (message.messageParentId != null) { ignoredMessageIds.push([message.messageParentId]); }
-                console.log("checking", ignoredMessageIds, ignoredMessageIds.includes(message.id))
-            
-                if (!ignoredMessageIds.includes(message.id)) {
-                    htmlContent += "<div class='frame'><div class='heading row d-inline-flex w-100'><div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div>";
-                    htmlContent += "<div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + message.subject + "</div>";
-                    htmlContent += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'><span onclick=\"ElementSummernoteInit('messageSummernote_" + message.id + "');ElementShowHide('messageSendButton_" + message.id + "') \" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.writeAnswer') + "' class='mif-reply_all mif-1x ani-hover-heartbeat'></span></div></div>";
-                    htmlContent += "<div class='content border'>" + message.htmlMessage + "<div id='messageSummernote_" + message.id + "' style='visibility: hidden;'></div>";
-                    htmlContent += "<button id='messageSendButton_" + message.id + "' class='pos-absolute button success outline shadowed mr-2' style='right: 0px;bottom: 15px;display:none;' type='button' onclick=SendMessageAnswer('" + message.id + "') > " + window.dictionary('labels.sendAnswer') + "</button></div></div>";
+                htmlContent += "<div class='frame'><div id='messageFrame_" + message.id + "' class='heading row d-inline-flex w-100' style='opacity: 0.7;background-color:" + (message.archived ? '#41545e' : !message.shown && message.isSystemMessage ? '#a31212cf' : message.shown && message.isSystemMessage ? '#1DA1F2' : '#86e22a') + "'><div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div>";
+                htmlContent += "<div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + message.subject + "</div>";
+                htmlContent += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'>";
+
+                if (!message.shown && message.isSystemMessage) { htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ SetShownPrivateMessage('" + message.id + "');});\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.setAsReaded') + "' class='mif-eye mif-2x mr-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
+                htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ setTimeout(()=>{ ElementSummernoteInit('messageSummernote_" + message.id + "');ElementShowHide('messageSendButton_" + message.id + "', true);},500);});\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.newPrivateMessage') + "' class='mif-reply_all mif-2x  p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>";
+                if (!message.archived) { htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');ArchivePrivateMessage('" + message.id + "');\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.archive') + "' class='mif-shrink mif-2x ml-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
+
+                htmlContent += "<span title='" + window.dictionary('labels.print') + "' class='c-pointer mif-printer rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-2x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ setTimeout(()=>{ PrintElement('messageContent_" + message.id + "');},500);});\" ></span>";
+                htmlContent += "<span title='" + window.dictionary('labels.downloadHtml') + "' class='c-pointer mif-download2  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-2x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');DownloadHtmlElement('messageContent_" + message.id + "');\" ></span>";
+                htmlContent += "<span title='" + window.dictionary('labels.downloadImage') + "' class='c-pointer mif-image  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-2x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');ImageFromElement('messageContent_" + message.id + "');\" ></span>";
+                htmlContent += "<span title='" + window.dictionary('labels.copy') + "' class='c-pointer mif-copy  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-2x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');CopyElement('messageContent_" + message.id + "');\" ></span>";
+
+
+                htmlContent += "</div></div>";
+                htmlContent += "<div class='content border'><div id='messageContent_" + message.id + "' >" + message.htmlMessage + "</div><div id='messageSummernote_" + message.id + "' style='visibility: hidden;'>" + window.dictionary('labels.hereWriteMessage') + "</div>";
+                htmlContent += "<button id='messageSendButton_" + message.id + "' class='pos-relative button success outline shadowed mr-2' style='left: 5px;bottom: 50px;display:none;' type='button' onclick=SendMessageAnswer('" + message.id + "') > " + window.dictionary('labels.sendAnswer') + "</button>";
+
+                if (message.inverseMessageParent.length > 0) { 
+                    console.log("inver", message.inverseMessageParent);
+                    let htmlLevel1 = "";
+                    message.inverseMessageParent.forEach(level1 => {
+                        htmlLevel1 += '<div data-role="accordion" data-one-frame="true" data-show-active="false" class="pl-3">';
+                        htmlLevel1 += '<div class="frame"><div id="messageFrame_' + level1.id + '" class="heading row d-inline-flex w-100 pt-0 pb-0 pl-3"  style="opacity: 0.7; background-color:' + (!level1.shown && level1.isSystemMessage ? '#a31212cf' : level1.shown && level1.isSystemMessage ? '#1DA1F2' : '#86e22a') + '">';
+                        htmlLevel1 += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pl-3 m-0 text-left'>" + level1.subject + "</div>";
+                        htmlLevel1 += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'>";
+                        
+                        if (!level1.shown && level1.isSystemMessage) { htmlLevel1 += "<span onclick=\"SetShownPrivateMessage('" + level1.id + "');\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.setAsReaded') + "' class='mif-eye mif-1x mr-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
+                        htmlLevel1 += "<span title='" + window.dictionary('labels.print') + "' class='c-pointer mif-printer rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "').then(()=>{ setTimeout(()=>{ PrintElement('messageContent_" + level1.id + "');},500);});\" ></span>";
+                        htmlLevel1 += "<span title='" + window.dictionary('labels.downloadHtml') + "' class='c-pointer mif-download2  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "');DownloadHtmlElement('messageContent_" + level1.id + "');\" ></span>";
+                        htmlLevel1 += "<span title='" + window.dictionary('labels.downloadImage') + "' class='c-pointer mif-image  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "');ImageFromElement('messageContent_" + level1.id + "');\" ></span>";
+                        htmlLevel1 += "<span title='" + window.dictionary('labels.copy') + "' class='c-pointer mif-copy  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "');CopyElement('messageContent_" + level1.id + "');\" ></span>";
+
+                        htmlLevel1 += "</div></div>";
+                        htmlLevel1 += "<div class='content border'><div id='messageContent_" + level1.id + "' >" + level1.htmlMessage + "</div></div>";
+
+                        htmlLevel1 += "</div></div>";
+                    });
+                    htmlContent += htmlLevel1;
                 }
+
+                htmlContent += "</div></div></div></div>";
 
             }); htmlContent += "</ul>";
             $("#privateMessageTree").html(htmlContent);
@@ -120,13 +135,16 @@ export default {
     
     },
     async created() {
-        await this.$store.dispatch('getPrivateMessageList');
+        await this.GetPrivateMessageList();
+        ElementSetCheckBox("ShowArchivedMessages", this.$store.state.userSettings.showArchivedMessages);
         this.GeneratePrivateMessageTree();
+
 
         watch(window.watchGlobalVariables, async () => {
             if (window.watchGlobalVariables.reloadPrivateMessage) {
                 window.watchGlobalVariables.reloadPrivateMessage = false;
-                await this.$store.dispatch('getPrivateMessageList');
+                ElementSetCheckBox("ShowArchivedMessages", this.$store.state.userSettings.showArchivedMessages);
+                await this.GetPrivateMessageList();
                 this.GeneratePrivateMessageTree();
             }
         });

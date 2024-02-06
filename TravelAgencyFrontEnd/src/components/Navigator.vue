@@ -57,7 +57,9 @@
                                       style="top: -10px;left: 35px;" @click="checkAllowedMenu('MenuFavorite')"></span>
 
                                 <span id="MenuProfileMessages" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.messages')" class="c-pointer mif-mail-read mif-4x fg-brandColor2 ani-hover-heartbeat"
-                                      style="top: -10px;left: 55px;" @click="checkAllowedMenu('MenuProfileMessages')"></span>
+                                      style="top: -10px;left: 55px;" @click="checkAllowedMenu('MenuProfileMessages')">
+                                    <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="((unreadPrivateMessageCount == null || unreadPrivateMessageCount == 0 )? ' display: none ': ' display: inline ')">{{ unreadPrivateMessageCount }}</span>
+                                  </span>
 
                                 <span id="MenuUserSetting" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.settings')" class="c-pointer mif-server mif-4x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -9px;left: 85px;" @click="checkAllowedMenu('MenuUserSetting')"></span>
@@ -117,6 +119,9 @@ export default {
         };
     },
     computed: {
+        unreadPrivateMessageCount() {
+            return this.$store.state.unreadPrivateMessageCount;
+        },
         newsletterLastTimestamp() {
             return this.$store.state.newsletterList[0] != null ? "<br />" + this.$i18n.t("labels.lastUpdate") + "<br />" + new Date(this.$store.state.newsletterList[0].timeStamp).toLocaleString('cs-CZ') : "";
         },

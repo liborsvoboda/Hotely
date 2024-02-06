@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -52,6 +53,10 @@ namespace UbytkacAdmin.Pages {
                 btn_save.Content = Resources["btn_save"].ToString();
                 btn_cancel.Content = Resources["btn_cancel"].ToString();
 
+                //html_htmlMessage.HtmlContentDisableInitialChange = true;
+                //html_htmlMessage.Toolbar.SetSourceMode(true);
+                //html_htmlMessage.Browser.ToggleSourceEditor(html_htmlMessage.Toolbar, true);
+
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             _ = LoadDataList();
@@ -62,8 +67,8 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
                 messageTypeList = await ApiCommunication.GetApiRequest<List<MessageTypeList>>(ApiUrls.MessageTypeList, null, App.UserData.Authentification.Token);
+                guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
                 messageModuleList = await ApiCommunication.GetApiRequest<List<MessageModuleList>>(ApiUrls.MessageModuleList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 messageTypeList.ForEach(async messageType => { messageType.Translation = await DBOperations.DBTranslation(messageType.Name); });
@@ -72,6 +77,7 @@ namespace UbytkacAdmin.Pages {
                     message.ParrentMessage = message.MessageParentId != null ? messageModuleList.FirstOrDefault(a => a.Id == message.MessageParentId).HtmlMessage : null;
                     message.ParentMessageSubject = message.MessageParentId != null ? messageModuleList.FirstOrDefault(a => a.Id == message.MessageParentId).Subject : null;
                     message.MessageTypeTranslation = await DBOperations.DBTranslation(messageTypeList.FirstOrDefault(a => a.Id == message.MessageTypeId).Name);
+                    message.GuestEmail = message.MessageParentId != null ? guestList.First(a => a.Id == messageModuleList.FirstOrDefault(b => b.Id == message.MessageParentId).GuestId).Email : null;
                 });
 
                 DgListView.ItemsSource = messageModuleList;
@@ -96,6 +102,7 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "ParentMessageSubject".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 5; }
                     else if (headername == "Archived".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 6; }
                     else if (headername == "Published".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 7; }
+                    else if (headername == "GuestEmail".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 8; }
 
                     else if (headername == "TimeStamp".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
@@ -106,7 +113,8 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "ParrentMessage".ToLower()) e.Visibility = Visibility.Hidden;
                     else if (headername == "UserId".ToLower()) e.Visibility = Visibility.Hidden;
                     else if (headername == "MessageParentId".ToLower()) e.Visibility = Visibility.Hidden;
-                    
+                    else if (headername == "Level".ToLower()) e.Visibility = Visibility.Hidden;
+
                 });
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
@@ -171,12 +179,14 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Subject = txt_subject.Text;
 
                 selectedRecord.HtmlMessage = html_htmlMessage.Browser.GetCurrentHtml();
-                selectedRecord.Shown = false;
-                selectedRecord.Archived = (bool)chb_archive.IsChecked; 
-                selectedRecord.IsSystemMessage = true;
+                selectedRecord.Archived = (bool)chb_archive.IsChecked;
+                selectedRecord.Shown = selectedRecord.Archived ? true : false;
                 selectedRecord.Published = (bool)chb_publish.IsChecked;
+                selectedRecord.IsSystemMessage = true;
 
-                selectedRecord.GuestId = selectedRecord.Id != 0 ? selectedRecord.GuestId : (int?)cb_forGuest.SelectedValue;
+                
+                if (selectedRecord.GuestId == null) { selectedRecord.GuestId = selectedRecord.Id != 0 ? selectedRecord.GuestId : (int?)cb_forGuest.SelectedValue; }
+
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;
 
@@ -202,38 +212,33 @@ namespace UbytkacAdmin.Pages {
 
         private void SetRecord(bool showForm, bool copy = false) {
             try {
-                txt_id.Value = (copy) ? 0 : selectedRecord.Id;
+                    txt_id.Value = (copy) ? 0 : selectedRecord.Id;
 
-                if (txt_id.Value == 0) { cb_messageType.ItemsSource = messageTypeList.Where(a => !a.IsSystemOnly); }
-                cb_messageType.SelectedItem = txt_id.Value == 0 ? messageTypeList.FirstOrDefault() : messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId);
-                cb_messageType.IsEnabled = txt_id.Value == 0;
+                    if (txt_id.Value == 0) { cb_messageType.ItemsSource = messageTypeList.Where(a => !a.IsSystemOnly); }
+                    cb_messageType.SelectedItem = txt_id.Value == 0 ? messageTypeList.FirstOrDefault() : messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId);
+                    cb_messageType.IsEnabled = txt_id.Value == 0;
 
-                txt_subject.Text = selectedRecord.Subject;
-                chb_publish.IsChecked = selectedRecord.Published; if (selectedRecord.Published) { btn_save.IsEnabled = false; }
+                    txt_subject.Text = selectedRecord.Subject;
+                    chb_publish.IsChecked = selectedRecord.Published; if (selectedRecord.Published) { btn_save.IsEnabled = false; }
 
-                cb_forGuest.SelectedValue = guestList.FirstOrDefault(a => a.Id == selectedRecord.GuestId);
-                if (selectedRecord.IsSystemMessage && txt_id.Value != 0 && messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId).AnswerAllowed == true) {
-                    cb_forGuest.SelectedItem = guestList.FirstOrDefault(a => a.Id == selectedRecord.GuestId); cb_forGuest.IsEnabled = false;
-                    lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Visible;btn_save.IsEnabled = false;
-                } else { lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden; }
+                    cb_forGuest.SelectedValue = guestList.FirstOrDefault(a => a.Id == selectedRecord.GuestId);
+                    if (selectedRecord.IsSystemMessage && txt_id.Value != 0 && messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId).AnswerAllowed == true) {
+                        cb_forGuest.SelectedItem = guestList.FirstOrDefault(a => a.Id == selectedRecord.GuestId); cb_forGuest.IsEnabled = false;
+                        lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Visible; btn_save.IsEnabled = false;
+                    }
+                    else { lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden; }
 
-                txt_variables.Text = txt_id.Value == 0 ? messageTypeList.FirstOrDefault().Variables : messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId).Variables;
-                chb_archive.IsChecked = selectedRecord.Archived;
+                    if (messageTypeList.Any()) { txt_variables.Text = txt_id.Value == 0 ? messageTypeList.FirstOrDefault().Variables : messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId)?.Variables; }
+                    chb_archive.IsChecked = selectedRecord.Archived;
 
-                if (selectedRecord.MessageParentId != null) {
-                    txt_parentMessageSubject.Text = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MessageParentId).Subject;
-                    html_htmlParentMessage.HtmlContent = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MessageParentId).HtmlMessage;
-                    html_htmlAnswerMessage.HtmlContent = selectedRecord.HtmlMessage;
-                    html_htmlParentMessage.Visibility = html_htmlAnswerMessage.Visibility = txt_parentMessageSubject.Visibility = Visibility.Visible;
-                    html_htmlMessage.Visibility = Visibility.Hidden;
-                }
-                else { html_htmlMessage.HtmlContent = selectedRecord.HtmlMessage; }
+                    if (selectedRecord.MessageParentId != null) {
+                        txt_parentMessageSubject.Text = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MessageParentId).Subject;
+                        txt_parentMessageSubject.Visibility = Visibility.Visible;
+                    }
+                    html_htmlMessage.Browser.OpenDocument(selectedRecord.HtmlMessage);
 
-                
-                if (!selectedRecord.IsSystemMessage && txt_id.Value != 0 && messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId).AnswerAllowed == true) 
-                    { btn_doAnswer.Visibility = Visibility.Visible; } else { btn_doAnswer.Visibility = Visibility.Hidden; }
-
-                html_htmlMessage.HtmlContent = selectedRecord.HtmlMessage;
+                    if (!selectedRecord.IsSystemMessage && txt_id.Value != 0 && messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId).AnswerAllowed == true) { btn_doAnswer.Visibility = Visibility.Visible; btn_doAnswer.IsEnabled = true; }
+                    else { btn_doAnswer.Visibility = Visibility.Hidden; }
 
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
@@ -247,26 +252,28 @@ namespace UbytkacAdmin.Pages {
         }
 
         private void MessageTypeChanged(object sender, SelectionChangedEventArgs e) {
-            txt_variables.Text = messageTypeList.FirstOrDefault(a => a.Id == (int)cb_messageType.SelectedValue).Variables;
-            if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).IsSystemOnly) { }
-            else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "private" ) {
-                lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Visible; cb_forGuest.IsEnabled = true;
-                cb_forGuest.SelectedItem = cb_forGuest.Items[0];chb_publish.IsChecked = true;
-            }
-            else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "newsletter") {
-                btn_doAnswer.Visibility = lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden; chb_publish.IsChecked = false;
-            }
-            else if (txt_id.Value != 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "private") {
-                btn_doAnswer.Visibility = Visibility.Visible; chb_publish.IsChecked = true;
-                lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden;
+            if (dataViewSupport.FormShown) {
+                txt_variables.Text = messageTypeList.FirstOrDefault(a => a.Id == (int)cb_messageType.SelectedValue).Variables;
+                if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).IsSystemOnly) { }
+                else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "private") {
+                    lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Visible; cb_forGuest.IsEnabled = true;
+                    cb_forGuest.SelectedItem = cb_forGuest.Items[0]; chb_publish.IsChecked = true;
+                }
+                else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "newsletter") {
+                    btn_doAnswer.Visibility = lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden; chb_publish.IsChecked = false;
+                }
+                else if (txt_id.Value != 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "private") {
+                    btn_doAnswer.Visibility = Visibility.Visible; chb_publish.IsChecked = true;
+                    lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden;
+                }
             }
         }
 
         private void BtnDoAnswer_Click(object sender, RoutedEventArgs e) {
-            doAnswer = true;
-
+            html_htmlMessage.Browser.OpenDocument(null);
+            selectedRecord.Level += 1; selectedRecord.MessageParentId = (int)txt_id.Value; txt_id.Value = 0;
+            btn_save.IsEnabled = true;btn_doAnswer.IsEnabled = false;
         }
-
         private void PublishChanged(object sender, RoutedEventArgs e) => btn_save.IsEnabled = true;
 
         private async void BtnShowPreview_Click(object sender, RoutedEventArgs e) {
@@ -299,7 +306,7 @@ namespace UbytkacAdmin.Pages {
             try {
                 OpenFileDialog dlg = new OpenFileDialog() { DefaultExt = ".html", Filter = "Html files |*.html|All files (*.*)|*.*", Title = Resources["fileOpenDescription"].ToString() };
                 if (dlg.ShowDialog() == true) {
-                    html_htmlMessage.HtmlContent = File.ReadAllText(dlg.FileName, FileOperations.FileDetectEncoding(dlg.FileName));
+                    html_htmlMessage.Browser.OpenDocument(File.ReadAllText(dlg.FileName, FileOperations.FileDetectEncoding(dlg.FileName)));
                 }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }

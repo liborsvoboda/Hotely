@@ -87,17 +87,21 @@ namespace UbytkacBackend.Controllers {
         public async Task<string> GetPrivateMessageList(bool archived) {
             List<MessageModuleList> data;
             try {
+
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                     data = new hotelsContext().MessageModuleLists
-                        .Where(a => a.MessageType.Name == "private"
-                        && ((a.MessageParentId != null && a.MessageParent.MessageParentId != a.Id) || a.MessageParentId == null)
-                        && a.Published && ((!archived && !a.Archived) || archived))
-                        .Include(a => a.MessageParent).ThenInclude(a => a.MessageParent).ThenInclude(a => a.MessageParent).ThenInclude(a => a.MessageParent)
+                        .Where(a => a.MessageType.Name == "private" && a.MessageParentId == null && a.Published && ((!archived && !a.Archived) || archived) && a.GuestId == int.Parse(authId) )
+                        .Include(a => a.InverseMessageParent)
                         .Include(a => a.MessageType)
                         .OrderByDescending(a => a.TimeStamp).ToList();
                 }
 
-                data.ForEach(message => { message.MessageType.MessageModuleLists = null; });
+                data.ForEach(message => { 
+                    message.MessageType.MessageModuleLists = null;
+                    message.InverseMessageParent = message.InverseMessageParent.OrderByDescending(a => a.TimeStamp).ToList();
+                });
 
 
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
@@ -111,6 +115,32 @@ namespace UbytkacBackend.Controllers {
         }
 
 
+
+        [HttpGet("/WebApi/MessageModule/GetUnreadPrivateMessageCount")]
+        [Consumes("application/json")]
+        public async Task<string> GetUnreadPrivateMessageCount(bool archived) {
+            int unreadPrivateMessages;
+            try {
+
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    unreadPrivateMessages = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "private" && a.IsSystemMessage && !a.Shown && a.GuestId == int.Parse(authId) )
+                        .Count();
+                }
+
+                return JsonSerializer.Serialize(unreadPrivateMessages, new JsonSerializerOptions() {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    WriteIndented = true,
+                    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+        }
+
+
+
         /// <summary>
         /// WebApi Get Reservation Messages
         /// </summary>
@@ -120,8 +150,11 @@ namespace UbytkacBackend.Controllers {
         public async Task<string> GetReservationMessageList(bool archived) {
             List<MessageModuleList> data;
             try {
+
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "reservation" 
+                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "reservation" && a.GuestId == int.Parse(authId)
                     && a.Published && ((!archived && !a.Archived) || archived))
                         .OrderByDescending(a => a.TimeStamp).ToList();
                 }
@@ -154,8 +187,9 @@ namespace UbytkacBackend.Controllers {
                 }
                 if (parentMessage != null) {
                     MessageModuleList answerMessage = new() { 
-                        MessageParentId = messageAnswer.ParentId,MessageTypeId = parentMessage.MessageTypeId, 
-                        Subject = ServerCoreDbOperations.DBTranslate("AnswerFor", messageAnswer.Language) + ": "+ parentMessage.Subject,HtmlMessage = messageAnswer.Message,
+                        Level = parentMessage.Level + 1, MessageParentId = messageAnswer.ParentId,MessageTypeId = parentMessage.MessageTypeId, 
+                        Subject = DateTimeOffset.UtcNow.ToLocalTime().ToString() + ": " + ServerCoreDbOperations.DBTranslate("AnswerFor", messageAnswer.Language) + ": "+ parentMessage.Subject,
+                        HtmlMessage = "<html>\r\n<head>\r\n<meta content=\"text/html;utf-8\" http-equiv=\"content-type\">\r\n</head>\r\n<body>" + messageAnswer.Message + "</body>\r\n</html>",
                         IsSystemMessage = false, Published = true, Shown = false, Archived = false,
                         GuestId = int.Parse(authId), UserId = parentMessage.UserId
                     };
@@ -172,6 +206,61 @@ namespace UbytkacBackend.Controllers {
             });
         }
 
+
+        /// <summary>
+        /// Guest set Archived Root and Sub Private Messages
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        [HttpGet("/WebApi/MessageModule/ArchivePrivateMessage/{messageId}/{language}")]
+        [Consumes("application/json")]
+        public async Task<IActionResult> ArchivePrivateMessage(int messageId, string language = "cz") {
+            List<MessageModuleList> archiveMessage;
+            try {
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    archiveMessage = new hotelsContext().MessageModuleLists.Where(a => ( a.Id == messageId && a.MessageParentId == null) || ( a.MessageParentId == messageId) && a.GuestId == int.Parse(authId) && !a.Archived).ToList();
+                }
+                if (archiveMessage != null) {
+                    archiveMessage.ForEach(message => { message.Archived = true; });
+                    var data = new hotelsContext();
+                    data.MessageModuleLists.UpdateRange(archiveMessage);
+                    await data.SaveChangesAsync();
+
+                    return Ok(JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
+                }
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("ArchivePrivateMessageRequestIsNotValid", language) });
+        }
+
+
+
+        /// <summary>
+        /// Guest set Shown Private Message By Id
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        [HttpGet("/WebApi/MessageModule/SetShownPrivateMessage/{messageId}/{language}")]
+        [Consumes("application/json")]
+        public async Task<IActionResult> SetShownPrivateMessage(int messageId, string language = "cz") {
+            MessageModuleList archiveMessage;
+            try {
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    archiveMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == messageId && a.GuestId == int.Parse(authId) && !a.Shown).FirstOrDefault();
+                }
+                if (archiveMessage != null) {
+                    archiveMessage.Shown = true;
+                    var updateMessage = new hotelsContext().MessageModuleLists.Update(archiveMessage);
+                    await updateMessage.Context.SaveChangesAsync();
+
+                    return Ok(JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
+                }
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("ShownPrivateMessageRequestIsNotValid", language) });
+        }
 
         #endregion Web Messages Controls
 

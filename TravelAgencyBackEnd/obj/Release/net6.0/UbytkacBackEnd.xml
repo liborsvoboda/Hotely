@@ -56,6 +56,41 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.GetPrivateMessageList(System.Boolean)">
+            <summary>
+            WebApi Get private Messages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.GetReservationMessageList(System.Boolean)">
+            <summary>
+            WebApi Get Reservation Messages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.SetPrivateMessageAnswer(UbytkacBackend.MessageModuleClasses.PrivateMessageAnswer)">
+            <summary>
+            Guest Set Private Message Answer
+            </summary>
+            <param name="messageAnswer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.ArchivePrivateMessage(System.Int32,System.String)">
+            <summary>
+            Guest set Archived Root and Sub Private Messages
+            </summary>
+            <param name="messageId"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.SetShownPrivateMessage(System.Int32,System.String)">
+            <summary>
+            Guest set Shown Private Message By Id
+            </summary>
+            <param name="messageId"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer

@@ -1,7 +1,10 @@
 {
   "labels": {
+    "hereWriteMessage": "Here Write Message",
+    "newPrivateMessage": "New Private Message",
+    "setAsReaded": "Set as Readed",
+    "archive": "Archive",
     "sendAnswer": "Send Answer",
-    "writeAnswer": "Write Answer",
     "showArchivedMessages": "Automatic Show Archived Messages",
     "showArchive": "Show Archive",
     "lastUpdate": "Last Update",

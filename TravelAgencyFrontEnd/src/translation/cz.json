@@ -1,7 +1,10 @@
 {
   "labels": {
+    "hereWriteMessage": "Zde Napište Zprávu",
+    "newPrivateMessage": "Vytvořit Novou Zprávu",
+    "setAsReaded": "Označit za Přečtenou",
+    "archive": "Archivovat",
     "sendAnswer": "Odeslat Odpověď",
-    "writeAnswer": "Napsat Odpověď",
     "showArchivedMessages": "Automaticky Zobrazit Archivované Zprávy",
     "showArchive": "Zobrazit Archiv",
     "lastUpdate": "Poslední Update",

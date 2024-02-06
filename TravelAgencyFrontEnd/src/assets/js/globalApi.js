@@ -8,11 +8,35 @@ async function SendMessageAnswer(parentId) {
             method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ ParentId: parentId, Message: $("#messageSummernote_" + parentId).summernote('code'), Language: Metro.storage.getItem('WebPagesLanguage', null) })
     }); let result = await response.json();
+    if (result.Status == "error") { ShowNotify('error', result.ErrorMessage);
+    } else { window.watchGlobalVariables.reloadPrivateMessage = true; }
+    window.hidePageLoading();
+}
+
+
+//Archive Private Message Tree API
+async function ArchivePrivateMessage(messageId) {
+    window.showPageLoading();
+    let response = await fetch(
+        Metro.storage.getItem('ApiRootUrl', null) + '/MessageModule/ArchivePrivateMessage/' + messageId + "/" + Metro.storage.getItem('WebPagesLanguage', null), {
+        method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
+    }); let result = await response.json();
+    if (result.Status == "error") { ShowNotify('error', result.ErrorMessage);
+    } else { window.watchGlobalVariables.reloadPrivateMessage = true; }
+    window.hidePageLoading();
+}
+
+
+//Set As Readed Specific Private Message API
+async function SetShownPrivateMessage(messageId) {
+    window.showPageLoading();
+    let response = await fetch(
+        Metro.storage.getItem('ApiRootUrl', null) + '/MessageModule/SetShownPrivateMessage/' + messageId + "/" + Metro.storage.getItem('WebPagesLanguage', null), {
+        method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
+    }); let result = await response.json();
     if (result.Status == "error") {
         ShowNotify('error', result.ErrorMessage);
-    } else {
-        window.watchGlobalVariables.reloadPrivateMessage = true;
-    }
+    } else { window.watchGlobalVariables.reloadPrivateMessage = true; }
     window.hidePageLoading();
 }
 
@@ -24,11 +48,8 @@ async function setCommentStatus(commentId) {
         Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/SetCommentStatus/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
         method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
     }); let result = await response.json();
-    if (result.Status == "error") {
-        ShowNotify('error', result.ErrorMessage);
-    } else {
-        window.watchAdvertisementVariables.reloadAdvertisement = true;
-    }
+    if (result.Status == "error") { ShowNotify('error', result.ErrorMessage);
+    } else { window.watchAdvertisementVariables.reloadAdvertisement = true; }
     window.hidePageLoading();
 };
 
@@ -39,11 +60,8 @@ async function deleteComment(commentId) {
         Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/DeleteComment/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
         method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
     }); let result = await response.json();
-    if (result.Status == "error") {
-        ShowNotify('error', result.ErrorMessage);
-    } else {
-        window.watchAdvertisementVariables.reloadAdvertisement = true;
-    }
+    if (result.Status == "error") { ShowNotify('error', result.ErrorMessage);
+    } else { window.watchAdvertisementVariables.reloadAdvertisement = true; }
     window.hidePageLoading();
 };
 
@@ -54,11 +72,8 @@ async function deleteUnavailableRoom(recId) {
         Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/DeleteUnavailableRoom/' + recId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
         method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
     }); let result = await response.json();
-    if (result.Status == "error") {
-        ShowNotify('error', result.ErrorMessage);
-    } else {
-        window.watchAdvertisementVariables.reloadUnavailable = true;
-    }
+    if (result.Status == "error") { ShowNotify('error', result.ErrorMessage);
+    } else { window.watchAdvertisementVariables.reloadUnavailable = true; }
     window.hidePageLoading();
 };
 

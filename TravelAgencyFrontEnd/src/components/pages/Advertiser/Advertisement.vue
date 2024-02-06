@@ -3,7 +3,7 @@
         <div class="rounded drop-shadow row">
             <div class="row pr-0">
                 <div class="col-md-6 d-flex">
-                    <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showAlsoInactive')">
+                    <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showAlsoInactive')" data-hint-position='bottom' data-cls-hint='text-bold drop-shadow'>
                         <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive" :checked="$store.state.userSettings.showInactiveAdvertisementAsDefault">
                     </div>
 

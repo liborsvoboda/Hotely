@@ -55,6 +55,7 @@
         }
 
         public static string DBTranslate(string word, string language = "cz") {
+            if(language == "cs") { language = "cz"; }
             return Program.UseDBLocalAutoupdatedDials ? DBTranslateOffline(word, language) : DBTranslateOnline(word, language);
         }
 

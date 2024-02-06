@@ -142,25 +142,27 @@ function googleTranslateElementInit() {
 
 //Global Cancel Translation to Default Webpage content
 function CancelTranslation() {
-    setTimeout(function () {
-        let selectElement = document.querySelector('#google_translate_element select');
-        selectElement.selectedIndex = 1;
-        selectElement.dispatchEvent(new Event('change'));
-        if (selectElement.value != '') {
-            setTimeout(function () {
-                let selectElement = document.querySelector('#google_translate_element select');
-                selectElement.selectedIndex = 0;
-                selectElement.dispatchEvent(new Event('change'));
-                if (selectElement.value != '') {
-                    setTimeout(function () {
-                        let selectElement = document.querySelector('#google_translate_element select');
-                        selectElement.selectedIndex = 0;
-                        selectElement.dispatchEvent(new Event('change'));
-                    }, 2000);
-                }
-            }, 2000);
-        }
-    }, 1000);
+    try {
+        setTimeout(function () {
+            let selectElement = document.querySelector('#google_translate_element select');
+            selectElement.selectedIndex = 1;
+            selectElement.dispatchEvent(new Event('change'));
+            if (selectElement.value != '') {
+                setTimeout(function () {
+                    let selectElement = document.querySelector('#google_translate_element select');
+                    selectElement.selectedIndex = 0;
+                    selectElement.dispatchEvent(new Event('change'));
+                    if (selectElement.value != '') {
+                        setTimeout(function () {
+                            let selectElement = document.querySelector('#google_translate_element select');
+                            selectElement.selectedIndex = 0;
+                            selectElement.dispatchEvent(new Event('change'));
+                        }, 2000);
+                    }
+                }, 2000);
+            }
+        }, 1000);
+    } catch { }
 }
 
 
@@ -248,9 +250,11 @@ function ImageFromElement(elementId) {
 
 //Global Control Disable Window Scrolling
 function disableScroll() {
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-    window.onscroll = function () { window.scrollTo(scrollLeft, scrollTop); };
+    try {
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+        window.onscroll = function () { window.scrollTo(scrollLeft, scrollTop); };
+    } catch { }
 }
 
 
@@ -272,42 +276,83 @@ window.str2bytes = function str2bytes(str) {
 
 //Global Controller For Expand/Collapse of All Collapse Elements
 function ElementExpand(elementId) {
-    let el = Metro.getPlugin('#' + elementId, 'collapse');
-    let elStatus = el.isCollapsed();
-    if (elStatus) { el.expand(); } else { el.collapsed(); }
+    try {
+        let el = Metro.getPlugin('#' + elementId, 'collapse');
+        let elStatus = el.isCollapsed();
+        if (elStatus) { el.expand(); } else { el.collapsed(); }
+    } catch { }
 }
 
 
 //Global Controller For Show/Hide Elements
-function ElementShowHide(elementId) {
-    let el = Metro.get$el('#' + elementId);
-    if (el.style("display") == "none") { el.show(); } else { el.hide(); }
+function ElementShowHide(elementId,showOnly = false) {
+    try {
+        let el = Metro.get$el('#' + elementId);
+        if (showOnly) { el.show(); }
+        else if (el.style("display") == "none") { el.show(); } else { el.hide(); }
+    } catch { }
 }
 
 
 //Global Init Standard SummernoteElement Init by Element Id
 function ElementSummernoteInit(elementId) {
-    $('#' + elementId).summernote({
-        tabsize: 2, height: 150, maxHeight: 150,
-        toolbar: [['style', ['style']], ['font', ['bold', 'underline', 'clear']], ['fontname', ['fontname']],
-        ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['table', ['table']],
-        ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]]
-    });
+    try {
+        $('#' + elementId).summernote({
+            tabsize: 2, height: 150, maxHeight: 150,
+            toolbar: [['style', ['style']], ['font', ['bold', 'underline', 'clear']], ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]]
+        });
+        var newCss = {};
+        newCss.backgroundColor = '#d6caba';
+        $('.note-editable').css(newCss);
+    } catch { }
+}
+
+
+//Global Controller For Set Checkbox with true/false Value by Element Id
+function ElementSetCheckBox(elementId, val) {
+    try {
+        $('#' + elementId).val('checked')[0].checked = JSON.parse((val.toString().toLowerCase()));
+    } catch { }
+}
+
+
+//Global Controller For Set Active Class to Element by Element Id
+function ElementSetActive(elementId) {
+    try {
+        $('#' + elementId).addClass(" active ");
+    } catch { }
+}
+
+
+//Accordion Control Active CustomMenu In Header 
+async function AccordionCustomMenuClick(elementId) {
+    const result = await setTimeout(() => {
+        if (!$('#' + elementId).parent()[0].classList.contains("active")) {
+            $('#' + elementId).parent().addClass(' active ');
+            setTimeout(() => { $('#' + elementId).parent().children()[1].style.display = "block"; }, 50);
+        }
+    }, 100);
 }
 
 
 //Global Control for Open/Close InfoBox By Element Id
 function InfoBoxOpenClose(elementId) {
-    if (Metro.infobox.isOpen('#' + elementId)) { Metro.infobox.close('#' + elementId); }
-    else { Metro.infobox.open('#' + elementId); }
+    try {
+        if (Metro.infobox.isOpen('#' + elementId)) { Metro.infobox.close('#' + elementId); }
+        else { Metro.infobox.open('#' + elementId); }
+    } catch { }
 }
 
 
 //Global Control for Show Configured Notification 
 function ShowNotify(type, message) {
-    var notify = Metro.notify; notify.setup({ width: 300, timeout: Metro.storage.getItem('NotifyShowTime', 2000), duration: 500 });
-    if (type == 'error') { notify.create(message, "Error", { cls: "alert" }); }
-    else if (type == 'success') { notify.create(message, "Success", { cls: "success" }); }
-    else if (type == 'info') { notify.create(message, "Info"); }
-    notify.reset();
+    try {
+        var notify = Metro.notify; notify.setup({ width: 300, timeout: Metro.storage.getItem('NotifyShowTime', 2000), duration: 500 });
+        if (type == 'error') { notify.create(message, "Error", { cls: "alert" }); }
+        else if (type == 'success') { notify.create(message, "Success", { cls: "success" }); }
+        else if (type == 'info') { notify.create(message, "Info"); }
+        notify.reset();
+    } catch { }
 }

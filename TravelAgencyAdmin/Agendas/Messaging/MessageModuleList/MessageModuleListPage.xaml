@@ -69,8 +69,9 @@
 
             <Label
                 x:Name="lbl_forGuest"
-                Grid.Row="1" Grid.Column="0"
-                HorizontalAlignment="Right" HorizontalContentAlignment="Right"
+                Grid.Row="1" Grid.Column="1"
+                Width="200"
+                HorizontalAlignment="Left" HorizontalContentAlignment="Left"
                 Visibility="Hidden" />
 
             <ComboBox
@@ -151,22 +152,6 @@
                 Grid.Row="3" Grid.Column="1"
                 Padding="0" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Checked="PublishChanged" Unchecked="PublishChanged" />
-
-            <html:HtmlEditor
-                x:Name="html_htmlParentMessage"
-                Grid.Row="4" Grid.Column="0"
-                Margin="0,2,0,2"
-                BorderThickness="0.5"
-                HtmlContent="{Binding SourceCode}"
-                Visibility="Hidden" />
-
-            <html:HtmlEditor
-                x:Name="html_htmlAnswerMessage"
-                Grid.Row="4" Grid.Column="1"
-                Margin="0,2,0,2"
-                BorderThickness="0.5"
-                HtmlContent="{Binding SourceCode}"
-                Visibility="Hidden" />
 
             <html:HtmlEditor
                 x:Name="html_htmlMessage"

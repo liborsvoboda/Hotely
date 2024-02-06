@@ -4,13 +4,13 @@
             <div class="row">
                 <div class="col-md-12 pt-0 mt-0">
                     <ul class="h-menu open large pos-static bg-cyan fg-cyan" style="background-color:transparent !important;">
-                        <li :title="$t('labels.editLease')" @click="editAdvertisement(hotel.id)"><a href="#" class="p-2"><span class="mif-description icon mif-2"></span></a></li>
-                        <li :title="$t('labels.requestOfApproval')" @click="setApprovalRequest(hotel.id)" :class="(hotel.approved ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-traff icon"></span></a></li>
-                        <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon"></span></a></li>
-                        <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon"></span></a></li>
+                        <li :title="$t('labels.editLease')" @click="editAdvertisement(hotel.id)"><a href="#" class="p-2"><span class="mif-description icon mif-2 rounded drop-shadow shadowed p-2"></span></a></li>
+                        <li :title="$t('labels.requestOfApproval')" @click="setApprovalRequest(hotel.id)" :class="(hotel.approved ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-traff icon rounded drop-shadow shadowed p-2"></span></a></li>
+                        <li :title="$t('labels.actDeactivation')" @click="setActivation(hotel.id)"><a href="#" class="p-2"><span class="mif-traffic-cone icon rounded drop-shadow shadowed p-2"></span></a></li>
+                        <li :title="$t('labels.deleteUnused')" @click="deleteAdvertisement(hotel.id)" :class="(hotel.hotelReservationLists.length > 0 ? 'disabled' : '')"><a href="#" class="p-2"><span class="mif-cancel icon rounded drop-shadow shadowed p-2"></span></a></li>
                         <li :title="$t('labels.tasks')" @click="newCommentHotelId = hotel.id;generateMessageBox();" onclick="Metro.infobox.open('#CommentBox');">
                             <a href="#" class="p-2">
-                                <span class="mif-clipboard icon"></span>
+                                <span class="mif-clipboard icon rounded drop-shadow shadowed p-2"></span>
                                 <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getOpenedCommentsCount == 0 ? ' display: none ': ' display: inline ')">{{ getOpenedCommentsCount }}</span>
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.guestAdvertiserNoteLists.length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.guestAdvertiserNoteLists.length }}</span>
                             </a>
@@ -19,22 +19,22 @@
                         <!-- <li :title="$t('labels.publish')"><a href="#" class="p-2"><span class="mif-feed icon"></span></a></li> -->
                         <li :title="$t('labels.reservation')" @click="openReservation();" onclick="Metro.infobox.open('#ReservationBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) >= new Date();}).length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
-                                <span class="mif-shop icon"></span>
+                                <span class="mif-shop icon rounded drop-shadow shadowed p-2"></span>
                                 <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getUnshownDetailCount == 0 ? ' display: none ': ' display: inline ')">{{ getUnshownDetailCount }}</span>
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) >= new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) >= new Date();}).length }}</span>
                             </a>
                         </li>
                         <li :title="$t('labels.reservationsHistoryOverview')" @click="openHistory();" onclick="Metro.infobox.open('#HistoryBox');" :class="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
-                                <span class="mif-history icon"></span>
+                                <span class="mif-history icon rounded drop-shadow shadowed p-2"></span>
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationLists.filter(obj => {return new Date(obj.endDate) < new Date();}).length }}</span>
                             </a>
                         </li>
-                        <li :title="$t('labels.unavailableSettings')" @click="openUnavailableSettings()" onclick="Metro.infobox.open('#UnavailableSettingsBox');"><a href="#" class="p-2"><span class="mif-blocked icon"></span></a></li>
-                        <li :title="$t('labels.showBookedCalendar')" @click="openCalendar()" onclick="Metro.infobox.open('#CalendarBox');"><a href="#" class="p-2"><span class="mif-calendar icon"></span></a></li>
+                        <li :title="$t('labels.unavailableSettings')" @click="openUnavailableSettings()" onclick="Metro.infobox.open('#UnavailableSettingsBox');"><a href="#" class="p-2"><span class="mif-blocked icon rounded drop-shadow shadowed p-2"></span></a></li>
+                        <li :title="$t('labels.showBookedCalendar')" @click="openCalendar()" onclick="Metro.infobox.open('#CalendarBox');"><a href="#" class="p-2"><span class="mif-calendar icon rounded drop-shadow shadowed p-2"></span></a></li>
                         <li :title="$t('labels.reviews')" @click="openReview()" onclick="Metro.infobox.open('#ReviewBox');" :class="(hotel.hotelReservationReviewLists.length == 0 ? 'disabled' : '')">
                             <a href="#" class="p-2">
-                                <span class="mif-blogger icon"></span>
+                                <span class="mif-blogger icon rounded drop-shadow shadowed p-2"></span>
                                 <span class="badge bg-orange fg-white mt-2" style="font-size: 10px;" :style="(getUnshownReviewCount == 0 ? ' display: none ': ' display: inline ')">{{ getUnshownReviewCount }}</span>
                                 <span class="badge bg-brandColor1 fg-white mt-8" style="font-size: 10px;" :style="(hotel.hotelReservationReviewLists.length == 0 ? ' display: none ': ' display: inline ')">{{ hotel.hotelReservationReviewLists.length }}</span>
                             </a>

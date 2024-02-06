@@ -10,9 +10,14 @@
             List<MessageModuleList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().MessageModuleLists.OrderBy(a => a.IsSystemMessage).ThenBy(a=>a.Shown).ToList();
+                data = new hotelsContext().MessageModuleLists.OrderBy(a => a.IsSystemMessage).ThenBy(b=>b.Shown).ToList();
             }
-            return JsonSerializer.Serialize(data);
+
+            //Must be JsonSerializerOptions Reason is Cycle Join On ParentId
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true,
+            });
         }
 
         [HttpGet("/MessageModuleList/Filter/{filter}")]
@@ -23,7 +28,10 @@
                 data = new hotelsContext().MessageModuleLists.FromSqlRaw("SELECT * FROM MessageModuleList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true,
+            });
         }
 
         [HttpGet("/MessageModuleList/{id}")]
@@ -37,13 +45,33 @@
                 data = new hotelsContext().MessageModuleLists.Where(a => a.Id == id).First();
             }
 
-            return JsonSerializer.Serialize(data);
+            return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true,
+            });
         }
 
         [HttpPut("/MessageModuleList")]
         [Consumes("application/json")]
         public async Task<string> InsertMessageModuleList([FromBody] MessageModuleList record) {
             try {
+
+                //Set Shown and unArchive on ParentMessage
+                if (record.MessageParentId != null) {
+                    MessageModuleList parentMessage;
+                    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                        parentMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == record.MessageParentId && !a.IsSystemMessage).FirstOrDefault();
+                    }
+                    if (parentMessage != null) {
+                        parentMessage.Shown = true; parentMessage.Archived = false;
+                        var updateParent = new hotelsContext().MessageModuleLists.Update(parentMessage);
+                        await updateParent.Context.SaveChangesAsync();
+
+                        if (parentMessage.MessageParentId != null ) { record.MessageParentId = parentMessage.MessageParentId; }
+                    }
+                }
+                
+                
                 var data = new hotelsContext().MessageModuleLists.Add(record);
                 int result = await data.Context.SaveChangesAsync();
 
@@ -57,11 +85,21 @@
 
                     if (loadRecordData.MessageType.Name.ToLower() == "newsletter") {
                         var guestList = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.GuestSettingLists.Where(a => a.Key == "sendNewsletterToEmail" && a.Value == "true").Any()).ToList();
-                        guestList.ForEach(guest => { ServerCoreFunctions.SendEmail(new MailRequest() { Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, Subject = record.Subject, Content = record.HtmlMessage }); });
+                        guestList.ForEach(guest => { 
+                            ServerCoreFunctions.SendEmail(new MailRequest() { 
+                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, 
+                                Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
+                            }); 
+                        });
                     }
                     else if (loadRecordData.MessageType.Name.ToLower() != "newsletter") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
-                        if (guest != null) { ServerCoreFunctions.SendEmail(new MailRequest() { Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, Subject = record.Subject, Content = record.HtmlMessage }); }
+                        if (guest != null) {
+                            ServerCoreFunctions.SendEmail(new MailRequest() {
+                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email },
+                                Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
+                            });
+                        }
                     }
                 }
 
@@ -91,11 +129,21 @@
 
                     if (loadRecordData.MessageType.Name.ToLower() == "newsletter") {
                         var guestList = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.GuestSettingLists.Where(a => a.Key == "sendNewsletterToEmail" && a.Value == "true").Any()).ToList();
-                        guestList.ForEach(guest => { ServerCoreFunctions.SendEmail(new MailRequest() { Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, Subject = record.Subject, Content = record.HtmlMessage }); });
+                        guestList.ForEach(guest => {
+                            ServerCoreFunctions.SendEmail(new MailRequest() {
+                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, 
+                                Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
+                            });
+                        });
                     }
                     else if (loadRecordData.MessageType.Name.ToLower() != "newsletter") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
-                        if (guest != null) { ServerCoreFunctions.SendEmail(new MailRequest() { Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, Subject = record.Subject, Content = record.HtmlMessage }); }
+                        if (guest != null) { 
+                            ServerCoreFunctions.SendEmail(new MailRequest() { 
+                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, 
+                                Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
+                            }); 
+                        }
                     }
                 }
 

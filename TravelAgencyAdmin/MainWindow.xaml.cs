@@ -1206,18 +1206,19 @@ namespace UbytkacAdmin {
         private async void TabPanelOnSelectionChange(object sender, SelectionChangedEventArgs e) {
             try {
                 // Closing TabPanel
-                if (e.RemovedItems.Count > 0 && ((SystemTabs)e.RemovedItems[0]).Tag != null && ((SystemTabs)e.RemovedItems[0]).Tag.ToString().ToUpperInvariant() == "ActiveSystemSaver".ToUpperInvariant())
-                    SetLastUserAction();
+                try {
+                    if (e.RemovedItems.Count > 0 && ((SystemTabs)e.RemovedItems[0]).Tag != null && ((SystemTabs)e.RemovedItems[0]).Tag.ToString() == "activesystemsaver")
+                        SetLastUserAction();
+                } catch { }
 
-                ///Insert TabPanel
+                //Insert TabPanel
                 SystemTabs SelectedTab = (SystemTabs)TabablzControl.GetLoadedInstances().Last().SelectedItem;
                 DataViewSupport dataViewSupport = new DataViewSupport();
 
-                if (SelectedTab == null || (((FrameworkElement)SelectedTab.Content).Tag != null && ((FrameworkElement)SelectedTab.Content).Tag.ToString() == "Setting")) {
-                    //SETTING
-                    tb_search.Text = null; dataGridSelectedId = 0; DataGridSelected = false; DataGridSelectedIdListIndicator = false;
-                    DgRefresh = false; cb_printReports.ItemsSource = null;
-                } else if (SelectedTab == null || new string[] { "View", "Form" }.Contains(((FrameworkElement)SelectedTab.Content).Tag.ToString())) {
+                if (SelectedTab != null && ((FrameworkElement)SelectedTab.Content).Tag != null && ((FrameworkElement)SelectedTab.Content).Tag.ToString() == "Setting") {
+                    tb_search.Text = null; dataGridSelectedId = 0; DataGridSelected = false; DataGridSelectedIdListIndicator = false; DgRefresh = false; cb_printReports.ItemsSource = null;
+                }
+                else if (SelectedTab != null && (((FrameworkElement)SelectedTab.Content).Tag != null && new string[] { "View", "Form" }.Contains(((FrameworkElement)SelectedTab.Content).Tag.ToString()))) {
                     DataGridSelected = true; DgRefresh = true; string senderName = SelectedTab.Content.GetType().Name;
                     var AutoPageGeneration = Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType();
                     switch (((FrameworkElement)SelectedTab.Content).Tag.ToString()) {
@@ -1225,11 +1226,13 @@ namespace UbytkacAdmin {
                         case "Form":
                             dataViewSupport = ((DataViewSupport)Convert.ChangeType(SelectedTab.Content, Type.GetType("UbytkacAdmin.Pages." + senderName)).GetType().GetField("dataViewSupport").GetValue(null));
                             tb_search.Text = dataViewSupport.FilteredValue;
-                            if (dataViewSupport.FormShown) { dataGridSelectedId = 0; DataGridSelectedIdListIndicator = false; DataGridSelected = false; DgRefresh = false; } else {
-                                if (dataViewSupport.SelectedRecordId == 0) { dataGridSelectedId = 0; DataGridSelectedIdListIndicator = false; } else { dataGridSelectedId = dataViewSupport.SelectedRecordId; DataGridSelectedIdListIndicator = true; }
+                            if (dataViewSupport.FormShown) { dataGridSelectedId = 0; DataGridSelectedIdListIndicator = false; DataGridSelected = false; DgRefresh = false; }
+                            else {
+                                if (dataViewSupport.SelectedRecordId == 0) { dataGridSelectedId = 0; DataGridSelectedIdListIndicator = false; }
+                                else { dataGridSelectedId = dataViewSupport.SelectedRecordId; DataGridSelectedIdListIndicator = true; }
                             }
                             StringToFilter(cb_filter, dataViewSupport.AdvancedFilter);
-                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/" + senderName.Replace("Page", ""), App.UserData.Authentification.Token);
+                            try { cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/" + senderName.Replace("Page", ""), App.UserData.Authentification.Token); } catch { }
                             break;
 
                         //VIEWS - LIST ONLY
@@ -1238,7 +1241,7 @@ namespace UbytkacAdmin {
                             tb_search.Text = dataViewSupport.FilteredValue; dataGridSelectedId = dataViewSupport.SelectedRecordId;
                             DataGridSelected = DataGridSelectedIdListIndicator = false; DgRefresh = true;
                             StringToFilter(cb_filter, dataViewSupport.AdvancedFilter);
-                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/" + senderName.Replace("Page", ""), App.UserData.Authentification.Token);
+                            try { cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/" + senderName.Replace("Page", ""), App.UserData.Authentification.Token); } catch { }
                             break;
 
                         default:
