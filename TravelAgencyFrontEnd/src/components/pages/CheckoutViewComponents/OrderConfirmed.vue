@@ -42,9 +42,7 @@ export default {
             let result = await response.json();
 
             if (result.ErrorMessage) {
-
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', result.ErrorMessage);
             } else {
                 this.$store.dispatch('clearBooking');
             }
@@ -61,10 +59,7 @@ export default {
             let result = await response.json();
 
             if (result.ErrorMessage) {
-
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-
+                ShowNotify('error', result.ErrorMessage);
             } else {
                 let password = result.Status;
 
@@ -78,13 +73,11 @@ export default {
                 });
                 let loginres = await response.json()
                 if (loginres.message) {
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(loginres.message, "Error", { cls: "alert" }); notify.reset();
+                    ShowNotify('error', loginres.message);
                 } else {
                     this.$store.state.user = loginres;
                     this.$store.state.user.loggedIn = true;
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(this.$i18n.t("messages.loginSuccess"), "Info"); notify.reset();
+                    ShowNotify('info', this.$i18n.t("messages.loginSuccess"));
                 }
 
                 //clear booking

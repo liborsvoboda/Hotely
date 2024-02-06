@@ -715,9 +715,9 @@ export default {
                     messageData += "<div class=\"card image-header\"><div class=\"d-block card-content p-0 " + (!message.solved ? " bg-brandColor1 " : " bg-lightOlive ") + "\"><div class=\"d-flex\"><div class=\"h5 fg-black col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 p-1 m-0\">" + message.title + "</div><div class=\"h8 fg-black col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 text-right p-1 m-0\">" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div></div>";
                     messageData += "<div class=\"d-flex\"><div class=\"fg-white col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 p-1\">" + message.note + "</div>";
                     messageData += "<div class=\"col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 p-1 text-right\"><div class=\"d-block \">";
-                    messageData += "<div class=\"mb-1 p-button p-component button shadowed small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setOpened") + "</div>";
-                    messageData += "<div class=\"mb-1 p-button p-component button shadowed small success " + (message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.setSolved") + "</div>";
-                    messageData += "<div class=\"p-button p-component button shadowed small alert \" onclick=\"deleteComment('" + message.id + "','" + this.$store.state.apiRootUrl + "');\">" + window.dictionary("labels.delete") + "</div>";
+                    messageData += "<div class=\"mb-1 p-button p-component button shadowed small info " + (!message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "');\">" + window.dictionary("labels.setOpened") + "</div>";
+                    messageData += "<div class=\"mb-1 p-button p-component button shadowed small success " + (message.solved ? " disabled " : "") + " \" onclick=\"setCommentStatus('" + message.id + "');\">" + window.dictionary("labels.setSolved") + "</div>";
+                    messageData += "<div class=\"p-button p-component button shadowed small alert \" onclick=\"deleteComment('" + message.id + "');\">" + window.dictionary("labels.delete") + "</div>";
                     messageData += "</div></div></div></div></div>";
                 });
                 $("#MessageBox").html(messageData);
@@ -737,8 +737,7 @@ export default {
                     }); let result = await response.json();
 
                     if (result.Status == "error") {
-                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                        ShowNotify('error', result.ErrorMessage);
                     } else {
                         if (document.getElementById("CommentForm") != null) { document.getElementById("CommentForm").reset(); }
                         let result = await that.$store.dispatch("getAdvertisementList");
@@ -763,8 +762,7 @@ export default {
                     }); let result = await response.json();
 
                     if (result.Status == "error") {
-                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                        ShowNotify('error', result.ErrorMessage);
                     } else {
                         if (document.getElementById("ReservationForm") != null) { document.getElementById("ReservationForm").reset(); }
                         $("#ReservationNote").val('');
@@ -813,7 +811,7 @@ export default {
             let messageData = "<ul>";
 
             this.$store.state.unavailableRoomList.forEach(unavailable => {
-                messageData += "<li><span class='mif-cancel fg-red c-pointer' onclick=\"deleteUnavailableRoom('" + unavailable.Id + "','" + this.$store.state.apiRootUrl + "' )\"></span> " + unavailable.Count + "x " + unavailable.Name + " <b>" + new Date(unavailable.StartDate).toLocaleDateString() + " - " + new Date(unavailable.EndDate).toLocaleDateString() + "</b></li>";
+                messageData += "<li><span class='mif-cancel fg-red c-pointer' onclick=\"deleteUnavailableRoom('" + unavailable.Id + "')\"></span> " + unavailable.Count + "x " + unavailable.Name + " <b>" + new Date(unavailable.StartDate).toLocaleDateString() + " - " + new Date(unavailable.EndDate).toLocaleDateString() + "</b></li>";
             });
 
             messageData += "</ul>";
@@ -839,8 +837,7 @@ export default {
                     }); let result = await response.json();
 
                     if (result.Status == "error") {
-                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                        ShowNotify('error', result.ErrorMessage);
                     } else {
                         if (document.getElementById("UnavailableForm") != null) {
                             document.getElementById("UnavailableForm").reset(); let select = Metro.getPlugin("#RoomSelectionUnv", "select"); select.reset();
@@ -938,8 +935,7 @@ export default {
                     }); let result = await response.json();
 
                     if (result.Status == "error") {
-                        var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                        ShowNotify('error', result.ErrorMessage);
                     } else {
                         if (document.getElementById("ReviewForm") != null) { document.getElementById("ReviewForm").reset(); }
                         $("#ReviewNote").val('');
@@ -1015,8 +1011,7 @@ export default {
                     method: 'GET', headers: { 'Authorization': 'Bearer ' + this.$store.state.user.Token, 'Content-type': 'application/json' }
                 }); let result = await response.json();
                 if (result.Status == "error") {
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(window.dictionary('labels.cannotDeleteBecauseIsUsed'), "Info"); notify.reset();
+                    ShowNotify('info', window.dictionary('labels.cannotDeleteBecauseIsUsed'));
                     window.hidePartPageLoading();
                 } else {
                     if (this.$store.state.user.UserId != '') {

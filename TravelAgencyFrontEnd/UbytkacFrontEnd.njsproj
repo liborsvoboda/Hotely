@@ -166,6 +166,7 @@
     <Content Include="src\assets\js\clipboard.min.js" />
     <Content Include="src\assets\js\fontawesome.js" />
     <Content Include="src\assets\js\globalBehavior.js" />
+    <Content Include="src\assets\js\globalApi.js" />
     <Content Include="src\assets\js\globalFunctions.js" />
     <Content Include="src\assets\js\jquery.mb.YTPlayer.min.js" />
     <Content Include="src\assets\js\jquery.printElement.js" />

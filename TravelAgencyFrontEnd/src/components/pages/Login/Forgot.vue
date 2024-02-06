@@ -71,14 +71,12 @@ export default {
 
             def.fail(function (data) {
                 window.hidePageLoading();
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', data.responseJSON.ErrorMessage);
             });
 
             def.done(function (data) {
                 window.hidePageLoading();
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(window.dictionary('user.resetPasswordEmailWasSent'), "Info"); notify.reset();
+                ShowNotify('info', window.dictionary('user.resetPasswordEmailWasSent'));
             });
         },
         resetForm() {

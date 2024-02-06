@@ -83,8 +83,7 @@ export default {
 
                 def.fail(function (data) {
                     window.hidePageLoading();
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(data.responseJSON.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                    ShowNotify('error', data.responseJSON.ErrorMessage);
                 });
 
                 def.done(function (data) {
@@ -92,8 +91,7 @@ export default {
                     that.ApiVerificationCode = data.verifyCode;
                     that.verifySent = true;
 
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(window.dictionary('user.verifyEmailWasSent'), "Info"); notify.reset();
+                    ShowNotify('info', window.dictionary('user.verifyEmailWasSent'));
                 });
             } else {
                 document.querySelector('.main').classList.add("ani-ring");
@@ -112,9 +110,7 @@ export default {
             if (this.guest.ConfirmPassword.length > 0) {
                 if (this.guest.ConfirmPassword != this.guest.Password) {
 
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(window.dictionary("messages.passwordsNotMatch"), "Error", { cls: "alert" }); notify.reset();
-
+                    ShowNotify('error', window.dictionary("messages.passwordsNotMatch"));
                 } else if (this.guest.ConfirmPassword == this.guest.Password) {
                     this.guestRegistration();
                 }
@@ -138,19 +134,15 @@ export default {
             await this.$store.dispatch('registration', regInfo).then(() => {
                 if (this.$store.state.tempVariables.registrationStatus.Status == "emailExist") {
 
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(this.$store.state.tempVariables.registrationStatus.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-
+                    ShowNotify('error', this.$store.state.tempVariables.registrationStatus.ErrorMessage);
                 } else if (this.$store.state.tempVariables.registrationStatus.Status == "loginInfoSentToEmail") {
                     this.resetForm();
                     document.querySelector('.form1').innerHTML = '<p class="text"></p>';
                     document.querySelector('.main').style.height = "150px";
 
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(this.$store.state.tempVariables.registrationStatus.ErrorMessage, "Success", { cls: "success" }); notify.reset();
+                    ShowNotify('success', this.$store.state.tempVariables.registrationStatus.ErrorMessage);
 
-
-                    //Login after registration 
+                    //Login after registration
                     let credentials = {
                         Email: this.guest.Email,
                         Password: this.guest.Password

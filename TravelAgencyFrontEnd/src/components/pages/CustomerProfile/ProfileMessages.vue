@@ -49,7 +49,7 @@
 </template>
 
 <script>
-
+    import { ref, watch } from 'vue';
 
 export default {
     components: {},
@@ -81,7 +81,7 @@ export default {
     methods: {
         ShowHideMessage(id) {
             console.log("now");
-        
+
         },
         async ShowArchivedMessages() {
             this.$store.state.userSettings.showArchivedMessages = !this.$store.state.userSettings.showArchivedMessages;
@@ -98,21 +98,38 @@ export default {
             await this.$store.dispatch('getReservationMessageList');
         },
         GeneratePrivateMessageTree() {
+            let ignoredMessageIds = [];
             let htmlContent = "<ul data-role='accordion' data-one-frame='true' data-show-active='true' >";
             this.privateMessageList.forEach(message => {
-                htmlContent += "<div class='frame'><div class='heading row d-inline-flex w-100'><div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div>";
-                htmlContent += "<div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + message.subject + "</div>";
-                htmlContent += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'><span onclick=ElementSummernoteInit('messageSummernote_" + message.id + "') data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.writeAnswer') + "' class='mif-reply_all mif-1x ani-hover-heartbeat'></span></div></div>";
-                htmlContent += "<div class='content border'>" + message.htmlMessage + "<div id='messageSummernote_" + message.id + "' style='visibility: hidden;'></div>" + " </div></div>";
-            }); htmlContent += "</ul>";
 
+                if (message.messageParentId != null) { ignoredMessageIds.push([message.messageParentId]); }
+                console.log("checking", ignoredMessageIds, ignoredMessageIds.includes(message.id))
+            
+                if (!ignoredMessageIds.includes(message.id)) {
+                    htmlContent += "<div class='frame'><div class='heading row d-inline-flex w-100'><div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + new Date(message.timeStamp).toLocaleString('cs-CZ') + "</div>";
+                    htmlContent += "<div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + message.subject + "</div>";
+                    htmlContent += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'><span onclick=\"ElementSummernoteInit('messageSummernote_" + message.id + "');ElementShowHide('messageSendButton_" + message.id + "') \" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.writeAnswer') + "' class='mif-reply_all mif-1x ani-hover-heartbeat'></span></div></div>";
+                    htmlContent += "<div class='content border'>" + message.htmlMessage + "<div id='messageSummernote_" + message.id + "' style='visibility: hidden;'></div>";
+                    htmlContent += "<button id='messageSendButton_" + message.id + "' class='pos-absolute button success outline shadowed mr-2' style='right: 0px;bottom: 15px;display:none;' type='button' onclick=SendMessageAnswer('" + message.id + "') > " + window.dictionary('labels.sendAnswer') + "</button></div></div>";
+                }
+
+            }); htmlContent += "</ul>";
             $("#privateMessageTree").html(htmlContent);
 
-        }
+        },
+    
     },
     async created() {
         await this.$store.dispatch('getPrivateMessageList');
         this.GeneratePrivateMessageTree();
+
+        watch(window.watchGlobalVariables, async () => {
+            if (window.watchGlobalVariables.reloadPrivateMessage) {
+                window.watchGlobalVariables.reloadPrivateMessage = false;
+                await this.$store.dispatch('getPrivateMessageList');
+                this.GeneratePrivateMessageTree();
+            }
+        });
     }
 };
 </script>

@@ -7,7 +7,7 @@ namespace UbytkacAdmin.Classes {
 
     public partial class MessageModuleList {
         public int Id { get; set; } = 0;
-        public int? MesssageParentId { get; set; }
+        public int? MessageParentId { get; set; }
         public int MessageTypeId { get; set; }
         public string Subject { get; set; }
         public string HtmlMessage { get; set; }

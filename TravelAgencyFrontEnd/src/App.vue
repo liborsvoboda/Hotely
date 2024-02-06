@@ -66,7 +66,8 @@ export default {
         }
     },
     mounted() { 
-       if (Metro.storage.getItem('InputBanner', null) != null && Metro.storage.getItem('InputBanner', null).length > 0) { $("#SearchPanel")[0].style.backgroundImage = 'url(' + Metro.storage.getItem('InputBanner', null) + ')'; }
+        if (Metro.storage.getItem('InputBanner', null) != null && Metro.storage.getItem('InputBanner', null).length > 0) { $("#SearchPanel")[0].style.backgroundImage = 'url(' + Metro.storage.getItem('InputBanner', null) + ')'; }
+        this.$store.dispatch('startupStorageSetting');
     },
     methods: {
         toggle(event) {

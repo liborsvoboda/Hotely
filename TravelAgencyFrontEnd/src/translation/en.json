@@ -1,5 +1,6 @@
 {
   "labels": {
+    "sendAnswer": "Send Answer",
     "writeAnswer": "Write Answer",
     "showArchivedMessages": "Automatic Show Archived Messages",
     "showArchive": "Show Archive",

@@ -3,9 +3,7 @@
 let ActualValidationFormName = "hotelForm";
 let ActualWizardPage = 1;
 let propertyList = [];
-let ApiRootUrl = null;
 let Router = null;
-let NotifyShowTime = 1000;
 
 let HotelRecId = null;
 let WizardHotel = {
@@ -77,8 +75,7 @@ async function WizardValidateForm() {
     else if (wizard.current == 1 &&
         ($("#HotelName").val().length == 0 || $("#LimitGuestCommDays").val().length == 0 || $("#StornoDaysCountBeforeStart").val().length == 0 ||
             $("#HotelCurrency")[0].selectedOptions[0] == undefined || $("#HotelCity")[0].selectedOptions[0] == undefined)) {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-        notify.create(window.dictionary('labels.missingSetting'), "Info"); notify.reset();
+        ShowNotify('info', window.dictionary('labels.missingSetting'));
     }
 
     else if (wizard.current == 2 && WizardImageGallery.length > 0) {
@@ -87,8 +84,7 @@ async function WizardValidateForm() {
         wizard.toPage(wizard.current + 1);
     }
     else if (wizard.current == 2 && WizardImageGallery.length == 0) {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-        notify.create(window.dictionary('labels.missingAnyImage'), "Info"); notify.reset();
+        ShowNotify('info', window.dictionary('labels.missingAnyImage'));
     }
 
     else if (wizard.current == 3 && WizardRooms.length > 0) {
@@ -98,8 +94,7 @@ async function WizardValidateForm() {
         wizard.toPage(wizard.current + 1);
     }
     else if (wizard.current == 3 && WizardRooms.length == 0) {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-        notify.create(window.dictionary('labels.missingAnyRoom'), "Info"); notify.reset();
+        ShowNotify('info', window.dictionary('labels.missingAnyRoom'));
     }
 
     else if (wizard.current == 4 && WizardProperties.length > 0) {
@@ -111,8 +106,7 @@ async function WizardValidateForm() {
         wizard.toPage(wizard.current + 1);
     }
     else if (wizard.current == 4 && WizardProperties.length == 0) {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-        notify.create(window.dictionary('labels.missingAnyProperties'), "Info"); notify.reset();
+        ShowNotify('info', window.dictionary('labels.missingAnyProperties'));
     }
 
     else if (wizard.current == 5 && WizardProperties.length > 0) {
@@ -194,21 +188,18 @@ async function WizardUploadImages(files) {
                 if (itsOk) {
                     WizardImageGallery.push({IsPrimary: setprimary ? true : false, FileName: files[i].name, Attachment: fileContent});
                 } else {
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-                    notify.create(window.dictionary('labels.fileExist') + " "+ files[i].name, "Info"); notify.reset();
+                    ShowNotify('info', window.dictionary('labels.fileExist') + " " + files[i].name);
                 }
                 
             } else {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-                notify.create(window.dictionary('labels.maxFileSize') + " " + files[i].name, "Info"); notify.reset();
+                ShowNotify('info', window.dictionary('labels.maxFileSize') + " " + files[i].name);
             }
         }
 
         WizardUploadImagesCheck();
         window.hidePageLoading();
     } else {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-        notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info"); notify.reset();
+        ShowNotify('info', window.dictionary('labels.notInsertedAnyImage'));
     }
 
 }
@@ -231,8 +222,7 @@ async function WizardRoomUploadImage(files) {
             WizardTempRoomPhoto.push({ FileName: files[0].name, Attachment: fileContent});
         } else {
             WizardTempRoomPhoto = [];
-            var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-            notify.create(window.dictionary('labels.maxFileSize') + files[0].name, "Info"); notify.reset();
+            ShowNotify('info', window.dictionary('labels.maxFileSize') + files[0].name);
             Metro.getPlugin($("#roomImage"), 'file').clear();
         }
 
@@ -240,8 +230,7 @@ async function WizardRoomUploadImage(files) {
         window.hidePageLoading();
     } else {
         WizardTempRoomPhoto = [];
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-        notify.create(window.dictionary('labels.notInsertedAnyImage'), "Info"); notify.reset();
+        ShowNotify('info', window.dictionary('labels.notInsertedAnyImage'));
         Metro.getPlugin($("#roomImage"), 'file').clear();
     }
 
@@ -384,7 +373,7 @@ async function SaveHotel() {
 
     //Save Hotel
     var response = await fetch(
-        ApiRootUrl + '/Advertiser/SetHotel', {
+        Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/SetHotel', {
             method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
         body: JSON.stringify({
             HotelRecId: HotelRecId,
@@ -399,7 +388,7 @@ async function SaveHotel() {
 
     //Save HotelImages
     var response = await fetch(
-        ApiRootUrl + '/Advertiser/SetHotelImages', {
+        Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/SetHotelImages', {
             method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ HotelRecId: HotelRecId, Images: WizardImageGallery })
         }
@@ -407,7 +396,7 @@ async function SaveHotel() {
 
     //Save HotelRooms
     var response = await fetch(
-        ApiRootUrl + '/Advertiser/SetHotelRooms', {
+        Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/SetHotelRooms', {
             method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ HotelRecId: HotelRecId, Rooms: WizardRooms })
         }
@@ -415,15 +404,13 @@ async function SaveHotel() {
 
     //Update HotelProperties
     var response = await fetch(
-        ApiRootUrl + '/Advertiser/SetHotelProperties', {
+        Metro.storage.getItem('ApiRootUrl', null) + '/Advertiser/SetHotelProperties', {
             method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
             body: JSON.stringify({ HotelRecId: HotelRecId, Properties: WizardProperties })
         }
     ); result = await response.json();
 
-    var notify = Metro.notify; notify.setup({ width: 300, timeout: NotifyShowTime, duration: 500 });
-    notify.create(window.dictionary('labels.advertisementHasBeenSaved'), "Info"); notify.reset();
-
+    ShowNotify('info', window.dictionary('labels.advertisementHasBeenSaved'));
     window.hidePageLoading();
     Router.push('/Profile/Advertisement');
 }

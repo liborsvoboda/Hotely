@@ -19,10 +19,6 @@ import 'vite/modulepreload-polyfill'
 /*import ConfirmationService from 'primevue/confirmationservice';*/
 import { createI18n, useI18n } from 'vue-i18n';
 
-//import btoa from 'btoa';
-
-
-
 import en from './translation/en.json';
 import cz from './translation/cz.json';
 
@@ -46,14 +42,14 @@ let app = createApp(App)
     .use(i18n)
     .use(ToastPlugin)
     ;
-/*    .mount('#app');*/
 
 
-//Global Variables For Vue + Metro + other.js
+//Global Variables For Watch Vue + Metro + other.js
 app.config.globalProperties.window = window; 
 app.config.globalProperties.window.dictionary = i18n.global.t;
 app.config.globalProperties.window.watchGlobalVariables = reactive({
     wizardRequestCityList: null,
+    reloadPrivateMessage: false
 });
 
 app.config.globalProperties.window.watchChangeVariables = reactive({

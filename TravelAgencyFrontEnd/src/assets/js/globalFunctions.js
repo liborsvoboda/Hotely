@@ -1,17 +1,6 @@
 ﻿
-function disableScroll() {
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
 
-    window.onscroll = function () {
-        window.scrollTo(scrollLeft, scrollTop);
-    };
-}
-
-function enableScroll() {
-    window.onscroll = function () { };
-}
-
+//Set MaterialTab Background in Settings on Change
 function setBackgroundProfileMenu() {
     let menuBackgroundColorName = 'bg-brandColor1';
 
@@ -24,6 +13,8 @@ function setBackgroundProfileMenu() {
     }, 10);
 };
 
+
+//Set MaterialTab Background in Messages on Change
 function setBackgroundMessagesMenu() {
     let menuBackgroundColorName = 'bg-brandColor1';
 
@@ -31,61 +22,6 @@ function setBackgroundMessagesMenu() {
         if (window.$('#privateMessagesMenu').hasClass('active')) { window.$('#privateMessagesMenu')[0].classList.add(menuBackgroundColorName); } else { window.$('#privateMessagesMenu')[0].classList.remove(menuBackgroundColorName); }
         if (window.$('#reservationMessagesMenu').hasClass('active')) { window.$('#reservationMessagesMenu')[0].classList.add(menuBackgroundColorName); } else { window.$('#reservationMessagesMenu')[0].classList.remove(menuBackgroundColorName); }
     }, 10);
-}
-
-async function setCommentStatus(commentId, apiUrl) {
-    window.showPageLoading();
-    let response = await fetch(
-        apiUrl + '/Advertiser/SetCommentStatus/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
-            method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
-    }); let result = await response.json();
-    if (result.Status == "error") {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: 2000, duration: 500 });
-        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-    } else {
-        window.watchAdvertisementVariables.reloadAdvertisement = true;
-    }
-    window.hidePageLoading();
-};
-
-async function deleteComment(commentId, apiUrl) {
-    window.showPageLoading();
-    let response = await fetch(
-        apiUrl + '/Advertiser/DeleteComment/' + commentId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
-        method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
-    }); let result = await response.json();
-    if (result.Status == "error") {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: 2000, duration: 500 });
-        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-    } else {
-        window.watchAdvertisementVariables.reloadAdvertisement = true;
-    }
-    window.hidePageLoading();
-};
-
-
-async function deleteUnavailableRoom(recId, apiUrl) {
-    window.showPageLoading();
-    let response = await fetch(
-        apiUrl + '/Advertiser/DeleteUnavailableRoom/' + recId + '/' + Metro.storage.getItem('WebPagesLanguage', null), {
-        method: 'GET', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' }
-    }); let result = await response.json();
-    if (result.Status == "error") {
-        var notify = Metro.notify; notify.setup({ width: 300, timeout: 2000, duration: 500 });
-        notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-    } else {
-        window.watchAdvertisementVariables.reloadUnavailable = true;
-    }
-    window.hidePageLoading();
-};
-
-
-window.str2bytes =function str2bytes(str) {
-    var bytes = new Uint8Array(str.length);
-    for (var i = 0; i < str.length; i++) {
-        bytes[i] = str.charCodeAt(i);
-    }
-    return bytes;
 }
 
 

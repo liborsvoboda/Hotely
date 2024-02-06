@@ -102,11 +102,9 @@ export default {
 
                 let result = await response.json();
                 this.$store.dispatch('setLightFavoriteHotelList', result);
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(this.isFavorite ? this.$i18n.t("messages.addedToFavorite") : this.$i18n.t("messages.removedFromFavorite"), "Success", { cls: "success" }); notify.reset();
+                ShowNotify('success', this.isFavorite ? this.$i18n.t("messages.addedToFavorite") : this.$i18n.t("messages.removedFromFavorite"));
             } else { 
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(this.$i18n.t("messages.forSaveToFavoriteYouMustBeLogged"), "Info"); notify.reset();
+                ShowNotify('info', this.$i18n.t("messages.forSaveToFavoriteYouMustBeLogged"));
             }
         },
     },

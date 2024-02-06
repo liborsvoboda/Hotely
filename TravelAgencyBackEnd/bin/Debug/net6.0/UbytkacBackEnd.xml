@@ -68,6 +68,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.SetPrivateMessageAnswer(UbytkacBackend.MessageModuleClasses.PrivateMessageAnswer)">
+            <summary>
+            Guest Set Private Message Answer
+            </summary>
+            <param name="messageAnswer"></param>
+            <returns></returns>
+        </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
             <summary>
             Full Translate List for WebPage Search Input : Whisperer

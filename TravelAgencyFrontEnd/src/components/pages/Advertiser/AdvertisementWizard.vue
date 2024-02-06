@@ -318,8 +318,6 @@ export default {
     },
     mounted() {
         propertyList = this.$store.state.propertyList;
-        ApiRootUrl = this.$store.state.apiRootUrl;
-        NotifyShowTime = this.$store.state.userSettings.notifyShowTime;
 
         this.getCountryList();
         this.getCurrencyList();

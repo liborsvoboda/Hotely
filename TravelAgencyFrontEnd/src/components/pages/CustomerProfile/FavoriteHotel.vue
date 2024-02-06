@@ -71,8 +71,7 @@ export default {
             let result = await response.json();
            this.$store.dispatch('setFavoriteList', result);
 
-            var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-            notify.create(this.$i18n.t("messages.removedFromFavorite"), "Success", { cls: "success" }); notify.reset();
+            ShowNotify('success', this.$i18n.t("messages.removedFromFavorite"));
             await this.$store.dispatch('getFavoriteHotelList');
 
         }

@@ -278,16 +278,13 @@ export default {
         checkPasswords() {
 
             if (this.guest.Password.length > 0 && this.guest.Password.length < this.$store.state.system.passwordMin) {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create((window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin), "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', (window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin));
             } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password != this.guest.confirmPassword) {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(window.dictionary("messages.passwordsEmptyOrNotMatch"), "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', window.dictionary("messages.passwordsEmptyOrNotMatch"));
             } else if (this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == false) {
                 this.updateGuest();
             } else if (this.AdvertiserSetingChanged && this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(window.dictionary("messages.forAdvertiserActivationYouMustInserttPassword"), "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', window.dictionary("messages.forAdvertiserActivationYouMustInserttPassword"));
             } else if (this.AdvertiserSetingChanged && this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
                 this.updateGuest();
             } else if (!this.AdvertiserSetingChanged && this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && isNaN(this.guest.UserId) == false) {
@@ -350,9 +347,7 @@ export default {
         deleteAccout() {
             if (confirm(window.dictionary("user.doYouReallyDeleteAccount"))) {
                 this.$store.dispatch("deleteRegistration", this.user.Id);
-
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(window.dictionary("messages.accountWasDeleted"), "Success", { cls: "success" }); notify.reset();
+                ShowNotify('success', window.dictionary("messages.accountWasDeleted"));
             }
         },
     },

@@ -1,5 +1,7 @@
 ﻿using UbytkacBackend.DBModel;
 using UbytkacBackend;
+using UbytkacBackend.MessageModuleClasses;
+using System.ComponentModel.Design;
 
 namespace UbytkacBackend.Controllers {
 
@@ -88,9 +90,9 @@ namespace UbytkacBackend.Controllers {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                     data = new hotelsContext().MessageModuleLists
                         .Where(a => a.MessageType.Name == "private"
-                        && ((a.MesssageParentId != null && a.MesssageParent.MesssageParentId != a.Id) || a.MesssageParentId == null)
+                        && ((a.MessageParentId != null && a.MessageParent.MessageParentId != a.Id) || a.MessageParentId == null)
                         && a.Published && ((!archived && !a.Archived) || archived))
-                        .Include(a => a.MesssageParent).ThenInclude(a => a.MesssageParent).ThenInclude(a => a.MesssageParent).ThenInclude(a => a.MesssageParent)
+                        .Include(a => a.MessageParent).ThenInclude(a => a.MessageParent).ThenInclude(a => a.MessageParent).ThenInclude(a => a.MessageParent)
                         .Include(a => a.MessageType)
                         .OrderByDescending(a => a.TimeStamp).ToList();
                 }
@@ -119,7 +121,9 @@ namespace UbytkacBackend.Controllers {
             List<MessageModuleList> data;
             try {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "reservation" && a.Published && ((!archived && !a.Archived) || archived)).OrderByDescending(a => a.TimeStamp).ToList();
+                    data = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "reservation" 
+                    && a.Published && ((!archived && !a.Archived) || archived))
+                        .OrderByDescending(a => a.TimeStamp).ToList();
                 }
 
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
@@ -132,6 +136,41 @@ namespace UbytkacBackend.Controllers {
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
         }
 
+
+        /// <summary>
+        /// Guest Set Private Message Answer
+        /// </summary>
+        /// <param name="messageAnswer"></param>
+        /// <returns></returns>
+        [Consumes("application/json")]
+        [HttpPost("/WebApi/MessageModule/SetPrivateMessageAnswer")]
+        public async Task<IActionResult> SetPrivateMessageAnswer([FromBody] PrivateMessageAnswer messageAnswer) {
+            try {
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+
+                MessageModuleList parentMessage;
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    parentMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == messageAnswer.ParentId && a.GuestId == int.Parse(authId)).FirstOrDefault();
+                }
+                if (parentMessage != null) {
+                    MessageModuleList answerMessage = new() { 
+                        MessageParentId = messageAnswer.ParentId,MessageTypeId = parentMessage.MessageTypeId, 
+                        Subject = ServerCoreDbOperations.DBTranslate("AnswerFor", messageAnswer.Language) + ": "+ parentMessage.Subject,HtmlMessage = messageAnswer.Message,
+                        IsSystemMessage = false, Published = true, Shown = false, Archived = false,
+                        GuestId = int.Parse(authId), UserId = parentMessage.UserId
+                    };
+
+                    var data = new hotelsContext().MessageModuleLists.Add(answerMessage);
+                    int result = await data.Context.SaveChangesAsync();
+
+                    return Ok(JsonSerializer.Serialize( new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
+                }
+
+            } catch { }
+            return BadRequest(new DBResultMessage() {
+                Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("PrivateMessageAnswerIsNotValid", messageAnswer.Language)
+            });
+        }
 
 
         #endregion Web Messages Controls

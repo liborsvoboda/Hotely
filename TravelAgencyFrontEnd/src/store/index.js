@@ -313,6 +313,10 @@ const store = createStore({
                 totalPrice: 0
             }
         },
+        startupStorageSetting() {
+            Metro.storage.setItem('ApiRootUrl', this.state.apiRootUrl);
+            Metro.storage.setItem('NotifyShowTime', this.state.userSettings.notifyShowTime);
+        },
         async searchHotels({ commit }, searchString) {
             let mainloader; if (!this.state.searchResults == [] || !this.state.searchResults.hotelList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             if (searchString === null || searchString == '') { searchString = "null"; }
@@ -652,9 +656,7 @@ const store = createStore({
 
                 window.hidePageLoading();
                 if (result.message) {
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(result.message, "Error", { cls: "alert" }); notify.reset();
-
+                    ShowNotify('error', result.message);
                 } else {
                     commit('setUser', result);
                     Metro.storage.setItem('Token', result.Token);
@@ -800,8 +802,7 @@ const store = createStore({
             });
             let result = await response.json();
             if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', result.ErrorMessage);
             } else {
                 Metro.storage.setItem('WebSettings', result);
                 result.forEach(setting => {
@@ -843,13 +844,9 @@ const store = createStore({
                 updatedUser.Token = this.state.user.Token;
                 this.state.user = updatedUser;
 
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(window.dictionary("messages.dataSaved"), "Success", { cls: "success" }); notify.reset();
+                ShowNotify('success', window.dictionary("messages.dataSaved"));
             }
-            else {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
-            }
+            else { ShowNotify('error', result.ErrorMessage); }
 
             window.hidePageLoading();
         },
@@ -924,8 +921,7 @@ const store = createStore({
             let result = await response.json();
 
             if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: this.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', result.ErrorMessage);
             } else {
                 userSettings.forEach(setting => {
                     switch (setting.Key) {

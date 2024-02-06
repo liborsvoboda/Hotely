@@ -69,8 +69,8 @@ namespace UbytkacAdmin.Pages {
                 messageTypeList.ForEach(async messageType => { messageType.Translation = await DBOperations.DBTranslation(messageType.Name); });
 
                 messageModuleList.ForEach(async message => {
-                    message.ParrentMessage = message.MesssageParentId != null ? messageModuleList.FirstOrDefault(a => a.Id == message.MesssageParentId).HtmlMessage : null;
-                    message.ParentMessageSubject = message.MesssageParentId != null ? messageModuleList.FirstOrDefault(a => a.Id == message.MesssageParentId).Subject : null;
+                    message.ParrentMessage = message.MessageParentId != null ? messageModuleList.FirstOrDefault(a => a.Id == message.MessageParentId).HtmlMessage : null;
+                    message.ParentMessageSubject = message.MessageParentId != null ? messageModuleList.FirstOrDefault(a => a.Id == message.MessageParentId).Subject : null;
                     message.MessageTypeTranslation = await DBOperations.DBTranslation(messageTypeList.FirstOrDefault(a => a.Id == message.MessageTypeId).Name);
                 });
 
@@ -105,7 +105,7 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "GuestId".ToLower()) e.Visibility = Visibility.Hidden;
                     else if (headername == "ParrentMessage".ToLower()) e.Visibility = Visibility.Hidden;
                     else if (headername == "UserId".ToLower()) e.Visibility = Visibility.Hidden;
-                    else if (headername == "MesssageParentId".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "MessageParentId".ToLower()) e.Visibility = Visibility.Hidden;
                     
                 });
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -167,7 +167,6 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 if (!html_htmlMessage.Browser.IsInSourceEditMode) { html_htmlMessage.Browser.ToggleSourceEditor(html_htmlMessage.Toolbar, true); changeEditorView = true; } else { changeEditorView = false; }
 
-                //selectedRecord.MesssageParentId = "";
                 selectedRecord.MessageTypeId = (int)cb_messageType.SelectedValue;
                 selectedRecord.Subject = txt_subject.Text;
 
@@ -221,9 +220,9 @@ namespace UbytkacAdmin.Pages {
                 txt_variables.Text = txt_id.Value == 0 ? messageTypeList.FirstOrDefault().Variables : messageTypeList.FirstOrDefault(a => a.Id == selectedRecord.MessageTypeId).Variables;
                 chb_archive.IsChecked = selectedRecord.Archived;
 
-                if (selectedRecord.MesssageParentId != null) {
-                    txt_parentMessageSubject.Text = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MesssageParentId).Subject;
-                    html_htmlParentMessage.HtmlContent = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MesssageParentId).HtmlMessage;
+                if (selectedRecord.MessageParentId != null) {
+                    txt_parentMessageSubject.Text = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MessageParentId).Subject;
+                    html_htmlParentMessage.HtmlContent = messageModuleList.FirstOrDefault(a => a.Id == selectedRecord.MessageParentId).HtmlMessage;
                     html_htmlAnswerMessage.HtmlContent = selectedRecord.HtmlMessage;
                     html_htmlParentMessage.Visibility = html_htmlAnswerMessage.Visibility = txt_parentMessageSubject.Visibility = Visibility.Visible;
                     html_htmlMessage.Visibility = Visibility.Hidden;

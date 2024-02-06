@@ -62,9 +62,7 @@ export default {
             });
             var result = await response.json();
             this.loading = false;
-
-            var notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-            notify.create(this.$i18n.t("messages.addReviewWasSuccess"), "Success", { cls: "success" }); notify.reset();
+            ShowNotify('success', this.$i18n.t("messages.addReviewWasSuccess"));
 
             //get updated booking
             this.$emit('closeReviewEdit', false);

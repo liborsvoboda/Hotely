@@ -34,9 +34,7 @@ export default {
             if (!this.Email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
                 || this.Password.length < this.$store.state.system.passwordMin) {
 
-                let notify = Metro.notify; notify.setup({ width: 300, timeout: this.$store.state.userSettings.notifyShowTime, duration: 500 });
-                notify.create((window.dictionary("messages.passwordNotHaveMinimalLengthOrMailNotValid") + this.$store.state.system.passwordMin), "Error", { cls: "alert" }); notify.reset();
-
+                ShowNotify('error', (window.dictionary("messages.passwordNotHaveMinimalLengthOrMailNotValid") + this.$store.state.system.passwordMin));
                 document.getElementById("loginForm").classList.add("ani-ring");
                 setTimeout(function () {
                     document.getElementById("loginForm").classList.remove("ani-ring");

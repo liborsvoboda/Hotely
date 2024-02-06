@@ -9,11 +9,9 @@
         public async Task<string> GetMessageModuleList() {
             List<MessageModuleList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
-                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
-            })) {
+                IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 data = new hotelsContext().MessageModuleLists.OrderBy(a => a.IsSystemMessage).ThenBy(a=>a.Shown).ToList();
             }
-
             return JsonSerializer.Serialize(data);
         }
 
@@ -21,10 +19,7 @@
         public async Task<string> GetMessageModuleListByFilter(string filter) {
             List<MessageModuleList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
-                IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
-            }))
-            {
+            { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 data = new hotelsContext().MessageModuleLists.FromSqlRaw("SELECT * FROM MessageModuleList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList();
             }
 

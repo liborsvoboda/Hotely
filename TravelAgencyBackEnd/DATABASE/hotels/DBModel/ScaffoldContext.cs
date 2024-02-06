@@ -786,16 +786,16 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.GuestId)
                     .HasConstraintName("FK_MessageModuleList_GuestList");
 
+                entity.HasOne(d => d.MessageParent)
+                    .WithMany(p => p.InverseMessageParent)
+                    .HasForeignKey(d => d.MessageParentId)
+                    .HasConstraintName("FK_MessageModuleList_MessageModuleList");
+
                 entity.HasOne(d => d.MessageType)
                     .WithMany(p => p.MessageModuleLists)
                     .HasForeignKey(d => d.MessageTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageModuleList_MessageTypeList");
-
-                entity.HasOne(d => d.MesssageParent)
-                    .WithMany(p => p.InverseMesssageParent)
-                    .HasForeignKey(d => d.MesssageParentId)
-                    .HasConstraintName("FK_MessageModuleList_MessageModuleList");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.MessageModuleLists)

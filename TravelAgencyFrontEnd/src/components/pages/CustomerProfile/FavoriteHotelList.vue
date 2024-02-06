@@ -48,8 +48,7 @@ export default {
                 }); let result = await response.json();
 
                 if (result.Status == "error") {
-                    var notify = Metro.notify; notify.setup({ width: 300, timeout: that.$store.state.userSettings.notifyShowTime, duration: 500 });
-                    notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                    ShowNotify('error', result.ErrorMessage);
                 } else {
                     document.getElementById("DocView").srcdoc = result;
                 }

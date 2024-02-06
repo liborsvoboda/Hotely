@@ -28,8 +28,7 @@ async function OpenDocView(docname) {
             }); let result = await response.json();
 
             if (result.Status == "error") {
-                var notify = Metro.notify; notify.setup({ width: 300, timeout: Metro.storage.getItem('NotifyShowTime', null), duration: 500 });
-                notify.create(result.ErrorMessage, "Error", { cls: "alert" }); notify.reset();
+                ShowNotify('error', result.ErrorMessage);
             } else {
                 document.getElementById("DocView").srcdoc = result;
             }
@@ -80,12 +79,13 @@ function hidePageLoading() {
         if (pageLoader != undefined) {
             if (pageLoader[0]["DATASET:UID:M4Q"] == undefined) { pageLoader = null; }
             else { pageLoader = pageLoader[0]["DATASET:UID:M4Q"].dialog; pageLoader.close(); pageLoader = null; }
-        }//Metro.activity.close(pageLoader);
+        }
         googleTranslateElementInit();
     }
 
 }
 
+//Global Show PartLoading Indicator
 function showPartPageLoading() {
     partPageLoaderRunningCounter++;
     if (partPageLoader != undefined) {
@@ -103,6 +103,7 @@ function showPartPageLoading() {
     });
 }
 
+//Global Hide PartLoading Indicator
 function hidePartPageLoading() {
     partPageLoaderRunningCounter--;
     if (partPageLoaderRunningCounter <= 0) {
@@ -115,7 +116,7 @@ function hidePartPageLoading() {
     }
 }
 
-
+//Global Implementation of Web Translation
 function googleTranslateElementInit() {
     $(document).ready(function () {
         try {
@@ -139,7 +140,7 @@ function googleTranslateElementInit() {
     });
 }
 
-
+//Global Cancel Translation to Default Webpage content
 function CancelTranslation() {
     setTimeout(function () {
         let selectElement = document.querySelector('#google_translate_element select');
@@ -245,8 +246,32 @@ function ImageFromElement(elementId) {
 }
 
 
-//Global Controller For Toggle All Collapse Elements
-function ElementToggle(elementId) {
+//Global Control Disable Window Scrolling
+function disableScroll() {
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    window.onscroll = function () { window.scrollTo(scrollLeft, scrollTop); };
+}
+
+
+//Global Control Enable Window Scrolling
+function enableScroll() {
+    window.onscroll = function () { };
+}
+
+
+//Global Function string to Bytes array
+window.str2bytes = function str2bytes(str) {
+    var bytes = new Uint8Array(str.length);
+    for (var i = 0; i < str.length; i++) {
+        bytes[i] = str.charCodeAt(i);
+    }
+    return bytes;
+}
+
+
+//Global Controller For Expand/Collapse of All Collapse Elements
+function ElementExpand(elementId) {
     let el = Metro.getPlugin('#' + elementId, 'collapse');
     let elStatus = el.isCollapsed();
     if (elStatus) { el.expand(); } else { el.collapsed(); }
@@ -256,7 +281,7 @@ function ElementToggle(elementId) {
 //Global Controller For Show/Hide Elements
 function ElementShowHide(elementId) {
     let el = Metro.get$el('#' + elementId);
-    //TODO set
+    if (el.style("display") == "none") { el.show(); } else { el.hide(); }
 }
 
 
@@ -275,4 +300,14 @@ function ElementSummernoteInit(elementId) {
 function InfoBoxOpenClose(elementId) {
     if (Metro.infobox.isOpen('#' + elementId)) { Metro.infobox.close('#' + elementId); }
     else { Metro.infobox.open('#' + elementId); }
+}
+
+
+//Global Control for Show Configured Notification 
+function ShowNotify(type, message) {
+    var notify = Metro.notify; notify.setup({ width: 300, timeout: Metro.storage.getItem('NotifyShowTime', 2000), duration: 500 });
+    if (type == 'error') { notify.create(message, "Error", { cls: "alert" }); }
+    else if (type == 'success') { notify.create(message, "Success", { cls: "success" }); }
+    else if (type == 'info') { notify.create(message, "Info"); }
+    notify.reset();
 }

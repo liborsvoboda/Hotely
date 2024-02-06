@@ -14,12 +14,12 @@ namespace UbytkacBackend.DBModel
     {
         public MessageModuleList()
         {
-            InverseMesssageParent = new HashSet<MessageModuleList>();
+            InverseMessageParent = new HashSet<MessageModuleList>();
         }
 
         [Key]
         public int Id { get; set; }
-        public int? MesssageParentId { get; set; }
+        public int? MessageParentId { get; set; }
         public int MessageTypeId { get; set; }
         [Required]
         [StringLength(150)]
@@ -39,16 +39,16 @@ namespace UbytkacBackend.DBModel
         [ForeignKey("GuestId")]
         [InverseProperty("MessageModuleLists")]
         public virtual GuestList Guest { get; set; }
+        [ForeignKey("MessageParentId")]
+        [InverseProperty("InverseMessageParent")]
+        public virtual MessageModuleList MessageParent { get; set; }
         [ForeignKey("MessageTypeId")]
         [InverseProperty("MessageModuleLists")]
         public virtual MessageTypeList MessageType { get; set; }
-        [ForeignKey("MesssageParentId")]
-        [InverseProperty("InverseMesssageParent")]
-        public virtual MessageModuleList MesssageParent { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("MessageModuleLists")]
         public virtual UserList User { get; set; }
-        [InverseProperty("MesssageParent")]
-        public virtual ICollection<MessageModuleList> InverseMesssageParent { get; set; }
+        [InverseProperty("MessageParent")]
+        public virtual ICollection<MessageModuleList> InverseMessageParent { get; set; }
     }
 }
