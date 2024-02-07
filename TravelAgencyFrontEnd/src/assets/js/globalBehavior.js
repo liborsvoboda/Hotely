@@ -298,15 +298,15 @@ function ElementShowHide(elementId,showOnly = false) {
 function ElementSummernoteInit(elementId) {
     try {
         $('#' + elementId).summernote({
-            tabsize: 2, height: 150, maxHeight: 150,
+            tabsize: 2, height: 250, maxHeight: 250,
             toolbar: [['style', ['style']], ['font', ['bold', 'underline', 'clear']], ['fontname', ['fontname']],
             ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]]
+            ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'undo', 'redo', 'help']]]
         });
         var newCss = {};
         newCss.backgroundColor = '#d6caba';
         $('.note-editable').css(newCss);
-    } catch { }
+    } catch (err) { console.log("ElementSummernoteInit:",err) }
 }
 
 

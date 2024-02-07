@@ -20,8 +20,11 @@ if (Metro.storage.getItem('AutomaticTranslate', null) == null) {
 
 
 
-
-
+//Used TEMP Global Variables Info List
+Metro.storage.setItem('LoggedUser', null);
+Metro.storage.setItem('DiscussionParentId', null); 
+Metro.storage.setItem('DiscussionTemaList', null);
+Metro.storage.setItem('PrivateMessageParentId', null);
 
 
 

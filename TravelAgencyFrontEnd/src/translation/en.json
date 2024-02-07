@@ -1,5 +1,15 @@
 {
   "labels": {
+    "from": "from",
+    "newContribution": "New Contribution",
+    "youMustBeLogged": "You Must be Logged",
+    "writeTitle": "write Title",
+    "established": "Established",
+    "sendContribution": "Send Contribution",
+    "hereWriteNewContribution": "Here you Write Contribution",
+    "newDiscussionContribution": "Create new Contribution to Discussion",
+    "showArchivedDiscussion": "Show Archived Discussions",
+    "discussionForum": "Discussion Forum",
     "hereWriteMessage": "Here Write Message",
     "newPrivateMessage": "New Private Message",
     "setAsReaded": "Set as Readed",
@@ -14,6 +24,7 @@
     "copy": "Copy",
     "sendNewsletterToEmail": "Send Newsletter to Email",
     "sendNewMessagesToEmail": "Send New Messages to Email",
+    "sendNewDiscussionToEmail": "Send New Discussion to Email",
     "newsletter": "Newsletter",
     "privateMessages": "Priváte Messages",
     "reservationMessages": "Reservation Messages",

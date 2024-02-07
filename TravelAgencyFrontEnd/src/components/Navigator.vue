@@ -32,7 +32,7 @@
 
 
                 <!-- NewsLetter Panel -->
-                <div id="NewsLetterInfoBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;" data-close-button="false">
+                <div id="NewsLetterInfoBox" class="info-box rounded drop-shadow" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;" data-close-button="false">
                     <span id="CloseNewsletterInfoBox" class="button square closer" onclick="InfoBoxOpenClose('NewsLetterInfoBox')"></span>
                     <div class="info-box-content" style="overflow-y:auto;">
                         <div class="d-flex row ">
@@ -59,7 +59,7 @@
                                 <span id="MenuProfileMessages" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.messages')" class="c-pointer mif-mail-read mif-4x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -10px;left: 55px;" @click="checkAllowedMenu('MenuProfileMessages')">
                                     <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="((unreadPrivateMessageCount == null || unreadPrivateMessageCount == 0 )? ' display: none ': ' display: inline ')">{{ unreadPrivateMessageCount }}</span>
-                                  </span>
+                                </span>
 
                                 <span id="MenuUserSetting" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.settings')" class="c-pointer mif-server mif-4x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -9px;left: 85px;" @click="checkAllowedMenu('MenuUserSetting')"></span>
@@ -75,17 +75,19 @@
                     <div class="col-lg-5 col-sm-5 col-5 header-top-right">
                         <div class="nav-menu">
                             <div v-if="!loggedIn">
-                                <a href="#" style="right:50px;"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
-                                <a href="#" style="right:50px;"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
+                                <a href="#" style="right:70px;"><router-link to="/Login">{{ $t('user.login') }}</router-link></a>
+                                <a href="#" style="right:70px;"><router-link to="/Registration">{{ $t('user.register') }}</router-link></a>
                             </div>
                             <div v-if="loggedIn">
-                                <a href="#" style="right:50px;" @click="logout()">{{ $t('user.logout') }}</a>
+                                <a href="#" style="right:80px;" @click="logout()">{{ $t('user.logout') }}</a>
                             </div>
 
                             <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.newsletter') + '\r\n' + newsletterLastTimestamp " class="c-pointer mif-news pos-absolute mif-5x fg-brandColor2 ani-hover-heartbeat"
-                                 style="top: -8px;right: 10px;" onclick="InfoBoxOpenClose('NewsLetterInfoBox')">
+                                 style="top: -8px;right: 45px;" onclick="InfoBoxOpenClose('NewsLetterInfoBox')">
                                 <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="(newsletterCount == 0 ? ' display: none ': ' display: inline ')">{{ newsletterCount }}</span>
                             </div>
+
+                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.discussionForum')" class="c-pointer mif-blogger pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px;right:9px;" @click="checkAllowedMenu('DiscussionForum')"></div>
 
                             <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.translateWeb')" class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px; z-index:100000;" @click="showToolPanel()"></div>
                         </div>
@@ -164,7 +166,8 @@ export default {
             }
         },
         checkAllowedMenu(menuName) {
-            if (this.loggedIn) {
+            if (menuName == "DiscussionForum") { this.$router.push('/DiscussionForum'); }
+            else if (this.loggedIn) {
                 switch (menuName) {
                     case "MenuProfileMessages":
                         this.$router.push('/Profile/ProfileMessages');
@@ -188,9 +191,7 @@ export default {
                         }
                         break;
                 }
-            }
-            else if (menuName == "Messaging") { this.$router.push('/Messaging'); }
-            else {
+            } else {
                 document.getElementById(menuName).classList.add("ani-flash");
                 document.getElementById(menuName).classList.add("bg-red");
                 setTimeout(function () {

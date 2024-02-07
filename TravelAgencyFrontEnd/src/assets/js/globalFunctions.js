@@ -72,3 +72,5 @@ function PreparingNewsletter(dataset) {
     });
     $("#NewsLetterBox").html(messageData);
 }
+
+

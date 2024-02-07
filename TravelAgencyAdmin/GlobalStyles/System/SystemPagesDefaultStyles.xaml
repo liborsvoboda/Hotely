@@ -40,6 +40,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Controls:TextBoxHelper.ClearTextButton" Value="False" />
         <Setter Property="IsTextSearchEnabled" Value="True" />
+        <Setter Property="ToolTip" Value="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}" />
     </Style>
 
     <Style x:Key="DefaultSystemNumericStyle" TargetType="{x:Type Controls:NumericUpDown}">

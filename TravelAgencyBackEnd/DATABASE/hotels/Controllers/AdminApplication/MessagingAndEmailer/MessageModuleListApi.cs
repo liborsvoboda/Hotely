@@ -92,7 +92,7 @@
                             }); 
                         });
                     }
-                    else if (loadRecordData.MessageType.Name.ToLower() != "newsletter") {
+                    else if (loadRecordData.MessageType.Name.ToLower() == "private") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
                         if (guest != null) {
                             ServerCoreFunctions.SendEmail(new MailRequest() {
@@ -136,7 +136,7 @@
                             });
                         });
                     }
-                    else if (loadRecordData.MessageType.Name.ToLower() != "newsletter") {
+                    else if (loadRecordData.MessageType.Name.ToLower() != "private") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
                         if (guest != null) { 
                             ServerCoreFunctions.SendEmail(new MailRequest() { 

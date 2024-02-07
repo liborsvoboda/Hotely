@@ -31,7 +31,7 @@ namespace UbytkacAdmin.Pages {
         private List<GuestList> guestList = new List<GuestList>();
         private List<MessageTypeList> messageTypeList = new List<MessageTypeList>();
         private List<MessageModuleList> messageModuleList = new List<MessageModuleList>();
-        private bool doAnswer = false; private bool changeEditorView = false;
+        private bool changeEditorView = false;
 
 
         public MessageModuleListPage() {
@@ -254,12 +254,16 @@ namespace UbytkacAdmin.Pages {
         private void MessageTypeChanged(object sender, SelectionChangedEventArgs e) {
             if (dataViewSupport.FormShown) {
                 txt_variables.Text = messageTypeList.FirstOrDefault(a => a.Id == (int)cb_messageType.SelectedValue).Variables;
+
                 if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).IsSystemOnly) { }
                 else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "private") {
                     lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Visible; cb_forGuest.IsEnabled = true;
                     cb_forGuest.SelectedItem = cb_forGuest.Items[0]; chb_publish.IsChecked = true;
                 }
                 else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "newsletter") {
+                    btn_doAnswer.Visibility = lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden; chb_publish.IsChecked = false;
+                }
+                else if (txt_id.Value == 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "discussionForum") {
                     btn_doAnswer.Visibility = lbl_forGuest.Visibility = cb_forGuest.Visibility = Visibility.Hidden; chb_publish.IsChecked = false;
                 }
                 else if (txt_id.Value != 0 && ((MessageTypeList)((ComboBox)sender).SelectedItem).Name.ToLower() == "private") {

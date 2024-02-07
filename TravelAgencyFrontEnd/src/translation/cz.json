@@ -1,5 +1,15 @@
 {
   "labels": {
+    "from": "od",
+    "newContribution": "Nový Příspěvek",
+    "youMustBeLogged": "Musíte být Přihlášeni",
+    "writeTitle": "napište Titulek",
+    "established": "Založeno",
+    "sendContribution": "Odeslat Příspěvek",
+    "hereWriteNewContribution": "Zde napište Váš Příspěvek",
+    "newDiscussionContribution": "Vložit nový Příspěvek do Diskuse",
+    "showArchivedDiscussion": "Zobrazit Archivované Diskuse",
+    "discussionForum": "Veřejné Diskusní Fórum",
     "hereWriteMessage": "Zde Napište Zprávu",
     "newPrivateMessage": "Vytvořit Novou Zprávu",
     "setAsReaded": "Označit za Přečtenou",
@@ -14,6 +24,7 @@
     "copy": "Zkopírovat",
     "sendNewsletterToEmail": "Zasílat Novinky na Email",
     "sendNewMessagesToEmail": "Zasílat Nové Zprávy na Email",
+    "sendNewDiscussionToEmail": "Zasílat Nové Diskuse na Email",
     "newsletter": "Novinky",
     "privateMessages": "Privátní Zprávy",
     "reservationMessages": "Zprávy z Poptávek",

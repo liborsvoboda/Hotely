@@ -157,8 +157,7 @@
                 x:Name="html_htmlMessage"
                 Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                 Margin="0,2,0,2"
-                BorderThickness="0.5"
-                HtmlContent="{Binding SourceCode}" />
+                BorderThickness="0.5" />
 
 
 

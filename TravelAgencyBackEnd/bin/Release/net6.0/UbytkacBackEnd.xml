@@ -68,7 +68,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.SetPrivateMessageAnswer(UbytkacBackend.MessageModuleClasses.PrivateMessageAnswer)">
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.SetPrivateMessageAnswer(UbytkacBackend.MessageModuleClasses.WebPrivateMessage)">
             <summary>
             Guest Set Private Message Answer
             </summary>
@@ -89,6 +89,13 @@
             </summary>
             <param name="messageId"></param>
             <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.MessageModuleApi.GetDiscussionForumList(System.Boolean)">
+            <summary>
+            Discusion Forum API
+            </summary>
+            <param name="archived"></param>
             <returns></returns>
         </member>
         <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">

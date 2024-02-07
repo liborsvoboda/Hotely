@@ -84,6 +84,7 @@
         <Setter Property="SelectedIndex" Value="0" />
         <Setter Property="Background" Value="LightYellow" />
         <Setter Property="IsTextSearchEnabled" Value="True" />
+        <Setter Property="ToolTip" Value="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}" />
     </Style>
 
     <!--

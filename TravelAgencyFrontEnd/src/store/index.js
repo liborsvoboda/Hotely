@@ -15,7 +15,8 @@ const store = createStore({
 
         tempVariables: {
             registrationStatus: null,
-            goBackToRoomsPage: false
+            goBackToRoomsPage: false,
+            showArchivedDiscussion: false
         },
 
         system: {
@@ -30,6 +31,7 @@ const store = createStore({
             hideSearchingInPrivateZone: false,
             sendNewsletterToEmail: false,
             sendNewMessagesToEmail: false,
+            sendNewDiscussionToEmail: false,
             showArchivedMessages: false,
         },
 
@@ -37,6 +39,7 @@ const store = createStore({
         language: 'cz',
         hotel: [],
         unreadPrivateMessageCount: null,
+        discussionForumList: [],
         privateMessageList: [],
         reservationMessageList: [],
         newsletterList: [],
@@ -132,6 +135,10 @@ const store = createStore({
         setUnreadPrivateMessageCount(store, value) {
             store.unreadPrivateMessageCount = value;
             console.log("setUnreadPrivateMessageCount  ", store.unreadPrivateMessageCount);
+        },
+        setDiscussionForumList(store, value) {
+            store.discussionForumList = value;
+            console.log("setDiscussionForumList  ", store.discussionForumList);
         },
         setPrivateMessageList(store, value) {
             store.privateMessageList = value;
@@ -472,6 +479,17 @@ const store = createStore({
             await this.dispatch('getUnreadPrivateMessageCount');
             if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
         },
+        async getDiscussionForumList({ commit }) {
+            let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
+            let response = await fetch(
+                this.state.apiRootUrl + '/MessageModule/GetDiscussionForumList/' + this.state.tempVariables.showArchivedDiscussion, {
+                method: 'GET', headers: { 'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            commit('setDiscussionForumList', result);
+            if (mainloader) { window.hidePageLoading(); } else { window.hidePartPageLoading(); }
+        },
+        
         async getReservationMessageList({ commit }) {
             let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let response = await fetch(
@@ -916,6 +934,9 @@ const store = createStore({
                         case "sendNewMessagesToEmail":
                             this.state.userSettings.sendNewMessagesToEmail = setting.value;
                             break;
+                        case "sendNewDiscussionToEmail":
+                            this.state.userSettings.sendNewDiscussionToEmail = setting.value;
+                            break;
                         case "showArchivedMessages":
                             this.state.userSettings.showArchivedMessages = setting.value;
                             break;
@@ -961,6 +982,9 @@ const store = createStore({
                             break;
                         case "sendNewMessagesToEmail":
                             this.state.userSettings.sendNewMessagesToEmail = setting.Value;
+                            break;
+                        case "sendNewDiscussionToEmail":
+                            this.state.userSettings.sendNewDiscussionToEmail = setting.Value;
                             break;
                         case "showArchivedMessages":
                             this.state.userSettings.showArchivedMessages = setting.Value;

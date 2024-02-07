@@ -165,6 +165,7 @@
     <Content Include="src\assets\js\bootstrap5.0.0.bundle.min.js" />
     <Content Include="src\assets\js\clipboard.min.js" />
     <Content Include="src\assets\js\fontawesome.js" />
+    <Content Include="src\assets\js\globalForms.js" />
     <Content Include="src\assets\js\globalBehavior.js" />
     <Content Include="src\assets\js\globalApi.js" />
     <Content Include="src\assets\js\globalFunctions.js" />
@@ -231,6 +232,7 @@
     <Content Include="src\components\pages\CustomerProfile\FavoriteHotelList.vue" />
     <Content Include="src\components\pages\ExtraPages\About.vue" />
     <Content Include="src\components\pages\ExtraPages\Contact.vue" />
+    <Content Include="src\components\pages\ExtraPages\DiscussionForum.vue" />
     <Content Include="src\components\pages\ExtraPages\HolidayTips.vue" />
     <Content Include="src\components\pages\ExtraPages\OftenQuestion.vue" />
     <Content Include="src\components\pages\ExtraPages\Terms.vue" />

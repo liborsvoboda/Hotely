@@ -164,24 +164,31 @@
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
                     <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
                         <input id="sendNewsletterToEmail" class="" v-model="userSettings.sendNewsletterToEmail" type="checkbox" value="" />
                         <span style="padding-left:0px;">{{ $t('labels.sendNewsletterToEmail') }}</span>
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
                     <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
                         <input id="sendNewMessagesToEmail" class="" v-model="userSettings.sendNewMessagesToEmail" type="checkbox" value="" />
                         <span style="padding-left:0px;">{{ $t('labels.sendNewMessagesToEmail') }}</span>
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
                     <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
                         <input id="showArchivedMessages" class="" v-model="userSettings.showArchivedMessages" type="checkbox" value="" />
                         <span style="padding-left:0px;">{{ $t('labels.showArchivedMessages') }}</span>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
+                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
+                        <input id="sendNewDiscussionToEmail" class="" v-model="userSettings.sendNewDiscussionToEmail" type="checkbox" value="" />
+                        <span style="padding-left:0px;">{{ $t('labels.sendNewDiscussionToEmail') }}</span>
                     </div>
                 </div>
 
@@ -241,6 +248,7 @@ export default {
                 topFiveCount: null,
                 sendNewsletterToEmail: null,
                 sendNewMessagesToEmail: null,
+                sendNewDiscussionToEmail: null,
                 showArchivedMessages: null,
             },
 
@@ -254,6 +262,7 @@ export default {
         this.userSettings.hideSearchingInPrivateZone = this.$store.state.userSettings.hideSearchingInPrivateZone;
         this.userSettings.sendNewsletterToEmail = this.$store.state.userSettings.sendNewsletterToEmail;
         this.userSettings.sendNewMessagesToEmail = this.$store.state.userSettings.sendNewMessagesToEmail;
+        this.userSettings.sendNewDiscussionToEmail = this.$store.state.userSettings.sendNewDiscussionToEmail;
         this.userSettings.showArchivedMessages = this.$store.state.userSettings.showArchivedMessages;
 
         
@@ -300,6 +309,7 @@ export default {
             guestSettings.push({ Key: 'hideSearchingInPrivateZone', Value: this.userSettings.hideSearchingInPrivateZone });
             guestSettings.push({ Key: 'sendNewsletterToEmail', Value: this.userSettings.sendNewsletterToEmail });
             guestSettings.push({ Key: 'sendNewMessagesToEmail', Value: this.userSettings.sendNewMessagesToEmail });
+            guestSettings.push({ Key: 'sendNewDiscussionToEmail', Value: this.userSettings.sendNewDiscussionToEmail });
             guestSettings.push({ Key: 'showArchivedMessages', Value: this.userSettings.showArchivedMessages });
 
             
@@ -340,6 +350,7 @@ export default {
                 $("#hideSearchingInPrivateZone").val('checked')[0].checked = that.userSettings.hideSearchingInPrivateZone = that.$store.state.userSettings.hideSearchingInPrivateZone;
                 $("#sendNewsletterToEmail").val('checked')[0].checked = that.userSettings.sendNewsletterToEmail = that.$store.state.userSettings.sendNewsletterToEmail;
                 $("#sendNewMessagesToEmail").val('checked')[0].checked = that.userSettings.sendNewMessagesToEmail = that.$store.state.userSettings.sendNewMessagesToEmail;
+                $("#sendNewDiscussionToEmail").val('checked')[0].checked = that.userSettings.sendNewDiscussionToEmail = that.$store.state.userSettings.sendNewDiscussionToEmail;
                 $("#showArchivedMessages").val('checked')[0].checked = that.userSettings.showArchivedMessages = that.$store.state.userSettings.showArchivedMessages;
                 $("#userId").val('checked')[0].checked = that.guest.UserId != '' ? true : false;
             }, 100);

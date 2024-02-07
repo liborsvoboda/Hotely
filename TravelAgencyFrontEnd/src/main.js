@@ -49,7 +49,9 @@ app.config.globalProperties.window = window;
 app.config.globalProperties.window.dictionary = i18n.global.t;
 app.config.globalProperties.window.watchGlobalVariables = reactive({
     wizardRequestCityList: null,
-    reloadPrivateMessage: false
+    reloadPrivateMessage: false,
+    reloadDiscussionForum: false,
+    modalLogin: false
 });
 
 app.config.globalProperties.window.watchChangeVariables = reactive({

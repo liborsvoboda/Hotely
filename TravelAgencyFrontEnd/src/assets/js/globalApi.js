@@ -1,7 +1,40 @@
 ﻿
 
+async function FloatingLogin() {
+    window.showPageLoading();
+    let response = await fetch(Metro.storage.getItem('ApiRootUrl', null) + '/Guest/WebLogin', {
+        method: 'POST',
+        headers: { 'Authorization': 'Basic ' + btoa($("#FloatingLoginEmail").val() + ":" + $("#FloatingLoginPassword").val()), 'Content-type': 'application/json' },
+        body: JSON.stringify({ language: Metro.storage.getItem('WebPagesLanguage', null) })
+    }); let result = await response.json();
+
+    window.hidePageLoading();
+    if (result.message) { ShowNotify('error', result.message); }
+    else {
+        $("#FloatingLoginForm").hide();
+        Metro.storage.setItem('Token', result.Token); Metro.storage.setItem('LoggedUser', result);
+        window.watchGlobalVariables.modalLogin = true;
+    }
+}
+
+
+//Send Discussion Contribution API
+async function SendDiscussionContribution() {
+    window.showPageLoading();
+    let response = await fetch(
+        Metro.storage.getItem('ApiRootUrl', null) + '/MessageModule/SetDiscussionContribution', {
+        method: 'POST', headers: { 'Authorization': 'Bearer ' + Metro.storage.getItem('Token', null), 'Content-type': 'application/json' },
+            body: JSON.stringify({ ParentId: $("#newDiscussionSelectionList").val(), Subject: $("#newDiscussionTitle").val(), Message: $("#newDiscussionSummernote").summernote('code'), Language: Metro.storage.getItem('WebPagesLanguage', null) })
+    }); let result = await response.json();
+    if (result.Status == "error") {
+        ShowNotify('error', result.ErrorMessage);
+    } else { window.watchGlobalVariables.reloadDiscussionForum = true; }
+    window.hidePageLoading();
+}
+
+
 //Send Private Message Answer API
-async function SendMessageAnswer(parentId) {
+async function SendPrivateMessageAnswer(parentId) {
     window.showPageLoading();
     let response = await fetch(
         Metro.storage.getItem('ApiRootUrl', null) + '/MessageModule/SetPrivateMessageAnswer', {

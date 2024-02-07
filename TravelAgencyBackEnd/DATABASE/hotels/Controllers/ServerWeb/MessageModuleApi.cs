@@ -78,6 +78,7 @@ namespace UbytkacBackend.Controllers {
 
         #region Web Messages Controls
 
+
         /// <summary>
         /// WebApi Get private Messages
         /// </summary>
@@ -125,8 +126,8 @@ namespace UbytkacBackend.Controllers {
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
 
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    unreadPrivateMessages = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "private" && a.IsSystemMessage && !a.Shown && a.GuestId == int.Parse(authId) )
-                        .Count();
+                    unreadPrivateMessages = new hotelsContext().MessageModuleLists.Where(a => a.MessageType.Name == "private" 
+                    && a.IsSystemMessage && !a.Shown && a.GuestId == int.Parse(authId) ).Count();
                 }
 
                 return JsonSerializer.Serialize(unreadPrivateMessages, new JsonSerializerOptions() {
@@ -177,13 +178,13 @@ namespace UbytkacBackend.Controllers {
         /// <returns></returns>
         [Consumes("application/json")]
         [HttpPost("/WebApi/MessageModule/SetPrivateMessageAnswer")]
-        public async Task<IActionResult> SetPrivateMessageAnswer([FromBody] PrivateMessageAnswer messageAnswer) {
+        public async Task<IActionResult> SetPrivateMessageAnswer([FromBody] WebPrivateMessage messageAnswer) {
             try {
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
 
                 MessageModuleList parentMessage;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    parentMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == messageAnswer.ParentId && a.GuestId == int.Parse(authId)).FirstOrDefault();
+                    parentMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == messageAnswer.ParentId && a.GuestId == int.Parse(authId) && a.MessageType.Name == "private").FirstOrDefault();
                 }
                 if (parentMessage != null) {
                     MessageModuleList answerMessage = new() { 
@@ -200,7 +201,7 @@ namespace UbytkacBackend.Controllers {
                     return Ok(JsonSerializer.Serialize( new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
                 }
 
-            } catch { }
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("PrivateMessageAnswerIsNotValid", messageAnswer.Language)
             });
@@ -220,7 +221,8 @@ namespace UbytkacBackend.Controllers {
             try {
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    archiveMessage = new hotelsContext().MessageModuleLists.Where(a => ( a.Id == messageId && a.MessageParentId == null) || ( a.MessageParentId == messageId) && a.GuestId == int.Parse(authId) && !a.Archived).ToList();
+                    archiveMessage = new hotelsContext().MessageModuleLists.Where(a => ( a.Id == messageId && a.MessageParentId == null) || ( a.MessageParentId == messageId)
+                    && a.GuestId == int.Parse(authId) && !a.Archived && a.MessageType.Name == "private").ToList();
                 }
                 if (archiveMessage != null) {
                     archiveMessage.ForEach(message => { message.Archived = true; });
@@ -249,7 +251,7 @@ namespace UbytkacBackend.Controllers {
             try {
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    archiveMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == messageId && a.GuestId == int.Parse(authId) && !a.Shown).FirstOrDefault();
+                    archiveMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == messageId && a.GuestId == int.Parse(authId) && !a.Shown && a.MessageType.Name == "private").FirstOrDefault();
                 }
                 if (archiveMessage != null) {
                     archiveMessage.Shown = true;
@@ -263,6 +265,79 @@ namespace UbytkacBackend.Controllers {
         }
 
         #endregion Web Messages Controls
+
+
+        #region DiscussionForum
+
+
+        /// <summary>
+        /// Discusion Forum API
+        /// </summary>
+        /// <param name="archived"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("/WebApi/MessageModule/GetDiscussionForumList/{archived}")]
+        [Consumes("application/json")]
+        public async Task<string> GetDiscussionForumList(bool archived) {
+            List<MessageModuleList> data;
+            try {
+
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    data = new hotelsContext().MessageModuleLists
+                        .Where(a => a.MessageType.Name.ToLower() == "discussionforum" && a.MessageParentId == null && a.Published && ((!archived && !a.Archived) || archived))
+                        .Include(a=>a.MessageType)
+                        .Include(a => a.InverseMessageParent).ThenInclude(a => a.Guest)
+                        .OrderByDescending(a => a.TimeStamp).ToList();
+                }
+
+                data.ForEach(discussion => {
+                    discussion.MessageType.MessageModuleLists = null;
+                    discussion.InverseMessageParent = discussion.InverseMessageParent.OrderByDescending(a => a.TimeStamp).ToList();
+                });
+
+
+                return JsonSerializer.Serialize(data, new JsonSerializerOptions() {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                    WriteIndented = true,
+                    DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+        }
+
+
+        [Consumes("application/json")]
+        [HttpPost("/WebApi/MessageModule/SetDiscussionContribution")]
+        public async Task<IActionResult> SetDiscussionContribution([FromBody] WebDiscussionContribution contribution) {
+            try {
+                string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
+
+                MessageModuleList parentMessage;
+                using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                    parentMessage = new hotelsContext().MessageModuleLists.Where(a => a.Id == contribution.ParentId && a.MessageType.Name == "discussionForum").FirstOrDefault();
+                }
+                if (parentMessage != null) {
+                    MessageModuleList answerMessage = new() {
+                        Level = parentMessage.Level + 1, MessageParentId = contribution.ParentId, MessageTypeId = parentMessage.MessageTypeId,
+                        Subject = contribution.Subject, HtmlMessage = "<html>\r\n<head>\r\n<meta content=\"text/html;utf-8\" http-equiv=\"content-type\">\r\n</head>\r\n<body>" + contribution.Message + "</body>\r\n</html>",
+                        IsSystemMessage = false, Published = true, Shown = false, Archived = false,
+                        GuestId = int.Parse(authId), UserId = parentMessage.UserId
+                    };
+
+                    var data = new hotelsContext().MessageModuleLists.Add(answerMessage);
+                    int result = await data.Context.SaveChangesAsync();
+
+                    return Ok(JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
+                }
+
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("DiscussionContributionIsNotValid", contribution.Language) });
+        }
+
+
+
+        #endregion DiscussionForum
 
     }
 }

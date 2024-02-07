@@ -32,6 +32,7 @@ import Advertisement from '../components/pages/Advertiser/Advertisement.vue';
 import AdvertisementWizard from '../components/pages/Advertiser/AdvertisementWizard.vue';
 import PrivacyPolicy from '../components/pages/ExtraPages/PrivacyPolicy.vue';
 import Terms from '../components/pages/ExtraPages/Terms.vue';
+import DiscussionForum from '../components/pages/ExtraPages/DiscussionForum.vue';
 
 const routes = [
     {
@@ -206,6 +207,14 @@ const routes = [
         },
     },
     {
+        path: "/DiscussionForum",
+        name: "DiscussionForum",
+        component: DiscussionForum,
+        meta: {
+            requiresAuth: false, title: "Diskusní Fórum"
+        },
+    },
+    {
         path: "/Hotels/:id",
         name: "Hotels",
         component: HotelView,
@@ -305,6 +314,7 @@ router.beforeEach((to, from, next) => {
         || to.fullPath.indexOf("/PrivacyPolicy") > -1
         || to.fullPath.indexOf("/About") > -1
         || to.fullPath.indexOf("/Services") > -1
+        || to.fullPath.indexOf("/DiscussionForum") > -1
 
     ) { $("#SearchPanel").hide(); }
 

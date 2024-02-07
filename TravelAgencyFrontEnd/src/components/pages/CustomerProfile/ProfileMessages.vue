@@ -100,11 +100,10 @@ export default {
 
 
                 htmlContent += "</div></div>";
-                htmlContent += "<div class='content border'><div id='messageContent_" + message.id + "' >" + message.htmlMessage + "</div><div id='messageSummernote_" + message.id + "' style='visibility: hidden;'>" + window.dictionary('labels.hereWriteMessage') + "</div>";
-                htmlContent += "<button id='messageSendButton_" + message.id + "' class='pos-relative button success outline shadowed mr-2' style='left: 5px;bottom: 50px;display:none;' type='button' onclick=SendMessageAnswer('" + message.id + "') > " + window.dictionary('labels.sendAnswer') + "</button>";
+                htmlContent += "<div class='content border pb-3'><div id='messageContent_" + message.id + "' >" + message.htmlMessage + "</div><div id='messageSummernote_" + message.id + "' style='visibility: hidden;'>" + window.dictionary('labels.hereWriteMessage') + "</div>";
+                htmlContent += "<button id='messageSendButton_" + message.id + "' class='pos-relative button success outline shadowed mr-2' style='left: 5px;bottom: 50px;display:none;' type='button' onclick=SendPrivateMessageAnswer('" + message.id + "') > " + window.dictionary('labels.sendAnswer') + "</button>";
 
                 if (message.inverseMessageParent.length > 0) { 
-                    console.log("inver", message.inverseMessageParent);
                     let htmlLevel1 = "";
                     message.inverseMessageParent.forEach(level1 => {
                         htmlLevel1 += '<div data-role="accordion" data-one-frame="true" data-show-active="false" class="pl-3">';
