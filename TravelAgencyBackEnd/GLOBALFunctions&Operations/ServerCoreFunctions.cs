@@ -56,10 +56,9 @@ namespace UbytkacBackend {
         /// <param name="mailRequest"></param>
         /// <param name="sendImmediately"></param>
         public static string SendEmail(MailRequest mailRequest) {
+            string status = "";
+            MailMessage Email = new() { From = new MailAddress(mailRequest.Sender ?? ServerConfigSettings.EmailerSMTPLoginUsername) };
             try {
-
-                    MailMessage Email = new() { From = new MailAddress(mailRequest.Sender ?? ServerConfigSettings.EmailerSMTPLoginUsername) };
-
                     if (mailRequest.Recipients != null && mailRequest.Recipients.Any()) { mailRequest.Recipients.ForEach(email => { Email.To.Add(email); }); }
                     else { Email.To.Add(ServerConfigSettings.EmailerServiceEmailAddress); }
 
@@ -67,20 +66,24 @@ namespace UbytkacBackend {
                     Email.Body = mailRequest.Content;
                     Email.IsBodyHtml = true;
 
-                    SmtpClient MailClient = new(ServerConfigSettings.EmailerSMTPServerAddress, ServerConfigSettings.EmailerSMTPPort) {
-                        Credentials = new NetworkCredential(ServerConfigSettings.EmailerSMTPLoginUsername, ServerConfigSettings.EmailerSMTPLoginPassword),
-                        EnableSsl = ServerConfigSettings.EmailerSMTPSslIsEnabled,
-                        Host = ServerConfigSettings.EmailerSMTPServerAddress,
-                        Port = ServerConfigSettings.EmailerSMTPPort, 
-                    };
-                    MailClient.Timeout = 5000;
-                    MailClient.SendAsync(Email, Guid.NewGuid().ToString());
-
-                return DBResult.success.ToString();
-            } catch (Exception ex) {
-                return DBResult.error.ToString();
-            }
+                SmtpClient MailClient = new(ServerConfigSettings.EmailerSMTPServerAddress, ServerConfigSettings.EmailerSMTPPort) {
+                    Credentials = new NetworkCredential(ServerConfigSettings.EmailerSMTPLoginUsername, ServerConfigSettings.EmailerSMTPLoginPassword),
+                    EnableSsl = ServerConfigSettings.EmailerSMTPSslIsEnabled,
+                    Host = ServerConfigSettings.EmailerSMTPServerAddress,
+                    Port = ServerConfigSettings.EmailerSMTPPort, 
+                };
+                MailClient.Timeout = 5000;
+                MailClient.SendAsync(Email, Guid.NewGuid().ToString());
+                status = DBResult.success.ToString();
+            } catch (Exception ex) { status = GetSystemErrMessage(ex); }
+            try {
+                EmailerHistoryList emailRequest = new EmailerHistoryList() { Recipient = string.Join(";", Email.To.ToList()), Subject = Email.Subject, Email = Email.Body, Status = status };
+                var data = new hotelsContext().EmailerHistoryLists.Add(emailRequest);
+                int result = data.Context.SaveChanges();
+            } catch { }
+            return status;
         }
+
 
         /// <summary>
         /// Removes the whitespace from the String.

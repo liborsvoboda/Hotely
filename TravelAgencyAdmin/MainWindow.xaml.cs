@@ -233,6 +233,8 @@ namespace UbytkacAdmin {
                 tm_toolTypeList.Header = Resources["toolTypeList"].ToString(); tm_svgIconList.Header = Resources["svgIconList"].ToString();
 
                 tm_messageTypeList.Header = Resources["messageTypeList"].ToString(); tm_messageModuleList.Header = Resources["messageModuleList"].ToString();
+                tm_emailerHistoryList.Header = Resources["emailerHistoryList"].ToString();
+
 
                 //right panel
                 tb_search.SetValue(TextBoxHelper.WatermarkProperty, Resources["search"].ToString()); mi_logout.Header = Resources["logon"].ToString();
@@ -943,6 +945,12 @@ namespace UbytkacAdmin {
                             cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/LanguageList", App.UserData.Authentification.Token);
                             break;
 
+                        case "tm_emailerHistoryList":
+                            if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new EmailerHistoryListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
+                            StringToFilter(cb_filter, "");
+                            cb_printReports.ItemsSource = await ApiCommunication.GetApiRequest<List<ReportList>>(ApiUrls.ReportList, dataGridSelectedId.ToString() + "/EmailerHistoryList", App.UserData.Authentification.Token);
+                            break;
+                            
                         case "tm_messageModuleList":
                             if (TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().Count(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()) == 0) { AddOrRemoveTab(Resources[name.Split('_')[1]].ToString(), new MessageModuleListPage()); } else { InitialTabablzControl.SelectedIndex = TabablzControl.GetLoadedInstances().Last().GetOrderedHeaders().First(a => a.Content.ToString() == Resources[name.Split('_')[1]].ToString()).LogicalIndex; }
                             StringToFilter(cb_filter, "");

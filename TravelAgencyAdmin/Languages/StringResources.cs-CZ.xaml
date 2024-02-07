@@ -565,7 +565,7 @@
     <system:String x:Key="commandTest" xml:space="preserve">Test příkazu</system:String>
     <system:String x:Key="selectIcon" xml:space="preserve">Vyberte ikonu</system:String>
 
-    <system:String x:Key="messaging" xml:space="preserve">Agenda Zpráv</system:String>
+    <system:String x:Key="messaging" xml:space="preserve">Zprávy a Emaily</system:String>
     <system:String x:Key="messageTypeList" xml:space="preserve">Typy Zpráv</system:String>
     <system:String x:Key="messageModuleList" xml:space="preserve">Přehled Zpráv</system:String>
     <system:String x:Key="messageType" xml:space="preserve">Typ Zprávy</system:String>
@@ -584,5 +584,7 @@
     <system:String x:Key="degradeAcountBackToHost" xml:space="preserve">Degradovat účet zpět na Hosta</system:String>
     <system:String x:Key="setDegrade" xml:space="preserve">Nastavit Degradaci</system:String>
 
-
+    <system:String x:Key="recipients" xml:space="preserve">Příjemce</system:String>
+    <system:String x:Key="emailerHistoryList" xml:space="preserve">Historie Emailů</system:String>
+    
 </ResourceDictionary>

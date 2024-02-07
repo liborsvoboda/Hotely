@@ -34,6 +34,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<DocumentationGroupList> DocumentationGroupLists { get; set; }
         public virtual DbSet<DocumentationList> DocumentationLists { get; set; }
         public virtual DbSet<EmailTemplateList> EmailTemplateLists { get; set; }
+        public virtual DbSet<EmailerHistoryList> EmailerHistoryLists { get; set; }
         public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GetTopFiveFavoriteList> GetTopFiveFavoriteLists { get; set; }
         public virtual DbSet<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; }
@@ -349,6 +350,11 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EmailTemplateList_UserList");
+            });
+
+            modelBuilder.Entity<EmailerHistoryList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<ExchangeRateList>(entity =>

@@ -585,4 +585,7 @@
     <system:String x:Key="degradeAcountBackToHost" xml:space="preserve">Degrade Account Back to Host</system:String>
     <system:String x:Key="setDegrade" xml:space="preserve">Set Degradation</system:String>
 
+    <system:String x:Key="recipients" xml:space="preserve">Recipients</system:String>
+    <system:String x:Key="emailerHistoryList" xml:space="preserve">Emailer History</system:String>
+    
 </ResourceDictionary>

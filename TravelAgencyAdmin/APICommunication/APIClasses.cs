@@ -26,6 +26,7 @@
         DocumentationGroupList,
         DocumentationList,
 
+        EmailerHistoryList,
         EmailTemplateList,
         ExchangeRateList,
         GuestFavoriteList,

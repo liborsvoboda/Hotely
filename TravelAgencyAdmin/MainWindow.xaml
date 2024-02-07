@@ -145,12 +145,6 @@
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
                             PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
-                            x:Name="tm_emailTemplateList"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Hand"
-                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
-                            PreviewMouseDown="Menu_Selected" />
-                        <TreeViewItem
                             x:Name="tm_documentAdviceList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
@@ -441,6 +435,18 @@
                             PreviewMouseDown="Menu_Selected" />
                         <TreeViewItem
                             x:Name="tm_messageModuleList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_emailerHistoryList"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Hand"
+                            IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"
+                            PreviewMouseDown="Menu_Selected" />
+                        <TreeViewItem
+                            x:Name="tm_emailTemplateList"
                             HorizontalAlignment="Stretch"
                             Cursor="Hand"
                             IsEnabled="{Binding Path=(local:MainWindow.UserLogged)}"

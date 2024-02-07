@@ -305,16 +305,20 @@
     <Compile Include="Agendas\HotelConfigurations\PropertyGroupList\PropertyGroupListPage.xaml.cs">
       <DependentUpon>PropertyGroupListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Agendas\EmailTemplateList\EmailTemplateList.cs" />
-    <Compile Include="Agendas\Agendas\EmailTemplateList\EmailTemplateListPage.xaml.cs">
+    <Compile Include="Agendas\MessagingAndEmailer\EmailerHistoryList\EmailerHistoryList.cs" />
+    <Compile Include="Agendas\MessagingAndEmailer\EmailerHistoryList\EmailerHistoryListPage.xaml.cs">
+      <DependentUpon>EmailerHistoryListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Agendas\MessagingAndEmailer\EmailTemplateList\EmailTemplateList.cs" />
+    <Compile Include="Agendas\MessagingAndEmailer\EmailTemplateList\EmailTemplateListPage.xaml.cs">
       <DependentUpon>EmailTemplateListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Messaging\MessageModuleList\MessageModuleListPage.xaml.cs">
+    <Compile Include="Agendas\MessagingAndEmailer\MessageModuleList\MessageModuleListPage.xaml.cs">
       <DependentUpon>MessageModuleListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Messaging\MessageModuleList\MessageModuleList.cs" />
-    <Compile Include="Agendas\Messaging\MessageTypeList\MessageTypeList.cs" />
-    <Compile Include="Agendas\Messaging\MessageTypeList\MessageTypeListPage.xaml.cs">
+    <Compile Include="Agendas\MessagingAndEmailer\MessageModuleList\MessageModuleList.cs" />
+    <Compile Include="Agendas\MessagingAndEmailer\MessageTypeList\MessageTypeList.cs" />
+    <Compile Include="Agendas\MessagingAndEmailer\MessageTypeList\MessageTypeListPage.xaml.cs">
       <DependentUpon>MessageTypeListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Settings\SystemLanguageList\SystemLanguageList.cs" />
@@ -603,15 +607,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Agendas\EmailTemplateList\EmailTemplateListPage.xaml">
+    <Page Include="Agendas\MessagingAndEmailer\EmailerHistoryList\EmailerHistoryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Messaging\MessageModuleList\MessageModuleListPage.xaml">
+    <Page Include="Agendas\MessagingAndEmailer\EmailTemplateList\EmailTemplateListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Messaging\MessageTypeList\MessageTypeListPage.xaml">
+    <Page Include="Agendas\MessagingAndEmailer\MessageModuleList\MessageModuleListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Agendas\MessagingAndEmailer\MessageTypeList\MessageTypeListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
