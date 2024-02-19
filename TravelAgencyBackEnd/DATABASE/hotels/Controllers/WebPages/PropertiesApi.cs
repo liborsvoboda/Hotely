@@ -27,10 +27,10 @@
 
             result.ForEach(item => {
 
-                item.SystemName = ServerCoreDbOperations.DBTranslate(item.SystemName, language);
-                item.PropertyOrServiceUnitType.SystemName = ServerCoreDbOperations.DBTranslate(item.PropertyOrServiceUnitType.SystemName, language);
+                item.SystemName = DbOperations.DBTranslate(item.SystemName, language);
+                item.PropertyOrServiceUnitType.SystemName = DbOperations.DBTranslate(item.PropertyOrServiceUnitType.SystemName, language);
                 if (item.PropertyGroup != null) {
-                    item.PropertyGroup.SystemName = ServerCoreDbOperations.DBTranslate(item.PropertyGroup.SystemName, language);
+                    item.PropertyGroup.SystemName = DbOperations.DBTranslate(item.PropertyGroup.SystemName, language);
                     item.PropertyGroup.PropertyOrServiceTypeLists = null;
                     item.PropertyOrServiceUnitType.PropertyOrServiceTypeLists = null;
                 }
@@ -51,7 +51,7 @@
                 result = _dbContext.HotelRoomTypeLists.ToList();
             }
 
-            result.ForEach(item => { item.SystemName = ServerCoreDbOperations.DBTranslate(item.SystemName, language); });
+            result.ForEach(item => { item.SystemName = DbOperations.DBTranslate(item.SystemName, language); });
 
             return JsonSerializer.Serialize(result, new JsonSerializerOptions() {
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,
@@ -73,13 +73,13 @@
             }
 
             check.ForEach(item => {
-                if (ServerCoreDbOperations.DBTranslate(item.Country.SystemName, language).ToLower() == searchArea.ToLower()) {
+                if (DbOperations.DBTranslate(item.Country.SystemName, language).ToLower() == searchArea.ToLower()) {
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         result = _dbContext.CountryAreaLists
                                 .Where(a => a.CountryId == item.CountryId).ToList();
                     }
                     result.ForEach(item => {
-                        item.SystemName = ServerCoreDbOperations.DBTranslate(item.SystemName, language);
+                        item.SystemName = DbOperations.DBTranslate(item.SystemName, language);
                     });
                 }
             });
@@ -102,7 +102,7 @@
             }
 
             result.ForEach(propertyGroup => {
-                propertyGroup.SystemName = ServerCoreDbOperations.DBTranslate(propertyGroup.SystemName, language);
+                propertyGroup.SystemName = DbOperations.DBTranslate(propertyGroup.SystemName, language);
             });
 
             //more filters

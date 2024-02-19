@@ -6144,7 +6144,7 @@ var demo = function() {
   }
   /*
   Language: JavaScript
-  Description: JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions.
+  Description: JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class DataOperations.
   Category: common, scripting
   Website: https://developer.mozilla.org/en-US/docs/Web/JavaScript
   */
@@ -9473,7 +9473,7 @@ var demo = function() {
   }
   /*
   Language: JavaScript
-  Description: JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions.
+  Description: JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class DataOperations.
   Category: common, scripting
   Website: https://developer.mozilla.org/en-US/docs/Web/JavaScript
   */

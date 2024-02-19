@@ -1,3 +1,24 @@
-﻿@{
+﻿@using UbytkacBackend.DBModel
+@using UbytkacBackend.ServerCoreWebPages;
+@{
+    ServerModuleAndServiceList? serverModule = ((ServerModuleAndServiceList?)Context.Items.FirstOrDefault(a => a.Key.ToString() == "ServerModule").Value);
+    ServerWebPagesToken? webpagestoken = ((ServerWebPagesToken?)Context.Items.FirstOrDefault(a => a.Key.ToString() == "ServerWebPagesToken").Value);
+
+
+
+    if (Context.Request.Path.StartsWithSegments("/easydata", StringComparison.OrdinalIgnoreCase)) {
+        Layout = "Shared/_CleanLayout.cshtml";
+    }
+    else if (serverModule != null) {
+        Layout = "Shared/_ModuleLayout";
+    }
+    else {
+        Layout = "Shared/_PortalLayout";
+    }
+}
+
+
+
+@{
     Layout = "_Layout";
 }

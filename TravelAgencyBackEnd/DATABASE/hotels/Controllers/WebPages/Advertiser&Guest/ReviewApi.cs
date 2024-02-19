@@ -25,7 +25,7 @@ namespace UbytkacBackend.Controllers {
 
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
             } catch (Exception ex) {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) });
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
             }
 
         }
@@ -83,7 +83,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
             });
         }
 
@@ -117,7 +117,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("AddReviewtIsNotValid", record.Language)
             });
         }
 

@@ -4007,7 +4007,7 @@ var Vue = (function (exports) {
   function withDirectives(vnode, directives) {
       const internalInstance = currentRenderingInstance;
       if (internalInstance === null) {
-           warn(`withDirectives can only be used inside render functions.`);
+           warn(`withDirectives can only be used inside render DataOperations.`);
           return vnode;
       }
       const instance = internalInstance.proxy;
@@ -8143,7 +8143,7 @@ var Vue = (function (exports) {
   }
 
   // __UNSAFE__
-  // functions. The user is responsible for using them with only trusted content.
+  // DataOperations. The user is responsible for using them with only trusted content.
   function patchDOMProp(el, key, value, 
   // the following args are passed only due to potential innerHTML/textContent
   // overriding existing VNodes, in which case the old tree must be properly

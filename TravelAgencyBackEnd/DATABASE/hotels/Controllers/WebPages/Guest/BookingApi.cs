@@ -30,7 +30,7 @@ namespace UbytkacBackend.Controllers {
                     reservation.Currency.HotelLists = null;
                     reservation.Currency.HotelReservationLists = null;
                     reservation.Currency.HotelReservationDetailLists = null;
-                    reservation.Status.SystemName = ServerCoreDbOperations.DBTranslate(reservation.Status.SystemName, language);
+                    reservation.Status.SystemName = DbOperations.DBTranslate(reservation.Status.SystemName, language);
                     reservation.Hotel.HotelImagesLists.ToList().ForEach(image => {
                         image.Hotel = null;
                         image.Attachment = null;
@@ -41,7 +41,7 @@ namespace UbytkacBackend.Controllers {
                             reservationDetail.Hotel = null;
                             reservationDetail.Reservation = null;
                             if (reservationDetail.Status != null) {
-                                reservationDetail.Status.SystemName = ServerCoreDbOperations.DBTranslate(reservationDetail.Status.SystemName, language);
+                                reservationDetail.Status.SystemName = DbOperations.DBTranslate(reservationDetail.Status.SystemName, language);
                                 reservationDetail.Status.HotelReservationLists = null;
                                 reservationDetail.Status.HotelReservedRoomLists = null;
                                 reservationDetail.Status.HotelReservationDetailLists = null;
@@ -71,7 +71,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
         [Authorize]
@@ -106,7 +106,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
             Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
 
@@ -153,7 +153,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
 
@@ -212,7 +212,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
     }

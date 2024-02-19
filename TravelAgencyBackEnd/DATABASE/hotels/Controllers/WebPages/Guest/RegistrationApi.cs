@@ -10,8 +10,8 @@ namespace UbytkacBackend.Controllers {
         [Consumes("application/json")]
         public IActionResult PostResetPassword([FromBody] AutoGenEmailAddress record) {
             try {
-                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && Functions.IsValidEmail(record.EmailAddress)) {
-                    string newPassword = Functions.RandomString(10);
+                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && DataOperations.IsValidEmail(record.EmailAddress)) {
+                    string newPassword = DataOperations.RandomString(10);
 
                     //check email exist
                     GuestList data;
@@ -21,7 +21,7 @@ namespace UbytkacBackend.Controllers {
                     if (data == null) {
                         return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
                             Status = DBWebApiResponses.emailNotExist.ToString(),
-                            ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailNotExist.ToString(), record.Language)
+                            ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.emailNotExist.ToString(), record.Language)
                         }));
                     }
 
@@ -52,22 +52,22 @@ namespace UbytkacBackend.Controllers {
                             Content = "Your new password for login is: " + newPassword + Environment.NewLine
                         };
                     }
-                    string result = ServerCoreFunctions.SendEmail(mailRequest);
+                    string result = CoreOperations.SendEmail(mailRequest);
 
 
                     if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { message = DBResult.success.ToString() })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
                 }
-                else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
+                else { return BadRequest(new { message = DbOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
             } catch { }
-            return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailCannotBeSend", record.Language) });
+            return BadRequest(new { message = DbOperations.DBTranslate("EmailCannotBeSend", record.Language) });
         }
 
         [HttpPost("/WebApi/Guest/SendVerifyCode")]
         [Consumes("application/json")]
         public IActionResult PostSendVerifyCode([FromBody] AutoGenEmailAddress record) {
             try {
-                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && Functions.IsValidEmail(record.EmailAddress)) {
-                    string verifyCode = Functions.RandomString(10);
+                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && DataOperations.IsValidEmail(record.EmailAddress)) {
+                    string verifyCode = DataOperations.RandomString(10);
 
                     //check email exist
                     int count;
@@ -77,7 +77,7 @@ namespace UbytkacBackend.Controllers {
                     if (count > 0) {
                         return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
                             Status = DBWebApiResponses.emailExist.ToString(),
-                            ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
+                            ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
                         }));
                     }
 
@@ -98,14 +98,14 @@ namespace UbytkacBackend.Controllers {
                             Content = "Your Registration Verify Code is: " + verifyCode + Environment.NewLine
                         };
                     }
-                    string result = ServerCoreFunctions.SendEmail(mailRequest);
+                    string result = CoreOperations.SendEmail(mailRequest);
 
 
                     if (result == DBResult.success.ToString()) { return Ok(JsonSerializer.Serialize(new { verifyCode = verifyCode })); } else { return BadRequest(JsonSerializer.Serialize(result)); }
                 }
-                else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
+                else { return BadRequest(new { message = DbOperations.DBTranslate("EmailAddressIsNotValid", record.Language) }); }
             } catch { }
-            return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("EmailCannotBeSend", record.Language) });
+            return BadRequest(new { message = DbOperations.DBTranslate("EmailCannotBeSend", record.Language) });
         }
 
 
@@ -120,7 +120,7 @@ namespace UbytkacBackend.Controllers {
                 if (count > 0) {
                     return JsonSerializer.Serialize(new DBResultMessage() {
                         Status = DBWebApiResponses.emailExist.ToString(),
-                        ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
+                        ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
                     });
                 }
 
@@ -173,11 +173,11 @@ namespace UbytkacBackend.Controllers {
                         Content = "Registration for " + record.User.Email + Environment.NewLine + " with password " + origPassword
                     }; 
                 }
-                ServerCoreFunctions.SendEmail(mailRequest);
+                CoreOperations.SendEmail(mailRequest);
 
-                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
+                if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
         [Authorize]
@@ -223,10 +223,10 @@ namespace UbytkacBackend.Controllers {
 
                     var data = new hotelsContext().GuestLists.Update(guest);
                     result = await data.Context.SaveChangesAsync();
-                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
-                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.saveDataError.ToString())  });
-                } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.inputDataError.ToString()) });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+                    if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.User.Id, Status = DBWebApiResponses.loginInfoSentToEmail.ToString(), RecordCount = result, ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.loginInfoSentToEmail.ToString(), record.Language) });
+                    else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.saveDataError.ToString())  });
+                } else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.inputDataError.ToString()) });
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
         [Authorize]
@@ -261,7 +261,7 @@ namespace UbytkacBackend.Controllers {
 
                 }
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
     }
 }

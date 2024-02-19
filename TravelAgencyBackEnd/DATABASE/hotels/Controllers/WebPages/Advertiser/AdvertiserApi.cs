@@ -50,7 +50,7 @@ namespace UbytkacBackend.Controllers {
                         .Where(a => a.HotelId == hotel.Id && a.IsAvailable).ToList();
 
                         props.ForEach(property => {
-                            property.PropertyOrService.SystemName = ServerCoreDbOperations.DBTranslate(property.PropertyOrService.SystemName, language);
+                            property.PropertyOrService.SystemName = DbOperations.DBTranslate(property.PropertyOrService.SystemName, language);
                         });
                         hotel.HotelPropertyAndServiceLists = props;
 
@@ -159,7 +159,7 @@ namespace UbytkacBackend.Controllers {
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = hotelRec.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
             } catch (Exception ex) {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) });
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
             }
         }
 
@@ -179,7 +179,7 @@ namespace UbytkacBackend.Controllers {
                 //insert all news
                 HotelImagesList imageRecord = new();
                 record.Images.ForEach(async image => {
-                    imageRecord = new() { HotelId = record.HotelRecId, FileName = image.FileName, Attachment = Functions.GetByteArrayFrom64Encode(image.Attachment), IsPrimary = image.IsPrimary, UserId = int.Parse(userId) };
+                    imageRecord = new() { HotelId = record.HotelRecId, FileName = image.FileName, Attachment = DataOperations.GetByteArrayFrom64Encode(image.Attachment), IsPrimary = image.IsPrimary, UserId = int.Parse(userId) };
                     var data = new hotelsContext().HotelImagesLists.Add(imageRecord);
                     int result = await data.Context.SaveChangesAsync();
                 });
@@ -187,7 +187,7 @@ namespace UbytkacBackend.Controllers {
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = imageRecord.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
             } catch (Exception ex) {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) });
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
             }
         }
 
@@ -208,7 +208,7 @@ namespace UbytkacBackend.Controllers {
                 HotelRoomList roomRecord = new();
                 record.Rooms.ForEach(async room => {
                     roomRecord = new() { HotelId = record.HotelRecId, RoomTypeId = room.RoomTypeId, Name = room.RoomName,DescriptionCz = room.Description, ImageName = room.FileName, 
-                        Image = Functions.GetByteArrayFrom64Encode(room.Attachment), Price = room.Price, MaxCapacity = room.MaxCapacity, ExtraBed = room.ExtraBed, RoomsCount = room.RoomsCount, UserId = int.Parse(userId) };
+                        Image = DataOperations.GetByteArrayFrom64Encode(room.Attachment), Price = room.Price, MaxCapacity = room.MaxCapacity, ExtraBed = room.ExtraBed, RoomsCount = room.RoomsCount, UserId = int.Parse(userId) };
                     var data = new hotelsContext().HotelRoomLists.Add(roomRecord);
                     int result = await data.Context.SaveChangesAsync();
                 });
@@ -216,7 +216,7 @@ namespace UbytkacBackend.Controllers {
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = roomRecord.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
             } catch (Exception ex) {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) });
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
             }
         }
 
@@ -250,7 +250,7 @@ namespace UbytkacBackend.Controllers {
 
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = propertyRecord.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -269,7 +269,7 @@ namespace UbytkacBackend.Controllers {
 
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = hotel.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -287,7 +287,7 @@ namespace UbytkacBackend.Controllers {
                 }
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = hotel.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -305,7 +305,7 @@ namespace UbytkacBackend.Controllers {
                 }
                 if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = hotel.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
     }

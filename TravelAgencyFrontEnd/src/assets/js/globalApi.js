@@ -1,5 +1,5 @@
 ﻿
-
+//Web Login for Users API
 async function FloatingLogin() {
     window.showPageLoading();
     let response = await fetch(Metro.storage.getItem('ApiRootUrl', null) + '/Guest/WebLogin', {
@@ -86,6 +86,7 @@ async function setCommentStatus(commentId) {
     window.hidePageLoading();
 };
 
+
 //Delete Comment Status API 
 async function deleteComment(commentId) {
     window.showPageLoading();
@@ -97,6 +98,7 @@ async function deleteComment(commentId) {
     } else { window.watchAdvertisementVariables.reloadAdvertisement = true; }
     window.hidePageLoading();
 };
+
 
 //Delete Advertiser UnAvailable Room Setting API 
 async function deleteUnavailableRoom(recId) {

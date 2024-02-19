@@ -35,7 +35,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
         /// <summary>
@@ -55,10 +55,10 @@ namespace UbytkacBackend.Controllers {
                 data = data.Replace("AUTOTITLE", htmlData.Find(a => a.ContainsKey("HtmlTitle")).First().Value);
                 data = data.Replace("AUTOCONTENT", htmlData.Find(a => a.ContainsKey("HtmlContent")).First().Value.Split("<BODY>")[1].Split("</BODY>")[0]);
 
-                System.IO.File.WriteAllText(Path.Combine(ServerConfigSettings.StartupPath, "wwwroot", "server-web", "newsletter-preview", "index.html"), data);
+                System.IO.File.WriteAllText(Path.Combine(ServerRuntimeData.Startup_path, "wwwroot", "server-web", "newsletter-preview", "index.html"), data);
                 System.IO.File.WriteAllText(Path.Combine(_hostingEnvironment.WebRootPath, "server-web", "newsletter-preview", "index.html"), data);
                 return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = 1, ErrorMessage = string.Empty });
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -112,7 +112,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -137,7 +137,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -167,7 +167,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -189,7 +189,7 @@ namespace UbytkacBackend.Controllers {
                 if (parentMessage != null) {
                     MessageModuleList answerMessage = new() { 
                         Level = parentMessage.Level + 1, MessageParentId = messageAnswer.ParentId,MessageTypeId = parentMessage.MessageTypeId, 
-                        Subject = DateTimeOffset.UtcNow.ToLocalTime().ToString() + ": " + ServerCoreDbOperations.DBTranslate("AnswerFor", messageAnswer.Language) + ": "+ parentMessage.Subject,
+                        Subject = DateTimeOffset.UtcNow.ToLocalTime().ToString() + ": " + DbOperations.DBTranslate("AnswerFor", messageAnswer.Language) + ": "+ parentMessage.Subject,
                         HtmlMessage = "<html>\r\n<head>\r\n<meta content=\"text/html;utf-8\" http-equiv=\"content-type\">\r\n</head>\r\n<body>" + messageAnswer.Message + "</body>\r\n</html>",
                         IsSystemMessage = false, Published = true, Shown = false, Archived = false,
                         GuestId = int.Parse(authId), UserId = parentMessage.UserId
@@ -201,9 +201,9 @@ namespace UbytkacBackend.Controllers {
                     return Ok(JsonSerializer.Serialize( new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
                 }
 
-            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
             return BadRequest(new DBResultMessage() {
-                Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("PrivateMessageAnswerIsNotValid", messageAnswer.Language)
+                Status = DBResult.error.ToString(), ErrorMessage = DbOperations.DBTranslate("PrivateMessageAnswerIsNotValid", messageAnswer.Language)
             });
         }
 
@@ -232,8 +232,8 @@ namespace UbytkacBackend.Controllers {
 
                     return Ok(JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
                 }
-            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
-            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("ArchivePrivateMessageRequestIsNotValid", language) });
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
+            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DbOperations.DBTranslate("ArchivePrivateMessageRequestIsNotValid", language) });
         }
 
 
@@ -260,8 +260,8 @@ namespace UbytkacBackend.Controllers {
 
                     return Ok(JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
                 }
-            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
-            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("ShownPrivateMessageRequestIsNotValid", language) });
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
+            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DbOperations.DBTranslate("ShownPrivateMessageRequestIsNotValid", language) });
         }
 
         #endregion Web Messages Controls
@@ -303,7 +303,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -328,11 +328,13 @@ namespace UbytkacBackend.Controllers {
                     var data = new hotelsContext().MessageModuleLists.Add(answerMessage);
                     int result = await data.Context.SaveChangesAsync();
 
+                    //TODO send emails to ALL recipients
+
                     return Ok(JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.success.ToString(), ErrorMessage = string.Empty }));
                 }
 
-            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
-            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = ServerCoreDbOperations.DBTranslate("DiscussionContributionIsNotValid", contribution.Language) });
+            } catch (Exception ex) { return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
+            return BadRequest(new DBResultMessage() { Status = DBResult.error.ToString(), ErrorMessage = DbOperations.DBTranslate("DiscussionContributionIsNotValid", contribution.Language) });
         }
 
 

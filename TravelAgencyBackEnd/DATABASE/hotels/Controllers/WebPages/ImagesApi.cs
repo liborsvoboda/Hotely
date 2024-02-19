@@ -16,7 +16,7 @@ namespace UbytkacBackend.Controllers {
             }
 
             if (data != null) { return File(data.Attachment, MimeTypes.GetMimeType(data.FileName), data.FileName); }
-            else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("BadRequest", "en") }); }
+            else { return BadRequest(new { message = DbOperations.DBTranslate("BadRequest", "en") }); }
         }
 
         [HttpGet("/WebApi/Image/{hotelId}/{filename}")]
@@ -28,7 +28,7 @@ namespace UbytkacBackend.Controllers {
             }
 
             if (data != null) { return File(data.Attachment, MimeTypes.GetMimeType(data.FileName), data.FileName); }
-            else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("BadRequest", "en") }); }
+            else { return BadRequest(new { message = DbOperations.DBTranslate("BadRequest", "en") }); }
         }
 
 
@@ -40,7 +40,7 @@ namespace UbytkacBackend.Controllers {
             }
 
             if (data != null) { return File(data.Image, MimeTypes.GetMimeType(data.ImageName), data.ImageName); }
-            else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("BadRequest", "en") }); }
+            else { return BadRequest(new { message = DbOperations.DBTranslate("BadRequest", "en") }); }
         }
 
         [HttpGet("/WebApi/RoomImage/{hotelId}/{roomId}")]
@@ -52,7 +52,7 @@ namespace UbytkacBackend.Controllers {
             }
 
             if (data != null) { return File(data.Image, MimeTypes.GetMimeType(data.ImageName), data.ImageName); }
-            else { return BadRequest(new { message = ServerCoreDbOperations.DBTranslate("BadRequest", "en") }); }
+            else { return BadRequest(new { message = DbOperations.DBTranslate("BadRequest", "en") }); }
         }
 
     }

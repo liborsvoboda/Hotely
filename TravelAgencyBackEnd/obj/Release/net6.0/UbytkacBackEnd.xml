@@ -4,16 +4,6 @@
         <name>UbytkacBackEnd</name>
     </assembly>
     <members>
-        <member name="T:UbytkacBackend.CoreClasses.ServerLocalDbDials">
-            <summary>
-            Auto Updated LocalDials - in Future Can be setted as Server Configurator
-            </summary>
-        </member>
-        <member name="T:UbytkacBackend.CoreClasses.ProcessClass">
-            <summary>
-            Server Process class for running external prrocesses
-            </summary>
-        </member>
         <member name="F:UbytkacBackend.Controllers.ServerDocApi._hostingEnvironment">
             <summary>
             For wwwroot folder Update 
@@ -98,26 +88,12 @@
             <param name="archived"></param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
-            <summary>
-            Full Translate List for WebPage Search Input : Whisperer
-            </summary>
-            <param name="language"></param>
-            <returns></returns>
-        </member>
-        <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetSearchedIdList(System.String,System.String)">
-            <summary>
-            Full Translate List for WebPage Search Input
-            </summary>
-            <param name="language"></param>
-            <returns></returns>
-        </member>
         <member name="T:UbytkacBackend.Controllers.WebLoginApi">
             <summary>
             The web login api.
             </summary>
         </member>
-        <member name="M:UbytkacBackend.Controllers.WebLoginApi.WebLogin(System.String,UbytkacBackend.CoreClasses.PageLanguage)">
+        <member name="M:UbytkacBackend.Controllers.WebLoginApi.WebLogin(System.String,UbytkacBackend.WebPages.PageLanguage)">
             <summary>
             The web login.
             </summary>
@@ -141,41 +117,291 @@
             <param name="token">   The token.</param>
             <returns>The result.</returns>
         </member>
+        <member name="T:UbytkacBackend.Controllers.UbytkacBackendStoredProceduresListApi">
+            <summary>
+            StoredSpocedures Central Library With Return Dynamic DataList
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.UbytkacBackendStoredProceduresListApi.GetSystemSpGetTableList">
+            <summary>
+            Gets Table List for Reporting
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.UbytkacBackendStoredProceduresListApi.GetSystemTableList">
+            <summary>
+            Gets Form Agendas Pages List For System Menu Definition.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.UbytkacBackendStoredProceduresListApi.GetSystemSpGetUserMenuList">
+            <summary>
+            Api For Logged User with Menu Datalist
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetTranslatedSearchList(System.String)">
+            <summary>
+            Full Translate List for WebPage Search Input : Whisperer
+            </summary>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.Controllers.WebSearchApi.GetSearchedIdList(System.String,System.String)">
+            <summary>
+            Full Translate List for WebPage Search Input
+            </summary>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.ServerCoreLoggerWS">
+            <summary>
+            WEBSocket Template still not used Ideal for Terminal Panels, chat, controlling services
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerCoreLoggerWS.GetBySocketAPIPath(System.String)">
+            <summary>
+            Universal WebSocket API Definitions for Connection Paths and Registering To Server
+            Central List ow WebSocket Connections
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerCoreLoggerWS.Get">
+            <summary>
+            WebSocket Registration Connection API Example
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerCoreLoggerWS.Echo(Microsoft.AspNetCore.Http.HttpContext,System.Net.WebSockets.WebSocket)">
+            <summary>
+            WebSocket Communication Set Examle
+            </summary>
+            <param name="context">  The context.</param>
+            <param name="webSocket">The web socket.</param>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.ServerDbDgmlSchemaApi">
+            <summary>
+            Database Schema Diagram Controller
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller"/>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerDbDgmlSchemaApi.#ctor(UbytkacBackend.ServerConfiguration.hotelsContext)">
+            <summary>
+            Initializes a new instance of the <see cref="!:DgmlSchemaApi"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerDbDgmlSchemaApi.GetDgml">
+            <summary>
+            Creates a DGML class diagram of most of the entities in the project wher you go to
+            localhost/dgml See https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools
+            </summary>
+            <returns>a DGML class diagram</returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerDbDgmlSchemaApi.Get">
+            <summary>
+            Get Full DataBase SQL Script
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:UbytkacBackend.ServerCoreDBSettings.ServerEmailerApi">
             <summary>
             Server Email sender Api for logged Communication
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.RSSLoad.GetRssFeed(System.String)">
             <summary>
-            Server Core: Configure Server Logging
+            Load RSS Feed
             </summary>
-            <param name="services"></param>
+            <param name="rssUrl"></param>
+            <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.SomeRSSProvider">
             <summary>
-            Server Core: Configure Server Authentication Support
+            RSS Provider
             </summary>
-            <param name="services"></param>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureThirdPartyApi(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.ServerRssFeedApi">
             <summary>
-            Server Core: Configure HTTP Client for work with third party API
+            Server Restart Api for Remote Control
             </summary>
-            <param name="services"></param>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureScopes(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerWebPagesExportApi.ExportXamlCz">
             <summary>
-            Server Core: Configure Custom Core Services
+            Update Translation Table By All Tables and Field Names For Export Offline Language
+            Dictionary CZ for System
             </summary>
-            <param name="services"></param>
+            <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreConfiguration.ConfigureDatabaseContext(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerWebPagesExportApi.ExportXamlEn">
             <summary>
-            Server Core: Configure Custom Services
+            Update Translation Table By All Tables and Field Names For Export Offline Language
+            Dictionary EN for System
             </summary>
-            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreDBSettings.ServerWebPagesExportApi.ExportMinimalStaticWebPages">
+            <summary>
+            Minimal Export of Page for Running
+            on every Web servers Without Needs anythink
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.RobotsController">
+            <summary>
+            robots.txt routing
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller"/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.SitemapController">
+            <summary>
+            Sitemap.xml Routing
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller"/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.StdAuthGenericProviderApi`3">
+            <summary>
+            Server Restart Api for Remote Control
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.StdFreeGenericProviderApi`3">
+            <summary>
+            Server Restart Api for Remote Control
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.SystemStdAuthGenericProviderApi`3">
+            <summary>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreDBSettings.SystemStdFreeGenericProviderApi`3">
+            <summary>
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>
+        </member>
+        <member name="T:UbytkacBackend.ControllersExtensions.SoftwareTriggers">
+            <summary>
+            Softwasre Triggers For Web and System Login/Visit History View
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ControllersExtensions.SoftwareTriggers.WriteAppLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger User Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="userId">   </param>
+            <param name="userName"> </param>
+        </member>
+        <member name="M:UbytkacBackend.ControllersExtensions.SoftwareTriggers.WriteWebLogin(System.String,System.Int32,System.String)">
+            <summary>
+            Trigger Web Guest Login History
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="guestId">  </param>
+            <param name="email">    </param>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.DBResult">
+            <summary>
+            Database response types definition
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.DBResultMessage">
+            <summary>
+            The DB result message.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.DBResultMessage.InsertedId">
+            <summary>
+            Gets or Sets the inserted id.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.DBResultMessage.Status">
+            <summary>
+            Gets or Sets the status.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.DBResultMessage.RecordCount">
+            <summary>
+            Gets or Sets the record count.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.DBResultMessage.ErrorMessage">
+            <summary>
+            Gets or Sets the error message.
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.AuthenticateResponse">
+            <summary>
+            The authenticate response.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.AuthenticateResponse.Id">
+            <summary>
+            Gets or Sets the id.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.AuthenticateResponse.Name">
+            <summary>
+            Gets or Sets the name.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.AuthenticateResponse.Surname">
+            <summary>
+            Gets or Sets the surname.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.AuthenticateResponse.Token">
+            <summary>
+            Gets or Sets the token.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.AuthenticateResponse.Expiration">
+            <summary>
+            Gets or Sets the expiration.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.DBModel.AuthenticateResponse.Role">
+            <summary>
+            Gets or Sets the role.
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.SetReportFilter">
+            <summary>
+            Database Model Extension Definitions Its API Filter, Extended Classes, Translation, etc
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.IdFilter">
+            <summary>
+            Custom Class Definition for Filtering by record Id
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.NameFilter">
+            <summary>
+            Custom Class Definition for Filtering by string
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.CustomString">
+            <summary>
+            Custom Definition for Returning string List from Stored Procedures Name is ColumnName from
+            Stored Procedure Result
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.SystemOperationMessage">
+            <summary>
+            Custom Definition for Returning List with One Record from Operation Stored Procedures
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.DBModel.GenericTable">
+            <summary>
+            Generic Table Snadard Fileds Public Class For Get Informations By System
+            </summary>
         </member>
         <member name="T:UbytkacBackend.ServerConfiguration.hotelsContext">
             <summary>
@@ -184,76 +410,827 @@
             Context with Insert News Functionality
             </summary>
         </member>
-        <member name="M:UbytkacBackend.ServerConfiguration.hotelsContext.GetApiUser(Microsoft.AspNetCore.Http.HttpContext)">
+        <member name="T:UbytkacBackend.ServerConfiguration.DatabaseContextExtensions">
             <summary>
-            Return User From API Request if Exist other null
+            Database Context Extensions for All Types Procedures For Retun Data in procedure can be
+            Simple SELECT * XXX and you Create Same Class for returned DataSet
             </summary>
-            <param name="httpContext"></param>
+        </member>
+        <member name="T:UbytkacBackend.BackendServer">
+            <summary>
+            Server Main Definition Starting Point Of Project
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.BackendServer.ServerConfigSettings">
+            <summary>
+            Startup Server Initialization Server Setting Data
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.BackendServer.ServerRuntimeData">
+            <summary>
+            Startup Server Initialization Server Runtime Data
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.BackendServer.Main(System.String[])">
+            <summary>
+            Server Startup Process
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:UbytkacBackend.BackendServer.RestartServer">
+            <summary>
+            Server Restart Controller
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.BackendServer.StartServer">
+            <summary>
+            Server Start Controller
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.BackendServer.BuildWebHost(System.String[])">
+            <summary>
+            Final Preparing Server HostBuilder Definition Exit 10 Is missing or Format Problem with
+            Configuration File
+            </summary>
+            <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerModulesEnabling.EnableSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+        <member name="M:UbytkacBackend.BackendServer.ServerStartupDbDataLoading">
             <summary>
-            Server Module: Enable Swagger Api Doc Generator And Online Tester
+            Server Startup DB Data loading for minimize DB Connect TO Frequency Dials Without
+            Changes With Full Auto Filling Non Exist Records
+            Example: LanguageList
             </summary>
-            <param name="services"></param>
         </member>
-        <member name="M:UbytkacBackend.Functions.RandomString(System.Int32)">
+        <member name="M:UbytkacBackend.BackendServer.LoadConfigurationFromDb">
             <summary>
-            Randoms the string.
+            Server Core: Load Configuration From Database First Must be From File With DB
+            Connection, Others File Settings than DBconnection is Optional
             </summary>
-            <param name="length">The length.</param>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.ServerConfigSettings">
+            <summary>
+            The server settings.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.EmailerServiceEmailAddress">
+            <summary>
+            Service email, for info about not available service from HeatchCheck Can be used for
+            next Develop, automatic checking problems, missing data and all other Its Necessary for
+            Correct running Server Internal Core Monitoring
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.EmailerSMTPServerAddress">
+            <summary>
+            SMTP Server Address for Login to External Mail Server Its Necessary for Correct running
+            Server Internal Core Monitoring
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.EmailerSMTPPort">
+            <summary>
+            SMTP Port for Login to External Mail Server Its Necessary for Correct running Server
+            Internal Core Monitoring
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.EmailerSMTPSslIsEnabled">
+            <summary>
+            EmailerSMTPSslIsEnabled SSl Email Protocol for Login to External Mail Server Its
+            Necessary for Correct running Server Internal Core Monitoring
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.EmailerSMTPLoginUsername">
+            <summary>
+            SMTP UserName for Login to External Mail Server Its Necessary for Correct running Server
+            Internal Core Monitoring
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.EmailerSMTPLoginPassword">
+            <summary>
+            SMTP Password for Login to External Mail Server Its Necessary for Correct running Server
+            Internal Core Monitoring
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.DatabaseConnectionString">
+            <summary>
+            Server Database Connection string for Full Service of Database
+            Migration/Api/Check/Unlimited Develop !!!Warning: Check this connection for
+            Read/Write/Exec is enabled In Config File Must Be Only This Paramneter
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.DatabaseInternalCachingEnabled">
+            <summary>
+            Enable Disable Entity Framework Internal Cache I recommend turning it off : from Logic,
+            Duplicit Functionality with Database Server in complex process can generate problems
+            Recommended: false
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.DatabaseInternalCacheTimeoutMin">
+            <summary>
+            Time in Minutes for Database Valid Cache Data and Refreshing Duplicit Functionality with
+            Database Server
+            Recommended: 30
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigLogWarnPlusToDbEnabled">
+            <summary>
+            Enable Logging Server Warn and Errors To Database
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigCoreServerRegisteredName">
+            <summary>
+            Server Service Name automatic figured in All IS/OS/Engines info
+            Recommended: EASY-IT-CENTER
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServiceCoreCheckerEmailSenderActive">
+            <summary>
+            Activation / Deactivation of Email Sender For Server Core Fails Checker All Catch Write
+            to SendEmail, In Debug mode is Written in console in Release mode is Sended email (All
+            incorrect server statuses are monitored) Can be writen to Database - !!! Warning for
+            infinite Cycling (DB shutdown example)
+            Recommended: true
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServiceUseDbLocalAutoupdatedDials">
+            <summary>
+            Special Function: Using Selected Tables with AutoRefresh On change as Local DataSets,
+            For Optimize Traffic. For Example LanguageList - Static table with often reading
+            Recommended: true - functionality must be implemented in Server Code
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServiceServerLanguage">
+            <summary>
+            Server Language for Translating Server internal statuses
+            Recommended: cz or en - other languages are not implemented
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServiceEnableMassEmail">
+            <summary>
+            Server support mass emailing as Service You can enable Mass Email Api
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerProviderModeEnabled">
+            <summary>
+            Enabling Provider APIs More Informations are Published on WepPages Are Published Core
+            Informations With Full Solutions Info/Tools/Codes/Etc Published
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleAutoSchedulerEnabled">
+            <summary>
+            Server Scheduler Module for Automatization Tasks
+            </summary>
+            <value>The serve scheduler enabled.</value>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigServerStartupPort">
+            <summary>
+            Set Server Startup Port on Http/HttpS/WebSocket and for All Engines, Modules, API
+            Controler and WebPages
+            Recommended: 5000
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebSocketTimeoutMin">
+            <summary>
+            WebSocket Timeout Connection Settings in Minutes. After timeout when not detected any
+            communication socket is closed Set according to your need
+            Recommended: 2
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebSocketMaxBufferSizeKb">
+            <summary>
+            Maximum socket message size for control Traffic
+            Recomended: 10
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigApiTokenTimeoutMin">
+            <summary>
+            Bearer Token Timeout Setting in Minutes. Connection must be Refreshed in Interval After
+            Timeout connection Must Login Again. It is as needed. You Can Change Key for close All
+            connections Immediately. Timeout is good for Webpages
+            Recomended: 15
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigServerStartupOnHttps">
+            <summary>
+            Setting for Server URL Services. Logically can run only one Http or Https Server has
+            more Security Setting Politics.
+            Recommended: true
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigServerGetLetsEncrypt">
+            <summary>
+            Setting for Automatic Obtain Lets Encrypt more Security Setting Politics.
+            Recommended: true
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigCertificatePath">
+            <summary>
+            Certificate file NextFrom'DATA'Path\\Filename.pfx For import External Certificate Its
+            Path from Data Startup Folder,example "groupware.pfx" is in Data Path The Password must
+            be inserted in ConfigCertificatePassword Settings Other for ignore this Setting set
+            empty string "" This settings has Higest Priority before LesEncrypt enabled
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigCertificateDomain">
+            <summary>
+            Its Domain for include to Automatic Generated Certificate For Server running on HTTPS.
+            Domain is for Your validation Certificate Domain. Can be Changed for commercial. Domain
+            is Used for Lets Encrypt also Write with Comma separator
+            Recommended: 127.0.0.1
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigCertificatePassword">
+            <summary>
+            Password will be inserted to Server Generated Certificate for HTTPS.
+            Recommended: empty = Maximal Security Randomly generated 20 chars string
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigJwtLocalKey">
+            <summary>
+            Special Functions:Server AutoGenerated encryption Key For Securing Communication On Each
+            Server Restart All Tokens not will be valid and the Login Reconnect is Requested. Its
+            AntiHacker Security Rule
+            Recommended: empty = Maximal Security Randomly generated 40 chars string
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigServerStartupHTTPAndHTTPS">
+            <summary>
+            Startup Server On HTTP and HTTPS on Defined Port 
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigTimeTokenValidationEnabled">
+            <summary>
+            Enable Disable Bearer Token Timeout Validation Token can be valid EveryTime to using:
+            Example for machine connection Or is Control last activity
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ConfigManagerEmailAddress">
+            <summary>
+            Emailová adresa do obchodních kontaktů
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerFtpEngineEnabled">
+            <summary>
+            Enable FTP File Server oppened for every connection with full rights
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerFtpSecurityEnabled">
+            <summary>
+            Enable FTP Security For access to FTP must be logged
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerFtpStorageRootPath">
+            <summary>
+            FTP Server Storage Path Definition It Will be under wwwroot for Posibility Share Data or
+            For WebAccess/Browser Over WebPortal
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerCorsAllowAnyOrigin">
+            <summary>
+            CORS Hlavčky HTTP Requestů příchozích na server WEB + API, Povolit jakýkoli původ
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerCorsAllowAnyMethod">
+            <summary>
+            CORS Hlavčky HTTP Requestů příchozích na server WEB + API, Povolit jakoukoliv Metodu
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerCorsAllowAnyHeader">
+            <summary>
+            CORS Hlavčky HTTP Requestů příchozích na server WEB + API, Povolit jakýkoliv Header
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerCorsAllowCredentials">
+            <summary>
+            CORS Hlavčky HTTP Requestů příchozích na server WEB + API , Povolit jakékoliv Pověření - Autorizaci
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerPublicUrl">
+            <summary>
+            Veřejná URL adresa serveru použita v modulech
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ServerCorsEnabled">
+            <summary>
+            Server Filtrování Dle CORS Zapnuto
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleSwaggerApiDocEnabled">
+            <summary>
+            Special Function: Server Automatically Generate Full Documentation of API structure AND
+            Database Model. Plus Included API Interface for Online Testing All API Methods with
+            Authentication Its Automatic Solution for Third Party cooperation. All changes are
+            Reflected after restart server
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleHealthServiceEnabled">
+            <summary>
+            Special Function: More than 200 Server Statuses Can be monitored by HeathCheckService,
+            Over Net can Control Other Company Services Also as Central Control Point With Email
+            Service. For Example: Server/Memory/All DB Types/IP/HDD/Port/Api/NET/Cloud/Environment
+            Must be run for Metrics AddOn https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/monitor-app-health
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleHealthServiceRefreshIntervalSec">
+            <summary>
+            Special Function: More than 200 Server Statuses Can be monitored by HeathCheckService,
+            Over Net can Control Other Company Services Also as Central Control Point With Email
+            Service. For Example: Server/Memory/All DB Types/IP/HDD/Port/Api/NET/Cloud/Environment
+            Must be run for Metrics AddOn !!! run in Release mode for Good Reading of Logs without
+            HeathChecks Cycling info https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks https://testfully.io/blog/api-health-check-monitoring/
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleMdDocumentationEnabled">
+            <summary>
+            Enable Server Structure Documentation for Developers Using RootPath, - Block File
+            Browsing Is Good for Server with Documentation only Or Use for Show WebPage and Copy
+            "Only HTML"
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleDbDiagramGeneratorEnabled">
+            <summary>
+            Enable Automatic Database Diagram for Simple show Database structure with All bingings
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleHealthServicePath">
+            <summary>
+            Api URL cesta Serveru na které bude Dohledové centrum k dispozici
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleSwaggerApiDocPath">
+            <summary>
+            Api URL cesta Serveru na které bude API Dokumentace a Testovací rozhraní k dispozici
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleHealthServiceMessageOnChangeOnly">
+            <summary>
+            Zaznamenávat Logování/zaslání zprávy pouze při změně z OK-&gt;FAIL, jinak bude
+            zaznamenáno v každém cyklu
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleDBEntitySchemaPath">
+            <summary>
+            Cestana které se Schema Zobrazí,
+            default: /DBEntitySchema
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleDBEntitySchemaEnabled">
+            <summary>
+            Modul Zobrazení DB Entitity Schema
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleCSharpCodeBuilder">
+            <summary>
+            Online Správa Projektu Serveru a vývoj
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebRazorPagesEngineEnabled">
+            <summary>
+            Enable Razor WebPages support engine with Correct Configuration for Automaping from
+            folder 'ServerCorePages'
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebMvcPagesEngineEnabled">
+            <summary>
+            Enable Mvc WebPages support engine with Correct Configuration
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebSocketEngineEnabled">
+            <summary>
+            Enable WebSocket Engine with Default Example Api Controller
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebBrowserContentEnabled">
+            <summary>
+            Enable WebPages File Browsing from server Url on Server
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebSocketServerMonitorEnabled">
+            <summary>
+            Server support online multi watch Logging Its Run on Websocket and the Log Messages are
+            sent for All opened connections for wathing on Path: ServerCoreMonitor You can enable
+            Mass Email Api
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebRSSFeedsEnabled">
+            <summary>
+            Zapnout Generování RSS fédů z položek, novinek
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebRobotTxtFileEnabled">
+            <summary>
+            zapnout zobrazení souboru Robot.txt, obsah se bere z nastavení Portálu
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebSitemapFileEnabled">
+            <summary>
+            Generovaný Soubor Sitemap z Menu Portálu
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.ModuleWebDataManagerEnabled">
+            <summary>
+            Module: AutoGenerated Database DataManager for working with Data Running only in Debug
+            mode for simple Develop, can be modified. All changes are Reflected after restart server
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebLiveDataMonitorEnabled">
+            <summary>
+            Enable Server Static Folder Monitor for Data Changes And immediatelly update all Api,
+            Endpoints, Client Browser
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebSocketGlobalNotifyPath">
+            <summary>
+            WebPortal Global Notify Path on WebSocket for sending messages from scheduler
+            </summary>
+            <value>The web global socket notify path.</value>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerConfigSettings.WebRazorPagesCompileOnRuntime">
+            <summary>
+            Provádí kompilaci Za běhu Serveru. Tzn.. Podporuje Vkládání Stránek Externě
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.MailRequest">
+            <summary>
+            Class Definition for Server Emailer In List of this claas you can use Mass Emailer
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.ServerStatuses">
+            <summary>
+            Server and Hosted Services Runtime Statusses
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.ProcessClass">
+            <summary>
+            Server Process class for running external prrocesses
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.ServerLocalDbDials">
+            <summary>
+            Special Functions: Definition of Selected tables for Optimal Using to Data nature Its saves
+            traffic, increases availability and for Example implemented Language is in Develop Auto Fill
+            Table when is First Using Its can be used for more Dials
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.ServerRuntimeData">
+            <summary>
+            The server runtime data.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.Startup_path">
+            <summary>
+            Gets or Sets the startup_path.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.WebRoot_path">
+            <summary>
+            Gets or Sets the startup_path.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.Setting_folder">
+            <summary>
+            Gets or Sets the setting_folder.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.UserPath">
+            <summary>
+            Gets or Sets the configure file.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.SpecialUserWebRootPath">
+            <summary>
+            User Web Root Path for Startup and Any missing address Automatic Redirection Value must
+            start with / Its Portal Model Central Point
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ConfigFile">
+            <summary>
+            Gets or Sets the configure file.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.DataPath">
+            <summary>
+            Gets or Sets the data path.
+            </summary>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.DebugMode">
+            <summary>
+            Gets or Sets the debug mode.
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.LocalDBTableList">
+            <summary>
+            The local db table list.
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerCancelToken">
+            <summary>
+            Cancellation Token for Server Remote Control
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerArgs">
+            <summary>
+            Server Starup Args
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerCoreStatus">
+            <summary>
+            Server Core Status
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerRestartRequest">
+            <summary>
+            Server Restart Request Indicator
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerFTPProvider">
+            <summary>
+            Server Securited FTP Provider for Remote Control
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerAutoSchedulerProvider">
+            <summary>
+            Server Securited FTP Provider for Remote Control
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.CentralWebSocketList">
+            <summary>
+            Central WebSocket List for Easy one place Using
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.ServerServiceProvider">
+            <summary>
+            Central List With references on Hested Server Sevices For Acess and Using Hosted
+            Functionalities for example: Start/Stop Service And More Other sub services for Optimal Hosting
+            </summary>
+        </member>
+        <member name="F:UbytkacBackend.ServerCoreStructure.ServerRuntimeData.FileRotatorRuntineLibrary">
+            <summary>
+            SercerCore FilesLibrary For Rotator
+            TODO Clean
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.WebSocketExtension">
+            <summary>
+            WebSocket Extension Definition For Simple Central Control All Connection By Connection Path
+            and Timeout
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.ServerCoreAutoScheduler">
+            <summary>
+            Server AutoSchedule Planner
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.AutoScheduledJob">
+            <summary>
+            Autoscheduler Process Scheduled Task 
+            definitions 
+            </summary>
+            <param name="context"></param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.Functions.GetByteArrayFrom64Encode(System.String)">
+        <member name="T:UbytkacBackend.ServerCoreStructure.DelegateHealthCheckPublisher">
             <summary>
-            Separate ByteArray from 64 encode file
-            For inserted file types
+            HeathCheck Handler For Sending Information About Fails
             </summary>
-            <param name="strContent">Content of the string.</param>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.CommunicationController">
+            <summary>
+            Server Communication Extensions for Controlling Data Implmented FullUserTokenData For More
+            Info Modify Auth Claims And Add Get Info Here
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.IsAdmin">
+            <summary>
+            Extension for check Admin Role
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.IsSystemUser">
+            <summary>
+            Extension for check user Role
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.IsWebUser">
+            <summary>
+            Extension for check webuser Role
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.IsLogged">
+            <summary>
+            Check HTTP if is the Request Logged
+            </summary>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.Functions.GetSelfSignedCertificate(System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.GetUserRole">
+            <summary>
+            Get UserRole
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.GetUserId">
+            <summary>
+            Get UserId
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CommunicationController.GetUserName">
+            <summary>
+            Get UserName
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.WebSocketLogProvider">
+            <summary>
+            !!! Implemented Server Core WebSocket System LogProvider Stream This Is Special Serice For
+            Remote Monitoring On More Devices in OneTime
+            </summary>
+            <seealso cref="T:Microsoft.Extensions.Logging.ILoggerProvider"/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.WebSocketLogger">
+            <summary>
+            Server Core WebSocket System Logger Interface
+            </summary>
+            <seealso cref="T:Microsoft.Extensions.Logging.ILogger"/>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.WebSocketLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <summary>
+            Used to log the entry.
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="logLevel"> An instance of <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">  The event's ID. An instance of <see cref="T:Microsoft.Extensions.Logging.EventId"/>.</param>
+            <param name="state">    The event's state.</param>
+            <param name="exception">The event's exception. An instance of <see cref="T:System.Exception"/></param>
+            <param name="formatter">A delegate that formats</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.ServerCoreStructure.MailRequest})">
+            <summary>
+            Sends the mass mail.
+            </summary>
+            <param name="mailRequests">The mail requests.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.SendEmail(UbytkacBackend.ServerCoreStructure.MailRequest,System.Boolean)">
+            <summary>
+            System Mailer sending Emails To service email with detected fail for analyze and
+            corrections on the Way provide better services every time !!! This You can implement
+            everywhere, !!! In Debug mode is written to Console, in Release will be sent email Empty
+            Sender And Recipients set email for Service Recipient
+            </summary>
+            <param name="mailRequest">    </param>
+            <param name="sendImmediately"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.GetSelfSignedCertificate(System.String)">
             <summary>
             Gets the self signed certificate For API Security HTTPS.
             </summary>
             <param name="password">The password.</param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.Functions.GetSelfSignedCertificateFromFile(System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.GetSelfSignedCertificateFromFile(System.String)">
             <summary>
-            Set Imported Certificate from file on Server for Https 
-            File must has Valid path from Startup Data Path
+            Set Imported Certificate from file on Server for Https File must has Valid path from
+            Startup Data Path
             </summary>
             <returns></returns>
         </member>
-        <member name="T:UbytkacBackend.ServerCoreDbOperations">
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.CallGetApiUrl(System.String)">
+            <summary>
+            Calls the GET API URL with string Response
+            </summary>
+            <param name="url">The URL.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.RunSystemProcess(UbytkacBackend.ServerCoreStructure.ProcessClass)">
+            <summary>
+            Server Function For Running External Processes
+            </summary>
+            <param name="processDefinition">The process definition.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.CoreOperations.ValidAndGetTokenParameters">
+            <summary>
+            Server Token Validation Parameters definition For Api is Used if is ON/Off for Api is On everyTime
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.CoreOperations.GetOperatingSystemInfo">
+            <summary>
+            Extension For Checking Operation System of Server Running
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.FirstCharToLowerCase(System.String)">
+            <summary>
+            Change First Character of String
+            </summary>
+            <param name="str">The string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.UnicodeToUTF8(System.String)">
+            <summary>
+            Unicodes to ut f8.
+            </summary>
+            <param name="strFrom">The string from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.GetUserApiErrMessage(System.Exception,System.Int32)">
+            <summary>
+            Mined-ed Error Message For Answer in API Error Response with detailed info about problem
+            </summary>
+            <param name="exception"></param>
+            <param name="msgCount"> </param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.GetSystemErrMessage(System.Exception,System.Int32)">
+            <summary>
+            Mined-ed Error Message For System Save to Database For Simple Solving Problem
+            </summary>
+            <param name="exception"></param>
+            <param name="msgCount"> </param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.RandomString(System.Int32)">
+            <summary>
+            Randoms the string.
+            </summary>
+            <param name="length">The length.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.GetByteArrayFrom64Encode(System.String)">
+            <summary>
+            Separate ByteArray from 64 encode file For inserted file types
+            </summary>
+            <param name="strContent">Content of the string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.IsValidEmail(System.String)">
+            <summary>
+            Determines whether [is valid email] [the specified email].
+            </summary>
+            <param name="email">The email.</param>
+            <returns><c>true</c> if [is valid email] [the specified email]; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.RemoveWhitespace(System.String)">
+            <summary>
+            Removes the whitespace from the String.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.MarkDownLineEndSpacesResolve(System.String)">
+            <summary>
+            MarkDown Global Resolve End Spaces Characters On Insert/Update API CALS of Managing
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.StringToUTF8(System.String)">
+            <summary>
+            Convert String to UTF8
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.Utf8toUnicode(System.String)">
+            <summary>
+            Convert UTF8 to UNICODE
+            </summary>
+            <param name="utf8String"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.RemoveDiacritism(System.String)">
+            <summary>
+            Remove Diactritics
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.DataOperations.ConvertGenericClassToStandard``1(``0)">
+            <summary>
+            Convert Generic Tabla To Standard Table For Use Standard System Fields
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreStructure.DbOperations">
             <summary>
             All Server Definitions of Database Operation method
             </summary>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreDbOperations.LoadStaticDbDials(System.Nullable{UbytkacBackend.CoreClasses.ServerLocalDbDials})">
+        <member name="M:UbytkacBackend.ServerCoreStructure.DbOperations.LoadOrRefreshStaticDbDials(System.Nullable{UbytkacBackend.ServerCoreStructure.ServerLocalDbDials})">
             <summary>
-            Method for All Server Defined Table for Local Using As OffLine AutoUpdated Tables
+            Method for All Server Defined Table for Local Using As Off line AutoUpdated Tables
             </summary>
             <param name="onlyThis"></param>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreDbOperations.WriteAppLogin(System.String,System.Int32,System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.DbOperations.DBTranslate(System.String,System.String)">
             <summary>
-            Trigger User Login History
+            Default Operation for Call Translation
             </summary>
-            <param name="ipAddress"></param>
-            <param name="userId">   </param>
-            <param name="userName"> </param>
+            <param name="word">    </param>
+            <param name="language"></param>
+            <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreDbOperations.WriteWebLogin(System.String,System.Int32,System.String)">
-            <summary>
-            Trigger Web Guest Login History
-            </summary>
-            <param name="ipAddress"></param>
-            <param name="guestId">  </param>
-            <param name="email">    </param>
-        </member>
-        <member name="M:UbytkacBackend.ServerCoreDbOperations.DBTranslateOffline(System.String,System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.DbOperations.DBTranslateOffline(System.String,System.String)">
             <summary>
             Database LanuageList for Off-line Using Definitions
             </summary>
@@ -261,7 +1238,7 @@
             <param name="language"></param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreDbOperations.DBTranslateOnline(System.String,System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.DbOperations.DBTranslateOnline(System.String,System.String)">
             <summary>
             Database LanuageList for On-line Using Definitions
             </summary>
@@ -269,94 +1246,427 @@
             <param name="language"></param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.SendMassEmail(System.Collections.Generic.List{UbytkacBackend.CoreClasses.MailRequest})">
+        <member name="M:UbytkacBackend.ServerCoreStructure.DbOperations.BindList``1(System.Data.DataTable)">
             <summary>
-            Sends the mass mail.
+            Extension For Using Custom Defined Tables from Database Procedures Its used as Database
+            Context Extension as 'CollectionFromSql' Method in Database Context
             </summary>
-            <param name="mailRequests">The mail requests.</param>
+            <typeparam name="T"></typeparam>
+            <param name="dt">The dt.</param>
+            <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.CreatePath(System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.LoadOrCreateSettings">
+            <summary>
+            Server Local Startup Configuration Its Running as First - Load from Congig.Json After DB
+            connection Before Server Start Is This configuration Replaced By Data from DB And next
+            Server Start. Its for situation - Bad Connection Server Start with Configuration from File
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CheckFile(System.String)">
+            <summary>
+            Checks the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CopyFiles(System.String,System.String)">
+            <summary>
+            Prepared Method for Files Copy
+            </summary>
+            <param name="sourcePath">     </param>
+            <param name="destinationPath"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CreatePath(System.String)">
             <summary>
             Creates the path recursively.
             </summary>
-            <param name="path">The path.</param>
+            <param name="path">The System.IO.Path.</param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.SendEmail(UbytkacBackend.CoreClasses.MailRequest)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.ReadFile(System.String)">
             <summary>
-            System Mailer sending Emails To service email with detected fail for analyze and
-            corrections on the Way provide better services every time !!! This You can implement
-            everywhere, !!! In Debug mode is written to Console, in Release will be sent email
-            Empty Sender And Recipients set email for Service Recipient
+            Reads the file.
             </summary>
-            <param name="mailRequest"></param>
-            <param name="sendImmediately"></param>
-        </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.RemoveWhitespace(System.String)">
-            <summary>
-            Removes the whitespace from the String.
-            </summary>
-            <param name="input">The input.</param>
+            <param name="fileName">Name of the file.</param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.RunProcess(UbytkacBackend.CoreClasses.ProcessClass)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.ByteArrayToFile(System.String,System.Byte[])">
             <summary>
-            Server Function For Running External Processes
+            Write ByteArray to File
             </summary>
-            <param name="processDefinition">The process definition.</param>
+            <param name="fileName"> Name of the file.</param>
+            <param name="byteArray">The byte array.</param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.ClearFolder(System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CreateFile(System.String)">
+            <summary>
+            Prepared Method for Create empty file
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.WriteToFile(System.String,System.String)">
+            <summary>
+            Write String to File Used for JsonSaving
+            </summary>
+            <param name="file">   The file.</param>
+            <param name="content">The content.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.FileDetectEncoding(System.String)">
+            <summary>
+            Prepared Method for Get Information of File encoding UTF8,WIN1250,etc
+            </summary>
+            <param name="FileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.DeleteDirectory(System.String)">
+            <summary>
+            Deletes the directory.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CheckDirectory(System.String)">
+            <summary>
+            Checks the directory.
+            </summary>
+            <param name="directory">The directory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CopyDirectory(System.String,System.String)">
+            <summary>
+            Copy Full directory.
+            </summary>
+            <param name="directory">The directory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CopyFile(System.String,System.String)">
+            <summary>
+            /
+            </summary>
+            <param name="from">From.</param>
+            <param name="to">  To.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.CreateDirectory(System.String)">
+            <summary>
+            Creates the directory.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.DeleteFile(System.String)">
+            <summary>
+            Deletes the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.FileOperations.ClearFolder(System.String)">
             <summary>
             Full Clear Folder
             </summary>
             <param name="FolderName">Name of the folder.</param>
         </member>
-        <member name="T:UbytkacBackend.ServerCoreFunctions.OperatingSystem">
+        <member name="T:UbytkacBackend.ServerCoreStructure.ServerCoreWebHelpers">
             <summary>
-            Extension For Checking Operation System 
-            of Server Running
+            Server Web Helpers for EASY working Here are extension for Database Model, WebSocket
             </summary>
         </member>
-        <member name="M:UbytkacBackend.ServerCoreFunctions.MarkDownLineEndSpacesResolve(System.String)">
+        <member name="M:UbytkacBackend.ServerCoreStructure.ServerCoreWebHelpers.SendMessageToClientSocket(System.Net.WebSockets.WebSocket,System.String)">
             <summary>
-            MarkDown Global Resolve End Spaces Characters
-            On Insert/Update API CALS of Managing
+            Sends the message to client WebSocket. This Is Used by
+            "SendMessageAndUpdateWebSocketsInSpecificPath" For Update Informaions on All Connections
+            in Same WebSocket Path Its Solution FOR Teminals, Group Communications, etc.
             </summary>
-            <param name="input">The input.</param>
+            <param name="webSocket">The web socket.</param>
+            <param name="message">  The message.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreStructure.ServerCoreWebHelpers.ListenClientWebSocketMessages(System.Net.WebSockets.WebSocket,System.String)">
+            <summary>
+            Register Listening Client WebSocket Communication Ist for Receive messages from Client
+            </summary>
+            <param name="webSocket">    </param>
+            <param name="socketAPIPath"></param>
             <returns></returns>
         </member>
-        <member name="F:UbytkacBackend.Program.ServerDBLanguageList">
+        <member name="M:UbytkacBackend.ServerCoreStructure.ServerCoreWebHelpers.AddSocketConnectionToCentralList(System.Net.WebSockets.WebSocket,System.String)">
             <summary>
-            Local DB dials: LanguageList
+            Add WeSocket Connection To Central List
             </summary>
-            <param name="args"></param>
+            <param name="newWebSocket"> The new web socket.</param>
+            <param name="socketAPIPath">The socket path.</param>
         </member>
-        <member name="M:UbytkacBackend.Program.Main(System.String[])">
+        <member name="M:UbytkacBackend.ServerCoreStructure.ServerCoreWebHelpers.SendMessageAndUpdateWebSocketsInSpecificPath(System.String,System.String)">
             <summary>
-            Server Startup Process
+            Sends the message and update web sockets in specific path.
             </summary>
-            <param name="args"></param>
+            <param name="socketAPIPath">The socket API path.</param>
+            <param name="message">      The message.</param>
         </member>
-        <member name="M:UbytkacBackend.Program.CreateHostBuilder(System.String[])">
+        <member name="M:UbytkacBackend.ServerCoreStructure.ServerCoreWebHelpers.DisposeSocketConnectionsWithTimeOut">
             <summary>
-            Final Preparing Server HostBuilder Definition
+            !! Global Method for Simple Using WebSockets WebSocket Disposed - Cleaning monitored
+            Sockets from Central List. Are Closed and Disposed Only with Timeout or with closed Connection
             </summary>
-            <param name="args"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServer.#ctor(FubarDev.FtpServer.IFtpServerHost)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UbytkacBackend.ServerCoreServers.HostedFtpServer"/> class.
+            </summary>
+            <param name="ftpServerHost">The FTP server host that gets wrapped as a hosted service.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServer.StartAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServer.StopAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider">
+            <summary>
+            Custom membership provider for Authentication Validation Actual is Set by UserName and
+            Password in Database
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.ValidateUser(System.String,System.String)">
+            <summary>
+            FTP User Validation Its for Open FTP and User Validation
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
             <returns></returns>
         </member>
-        <member name="M:UbytkacBackend.Program.ServerStartupDbDataLoading">
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.ValidateUserAsync(System.String,System.String)">
             <summary>
-            Server Startup DB Data loading for minimize DB Connect TO Frequency Dials Without Changes
-            Example: LanguageList
+            FTP User Validation Async Its for Open FTP and User Validation
+            </summary>
+            <param name="username">The user name.</param>
+            <param name="password">The password.</param>
+            <returns>The result of the validation.</returns>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.CustomFtpUser">
+            <summary>
+            Custom FTP user implementation
             </summary>
         </member>
-        <member name="M:UbytkacBackend.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.CustomFtpUser.#ctor(System.String)">
             <summary>
-            Server Configuration Definition
+            Initializes a new instance of the <see cref="T:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.CustomFtpUser"/> instance.
+            </summary>
+            <param name="name">The user name</param>
+        </member>
+        <member name="P:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.CustomFtpUser.Name">
+            <inheritdoc/>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreServers.HostedFtpServerMembershipProvider.CustomFtpUser.IsInGroup(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices">
+            <summary>
+            Server Core Configuration Settings of Security, Communications, Technologies, Modules Rules,
+            Rights, Conditions, Formats, Services, Logging, etc..
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureFTPServer(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Custom Secure FTP Server
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureCookie(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Cookie Politics
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Server Controllers
+            options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = [ValidateNever]
+            in Class options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            = [JsonIgnore] in Class
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Server Logging
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Server Authentication Support
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureServerWebPages(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Configures the MVC server pages on Server format "cshtml"
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureLetsEncrypt(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server core: Configures LetsEncrypt using. Certificate will be saved in DataPath
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureWebSocketLoggerMonitor(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server core: Configures the WebSocket logger monitor. For multi monitoring and for
+            Example Posibilities
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureThirdPartyApi(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure HTTP Client for work with third party API
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureSingletons(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configures the singletons. Its Register Custom Listeners For Actions
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Custom Core Services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureCentralServicesProviders(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Hosted Service to Runtime Core For Access to Root Functionalities
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerConfigurationServices.ConfigureDatabaseContext(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Core: Configure Custom Services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreConfiguration.ServerEnablingServices">
+            <summary>
+            Server Core Enabling Settings of Security, API Communications, Technologies, Modules,Rules,
+            Rights, Rules, Rights, Conditions, Cors, Cookies, Formats, Services, Logging, etc..
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerEnablingServices.EnableLogging(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Enable Server Logging in Debug Mode
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerEnablingServices.EnableCors(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Cors Configuration
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerEnablingServices.EnableWebSocket(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server WebSocket Configuration
             </summary>
             <param name="app"></param>
-            <param name="env"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerEnablingServices.EnableEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Endpoints Configuration
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreConfiguration.ServerModules">
+            <summary>
+            Configure Server Ad-dons and Modules
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModules.ConfigureScheduler(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Module: Configures the Scheduler Module.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModules.ConfigureDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Module: Generted Developer Documentation for Defvelopers Documentation contain
+            full Server Structure for extremelly simple developing
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModules.ConfigureDBEntitySchema(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Module Entity Schema Design Generator
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModules.ConfigureLiveDataMonitor(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Module: Generted Developer Documentation for Defvelopers Documentation contain
+            full Server Structure for extremelly simple developing
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModules.ConfigureHealthCheck(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Module: Automatic DB Data Manager for work with data directly Extreme
+            Posibilities https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModules.ConfigureSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection@)">
+            <summary>
+            Server Module: Swagger Api Doc Generator And Online Tester Configuration
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:UbytkacBackend.ServerCoreConfiguration.ServerModulesEnabling">
+            <summary>
+            Enable Configured Server Ad-dons and Modules
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModulesEnabling.EnableDocumentation(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Module: Enable Generated Developer Documentation
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModulesEnabling.EnableSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Module: Enable Swagger Api Doc Generator And Online Tester
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModulesEnabling.EnableLiveDataMonitor(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Module: Enable Live Data Monitor
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.ServerCoreConfiguration.ServerModulesEnabling.EnableDBEntitySchema(Microsoft.AspNetCore.Builder.IApplicationBuilder@)">
+            <summary>
+            Server Module: Enable DBEntitySchema Web Page
+            </summary>
+        </member>
+        <member name="T:UbytkacBackend.Startup">
+            <summary>
+            Server Startup Definitions
+            </summary>
+        </member>
+        <member name="M:UbytkacBackend.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Server Core: Main Configure of Server Services, Technologies, Modules, etc..
+            </summary>
+            <param name="services"></param>
+            <returns>void.</returns>
+        </member>
+        <member name="M:UbytkacBackend.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Hosting.IHostApplicationLifetime)">
+            <summary>
+            Server Core: Main Enabling of Server Services, Technologies, Modules, etc..
+            </summary>
+            <param name="app">           </param>
+            <param name="serverLifetime"></param>
+        </member>
+        <member name="M:UbytkacBackend.Startup.ServerOnStarted">
+            <summary>
+            Server Core Enabling Disabling Hosted Services
+            </summary>
         </member>
         <member name="T:UbytkacBackEnd.MimeTypes">
             <summary>

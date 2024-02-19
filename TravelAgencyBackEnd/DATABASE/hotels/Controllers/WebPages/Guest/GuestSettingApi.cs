@@ -23,7 +23,7 @@
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
         [HttpPost("/WebApi/Guest/SetGuestSettingList")]
@@ -55,7 +55,7 @@
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("SettingsIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("SettingsIsNotValid", record.Language)
             });
         }
 

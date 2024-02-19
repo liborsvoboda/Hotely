@@ -1,6 +1,6 @@
 ﻿////Modal Forms Library For Using Forms EveryWhere without Page Change
 
-
+//Generic Modal Login InfoBox Form
 function FloatingLoginForm(parentId) {
     Metro.storage.setItem('DiscussionParentId', parentId); 
 
@@ -13,14 +13,12 @@ function FloatingLoginForm(parentId) {
     generatedElement = Metro.infobox.create(htmlContent, "", {
         closeButton: true,
         clsBox: "rounded drop-shadow",
-        type: "",
-        removeOnClose: true,
-        width: "400",
-        height: "360"
+        type: "", removeOnClose: true,
+        width: "400", height: "360"
     }); generatedElement.id("FloatingLoginForm");
 }
 
-
+//Generic Discussion Contribution Modal InfoBox Form
 function NewDiscussionInfoBox(parentId) {
     AccordionCustomMenuClick('discussionFrame_' + parentId);
 
@@ -40,11 +38,10 @@ function NewDiscussionInfoBox(parentId) {
     let generatedElement = Metro.infobox.create(htmlContent, "", {
         closeButton: true,
         clsBox: "rounded drop-shadow",
-        type: "",
-        removeOnClose: true,
-        width: "800",
-        height: "550"
+        type: "", removeOnClose: true,
+        width: "800", height: "550"
     }); generatedElement.id("NewDiscussionInfoBox");
+
     setTimeout(() => {
         let getSelect = Metro.getPlugin("#newDiscussionSelectionList", "select"); getSelect.data(""); getSelect.addOptions(selOptions);
         ElementSummernoteInit('newDiscussionSummernote');
@@ -58,7 +55,7 @@ function NewDiscussionInfoBox(parentId) {
 
 ////Support Function List For Modal Forms
 
-
+//Specific Modal Login Form Validation
 async function CheckFloatingLoginValid() {
     if (!$("#FloatingLoginEmail").val().match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) || $("#FloatingLoginPassword").val().length < 6) {
         ShowNotify('error', (window.dictionary("messages.passwordNotHaveMinimalLengthOrMailNotValid") + " 6"));

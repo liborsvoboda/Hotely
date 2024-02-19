@@ -42,6 +42,7 @@ function CloseOtherPriceListGroups(element) {
     }
 }
 
+
 //InfoBox Screen Center Function on ContentChanged
 function PriceInfoBoxSwitchView() {
     let el = Metro.getPlugin($("#PriceInfoBox"), 'info-box');

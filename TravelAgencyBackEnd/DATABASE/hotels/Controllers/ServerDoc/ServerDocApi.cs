@@ -34,8 +34,9 @@ namespace UbytkacBackend.Controllers {
                     }
 
                     if (data.Any()) {
-                        ServerCoreFunctions.CreatePath(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src"));
-                        ServerCoreFunctions.ClearFolder(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src"));
+                        FileOperations.CreatePath(Path.Combine(ServerRuntimeData.Startup_path, "Docs"));
+                        FileOperations.CreatePath(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src"));
+                        FileOperations.ClearFolder(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src"));
 
                         string lastDocGroup = "", summary = "";
                         data.ForEach(documentation => {
@@ -45,25 +46,25 @@ namespace UbytkacBackend.Controllers {
                                 summary += "### " + documentation.DocumentationGroup.Name + "  " + Environment.NewLine + Environment.NewLine + "    ```markdown  " + Environment.NewLine; lastDocGroup = documentation.DocumentationGroup.Name;
                             }
 
-                            summary += "[" + documentation.Name + "](./" + ServerCoreFunctions.RemoveWhitespace(documentation.Name) + ".md" + ")   " + Environment.NewLine;
-
-                            System.IO.File.WriteAllText(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src", ServerCoreFunctions.RemoveWhitespace(documentation.Name) + ".md"), documentation.MdContent);
+                            summary += "[" + documentation.Name + "](./" + DataOperations.RemoveWhitespace(documentation.Name) + ".md" + ")   " + Environment.NewLine;
+                            System.IO.File.WriteAllText(Path.Combine(ServerRuntimeData.Startup_path, "Docs", DataOperations.RemoveWhitespace(documentation.Name) + ".md"), documentation.MdContent, Encoding.UTF8);
+                            System.IO.File.WriteAllText(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src", DataOperations.RemoveWhitespace(documentation.Name) + ".md"), documentation.MdContent);
 
                         }); summary += "    ```  " + Environment.NewLine + Environment.NewLine + "---" + Environment.NewLine;
                         System.IO.File.WriteAllText(Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "src", "SUMMARY.md"), summary);
 
                         ProcessClass process = new ProcessClass();
-                        if (ServerCoreFunctions.OperatingSystem.IsWindows()) {
+                        if (CoreOperations.GetOperatingSystemInfo.IsWindows()) {
                             process = new ProcessClass() { Command = Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "generate-mdbook.bat"), Arguments = "", WorkingDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book") };
                         } else {
                             process = new ProcessClass() { Command = "/bin/bash", Arguments = string.Format(" \"{0}\"", Path.Combine(_hostingEnvironment.WebRootPath, "server-doc", "md-book", "generate-mdbook.sh")) };
                         }
 
-                        ServerCoreFunctions.RunProcess(process);
+                        CoreOperations.RunSystemProcess(process);
                     }
                     return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = 1, ErrorMessage = string.Empty });
                 }
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
             return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DBResult.DeniedYouAreNotAdmin.ToString() });
         }
     }

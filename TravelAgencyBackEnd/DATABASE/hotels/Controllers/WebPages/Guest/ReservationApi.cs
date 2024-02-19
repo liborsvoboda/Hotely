@@ -12,8 +12,8 @@ namespace UbytkacBackend.Controllers {
         [Consumes("application/json")]
         public IActionResult PostCheckEmail([FromBody] AutoGenEmailAddress record) {
             try {
-                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && Functions.IsValidEmail(record.EmailAddress)) {
-                    string newPassword = Functions.RandomString(10);
+                if (!string.IsNullOrWhiteSpace(record.EmailAddress) && DataOperations.IsValidEmail(record.EmailAddress)) {
+                    string newPassword = DataOperations.RandomString(10);
 
                     //check email exist
                     GuestList data;
@@ -24,7 +24,7 @@ namespace UbytkacBackend.Controllers {
                     if (data == null) {
                         
                         //Send Verify Email
-                        string verifyCode = Functions.RandomString(10);
+                        string verifyCode = DataOperations.RandomString(10);
                         EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                         MailRequest mailRequest = new MailRequest();
                         if (template != null) {
@@ -41,7 +41,7 @@ namespace UbytkacBackend.Controllers {
                                 Content = "Your Registration Verify Code is: " + verifyCode + Environment.NewLine
                             };
                         }
-                        string result = ServerCoreFunctions.SendEmail(mailRequest);
+                        string result = CoreOperations.SendEmail(mailRequest);
 
                         return Ok(JsonSerializer.Serialize(
                         new DBResultMessage() {
@@ -50,17 +50,17 @@ namespace UbytkacBackend.Controllers {
                         })); } else {
                         return BadRequest(JsonSerializer.Serialize(new DBResultMessage() {
                             Status = DBResult.error.ToString(),
-                            ErrorMessage = ServerCoreDbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
+                            ErrorMessage = DbOperations.DBTranslate(DBWebApiResponses.emailExist.ToString(), record.Language)
                         })); }
                 }
                 else { return BadRequest(new DBResultMessage() {
                     Status = DBResult.error.ToString(),
-                    ErrorMessage = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
+                    ErrorMessage = DbOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
                 }); }
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("EmailAddressIsNotValid", record.Language)
             });
         }
 
@@ -160,7 +160,7 @@ namespace UbytkacBackend.Controllers {
                         Content = "Reservation for " + record.Booking.User.Email + Environment.NewLine + " was success "
                     };
                 }
-                ServerCoreFunctions.SendEmail(mailRequest1);
+                CoreOperations.SendEmail(mailRequest1);
 
 
                 return Ok(JsonSerializer.Serialize(
@@ -172,7 +172,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
 
@@ -186,7 +186,7 @@ namespace UbytkacBackend.Controllers {
 
                 GuestList checkExistDisabledGuest = new hotelsContext().GuestLists.Where(a => a.Email == record.Booking.User.Email).FirstOrDefault();
 
-                string password = Functions.RandomString(10);
+                string password = DataOperations.RandomString(10);
                 GuestList newGuest = new GuestList() {
                     Email = record.Booking.User.Email, Password = BCrypt.Net.BCrypt.HashPassword(password),
                     FirstName = record.Booking.User.FirstName, LastName = record.Booking.User.LastName,
@@ -228,7 +228,7 @@ namespace UbytkacBackend.Controllers {
                             Content = "Registration for " + record.Booking.User.Email + Environment.NewLine + " with password " + password
                         };
                     }
-                    ServerCoreFunctions.SendEmail(mailRequest);
+                    CoreOperations.SendEmail(mailRequest);
 
                 } else { /* Error save New Guest */}
 
@@ -323,7 +323,7 @@ namespace UbytkacBackend.Controllers {
                         Content = "Reservation for " + record.Booking.User.Email + Environment.NewLine + " was success "
                     };
                 }
-                ServerCoreFunctions.SendEmail(mailRequest1);
+                CoreOperations.SendEmail(mailRequest1);
 
                 return Ok(JsonSerializer.Serialize(
                 new DBResultMessage() {
@@ -334,7 +334,7 @@ namespace UbytkacBackend.Controllers {
             } catch { }
             return BadRequest(new DBResultMessage() {
                 Status = DBResult.error.ToString(),
-                ErrorMessage = ServerCoreDbOperations.DBTranslate("BookingIsNotValid", record.Language)
+                ErrorMessage = DbOperations.DBTranslate("BookingIsNotValid", record.Language)
             });
         }
     }

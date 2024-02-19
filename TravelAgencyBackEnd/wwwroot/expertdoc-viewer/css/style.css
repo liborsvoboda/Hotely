@@ -1,0 +1,112 @@
+.skiptranslate { /* display:none !important; */
+	/*  zoom: 1.2; */
+}
+
+.audio-player {
+	zoom: 0.7;
+	background-color: transparent !important;
+}
+
+#\:1\.container {
+	visibility: hidden !important;
+}
+
+body {
+	top: 0px !important;
+}
+
+.notify-container {
+	z-index: 10000000 !important;
+}
+
+.supertop {
+	z-index: 10000000 !important;
+}
+
+pre.mermaid {
+	font-family: 'trebuchet ms', verdana, arial;
+}
+
+.mavonEditor {
+	width: 100%;
+	height: 100%;
+}
+
+.editor-dark {
+	background: linear-gradient(#3c3c3c,transparent 70%) !important;
+}
+
+/* .editor-light {
+	background: linear-gradient(#ffffff,transparent 70%) !important;
+} */
+
+.content-input-wrapper {
+	background: transparent !important;
+}
+
+.v-note-wrapper {
+	background: transparent !important;
+	box-shadow: rgba(0, 0, 0, 0.0) 0px 2px 12px 0px !important;
+}
+
+.v-note-edit {
+	flex: 0 0 250px !important;
+}
+
+.content-input-wrapper {
+	background: transparent !important;
+}
+
+.auto-textarea-wrapper {
+	background: transparent !important;
+}
+
+.auto-textarea-input {
+	background: transparent !important;
+}
+
+.v-show-content {
+	background: transparent !important;
+}
+
+.v-show-content-html {
+	background: transparent !important;
+}
+
+.v-note-op {
+	background: transparent !important;
+	position: fixed;
+	position: fixed !important;
+	height: 30px;
+}
+
+.v-note-panel {
+	top: 0px;
+}
+
+.v-note-show {
+	padding-top: 10px !important;
+	top: 30px;
+}
+
+
+.editor-light {
+/* 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh !important; */
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}

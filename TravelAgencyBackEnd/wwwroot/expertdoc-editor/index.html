@@ -1,0 +1,520 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+	<title>Doc Expert Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="charset" content="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Libor Svoboda">
+    <meta name="description" content="Documentation MultiMedia Expert Manager">
+    <meta name="keywords" content="Documentation, DocumentFlow, MarkDown, Graph, Structure, Version, MindMap, Uml">
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+	
+    <!-- <link id="color-scheme" href="./css/schemes/sky-net.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/default.min.css" />
+	<link rel="stylesheet" href="./mavon/css/index.css" />
+	<link rel="stylesheet" href="./mavon/markdown/github-markdown.min.css" />
+	<link rel="stylesheet" href="./mavon/katex/katex.min.css" />
+	<link rel="stylesheet" href="./css/metro-all.min.css" />
+	
+	<script>
+		const ColorStyles = ["agate","androidstudio","arduino-light","arta","ascetic","atom-one-dark","atom-one-light","brown-paper","codepen-embed","color-brewer","dark","default","docco","far","foundation","github","googlecode","grayscale","hybrid","idea","ir-black","magula","mono-blue","monokai-sublime","monokai","obsidian","paraiso-dark","paraiso-light","pojoaque","purebasic","rainbow","routeros","school-book","sunburst","tomorrow-night-blue","tomorrow-night-bright","vs","vs2015","xcode","xt256","a11y-dark","a11y-light","an-old-hope","atom-one-dark-reasonable","brown-pap","devibeans","github-dark","github-dark-dimmed","gml","gradient-dark","gradient-light","isbl-editor-dark","isbl-editor-light","kimbie-dark","kimbie-light","lightfair","lioshi","night-owl","nnfx-dark","nnfx-light","nord","pojo","qtcreator-dark","qtcreator-light","shades-of-purple","srcery","stackoverflow-dark","stackoverflow-light"];
+	</script>
+  </head>
+
+<body id="body" class="editor-light">
+	<div id="app">
+
+		<div id="toolPanel" data-role="bottom-sheet" class="bottom-sheet op-lightAmber-low pos-fixed list-list grid-style opened" style="top: 0px; left: 90%;z-index:100000;min-width: 410px">
+			<nav data-role="ribbonmenu" data-on-tab="ConfigMenuChange">
+				<ul class="tabs-holder">
+					<li id="configMain" class="bg-facebook"><a href="#main">Main</a></li>
+					<li id="configModes"><a href="#modesconfiguration">Modes</a></li>
+					<li id="configSystem"><a href="#systemconfiguration">System</a></li>
+					<li id="configTool"><a href="#specialtools">Special Tools</a></li>
+
+				</ul>
+
+				<div class="content-holder">
+					<div class="section" id="main">
+						<div class="panel d-block">
+							<div class="w-100 d-flex text-left c-help" title="Its Automatically applied - No Reload Needed">
+								RealTime Configuration 
+							</div>
+							<div class="w-100 text-left c-help" title="Play music for Comfortable Work">
+								<audio id="radio" class="light bg-transparent" data-role="audio-player" :data-src="AudioFileUrl" data-volume=".5"></audio>
+							</div>
+							<div class="w-100 text-left c-help" title="Automatic Translation">
+								<div id="google_translate_element"></div>
+							</div>
+							<div class="w-100 d-flex text-left">
+								<div id="LanguageMenuRoot" class="w-100 text-left c-help" title="Selected Languages for Multiple Export">
+									<select id="LanguageMenu" data-role="select" data-filter="true" multiple></select>
+								</div>
+							</div>
+							<div class="w-100 d-flex text-left c-help" title="Enable disable Multiple Export">
+								<div class="w-100 text-left">
+									<input id="AutoTranslateSelected" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" data-caption-position="right" data-caption="Automatic Export All Selected Languages">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section" id="modesconfiguration">
+						<div class="panel form-group w-100">
+							<div class="w-100 d-flex text-left" title="Editor Mode Configuration">
+								Editor Mode Configuration
+							</div>
+							<div class="w-100 d-flex text-left c-help" title="Markdown Url for [Editor] Mode">
+								<input id="configUrlMdFile" type="text" data-role="input" data-prepend="<span class='mif-link'>" data-clear-button="true">
+							</div>
+							<div class="w-100 d-flex text-left" title="Files Editor Mode Configuration">
+								Files Editor Mode Configuration
+							</div>
+							<div class="w-100 d-flex text-left c-help" title="File List of [data] folder files for 'Files Editor' Mode [example: test.md next.md]">
+								<input id="configFiles" type="text" data-role="taginput">
+							</div>
+							<div class="w-100 d-flex text-left" title="Api Docs Manager Mode Configuration">
+								Api Docs Manager Mode Configuration
+							</div>
+							<div class="w-100 d-flex text-left">
+								<div class="w-50 text-left" title="Basic Authentication username [default:tester]">
+									<input id="basicAuthLoginName" type="text" data-role="input" data-prepend="<span class='mif-user'>" data-clear-button="true">
+								</div>
+								<div class="w-50 text-right" title="Basic Authentication password [default:tester]">
+									<input id="basicAuthLoginPassword" type="password" data-role="input" data-prepend="<span class='mif-key'>" data-clear-button="true">
+								</div>
+							</div>
+							<div class="w-100 d-flex text-left c-help" title="Api Server Address [default:http://127.0.0.1:5000]">
+								<input id="serverApiAddress" type="text" data-role="input" data-prepend="<span class='mif-link'>" data-clear-button="true">
+								<button class="image-button bg-cyan" @click="ApiLogin(true)">
+									<span class="mif-cast-connected icon"></span>
+									<span class="caption fg-white">Login Test</span>
+								</button>
+							</div>
+							<div class="w-100 d-flex text-left">
+								<div class="w-50 text-left" title="Managed Documentations GroupId Set ">
+									<input type="text" id="configApiGroupId" data-min-value="1" 
+										   data-role="spinner" data-cls-spinner-button="fg-white" data-cls-spinner-button-plus="bg-cyan" data-cls-spinner-button-minus="bg-cyan"
+										   data-cls-spinner-input="bg-light fg-cyan text-bold" data-plus-icon="<span class='mif-arrow-up'></span>" data-minus-icon="<span class='mif-arrow-down'></span>">
+								</div>
+								<div class="w-50 text-right" title="Basic Authentication password [default:tester]">
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div class="section" id="systemconfiguration">
+						<div class="panel form-group w-100">							
+							<div class="w-100 d-flex text-left c-help" title="Default Template filename [config] folder for New">
+								<input id="configDefaultTemplate" type="text" data-role="input" data-prepend="<span class='mif-insert-template'>" data-clear-button="true">
+							</div>
+							<div class="w-100 d-flex text-left">
+								<div class="w-50 text-left" title="Auto Convert for Show Graphics With Exporting proccess">
+									<input id="configMermaidConvertOnExport" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" data-caption-position="right" data-caption="Auto Mermaid Convert on Export">
+								</div>
+								<div class="w-50 text-right" title="Auto Export file with Saving proccess">
+									<input id="configExportFileOnSaving" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" data-caption-position="left" data-caption="Auto Export Md on Save">
+								</div>
+							</div>
+							<div class="w-100 d-flex text-left">
+								<div class="w-50 text-left" title="Time Setting for Shown System messages">
+									<input type="text" id="configSystemMessageShowTime" data-min-value="3" data-max-value="30"
+										   data-role="spinner" data-cls-spinner-button="fg-white" data-cls-spinner-button-plus="bg-cyan" data-cls-spinner-button-minus="bg-cyan"
+										   data-cls-spinner-input="bg-light fg-cyan text-bold" data-plus-icon="<span class='mif-arrow-up'></span>" data-minus-icon="<span class='mif-arrow-down'></span>"
+									>
+								</div>
+								<div class="w-50 text-right" title="Time Setting for System Preparing Multipple Exports in Selected Languages">
+									<input type="text" id="configWaitingTimeInterval" data-min-value="10" data-max-value="60"
+										   data-role="spinner" data-cls-spinner-button="fg-white" data-cls-spinner-button-plus="bg-cyan" data-cls-spinner-button-minus="bg-cyan"
+										   data-cls-spinner-input="bg-light fg-cyan text-bold" data-plus-icon="<span class='mif-arrow-up'></span>" data-minus-icon="<span class='mif-arrow-down'></span>"
+									>
+								</div>
+							</div>
+							<div class="w-100 d-flex text-left" >
+								<div id="configSelectedLanguagesRoot" class="w-100 text-left c-help" title="Predefine Languages for Multiple Export">
+									<select id="configSelectedLanguages" data-role="select" data-filter="true" multiple></select>
+								</div>
+							</div>
+							<div class="w-100 d-flex text-left" >
+								<div id="configReturnToLanguageRoot" class="w-100 text-left c-help" title="Define Returned Language after Multiple Export">
+									<select id="configReturnToLanguage" data-role="select" data-filter="true"></select>
+								</div>
+							</div>
+							<div class="w-100 d-flex text-left">
+								<div class="w-50 text-left" title="Enable Creating New Docs And insert to Memory Files. In Api Manager Mode Automatic Insert To Docs">
+									<input id="configEnableCreateNewDoc" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" data-caption-position="right" data-caption="Enable Create New Doc">
+								</div>
+								<div class="w-50 text-right" title="Enable Automatic Multi Translation by Selected Languages on Startup">
+									<input id="configAutoMultiTranslateEnabled" type="checkbox" data-role="checkbox" data-cls-caption="fg-cyan text-bold" data-caption-position="right" data-caption="Enable Auto Multi Translation">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="section" id="specialtools">
+						<div class="panel w-100">
+							<div class="w-100 d-flex text-left c-help" title="Default Template filename [config] folder for New">
+								<div id="SummaryGenerator" class="w-50 text-left" title="Generate [Summary.md] file for Generating Fulltext Search Static Web Of Documentation Files Its Possible on Project Pages">
+									<button class="image-button bg-cyan" @click="ExportSummaryFile()">
+										<span class="mif-download2 icon"></span>
+										<span class="caption fg-white">Export Summary</span>
+									</button>
+								</div>
+								<div class="w-50 text-right" title="Generate Fulltext Search MDBook Static WebPages">
+									<button id="mdbookGenerator" class="image-button bg-cyan" @click="GenerateMdBook()">
+										<span class="mif-download2 icon"></span>
+										<span class="caption fg-white">Generate MdBook</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div id="configButtons" class="w-100 d-flex pt-3 text-left" style="display: none !important;">
+				<div class="w-50 text-left" title="System apply Changes, but [config.js] is not updated. With Reload Page All changes will be forgoten.">
+					<button class="image-button bg-cyan" @click="ConfigApplySettings()">
+						<span class="mif-play icon"></span>
+						<span class="caption fg-white">Apply Configuration</span>
+					</button>
+				</div>
+				<div class="w-50 text-left" title="Export new [config.js] Manually replace file in [config] folder ">
+					<button class="image-button bg-cyan" @click="ExportConfiguration()">
+						<span class="mif-download icon"></span>
+						<span class="caption fg-white">Export Configuration</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+	<!-- {{ message }} -->
+		<mavon-editor id="Mavon"
+			:autofocus="true"
+			:scrollStyle="true"
+			:shortCut="true"
+            :transition="true"
+			:toolbarsFlag="true"
+			:editable="true"
+			:subfield = "subfield"
+			:codeStyle="codeStyle"
+			:boxShadow="false"
+			:ishljs="true" 
+			:toolbars="toolbar" 
+			v-model="DocContent" 
+			:externalLink="externalLink"
+			ref=md @imgAdd="$imgAdd" @imgDel="$imgDel"
+			:navigation="false"
+			:xssOptions="xssOptions"
+			@change="change" @save="saveone"
+			class="item-editor"
+			style="min-height: 100%;"
+			>
+			<template slot="left-toolbar-before">
+
+				<span id="NewMemFileMenu" type="button" class="op-icon mif-plus mif-2x p-0 pt-2 m-0 c-pointer" @click="Metro.infobox.open('#NewFilePanel');" title="New Memory Document"></span>
+				<span id="FileMenuRoot" class="m-0 p-0 button" style="width:300px;zoom:0.7;display:none;">
+					<select id="FileMenu" data-role="select" data-filter="false" data-on-change='FileMenuChange' data-add-empty-value="true">
+					</select>
+				</span>
+
+                <!-- 
+				<select v-model="codeStyle">
+                  <option v-for="(val, key) in ColorStyles" :value="key">{{ val }}</option>
+                </select> 
+				<div type="button" class="op-icon mif-cast mif-2x p-2 m-0 c-pointer mif-3" @click="clearCache" title="Clear Cache"></div>
+				-->
+            </template>
+			<template slot="left-toolbar-after">
+				<div type="button" class="op-icon mif-delicious mif-2x p-2 m-0 c-pointer mif-3" @click="MermaidConvert" title="Convert Mermaid Object to Graphics"></div>
+				<div type="button" class="p-0 m-0 button c-help" style="width:280px; background-color:rgb(138 163 226 / 43%);">
+					<span id="InfoEditorMode" type="button" class="mif-finder mif-2x pr-2  p-0 m-0 c-help ani-heartbeat" style="display:none;" title="Editor Mode"></span>
+					<span id="InfoFilesManagerMode" type="button" class="mif-list mif-2x pr-2  p-0 m-0 c-help ani-heartbeat" style="display:none;" title="Files Editor Mode"></span>
+					<span id="InfoApiManagerMode" type="button" class="mif-leanpub mif-2x pr-2  p-0 m-0 c-help ani-heartbeat" style="display:none;" title="Documentation ManagerMode "></span>
+
+					<div id="MemoryDocFilesCounter" type="button" class="p-0 m-0 c-default">Files Loaded in Memory: 0 </div>
+					<div id="ReloadFilesMenu" type="button" class="mif-spinner4 mif-2x p-2 m-0 c-pointer mif-3  ani-hover-pulse" @click="ReloadFiles" title="Reload Files"></div>
+				</div>
+		  </template>
+		  <template slot="right-toolbar-before">
+			  <span class="d-inline">
+					<span class="button mif-delicious mif-2x pt-1 p-0 m-0" @click="ShowToolPanel()"></span>
+					<span class="m-0 button" style="width:230px;zoom:0.7;" title="Export & Multiple Export Md,Html,Pdf Files">
+						<select id="OutputMenu" data-role="select" data-filter="false" data-on-change='OutputAction' data-add-empty-value="true">
+							<option value="html" data-template="<span class='mif-document-file-html pt-1 icon'></span> $1">Html Export</option>
+							<option value="md" data-template="<span class='mif-leanpub pt-1 icon'></span> $1">Md Export</option>
+							<option value="pdf" data-template="<span class='mif-document-file-pdf pt-1 icon'></span> $1">Pdf Export</option>
+						</select>
+					</span>
+
+					<span class="m-0 button" style="width:250px;zoom:0.7;" title="Fast Developer & User Help">
+						<select id="HelpMenu" data-role="select" data-filter="false" data-on-change='ShowHelps' data-add-empty-value="true">
+							<option value="basics" data-template="<span class='mif-info pt-1 icon'></span> $1">Basic Objects</option>
+							<option value="advanced" data-template="<span class='mif-info pt-1 icon'></span> $1">Advanced Help</option>
+							<option value="mermaid" data-template="<span class='mif-info pt-1 icon'></span> $1">MerMaid Help</option>
+							<option value="modules" data-template="<span class='mif-html5 pt-1 icon'></span> $1">Modules Pages</option>
+							<option value="codes" data-template="<span class='mif-leanpub pt-1 icon'></span> $1">Codes List</option>
+							<option value="project" data-template="<span class='mif-leanpub pt-1 icon'></span> $1">Project Pages</option>
+						</select>
+					</span>
+
+					<span type="button" class="op-icon mif-finder mif-2x p-0 pt-2 m-0 c-pointer " @click="ChangeScheme" title="Change Theme"></span>
+				</span>
+			</template>
+		</mavon-editor>
+
+		<!-- Start InfoPanels -->
+		 <div id="ThirdPartyAddOns" class="info-box" data-role="infobox" data-type="info" data-width="1000" style="z-index:1000000;visibility:hidden;">
+			<span class="button square closer"></span>
+			<p class="h3 ml-5">Extended Third Party AddOns Posibilities Helps </p>
+			<div class="info-box-content">
+				<a href='https://github.com/hinesboy/mavonEditor/blob/HEAD/README-EN.md' target='_blank'>Mavon Editor Posibilities WebPages with help for implement All Extension of MarkdownIt </a><br />
+				<a href='https://mermaid.js.org/config/usage.html' target='_blank'>Mermaid Design Using with Examples Graphs, Umls, Scenarios, Plansing, Structure & more</a><br />
+			</div>
+		</div>
+
+		 <div id="ProgramLanguages" class="info-box d-flex m-3" data-role="infobox" data-type="info" data-width="1000" style="z-index:1000000;visibility:hidden;">
+			<span class="button square closer"></span>
+			<p class="h3 ml-5">Program Language List for Highlighting </p>
+			<div id="ProgramList" class="info-box-content" style="overflow-wrap: anywhere;"></div>
+		</div>
+
+		<div id="UniversalPanel" class="info-box" data-role="infobox" data-type="info" data-width="1000" style="z-index:1000000;visibility:hidden;overflow: auto;">
+			<span class="button square closer"></span>
+			<p class="h3 ml-5"><span id="UpanelTitle"></span></p>
+			<div class="info-box-content" style="overflow-wrap: anywhere;max-height:600px;"><span id="UpanelContent"></span></div>
+		</div>
+
+		<div id="NewFilePanel" class="info-box" data-role="infobox" data-type="info" data-width="600" style="height:600px;z-index:1000000;visibility:hidden;overflow: auto;">
+			<span class="button square closer"></span>
+			<p class="h3 ml-5"><span id="">Create New Memory Document</span></p>
+			<div class="info-box-content" style="overflow-wrap: anywhere;max-height:600px;">
+				<div>You can create New document in Memory.</div>
+				<div> IN Server Mode is automatically saved.</div>
+				<div>In Files Editor mode you must do 3 steps:
+					<ul class="m0 p-0" style="font-size:12px">
+						<li>Export All memory files</li>
+						<li>save to [data] directory</li>
+						<li>Update configuration</li>
+					</ul>
+				<p></p>
+				<div class="form-group">
+					<input id="NewFilename" type="text" data-role="input" data-prepend="<span class='mif-new-tab'>" data-clear-button="true" placeholder="Enter new filename">
+					<div class="w-100 d-flex text-left">
+						<div class="w-50 text-left" title="Enable Creating New Docs And insert to Memory Files. In Api Manager Mode you can Save to Server.">
+							<input id="CopyDocumentTemplate" type="checkbox" data-role="checkbox" data-cls-caption="fg-white" data-caption-position="right" data-caption="Use Document Template">
+						</div>
+						<div class="w-50 text-right" title="Enable Automatic Multi Translation by Selected Languages on Startup">
+							Clone from
+							<span id="CopyFileMenuRoot" class="m-0 p-0 button" style="width:230px;zoom:0.8;" title="Select for Clone Existing">
+								<select id="CopyFileMenu" data-role="select" data-filter="true" data-add-empty-value="true"></select>
+							</span>
+						</div>
+					</div>
+
+					<div class="pt-3">
+						<button class="image-button bg-cyan" @click="NewFileAddToList()">
+							<span class="mif-insert-template icon"></span>
+							<span class="caption fg-white">Insert New Document</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--
+		<div id="StartingPanel" class="info-box" data-role="infobox" data-type="info" data-width="1000" style="z-index:1000000;overflow: auto;visibility:visible;">
+			<span class="button square closer"></span>
+			<p class="h3 ml-5"><span>Documentation Expert Manager</span></p>
+			<div id="startupProcess" class="info-box-content" style="overflow-wrap: anywhere;max-height:600px;"></div>
+		</div> 
+		-->
+		<!-- End InfoPanels -->
+		
+	</div>
+
+<script src="./config/config.js"></script>
+<script src="./mavon/jquery-3.6.0.min.js"></script>
+<script src="./js/vue2.global.js"></script>
+<script src="./js/axios.min.js"></script>
+<script src="./js/highlight.min.js"></script>
+<script src="./js/vue3-highlight.min.js"></script>
+<script src="./js/markdown-it.min.js"></script>
+<script src="./mavon/highlightjs/highlight.min.js"></script>
+<script src="./mavon/mavon-editor.js"></script>
+<script src="./mavon/katex/katex.min.js"></script>
+<script src="./mavon/mermaid/mermaid.min.cdn.js"></script>
+<script src="./js/metro.min.4.5.2.js"></script>
+<script src="./js/jspdf.umd.min.js"></script>
+<script src="./js/html2canvas.min.js"></script>
+
+<script src="./js/globalVariables.js"></script>
+<script src="./js/globalFunctions.js"></script>
+
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+//Startup Running
+jsPDF = jspdf.jsPDF;
+showPageLoading();
+
+//initiate graphs on Startup
+$(document).ready(async function () {
+	PrintArea = $("#Mavon > div.v-note-panel > div.v-note-show > div.v-show-content.scroll-style.scroll-style-border-radius");
+	mermaid.init({ }, "lang-mermaid");
+	await mermaid.run({
+		nodes: document.querySelectorAll('.lang-mermaid'),
+	});
+	hidePageLoading();
+});
+
+
+// Vue Part
+Vue.use(MavonEditor);
+MavonEditor.markdownIt = markdownit();
+let markdownItPlugin = MavonEditor.mavonEditor.getMarkdownIt();
+markdownItPlugin.set({html: true, linkify: true, typographer: true, breaks: false, xhtmlOut: true });markdownItPlugin.linkify.set({ fuzzyEmail: false });
+
+
+
+Vue.use(Vue3Highlightjs);
+Vue.use(mermaid);
+var app = new Vue({el: '#app',
+	data() {
+	  return { 
+		subfield: true,
+		codeStyle: 'github-dark',
+		xssOptions:{ whiteList: { span: ['style'] } },
+		toolbar: {
+			bold: true, italic: true, header: true, underline: true, strikethrough: true, mark: true,
+			superscript: false, subscript: false, quote: true, ol: true, ul: true, link: true, imagelink: true,
+			code: true, table: true, fullscreen: false, readmodel: true, htmlcode: true, help: false,
+			undo: true, redo: true, trash: false, save: true , navigation: false,
+			alignleft: false, aligncenter: true, alignright: false, subfield: true, preview: true,toolbarsFlag: true,defaultOpen: "edit"
+		},
+		externalLink: {
+			markdown_css: function() { return './mavon/markdown/github-markdown.min.css'; },
+			hljs_js: function() { return './mavon/highlightjs/highlight.min.js'; },
+			hljs_css: function(css) { console.log("hljs_css",css); return './mavon/highlightjs/styles/' + css + '.min.css'; },
+			hljs_lang: function(lang) { return './mavon/highlightjs/languages/' + lang + '.min.js'; },
+			katex_css: function() { return './mavon/katex/katex.min.css'; },
+			katex_js: function() { return './mavon/katex/katex.min.js'; },
+		}
+	  }
+	},
+	async mounted() {
+
+		let logged = null;
+		if (ConfigApiServer.ServerApiAddress != null && ConfigApiServer.ServerApiAddress.length > 0) {
+			showPageLoading();
+			logged = await ApiLogin();
+		} else { logged = false; }
+
+		if (!logged) { await startupLoading(); }
+
+	},
+	methods: {
+		$imgAdd(pos, $file){
+			this.img_file[pos] = $file;
+		},
+		$imgDel(pos){
+			delete this.img_file[pos];
+		},
+		uploadimg($e){
+			var formdata = new FormData();
+			for(var _img in this.img_file){
+				formdata.append(_img, this.img_file[_img]);
+			}
+			axios({
+				url: 'server url',
+				method: 'post',
+				data: formdata,
+				headers: { 'Content-Type': 'multipart/form-data' },
+			}).then((res) => {
+				for (var img of res) {
+					$vm.$img2Url(img[0], img[1]);
+				}
+			})
+		},
+		clearCache() {
+			this.$refs.md.$emptyHistory();
+		},
+		async saveone (val, render) {
+			if (ManagerMode == "filesEditor") {
+				DocFiles.forEach(async file => {
+					if (file.filename == $("#FileMenu")[0].selectedOptions[0].text) {
+						file.content = $("#Mavon")[0].__vue__.d_value;
+
+						var notify = Metro.notify; notify.setup({ width: 300, duration: ConfigSystemMessageShowTime * 1000, animation: 'easeOutBounce' });
+						notify.create("SuccesFully Saved to memory.Not Forgot Export File and Manually replace Source", "Info", { cls: "supertop" }); notify.reset();
+						if (ConfigExportFileOnSaving) {
+							notify.create("SuccesFully Saved and Exported. Not Forgor Replace source file by Downloaded File", "Info", { cls: "supertop" }); notify.reset();
+							await OutputAction(['md']);
+						} else { notify.create("SuccesFully Saved to memory.Not Forgot Export File and Manually replace Source", "Info", { cls: "supertop" }); notify.reset(); }
+					}
+				});
+			} else if (ManagerMode == "apiManager") {
+				showPageLoading();
+				DocFiles.forEach(async file => {
+					
+					if (file.filename == $("#FileMenu")[0].selectedOptions[0].text) {
+						file.content = $("#Mavon")[0].__vue__.d_value;
+
+						var def = $.ajax({
+							global: false, type: "POST", url: "/GLOBALNETDocSrvDocumentationList/ByGroup", dataType: 'json',
+							contentType: 'application/json',
+							headers: { "Authorization": 'Bearer ' + Metro.storage.getItem('ApiToken', null) },
+							data: JSON.stringify({ DocumentationGroupId: file.groupId, Name: file.filename, Description: file.content})
+						}).fail(function (data) {
+							var notify = Metro.notify; notify.setup({ width: 300, duration: 1000, animation: 'easeOutBounce' });
+							notify.create("Failed Save Api Documenation List", "Alert", { cls: "alert" }); notify.reset();
+							hidePageLoading();
+						}).done(function (data) {
+							hidePageLoading();
+							if (data.length > 0) {
+								data.forEach(doc => {
+									DocFiles = [];
+									DocFiles.push({
+										groupId: doc.DocumentationGroupId,
+										filename: doc.Name, content: (doc.Description == null) ? "" : doc.Description,
+										version: doc.AutoVersion, lastUpdate: new Date(doc.TimeStamp).toLocaleString()
+									});
+								});
+								UpdateFileMenu();
+							}
+						});
+
+						var notify = Metro.notify; notify.setup({ width: 300, duration: ConfigSystemMessageShowTime * 1000, animation: 'easeOutBounce' });
+						notify.create("SuccesFully Saved and Updated All", "Info", { cls: "supertop" }); notify.reset();
+						if (ConfigExportFileOnSaving) {
+							await OutputAction(['md']);
+						}
+					}
+				});
+
+			}
+
+			DocContentChanged = false;
+			document.querySelector("#Mavon > div.v-note-op > div.v-left-item.transition > button.op-icon.fa.fa-mavon-floppy-o").style.backgroundColor = "transparent";
+		},
+		async change (val, render) {
+			DocContentChanged = true;
+			document.querySelector("#Mavon > div.v-note-op > div.v-left-item.transition > button.op-icon.fa.fa-mavon-floppy-o").style.backgroundColor= "#e69898";
+			await ToMermaid();
+		},
+	},
+	async created(){
+		
+	}
+});
+
+
+
+</script>
+	
+<style scoped>
+</style>
+  </body>
+</html>

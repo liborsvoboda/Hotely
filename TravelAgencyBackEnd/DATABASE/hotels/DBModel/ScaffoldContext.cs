@@ -16,7 +16,6 @@ namespace UbytkacBackend.DBModel
         {
         }
 
-        public virtual DbSet<AccessRoleList> AccessRoleLists { get; set; }
         public virtual DbSet<AddressList> AddressLists { get; set; }
         public virtual DbSet<AdminLoginHistoryList> AdminLoginHistoryLists { get; set; }
         public virtual DbSet<BranchList> BranchLists { get; set; }
@@ -28,6 +27,7 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<CountryList> CountryLists { get; set; }
         public virtual DbSet<CreditPackageList> CreditPackageLists { get; set; }
         public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
+        public virtual DbSet<DocSrvDocTemplateList> DocSrvDocTemplateLists { get; set; }
         public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
         public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
         public virtual DbSet<DocumentationCodeLibraryList> DocumentationCodeLibraryLists { get; set; }
@@ -59,7 +59,6 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<IgnoredExceptionList> IgnoredExceptionLists { get; set; }
         public virtual DbSet<InterestAreaCityList> InterestAreaCityLists { get; set; }
         public virtual DbSet<InterestAreaList> InterestAreaLists { get; set; }
-        public virtual DbSet<LanguageList> LanguageLists { get; set; }
         public virtual DbSet<MessageModuleList> MessageModuleLists { get; set; }
         public virtual DbSet<MessageTypeList> MessageTypeLists { get; set; }
         public virtual DbSet<MottoList> MottoLists { get; set; }
@@ -70,11 +69,26 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
         public virtual DbSet<PropertyOrServiceUnitList> PropertyOrServiceUnitLists { get; set; }
         public virtual DbSet<RegistrationInfoList> RegistrationInfoLists { get; set; }
-        public virtual DbSet<ReportList> ReportLists { get; set; }
-        public virtual DbSet<ReportQueueList> ReportQueueLists { get; set; }
+        public virtual DbSet<ServerBrowsablePathList> ServerBrowsablePathLists { get; set; }
+        public virtual DbSet<ServerCorsDefAllowedOriginList> ServerCorsDefAllowedOriginLists { get; set; }
+        public virtual DbSet<ServerHealthCheckTaskList> ServerHealthCheckTaskLists { get; set; }
+        public virtual DbSet<ServerLiveDataMonitorList> ServerLiveDataMonitorLists { get; set; }
+        public virtual DbSet<ServerModuleAndServiceList> ServerModuleAndServiceLists { get; set; }
+        public virtual DbSet<ServerSettingList> ServerSettingLists { get; set; }
+        public virtual DbSet<SolutionMixedEnumList> SolutionMixedEnumLists { get; set; }
+        public virtual DbSet<SolutionOperationList> SolutionOperationLists { get; set; }
+        public virtual DbSet<SolutionSchedulerList> SolutionSchedulerLists { get; set; }
+        public virtual DbSet<SolutionSchedulerProcessList> SolutionSchedulerProcessLists { get; set; }
         public virtual DbSet<SvgIconList> SvgIconLists { get; set; }
+        public virtual DbSet<SystemCustomPageList> SystemCustomPageLists { get; set; }
         public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
+        public virtual DbSet<SystemGroupMenuList> SystemGroupMenuLists { get; set; }
         public virtual DbSet<SystemLanguageList> SystemLanguageLists { get; set; }
+        public virtual DbSet<SystemMenuList> SystemMenuLists { get; set; }
+        public virtual DbSet<SystemModuleList> SystemModuleLists { get; set; }
+        public virtual DbSet<SystemReportList> SystemReportLists { get; set; }
+        public virtual DbSet<SystemReportQueueList> SystemReportQueueLists { get; set; }
+        public virtual DbSet<SystemTranslationList> SystemTranslationLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
         public virtual DbSet<TermsList> TermsLists { get; set; }
         public virtual DbSet<ToolPanelDefinitionList> ToolPanelDefinitionLists { get; set; }
@@ -88,19 +102,6 @@ namespace UbytkacBackend.DBModel
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("Czech_CI_AS");
-
-            modelBuilder.Entity<AccessRoleList>(entity =>
-            {
-                entity.Property(e => e.AccessRole).HasDefaultValueSql("('Admin,')");
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AccessRoleLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AccessRuleList_UserList");
-            });
 
             modelBuilder.Entity<AddressList>(entity =>
             {
@@ -254,6 +255,23 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CurrencyList_UserList");
+            });
+
+            modelBuilder.Entity<DocSrvDocTemplateList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.DocSrvDocTemplateLists)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocSrvDocTemplateList_DocSrvDocumentationGroupList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.DocSrvDocTemplateLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocSrvDocTemplateList_UserList");
             });
 
             modelBuilder.Entity<DocumentAdviceList>(entity =>
@@ -771,18 +789,6 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_InterestAreaList_UserList");
             });
 
-            modelBuilder.Entity<LanguageList>(entity =>
-            {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.UserId).HasDefaultValueSql("((0))");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.LanguageLists)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_LanguageList_UserList");
-            });
-
             modelBuilder.Entity<MessageModuleList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -925,28 +931,131 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_RegistrationInfoList_UserList");
             });
 
-            modelBuilder.Entity<ReportList>(entity =>
+            modelBuilder.Entity<ServerBrowsablePathList>(entity =>
             {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.ReportLists)
+                    .WithMany(p => p.ServerBrowsablePathLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ReportList_UserList");
+                    .HasConstraintName("FK_ServerBrowsablePathList_UserList");
             });
 
-            modelBuilder.Entity<ReportQueueList>(entity =>
+            modelBuilder.Entity<ServerCorsDefAllowedOriginList>(entity =>
             {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.ReportQueueLists)
+                    .WithMany(p => p.ServerCorsDefAllowedOriginLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ReportQueueList_UserList");
+                    .HasConstraintName("FK_ServerCorsDefAllowedOriginList_UserList");
+            });
+
+            modelBuilder.Entity<ServerHealthCheckTaskList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerHealthCheckTaskLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HealthCheckTaskList_UserList");
+            });
+
+            modelBuilder.Entity<ServerLiveDataMonitorList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerLiveDataMonitorLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerLiveDataMonitorList_UserList");
+            });
+
+            modelBuilder.Entity<ServerModuleAndServiceList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerModuleAndServiceLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerModuleAndServiceList_UserList");
+            });
+
+            modelBuilder.Entity<ServerSettingList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Type).HasDefaultValueSql("('bit')");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerSettingLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerSettingList_SolutionUserList");
+            });
+
+            modelBuilder.Entity<SolutionMixedEnumList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionMixedEnumLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GlobalMixedEnumList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionOperationList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionOperationLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SolutionOperationList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionSchedulerList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionSchedulerLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_GlobalAutoSchedulerList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionSchedulerProcessList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.ScheduledTask)
+                    .WithMany(p => p.SolutionSchedulerProcessLists)
+                    .HasForeignKey(d => d.ScheduledTaskId)
+                    .HasConstraintName("FK_SolutionSchedulerProcessList_SolutionSchedulerList");
             });
 
             modelBuilder.Entity<SvgIconList>(entity =>
@@ -960,6 +1069,19 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_SvgIconList_UserList");
             });
 
+            modelBuilder.Entity<SystemCustomPageList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemCustomPageLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SystemCustomPageList_UserList");
+            });
+
             modelBuilder.Entity<SystemFailList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -968,6 +1090,19 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.SystemFailLists)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_SystemFailList_UserList");
+            });
+
+            modelBuilder.Entity<SystemGroupMenuList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemGroupMenuLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SystemGroupMenuList_UserList");
             });
 
             modelBuilder.Entity<SystemLanguageList>(entity =>
@@ -979,6 +1114,66 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SystemLanguageList_UserList");
+            });
+
+            modelBuilder.Entity<SystemMenuList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.SystemMenuLists)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SystemMenuList_SystemGroupMenuList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemMenuLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SystemMenuList_UserList");
+            });
+
+            modelBuilder.Entity<SystemModuleList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemModuleLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SystemModuleList_UserList");
+            });
+
+            modelBuilder.Entity<SystemReportList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemReportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReportList_UserList");
+            });
+
+            modelBuilder.Entity<SystemReportQueueList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<SystemTranslationList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((0))");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemTranslationLists)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_SystemTranslationList_UserList");
             });
 
             modelBuilder.Entity<TemplateList>(entity =>

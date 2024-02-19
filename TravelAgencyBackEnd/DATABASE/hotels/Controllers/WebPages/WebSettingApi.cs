@@ -26,7 +26,7 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 
@@ -70,7 +70,7 @@ namespace UbytkacBackend.Controllers {
             } catch (Exception ex) {
                 return BadRequest(new DBResultMessage() {
                     Status = DBResult.error.ToString(),
-                    ErrorMessage = SystemFunctions.GetUserApiErrMessage(ex)
+                    ErrorMessage = SystemDataOperations.GetUserApiErrMessage(ex)
                 });
             }
         }

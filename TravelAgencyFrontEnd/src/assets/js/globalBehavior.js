@@ -1,6 +1,4 @@
-﻿//const { createApp, reactive } = Vue;
-
-// STARTUP Temp Variables Definitions
+﻿// STARTUP Temp Variables Definitions
 let pageLoader = null;
 let pageLoaderRunningCounter = 0;
 let partPageLoader = null;
@@ -46,7 +44,7 @@ function ChangeSchemeTo(n) {
 }
 
 
-//Hide Google Translate Panel
+//Hide Google Translate Browser Panel
 document.addEventListener('click', function () {
     try {
         if (document.querySelector("body > div:nth-child(1)").className == "skiptranslate") {
@@ -56,6 +54,7 @@ document.addEventListener('click', function () {
         }
     } catch {}
 });
+
 
 /*Start of Global Loading Indicator for All Pages*/
 function showPageLoading() {
@@ -71,6 +70,8 @@ function showPageLoading() {
     });
 }
 
+
+//Global Hide Loading Indicator
 function hidePageLoading() {
     pageLoaderRunningCounter--;
     if (pageLoaderRunningCounter <= 0) {
@@ -84,6 +85,7 @@ function hidePageLoading() {
     }
 
 }
+
 
 //Global Show PartLoading Indicator
 function showPartPageLoading() {
@@ -103,6 +105,7 @@ function showPartPageLoading() {
     });
 }
 
+
 //Global Hide PartLoading Indicator
 function hidePartPageLoading() {
     partPageLoaderRunningCounter--;
@@ -115,6 +118,7 @@ function hidePartPageLoading() {
         googleTranslateElementInit();
     }
 }
+
 
 //Global Implementation of Web Translation
 function googleTranslateElementInit() {
@@ -139,6 +143,7 @@ function googleTranslateElementInit() {
         } catch (err) { }
     });
 }
+
 
 //Global Cancel Translation to Default Webpage content
 function CancelTranslation() {
@@ -166,6 +171,7 @@ function CancelTranslation() {
 }
 
 
+//Apply WebPages Main Settings
 function ApplyLoadedWebSetting() {
     if (Metro.storage.getItem('InputBanner', null) != null && Metro.storage.getItem('InputBanner', null).length > 0 && $("#SearchPanel")[0] != undefined ) { $("#SearchPanel")[0].style.backgroundImage = 'url(' + Metro.storage.getItem('InputBanner', null) + ')'; }
     if (Metro.storage.getItem('BackgroundImageSetting', null) != null && Metro.storage.getItem('BackgroundImageSetting', null).length > 0) { $("#app")[0].style.backgroundImage = 'url("' + Metro.storage.getItem('BackgroundImageSetting', null) + '")'; }
@@ -190,10 +196,7 @@ function ApplyLoadedWebSetting() {
                 document.getElementsByClassName("YTPOverlay")[0].style.setProperty("background-color", Metro.storage.getItem('BackgroundColorSetting', null), "important");
             } catch { }
             $('.player').YTPPlay();
-            if (secondstart) {
-                console.log("secondstart");
-                setTimeout(function () { $('.player').YTPPlay(); }, 2000);
-            }
+            if (secondstart) { setTimeout(function () { $('.player').YTPPlay(); }, 2000); }
         }, 2000);
     }
 }

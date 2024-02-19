@@ -21,7 +21,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                 areaList = new hotelsContext().InterestAreaLists.ToList();
             }
-            areaList.ForEach(item => data.Add(ServerCoreDbOperations.DBTranslate(item.SystemName, language)));
+            areaList.ForEach(item => data.Add(DbOperations.DBTranslate(item.SystemName, language)));
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
@@ -120,8 +120,8 @@
 
                 data = _dbContext.HotelLists.Where(a => a.Approved == true && a.Advertised == true && !a.Deactivated).Select(a => a.Name).ToList();
             }
-            countryData.ForEach(item => data.Add(ServerCoreDbOperations.DBTranslate(item, language)));
-            cityData.ForEach(item => data.Add(ServerCoreDbOperations.DBTranslate(item, language)));
+            countryData.ForEach(item => data.Add(DbOperations.DBTranslate(item, language)));
+            cityData.ForEach(item => data.Add(DbOperations.DBTranslate(item, language)));
             data = data.Distinct().ToList();
             data.Sort();
             return data;
@@ -147,7 +147,7 @@
                 //Insert All hotel Id from Selected Area by AreaCityId
                 areaData.ForEach(area => {
                     List<int> cityIdList;
-                    if (ServerCoreDbOperations.DBTranslate(area.SystemName, language).ToLower() == searched.ToLower()) {
+                    if (DbOperations.DBTranslate(area.SystemName, language).ToLower() == searched.ToLower()) {
                         using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                             cityIdList = _dbContext.InterestAreaCityLists.Where(a => a.Iacid == area.Id).Select(a => a.CityId).ToList();
                             searchedIdList = _dbContext.HotelLists.Where(a => cityIdList.Contains(a.CityId) && !a.Deactivated).Select(a => a.Id).ToList();
@@ -170,8 +170,8 @@
                     data = _dbContext.HotelLists.Where(a => a.Approved == true && a.Advertised == true && !a.Deactivated).Select(a => new Tuple<int, string>(a.Id, a.Name)).ToList();
                 }
 
-                countryData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, ServerCoreDbOperations.DBTranslate(item.Item2, language))));
-                cityData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, ServerCoreDbOperations.DBTranslate(item.Item2, language))));
+                countryData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, DbOperations.DBTranslate(item.Item2, language))));
+                cityData.ForEach(item => data.Add(new Tuple<int, string>(item.Item1, DbOperations.DBTranslate(item.Item2, language))));
                 data = data.Distinct().ToList();
                 data.Sort();
 

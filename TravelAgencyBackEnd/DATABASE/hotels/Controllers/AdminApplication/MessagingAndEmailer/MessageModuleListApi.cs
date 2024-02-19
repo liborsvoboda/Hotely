@@ -86,8 +86,8 @@
                     if (loadRecordData.MessageType.Name.ToLower() == "newsletter") {
                         var guestList = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.GuestSettingLists.Where(a => a.Key == "sendNewsletterToEmail" && a.Value == "true").Any()).ToList();
                         guestList.ForEach(guest => { 
-                            ServerCoreFunctions.SendEmail(new MailRequest() { 
-                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, 
+                            CoreOperations.SendEmail(new MailRequest() { 
+                                Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email }, 
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             }); 
                         });
@@ -95,8 +95,8 @@
                     else if (loadRecordData.MessageType.Name.ToLower() == "private") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
                         if (guest != null) {
-                            ServerCoreFunctions.SendEmail(new MailRequest() {
-                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email },
+                            CoreOperations.SendEmail(new MailRequest() {
+                                Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email },
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             });
                         }
@@ -109,7 +109,7 @@
             }
             catch (Exception ex)
             {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) });
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
             }
         }
 
@@ -130,8 +130,8 @@
                     if (loadRecordData.MessageType.Name.ToLower() == "newsletter") {
                         var guestList = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.GuestSettingLists.Where(a => a.Key == "sendNewsletterToEmail" && a.Value == "true").Any()).ToList();
                         guestList.ForEach(guest => {
-                            ServerCoreFunctions.SendEmail(new MailRequest() {
-                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, 
+                            CoreOperations.SendEmail(new MailRequest() {
+                                Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email }, 
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             });
                         });
@@ -139,8 +139,8 @@
                     else if (loadRecordData.MessageType.Name.ToLower() != "private") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
                         if (guest != null) { 
-                            ServerCoreFunctions.SendEmail(new MailRequest() { 
-                                Sender = ServerConfigSettings.EmailerBusinessEmailAddress, Recipients = new List<string> { guest.Email }, 
+                            CoreOperations.SendEmail(new MailRequest() { 
+                                Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email }, 
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             }); 
                         }
@@ -151,7 +151,7 @@
                 else return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = result, ErrorMessage = string.Empty });
             }
             catch (Exception ex)
-            { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) }); }
+            { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
         [HttpDelete("/MessageModuleList/{id}")]
@@ -168,7 +168,7 @@
             }
             catch (Exception ex)
             {
-                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = ServerCoreFunctions.GetUserApiErrMessage(ex) });
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
             }
         }
     }
