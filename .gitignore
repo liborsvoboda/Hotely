@@ -1,9 +1,14 @@
-﻿################################################################################
+################################################################################
 # Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
 ################################################################################
-
+[Bb]in/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
 /.vs
 /Debug
+/Bin
 /obj
 /Release
 /AdvancedProjects
