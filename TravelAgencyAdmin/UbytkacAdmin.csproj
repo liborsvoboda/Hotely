@@ -265,16 +265,16 @@
     <Compile Include="Agendas\Dials\SvgIconList\SvgIconListPage.xaml.cs">
       <DependentUpon>SvgIconListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Documentation\DocumentationCodeLibraryList\DocumentationCodeLibraryList.cs" />
-    <Compile Include="Agendas\Documentation\DocumentationCodeLibraryList\DocumentationCodeLibraryListPage.xaml.cs">
+    <Compile Include="Agendas\DocServer\DocumentationCodeLibraryList\DocumentationCodeLibraryList.cs" />
+    <Compile Include="Agendas\DocServer\DocumentationCodeLibraryList\DocumentationCodeLibraryListPage.xaml.cs">
       <DependentUpon>DocumentationCodeLibraryListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Documentation\DocumentationGroupList\DocumentationGroupList.cs" />
-    <Compile Include="Agendas\Documentation\DocumentationGroupList\DocumentationGroupListPage.xaml.cs">
+    <Compile Include="Agendas\DocServer\DocumentationGroupList\DocumentationGroupList.cs" />
+    <Compile Include="Agendas\DocServer\DocumentationGroupList\DocumentationGroupListPage.xaml.cs">
       <DependentUpon>DocumentationGroupListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Agendas\Documentation\DocumentationList\DocumentationList.cs" />
-    <Compile Include="Agendas\Documentation\DocumentationList\DocumentationListPage.xaml.cs">
+    <Compile Include="Agendas\DocServer\DocumentationList\DocumentationList.cs" />
+    <Compile Include="Agendas\DocServer\DocumentationList\DocumentationListPage.xaml.cs">
       <DependentUpon>DocumentationListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Agendas\Guests\GuestFavoriteList\GuestFavoriteList.cs" />
@@ -567,15 +567,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Documentation\DocumentationCodeLibraryList\DocumentationCodeLibraryListPage.xaml">
+    <Page Include="Agendas\DocServer\DocumentationCodeLibraryList\DocumentationCodeLibraryListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Documentation\DocumentationGroupList\DocumentationGroupListPage.xaml">
+    <Page Include="Agendas\DocServer\DocumentationGroupList\DocumentationGroupListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Agendas\Documentation\DocumentationList\DocumentationListPage.xaml">
+    <Page Include="Agendas\DocServer\DocumentationList\DocumentationListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1105,48 +1105,55 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTool.HighlightTextBox\EASYTools.HighlightTextBox.csproj">
+      <Project>{d69325fa-a62e-45f4-9e6c-e27c33552522}</Project>
+      <Name>EASYTools.HighlightTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.Calendar\EASYTools.Calendar.csproj">
       <Project>{31c3b4a7-504b-4eff-bacc-c8f2ffe5af6f}</Project>
       <Name>EASYTools.Calendar</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.CrashReporter\EASYTools.CrashReporter.csproj">
       <Project>{7696262e-45fc-4f68-a65e-468cd988cbc2}</Project>
       <Name>EASYTools.CrashReporter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLEditorNoImg\EASYTools.HTMLEditorNoImg.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.HTMLEditorNoImg\EASYTools.HTMLEditorNoImg.csproj">
       <Project>{78147c43-db7b-4571-bc7a-e7f0075b4b78}</Project>
       <Name>EASYTools.HTMLEditorNoImg</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Default\EASYTools.HTMLFullEditor.Locale.Default.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Default\EASYTools.HTMLFullEditor.Locale.Default.csproj">
       <Project>{cc1ff81e-f694-4b1b-9e04-3deb2de00b6a}</Project>
       <Name>EASYTools.HTMLFullEditor.Locale.Default</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Override\EASYTools.HTMLFullEditor.Locale.Override.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.Locale.Override\EASYTools.HTMLFullEditor.Locale.Override.csproj">
       <Project>{0e9b62bc-442c-440a-86a8-b9f2ece40209}</Project>
       <Name>EASYTools.HTMLFullEditor.Locale.Override</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor\EASYTools.HTMLFullEditor.csproj">
       <Project>{04009e2d-9e54-423f-b6f0-62e15f1c8ae8}</Project>
       <Name>EASYTools.HTMLFullEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
-      <Project>{1778b9e1-445c-4bfc-aa29-1edac131bb69}</Project>
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.ImageEffectLibrary\EASYTools.ImageEffectLibrary.csproj">
+      <Project>{3b982916-a787-44da-bfd2-6694abedbd7c}</Project>
       <Name>EASYTools.ImageEffectLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.MarkdownToHtml\EASYTools.MarkdownToHtml.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.MarkdownToFlow\EASYTools.MarkdownToFlow.csproj">
+      <Project>{34186c3b-c308-4cae-b462-db7b5f5e378c}</Project>
+      <Name>EASYTools.MarkdownToFlow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.MarkdownToHtml\EASYTools.MarkdownToHtml.csproj">
       <Project>{37619116-cce8-465a-8b1f-081ca53364bb}</Project>
       <Name>EASYTools.MarkdownToHtml</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.SqlConnectionDialog\EASYTools.SqlConnectionDialog.csproj">
       <Project>{ec61d2c4-7eab-474f-9c4f-d93de57a64f1}</Project>
       <Name>EASYTools.SqlConnectionDialog</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MyGitHub\GroupWare-Solution\EASY-IT-CENTER\EASYTOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj">
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-TOOLS\EASYTools.TouchKeyboard\EASYTools.TouchKeyboard.csproj">
       <Project>{0784cdc9-0f52-4b8b-9488-6589c11e94e2}</Project>
       <Name>EASYTools.TouchKeyboard</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

@@ -18,7 +18,7 @@
     d:DesignWidth="1024"
     AllowDrop="False"
     AllowsTransparency="False"
-    GlowBrush="{DynamicResource GlyphBrush}"
+    GlowBrush="{DynamicResource AccentColorBrush}"
     NonActiveGlowBrush="#CDFF0000"
     ResizeMode="CanResizeWithGrip"
     SaveWindowPosition="True"
@@ -701,7 +701,7 @@
                 ItemsSource="{Binding TabContents}"
                 SelectionChanged="TabPanelOnSelectionChange" ShowDefaultAddButton="False" ShowDefaultCloseButton="True">
 
-                  <!--draging to more app instances-->  
+                <!--  draging to more app instances  -->
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController InterTabClient="{Binding InterTabClient}" />
                 </dragablz:TabablzControl.InterTabController>
