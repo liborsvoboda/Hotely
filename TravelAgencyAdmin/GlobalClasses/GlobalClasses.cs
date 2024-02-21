@@ -1,6 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Threading;
 
 namespace GlobalClasses {
+
+    public class AppRuntimeData {
+        private static readonly Version version = Assembly.GetExecutingAssembly().GetName().Version;
+        private static readonly string appSystemStatuses = Debugger.IsAttached ? SystemStatuses.Debug.ToString() : SystemStatuses.Release.ToString();
+
+        public string startupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public string programDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+        public string settingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0]);
+        public string reportFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Reports");
+        public string updateFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Update");
+        public string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Temp");
+        public string galleryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Gallery");
+        public string appSettingFile = "config.json";
+        public bool webServerRunning = false;
+
+
+        public string appName = Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0];
+        public Version AppVersion { get => version; }
+        public string AppSystemStatuses { get => appSystemStatuses; }
+        public string appStartupLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+
+        public Dictionary<string, string> AppClientSettings = new Dictionary<string, string>();
+
+    }
+
+
+
+    public enum SystemStatuses {
+
+        //Mode
+        Debug,
+
+        Release,
+        DebugWithSystemLogger
+    }
+
+
 
     /// <summary>
     /// SYSTEM Running mode In debug mode is disabled the System Logger Visual Studio Debugger
@@ -49,5 +91,38 @@ namespace GlobalClasses {
     public partial class TranslatedApiList {
         public string ApiTableName { get; set; }
         public string Translate { get; set; }
+    }
+
+
+    public partial class SystemTranslatedTableList {
+        public string TableName { get; set; }
+        public string Translate { get; set; }
+    }
+
+
+    public partial class SpTableList {
+        public string TableList { get; set; }
+    }
+
+    /// <summary>
+    /// Custom Definition for Returning List with One Record from Operation Stored Procedures
+    /// </summary>
+    public class SystemOperationMessage {
+        public string MessageList { get; set; }
+    }
+
+    /// <summary>
+    /// Custom Definition for Returning List with One Record from Operation Stored Procedures
+    /// </summary>
+    public class DBJsonFile {
+        public string Value { get; set; }
+    }
+
+    /// <summary>
+    /// Custom Definition for Returning List with One Record from Operation Stored Procedures
+    /// </summary>
+    public class DeserializedJson {
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

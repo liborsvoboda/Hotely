@@ -53,7 +53,7 @@ namespace UbytkacBackend.Controllers {
                 return null;
 
             var user = new hotelsContext()
-                .UserLists.Include(a => a.Role).Where(a => a.Active && a.UserName == username && a.Password == password)
+                .SolutionUserLists.Include(a => a.Role).Where(a => a.Active && a.UserName == username && a.Password == password)
                 .FirstOrDefault();
 
             if (user == null)
@@ -82,7 +82,7 @@ namespace UbytkacBackend.Controllers {
 
         public static bool refreshUserToken(string username, AuthenticateResponse token) {
             var dbUser = new hotelsContext()
-                .UserLists.Where(a => a.Active == true && a.UserName == username).Include(b => b.Role)
+                .SolutionUserLists.Where(a => a.Active == true && a.UserName == username).Include(b => b.Role)
                 .FirstOrDefault();
 
             if (dbUser != null) return true;

@@ -1,10 +1,10 @@
 ﻿namespace UbytkacBackend.Controllers {
 
     [ApiController]
-    [Route("UbytkacBackendSystemTranslationList")]
-    public class UbytkacBackendSystemTranslationListApi : ControllerBase {
+    [Route("SystemTranslationList")]
+    public class SystemTranslationListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendSystemTranslationList")]
+        [HttpGet("/TranslationList")]
         public async Task<string> GetSystemTranslationList() {
             List<SystemTranslationList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -16,7 +16,7 @@
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/UbytkacBackendSystemTranslationList/Filter/{filter}")]
+        [HttpGet("/TranslationList/Filter/{filter}")]
         public async Task<string> GetSystemTranslationListByFilter(string filter) {
             List<SystemTranslationList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -28,7 +28,7 @@
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpGet("/UbytkacBackendSystemTranslationList/{id}")]
+        [HttpGet("/TranslationList/{id}")]
         public async Task<string> GetSystemTranslationListKey(int id) {
             SystemTranslationList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -40,7 +40,7 @@
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
         }
 
-        [HttpPut("/UbytkacBackendSystemTranslationList")]
+        [HttpPut("/TranslationList")]
         [Consumes("application/json")]
         public async Task<string> InsertSystemTranslationList([FromBody] SystemTranslationList record) {
             try {
@@ -59,7 +59,7 @@
         }
 
         [Authorize]
-        [HttpPost("/UbytkacBackendSystemTranslationList")]
+        [HttpPost("/TranslationList")]
         [Consumes("application/json")]
         public async Task<string> UpdateSystemTranslationList([FromBody] SystemTranslationList record) {
             try {
@@ -78,7 +78,7 @@
         }
 
         [Authorize]
-        [HttpDelete("/UbytkacBackendSystemTranslationList/{id}")]
+        [HttpDelete("/TranslationList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteSystemTranslationList(string id) {
             try {

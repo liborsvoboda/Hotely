@@ -25,6 +25,6 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("SystemCustomPageLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

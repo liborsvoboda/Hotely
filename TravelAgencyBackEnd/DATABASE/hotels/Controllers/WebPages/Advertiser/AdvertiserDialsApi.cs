@@ -36,11 +36,11 @@ namespace UbytkacBackend.Controllers {
 
         [HttpGet("/WebApi/Advertiser/GetCurrencyList")]
         public async Task<string> GetCurrencyList() {
-            List<CurrencyList> data;
+            List<BasicCurrencyList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                data = new hotelsContext().CurrencyLists.ToList();
+                data = new hotelsContext().BasicCurrencyLists.ToList();
             }
 
             return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });

@@ -24,6 +24,6 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("WebSettingLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendSolutionMixedEnumList")]
-    public class UbytkacBackendSolutionMixedEnumListApi : ControllerBase {
+    [Route("SolutionMixedEnumList")]
+    public class SolutionMixedEnumListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendSolutionMixedEnumList")]
+        [HttpGet("/SolutionMixedEnumList")]
         public async Task<string> GetSolutionMixedEnumList() {
             List<SolutionMixedEnumList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -16,7 +16,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSolutionMixedEnumList/Filter/{filter}")]
+        [HttpGet("/SolutionMixedEnumList/Filter/{filter}")]
         public async Task<string> GetSolutionMixedEnumListByFilter(string filter) {
             List<SolutionMixedEnumList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -28,7 +28,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSolutionMixedEnumList/ByGroup/{groupname}")]
+        [HttpGet("/SolutionMixedEnumList/ByGroup/{groupname}")]
         public async Task<string> GetSolutionMixedEnumListByGroup(string groupname) {
             List<SolutionMixedEnumList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -40,7 +40,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSolutionMixedEnumList/{id}")]
+        [HttpGet("/SolutionMixedEnumList/{id}")]
         public async Task<string> GetSolutionMixedEnumListKey(int id) {
             SolutionMixedEnumList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -52,7 +52,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendSolutionMixedEnumList")]
+        [HttpPut("/SolutionMixedEnumList")]
         [Consumes("application/json")]
         public async Task<string> InsertSolutionMixedEnumList([FromBody] SolutionMixedEnumList record) {
             try {
@@ -66,7 +66,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendSolutionMixedEnumList")]
+        [HttpPost("/SolutionMixedEnumList")]
         [Consumes("application/json")]
         public async Task<string> UpdateSolutionMixedEnumList([FromBody] SolutionMixedEnumList record) {
             try {
@@ -77,7 +77,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendSolutionMixedEnumList/{id}")]
+        [HttpDelete("/SolutionMixedEnumList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteSolutionMixedEnumList(string id) {
             try {

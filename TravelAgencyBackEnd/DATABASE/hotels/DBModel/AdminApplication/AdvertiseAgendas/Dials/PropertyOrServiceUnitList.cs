@@ -26,7 +26,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("PropertyOrServiceUnitLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("PropertyOrServiceUnitType")]
         public virtual ICollection<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
     }

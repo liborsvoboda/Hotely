@@ -29,7 +29,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("HotelReservationStatusLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("Status")]
         public virtual ICollection<HotelReservationDetailList> HotelReservationDetailLists { get; set; }
         [InverseProperty("Status")]

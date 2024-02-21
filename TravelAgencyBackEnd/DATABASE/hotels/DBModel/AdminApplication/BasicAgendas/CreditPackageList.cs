@@ -30,9 +30,9 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("CurrencyId")]
         [InverseProperty("CreditPackageLists")]
-        public virtual CurrencyList Currency { get; set; }
+        public virtual BasicCurrencyList Currency { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("CreditPackageLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

@@ -18,11 +18,11 @@
 
   <ItemGroup>
     <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\Agendas\**" />
+    <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\ApprovalProcesses\**" />
     <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\Dials\**" />
     <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\Guests\**" />
     <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\Hosts\**" />
     <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\HotelConfigurations\**" />
-    <Compile Remove="DATABASE\hotels\Controllers\AdminApplication\ServerAgendas\NováSložka\**" />
     <Compile Remove="DATABASE\hotels\DBModel\AdminApplication\ApprovalProcesses\**" />
     <Compile Remove="DATABASE\hotels\DBModel\AdminApplication\HotelConfigurations\**" />
     <Compile Remove="DATABASE\hotels\DBModel\WebPages\Advertiser\**" />
@@ -31,11 +31,11 @@
     <Compile Remove="wwwroot\assets\**" />
     <Compile Remove="wwwroot\src\**" />
     <Content Remove="DATABASE\hotels\Controllers\AdminApplication\Agendas\**" />
+    <Content Remove="DATABASE\hotels\Controllers\AdminApplication\ApprovalProcesses\**" />
     <Content Remove="DATABASE\hotels\Controllers\AdminApplication\Dials\**" />
     <Content Remove="DATABASE\hotels\Controllers\AdminApplication\Guests\**" />
     <Content Remove="DATABASE\hotels\Controllers\AdminApplication\Hosts\**" />
     <Content Remove="DATABASE\hotels\Controllers\AdminApplication\HotelConfigurations\**" />
-    <Content Remove="DATABASE\hotels\Controllers\AdminApplication\ServerAgendas\NováSložka\**" />
     <Content Remove="DATABASE\hotels\DBModel\AdminApplication\ApprovalProcesses\**" />
     <Content Remove="DATABASE\hotels\DBModel\AdminApplication\HotelConfigurations\**" />
     <Content Remove="DATABASE\hotels\DBModel\WebPages\Advertiser\**" />
@@ -44,11 +44,11 @@
     <Content Remove="wwwroot\assets\**" />
     <Content Remove="wwwroot\src\**" />
     <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\Agendas\**" />
+    <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\ApprovalProcesses\**" />
     <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\Dials\**" />
     <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\Guests\**" />
     <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\Hosts\**" />
     <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\HotelConfigurations\**" />
-    <EmbeddedResource Remove="DATABASE\hotels\Controllers\AdminApplication\ServerAgendas\NováSložka\**" />
     <EmbeddedResource Remove="DATABASE\hotels\DBModel\AdminApplication\ApprovalProcesses\**" />
     <EmbeddedResource Remove="DATABASE\hotels\DBModel\AdminApplication\HotelConfigurations\**" />
     <EmbeddedResource Remove="DATABASE\hotels\DBModel\WebPages\Advertiser\**" />
@@ -57,11 +57,11 @@
     <EmbeddedResource Remove="wwwroot\assets\**" />
     <EmbeddedResource Remove="wwwroot\src\**" />
     <None Remove="DATABASE\hotels\Controllers\AdminApplication\Agendas\**" />
+    <None Remove="DATABASE\hotels\Controllers\AdminApplication\ApprovalProcesses\**" />
     <None Remove="DATABASE\hotels\Controllers\AdminApplication\Dials\**" />
     <None Remove="DATABASE\hotels\Controllers\AdminApplication\Guests\**" />
     <None Remove="DATABASE\hotels\Controllers\AdminApplication\Hosts\**" />
     <None Remove="DATABASE\hotels\Controllers\AdminApplication\HotelConfigurations\**" />
-    <None Remove="DATABASE\hotels\Controllers\AdminApplication\ServerAgendas\NováSložka\**" />
     <None Remove="DATABASE\hotels\DBModel\AdminApplication\ApprovalProcesses\**" />
     <None Remove="DATABASE\hotels\DBModel\AdminApplication\HotelConfigurations\**" />
     <None Remove="DATABASE\hotels\DBModel\WebPages\Advertiser\**" />

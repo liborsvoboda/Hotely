@@ -52,7 +52,7 @@ namespace UbytkacBackend.DBModel
         public virtual PropertyOrServiceUnitList PropertyOrServiceUnitType { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("PropertyOrServiceTypeLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("PropertyOrService")]
         public virtual ICollection<HotelPropertyAndServiceList> HotelPropertyAndServiceLists { get; set; }
     }

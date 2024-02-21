@@ -25,7 +25,7 @@ namespace UbytkacBackend.Controllers {
                         
                         //Send Verify Email
                         string verifyCode = DataOperations.RandomString(10);
-                        EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                        SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                         MailRequest mailRequest = new MailRequest();
                         if (template != null) {
                             mailRequest = new MailRequest() {
@@ -74,9 +74,9 @@ namespace UbytkacBackend.Controllers {
                 string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
 
                 //Get ReservationNumber
-                DocumentAdviceList documentAdviceList = new DocumentAdviceList();
+                SystemDocumentAdviceList documentAdviceList = new SystemDocumentAdviceList();
                 DateTime today = DateTimeOffset.Now.DateTime;
-                documentAdviceList = new hotelsContext().DocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate >= today && a.DocumentTypeId == 1).FirstOrDefault();
+                documentAdviceList = new hotelsContext().SystemDocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate >= today && a.DocumentTypeNavigation.Id == 1).FirstOrDefault();
 
                 //Prepare And Save Reservation
                 HotelReservationList hotelReservationList = new HotelReservationList() {
@@ -96,7 +96,7 @@ namespace UbytkacBackend.Controllers {
                 //Save New ReservationNumber
                 if (result > 0) {
                     documentAdviceList.Number =  (int.Parse(documentAdviceList.Number) + 1).ToString("D" + documentAdviceList.Number.Length.ToString());
-                    var data1 = new hotelsContext().DocumentAdviceLists.Update(documentAdviceList);
+                    var data1 = new hotelsContext().SystemDocumentAdviceLists.Update(documentAdviceList);
                     result = data1.Context.SaveChanges();
                 } else { /* Error save Registration */}
 
@@ -133,7 +133,7 @@ namespace UbytkacBackend.Controllers {
                 //missing saving control booked rooms from foreach saving
 
                 //Send Reservation Email
-                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                SolutionEmailTemplateList template1 = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest1 = new MailRequest();
                 if (template1 != null) {
                     mailRequest1 = new MailRequest() {
@@ -208,7 +208,7 @@ namespace UbytkacBackend.Controllers {
 
                 //Send Registration Email
                 if (result > 0) {
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                    SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
@@ -233,9 +233,9 @@ namespace UbytkacBackend.Controllers {
                 } else { /* Error save New Guest */}
 
                 //Get ReservationNumber
-                DocumentAdviceList documentAdviceList = new DocumentAdviceList();
+                SystemDocumentAdviceList documentAdviceList = new SystemDocumentAdviceList();
                 DateTime today = DateTimeOffset.Now.DateTime;
-                documentAdviceList = new hotelsContext().DocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate >= today && a.DocumentTypeId == 1).FirstOrDefault();
+                documentAdviceList = new hotelsContext().SystemDocumentAdviceLists.Where(a => a.StartDate <= today && a.EndDate >= today && a.DocumentTypeNavigation.Id == 1).FirstOrDefault();
 
                 //Prepare And Save Reservation
                 HotelReservationList hotelReservationList = new HotelReservationList() {
@@ -255,7 +255,7 @@ namespace UbytkacBackend.Controllers {
                 //Save New ReservationNumber
                 if (result > 0) {
                     documentAdviceList.Number = (int.Parse(documentAdviceList.Number) + 1).ToString("D" + documentAdviceList.Number.Length.ToString());
-                    var data1 = new hotelsContext().DocumentAdviceLists.Update(documentAdviceList);
+                    var data1 = new hotelsContext().SystemDocumentAdviceLists.Update(documentAdviceList);
                     result = data1.Context.SaveChanges();
                 }
                 else { /* Error save Registration */}
@@ -296,7 +296,7 @@ namespace UbytkacBackend.Controllers {
                 //missing saving control booked rooms from foreach saving
 
                 //Send Reservation Email
-                EmailTemplateList template1 = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                SolutionEmailTemplateList template1 = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest1 = new MailRequest();
                 if (template1 != null) {
                     mailRequest1 = new MailRequest() {

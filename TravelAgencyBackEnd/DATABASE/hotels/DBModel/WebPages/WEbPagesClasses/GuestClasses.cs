@@ -44,7 +44,7 @@ namespace UbytkacBackend.WebPages {
         public int? UserId { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public UserList User { get; set; }
+        public SolutionUserList User { get; set; }
 
     }
 

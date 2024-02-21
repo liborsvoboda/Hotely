@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendServerLiveDataMonitorList")]
-    public class UbytkacBackendServerLiveDataMonitorListApi : ControllerBase {
+    [Route("ServerLiveDataMonitorList")]
+    public class ServerLiveDataMonitorListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendServerLiveDataMonitorList")]
+        [HttpGet("/ServerLiveDataMonitorList")]
         public async Task<string> GetServerLiveDataMonitorList() {
             List<ServerLiveDataMonitorList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -17,7 +17,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerLiveDataMonitorList/Filter/{filter}")]
+        [HttpGet("/ServerLiveDataMonitorList/Filter/{filter}")]
         public async Task<string> GetServerLiveDataMonitorListByFilter(string filter) {
             List<ServerLiveDataMonitorList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -29,7 +29,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerLiveDataMonitorList/{id}")]
+        [HttpGet("/ServerLiveDataMonitorList/{id}")]
         public async Task<string> GetServerLiveDataMonitorListKey(int id) {
             ServerLiveDataMonitorList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -41,7 +41,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendServerLiveDataMonitorList")]
+        [HttpPut("/ServerLiveDataMonitorList")]
         [Consumes("application/json")]
         public async Task<string> InsertServerLiveDataMonitorList([FromBody] ServerLiveDataMonitorList record) {
             try {
@@ -55,7 +55,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendServerLiveDataMonitorList")]
+        [HttpPost("/ServerLiveDataMonitorList")]
         [Consumes("application/json")]
         public async Task<string> UpdateServerLiveDataMonitorList([FromBody] ServerLiveDataMonitorList record) {
             try {
@@ -66,7 +66,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendServerLiveDataMonitorList/{id}")]
+        [HttpDelete("/ServerLiveDataMonitorList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteServerLiveDataMonitorList(string id) {
             try {

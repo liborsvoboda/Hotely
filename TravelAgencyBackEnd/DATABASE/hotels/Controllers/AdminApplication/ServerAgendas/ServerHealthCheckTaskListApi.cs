@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendServerHealthCheckTaskList")]
-    public class UbytkacBackendServerHealthCheckTaskListApi : ControllerBase {
+    [Route("ServerHealthCheckTaskList")]
+    public class ServerHealthCheckTaskListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendServerHealthCheckTaskList")]
+        [HttpGet("/ServerHealthCheckTaskList")]
         public async Task<string> GetServerHealthCheckTaskList() {
             List<ServerHealthCheckTaskList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -17,7 +17,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerHealthCheckTaskList/Filter/{filter}")]
+        [HttpGet("/ServerHealthCheckTaskList/Filter/{filter}")]
         public async Task<string> GetServerHealthCheckTaskListByFilter(string filter) {
             List<ServerHealthCheckTaskList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -29,7 +29,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerHealthCheckTaskList/{id}")]
+        [HttpGet("/ServerHealthCheckTaskList/{id}")]
         public async Task<string> GetServerHealthCheckTaskListKey(int id) {
             ServerHealthCheckTaskList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -41,7 +41,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendServerHealthCheckTaskList")]
+        [HttpPut("/ServerHealthCheckTaskList")]
         [Consumes("application/json")]
         public async Task<string> InsertServerHealthCheckTaskList([FromBody] ServerHealthCheckTaskList record) {
             try {
@@ -57,7 +57,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendServerHealthCheckTaskList")]
+        [HttpPost("/ServerHealthCheckTaskList")]
         [Consumes("application/json")]
         public async Task<string> UpdateServerHealthCheckTaskList([FromBody] ServerHealthCheckTaskList record) {
             try {
@@ -71,7 +71,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendServerHealthCheckTaskList/{id}")]
+        [HttpDelete("/ServerHealthCheckTaskList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteServerHealthCheckTaskList(string id) {
             try {

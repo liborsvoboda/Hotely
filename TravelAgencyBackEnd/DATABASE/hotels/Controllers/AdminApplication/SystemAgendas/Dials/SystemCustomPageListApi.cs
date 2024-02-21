@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendSystemCustomPageList")]
-    public class UbytkacBackendSystemCustomPageListApi : ControllerBase {
+    [Route("SystemCustomPageList")]
+    public class SystemCustomPageListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendSystemCustomPageList")]
+        [HttpGet("/SystemCustomPageList")]
         public async Task<string> GetSystemCustomPageList() {
             List<SystemCustomPageList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -17,7 +17,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSystemCustomPageList/Filter/{filter}")]
+        [HttpGet("/SystemCustomPageList/Filter/{filter}")]
         public async Task<string> GetSystemCustomPageListByFilter(string filter) {
             List<SystemCustomPageList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -29,7 +29,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSystemCustomPageList/{id}")]
+        [HttpGet("/SystemCustomPageList/{id}")]
         public async Task<string> GetSystemCustomPageListKey(int id) {
             SystemCustomPageList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -41,7 +41,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendSystemCustomPageList")]
+        [HttpPut("/SystemCustomPageList")]
         [Consumes("application/json")]
         public async Task<string> InsertSystemCustomPageList([FromBody] SystemCustomPageList record) {
             try {
@@ -55,7 +55,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendSystemCustomPageList")]
+        [HttpPost("/SystemCustomPageList")]
         [Consumes("application/json")]
         public async Task<string> UpdateSystemCustomPageList([FromBody] SystemCustomPageList record) {
             try {
@@ -66,7 +66,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendSystemCustomPageList/{id}")]
+        [HttpDelete("/SystemCustomPageList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteSystemCustomPageList(string id) {
             try {

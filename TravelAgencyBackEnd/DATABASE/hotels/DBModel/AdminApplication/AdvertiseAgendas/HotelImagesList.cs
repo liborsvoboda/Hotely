@@ -29,6 +29,6 @@ namespace UbytkacBackend.DBModel
         public virtual HotelList Hotel { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("HotelImagesLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace UbytkacBackend.ServerCoreServers {
             }
             else if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password)) {
                 var user = new hotelsContext()
-                    .UserLists.Include(a => a.Role).Where(a => a.Active == true && a.UserName == username && a.Password == password)
+                    .SolutionUserLists.Include(a => a.Role).Where(a => a.Active == true && a.UserName == username && a.Password == password)
                     .First();
                 if (user != null) { return new MemberValidationResult(MemberValidationStatus.AuthenticatedUser, new CustomFtpUser(username)); }
             }
@@ -65,7 +65,7 @@ namespace UbytkacBackend.ServerCoreServers {
             }
             else if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password)) {
                 var user = new hotelsContext()
-                    .UserLists.Include(a => a.Role).Where(a => a.Active == true && a.UserName == username && a.Password == password)
+                    .SolutionUserLists.Include(a => a.Role).Where(a => a.Active == true && a.UserName == username && a.Password == password)
                     .First();
                 if (user != null) { return new MemberValidationResult(MemberValidationStatus.AuthenticatedUser, new CustomFtpUser(username)); }
             }

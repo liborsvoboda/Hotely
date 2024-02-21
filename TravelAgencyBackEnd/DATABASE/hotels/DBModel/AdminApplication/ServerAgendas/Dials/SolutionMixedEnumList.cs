@@ -8,6 +8,8 @@ namespace UbytkacBackend.DBModel
 {
     [Table("SolutionMixedEnumList")]
     [Index("ItemsGroup", "Name", Name = "IX_GlobalMixedEnumList", IsUnique = true)]
+    [Index("ItemsGroup", Name = "IX_SolutionMixedEnumList")]
+    [Index("Name", Name = "IX_SolutionMixedEnumList_1")]
     public partial class SolutionMixedEnumList
     {
         [Key]
@@ -29,6 +31,6 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("SolutionMixedEnumLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

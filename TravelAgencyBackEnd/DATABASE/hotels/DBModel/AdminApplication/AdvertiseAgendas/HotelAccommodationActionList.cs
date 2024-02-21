@@ -42,7 +42,7 @@ namespace UbytkacBackend.DBModel
         public virtual HotelActionTypeList HotelActionType { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("HotelAccommodationActionLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("HotelAccommodationAction")]
         public virtual ICollection<HotelReservationList> HotelReservationLists { get; set; }
     }

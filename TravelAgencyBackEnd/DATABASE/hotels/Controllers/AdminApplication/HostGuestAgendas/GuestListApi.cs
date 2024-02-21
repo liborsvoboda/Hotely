@@ -71,17 +71,17 @@
                         existingGuest = new hotelsContext().GuestLists.Where(a => a.Id == record.Id).First();
                     }
 
-                    UserList existingUser = null;
+                    SolutionUserList existingUser = null;
                     if (record.UserId != null || existingGuest.UserId != null) {
                         using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                            existingUser = new hotelsContext().UserLists.Where(a => a.Id == ((int?)record.UserId) || a.Id == existingGuest.UserId).First();
+                            existingUser = new hotelsContext().SolutionUserLists.Where(a => a.Id == ((int?)record.UserId) || a.Id == existingGuest.UserId).First();
                         }
                     }
 
                     //Degrading acount Disable ystem account
                     if(record.UserId == null || existingGuest.UserId != null) {
                         existingUser.Active = false;
-                        var userData = new hotelsContext().UserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
+                        var userData = new hotelsContext().SolutionUserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
                         existingUser = null; 
                     }
 
@@ -90,7 +90,7 @@
                     //Update All Advertiser/User Data
                     if (existingUser != null) {
                         existingUser.UserName = record.Email; existingUser.Name = record.FirstName; existingUser.SurName = record.LastName; existingUser.Active = record.Active;
-                        var userData = new hotelsContext().UserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
+                        var userData = new hotelsContext().SolutionUserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
                     }
 
 
@@ -122,17 +122,17 @@
                         existingGuest = new hotelsContext().GuestLists.Where(a => a.Id == record.Id).First();
                     }
 
-                    UserList existingUser = null;
+                    SolutionUserList existingUser = null;
                     if (existingGuest.UserId != null) {
                         using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                            existingUser = new hotelsContext().UserLists.Where(a => a.Id == existingGuest.UserId).First();
+                            existingUser = new hotelsContext().SolutionUserLists.Where(a => a.Id == existingGuest.UserId).First();
                         }
                     }
 
                     //Deleting acount Disable system account
                     if (record.UserId != null || existingGuest.UserId != null) {
                         existingUser.Active = false;
-                        var userData = new hotelsContext().UserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
+                        var userData = new hotelsContext().SolutionUserLists.Update(existingUser); await userData.Context.SaveChangesAsync();
                         existingUser = null;
                     }
 

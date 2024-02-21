@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendSystemMenuList")]
-    public class UbytkacBackendSystemMenuListApi : ControllerBase {
+    [Route("SystemMenuList")]
+    public class SystemMenuListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendSystemMenuList")]
+        [HttpGet("/SystemMenuList")]
         public async Task<string> GetSystemMenuList() {
             List<SystemMenuList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -18,7 +18,7 @@
         }
 
         /*
-        [HttpGet("/UbytkacBackendSystemMenuList/UserMenuList")]
+        [HttpGet("/SystemMenuList/UserMenuList")]
         public async Task<string> GetSystemMenuList() {
             List<SystemMenuList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -31,7 +31,7 @@
         }
         */
 
-        [HttpGet("/UbytkacBackendSystemMenuList/Filter/{filter}")]
+        [HttpGet("/SystemMenuList/Filter/{filter}")]
         public async Task<string> GetSystemMenuListByFilter(string filter) {
             List<SystemMenuList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -43,7 +43,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSystemMenuList/{id}")]
+        [HttpGet("/SystemMenuList/{id}")]
         public async Task<string> GetSystemMenuListKey(int id) {
             SystemMenuList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -55,7 +55,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendSystemMenuList")]
+        [HttpPut("/SystemMenuList")]
         [Consumes("application/json")]
         public async Task<string> InsertSystemMenuList([FromBody] SystemMenuList record) {
             try {
@@ -69,7 +69,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendSystemMenuList")]
+        [HttpPost("/SystemMenuList")]
         [Consumes("application/json")]
         public async Task<string> UpdateSystemMenuList([FromBody] SystemMenuList record) {
             try {
@@ -80,7 +80,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendSystemMenuList/{id}")]
+        [HttpDelete("/SystemMenuList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteSystemMenuList(string id) {
             try {

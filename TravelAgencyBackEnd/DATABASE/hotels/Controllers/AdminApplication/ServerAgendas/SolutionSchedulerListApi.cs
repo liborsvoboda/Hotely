@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendSolutionSchedulerList")]
-    public class UbytkacBackendSolutionSchedulerListApi : ControllerBase {
+    [Route("SolutionSchedulerList")]
+    public class SolutionSchedulerListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendSolutionSchedulerList")]
+        [HttpGet("/SolutionSchedulerList")]
         public async Task<string> GetSolutionSchedulerList() {
             List<SolutionSchedulerList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -16,7 +16,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSolutionSchedulerList/Filter/{filter}")]
+        [HttpGet("/SolutionSchedulerList/Filter/{filter}")]
         public async Task<string> GetSolutionSchedulerListByFilter(string filter) {
             List<SolutionSchedulerList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -28,7 +28,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSolutionSchedulerList/{id}")]
+        [HttpGet("/SolutionSchedulerList/{id}")]
         public async Task<string> GetSolutionSchedulerListKey(int id) {
             SolutionSchedulerList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -40,7 +40,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendSolutionSchedulerList")]
+        [HttpPut("/SolutionSchedulerList")]
         [Consumes("application/json")]
         public async Task<string> InsertSolutionSchedulerList([FromBody] SolutionSchedulerList record) {
             try {
@@ -56,7 +56,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendSolutionSchedulerList")]
+        [HttpPost("/SolutionSchedulerList")]
         [Consumes("application/json")]
         public async Task<string> UpdateSolutionSchedulerList([FromBody] SolutionSchedulerList record) {
             try {
@@ -69,7 +69,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendSolutionSchedulerList/{id}")]
+        [HttpDelete("/SolutionSchedulerList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteSolutionSchedulerList(int id) {
             try {

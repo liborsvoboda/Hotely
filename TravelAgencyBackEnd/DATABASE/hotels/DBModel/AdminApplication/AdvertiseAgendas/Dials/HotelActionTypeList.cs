@@ -26,7 +26,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("HotelActionTypeLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("HotelActionType")]
         public virtual ICollection<HotelAccommodationActionList> HotelAccommodationActionLists { get; set; }
     }

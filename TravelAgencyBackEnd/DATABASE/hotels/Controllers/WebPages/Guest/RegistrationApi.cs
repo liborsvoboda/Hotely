@@ -32,7 +32,7 @@ namespace UbytkacBackend.Controllers {
 
 
                     //Send ResetPassword Email
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                    SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
@@ -82,7 +82,7 @@ namespace UbytkacBackend.Controllers {
                     }
 
                     //Send Verify Email
-                    EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                    SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                     MailRequest mailRequest = new MailRequest();
                     if (template != null) {
                         mailRequest = new MailRequest() {
@@ -154,7 +154,7 @@ namespace UbytkacBackend.Controllers {
 
 
                 //Send Reg Email
-                EmailTemplateList template = new hotelsContext().EmailTemplateLists.Where(a=>a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
+                SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a=>a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
                 MailRequest mailRequest = new MailRequest();
                 if (template != null) {
                     mailRequest = new MailRequest() {
@@ -186,7 +186,7 @@ namespace UbytkacBackend.Controllers {
         public async Task<string> UpdateRegistration([FromBody] GuestRegistration record) {
             try {
                 if (User.Claims.First(a => a.Issuer != null).Issuer.ToLower() == record.User.Email.ToLower()) {
-                    int result = 0; UserList newUser = new();
+                    int result = 0; SolutionUserList newUser = new();
 
                     GuestList origDbGuest = new hotelsContext().GuestLists.Where(a => a.Email.ToLower() == record.User.Email.ToLower()).FirstOrDefault();
 
@@ -200,8 +200,8 @@ namespace UbytkacBackend.Controllers {
 
                     //insert new systemuser
                     if (record.User.UserId == 0) {
-                        newUser = new UserList() { UserName = record.User.Email, RoleId = 5, Password = record.User.Password, Name = record.User.FirstName, SurName = record.User.LastName, Active = true };
-                        var insData = new hotelsContext().UserLists.Add(newUser);
+                        newUser = new SolutionUserList() { UserName = record.User.Email, RoleId = 5, Password = record.User.Password, Name = record.User.FirstName, SurName = record.User.LastName, Active = true };
+                        var insData = new hotelsContext().SolutionUserLists.Add(newUser);
                         result = await insData.Context.SaveChangesAsync();
                     }
                     if (result > 0) { guest.UserId = newUser.Id; }
@@ -209,13 +209,13 @@ namespace UbytkacBackend.Controllers {
 
                     //update new systemuser
                     if (record.User.UserId > 0) {
-                        UserList systemUser = new hotelsContext().UserLists.Where(a => a.Id == record.User.UserId).FirstOrDefault();
+                        SolutionUserList systemUser = new hotelsContext().SolutionUserLists.Where(a => a.Id == record.User.UserId).FirstOrDefault();
 
                         guest.Password = record.User.Password != null ? BCrypt.Net.BCrypt.HashPassword(record.User.Password) : BCrypt.Net.BCrypt.HashPassword(systemUser.Password);
 
                         systemUser.Password = record.User.Password != null ? record.User.Password : systemUser.Password;
                         systemUser.Name = record.User.FirstName; systemUser.SurName = record.User.LastName; systemUser.Active = true;
-                        var insData = new hotelsContext().UserLists.Update(systemUser);
+                        var insData = new hotelsContext().SolutionUserLists.Update(systemUser);
                         result = await insData.Context.SaveChangesAsync();
                     }
 
@@ -246,9 +246,9 @@ namespace UbytkacBackend.Controllers {
                 if (origUser != null) {
 
                     if (origUser.UserId != null) {
-                        UserList systemUser = new hotelsContext().UserLists.Where(a => a.Id == origUser.UserId).FirstOrDefault();
+                        SolutionUserList systemUser = new hotelsContext().SolutionUserLists.Where(a => a.Id == origUser.UserId).FirstOrDefault();
                         systemUser.Active = false;
-                        var systemData = new hotelsContext().UserLists.Update(systemUser);
+                        var systemData = new hotelsContext().SolutionUserLists.Update(systemUser);
                         await systemData.Context.SaveChangesAsync();
                     }
 

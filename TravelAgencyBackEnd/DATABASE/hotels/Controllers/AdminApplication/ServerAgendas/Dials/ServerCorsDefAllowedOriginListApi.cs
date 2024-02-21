@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendServerCorsDefAllowedOriginList")]
-    public class UbytkacBackendServerCorsDefAllowedOriginListApi : ControllerBase {
+    [Route("ServerCorsDefAllowedOriginList")]
+    public class ServerCorsDefAllowedOriginListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendServerCorsDefAllowedOriginList")]
+        [HttpGet("/CorsDefAllowedOriginList")]
         public async Task<string> GetServerCorsDefAllowedOriginList() {
             List<ServerCorsDefAllowedOriginList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -16,7 +16,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerCorsDefAllowedOriginList/Filter/{filter}")]
+        [HttpGet("/CorsDefAllowedOriginList/Filter/{filter}")]
         public async Task<string> GetServerCorsDefAllowedOriginListByFilter(string filter) {
             List<ServerCorsDefAllowedOriginList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -28,7 +28,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerCorsDefAllowedOriginList/{id}")]
+        [HttpGet("/CorsDefAllowedOriginList/{id}")]
         public async Task<string> GetServerCorsDefAllowedOriginListKey(int id) {
             ServerCorsDefAllowedOriginList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -40,7 +40,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendServerCorsDefAllowedOriginList")]
+        [HttpPut("/CorsDefAllowedOriginList")]
         [Consumes("application/json")]
         public async Task<string> InsertServerCorsDefAllowedOriginList([FromBody] ServerCorsDefAllowedOriginList record) {
             try {
@@ -54,7 +54,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendServerCorsDefAllowedOriginList")]
+        [HttpPost("/CorsDefAllowedOriginList")]
         [Consumes("application/json")]
         public async Task<string> UpdateServerCorsDefAllowedOriginList([FromBody] ServerCorsDefAllowedOriginList record) {
             try {
@@ -65,7 +65,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendServerCorsDefAllowedOriginList/{id}")]
+        [HttpDelete("/CorsDefAllowedOriginList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteServerCorsDefAllowedOriginList(string id) {
             try {

@@ -18,7 +18,7 @@ namespace UbytkacBackend.DBModel
             HotelReservationDetailLists = new HashSet<HotelReservationDetailList>();
             HotelReservationLists = new HashSet<HotelReservationList>();
             HotelReservationReviewLists = new HashSet<HotelReservationReviewList>();
-            MessageModuleLists = new HashSet<MessageModuleList>();
+            SolutionMessageModuleLists = new HashSet<SolutionMessageModuleList>();
         }
 
         [Key]
@@ -66,7 +66,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("GuestLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("Guest")]
         public virtual ICollection<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; }
         [InverseProperty("Guest")]
@@ -80,6 +80,6 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("Guest")]
         public virtual ICollection<HotelReservationReviewList> HotelReservationReviewLists { get; set; }
         [InverseProperty("Guest")]
-        public virtual ICollection<MessageModuleList> MessageModuleLists { get; set; }
+        public virtual ICollection<SolutionMessageModuleList> SolutionMessageModuleLists { get; set; }
     }
 }

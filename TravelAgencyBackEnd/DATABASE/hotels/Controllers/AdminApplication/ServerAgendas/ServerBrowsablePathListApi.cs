@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendServerBrowsablePathList")]
-    public class UbytkacBackendServerBrowsablePathListApi : ControllerBase {
+    [Route("ServerBrowsablePathList")]
+    public class ServerBrowsablePathListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendServerBrowsablePathList")]
+        [HttpGet("/BrowsablePathList")]
         public async Task<string> GetServerBrowsablePathList() {
             List<ServerBrowsablePathList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -17,7 +17,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerBrowsablePathList/Filter/{filter}")]
+        [HttpGet("/BrowsablePathList/Filter/{filter}")]
         public async Task<string> GetServerBrowsablePathListByFilter(string filter) {
             List<ServerBrowsablePathList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -29,7 +29,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerBrowsablePathList/{id}")]
+        [HttpGet("/BrowsablePathList/{id}")]
         public async Task<string> GetServerBrowsablePathListKey(int id) {
             ServerBrowsablePathList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -41,7 +41,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendServerBrowsablePathList")]
+        [HttpPut("/BrowsablePathList")]
         [Consumes("application/json")]
         public async Task<string> InsertServerBrowsablePathList([FromBody] ServerBrowsablePathList record) {
             try {
@@ -55,7 +55,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendServerBrowsablePathList")]
+        [HttpPost("/BrowsablePathList")]
         [Consumes("application/json")]
         public async Task<string> UpdateServerBrowsablePathList([FromBody] ServerBrowsablePathList record) {
             try {
@@ -66,7 +66,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendServerBrowsablePathList/{id}")]
+        [HttpDelete("/BrowsablePathList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteServerBrowsablePathList(string id) {
             try {

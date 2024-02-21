@@ -38,6 +38,6 @@ namespace UbytkacBackend.DBModel
         public virtual SystemGroupMenuList Group { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("SystemMenuLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

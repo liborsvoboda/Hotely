@@ -69,7 +69,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("CurrencyId")]
         [InverseProperty("HotelReservationLists")]
-        public virtual CurrencyList Currency { get; set; }
+        public virtual BasicCurrencyList Currency { get; set; }
         [ForeignKey("GuestId")]
         [InverseProperty("HotelReservationLists")]
         public virtual GuestList Guest { get; set; }

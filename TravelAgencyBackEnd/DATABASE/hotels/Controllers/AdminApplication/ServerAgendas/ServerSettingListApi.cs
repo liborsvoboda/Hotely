@@ -1,10 +1,10 @@
 ﻿namespace UbytkacBackend.Controllers {
 
     [ApiController]
-    [Route("UbytkacBackendServerSettingList")]
-    public class UbytkacBackendServerSettingListApi : ControllerBase {
+    [Route("ServerSettingList")]
+    public class ServerSettingListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendServerSettingList")]
+        [HttpGet("/ServerSettingList")]
         public async Task<string> GetServerSettingList() {
             List<ServerSettingList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -16,7 +16,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendServerSettingList/{key}")]
+        [HttpGet("/ServerSettingList/{key}")]
         public async Task<string> GetServerSettingListKey(string key) {
             ServerSettingList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -28,7 +28,7 @@
         }
 
         [Authorize]
-        [HttpPost("/UbytkacBackendServerSettingList")]
+        [HttpPost("/ServerSettingList")]
         [Consumes("application/json")]
         public async Task<string> SetServerSettingListUpdate([FromBody] List<ServerSettingList> record) {
             try {

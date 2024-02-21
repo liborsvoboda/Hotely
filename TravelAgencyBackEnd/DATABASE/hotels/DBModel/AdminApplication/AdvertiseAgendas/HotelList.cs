@@ -66,10 +66,10 @@ namespace UbytkacBackend.DBModel
         public virtual CountryList Country { get; set; }
         [ForeignKey("DefaultCurrencyId")]
         [InverseProperty("HotelLists")]
-        public virtual CurrencyList DefaultCurrency { get; set; }
+        public virtual BasicCurrencyList DefaultCurrency { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("HotelLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("Hotel")]
         public virtual ICollection<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; }
         [InverseProperty("Hotel")]

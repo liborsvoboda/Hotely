@@ -30,6 +30,6 @@ namespace UbytkacBackend.DBModel
         public virtual DocumentationGroupList Group { get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("DocSrvDocTemplateLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
     }
 }

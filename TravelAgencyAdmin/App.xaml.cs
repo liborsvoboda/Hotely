@@ -22,10 +22,8 @@ namespace UbytkacAdmin {
 
     public partial class App : Application {
 
-        /// <summary>
-        /// Global Application Startup Settings Central Parameters / Languages / User / Config
-        /// </summary>
-        public static Version AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+        public static AppRuntimeData appRuntimeData = new AppRuntimeData();
 
         public static List<ParameterList> ParameterList = null;
         public static List<LanguageList> LanguageList = null;

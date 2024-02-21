@@ -16,26 +16,46 @@ namespace UbytkacBackend.DBModel
         {
         }
 
-        public virtual DbSet<AddressList> AddressLists { get; set; }
-        public virtual DbSet<AdminLoginHistoryList> AdminLoginHistoryLists { get; set; }
-        public virtual DbSet<BranchList> BranchLists { get; set; }
-        public virtual DbSet<Calendar> Calendars { get; set; }
+        public virtual DbSet<BasicAttachmentList> BasicAttachmentLists { get; set; }
+        public virtual DbSet<BasicCalendarList> BasicCalendarLists { get; set; }
+        public virtual DbSet<BasicCurrencyList> BasicCurrencyLists { get; set; }
+        public virtual DbSet<BasicImageGalleryList> BasicImageGalleryLists { get; set; }
+        public virtual DbSet<BasicItemList> BasicItemLists { get; set; }
+        public virtual DbSet<BasicUnitList> BasicUnitLists { get; set; }
+        public virtual DbSet<BasicVatList> BasicVatLists { get; set; }
+        public virtual DbSet<BasicViewAttachmentList> BasicViewAttachmentLists { get; set; }
+        public virtual DbSet<BusinessAddressList> BusinessAddressLists { get; set; }
+        public virtual DbSet<BusinessBranchList> BusinessBranchLists { get; set; }
+        public virtual DbSet<BusinessCreditNoteList> BusinessCreditNoteLists { get; set; }
+        public virtual DbSet<BusinessCreditNoteSupportList> BusinessCreditNoteSupportLists { get; set; }
+        public virtual DbSet<BusinessExchangeRateList> BusinessExchangeRateLists { get; set; }
+        public virtual DbSet<BusinessIncomingInvoiceList> BusinessIncomingInvoiceLists { get; set; }
+        public virtual DbSet<BusinessIncomingInvoiceSupportList> BusinessIncomingInvoiceSupportLists { get; set; }
+        public virtual DbSet<BusinessIncomingOrderList> BusinessIncomingOrderLists { get; set; }
+        public virtual DbSet<BusinessIncomingOrderSupportList> BusinessIncomingOrderSupportLists { get; set; }
+        public virtual DbSet<BusinessMaturityList> BusinessMaturityLists { get; set; }
+        public virtual DbSet<BusinessNotesList> BusinessNotesLists { get; set; }
+        public virtual DbSet<BusinessOfferList> BusinessOfferLists { get; set; }
+        public virtual DbSet<BusinessOfferSupportList> BusinessOfferSupportLists { get; set; }
+        public virtual DbSet<BusinessOutgoingInvoiceList> BusinessOutgoingInvoiceLists { get; set; }
+        public virtual DbSet<BusinessOutgoingInvoiceSupportList> BusinessOutgoingInvoiceSupportLists { get; set; }
+        public virtual DbSet<BusinessOutgoingOrderList> BusinessOutgoingOrderLists { get; set; }
+        public virtual DbSet<BusinessOutgoingOrderSupportList> BusinessOutgoingOrderSupportLists { get; set; }
+        public virtual DbSet<BusinessPaymentMethodList> BusinessPaymentMethodLists { get; set; }
+        public virtual DbSet<BusinessPaymentStatusList> BusinessPaymentStatusLists { get; set; }
+        public virtual DbSet<BusinessReceiptList> BusinessReceiptLists { get; set; }
+        public virtual DbSet<BusinessReceiptSupportList> BusinessReceiptSupportLists { get; set; }
+        public virtual DbSet<BusinessWarehouseList> BusinessWarehouseLists { get; set; }
         public virtual DbSet<CityList> CityLists { get; set; }
         public virtual DbSet<CodeLibraryList> CodeLibraryLists { get; set; }
         public virtual DbSet<CountryAreaCityList> CountryAreaCityLists { get; set; }
         public virtual DbSet<CountryAreaList> CountryAreaLists { get; set; }
         public virtual DbSet<CountryList> CountryLists { get; set; }
         public virtual DbSet<CreditPackageList> CreditPackageLists { get; set; }
-        public virtual DbSet<CurrencyList> CurrencyLists { get; set; }
         public virtual DbSet<DocSrvDocTemplateList> DocSrvDocTemplateLists { get; set; }
-        public virtual DbSet<DocumentAdviceList> DocumentAdviceLists { get; set; }
-        public virtual DbSet<DocumentTypeList> DocumentTypeLists { get; set; }
         public virtual DbSet<DocumentationCodeLibraryList> DocumentationCodeLibraryLists { get; set; }
         public virtual DbSet<DocumentationGroupList> DocumentationGroupLists { get; set; }
         public virtual DbSet<DocumentationList> DocumentationLists { get; set; }
-        public virtual DbSet<EmailTemplateList> EmailTemplateLists { get; set; }
-        public virtual DbSet<EmailerHistoryList> EmailerHistoryLists { get; set; }
-        public virtual DbSet<ExchangeRateList> ExchangeRateLists { get; set; }
         public virtual DbSet<GetTopFiveFavoriteList> GetTopFiveFavoriteLists { get; set; }
         public virtual DbSet<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; }
         public virtual DbSet<GuestFavoriteList> GuestFavoriteLists { get; set; }
@@ -56,14 +76,9 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<HotelReservedRoomList> HotelReservedRoomLists { get; set; }
         public virtual DbSet<HotelRoomList> HotelRoomLists { get; set; }
         public virtual DbSet<HotelRoomTypeList> HotelRoomTypeLists { get; set; }
-        public virtual DbSet<IgnoredExceptionList> IgnoredExceptionLists { get; set; }
         public virtual DbSet<InterestAreaCityList> InterestAreaCityLists { get; set; }
         public virtual DbSet<InterestAreaList> InterestAreaLists { get; set; }
-        public virtual DbSet<MessageModuleList> MessageModuleLists { get; set; }
-        public virtual DbSet<MessageTypeList> MessageTypeLists { get; set; }
-        public virtual DbSet<MottoList> MottoLists { get; set; }
         public virtual DbSet<OftenQuestionList> OftenQuestionLists { get; set; }
-        public virtual DbSet<ParameterList> ParameterLists { get; set; }
         public virtual DbSet<PrivacyPolicyList> PrivacyPolicyLists { get; set; }
         public virtual DbSet<PropertyGroupList> PropertyGroupLists { get; set; }
         public virtual DbSet<PropertyOrServiceTypeList> PropertyOrServiceTypeLists { get; set; }
@@ -75,27 +90,37 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<ServerLiveDataMonitorList> ServerLiveDataMonitorLists { get; set; }
         public virtual DbSet<ServerModuleAndServiceList> ServerModuleAndServiceLists { get; set; }
         public virtual DbSet<ServerSettingList> ServerSettingLists { get; set; }
+        public virtual DbSet<ServerToolPanelDefinitionList> ServerToolPanelDefinitionLists { get; set; }
+        public virtual DbSet<ServerToolTypeList> ServerToolTypeLists { get; set; }
+        public virtual DbSet<SolutionEmailTemplateList> SolutionEmailTemplateLists { get; set; }
+        public virtual DbSet<SolutionEmailerHistoryList> SolutionEmailerHistoryLists { get; set; }
+        public virtual DbSet<SolutionFailList> SolutionFailLists { get; set; }
+        public virtual DbSet<SolutionLanguageList> SolutionLanguageLists { get; set; }
+        public virtual DbSet<SolutionMessageModuleList> SolutionMessageModuleLists { get; set; }
+        public virtual DbSet<SolutionMessageTypeList> SolutionMessageTypeLists { get; set; }
         public virtual DbSet<SolutionMixedEnumList> SolutionMixedEnumLists { get; set; }
+        public virtual DbSet<SolutionMottoList> SolutionMottoLists { get; set; }
         public virtual DbSet<SolutionOperationList> SolutionOperationLists { get; set; }
         public virtual DbSet<SolutionSchedulerList> SolutionSchedulerLists { get; set; }
         public virtual DbSet<SolutionSchedulerProcessList> SolutionSchedulerProcessLists { get; set; }
-        public virtual DbSet<SvgIconList> SvgIconLists { get; set; }
+        public virtual DbSet<SolutionUserList> SolutionUserLists { get; set; }
+        public virtual DbSet<SolutionUserRoleList> SolutionUserRoleLists { get; set; }
         public virtual DbSet<SystemCustomPageList> SystemCustomPageLists { get; set; }
-        public virtual DbSet<SystemFailList> SystemFailLists { get; set; }
+        public virtual DbSet<SystemDocumentAdviceList> SystemDocumentAdviceLists { get; set; }
+        public virtual DbSet<SystemDocumentTypeList> SystemDocumentTypeLists { get; set; }
         public virtual DbSet<SystemGroupMenuList> SystemGroupMenuLists { get; set; }
-        public virtual DbSet<SystemLanguageList> SystemLanguageLists { get; set; }
+        public virtual DbSet<SystemIgnoredExceptionList> SystemIgnoredExceptionLists { get; set; }
+        public virtual DbSet<SystemLoginHistoryList> SystemLoginHistoryLists { get; set; }
         public virtual DbSet<SystemMenuList> SystemMenuLists { get; set; }
         public virtual DbSet<SystemModuleList> SystemModuleLists { get; set; }
+        public virtual DbSet<SystemParameterList> SystemParameterLists { get; set; }
         public virtual DbSet<SystemReportList> SystemReportLists { get; set; }
         public virtual DbSet<SystemReportQueueList> SystemReportQueueLists { get; set; }
+        public virtual DbSet<SystemSvgIconList> SystemSvgIconLists { get; set; }
         public virtual DbSet<SystemTranslationList> SystemTranslationLists { get; set; }
         public virtual DbSet<TemplateList> TemplateLists { get; set; }
         public virtual DbSet<TermsList> TermsLists { get; set; }
-        public virtual DbSet<ToolPanelDefinitionList> ToolPanelDefinitionLists { get; set; }
-        public virtual DbSet<ToolTypeList> ToolTypeLists { get; set; }
         public virtual DbSet<UbytkacInfoList> UbytkacInfoLists { get; set; }
-        public virtual DbSet<UserList> UserLists { get; set; }
-        public virtual DbSet<UserRoleList> UserRoleLists { get; set; }
         public virtual DbSet<WebMottoList> WebMottoLists { get; set; }
         public virtual DbSet<WebSettingList> WebSettingLists { get; set; }
 
@@ -103,45 +128,574 @@ namespace UbytkacBackend.DBModel
         {
             modelBuilder.UseCollation("Czech_CI_AS");
 
-            modelBuilder.Entity<AddressList>(entity =>
+            modelBuilder.Entity<BasicAttachmentList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.AddressLists)
+                    .WithMany(p => p.BasicAttachmentLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AttachmentList_UserList");
+            });
+
+            modelBuilder.Entity<BasicCalendarList>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.Date })
+                    .HasName("PK_Calendar");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BasicCalendarLists)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Calendar_UserList");
+            });
+
+            modelBuilder.Entity<BasicCurrencyList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ExchangeRate).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Fixed).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BasicCurrencyLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CurrencyList_UserList");
+            });
+
+            modelBuilder.Entity<BasicImageGalleryList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BasicImageGalleryLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ImageGalleryList_UserList");
+            });
+
+            modelBuilder.Entity<BasicItemList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.BasicItemLists)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemList_CurrencyList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BasicItemLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BasicItemLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemList_UserList");
+
+                entity.HasOne(d => d.Vat)
+                    .WithMany(p => p.BasicItemLists)
+                    .HasForeignKey(d => d.VatId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemList_VatList");
+            });
+
+            modelBuilder.Entity<BasicUnitList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BasicUnitLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UnitList_UserList");
+            });
+
+            modelBuilder.Entity<BasicVatList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BasicVatLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_VatList_UserList");
+            });
+
+            modelBuilder.Entity<BasicViewAttachmentList>(entity =>
+            {
+                entity.ToView("BasicViewAttachmentList");
+            });
+
+            modelBuilder.Entity<BusinessAddressList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessAddressLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AddressList_UserList");
             });
 
-            modelBuilder.Entity<AdminLoginHistoryList>(entity =>
+            modelBuilder.Entity<BusinessBranchList>(entity =>
             {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+                entity.HasComment("");
 
-                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
-            });
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
-            modelBuilder.Entity<BranchList>(entity =>
-            {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.BranchLists)
+                    .WithMany(p => p.BusinessBranchLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BranchList_UserList");
             });
 
-            modelBuilder.Entity<Calendar>(entity =>
+            modelBuilder.Entity<BusinessCreditNoteList>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.Date });
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.InvoiceNumberNavigation)
+                    .WithMany(p => p.BusinessCreditNoteLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.InvoiceNumber)
+                    .HasConstraintName("FK_CreditNoteList_OutgoingInvoiceList");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessCreditNoteLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditNoteList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessCreditNoteLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditNoteList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessCreditNoteSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessCreditNoteSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_CreditNoteItemList_CreditNoteList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BusinessCreditNoteSupportLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditNoteItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessCreditNoteSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CreditNoteItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessExchangeRateList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.BusinessExchangeRateLists)
+                    .HasForeignKey(d => d.CurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ExchangeRateList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessExchangeRateLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CourseList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessIncomingInvoiceList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Maturity)
+                    .WithMany(p => p.BusinessIncomingInvoiceLists)
+                    .HasForeignKey(d => d.MaturityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceList_MaturityList");
+
+                entity.HasOne(d => d.PaymentMethod)
+                    .WithMany(p => p.BusinessIncomingInvoiceLists)
+                    .HasForeignKey(d => d.PaymentMethodId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceList_PaymentMethodList");
+
+                entity.HasOne(d => d.PaymentStatus)
+                    .WithMany(p => p.BusinessIncomingInvoiceLists)
+                    .HasForeignKey(d => d.PaymentStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceList_PaymentStatusList");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessIncomingInvoiceLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessIncomingInvoiceLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessIncomingInvoiceSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessIncomingInvoiceSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_IncomingInvoiceItemList_IncomingInvoiceList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BusinessIncomingInvoiceSupportLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessIncomingInvoiceSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingInvoiceItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessIncomingOrderList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessIncomingOrderLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingOrderList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessIncomingOrderLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingOrderList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessIncomingOrderSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessIncomingOrderSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_IncomingOrderItemList_IncomingOrderList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BusinessIncomingOrderSupportLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingOrderItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessIncomingOrderSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_IncomingOrderItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessMaturityList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Calendars)
+                    .WithMany(p => p.BusinessMaturityLists)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_Calendar_UserList");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MaturityList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessNotesList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessNotesLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_NotesList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessOfferList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessOfferLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OfferList_CurrencyList1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessOfferLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OfferList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessOfferSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessOfferSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_OfferItemList_OfferList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessOfferSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OfferItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessOutgoingInvoiceList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.CreditNote)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.CreditNoteId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_CreditNoteList");
+
+                entity.HasOne(d => d.Maturity)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.MaturityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_MaturityList");
+
+                entity.HasOne(d => d.PaymentMethod)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.PaymentMethodId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_PaymentMethodList");
+
+                entity.HasOne(d => d.PaymentStatus)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.PaymentStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_PaymentStatusList");
+
+                entity.HasOne(d => d.Receipt)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.ReceiptId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_ReceiptList");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessOutgoingInvoiceLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessOutgoingInvoiceSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessOutgoingInvoiceSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_OutgoingInvoiceItemList_OutgoingInvoiceList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BusinessOutgoingInvoiceSupportLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessOutgoingInvoiceSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingInvoiceItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessOutgoingOrderList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessOutgoingOrderLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingOrderList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessOutgoingOrderLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingOrderList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessOutgoingOrderSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessOutgoingOrderSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_OutgoingOrderItemList_OutgoingOrderList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BusinessOutgoingOrderSupportLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingOrderItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessOutgoingOrderSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OutgoingOrderItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessPaymentMethodList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessPaymentMethodLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PaymentMethodList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessPaymentStatusList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessPaymentStatusLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PaymentStatusList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessReceiptList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.InvoiceNumberNavigation)
+                    .WithMany(p => p.BusinessReceiptLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.InvoiceNumber)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK_ReceiptList_OutgoingInvoiceList");
+
+                entity.HasOne(d => d.TotalCurrency)
+                    .WithMany(p => p.BusinessReceiptLists)
+                    .HasForeignKey(d => d.TotalCurrencyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReceiptList_CurrencyList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessReceiptLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReceiptList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessReceiptSupportList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.DocumentNumberNavigation)
+                    .WithMany(p => p.BusinessReceiptSupportLists)
+                    .HasPrincipalKey(p => p.DocumentNumber)
+                    .HasForeignKey(d => d.DocumentNumber)
+                    .HasConstraintName("FK_ReceiptItemList_ReceiptList");
+
+                entity.HasOne(d => d.UnitNavigation)
+                    .WithMany(p => p.BusinessReceiptSupportLists)
+                    .HasPrincipalKey(p => p.Name)
+                    .HasForeignKey(d => d.Unit)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReceiptItemList_UnitList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessReceiptSupportLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReceiptItemList_UserList");
+            });
+
+            modelBuilder.Entity<BusinessWarehouseList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.LastStockTaking).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BusinessWarehouseLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WarehouseList_UserList");
             });
 
             modelBuilder.Entity<CityList>(entity =>
@@ -237,24 +791,13 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.CreditPackageLists)
                     .HasForeignKey(d => d.CurrencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CreditPackageList_CurrencyList");
+                    .HasConstraintName("FK_CreditPackageList_CurrencyList1");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.CreditPackageLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CreditPackageList_UserList");
-            });
-
-            modelBuilder.Entity<CurrencyList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.CurrencyLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CurrencyList_UserList");
             });
 
             modelBuilder.Entity<DocSrvDocTemplateList>(entity =>
@@ -272,42 +815,6 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocSrvDocTemplateList_UserList");
-            });
-
-            modelBuilder.Entity<DocumentAdviceList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Branch)
-                    .WithMany(p => p.DocumentAdviceLists)
-                    .HasForeignKey(d => d.BranchId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentAdviceList_BranchList");
-
-                entity.HasOne(d => d.DocumentType)
-                    .WithMany(p => p.DocumentAdviceLists)
-                    .HasForeignKey(d => d.DocumentTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentAdviceList_DocumentTypeList");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.DocumentAdviceLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentAdvice_UserList");
-            });
-
-            modelBuilder.Entity<DocumentTypeList>(entity =>
-            {
-                entity.Property(e => e.SystemName).HasDefaultValueSql("('MustProgramming')");
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.DocumentTypeLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentTypeList_UserList");
             });
 
             modelBuilder.Entity<DocumentationCodeLibraryList>(entity =>
@@ -351,45 +858,6 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentationList_UserList");
-            });
-
-            modelBuilder.Entity<EmailTemplateList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.SystemLanguage)
-                    .WithMany(p => p.EmailTemplateLists)
-                    .HasForeignKey(d => d.SystemLanguageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_EmailTemplateList_SystemLanguageList");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.EmailTemplateLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_EmailTemplateList_UserList");
-            });
-
-            modelBuilder.Entity<EmailerHistoryList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-            });
-
-            modelBuilder.Entity<ExchangeRateList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Currency)
-                    .WithMany(p => p.ExchangeRateLists)
-                    .HasForeignKey(d => d.CurrencyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ExchangeRateList_CurrencyList");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.ExchangeRateLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ExchangeRateList_UserList");
             });
 
             modelBuilder.Entity<GetTopFiveFavoriteList>(entity =>
@@ -542,7 +1010,7 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.HotelLists)
                     .HasForeignKey(d => d.DefaultCurrencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelList_CurrencyList");
+                    .HasConstraintName("FK_HotelList_BasicCurrencyList");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.HotelLists)
@@ -582,7 +1050,7 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.HotelReservationDetailLists)
                     .HasForeignKey(d => d.CurrencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelReservationDetailList_CurrencyList");
+                    .HasConstraintName("FK_HotelReservationDetailList_CurrencyList1");
 
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.HotelReservationDetailLists)
@@ -619,7 +1087,7 @@ namespace UbytkacBackend.DBModel
                     .WithMany(p => p.HotelReservationLists)
                     .HasForeignKey(d => d.CurrencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HotelReservationList_CurrencyList");
+                    .HasConstraintName("FK_HotelReservationList_CurrencyList1");
 
                 entity.HasOne(d => d.Guest)
                     .WithMany(p => p.HotelReservationLists)
@@ -740,19 +1208,6 @@ namespace UbytkacBackend.DBModel
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
-            modelBuilder.Entity<IgnoredExceptionList>(entity =>
-            {
-                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.IgnoredExceptionLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_IgnoredExceptionList_UserList");
-            });
-
             modelBuilder.Entity<InterestAreaCityList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
@@ -789,57 +1244,6 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_InterestAreaList_UserList");
             });
 
-            modelBuilder.Entity<MessageModuleList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Guest)
-                    .WithMany(p => p.MessageModuleLists)
-                    .HasForeignKey(d => d.GuestId)
-                    .HasConstraintName("FK_MessageModuleList_GuestList");
-
-                entity.HasOne(d => d.MessageParent)
-                    .WithMany(p => p.InverseMessageParent)
-                    .HasForeignKey(d => d.MessageParentId)
-                    .HasConstraintName("FK_MessageModuleList_MessageModuleList");
-
-                entity.HasOne(d => d.MessageType)
-                    .WithMany(p => p.MessageModuleLists)
-                    .HasForeignKey(d => d.MessageTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MessageModuleList_MessageTypeList");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.MessageModuleLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MessageModuleList_UserList");
-            });
-
-            modelBuilder.Entity<MessageTypeList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.MessageTypeLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MessageTypeList_UserList");
-            });
-
-            modelBuilder.Entity<MottoList>(entity =>
-            {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.MottoLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MottoList_UserList");
-            });
-
             modelBuilder.Entity<OftenQuestionList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -849,17 +1253,6 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OftenQuestionList_UserList");
-            });
-
-            modelBuilder.Entity<ParameterList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.ParameterLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_ParameterList_UserList");
             });
 
             modelBuilder.Entity<PrivacyPolicyList>(entity =>
@@ -1009,6 +1402,115 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_ServerSettingList_SolutionUserList");
             });
 
+            modelBuilder.Entity<ServerToolPanelDefinitionList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.ToolType)
+                    .WithMany(p => p.ServerToolPanelDefinitionLists)
+                    .HasForeignKey(d => d.ToolTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerToolPanelDefinitionList_ToolTypeList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerToolPanelDefinitionLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerToolPanelDefinitionList_UserList");
+            });
+
+            modelBuilder.Entity<ServerToolTypeList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerToolTypeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerToolTypeList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionEmailTemplateList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.SystemLanguage)
+                    .WithMany(p => p.SolutionEmailTemplateLists)
+                    .HasForeignKey(d => d.SystemLanguageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmailTemplateList_SystemLanguageList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionEmailTemplateLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmailTemplateList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionEmailerHistoryList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<SolutionFailList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionFailLists)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_SolutionFailList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionLanguageList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionLanguageLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerLanguageList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionMessageModuleList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Guest)
+                    .WithMany(p => p.SolutionMessageModuleLists)
+                    .HasForeignKey(d => d.GuestId)
+                    .HasConstraintName("FK_SolutionMessageModuleList_GuestList");
+
+                entity.HasOne(d => d.MessageParent)
+                    .WithMany(p => p.InverseMessageParent)
+                    .HasForeignKey(d => d.MessageParentId)
+                    .HasConstraintName("FK_SolutionMessageModuleList_SolutionMessageModuleListParent");
+
+                entity.HasOne(d => d.MessageType)
+                    .WithMany(p => p.SolutionMessageModuleLists)
+                    .HasForeignKey(d => d.MessageTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SolutionMessageModuleList_SolutionMessageTypeList");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionMessageModuleLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SolutionMessageModuleList_SolutionUserList");
+            });
+
+            modelBuilder.Entity<SolutionMessageTypeList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionMessageTypeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SolutionMessageTypeList_SolutionUserList");
+            });
+
             modelBuilder.Entity<SolutionMixedEnumList>(entity =>
             {
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
@@ -1020,6 +1522,19 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GlobalMixedEnumList_UserList");
+            });
+
+            modelBuilder.Entity<SolutionMottoList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SolutionMottoLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MottoList_UserList");
             });
 
             modelBuilder.Entity<SolutionOperationList>(entity =>
@@ -1058,15 +1573,21 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_SolutionSchedulerProcessList_SolutionSchedulerList");
             });
 
-            modelBuilder.Entity<SvgIconList>(entity =>
+            modelBuilder.Entity<SolutionUserList>(entity =>
             {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.SvgIconLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SvgIconList_UserList");
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.SolutionUserLists)
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_UserList_UserRoleList");
+            });
+
+            modelBuilder.Entity<SolutionUserRoleList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<SystemCustomPageList>(entity =>
@@ -1082,14 +1603,43 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_SystemCustomPageList_UserList");
             });
 
-            modelBuilder.Entity<SystemFailList>(entity =>
+            modelBuilder.Entity<SystemDocumentAdviceList>(entity =>
             {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
+                entity.HasOne(d => d.Branch)
+                    .WithMany(p => p.SystemDocumentAdviceLists)
+                    .HasForeignKey(d => d.BranchId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentAdviceList_BranchList");
+
+                entity.HasOne(d => d.DocumentTypeNavigation)
+                    .WithMany(p => p.SystemDocumentAdviceLists)
+                    .HasPrincipalKey(p => p.SystemName)
+                    .HasForeignKey(d => d.DocumentType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentAdviceList_DocumentTypeList");
+
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.SystemFailLists)
+                    .WithMany(p => p.SystemDocumentAdviceLists)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_SystemFailList_UserList");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentAdvice_UserList");
+            });
+
+            modelBuilder.Entity<SystemDocumentTypeList>(entity =>
+            {
+                entity.Property(e => e.SystemName).HasDefaultValueSql("('MustProgramming')");
+
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemDocumentTypeLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DocumentTypeList_UserList");
             });
 
             modelBuilder.Entity<SystemGroupMenuList>(entity =>
@@ -1105,15 +1655,22 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_SystemGroupMenuList_UserList");
             });
 
-            modelBuilder.Entity<SystemLanguageList>(entity =>
+            modelBuilder.Entity<SystemIgnoredExceptionList>(entity =>
             {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.SystemLanguageLists)
+                    .WithMany(p => p.SystemIgnoredExceptionLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SystemLanguageList_UserList");
+                    .HasConstraintName("FK_IgnoredExceptionList_UserList");
+            });
+
+            modelBuilder.Entity<SystemLoginHistoryList>(entity =>
+            {
+                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<SystemMenuList>(entity =>
@@ -1146,6 +1703,17 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_SystemModuleList_UserList");
             });
 
+            modelBuilder.Entity<SystemParameterList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemParameterLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_ParameterList_UserList");
+            });
+
             modelBuilder.Entity<SystemReportList>(entity =>
             {
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
@@ -1162,6 +1730,17 @@ namespace UbytkacBackend.DBModel
             modelBuilder.Entity<SystemReportQueueList>(entity =>
             {
                 entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<SystemSvgIconList>(entity =>
+            {
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.SystemSvgIconLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SvgIconList_UserList");
             });
 
             modelBuilder.Entity<SystemTranslationList>(entity =>
@@ -1200,34 +1779,6 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_TermsList_UserList");
             });
 
-            modelBuilder.Entity<ToolPanelDefinitionList>(entity =>
-            {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.ToolType)
-                    .WithMany(p => p.ToolPanelDefinitionLists)
-                    .HasForeignKey(d => d.ToolTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ToolPanelDefinitionList_ToolTypeList");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.ToolPanelDefinitionLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ToolPanelDefinitionList_UserList");
-            });
-
-            modelBuilder.Entity<ToolTypeList>(entity =>
-            {
-                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.ToolTypeLists)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ToolTypeList_UserList");
-            });
-
             modelBuilder.Entity<UbytkacInfoList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
@@ -1237,23 +1788,6 @@ namespace UbytkacBackend.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UbytkacInfoList_UserList");
-            });
-
-            modelBuilder.Entity<UserList>(entity =>
-            {
-                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.UserLists)
-                    .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK_UserList_UserRoleList");
-            });
-
-            modelBuilder.Entity<UserRoleList>(entity =>
-            {
-                entity.Property(e => e.Timestamp).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<WebMottoList>(entity =>

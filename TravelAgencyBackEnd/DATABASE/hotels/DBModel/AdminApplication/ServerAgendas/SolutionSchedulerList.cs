@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace UbytkacBackend.DBModel
 {
     [Table("SolutionSchedulerList")]
+    [Index("Name", Name = "IX_SolutionSchedulerList", IsUnique = true)]
     public partial class SolutionSchedulerList
     {
         public SolutionSchedulerList()
@@ -48,7 +49,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("UserId")]
         [InverseProperty("SolutionSchedulerLists")]
-        public virtual UserList User { get; set; }
+        public virtual SolutionUserList User { get; set; }
         [InverseProperty("ScheduledTask")]
         public virtual ICollection<SolutionSchedulerProcessList> SolutionSchedulerProcessLists { get; set; }
     }

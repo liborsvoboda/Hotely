@@ -2,10 +2,10 @@
 
     [Authorize]
     [ApiController]
-    [Route("UbytkacBackendSystemGroupMenuList")]
-    public class UbytkacBackendSystemGroupMenuListApi : ControllerBase {
+    [Route("SystemGroupMenuList")]
+    public class SystemGroupMenuListApi : ControllerBase {
 
-        [HttpGet("/UbytkacBackendSystemGroupMenuList")]
+        [HttpGet("/GroupMenuList")]
         public async Task<string> GetSystemGroupMenuList() {
             List<SystemGroupMenuList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -17,7 +17,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSystemGroupMenuList/Filter/{filter}")]
+        [HttpGet("/GroupMenuList/Filter/{filter}")]
         public async Task<string> GetSystemGroupMenuListByFilter(string filter) {
             List<SystemGroupMenuList> data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -29,7 +29,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpGet("/UbytkacBackendSystemGroupMenuList/{id}")]
+        [HttpGet("/GroupMenuList/{id}")]
         public async Task<string> GetSystemGroupMenuListKey(int id) {
             SystemGroupMenuList data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
@@ -41,7 +41,7 @@
             return JsonSerializer.Serialize(data);
         }
 
-        [HttpPut("/UbytkacBackendSystemGroupMenuList")]
+        [HttpPut("/GroupMenuList")]
         [Consumes("application/json")]
         public async Task<string> InsertSystemGroupMenuList([FromBody] SystemGroupMenuList record) {
             try {
@@ -55,7 +55,7 @@
             }
         }
 
-        [HttpPost("/UbytkacBackendSystemGroupMenuList")]
+        [HttpPost("/GroupMenuList")]
         [Consumes("application/json")]
         public async Task<string> UpdateSystemGroupMenuList([FromBody] SystemGroupMenuList record) {
             try {
@@ -66,7 +66,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpDelete("/UbytkacBackendSystemGroupMenuList/{id}")]
+        [HttpDelete("/GroupMenuList/{id}")]
         [Consumes("application/json")]
         public async Task<string> DeleteSystemGroupMenuList(string id) {
             try {

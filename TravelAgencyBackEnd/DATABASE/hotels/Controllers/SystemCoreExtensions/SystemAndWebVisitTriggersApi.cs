@@ -14,8 +14,8 @@
         public static async void WriteAppLogin(string ipAddress, int userId, string userName) {
             // Save new visit
             if (!string.IsNullOrWhiteSpace(userName)) {
-                AdminLoginHistoryList record = new() { IpAddress = ipAddress, UserId = userId, UserName = userName, Timestamp = DateTimeOffset.Now.DateTime };
-                var result = new hotelsContext().AdminLoginHistoryLists.Add(record);
+                SystemLoginHistoryList record = new() { IpAddress = ipAddress, UserId = userId, UserName = userName, Timestamp = DateTimeOffset.Now.DateTime };
+                var result = new hotelsContext().SystemLoginHistoryLists.Add(record);
                 await result.Context.SaveChangesAsync();
             }
         }
