@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Net.Http.Headers;
+using UbytkacAdmin.GlobalClasses;
 
 namespace UbytkacAdmin.Pages {
 
@@ -31,7 +32,7 @@ namespace UbytkacAdmin.Pages {
 
         public DocumentationListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try
             {
@@ -73,9 +74,9 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                documentationCodeLibraryList = await ApiCommunication.GetApiRequest<List<DocumentationCodeLibraryList>>(ApiUrls.DocumentationCodeLibraryList, null, App.UserData.Authentification.Token);
-                documentationGroupList = await ApiCommunication.GetApiRequest<List<DocumentationGroupList>>(ApiUrls.DocumentationGroupList, null, App.UserData.Authentification.Token);
-                documentationList = await ApiCommunication.GetApiRequest<List<DocumentationList>>(ApiUrls.DocumentationList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                documentationCodeLibraryList = await CommApi.GetApiRequest<List<DocumentationCodeLibraryList>>(ApiUrls.DocumentationCodeLibraryList, null, App.UserData.Authentification.Token);
+                documentationGroupList = await CommApi.GetApiRequest<List<DocumentationGroupList>>(ApiUrls.DocumentationGroupList, null, App.UserData.Authentification.Token);
+                documentationList = await CommApi.GetApiRequest<List<DocumentationList>>(ApiUrls.DocumentationList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 cb_documentationGroup.ItemsSource = documentationGroupList;
                 documentationList.ForEach(item => { item.DocumentationGroupName = documentationGroupList.First(a => a.Id == item.DocumentationGroupId).Name; });
@@ -96,12 +97,12 @@ namespace UbytkacAdmin.Pages {
                 {
                     string headername = e.Header.ToString();
                     if (headername == "Name") { e.Header = Resources["name"].ToString(); e.DisplayIndex = 2; }
-                    else if (headername == "Sequence") { e.Header = Resources["sequence"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 3; }
+                    else if (headername == "Sequence") { e.Header = Resources["sequence"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 3; }
                     else if (headername == "DocumentationGroupName") { e.Header = Resources["documentationGroup"].ToString(); e.DisplayIndex = 1; }
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
-                    else if (headername == "AutoVersion") { e.Header = Resources["autoVersion"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; }
-                    else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "AutoVersion") { e.Header = Resources["autoVersion"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; }
+                    else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
                     else if (headername == "Id") e.DisplayIndex = 0;
 
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -153,7 +154,7 @@ namespace UbytkacAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative)
             {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.DocumentationList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.DocumentationList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -207,9 +208,9 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.DocumentationList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.DocumentationList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.DocumentationList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await CommApi.PostApiRequest(ApiUrls.DocumentationList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (closeForm) { await LoadDataList(); selectedRecord = new DocumentationList(); SetRecord(false); }
                 if (dBResult.RecordCount == 0) { await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage); }
@@ -230,7 +231,7 @@ namespace UbytkacAdmin.Pages {
             //EASYTools.MarkdownToHtml.Markdown markdown = new EASYTools.MarkdownToHtml.Markdown();
             //html_htmlContent.Browser.OpenDocument(markdown.Transform(md_editor.Text).Replace("<HEAD></HEAD>", "<HEAD><META content=text/html;utf-8 http-equiv=content-type></HEAD>");
 
-            chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
+            chb_active.IsChecked = (selectedRecord.Id == 0) ? bool.Parse(App.appRuntimeData.AppClientSettings.First(a => a.Key == "beh_activeNewInputDefault").Value) : selectedRecord.Active;
             txt_autoversion.Value = selectedRecord.AutoVersion;
 
             if (showForm)
@@ -255,7 +256,7 @@ namespace UbytkacAdmin.Pages {
 
         private async void BtnOpenInBrowser_Click(object sender, RoutedEventArgs e) {
             await SaveRecord(false, false);
-            SystemOperations.StartExternalProccess(SystemOperations.ProcessTypes.First(a => a.Value.ToLower() == "url").Value, App.Setting.ApiAddress + (await DataOperations.ParameterCheck("WebDocPreview")) + "/" + txt_id.Value.ToString());
+            SystemOperations.StartExternalProccess(SystemLocalEnumSets.ProcessTypes.First(a => a.Value.ToLower() == "url").Value, App.appRuntimeData.AppClientSettings.First(b => b.Key == "conn_apiAddress").Value + (await DataOperations.ParameterCheck("WebDocPreview")) + "/" + txt_id.Value.ToString());
         }
 
 
@@ -276,7 +277,7 @@ namespace UbytkacAdmin.Pages {
 
                     DBResultMessage dBResult;
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.UserData.Authentification.Token);
-                    string json = await httpClient.GetStringAsync(App.Setting.ApiAddress + "/WebApi/WebDocumentation/GenerateMdBook");
+                    string json = await httpClient.GetStringAsync(App.appRuntimeData.AppClientSettings.First(b => b.Key == "conn_apiAddress").Value + "/WebApi/WebDocumentation/GenerateMdBook");
                     dBResult = JsonConvert.DeserializeObject<DBResultMessage>(json);
 
                     MainWindow.ProgressRing = Visibility.Hidden;

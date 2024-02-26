@@ -1,5 +1,4 @@
-﻿using GlobalClasses;
-using MahApps.Metro.Controls.Dialogs;
+﻿using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ namespace UbytkacAdmin.Pages {
 
         public CountryAreaListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -52,10 +51,10 @@ namespace UbytkacAdmin.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                CountryAreaList = await ApiCommunication.GetApiRequest<List<CountryAreaList>>(ApiUrls.CountryAreaList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                CountryAreaList = await CommApi.GetApiRequest<List<CountryAreaList>>(ApiUrls.CountryAreaList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 CountryAreaList.ForEach(async area => { area.AreaTranslation = await DBOperations.DBTranslation(area.SystemName); });
 
-                countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
+                countryList = await CommApi.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
                 countryList.ForEach(async country => { country.CountryTranslation = await DBOperations.DBTranslation(country.SystemName); });
 
                 CountryAreaList.ForEach(area => {
@@ -81,7 +80,7 @@ namespace UbytkacAdmin.Pages {
                 else if (headername == "AreaTranslation") { e.Header = Resources["translation"].ToString(); e.DisplayIndex = 2; }
                 else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 3; }
                 else if (headername == "Description") e.Header = Resources["description"].ToString();
-                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "UserId") e.Visibility = Visibility.Hidden;
                 else if (headername == "CountryId") e.Visibility = Visibility.Hidden;
@@ -119,7 +118,7 @@ namespace UbytkacAdmin.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CountryAreaList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.CountryAreaList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
@@ -154,16 +153,16 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CountryAreaList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.CountryAreaList, httpContent, null, App.UserData.Authentification.Token); }
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.CountryAreaList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await CommApi.PostApiRequest(ApiUrls.CountryAreaList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
 
                     //SaveItem
                     countryAreaCityList.ForEach(item => { item.Id = 0; item.Icacid = dBResult.InsertedId; item.UserId = App.UserData.Authentification.Id; });
-                    dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CountryAreaCityList, dBResult.InsertedId.ToString(), App.UserData.Authentification.Token);
+                    dBResult = await CommApi.DeleteApiRequest(ApiUrls.CountryAreaCityList, dBResult.InsertedId.ToString(), App.UserData.Authentification.Token);
                     json = JsonConvert.SerializeObject(countryAreaCityList); httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CountryAreaCityList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.CountryAreaCityList, httpContent, null, App.UserData.Authentification.Token);
                     if (dBResult.RecordCount != countryAreaCityList.Count()) {
                         await MainWindow.ShowMessageOnMainWindow(true, Resources["itemsDBError"].ToString() + Environment.NewLine + dBResult.ErrorMessage);
                     }
@@ -204,9 +203,9 @@ namespace UbytkacAdmin.Pages {
         public async Task<bool> LoadSubDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                countryAreaCityList = await ApiCommunication.GetApiRequest<List<CountryAreaCityList>>(ApiUrls.CountryAreaCityList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                countryAreaCityList = await CommApi.GetApiRequest<List<CountryAreaCityList>>(ApiUrls.CountryAreaCityList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 foreach (CountryAreaCityList item in countryAreaCityList) {
-                    item.CityTranslation = await DBOperations.DBTranslation((await ApiCommunication.GetApiRequest<CityList>(ApiUrls.CityList, item.CityId.ToString(), App.UserData.Authentification.Token)).City, true);
+                    item.CityTranslation = await DBOperations.DBTranslation((await CommApi.GetApiRequest<CityList>(ApiUrls.CityList, item.CityId.ToString(), App.UserData.Authentification.Token)).City, true);
                 }
                 
                 DgSubListView.ItemsSource = countryAreaCityList;
@@ -240,7 +239,7 @@ namespace UbytkacAdmin.Pages {
             if (cb_country.SelectedItem != null) {
                 MainWindow.ProgressRing = Visibility.Visible;
                 cb_city.SelectedItem = null;
-                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, "ByCountry/" + ((CountryList)cb_country.SelectedItem).Id.ToString(), App.UserData.Authentification.Token); ;
+                cityList = await CommApi.GetApiRequest<List<CityList>>(ApiUrls.CityList, "ByCountry/" + ((CountryList)cb_country.SelectedItem).Id.ToString(), App.UserData.Authentification.Token); ;
 
                 cityList.ForEach(async city => {
                     city.CityTranslation = await DBOperations.DBTranslation(city.City, true);

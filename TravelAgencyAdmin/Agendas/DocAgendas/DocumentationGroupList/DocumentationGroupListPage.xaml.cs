@@ -24,7 +24,7 @@ namespace UbytkacAdmin.Pages {
 
         public DocumentationGroupListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try
             {
@@ -46,7 +46,7 @@ namespace UbytkacAdmin.Pages {
 
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
-            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<DocumentationGroupList>>(ApiUrls.DocumentationGroupList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
+            try { if (MainWindow.serviceRunning) DgListView.ItemsSource = await CommApi.GetApiRequest<List<DocumentationGroupList>>(ApiUrls.DocumentationGroupList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token); }
             catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
         }
@@ -58,12 +58,12 @@ namespace UbytkacAdmin.Pages {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
                     if (headername == "Name") { e.Header = Resources["name"].ToString(); e.DisplayIndex = 1; }
-                    else if (headername == "Sequence") { e.Header = Resources["sequence"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 2; }
+                    else if (headername == "Sequence") { e.Header = Resources["sequence"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 2; }
 
                     else if (headername == "Description") { e.Header = Resources["description"].ToString(); e.DisplayIndex = 3; }
 
-                    else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
-                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "Active") { e.Header = Resources["active"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 2; }
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -109,7 +109,7 @@ namespace UbytkacAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative)
             {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.DocumentationGroupList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.DocumentationGroupList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -149,9 +149,9 @@ namespace UbytkacAdmin.Pages {
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0)
                 {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.DocumentationGroupList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.DocumentationGroupList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.DocumentationGroupList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await CommApi.PostApiRequest(ApiUrls.DocumentationGroupList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0)
                 {
@@ -177,7 +177,7 @@ namespace UbytkacAdmin.Pages {
             txt_sequence.Value = selectedRecord.Sequence;
 
             txt_description.Text = selectedRecord.Description;
-            chb_active.IsChecked = (selectedRecord.Id == 0) ? App.Setting.ActiveNewInputDefault : selectedRecord.Active;
+            chb_active.IsChecked = (selectedRecord.Id == 0) ? bool.Parse(App.appRuntimeData.AppClientSettings.First(a => a.Key == "beh_activeNewInputDefault").Value) : selectedRecord.Active;
 
             if (showForm)
             {

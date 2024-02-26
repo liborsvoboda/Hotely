@@ -1,37 +1,42 @@
-﻿using MahApps.Metro;
+﻿using UbytkacAdmin.Properties;
+using UbytkacAdmin.SystemHelper;
+using MahApps.Metro;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
-using UbytkacAdmin.Properties;
-using UbytkacAdmin.SystemConfiguration;
-using UbytkacAdmin.SystemHelpers;
 
 namespace UbytkacAdmin.SystemStructure {
 
     public class SystemTheme : AccentColorMenuData {
 
         protected override void ChangeTheme(object sender) {
-            Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
-            AppTheme appTheme = ThemeManager.GetAppTheme(this.Name);
-            ThemeManager.ChangeAppStyle(Application.Current, theme.Item2, appTheme);
-            SaveTheme(theme.Item2, appTheme);
+            try {
+                Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
+                AppTheme appTheme = ThemeManager.GetAppTheme(this.Name);
+                ThemeManager.ChangeAppStyle(Application.Current, theme.Item2, appTheme);
+                SaveTheme(theme.Item2, appTheme);
+            } catch { }
         }
     }
 
     public class AccentColorMenuData {
 
         protected virtual void ChangeTheme(object sender) {
-            Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
-            Accent accent = ThemeManager.GetAccent(this.Name);
-            ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
-            SaveTheme(accent, theme.Item1);
+            try {
+                Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
+                Accent accent = ThemeManager.GetAccent(this.Name);
+                ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
+                SaveTheme(accent, theme.Item1);
+            } catch { }
         }
 
         protected void SaveTheme(Accent accent, AppTheme theme) {
-            Settings.Default.ThemeName = theme.Name;
-            Settings.Default.AccentName = accent.Name;
-            Settings.Default.Save();
+            try {
+                Settings.Default.ThemeName = theme.Name;
+                Settings.Default.AccentName = accent.Name;
+                Settings.Default.Save();
+            } catch { }
         }
 
         public AccentColorMenuData() {

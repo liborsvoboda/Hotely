@@ -20,16 +20,16 @@ namespace UbytkacAdmin.Pages {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static HotelPropertyAndServiceList selectedRecord = new HotelPropertyAndServiceList();
 
-        private List<UserList> adminUserList = new List<UserList>();
+        private List<SolutionUserList> adminUserList = new List<SolutionUserList>();
         private List<HotelList> hotelList = new List<HotelList>();
-        private List<CurrencyList> currencyList = new List<CurrencyList>();
+        private List<BasicCurrencyList> basicCurrencyList = new List<BasicCurrencyList>();
         private List<PropertyGroupList> propertyGroupList = new List<PropertyGroupList>();
         private List<PropertyOrServiceTypeList> propertyOrServiceTypeList = new List<PropertyOrServiceTypeList>();
         private List<PropertyOrServiceUnitList> propertyOrServiceUnitList = new List<PropertyOrServiceUnitList>();
 
         public HotelPropertyAndServiceListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try {
                 lbl_id.Content = Resources["id"].ToString();
@@ -58,20 +58,20 @@ namespace UbytkacAdmin.Pages {
             List<HotelPropertyAndServiceList> hotelPropertyAndServiceList = new List<HotelPropertyAndServiceList>();
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                hotelPropertyAndServiceList = await ApiCommunication.GetApiRequest<List<HotelPropertyAndServiceList>>(ApiUrls.HotelPropertyAndServiceList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
-                currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
-                propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
-                propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
-                propertyGroupList = await ApiCommunication.GetApiRequest<List<PropertyGroupList>>(ApiUrls.PropertyGroupList, null, App.UserData.Authentification.Token);
+                hotelPropertyAndServiceList = await CommApi.GetApiRequest<List<HotelPropertyAndServiceList>>(ApiUrls.HotelPropertyAndServiceList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                hotelList = await CommApi.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
+                basicCurrencyList = await CommApi.GetApiRequest<List<BasicCurrencyList>>(ApiUrls.BasicCurrencyList, null, App.UserData.Authentification.Token);
+                propertyOrServiceTypeList = await CommApi.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, null, App.UserData.Authentification.Token);
+                propertyOrServiceUnitList = await CommApi.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
+                propertyGroupList = await CommApi.GetApiRequest<List<PropertyGroupList>>(ApiUrls.PropertyGroupList, null, App.UserData.Authentification.Token);
 
                 propertyOrServiceTypeList.ForEach(async property => { property.Translation = await DBOperations.DBTranslation(property.SystemName); });
                 propertyOrServiceUnitList.ForEach(async propertyUnit => { propertyUnit.Translation = await DBOperations.DBTranslation(propertyUnit.SystemName); });
-                hotelList.ForEach(hotel => { hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
+                hotelList.ForEach(hotel => { hotel.Currency = basicCurrencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name; });
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin") {
-                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    cb_owner.ItemsSource = adminUserList = await CommApi.GetApiRequest<List<SolutionUserList>>(ApiUrls.SolutionUserList, null, App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
@@ -106,7 +106,7 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "Fee") { e.Header = Resources["fee"].ToString(); e.DisplayIndex = 5; }
                     else if (headername == "PropertyUnit") e.Header = Resources["unit"].ToString();
                     else if (headername == "RoomsCount") e.Header = Resources["roomsCount"].ToString();
-                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -183,15 +183,15 @@ namespace UbytkacAdmin.Pages {
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "Admin")
-                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
+                    selectedRecord.UserId = ((SolutionUserList)cb_owner.SelectedItem).Id;
 
                 //nullable additional fields
                 selectedRecord.Accommodation = selectedRecord.PropertyOrService = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token); }
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await CommApi.PostApiRequest(ApiUrls.HotelPropertyAndServiceList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
                     selectedRecord = new HotelPropertyAndServiceList();
@@ -235,7 +235,7 @@ namespace UbytkacAdmin.Pages {
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "Admin")
-                cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+                cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.Username).FirstOrDefault();
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;

@@ -126,7 +126,6 @@
                 <Setter Property="BorderThickness" Value="3,3,3,3" />
                 <Setter Property="Background" Value="#FAFAFA" />
             </Trigger>
-
         </Style.Triggers>
     </Style>
 
@@ -212,7 +211,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
 
     <Style x:Key="DocumentStyleCompact" TargetType="FlowDocument">
         <Setter Property="FontFamily" Value="Calibri" />
@@ -443,7 +441,6 @@
                         <Setter Property="BorderThickness" Value="3,3,3,3" />
                         <Setter Property="Background" Value="#FAFAFA" />
                     </Trigger>
-
                 </Style.Triggers>
             </Style>
 
@@ -536,8 +533,4 @@
             </Style>
         </Style.Resources>
     </Style>
-
-
-
-
 </ResourceDictionary>

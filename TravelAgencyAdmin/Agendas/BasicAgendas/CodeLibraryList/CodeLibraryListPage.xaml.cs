@@ -30,7 +30,7 @@ namespace UbytkacAdmin.Pages {
 
         public CodeLibraryListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try {
                 lbl_id.Content = Resources["id"].ToString();
@@ -75,7 +75,7 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                CodeLibraryList = await ApiCommunication.GetApiRequest<List<CodeLibraryList>>(ApiUrls.CodeLibraryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                CodeLibraryList = await CommApi.GetApiRequest<List<CodeLibraryList>>(ApiUrls.CodeLibraryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 DgListView.ItemsSource = CodeLibraryList;
                 lb_dataList.ItemsSource = CodeLibraryList;
@@ -92,7 +92,7 @@ namespace UbytkacAdmin.Pages {
                     string headername = e.Header.ToString();
                     if (headername == "Name") { e.Header = Resources["fname"].ToString(); e.DisplayIndex = 1; }
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
-                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -136,7 +136,7 @@ namespace UbytkacAdmin.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.CodeLibraryList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.CodeLibraryList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -227,9 +227,9 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.CodeLibraryList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.CodeLibraryList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.CodeLibraryList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await CommApi.PostApiRequest(ApiUrls.CodeLibraryList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) { await LoadDataList();}
                 if (closeForm) { selectedRecord = new CodeLibraryList();SetRecord(false); }

@@ -17,7 +17,7 @@ namespace UbytkacAdmin.GlobalOperations {
                         break;
 
                     case "bit":
-                        result = (bool.TryParse(value, out bool temp)) ? true : true;
+                        result = bool.TryParse(value, out bool tempBit);
                         Convert.ChangeType(value, value.GetTypeCode());
                         break;
 

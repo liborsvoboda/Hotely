@@ -21,15 +21,15 @@ namespace UbytkacAdmin.Pages {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static HotelList selectedRecord = new HotelList();
 
-        private List<UserList> adminUserList = new List<UserList>();
+        private List<SolutionUserList> adminUserList = new List<SolutionUserList>();
         private List<CountryList> countryList = new List<CountryList>();
         private List<CityList> cityList = new List<CityList>();
-        private List<CurrencyList> currencyList = new List<CurrencyList>();
-        private List<UserList> userList = new List<UserList>();
+        private List<BasicCurrencyList> currencyList = new List<BasicCurrencyList>();
+        private List<SolutionUserList> userList = new List<SolutionUserList>();
 
         public HotelListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try {
                 lbl_id.Content = Resources["id"].ToString();
@@ -62,10 +62,10 @@ namespace UbytkacAdmin.Pages {
             List<HotelList> hotelList = new List<HotelList>();
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                countryList = await ApiCommunication.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
-                currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
-                userList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                hotelList = await CommApi.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                countryList = await CommApi.GetApiRequest<List<CountryList>>(ApiUrls.CountryList, null, App.UserData.Authentification.Token);
+                currencyList = await CommApi.GetApiRequest<List<BasicCurrencyList>>(ApiUrls.BasicCurrencyList, null, App.UserData.Authentification.Token);
+                userList = await CommApi.GetApiRequest<List<SolutionUserList>>(ApiUrls.SolutionUserList, null, App.UserData.Authentification.Token);
 
 
 
@@ -73,12 +73,12 @@ namespace UbytkacAdmin.Pages {
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "admin") {
-                    cb_owner.ItemsSource = adminUserList = await ApiCommunication.GetApiRequest<List<UserList>>(ApiUrls.UserList, null, App.UserData.Authentification.Token);
+                    cb_owner.ItemsSource = adminUserList = await CommApi.GetApiRequest<List<SolutionUserList>>(ApiUrls.SolutionUserList, null, App.UserData.Authentification.Token);
                     lbl_owner.Visibility = cb_owner.Visibility = Visibility.Visible;
                 }
 
                 hotelList.ForEach(async hotel => {
-                    hotel.UserName = userList.First(a=>a.Id == hotel.UserId).UserName;
+                    hotel.UserName = userList.First(a=>a.Id == hotel.UserId).Username;
                     hotel.CountryTranslation = countryList.First(a => a.Id == hotel.CountryId).CountryTranslation;
                     hotel.CityTranslation = await DBOperations.DBTranslation(hotel.City.City);
                     hotel.Currency = currencyList.First(a => a.Id == hotel.DefaultCurrencyId).Name;
@@ -101,7 +101,7 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "CountryTranslation") { e.Header = Resources["country"].ToString(); e.DisplayIndex = 1; } 
                     else if (headername == "CityTranslation") { e.Header = Resources["city"].ToString(); e.DisplayIndex = 2; } 
                     else if (headername == "Currency") { e.Header = Resources["currency"].ToString(); e.DisplayIndex = 4; } 
-                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 5; } 
+                    else if (headername == "TotalCapacity") { e.Header = Resources["totalCapacity"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 5; } 
                     else if (headername == "ApproveRequest") { e.Header = Resources["approveRequest"].ToString(); e.DisplayIndex = 6; } 
                     else if (headername == "Approved") { e.Header = Resources["approved"].ToString(); e.DisplayIndex = 7; } 
                     else if (headername == "Advertised") { e.Header = Resources["advertised"].ToString(); e.DisplayIndex = 8; } 
@@ -112,7 +112,7 @@ namespace UbytkacAdmin.Pages {
                     
                     else if (headername == "UserName") { e.Header = Resources["userName"].ToString(); e.DisplayIndex = 13; }
                     
-                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
 
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -160,7 +160,7 @@ namespace UbytkacAdmin.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.HotelList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -188,7 +188,7 @@ namespace UbytkacAdmin.Pages {
                 selectedRecord.Name = !string.IsNullOrWhiteSpace(txt_name.Text) ? txt_name.Text : null;
                 selectedRecord.DescriptionCz = html_descriptionCz.Text;
                 //selectedRecord.DescriptionEn = html_descriptionEn.Text;
-                selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((CurrencyList)cb_currencyId.SelectedItem).Id : null;
+                selectedRecord.DefaultCurrencyId = (cb_currencyId.SelectedItem != null) ? (int?)((BasicCurrencyList)cb_currencyId.SelectedItem).Id : null;
 
                 selectedRecord.StornoDaysCountBeforeStart = (int)txt_stornoDaysCountBeforeStart.Value;
                 selectedRecord.GuestStornoEnabled = (bool)chb_guestStornoEnabled.IsChecked;
@@ -202,14 +202,14 @@ namespace UbytkacAdmin.Pages {
 
                 //Only for Admin: Owner/UserId Selection
                 if (App.UserData.Authentification.Role == "admin")
-                    selectedRecord.UserId = ((UserList)cb_owner.SelectedItem).Id;
+                    selectedRecord.UserId = ((SolutionUserList)cb_owner.SelectedItem).Id;
 
                 selectedRecord.Currency = null; selectedRecord.City = null;
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token); }
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await CommApi.PostApiRequest(ApiUrls.HotelList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
                     selectedRecord = new HotelList();
@@ -243,7 +243,7 @@ namespace UbytkacAdmin.Pages {
 
             //Only for Admin: Owner/UserId Selection
             if (App.UserData.Authentification.Role == "admin")
-                cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.UserName).FirstOrDefault();
+                cb_owner.Text = txt_id.Value == 0 ? App.UserData.UserName : adminUserList.Where(a => a.Id == selectedRecord.UserId).Select(a => a.Username).FirstOrDefault();
 
             if (showForm) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
@@ -259,7 +259,7 @@ namespace UbytkacAdmin.Pages {
             if (cb_countryId.SelectedItem != null) {
                 MainWindow.ProgressRing = Visibility.Visible;
                 cb_cityId.SelectedItem = null;
-                cityList = await ApiCommunication.GetApiRequest<List<CityList>>(ApiUrls.CityList, "ByCountry/" + ((CountryList)cb_countryId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token); ;
+                cityList = await CommApi.GetApiRequest<List<CityList>>(ApiUrls.CityList, "ByCountry/" + ((CountryList)cb_countryId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token); ;
 
                 cityList.ForEach(async city => {
                     city.CityTranslation = await DBOperations.DBTranslation(city.City, true);

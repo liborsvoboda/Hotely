@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 
-namespace UbytkacAdmin.SystemHelpers {
+namespace UbytkacAdmin.SystemHelper {
 
     public static class SystemHelp {
         public static RoutedCommand MyHelpCommand = new RoutedCommand("MyHelpCommand", typeof(FrameworkElement), new InputGestureCollection() { new KeyGesture(Key.F1) });
@@ -65,8 +65,7 @@ namespace UbytkacAdmin.SystemHelpers {
         #region Helpers
 
         private static void CanExecute(object sender, CanExecuteRoutedEventArgs args) {
-            DependencyObject el = Mouse.DirectlyOver as DependencyObject;
-            if (el != null) {
+            if (Mouse.DirectlyOver is DependencyObject el) {
                 string fileName = FindFilename(el);
                 if (!string.IsNullOrEmpty(fileName))
                     args.CanExecute = true;
@@ -93,11 +92,10 @@ namespace UbytkacAdmin.SystemHelpers {
                     };
                     window.ShowDialog();
                 }
-            } else if (!string.IsNullOrEmpty(keyword)) {
+            }
+            else if (!string.IsNullOrEmpty(keyword)) {
                 string helpFileName = FindFilename(mouseover);
                 System.Windows.Forms.Help.ShowHelp(null, helpFileName, "start.htm#_" + keyword);
-            } else {
-                string helpFileName = FindFilename(mouseover);
             }
         }
 
@@ -110,7 +108,8 @@ namespace UbytkacAdmin.SystemHelpers {
                 DependencyObject parent;
                 if (sender is Visual || sender is Visual3D) {
                     parent = VisualTreeHelper.GetParent(sender);
-                } else {
+                }
+                else {
                     parent = LogicalTreeHelper.GetParent(sender);
                 }
                 return FindCommand(parent);
@@ -127,7 +126,8 @@ namespace UbytkacAdmin.SystemHelpers {
                 DependencyObject parent;
                 if (sender is Visual || sender is Visual3D) {
                     parent = VisualTreeHelper.GetParent(sender);
-                } else {
+                }
+                else {
                     parent = LogicalTreeHelper.GetParent(sender);
                 }
                 return FindKeyword(parent);
@@ -144,7 +144,8 @@ namespace UbytkacAdmin.SystemHelpers {
                 DependencyObject parent;
                 if (sender is Visual || sender is Visual3D) {
                     parent = VisualTreeHelper.GetParent(sender);
-                } else {
+                }
+                else {
                     parent = LogicalTreeHelper.GetParent(sender);
                 }
                 if (parent == null && sender as FrameworkElement != null) {

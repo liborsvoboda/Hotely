@@ -27,7 +27,7 @@ namespace UbytkacAdmin.Pages {
 
         public GuestSettingListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             //translate fields in detail form
             lbl_id.Content = Resources["id"].ToString();
@@ -46,8 +46,8 @@ namespace UbytkacAdmin.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                guestSettingList = await ApiCommunication.GetApiRequest<List<GuestSettingList>>(ApiUrls.GuestSettingList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
+                guestSettingList = await CommApi.GetApiRequest<List<GuestSettingList>>(ApiUrls.GuestSettingList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                guestList = await CommApi.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
 
                 guestSettingList.ForEach(async guestSetting => {
                     guestSetting.GuestName = guestList.First(a => a.Id == guestSetting.GuestId).FirstName + " " + guestList.First(a => a.Id == guestSetting.GuestId).LastName;
@@ -65,11 +65,11 @@ namespace UbytkacAdmin.Pages {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
                 if (headername == "Key") { e.Header = Resources["key"].ToString(); e.DisplayIndex = 1; }
-                else if (headername == "KeyTranslation") { e.Header = Resources["translation"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 2; }
-                else if (headername == "Value") { e.Header = Resources["value"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 3; }
-                else if (headername == "GuestName") { e.Header = Resources["guestName"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 4; }
+                else if (headername == "KeyTranslation") { e.Header = Resources["translation"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 2; }
+                else if (headername == "Value") { e.Header = Resources["value"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 3; }
+                else if (headername == "GuestName") { e.Header = Resources["guestName"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 4; }
                 
-                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "GuestId") e.Visibility = Visibility.Hidden;
                 else if (headername == "Description") e.Visibility = Visibility.Hidden;
@@ -109,7 +109,7 @@ namespace UbytkacAdmin.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.GuestSettingList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.GuestSettingList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage);
                 _ = LoadDataList(); SetRecord(false);
             }
@@ -143,8 +143,8 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.GuestSettingList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.GuestSettingList, httpContent, null, App.UserData.Authentification.Token); }
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.GuestSettingList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await CommApi.PostApiRequest(ApiUrls.GuestSettingList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
                     selectedRecord = new GuestSettingList();

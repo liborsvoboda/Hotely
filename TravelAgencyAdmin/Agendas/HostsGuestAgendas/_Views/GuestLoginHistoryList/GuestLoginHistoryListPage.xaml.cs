@@ -21,7 +21,7 @@ namespace UbytkacAdmin.Pages {
 
         public GuestLoginHistoryListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             _ = LoadDataList();
             SetRecord();
@@ -32,7 +32,7 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 if (MainWindow.serviceRunning) {
-                    DgListView.ItemsSource = await ApiCommunication.GetApiRequest<List<GuestLoginHistoryList>>(ApiUrls.GuestLoginHistoryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                    DgListView.ItemsSource = await CommApi.GetApiRequest<List<GuestLoginHistoryList>>(ApiUrls.GuestLoginHistoryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 }
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -43,7 +43,7 @@ namespace UbytkacAdmin.Pages {
             ((DataGrid)sender).Columns.ToList().ForEach(e => {
                 string headername = e.Header.ToString();
                 if (headername == "IpAddress") { e.Header = Resources["ipAddress"].ToString(); } else if (headername == "Email") e.Header = Resources["email"].ToString();
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
+                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "GuestId") e.Visibility = Visibility.Hidden;
             });
         }

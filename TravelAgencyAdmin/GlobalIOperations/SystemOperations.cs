@@ -12,17 +12,7 @@ using UbytkacAdmin.Classes;
 
 namespace UbytkacAdmin.GlobalOperations {
 
-    /// <summary>
-    /// Centralised System Functions for work with Types, methods, Formats, Logic, supported methods
-    /// </summary>
     internal class SystemOperations {
-
-
-        public static ObservableCollection<Language> ProcessTypes = new ObservableCollection<Language>() {
-                                                                new Language() { Name = "EDCservice", Value = "EDCservice" },
-                                                                new Language() { Name = "WINcmd", Value = "WINcmd" },
-                                                                new Language() { Name = "URL", Value = "URL" }
-                                                             };
 
         /// <summary>
         /// Settings Local Application Translation dictionaries (Resources Files) for Pages Will be
@@ -33,7 +23,7 @@ namespace UbytkacAdmin.GlobalOperations {
         /// <returns></returns>
         public static ResourceDictionary SetLanguageDictionary(ResourceDictionary Resources, string languageDefault) {
             if (languageDefault == "system") languageDefault = Thread.CurrentThread.CurrentCulture.ToString();
-            App.appLanguage = languageDefault;
+            App.appRuntimeData.appStartupLanguage = languageDefault;
 
             ResourceDictionary dict = new ResourceDictionary();
             switch (languageDefault) {
@@ -45,8 +35,31 @@ namespace UbytkacAdmin.GlobalOperations {
                     dict.Source = new Uri("..\\Languages\\StringResources.cs-CZ.xaml", UriKind.Relative);
                     break;
             }
+
             Resources.MergedDictionaries.Add(dict);
             return Resources;
+        }
+
+        /// <summary>
+        /// Email Sender for send Direct Email by Server Configuration for Testing
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public static void SendMailWithServerSetting(string message) {
+            /*
+             try {
+                 MailMessage Email = new MailMessage() { From = new MailAddress(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPLoginUsername.ToString()).Value) };
+                 Email.To.Add(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerServiceEmailAddress.ToString()).Value);
+                 Email.Subject = " Emailer";
+                 Email.Body = message;
+                 SmtpClient MailClient = new SmtpClient(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPServerAddress.ToString()).Value, int.Parse(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPPort.ToString()).Value)) {
+                     Credentials = new NetworkCredential(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPLoginUsername.ToString()).Value, App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPLoginPassword.ToString()).Value),
+                     EnableSsl = bool.Parse(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPSslIsEnabled.ToString()).Value),
+                     Host = App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPServerAddress.ToString()).Value,
+                     Port = int.Parse(App.ServerSetting.Find(a => a.Key == ServerSettingKeys.EmailerSMTPPort.ToString()).Value)
+                 };
+                 MailClient.Send(Email);
+             } catch (Exception) { }
+            */
         }
 
         /// <summary>
@@ -81,10 +94,11 @@ namespace UbytkacAdmin.GlobalOperations {
                     File.WriteAllText(fi.FullName, File.ReadAllText(fi.FullName).Replace("[assembly: AssemblyFileVersion(\"" + ol + "\")]", "[assembly: AssemblyFileVersion(\"" + ne + "\")]"));
                     return true;
                 } catch { return false; }
-            } else {
+            }
+            else {
                 try {
                     var fi = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.GetDirectories("Properties")[0].GetFiles("AssemblyInfo.cs")[0];
-                    var ve = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    var ve = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
                     string ol = ve.FileMajorPart.ToString() + "." + ve.FileMinorPart.ToString() + "." + ve.FileBuildPart.ToString() + "." + ve.FilePrivatePart.ToString();
 
                     bool moveNext = false;
@@ -143,7 +157,8 @@ namespace UbytkacAdmin.GlobalOperations {
                                 if (index > 1) { advancedFilter += "{!}" + ((Label)item).Content; }
                                 index++;
                             }
-                        } else if (filterItem.Name.Split('_')[0] == "filter") {
+                        }
+                        else if (filterItem.Name.Split('_')[0] == "filter") {
                             advancedFilter += "[!]" + ((ComboBox)filterItem.Children[0]).SelectionBoxItem;
                             advancedFilter += "{!}" + ((ComboBox)filterItem.Children[2]).SelectionBoxItem;
                             advancedFilter += "{!}'" + ((TextBox)filterItem.Children[3]).Text + "'";
@@ -164,14 +179,12 @@ namespace UbytkacAdmin.GlobalOperations {
         /// </summary>
         /// <param name="stringForRemoveNamespace"></param>
         public static string RemoveAppNamespaceFromString(string stringForRemoveNamespace) {
-            string appNameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace.Split('.')[0];
+            string appNameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace.Split('.')[0];
             return stringForRemoveNamespace.Replace(appNameSpace, string.Empty);
         }
 
-
-
         /// <summary>
-        /// Randoms the string.
+        /// Generate Random String with defined length
         /// </summary>
         /// <param name="length">The length.</param>
         /// <returns></returns>
@@ -182,24 +195,22 @@ namespace UbytkacAdmin.GlobalOperations {
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-
         /// <summary>
-        /// System External Process Starter for Conrtalized Using
-        /// Return the processId when is started or null
-        /// 
+        /// System External Process Starter for Conrtalized Using Return the processId when is
+        /// started or null
+        ///
         /// TODO
         /// - create process Monitor
         /// - save the monitored procceses to System Monitor
         /// - must be refactored actual status
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">          </param>
         /// <param name="processCommand"></param>
-        /// <param name="startupPath">The startup path.</param>
-        /// <param name="arguments">The arguments.</param>
+        /// <param name="startupPath">   The startup path.</param>
+        /// <param name="arguments">     The arguments.</param>
         /// <returns></returns>
         public static int? StartExternalProccess(string type, string processCommand, string startupPath = null, string arguments = null) {
             try {
-
                 Process tmpProcess = new Process();
                 switch (type) {
                     case "WINcmd":
@@ -218,18 +229,33 @@ namespace UbytkacAdmin.GlobalOperations {
                         tmpProcess.StartInfo = info;
                         tmpProcess.Start();
                         break;
+
                     case "URL":
                         tmpProcess = Process.Start(processCommand);
                         break;
+
                     case "EDCservice":
                         tmpProcess = Process.Start(processCommand);
                         break;
+
                     default: break;
                 }
 
                 return tmpProcess?.Id; ;
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
             return null;
+        }
+
+        /// <summary>
+        /// Change First Character of String
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns></returns>
+        public static string FirstLetterToLower(string str) {
+            if (str == null) return null;
+            if (str.Length > 1)
+                return char.ToLower(str[0]) + str.Substring(1);
+            return str.ToLower();
         }
     }
 }

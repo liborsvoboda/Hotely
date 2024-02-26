@@ -46,8 +46,8 @@ namespace UbytkacAdmin.GlobalClasses {
             Add(new Photo(fullName, dbId, isPrimary));
         }
 
-        public void Clear() {
-            if (Items != null) this.Items.Clear();
+        public new void Clear() {
+            Items?.Clear();
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyITSystemCenter.Classes {
+namespace UbytkacAdmin.Classes {
 
     public class ServerServerSettingList {
         public int Id { get; set; }

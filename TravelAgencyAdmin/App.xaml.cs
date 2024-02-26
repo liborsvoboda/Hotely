@@ -1,21 +1,26 @@
-﻿using GlobalClasses;
+﻿using CefSharp;
+using log4net.Config;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Newtonsoft.Json;
+using Microsoft.Owin.Hosting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalClasses;
 using UbytkacAdmin.GlobalOperations;
 using UbytkacAdmin.Pages;
+using UbytkacAdmin.SystemHelper;
 using UbytkacAdmin.SystemStructure;
 
 namespace UbytkacAdmin {
@@ -23,31 +28,42 @@ namespace UbytkacAdmin {
     public partial class App : Application {
 
 
+        public static ExtendedReceiptList TiltReceiptDoc = new ExtendedReceiptList(); public static ExtendedCreditNoteList TiltCreditDoc = new ExtendedCreditNoteList(); public static ExtendedOutgoingInvoiceList TiltInvoiceDoc = new ExtendedOutgoingInvoiceList(); public static BusinessIncomingOrderList TiltOrderDoc = new BusinessIncomingOrderList();
+        public static BusinessOfferList TiltOfferDoc = new BusinessOfferList(); public static List<DocumentItemList> TiltDocItems = new List<DocumentItemList>(); public static string tiltTargets = TiltTargets.None.ToString();
+
+
+        /// <summary>
+        /// Global Application Startup Settings Central Parameters / Languages / User / Configure
+        /// TODO must centalize to Globall APP class
+        /// </summary>
         public static AppRuntimeData appRuntimeData = new AppRuntimeData();
 
-        public static List<ParameterList> ParameterList = null;
-        public static List<LanguageList> LanguageList = null;
-        public static UserData UserData = new UserData();
-        public static List<IgnoredExceptionList> IgnoredExceptionList = new List<IgnoredExceptionList>();
 
-        internal static string appName = Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0];
-        internal static string startupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        internal static string settingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName);
-        internal static string reportFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Reports");
-        internal static string updateFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Update");
-        internal static string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Temp");
-        internal static string galleryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName, "Gallery");
-        internal static string settingFile = "config.json";
-        public static Config Setting = FileOperations.LoadSettings();
-        internal static string appLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+        /// <summary>
+        /// System Core Needs Runtime Data For Working
+        /// //TODO move to RuntimeData
+        /// </summary>
+        public static log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        public static List<SystemModuleList> SystemModuleList = null;
+        public static List<ServerServerSettingList> ServerSetting = new List<ServerServerSettingList>();
+        public static List<SystemParameterList> ParameterList = null;
+        public static List<SystemTranslationList> LanguageList = null;
+        public static List<SystemIgnoredExceptionList> IgnoredExceptionList = new List<SystemIgnoredExceptionList>();
+        public static SystemLoggerWebSocketClass SystemLoggerWebSocketMonitor = new SystemLoggerWebSocketClass();
+        public static UserData UserData = new UserData();
+
+        public static bool ReloadLanguageListRequested = false;
 
         /// <summary>
         /// Application Error handlers
         /// </summary>
         public App() {
-            SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(Setting.DefaultLanguage).Value);
-            //log4net.GlobalContext.SystemConfiguration["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
-            //_ = XmlConfigurator.Configure();
+            FileOperations.LoadSettings();
+            SystemOperations.SetLanguageDictionary(Resources, appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
+
+            //RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.Default;
+            log4net.GlobalContext.Properties["RollingFileAppender"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Log4NetApplication.log");
+            _ = XmlConfigurator.Configure();
             Dispatcher.UnhandledException += App_DispatcherUnhandledException;
             DispatcherUnhandledException += App_DispatcherUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
@@ -58,33 +74,29 @@ namespace UbytkacAdmin {
             // enabled ssl connections
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            DBOperations.LoadStartupDBData();
         }
 
-        /// <summary>
-        /// Connected Starting Video
-        /// </summary>
-        /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e) {
-
             base.OnStartup(e);
-            if (!Setting.HideStartVideo) {
+            if (!bool.Parse(appRuntimeData.AppClientSettings.First(a => a.Key == "beh_hideStartVideo").Value)) {
                 MetroWindow startupAnimation = new WelcomePage();
                 MainWindow = startupAnimation;
                 startupAnimation.Closing += StartupAnimation_Closing;
-            } else { StartupAnimation_Closing(new object(), new CancelEventArgs()); }
+            }
+            else { StartupAnimation_Closing(new object(), new CancelEventArgs()); }
         }
 
-        /// <summary>
-        /// Close Start Animation and run Application
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">     </param>
-        private void StartupAnimation_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+        private void StartupAnimation_Closing(object sender, CancelEventArgs e) {
             MetroWindow mainView = new MainWindow();
             MainWindow = mainView;
             mainView.Show(); mainView.Focus();
+            PrepareStartupTools();
         }
 
+        /// <summary>
+        /// System Restart Controller
+        /// </summary>
         public static void AppRestart() {
             SystemWindowDataModel.SaveTheme();
             Process.Start(Assembly.GetEntryAssembly().EscapedCodeBase);
@@ -93,7 +105,7 @@ namespace UbytkacAdmin {
         }
 
         /// <summary>
-        /// App Quit
+        /// System or Quit
         /// </summary>
         /// <param name="silent"></param>
         public static async void AppQuitRequest(bool silent) {
@@ -102,23 +114,53 @@ namespace UbytkacAdmin {
                 MetroDialogSettings settings = new MetroDialogSettings() { AffirmativeButtonText = metroWindow.Resources["yes"].ToString(), NegativeButtonText = metroWindow.Resources["no"].ToString() };
                 MessageDialogResult result = await metroWindow.ShowMessageAsync(metroWindow.Resources["closeAppTitle"].ToString(), metroWindow.Resources["closeAppQuestion"].ToString(), MessageDialogStyle.AffirmativeAndNegative, settings);
                 if (result == MessageDialogResult.Affirmative) ApplicationQuit();
-            } else { ApplicationQuit(); }
+            }
+            else { ApplicationQuit(); }
         }
 
+
+        private void PrepareStartupTools() {
+            try {
+                StartupLocaslWebServer();
+
+            } catch (Exception autoEx) { ApplicationLogging(autoEx); }
+        }
+
+
         /// <summary>
-        /// MainWindow Closing Handler for Cleaning TempData, disable Addons / Tool and Third Party
+        /// Local Web Server Controller
+        /// </summary>
+        private static void StartupLocaslWebServer() {
+            try {
+                if (bool.Parse(appRuntimeData.AppClientSettings.First(a => a.Key == "sys_localWebServerEnabled").Value)) {
+                    moduleApp = WebApp.Start<Startup>(url: appRuntimeData.AppClientSettings.First(a => a.Key == "sys_localWebServerUrl").Value);
+                    appRuntimeData.webServerRunning = true;
+                }
+            } catch { }
+        }
+        public static IDisposable moduleApp { get; set; }
+
+
+        /// <summary>
+        /// MainWindow Closing Handler for Cleaning TempData, disable AddOns / Tool and Third Party
         /// Software Closing Third Party processes
         /// </summary>
         private static void ApplicationQuit() {
             try {
-                MainWindow mainWindow = (MainWindow)Current.MainWindow;
-                mainWindow.AppSystemTimer.Enabled = false;
-                if (mainWindow.vncProccess != null && !mainWindow.vncProccess.HasExited) { mainWindow.vncProccess.Kill(); };
+                MainWindow MainWindow = (MainWindow)Current.MainWindow;
+                MainWindow.AppSystemTimer.Enabled = false;
+                if (MainWindow.vncProcess != null && !MainWindow.vncProcess.HasExited) { MainWindow.vncProcess.Kill(); };
             } catch { }
 
-            try { FileOperations.ClearFolder(reportFolder); } catch { }
-            try { FileOperations.ClearFolder(galleryFolder); } catch { }
-            try { FileOperations.ClearFolder(tempFolder); } catch { }
+            try {
+                if (moduleApp != null) { moduleApp.Dispose(); }
+                Cef.PreShutdown();
+                Cef.ShutdownWithoutChecks();
+            } catch { }
+
+            try { FileOperations.ClearFolder(appRuntimeData.reportFolder); } catch { }
+            try { FileOperations.ClearFolder(appRuntimeData.galleryFolder); } catch { }
+            try { FileOperations.ClearFolder(appRuntimeData.tempFolder); } catch { }
 
             SystemWindowDataModel.SaveTheme();
             Current.Shutdown();
@@ -126,16 +168,32 @@ namespace UbytkacAdmin {
 
         /// <summary>
         /// Full Application System logging Running If is AppSystemTimer is Enabled for disable
-        /// other processes exceptions
+        /// other processes exceptions Full Application logging to file if enabled and to DB for
+        /// solving by Developers Supported Custom Message Here Is Filling Local System Logger for
+        /// Developers Logging to Database Are All non Developer working
         /// </summary>
         /// <param name="ex">           </param>
         /// <param name="customMessage"></param>
         public static void ApplicationLogging(Exception ex, string customMessage = null) {
             try {
-                Current?.Invoke(async () => {
+                Current?.Dispatcher.Invoke(async () => {
                     if (Current.MainWindow != null && Current.MainWindow.Name == "XamlMainWindow" && UserData.Authentification != null) {
-                        if (string.IsNullOrWhiteSpace(customMessage)) DBOperations.SaveSystemFailMessage(await SystemOperations.GetExceptionMessages(ex));
-                        else DBOperations.SaveSystemFailMessage(customMessage);
+                        if (string.IsNullOrWhiteSpace(customMessage)) {
+                            if (!bool.Parse(appRuntimeData.AppClientSettings.First(a => a.Key == "sys_imDeveloper").Value)) DBOperations.SaveSystemFailMessage(await SystemOperations.GetExceptionMessages(ex), nameof(log.Error));
+
+                            if (
+                                (SystemLoggerWebSocketMonitor.ShowSystemLogger && !((MainWindow)Current.MainWindow).ServerLoggerSource && ((MainWindow)Current.MainWindow).RunReleaseMode)
+                                || (bool.Parse(appRuntimeData.AppClientSettings.First(a => a.Key == "sys_imDeveloper").Value) && !((MainWindow)Current.MainWindow).ServerLoggerSource && SystemLoggerWebSocketMonitor.ShowSystemLogger)
+                            ) { ((MainWindow)Current.MainWindow).SystemLogger = SystemOperations.GetExceptionMessagesAll(ex).ToString(); }
+                        }
+                        else {
+                            if (!bool.Parse(appRuntimeData.AppClientSettings.First(a => a.Key == "sys_imDeveloper").Value)) DBOperations.SaveSystemFailMessage(customMessage, nameof(log.Error));
+
+                            if (
+                                (SystemLoggerWebSocketMonitor.ShowSystemLogger && !((MainWindow)Current.MainWindow).ServerLoggerSource && ((MainWindow)Current.MainWindow).RunReleaseMode)
+                                || (bool.Parse(appRuntimeData.AppClientSettings.First(a => a.Key == "sys_imDeveloper").Value) && !((MainWindow)Current.MainWindow).ServerLoggerSource && SystemLoggerWebSocketMonitor.ShowSystemLogger)
+                            ) { ((MainWindow)Current.MainWindow).SystemLogger = customMessage; }
+                        }
                         //if (Setting.WriteToLog) log.Error(ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + customMessage);
                     }
                 });
@@ -143,28 +201,39 @@ namespace UbytkacAdmin {
         }
 
         /// <summary>
-        /// FullSystem Logging Every Exeption types are monitored for maximalize correct running all
-        /// processes, addons, systems, communications, threads, network All detail of application
-        /// system add all used posibilities
+        /// FullSystem Logging Every Exception types are monitored for maximize correct running all
+        /// processes, System addOns, systems, communications, threads, network All detail of
+        /// application system add all used possibilities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e">     </param>
-        private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e) => ApplicationLogging(e.Exception);
+        private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e) {
+            if (!e.Exception.StackTrace.Contains("TabPanelOnSelectionChange") && !e.Exception.StackTrace.Contains("ControlzEx")) ApplicationLogging(e.Exception);
+        }
 
-        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e) {
-            e.Handled = true; ApplicationLogging(e.Exception);
+        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
+            e.Handled = true;
+            //MessageBox.Show(e.Exception.Message + "\n" + e.Exception.StackTrace?.ToString() + "\n" + "Application must be close !!!", "CurrentDomain UnhandledException", MessageBoxButton.OK, MessageBoxImage.Error);
+            //if (UserData.Authentification != null) { SystemConfiguration.CrashReporterSettings._ReportCrash.Send(e.Exception); }
+            ApplicationLogging(e.Exception);
+            if (SystemConfiguration.CrashReporterSettings._ReportCrash != null && SystemConfiguration.CrashReporterSettings._ReportCrash.IsQuit) { Current.Shutdown(-1); }
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) {
-            Exception exception = e.ExceptionObject as Exception; ApplicationLogging(exception); if (e.IsTerminating) Environment.Exit(1);
+            Exception exception = e.ExceptionObject as Exception;
+            //MessageBox.Show(exception.Message + "\n" + exception.StackTrace?.ToString() + "\n" + "Application must be close !!!", "CurrentDomain UnhandledException", MessageBoxButton.OK, MessageBoxImage.Error);
+            ApplicationLogging(exception);
+            if (e.IsTerminating) Environment.Exit(1);
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e) {
+            //MessageBox.Show(e.Exception.Message, "TaskScheduler UnobservedTaskException", MessageBoxButton.OK, MessageBoxImage.Error);
             ApplicationLogging(e.Exception); e.SetObserved();
         }
 
         private void WinFormApplication_ThreadException(object sender, ThreadExceptionEventArgs e) {
-            ApplicationLogging(e.Exception); /*CrashReporterGlobalField._ReportCrash.Send(e.Exception);*/
+            //if (UserData.Authentification != null) { SystemConfiguration.CrashReporterSettings._ReportCrash.Send(e.Exception); }
+            ApplicationLogging(e.Exception);
         }
 
         /// <summary>

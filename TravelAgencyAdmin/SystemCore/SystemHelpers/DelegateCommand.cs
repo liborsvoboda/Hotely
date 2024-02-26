@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UbytkacAdmin.SystemHelpers {
+namespace UbytkacAdmin.SystemHelper {
 
     public class DelegateCommand<T> : ICommand {
         private readonly Func<T, bool> canExecuteFunc;

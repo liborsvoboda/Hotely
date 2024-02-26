@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 
-namespace GlobalClasses {
+namespace UbytkacAdmin.GlobalClasses {
 
     public class AppRuntimeData {
         private static readonly Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -33,6 +33,15 @@ namespace GlobalClasses {
 
 
 
+    /// <summary>
+    /// !!SYSTEM Global Definition for System Statuses
+    ///
+    /// SYSTEM Running mode In debug mode is disabled the System Logger Visual Studio Debugger
+    /// difficult operation has problem If you want you can enable SystemLogger by change to: DebugWithSystemLogger
+    ///
+    /// Its Used as String EveryWhere Its good Soution for Centarized Statuses of System Errors Are
+    /// Saved In SystemLogger or Database
+    /// </summary>
     public enum SystemStatuses {
 
         //Mode
@@ -42,17 +51,6 @@ namespace GlobalClasses {
         DebugWithSystemLogger
     }
 
-
-
-    /// <summary>
-    /// SYSTEM Running mode In debug mode is disabled the System Logger Visual Studio Debugger
-    /// difficult operation has problem If you want you can enable SystemLogger by change to: DebugWithSystemLogger
-    /// </summary>
-    public enum RunningMode {
-        Debug,
-        Release,
-        DebugWithSystemLogger
-    }
 
     /// <summary>
     /// Class for User Authentication information
@@ -83,23 +81,59 @@ namespace GlobalClasses {
         public string Value { get; set; }
     }
 
+    //public class Parameter {
+    //    public string Value { get; set; } = string.Empty;
+    //    public bool Correct { get; set; } = false;
+    //}
+
+    /// <summary>
+    /// Tilt Document Types Definitions
+    /// </summary>
+    public enum TiltTargets {
+        None,
+        InvoiceToCredit,
+        InvoiceToReceipt,
+        OfferToOrder,
+        OrderToInvoice,
+        OfferToInvoice,
+
+        ShowCredit,
+        ShowReceipt
+    }
+
+    /// <summary>
+    /// Univessal Document List (Item) for Offer,Order,Invoice
+    /// </summary>
+    public partial class DocumentItemList {
+        public int Id { get; set; } = 0;
+        public string DocumentNumber { get; set; } = null;
+
+        public string PartNumber { get; set; } = null;
+        public string Name { get; set; } = null;
+        public string Unit { get; set; } = null;
+        public decimal PcsPrice { get; set; } = 0;
+        public decimal Count { get; set; } = 1;
+        public decimal TotalPrice { get; set; }
+        public decimal Vat { get; set; }
+        public decimal TotalPriceWithVat { get; set; }
+
+        public int UserId { get; set; }
+        public DateTime TimeStamp { get; set; }
+    }
+
     /// <summary>
     /// Class for Using as customized list the List of API urls for Central using in the system One
     /// Api is One: Dataview / Right / Report Posibility / Menu Item / Page Exist rules for
     /// automatic processing in System Core Logic for simple Developing
     /// </summary>
-    public partial class TranslatedApiList {
-        public string ApiTableName { get; set; }
-        public string Translate { get; set; }
-    }
-
-
     public partial class SystemTranslatedTableList {
         public string TableName { get; set; }
         public string Translate { get; set; }
     }
 
-
+    /// <summary>
+    /// Generated Class TableList from Stored Procedure SystemSpGetTableList
+    /// </summary>
     public partial class SpTableList {
         public string TableList { get; set; }
     }

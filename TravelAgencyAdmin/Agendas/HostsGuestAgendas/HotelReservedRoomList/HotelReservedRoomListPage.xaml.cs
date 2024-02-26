@@ -27,7 +27,7 @@ namespace UbytkacAdmin.Pages {
 
         public HotelReservedRoomListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             _ = LoadDataList();
             SetRecord();
@@ -38,10 +38,10 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                hotelReservedRoomList = await ApiCommunication.GetApiRequest<List<HotelReservedRoomList>>(ApiUrls.HotelReservedRoomList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
-                hotelReservationStatusList = await ApiCommunication.GetApiRequest<List<HotelReservationStatusList>>(ApiUrls.HotelReservationStatusList, null, App.UserData.Authentification.Token);
-                hotelReservationList = await ApiCommunication.GetApiRequest<List<HotelReservationList>>(ApiUrls.HotelReservationList, null, App.UserData.Authentification.Token);
+                hotelReservedRoomList = await CommApi.GetApiRequest<List<HotelReservedRoomList>>(ApiUrls.HotelReservedRoomList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                hotelList = await CommApi.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
+                hotelReservationStatusList = await CommApi.GetApiRequest<List<HotelReservationStatusList>>(ApiUrls.HotelReservationStatusList, null, App.UserData.Authentification.Token);
+                hotelReservationList = await CommApi.GetApiRequest<List<HotelReservationList>>(ApiUrls.HotelReservationList, null, App.UserData.Authentification.Token);
 
 
                 hotelReservedRoomList.ForEach(async reservation => {
@@ -76,7 +76,7 @@ namespace UbytkacAdmin.Pages {
                 else if (headername == "EndDate") { e.Header = Resources["endDate"].ToString(); e.DisplayIndex = 7; }
                 else if (headername == "GuestName") { e.Header = Resources["guestName"].ToString(); e.DisplayIndex = 8; }
 
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "HotelId") e.Visibility = Visibility.Hidden;

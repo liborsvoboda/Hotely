@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using UbytkacAdmin;
 
-namespace GlobalClasses {
+namespace UbytkacAdmin.GlobalClasses {
 
     public class ConcurrentObservableList<T> : IList<T>, INotifyCollectionChanged, IDisposable {
 
@@ -365,7 +364,7 @@ namespace GlobalClasses {
             return result;
         }
 
-        public void Sort(System.Comparison<T> comparison) {
+        public void Sort(Comparison<T> comparison) {
             bool isChanged = false;
 
             lock (syncObject) {

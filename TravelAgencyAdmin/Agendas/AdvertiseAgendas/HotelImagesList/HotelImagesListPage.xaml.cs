@@ -33,7 +33,7 @@ namespace UbytkacAdmin.Pages {
         public HotelImagesListPage() {
             InitializeComponent();
 
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             //mi_server.Header = Resources["server"].ToString();
             //mi_loadFromServer.Header = Resources["loadFromServer"].ToString();
@@ -59,7 +59,7 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             this.PhotosListBox.InputBindings.Clear();
             try {
-                cb_hodelId.ItemsSource = hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
+                cb_hodelId.ItemsSource = hotelList = await CommApi.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
                 if (hotelList.Count > 0) { cb_hodelId.SelectedIndex = 0; } else { gd_Photos.IsEnabled = false; }
                 await LoadFromServer();
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -73,13 +73,13 @@ namespace UbytkacAdmin.Pages {
         private async Task<bool> LoadFromServer(int selectedPhotoId = 0) {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                hotelImagesList = await ApiCommunication.GetApiRequest<List<HotelImagesList>>(ApiUrls.HotelImagesList, "HotelId/" + ((HotelList)cb_hodelId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token);
+                hotelImagesList = await CommApi.GetApiRequest<List<HotelImagesList>>(ApiUrls.HotelImagesList, "HotelId/" + ((HotelList)cb_hodelId.SelectedItem).Id.ToString(), App.UserData.Authentification.Token);
 
                 ClearGallery();
                 hotelImagesList.ForEach(item => {
                     item.Hotel = hotelList.First(a => a.Id == item.HotelId).Name;
-                    try { FileOperations.ByteArrayToFile(Path.Combine(App.galleryFolder, item.FileName), item.Attachment); } catch { }
-                    Photos.Add(Path.Combine(App.galleryFolder, item.FileName), item.Id, item.IsPrimary);
+                    try { FileOperations.ByteArrayToFile(Path.Combine(App.appRuntimeData.galleryFolder, item.FileName), item.Attachment); } catch { }
+                    Photos.Add(Path.Combine(App.appRuntimeData.galleryFolder, item.FileName), item.Id, item.IsPrimary);
                 });
                 RefreshViewPhoto(selectedPhotoId);
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -157,8 +157,8 @@ namespace UbytkacAdmin.Pages {
                         StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                         if (selectedRecord.Id == 0) {
-                            dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
-                        } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
+                            dBResult = await CommApi.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
+                        } else { dBResult = await CommApi.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
                         if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); }
                     }
@@ -178,8 +178,8 @@ namespace UbytkacAdmin.Pages {
                     StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
                     if (selectedRecord.Id == 0) {
-                        dBResult = await ApiCommunication.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
-                    } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
+                        dBResult = await CommApi.PutApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token);
+                    } else { dBResult = await CommApi.PostApiRequest(ApiUrls.HotelImagesList, httpContent, null, App.UserData.Authentification.Token); }
 
                     if (dBResult.RecordCount > 0) { } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
                 }
@@ -193,7 +193,7 @@ namespace UbytkacAdmin.Pages {
                 if (!MimeMapping.GetMimeMapping(openFileDialog.FileName).StartsWith("image/")) { await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("fileisNotImage")); }
                 else if (new FileInfo(openFileDialog.FileName).Length > 250 * 1024) { await MainWindow.ShowMessageOnMainWindow(false, await DBOperations.DBTranslation("fileIsBiggerThan") + "250KB"); } 
                 else { 
-                    try { FileOperations.CopyFile(openFileDialog.FileName, Path.Combine(App.galleryFolder, openFileDialog.SafeFileName)); } catch { }
+                    try { FileOperations.CopyFile(openFileDialog.FileName, Path.Combine(App.appRuntimeData.galleryFolder, openFileDialog.SafeFileName)); } catch { }
                     Photos.Add(openFileDialog.FileName, 0, false);
                     await SaveImageToServer(0);
                     await LoadFromServer(-1);
@@ -203,7 +203,7 @@ namespace UbytkacAdmin.Pages {
 
         private async Task<bool> DeleteImageFromServer(int dbId) {
             MainWindow.ProgressRing = Visibility.Visible;
-            DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.HotelImagesList, dbId.ToString(), App.UserData.Authentification.Token);
+            DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.HotelImagesList, dbId.ToString(), App.UserData.Authentification.Token);
             MainWindow.ProgressRing = Visibility.Hidden;
 
             if (dBResult.RecordCount > 0) { return true; } else { await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage); return false; }
@@ -224,7 +224,7 @@ namespace UbytkacAdmin.Pages {
             Photos.Clear(); PhotosListBox.Items.Refresh();
             PhotosListBox.SelectedItem = ViewedPhoto.Source = null;
             ClonedSelectedImage.ResetChanges();
-            try { FileOperations.ClearFolder(App.galleryFolder); } catch { }
+            try { FileOperations.ClearFolder(App.appRuntimeData.galleryFolder); } catch { }
         }
 
         private async void IsPrimaryClick(object sender, RoutedEventArgs e) {

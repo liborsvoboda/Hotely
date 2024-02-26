@@ -1,4 +1,5 @@
-﻿using System;
+﻿//using Microsoft.Xaml.Behaviors;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,21 +12,21 @@ namespace UbytkacAdmin.SystemStructure {
 
         protected override void OnAttached() {
             base.OnAttached();
-            AssociatedObject.BeginningEdit += _EditStarting;
-            AssociatedObject.CellEditEnding += _CellEditEnding;
-            AssociatedObject.PreviewKeyDown += _KeyDown;
+            AssociatedObject.BeginningEdit += EditStarting;
+            AssociatedObject.CellEditEnding += CellEditEnding;
+            AssociatedObject.PreviewKeyDown += KeyDown;
         }
 
-        private void _EditStarting(object sender, DataGridBeginningEditEventArgs e) {
+        private void EditStarting(object sender, DataGridBeginningEditEventArgs e) {
             if (e.Column.DisplayIndex == AssociatedObject.Columns.Count - 1)
                 _monitorForTab = true;
         }
 
-        private void _CellEditEnding(object sender, DataGridCellEditEndingEventArgs e) {
+        private void CellEditEnding(object sender, DataGridCellEditEndingEventArgs e) {
             _monitorForTab = false;
         }
 
-        private void _KeyDown(object sender, KeyEventArgs e) {
+        private void KeyDown(object sender, KeyEventArgs e) {
             if (_monitorForTab && e.Key == Key.Tab) {
                 AssociatedObject.CommitEdit(DataGridEditingUnit.Row, false);
             }
@@ -33,9 +34,9 @@ namespace UbytkacAdmin.SystemStructure {
 
         protected override void OnDetaching() {
             base.OnDetaching();
-            AssociatedObject.BeginningEdit -= _EditStarting;
-            AssociatedObject.CellEditEnding -= _CellEditEnding;
-            AssociatedObject.PreviewKeyDown -= _KeyDown;
+            AssociatedObject.BeginningEdit -= EditStarting;
+            AssociatedObject.CellEditEnding -= CellEditEnding;
+            AssociatedObject.PreviewKeyDown -= KeyDown;
             _monitorForTab = false;
         }
     }

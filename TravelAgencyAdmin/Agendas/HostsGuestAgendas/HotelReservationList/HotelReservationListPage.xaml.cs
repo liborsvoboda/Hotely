@@ -22,13 +22,13 @@ namespace UbytkacAdmin.Pages {
 
         private List<HotelReservationList> hotelReservationList =  new List<HotelReservationList>();
         private List<HotelList> hotelList = new List<HotelList>();
-        private List<CurrencyList> currencyList = new List<CurrencyList>();
+        private List<BasicCurrencyList> basicCurrencyList = new List<BasicCurrencyList>();
         private List<GuestList> guestList = new List<GuestList>();
         private List<HotelReservationStatusList> hotelReservationStatusList = new List<HotelReservationStatusList>();
 
         public HotelReservationListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             _ = LoadDataList();
             SetRecord();
@@ -39,18 +39,18 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 
-                hotelReservationList = await ApiCommunication.GetApiRequest<List<HotelReservationList>>(ApiUrls.HotelReservationList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
-                currencyList = await ApiCommunication.GetApiRequest<List<CurrencyList>>(ApiUrls.CurrencyList, null, App.UserData.Authentification.Token);
-                guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
-                hotelReservationStatusList = await ApiCommunication.GetApiRequest<List<HotelReservationStatusList>>(ApiUrls.HotelReservationStatusList, null, App.UserData.Authentification.Token);
+                hotelReservationList = await CommApi.GetApiRequest<List<HotelReservationList>>(ApiUrls.HotelReservationList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                hotelList = await CommApi.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
+                basicCurrencyList = await CommApi.GetApiRequest<List<BasicCurrencyList>>(ApiUrls.BasicCurrencyList, null, App.UserData.Authentification.Token);
+                guestList = await CommApi.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
+                hotelReservationStatusList = await CommApi.GetApiRequest<List<HotelReservationStatusList>>(ApiUrls.HotelReservationStatusList, null, App.UserData.Authentification.Token);
 
                 hotelReservationList.ForEach(async reservation => {
 
                     reservation.HotelName = hotelList.First(a => a.Id == reservation.HotelId).Name;
                     reservation.GuestName = guestList.First(a => a.Id == reservation.GuestId).FirstName + " " + guestList.First(a => a.Id == reservation.GuestId).LastName;
                     reservation.StatusName = await DBOperations.DBTranslation(hotelReservationStatusList.First(a => a.Id == reservation.StatusId).SystemName);
-                    reservation.CurrencyName = currencyList.First(a => a.Id == reservation.CurrencyId).Name;
+                    reservation.CurrencyName = basicCurrencyList.First(a => a.Id == reservation.CurrencyId).Name;
 
                 });
 
@@ -83,7 +83,7 @@ namespace UbytkacAdmin.Pages {
                 else if (headername == "Email") { e.Header = Resources["email"].ToString(); e.DisplayIndex = 16; }
 
 
-                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
 
                 else if (headername == "Id") e.DisplayIndex = 0;
                 else if (headername == "HotelId") e.Visibility = Visibility.Hidden;

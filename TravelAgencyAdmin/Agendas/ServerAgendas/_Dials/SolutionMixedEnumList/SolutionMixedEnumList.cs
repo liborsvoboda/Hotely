@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyITSystemCenter.Classes {
+namespace UbytkacAdmin.Classes {
 
     public partial class SolutionMixedEnumList {
         public int Id { get; set; } = 0;

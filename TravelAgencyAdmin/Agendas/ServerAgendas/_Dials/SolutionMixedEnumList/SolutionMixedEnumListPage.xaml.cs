@@ -1,7 +1,7 @@
-﻿using EasyITSystemCenter.Api;
-using EasyITSystemCenter.Classes;
-using EasyITSystemCenter.GlobalOperations;
-using EasyITSystemCenter.GlobalStyles;
+﻿using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace EasyITSystemCenter.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class SolutionMixedEnumListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
@@ -37,7 +37,7 @@ namespace EasyITSystemCenter.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                solutionMixedEnumList = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.EasyITCenterSolutionMixedEnumList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                solutionMixedEnumList = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.SolutionMixedEnumList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
                 solutionMixedEnumList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.Name); });
 
                 DgListView.ItemsSource = solutionMixedEnumList;
@@ -91,7 +91,7 @@ namespace EasyITSystemCenter.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.EasyITCenterSolutionMixedEnumList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.SolutionMixedEnumList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -125,9 +125,9 @@ namespace EasyITSystemCenter.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await CommApi.PutApiRequest(ApiUrls.EasyITCenterSolutionMixedEnumList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.SolutionMixedEnumList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await CommApi.PostApiRequest(ApiUrls.EasyITCenterSolutionMixedEnumList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await CommApi.PostApiRequest(ApiUrls.SolutionMixedEnumList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
                     selectedRecord = new SolutionMixedEnumList();

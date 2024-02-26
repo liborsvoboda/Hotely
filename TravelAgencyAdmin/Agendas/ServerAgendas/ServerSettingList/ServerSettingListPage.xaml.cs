@@ -1,6 +1,6 @@
-﻿using EasyITSystemCenter.Api;
-using EasyITSystemCenter.Classes;
-using EasyITSystemCenter.GlobalOperations;
+﻿using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1;
@@ -13,7 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace EasyITSystemCenter.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class ServerSettingListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
@@ -53,9 +53,9 @@ namespace EasyITSystemCenter.Pages {
         public async void LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                serverLanguages = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.EasyITCenterSolutionMixedEnumList, "ByGroup/ServerLanguages", App.UserData.Authentification.Token);
-                serverConfigGroups = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.EasyITCenterSolutionMixedEnumList, "ByGroup/ServerConfig", App.UserData.Authentification.Token);
-                App.ServerSetting = await CommApi.GetApiRequest<List<ServerServerSettingList>>(ApiUrls.EasyITCenterServerSettingList, null, null);
+                serverLanguages = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.SolutionMixedEnumList, "ByGroup/ServerLanguages", App.UserData.Authentification.Token);
+                serverConfigGroups = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.SolutionMixedEnumList, "ByGroup/ServerConfig", App.UserData.Authentification.Token);
+                App.ServerSetting = await CommApi.GetApiRequest<List<ServerServerSettingList>>(ApiUrls.ServerSettingList, null, null);
 
                 serverLanguages.ForEach(async srvLanguage => { srvLanguage.Translation = await DBOperations.DBTranslation(srvLanguage.Name); });
                 serverConfigGroups.ForEach(async tasktype => { tasktype.Translation = await DBOperations.DBTranslation(tasktype.Name); });
@@ -183,7 +183,7 @@ namespace EasyITSystemCenter.Pages {
             if (PrepareConfigurationForSave()) {
                 string json = JsonConvert.SerializeObject(App.ServerSetting);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                DBResultMessage dBResult = await CommApi.PostApiRequest(ApiUrls.EasyITCenterServerSettingList, httpContent, null, App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.PostApiRequest(ApiUrls.ServerSettingList, httpContent, null, App.UserData.Authentification.Token);
                 MainWindow.ProgressRing = Visibility.Hidden;
 
                 if (dBResult.RecordCount > 0) { await MainWindow.ShowMessageOnMainWindow(false, Resources["savingSuccessfull"].ToString()); }

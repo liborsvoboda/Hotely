@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using UbytkacAdmin.GlobalClasses;
 
 namespace UbytkacAdmin.Pages {
 
@@ -28,7 +29,7 @@ namespace UbytkacAdmin.Pages {
 
         public DocumentationCodeLibraryListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try
             {
@@ -64,7 +65,7 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
 
-                documentationCodeLibraryList = await ApiCommunication.GetApiRequest<List<DocumentationCodeLibraryList>>(ApiUrls.DocumentationCodeLibraryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                documentationCodeLibraryList = await CommApi.GetApiRequest<List<DocumentationCodeLibraryList>>(ApiUrls.DocumentationCodeLibraryList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 DgListView.ItemsSource = documentationCodeLibraryList;
                 DgListView.Items.Refresh();
@@ -84,7 +85,7 @@ namespace UbytkacAdmin.Pages {
                     if (headername == "Name") e.Header = Resources["name"].ToString();
                     else if (headername == "Description") e.Header = Resources["description"].ToString();
 
-                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
                     else if (headername == "Id") e.DisplayIndex = 0;
 
                     else if (headername == "UserId") e.Visibility = Visibility.Hidden;
@@ -135,7 +136,7 @@ namespace UbytkacAdmin.Pages {
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative)
             {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.DocumentationCodeLibraryList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.DocumentationCodeLibraryList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(true, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -205,9 +206,9 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.DocumentationCodeLibraryList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.DocumentationCodeLibraryList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.DocumentationCodeLibraryList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await CommApi.PostApiRequest(ApiUrls.DocumentationCodeLibraryList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0 && asNew) { await LoadDataList(); }
                 if (closeForm) { await LoadDataList(); selectedRecord = new DocumentationCodeLibraryList(); SetRecord(false); }
@@ -242,7 +243,7 @@ namespace UbytkacAdmin.Pages {
 
         private async void BtnOpenInBrowser_Click(object sender, RoutedEventArgs e) {
             await SaveRecord(false, false);
-            SystemOperations.StartExternalProccess(SystemOperations.ProcessTypes.First(a => a.Value.ToLower() == "url").Value, App.Setting.ApiAddress + (await DataOperations.ParameterCheck("WebDocLibraryPreview")) + "/" + txt_id.Value.ToString());
+            SystemOperations.StartExternalProccess(SystemLocalEnumSets.ProcessTypes.First(a => a.Value.ToLower() == "url").Value, App.appRuntimeData.AppClientSettings.First(b => b.Key == "conn_apiAddress").Value + (await DataOperations.ParameterCheck("WebDocLibraryPreview")) + "/" + txt_id.Value.ToString());
         }
     }
 }

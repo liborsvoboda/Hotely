@@ -28,7 +28,7 @@ namespace UbytkacAdmin.Pages {
 
         public GuestFavoriteListPage() {
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             _ = LoadDataList();
             SetRecord();
@@ -39,9 +39,9 @@ namespace UbytkacAdmin.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try { 
 
-                guestFavoriteList = await ApiCommunication.GetApiRequest<List<GuestFavoriteList>>(ApiUrls.GuestFavoriteList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                guestList = await ApiCommunication.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
-                hotelList = await ApiCommunication.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
+                guestFavoriteList = await CommApi.GetApiRequest<List<GuestFavoriteList>>(ApiUrls.GuestFavoriteList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                guestList = await CommApi.GetApiRequest<List<GuestList>>(ApiUrls.GuestList, null, App.UserData.Authentification.Token);
+                hotelList = await CommApi.GetApiRequest<List<HotelList>>(ApiUrls.HotelList, null, App.UserData.Authentification.Token);
 
                 guestFavoriteList.ForEach(favorite => {
                     favorite.GuestName = guestList.First(a => a.Id == favorite.GuestId).FirstName + " " + guestList.First(a => a.Id == favorite.GuestId).LastName;
@@ -60,10 +60,10 @@ namespace UbytkacAdmin.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(e => {
                     string headername = e.Header.ToString();
-                    if (headername == "HotelName") { e.Header = Resources["fname"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 1; }
-                    else if (headername == "GuestName") { e.Header = Resources["guestName"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = 2; }
+                    if (headername == "HotelName") { e.Header = Resources["fname"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 1; }
+                    else if (headername == "GuestName") { e.Header = Resources["guestName"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = 2; }
 
-                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                    else if (headername == "TimeStamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "GuestId") e.Visibility = Visibility.Hidden;

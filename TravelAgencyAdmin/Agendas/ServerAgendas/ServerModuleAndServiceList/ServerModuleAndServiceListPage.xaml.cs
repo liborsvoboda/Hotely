@@ -1,7 +1,7 @@
-﻿using EasyITSystemCenter.Api;
-using EasyITSystemCenter.Classes;
-using EasyITSystemCenter.GlobalOperations;
-using EasyITSystemCenter.GlobalStyles;
+﻿using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 using ICSharpCode.AvalonEdit.Highlighting;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
@@ -15,7 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace EasyITSystemCenter.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class ServerModuleAndServiceListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
@@ -40,8 +40,8 @@ namespace EasyITSystemCenter.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                solutionMixedEnumList = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.EasyITCenterSolutionMixedEnumList, "ByGroup/ModulePageTypes", App.UserData.Authentification.Token);
-                userRoleList = await CommApi.GetApiRequest<List<SolutionUserRoleList>>(ApiUrls.EasyITCenterSolutionUserRoleList, null, App.UserData.Authentification.Token);
+                solutionMixedEnumList = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.SolutionMixedEnumList, "ByGroup/ModulePageTypes", App.UserData.Authentification.Token);
+                userRoleList = await CommApi.GetApiRequest<List<SolutionUserRoleList>>(ApiUrls.SolutionUserRoleList, null, App.UserData.Authentification.Token);
                 ServerModuleAndServiceList = await CommApi.GetApiRequest<List<ServerModuleAndServiceList>>(ApiUrls.ServerModuleAndServiceList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 solutionMixedEnumList.ForEach(async tasktype => { tasktype.Translation = await DBOperations.DBTranslation(tasktype.Name); });

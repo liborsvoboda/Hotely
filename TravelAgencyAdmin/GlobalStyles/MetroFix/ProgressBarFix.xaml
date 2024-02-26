@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/shared">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--  ProgressBar Style  -->
     <Style x:Key="MahApps.ProgressBar" TargetType="ProgressBar">
@@ -123,5 +121,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

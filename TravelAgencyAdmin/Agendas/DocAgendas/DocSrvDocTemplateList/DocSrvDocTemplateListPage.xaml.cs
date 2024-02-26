@@ -1,7 +1,7 @@
-﻿using EasyITSystemCenter.Api;
-using EasyITSystemCenter.Classes;
-using EasyITSystemCenter.GlobalOperations;
-using EasyITSystemCenter.GlobalStyles;
+﻿using UbytkacAdmin.Api;
+using UbytkacAdmin.Classes;
+using UbytkacAdmin.GlobalOperations;
+using UbytkacAdmin.GlobalStyles;
 using ICSharpCode.AvalonEdit.Highlighting;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json;
@@ -15,14 +15,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace EasyITSystemCenter.Pages {
+namespace UbytkacAdmin.Pages {
 
     public partial class DocSrvDocTemplateListPage : UserControl {
         public static DataViewSupport dataViewSupport = new DataViewSupport();
         public static DocSrvDocTemplateList selectedRecord = new DocSrvDocTemplateList();
 
         private List<DocSrvDocTemplateList> DocSrvDocTemplateList = new List<DocSrvDocTemplateList>();
-        private List<DocSrvDocumentationGroupList> docSrvDocumentationGroupList = new List<DocSrvDocumentationGroupList>();
+        private List<DocumentationGroupList> docSrvDocumentationGroupList = new List<DocumentationGroupList>();
 
         public DocSrvDocTemplateListPage() {
             InitializeComponent();
@@ -44,8 +44,8 @@ namespace EasyITSystemCenter.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                docSrvDocumentationGroupList = await CommApi.GetApiRequest<List<DocSrvDocumentationGroupList>>(ApiUrls.EasyITCenterDocSrvDocumentationGroupList, null, App.UserData.Authentification.Token);
-                DocSrvDocTemplateList = await CommApi.GetApiRequest<List<DocSrvDocTemplateList>>(ApiUrls.EasyITCenterDocSrvDocTemplateList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                docSrvDocumentationGroupList = await CommApi.GetApiRequest<List<DocumentationGroupList>>(ApiUrls.DocumentationGroupList, null, App.UserData.Authentification.Token);
+                DocSrvDocTemplateList = await CommApi.GetApiRequest<List<DocSrvDocTemplateList>>(ApiUrls.DocSrvDocTemplateList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 DocSrvDocTemplateList.ForEach(item => { item.GroupName = docSrvDocumentationGroupList.First(a => a.Id == item.GroupId).Name; });
 
@@ -106,7 +106,7 @@ namespace EasyITSystemCenter.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.EasyITCenterDocSrvDocTemplateList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.DocSrvDocTemplateList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -129,7 +129,7 @@ namespace EasyITSystemCenter.Pages {
             try {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
-                selectedRecord.GroupId = ((DocSrvDocumentationGroupList)cb_documentationGroup.SelectedItem).Id;
+                selectedRecord.GroupId = ((DocumentationGroupList)cb_documentationGroup.SelectedItem).Id;
 
                 selectedRecord.Sequence = (int)txt_sequence.Value;
                 selectedRecord.Name = txt_name.Text;
@@ -142,9 +142,9 @@ namespace EasyITSystemCenter.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await CommApi.PutApiRequest(ApiUrls.EasyITCenterDocSrvDocTemplateList, httpContent, null, App.UserData.Authentification.Token);
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.DocSrvDocTemplateList, httpContent, null, App.UserData.Authentification.Token);
                 }
-                else { dBResult = await CommApi.PostApiRequest(ApiUrls.EasyITCenterDocSrvDocTemplateList, httpContent, null, App.UserData.Authentification.Token); }
+                else { dBResult = await CommApi.PostApiRequest(ApiUrls.DocSrvDocTemplateList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
                     selectedRecord = new DocSrvDocTemplateList();

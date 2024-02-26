@@ -27,7 +27,7 @@ namespace UbytkacAdmin.Pages {
         public PropertyOrServiceTypeListPage() {
             dataViewSupport = new DataViewSupport();
             InitializeComponent();
-            _ = SystemOperations.SetLanguageDictionary(Resources, JsonConvert.DeserializeObject<Language>(App.Setting.DefaultLanguage).Value);
+            _ = SystemOperations.SetLanguageDictionary(Resources, App.appRuntimeData.AppClientSettings.First(a => a.Key == "sys_defaultLanguage").Value);
 
             try {
                 lbl_id.Content = Resources["id"].ToString();
@@ -64,9 +64,9 @@ namespace UbytkacAdmin.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                propertyGroupList = await ApiCommunication.GetApiRequest<List<PropertyGroupList>>(ApiUrls.PropertyGroupList, null, App.UserData.Authentification.Token);
-                propertyOrServiceTypeList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
-                propertyOrServiceUnitList = await ApiCommunication.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
+                propertyGroupList = await CommApi.GetApiRequest<List<PropertyGroupList>>(ApiUrls.PropertyGroupList, null, App.UserData.Authentification.Token);
+                propertyOrServiceTypeList = await CommApi.GetApiRequest<List<PropertyOrServiceTypeList>>(ApiUrls.PropertyOrServiceTypeList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
+                propertyOrServiceUnitList = await CommApi.GetApiRequest<List<PropertyOrServiceUnitList>>(ApiUrls.PropertyOrServiceUnitList, null, App.UserData.Authentification.Token);
 
                 propertyGroupList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
                 propertyOrServiceUnitList.ForEach(async item => { item.Translation = await DBOperations.DBTranslation(item.SystemName); });
@@ -99,7 +99,7 @@ namespace UbytkacAdmin.Pages {
                     else if (headername == "IsService") { e.Header = Resources["service"].ToString(); e.DisplayIndex = 7; } 
                     else if (headername == "SearchDefaultBit") { e.Header = Resources["defaultBit"].ToString(); e.DisplayIndex = 8; } 
                     else if (headername == "IsFeeInfoRequired") { e.Header = Resources["feeInfoRequired"].ToString(); e.DisplayIndex = 9; }
-                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = DatagridStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
+                    else if (headername == "Timestamp") { e.Header = Resources["timestamp"].ToString(); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; } 
                     
                     else if (headername == "Id") e.DisplayIndex = 0;
                     else if (headername == "PropertyGroupId") e.Visibility = Visibility.Hidden;
@@ -149,7 +149,7 @@ namespace UbytkacAdmin.Pages {
             dataViewSupport.SelectedRecordId = selectedRecord.Id;
             MessageDialogResult result = await MainWindow.ShowMessageOnMainWindow(false, Resources["deleteRecordQuestion"].ToString() + " " + selectedRecord.Id.ToString(), true);
             if (result == MessageDialogResult.Affirmative) {
-                DBResultMessage dBResult = await ApiCommunication.DeleteApiRequest(ApiUrls.PropertyOrServiceTypeList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
+                DBResultMessage dBResult = await CommApi.DeleteApiRequest(ApiUrls.PropertyOrServiceTypeList, selectedRecord.Id.ToString(), App.UserData.Authentification.Token);
                 if (dBResult.RecordCount == 0) await MainWindow.ShowMessageOnMainWindow(false, "Exception Error : " + dBResult.ErrorMessage);
                 await LoadDataList(); SetRecord(false);
             }
@@ -209,8 +209,8 @@ namespace UbytkacAdmin.Pages {
                 string json = JsonConvert.SerializeObject(selectedRecord);
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 if (selectedRecord.Id == 0) {
-                    dBResult = await ApiCommunication.PutApiRequest(ApiUrls.PropertyOrServiceTypeList, httpContent, null, App.UserData.Authentification.Token);
-                } else { dBResult = await ApiCommunication.PostApiRequest(ApiUrls.PropertyOrServiceTypeList, httpContent, null, App.UserData.Authentification.Token); }
+                    dBResult = await CommApi.PutApiRequest(ApiUrls.PropertyOrServiceTypeList, httpContent, null, App.UserData.Authentification.Token);
+                } else { dBResult = await CommApi.PostApiRequest(ApiUrls.PropertyOrServiceTypeList, httpContent, null, App.UserData.Authentification.Token); }
 
                 if (dBResult.RecordCount > 0) {
                     selectedRecord = new PropertyOrServiceTypeList();
