@@ -19,6 +19,9 @@ namespace UbytkacBackend.DBModel
         [StringLength(50)]
         [Unicode(false)]
         public string Name { get; set; } = null!;
+        [StringLength(50)]
+        [Unicode(false)]
+        public string InheritedLayoutType { get; set; } = null!;
         [Column(TypeName = "text")]
         public string? Description { get; set; }
         [StringLength(100)]

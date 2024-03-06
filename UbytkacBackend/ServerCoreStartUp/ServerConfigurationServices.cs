@@ -158,14 +158,14 @@ namespace UbytkacBackend.ServerCoreConfiguration {
             if (ServerConfigSettings.WebRazorPagesEngineEnabled) {
                 if (ServerConfigSettings.WebRazorPagesCompileOnRuntime) {
                     services.AddMvc(options => {
-                        options.CacheProfiles.Add("Default30", new CacheProfile() { Duration = 30 });
+                        options.CacheProfiles.Add("Default30", new CacheProfile() { Duration = 300 });
                     }).AddRazorPagesOptions(opt => {
                         opt.RootDirectory = "/ServerCorePages";
                     }).AddRazorRuntimeCompilation();
                 }
                 else {
                     services.AddMvc(options => {
-                        options.CacheProfiles.Add("Default30", new CacheProfile() { Duration = 30 });
+                        options.CacheProfiles.Add("Default30", new CacheProfile() { Duration = 300 });
                     }).AddRazorPagesOptions(opt => {
                         opt.RootDirectory = "/ServerCorePages";
                     }).AddRazorRuntimeCompilation();
@@ -262,7 +262,7 @@ namespace UbytkacBackend.ServerCoreConfiguration {
         internal static void ConfigureDatabaseContext(ref IServiceCollection services) {
             if (ServerRuntimeData.DebugMode) { services.AddDatabaseDeveloperPageExceptionFilter(); }
             try {
-                services.AddDbContext<hotelsContext>(opt => opt.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;TrustServerCertificate=True;").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+                services.AddDbContext<hotelsContext>(opt => opt.UseSqlServer(ServerConfigSettings.DatabaseConnectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             } catch (Exception ex) { }
         }
     }

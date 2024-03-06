@@ -112,3 +112,6 @@
 /UbytkacBackend/obj/UbytkacBackend.csproj.nuget.g.targets
 /UbytkacBackend/appsettings.Development.json
 /UbytkacBackend/obj/project.assets.json
+/UbytkacBackend/obj/project.assets.json
+/UbytkacBackend/appsettings.json
+/UbytkacBackend/appsettings.Development.json

@@ -1,16 +1,31 @@
-﻿@using UbytkacBackend.DBModel
-@using UbytkacBackend.ServerCoreWebPages
+﻿@addTagHelper *, WebOptimizer.Core
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using ServerCorePages
+@using UbytkacBackend.DBModel;
+@using UbytkacBackend.ServerCoreWebPages;
+@namespace ServerCorePages
 @{
-    ServerModuleAndServiceList? serverModule = ((ServerModuleAndServiceList?)Context.Items.FirstOrDefault(a => a.Key.ToString() == "ServerModule").Value);
-    ServerWebPagesToken? webpagestoken = ((ServerWebPagesToken?)Context.Items.FirstOrDefault(a => a.Key.ToString() == "ServerWebPagesToken").Value);
+
+    ServerModuleAndServiceList? serverModule = null; ServerWebPagesToken? webpagestoken = null; string? portalRedirect = null;
+    try { serverModule = ((ServerModuleAndServiceList?)Context.Items.FirstOrDefault(a => a.Key.ToString() == "ServerModule").Value); } catch { }
+    try { webpagestoken = ((ServerWebPagesToken?)Context.Items.FirstOrDefault(a => a.Key.ToString() == "ServerWebPagesToken").Value); } catch { }
+    try { portalRedirect = Context.Items.FirstOrDefault(a => a.Key.ToString() == "PortalRedirect").Value?.ToString(); } catch { }
 
 
+    //TODO change this Management to Set Over Administration With Full Online Dynamic Control
 
-    if (Context.Request.Path.StartsWithSegments("/easydata", StringComparison.OrdinalIgnoreCase)) {
-        Layout = "Shared/_CleanLayout.cshtml";
-    } else if (serverModule != null) {
-        Layout = "Shared/_ModuleLayout.cshtml";
-    } else {
-        Layout = "Shared/_PortalLayout.cshtml";
+    if (Context.Request.Path.ToString().ToLower().StartsWith("/github", StringComparison.OrdinalIgnoreCase)) {
+        Layout = "/ServerCorePages/Shared/GithubLayout.cshtml";
+
+    }else if (Context.Request.Path.ToString().ToLower().StartsWith("/easydata", StringComparison.OrdinalIgnoreCase)) {
+        Layout = "/ServerCorePages/Shared/MetroLayout.cshtml";
+
+    } else if (serverModule != null && serverModule.InheritedLayoutType != null) {
+        Layout = "/ServerCorePages/Shared/" + serverModule.InheritedLayoutType + ".cshtml";
+
+    } else { //Portal Pages
+        Layout = "/ServerCorePages/Shared/PortalLayout.cshtml";
     }
+
 }

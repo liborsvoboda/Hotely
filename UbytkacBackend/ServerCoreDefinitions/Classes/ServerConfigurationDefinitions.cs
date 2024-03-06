@@ -53,7 +53,7 @@
         /// Migration/Api/Check/Unlimited Develop !!!Warning: Check this connection for
         /// Read/Write/Exec is enabled In Config File Must Be Only This Paramneter
         /// </summary>
-        public static string DatabaseConnectionString { get; set; } = "Server=127.0.0.1;Database=;Trusted_Connection=True;TrustServerCertificate=True";
+        public static string DatabaseConnectionString { get; set; } = "Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;TrustServerCertificate=True;";
 
         /// <summary>
         /// Enable Disable Entity Framework Internal Cache I recommend turning it off : from Logic,

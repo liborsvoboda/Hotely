@@ -1387,7 +1387,22 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_ServerLiveDataMonitorList_UserList");
             });
 
-             modelBuilder.Entity<ServerSettingList>(entity =>
+            modelBuilder.Entity<ServerModuleAndServiceList>(entity =>
+            {
+                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.InheritedLayoutType).HasDefaultValueSql("('MultiLangLayout')");
+
+                entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ServerModuleAndServiceLists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ServerModuleAndServiceList_UserList");
+            });
+
+            modelBuilder.Entity<ServerSettingList>(entity =>
             {
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 

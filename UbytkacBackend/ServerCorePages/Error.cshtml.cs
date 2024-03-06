@@ -15,7 +15,16 @@ namespace ServerCorePages {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
 
+        /*
+        TODO
+        IDEA ERROR PAGE CAN BE USED FOR WEB TRAFFIC ONLY 
+        OTHER IS NORMAL API 
 
-      
+
+        HERE CAN BE IMPLEMENTED GLOBALY RUREL FOR VISITS, VISIT COUNTER, STATISTICS, MONITORING, PAGE LOADING,ETC
+        ONLY FOR PORTAL - DYNAMIC CONTENT  =  because all page of portal is error 404
+        */
+
+       
     }
 }

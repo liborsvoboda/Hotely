@@ -55,7 +55,7 @@
     <Description> Groupware Solution Universal FTP/API/EMAIL/SOCKET/PORTAL/DOC/MD/WEB/MEDIA/AUTO Server</Description>
     <Copyright>Copyright ©GroupWare-Solution.eu  2022</Copyright>
     <PackageProjectUrl>https://groupware-solution.eu/contactus</PackageProjectUrl>
-    <PackAsTool>True</PackAsTool>
+    <PackAsTool>False</PackAsTool>
     <PackageIcon>Data\groupware-solution.eu.png</PackageIcon>
     <PackageReadmeFile></PackageReadmeFile>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
@@ -69,18 +69,13 @@
     <ApplicationIcon>Data\favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
-   <ItemGroup>
-    <Content Remove="C:\Users\tatka\.nuget\packages\ht.minify\6.0.11\contentFiles\any\net6.0\net.ico" />
-  </ItemGroup>
-
-   <ItemGroup>
-     <None Remove="C:\Users\tatka\.nuget\packages\microsoft.applicationinsights.profiler.aspnetcore\2.6.0\contentFiles\any\netstandard2.1\ServiceProfiler\TraceUpload.zip" />
-   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Data\favicon.ico" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Content Remove="C:\Users\tatka\.nuget\packages\ht.minify\6.0.11\contentFiles\any\net6.0\net.ico" />
+	
   <ItemGroup>
     <None Update="Data\groupware-solution.eu.png">
       <Pack>True</Pack>
@@ -139,7 +134,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.27" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.27" />
     <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.27" />
     <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
@@ -158,7 +153,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.27" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="6.0.27" />
@@ -213,16 +211,15 @@
   <ItemGroup>
     <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-ADDONS\Module\DBEntitySchema\DBEntitySchema.csproj" />
   </ItemGroup>
- 
+
   <ItemGroup>
     <Content Update="Data\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  
- 
- 
-   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="robocopy &quot;$(ProjectDir)wwwroot&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net6.0\wwwroot&quot; /s /e &#xD;&#xA; exit /b 0" />
     <Exec Command="robocopy &quot;$(ProjectDir)Docs&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net6.0\Docs&quot; /s /e &#xD;&#xA; exit /b 0" />
   </Target>

@@ -1,4 +1,4 @@
-﻿namespace EASYDATACenter.Controllers {
+﻿namespace UbytkacBackend.Controllers {
 
     [Authorize]
     [ApiController]

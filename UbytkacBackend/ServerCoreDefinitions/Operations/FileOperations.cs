@@ -11,7 +11,7 @@
             try {
                 if (!CheckDirectory(ServerRuntimeData.Setting_folder)) {
                     CreatePath(ServerRuntimeData.Setting_folder);
-                    CopyFile(System.IO.Path.Combine(ServerRuntimeData.Startup_path, ServerRuntimeData.DataPath, ServerRuntimeData.ConfigFile), System.IO.Path.Combine(ServerRuntimeData.Setting_folder, ServerRuntimeData.ConfigFile));
+                    //CopyFile(Path.Combine(ServerRuntimeData.Startup_path, ServerRuntimeData.DataPath, ServerRuntimeData.ConfigFile), Path.Combine(ServerRuntimeData.Setting_folder, ServerRuntimeData.ConfigFile));
                 }
                 if (!CheckDirectory(ServerRuntimeData.UserPath)) {
                     CreatePath(ServerRuntimeData.UserPath);
@@ -36,9 +36,9 @@
         public static void CopyFiles(string sourcePath, string destinationPath) {
             string[] filePaths = Directory.GetFiles(sourcePath);
             foreach (string fullFilePath in filePaths) {
-                string fileName = System.IO.Path.GetFileName(fullFilePath);
-                if (!File.Exists(System.IO.Path.Combine(destinationPath, fileName))) {
-                    File.Copy(System.IO.Path.Combine(sourcePath, fileName), System.IO.Path.Combine(destinationPath, fileName));
+                string fileName = Path.GetFileName(fullFilePath);
+                if (!File.Exists(Path.Combine(destinationPath, fileName))) {
+                    File.Copy(Path.Combine(sourcePath, fileName), Path.Combine(destinationPath, fileName));
                 }
             }
         }
@@ -46,7 +46,7 @@
         /// <summary>
         /// Creates the path recursively.
         /// </summary>
-        /// <param name="path">The System.IO.Path.</param>
+        /// <param name="path">The Path.</param>
         /// <returns></returns>
         public static bool CreatePath(string path) {
             try {

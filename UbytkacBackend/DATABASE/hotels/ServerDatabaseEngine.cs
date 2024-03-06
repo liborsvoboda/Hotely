@@ -23,7 +23,7 @@ namespace UbytkacBackend.ServerConfiguration {
                 optionsBuilder.ConfigureLoggingCacheTime(TimeSpan.FromMinutes(30));
                 optionsBuilder.EnableServiceProviderCaching(false);
 
-                optionsBuilder.UseSqlServer("Server=95.183.52.33;Database=hotels;User ID=sa;Password=Hotel2023+;TrustServerCertificate=True;",
+                optionsBuilder.UseSqlServer(ServerConfigSettings.DatabaseConnectionString,
                       x => x.MigrationsHistoryTable("MigrationsHistory", "dbo"));
             }
         }
