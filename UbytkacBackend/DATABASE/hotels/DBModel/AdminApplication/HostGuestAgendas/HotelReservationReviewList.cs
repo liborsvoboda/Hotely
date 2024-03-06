@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace UbytkacBackend.DBModel
+{
+    [Table("HotelReservationReviewList")]
+    [Index("HotelId", Name = "IX_ReviewList")]
+    [Index("ReservationId", Name = "IX_ReviewList_1", IsUnique = true)]
+    public partial class HotelReservationReviewList
+    {
+        [Key]
+        public int Id { get; set; }
+        public int HotelId { get; set; }
+        public int ReservationId { get; set; }
+        public int GuestId { get; set; }
+        public double Rating { get; set; }
+        [StringLength(2048)]
+        [Unicode(false)]
+        public string Description { get; set; } = null!;
+        [StringLength(2048)]
+        [Unicode(false)]
+        public string? Answer { get; set; }
+        public bool? Approved { get; set; }
+        public bool AdvertiserShown { get; set; }
+        public DateTime Timestamp { get; set; }
+
+        [ForeignKey("GuestId")]
+        [InverseProperty("HotelReservationReviewLists")]
+        public virtual GuestList Guest { get; set; } = null!;
+        [ForeignKey("HotelId")]
+        [InverseProperty("HotelReservationReviewLists")]
+        public virtual HotelList Hotel { get; set; } = null!;
+        [ForeignKey("ReservationId")]
+        [InverseProperty("HotelReservationReviewList")]
+        public virtual HotelReservationList Reservation { get; set; } = null!;
+    }
+}

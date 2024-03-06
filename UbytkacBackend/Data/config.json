@@ -1,0 +1,3 @@
+{
+  "DatabaseConnectionString": "Server=127.0.0.1;Database=;Trusted_Connection=True;TrustServerCertificate=True"
+}

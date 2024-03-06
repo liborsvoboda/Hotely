@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace UbytkacBackend.DBModel
+{
+    [Keyless]
+    public partial class HotelApprovalList
+    {
+        public int Id { get; set; }
+        public int CountryId { get; set; }
+        public int CityId { get; set; }
+        [StringLength(250)]
+        [Unicode(false)]
+        public string Name { get; set; } = null!;
+        [Unicode(false)]
+        public string DescriptionCz { get; set; } = null!;
+        [Unicode(false)]
+        public string? DescriptionEn { get; set; }
+        public int DefaultCurrencyId { get; set; }
+        public bool ApproveRequest { get; set; }
+        public bool Approved { get; set; }
+        public bool Advertised { get; set; }
+        public int UserId { get; set; }
+        public DateTime Timestamp { get; set; }
+        public int TotalCapacity { get; set; }
+        [StringLength(250)]
+        [Unicode(false)]
+        public string? City { get; set; }
+        public int EnabledCommDaysBeforeStart { get; set; }
+        public int StornoDaysCountBeforeStart { get; set; }
+        public bool GuestStornoEnabled { get; set; }
+    }
+}

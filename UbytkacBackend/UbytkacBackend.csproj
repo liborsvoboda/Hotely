@@ -1,0 +1,230 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject></StartupObject>
+    <UserSecretsId>d02dd1e4-194b-4a5e-8910-be572e7389cf</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+    <OutputType>Exe</OutputType>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <DocumentationMarkdown>$(MSBuildProjectDirectory)\UbytkacBackend.md</DocumentationMarkdown>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <SignAssembly>False</SignAssembly>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>false</Deterministic>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <Deterministic>False</Deterministic>
+    <Version>1.2023.110.222</Version>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title></Title>
+    <Company>GroupWare-Solution.eu</Company>
+    <Authors>Libor Svoboda</Authors>
+    <Description> Groupware Solution Universal FTP/API/EMAIL/SOCKET/PORTAL/DOC/MD/WEB/MEDIA/AUTO Server</Description>
+    <Copyright>Copyright ©GroupWare-Solution.eu  2022</Copyright>
+    <PackageProjectUrl>https://groupware-solution.eu/contactus</PackageProjectUrl>
+    <PackAsTool>True</PackAsTool>
+    <PackageIcon>Data\groupware-solution.eu.png</PackageIcon>
+    <PackageReadmeFile></PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile></PackageLicenseFile>
+    <IsPublishable>False</IsPublishable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <DocumentationFile></DocumentationFile>
+    <ApplicationIcon>Data\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+   <ItemGroup>
+    <Content Remove="C:\Users\tatka\.nuget\packages\ht.minify\6.0.11\contentFiles\any\net6.0\net.ico" />
+  </ItemGroup>
+
+   <ItemGroup>
+     <None Remove="C:\Users\tatka\.nuget\packages\microsoft.applicationinsights.profiler.aspnetcore\2.6.0\contentFiles\any\netstandard2.1\ServiceProfiler\TraceUpload.zip" />
+   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\favicon.ico" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Data\groupware-solution.eu.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="6.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.AzureStorage" Version="6.1.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.EventStore" Version="6.0.3" />
+    <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="6.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.MySql" Version="6.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.Network" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.Oracle" Version="6.0.3" />
+    <PackageReference Include="AspNetCore.HealthChecks.Sqlite" Version="6.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.System" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Core" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.MySql.Storage" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.PostgreSQL.Storage" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.SQLite.Storage" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" Version="6.0.5" />
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
+    <PackageReference Include="AspNetCore.MarkdownDocumenting" Version="2.3.1" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.3.0" />
+    <PackageReference Include="EasyData.AspNetCore" Version="1.5.2" />
+    <PackageReference Include="EasyData.Core" Version="1.5.2" />
+    <PackageReference Include="EasyData.EntityFrameworkCore.Relational" Version="1.5.2" />
+    <PackageReference Include="EasyData.Exporters.ClosedXML" Version="1.5.2" />
+    <PackageReference Include="EasyData.Exporters.Default" Version="1.5.2" />
+    <PackageReference Include="EasyData.Exporters.PdfSharp" Version="1.5.2" />
+    <PackageReference Include="ErikEJ.EntityFrameworkCore.DgmlBuilder" Version="6.0.0" />
+    <PackageReference Include="FileContextCore" Version="3.4.0" />
+    <PackageReference Include="FubarDev.FtpServer" Version="3.1.2" />
+    <PackageReference Include="FubarDev.FtpServer.Commands" Version="3.1.2" />
+    <PackageReference Include="FubarDev.FtpServer.FileSystem.DotNet" Version="3.1.2" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+    <PackageReference Include="LettuceEncrypt" Version="1.3.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.EventCounterCollector" Version="2.22.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.Profiler.AspNetCore" Version="2.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.27" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.27" />
+    <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.27">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="6.0.27" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.27" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="6.0.27" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.27" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.27" />
+    <PackageReference Include="Microsoft.NETCore.DotNetHostPolicy" Version="6.0.27" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="6.0.16" />
+    <PackageReference Include="MimeTypes" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NPOI" Version="2.6.2" />
+    <PackageReference Include="NUglify" Version="1.21.4" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.8.1" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.8.1" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.1" />
+    <PackageReference Include="Quartz.Jobs" Version="3.8.1" />
+    <PackageReference Include="Quartz.Plugins" Version="3.8.1" />
+    <PackageReference Include="SimpleMvcSitemap" Version="4.0.1" />
+    <PackageReference Include="Snickler.RSSCore" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SchemaBuilder" Version="1.6.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+    <PackageReference Include="System.AppContext" Version="4.3.0" />
+    <PackageReference Include="System.Composition.Hosting" Version="6.0.0" />
+    <PackageReference Include="System.Diagnostics.Contracts" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="6.0.0" />
+    <PackageReference Include="System.Diagnostics.StackTrace" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TextWriterTraceListener" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.1" />
+    <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.4.2" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-ADDONS\Module\DBEntitySchema\DBEntitySchema.csproj" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <Content Update="Data\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+ 
+ 
+   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="robocopy &quot;$(ProjectDir)wwwroot&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net6.0\wwwroot&quot; /s /e &#xD;&#xA; exit /b 0" />
+    <Exec Command="robocopy &quot;$(ProjectDir)Docs&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net6.0\Docs&quot; /s /e &#xD;&#xA; exit /b 0" />
+  </Target>
+  
+</Project>

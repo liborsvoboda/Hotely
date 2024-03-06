@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="charset" content="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="./css/metro-icons.min.css" />
+	<link rel="stylesheet" href="./css/metro-all.min.css" />
+	<link rel="stylesheet" href="./css/default.min.css" />
+
+	<script type="text/javascript" src="./js/jquery-3.6.0.min.js" ></script>
+	<script type="text/javascript" src="./js/highlight.min.js" ></script>
+	<script type="text/javascript" src="./js/html2canvas.min.js" ></script>
+	<script type="text/javascript" src="./js/jspdf.umd.min.js" ></script>
+	<script type="text/javascript" src="./js/metro.min.4.5.2.js" ></script>
+
+</head>
+<body id="body" style="height: 700px; background-image: url(./images/background.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="body">
+
+<!-- News Panel -->
+<div id="NewsLetterInfoBox" class="info-box" data-role="infobox" data-type="default" data-width="800" data-height="600" style="visibility:hidden;">
+	<span class="button square closer"></span>
+	<div class="info-box-content" style="overflow-y:auto;">
+		<div class="d-flex row ">
+			<div id="NewsLetterBox" class="d-block m-0 p-0" style="overflow-y: scroll;width: calc(100% - 30px);height:550px;max-height: 550px;"></div>
+		</div>
+	</div>
+</div>
+<script>$(document).ready(function () {
+ let title = ``;
+ let data = `<PRE class=csharp style="FONT-FAMILY: monospace">    <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">partial</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">class</SPAN> ServerConfigSettings <SPAN style="COLOR: #008000">{</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#region Emailer Service</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Service email, for info about not available service from HeatchCheck Can be used for</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// next Develop, automatic checking problems, missing data and all other Its Necessary for</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Correct running Server Internal Core Monitoring</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> EmailerServiceEmailAddress <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"Libor.Svoboda@GroupWare-Solution.Eu"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// SMTP Server Address for Login to External Mail Server Its Necessary for Correct running</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server Internal Core Monitoring</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> EmailerSMTPServerAddress <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"imap.groupware-solution.eu"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// SMTP Port for Login to External Mail Server Its Necessary for Correct running Server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Internal Core Monitoring</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">int</SPAN> EmailerSMTPPort <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">25</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// EmailerSMTPSslIsEnabled SSl Email Protocol for Login to External Mail Server Its</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Necessary for Correct running Server Internal Core Monitoring</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> EmailerSMTPSslIsEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// SMTP UserName for Login to External Mail Server Its Necessary for Correct running Server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Internal Core Monitoring</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> EmailerSMTPLoginUsername <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"backendsolution@groupware-solution.eu"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// SMTP Password for Login to External Mail Server Its Necessary for Correct running Server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Internal Core Monitoring</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> EmailerSMTPLoginPassword <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"password"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#endregion Emailer Service</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#region Server Database</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server Database Connection string for Full Service of Database</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Migration/Api/Check/Unlimited Develop !!!Warning: Check this connection for</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Read/Write/Exec is enabled</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> DatabaseConnectionString <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"Server=127.0.0.1;Database=EASYDATACenter;Trusted_Connection=True;TrustServerCertificate=True"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable Disable Entity Framework Internal Cache I recommend turning it off : from Logic,</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Duplicit Functionality with Database Server in complex process can generate problems</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: false</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> DatabaseInternalCachingEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Time in Minutes for Database Valid Cache Data and Refreshing Duplicit Functionality with</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Database Server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: 30</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">int</SPAN> DatabaseInternalCacheTimeoutMin <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">30</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#endregion Server Database</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#region Server Future Technologies</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server Service Name automatic figured in All IS/OS/Engines info</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: EASYDATACenter</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> SpecialServerServiceName <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"EASYDATACenter"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// User Web Root Path for Startup </SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// and Any missing address Automatic Redirection</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Not need Regex Configuration</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> SpecialUserWebRootPath <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"/Dashboard"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Activation / Deactivation of Email Sender For Server Core Fails Checker All Catch Write</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// to SendEmail, In Debug mode is Written in console in Release mode is Sended email (All</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// incorrect server statuses are monitored) Can be writen to Database - !!! Warning for</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// infinite Cycling (DB shutdown example)</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: true</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> SpecialCoreCheckerEmailSenderActive <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Special Function: Using Selected Tables with AutoRefresh On change as Local DataSets,</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// For Optimize Traffic. For Example LanguageList - Static table with often reading</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: true - functionality must be implemented in Server Code</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> SpecialUseDbLocalAutoupdatedDials <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server Language for Translating Server internal statuses</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: cz or en - other languages are not implemented</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> SpecialServerLanguage <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"cz"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server support mass emailing as Service</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// You can enable Mass Email Api</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> SpecialEnableMassEmail <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#endregion Server Future Technologies</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#region ServerConfigurationServices</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Set Server Startup Port on Http/HttpS/WebSocket and for All Engines, Modules, API</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Controler and WebPages</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: 5000</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">int</SPAN> ConfigServerStartupPort <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">5000</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// WebSocket Timeout Connection Settings in Minutes. After timeout when not detected any</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// communication socket is closed Set according to your need</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: 2</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">double</SPAN> ConfigWebSocketTimeoutMin <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">2</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Maximum socket message size for control Traffic</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recomended: 10</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">int</SPAN> ConfigMaxWebSocketBufferSizeKb <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">10</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Bearer Token Timeout Setting in Minutes. Connection must be Refreshed in Interval After</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Timeout connection Must Login Again. It is as needed. You Can Change Key for close All</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// connections Immediately. Timeout is good for Webpages</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recomended: 15</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">double</SPAN> ConfigApiTokenTimeoutMin <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">15</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Setting for Server URL Services. Logically can run only one Http or Https Server has</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// more Security Setting Politics.</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: true</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ConfigServerStartupOnHttps <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Setting for Automatic Obtain Lets Encrypt</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// more Security Setting Politics.</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: true</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ConfigServerGetLetsEncrypt <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Its Domain for include to Automatic Generated Certificate For Server running on HTTPS.</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Domain is for Your validation Certificate Domain. Can be Changed for commercial.</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Domain is Used for Lets Encrypt also</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Write with Comma separator</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: 127.0.0.1</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> ConfigCertificateDomain <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"127.0.0.1"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Password will be inserted to Server Generated Certificate for HTTPS.</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: empty = Maximal Security Randomly generated 20 chars string</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> ConfigCertificatePassword <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> ServerCoreFunctions<SPAN style="COLOR: #008000">.</SPAN><SPAN style="COLOR: #0000ff">RandomString</SPAN><SPAN style="COLOR: #008000">(</SPAN><SPAN style="COLOR: #ff0000">20</SPAN><SPAN style="COLOR: #008000">)</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Special Functions:Server AutoGenerated encryption Key For Securing Communication On Each</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server Restart All Tokens not will be valid and the Login Reconnect is Requested. Its</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// AntiHacker Security Rule</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Recommended: empty = Maximal Security Randomly generated 40 chars string</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> ConfigJwtLocalKey <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> ServerCoreFunctions<SPAN style="COLOR: #008000">.</SPAN><SPAN style="COLOR: #0000ff">RandomString</SPAN><SPAN style="COLOR: #008000">(</SPAN><SPAN style="COLOR: #ff0000">40</SPAN><SPAN style="COLOR: #008000">)</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#endregion ServerConfigurationServices</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#region Server Engines</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable Disable Bearer Token Timeout Validation Token can be valid EveryTime to using:</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Example for machine connection Or is Control last activity</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerTimeTokenValidationEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable Razor WebPages support engine with Correct Configuration for Automaping form</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// folder 'Pages'</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerRazorWebPagesEngineEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable Mvc WebPages support engine with Correct Configuration</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerMvcWebPagesEngineEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable JS WebPages support engine with Correct Configuration</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// React, Nodejs, etc..</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerJsWebPagesEngineEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">false</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Definition of WebPage Startup npmscript command</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// React, Nodejs, etc..</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">string</SPAN> ServerJsWebStartupCommand <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #666666">"start"</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable WebSocket Engine with Default Example Api Controller</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerWebSocketEngineEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable FTP File Server oppened for every connection with full rights</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerFtpEngineEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable FTP Security</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// For access to FTP must be logged  </SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerFtpSecurityEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable WebPages File Browsing from server Url on Server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerWebBrowserEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Server support online multi watch Logging</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Its Run on Websocket and the Log Messages are</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// sent for All opened connections for wathing</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// on Path: ServerCoreMonitor</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// You can enable Mass Email Api</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ServerEnableWebSocketMonitor <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#endregion Server Engines</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080">#region Server Modules</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Special Function: Server Automatically Generate Full Documentation of API structure AND</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Database Model. Plus Included API Interface for Online Testing All API Methods with</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Authentication Its Automatic Solution for Third Party cooperation. All changes are</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Reflected after restart server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ModuleSwaggerApiDocEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Special Function: AutoGenerated Database DataManager for working with Data Running only</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// in Debug mode for simple Develop, can be modified. All changes are Reflected after</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// restart server</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ModuleDataManagerEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Special Function: More than 200 Server Statuses Can be monitored by HeathCheckService,</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Over Net can Control Other Company Services Also as Central Control Point With Email</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Service. For Example: Server/Memory/All DB Types/IP/HDD/Port/Api/NET/Cloud/Environment</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Must be run for Metrics AddOn https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/monitor-app-health</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ModuleHealthServiceEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Special Function: More than 200 Server Statuses Can be monitored by HeathCheckService,</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Over Net can Control Other Company Services Also as Central Control Point With Email</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Service. For Example: Server/Memory/All DB Types/IP/HDD/Port/Api/NET/Cloud/Environment</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Must be run for Metrics AddOn !!! run in Release mode for Good Reading of Logs without</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// HeathChecks Cycling info https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks https://testfully.io/blog/api-health-check-monitoring/</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">int</SPAN> ModuleHealthServiceRefreshIntervalSec <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="COLOR: #ff0000">30</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable Server Structure Documentation for Developers Using RootPath, - Block File</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Browsing Is Good for Server with Documentation only Or Use for Show WebPage and Copy</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// "Only HTML"</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ModuleMdDocumentationEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN>
+&nbsp;
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;summary&gt;</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// Enable Automatic Database Diagram for Simple show Database structure with All bingings</SPAN>
+        <SPAN style="COLOR: #008080; FONT-STYLE: italic">/// &lt;/summary&gt;</SPAN>
+        <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">public</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">static</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #6666cc">bool</SPAN> ModuleDbDiagramGeneratorEnabled <SPAN style="COLOR: #008000">{</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">get</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">set</SPAN><SPAN style="COLOR: #008000">;</SPAN> <SPAN style="COLOR: #008000">}</SPAN> <SPAN style="COLOR: #008000">=</SPAN> <SPAN style="FONT-WEIGHT: bold; COLOR: #0600ff">true</SPAN><SPAN style="COLOR: #008000">;</SPAN></PRE>`;
+ let messageData = "<div class=\"card image-header\"><div class=\"card-content p-2\"><p class=\"fg-black\"><b>" + new Date().toLocaleDateString() + "</b> " + title + "</p>" + data + "</div></div>";
+ $("#NewsLetterBox").html(messageData);
+ Metro.infobox.open('#NewsLetterInfoBox');});
+ 
+ 
+ function printDiv(elementId) {
+     var printContents = document.getElementById(elementId).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+}
+ 
+ 
+ </script>
+</body>
+</html>
