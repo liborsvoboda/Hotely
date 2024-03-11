@@ -22,6 +22,7 @@ namespace EasyITSystemCenter.Pages {
         public static ServerModuleAndServiceList selectedRecord = new ServerModuleAndServiceList();
 
         private List<SolutionMixedEnumList> solutionMixedEnumList = new List<SolutionMixedEnumList>();
+        private List<SolutionMixedEnumList> solutionMixedEnumListLayoutTypes = new List<SolutionMixedEnumList>();
         private List<ServerModuleAndServiceList> ServerModuleAndServiceList = new List<ServerModuleAndServiceList>();
         private List<SolutionUserRoleList> userRoleList = new List<SolutionUserRoleList>();
 
@@ -41,17 +42,24 @@ namespace EasyITSystemCenter.Pages {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
                 solutionMixedEnumList = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.SolutionMixedEnumList, "ByGroup/ModulePageTypes", App.UserData.Authentification.Token);
+                solutionMixedEnumListLayoutTypes = await CommApi.GetApiRequest<List<SolutionMixedEnumList>>(ApiUrls.SolutionMixedEnumList, "ByGroup/WebLayoutTypes", App.UserData.Authentification.Token);
                 userRoleList = await CommApi.GetApiRequest<List<SolutionUserRoleList>>(ApiUrls.SolutionUserRoleList, null, App.UserData.Authentification.Token);
                 ServerModuleAndServiceList = await CommApi.GetApiRequest<List<ServerModuleAndServiceList>>(ApiUrls.ServerModuleAndServiceList, (dataViewSupport.AdvancedFilter == null) ? null : "Filter/" + WebUtility.UrlEncode(dataViewSupport.AdvancedFilter.Replace("[!]", "").Replace("{!}", "")), App.UserData.Authentification.Token);
 
                 solutionMixedEnumList.ForEach(async tasktype => { tasktype.Translation = await DBOperations.DBTranslation(tasktype.Name); });
+                solutionMixedEnumListLayoutTypes.ForEach(async layoutType => { layoutType.Translation = await DBOperations.DBTranslation(layoutType.Name); });
                 userRoleList.ForEach(async role => { role.Translation = await DBOperations.DBTranslation(role.SystemName); });
-                ServerModuleAndServiceList.ForEach(module => { module.PageTypeTranslation = solutionMixedEnumList.FirstOrDefault(a => a.Name == module.InheritedPageType).Translation; });
+                ServerModuleAndServiceList.ForEach(module => {
+                    module.PageTypeTranslation = solutionMixedEnumList.FirstOrDefault(a => a.Name == module.InheritedPageType).Translation;
+                    try { module.LayoutTypeTranslation = solutionMixedEnumListLayoutTypes.FirstOrDefault(a => a.Name == module.InheritedLayoutType).Translation; } catch { }
+                });
 
-                DgListView.ItemsSource = ServerModuleAndServiceList;
+            DgListView.ItemsSource = ServerModuleAndServiceList;
                 DgListView.Items.Refresh();
                 cb_inheritedPageType.ItemsSource = solutionMixedEnumList;
                 cb_allowedRoles.ItemsSource = userRoleList.OrderBy(a => a.Translation).ToList();
+                cb_inheritedLayoutType.ItemsSource = solutionMixedEnumListLayoutTypes.OrderBy(a => a.Translation).ToList();
+
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             MainWindow.ProgressRing = Visibility.Hidden; return true;
@@ -61,28 +69,31 @@ namespace EasyITSystemCenter.Pages {
             try {
                 ((DataGrid)sender).Columns.ToList().ForEach(async e => {
                     string headername = e.Header.ToString().ToLower();
-                    if (headername == "name") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 1; }
-                    else if (headername == "pagetypetranslation") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 2; }
-                    else if (headername == "urlsubpath") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 3; }
-                    else if (headername == "restrictedaccess") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 4; }
-                    else if (headername == "redirecttologinservice") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 5; }
-                    else if (headername == "redirectpathonerror") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 6; }
-                    else if (headername == "isloginmodule") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 7; }
-                    else if (headername == "allowedroles") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 8; }
-                    else if (headername == "active") { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 7; }
-                    else if (headername == "timestamp") { e.Header = await DBOperations.DBTranslation(headername); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
-                    else if (headername == "id") e.DisplayIndex = 0;
-                    else if (headername == "userid") e.Visibility = Visibility.Hidden;
-                    else if (headername == "description") e.Visibility = Visibility.Hidden;
-                    else if (headername == "optionalconfiguration") e.Visibility = Visibility.Hidden;
-                    else if (headername == "razorpagesetting") e.Visibility = Visibility.Hidden;
-                    else if (headername == "customhtmlcontent") e.Visibility = Visibility.Hidden;
-                    else if (headername == "razorpageallowed") e.Visibility = Visibility.Hidden;
-                    else if (headername == "pathsetallowed") e.Visibility = Visibility.Hidden;
-                    else if (headername == "restrictionsetallowed") e.Visibility = Visibility.Hidden;
-                    else if (headername == "htmlsetallowed") e.Visibility = Visibility.Hidden;
-                    else if (headername == "redirectsetallowed") e.Visibility = Visibility.Hidden;
-                    else if (headername == "inheritedpagetype") e.Visibility = Visibility.Hidden;
+                    if (headername == "name".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 1; }
+                    else if (headername == "pagetypetranslation".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 2; }
+                    else if (headername == "layoutTypeTranslation".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 2; }
+                    else if (headername == "urlsubpath".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 3; }
+                    else if (headername == "restrictedaccess".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 4; }
+                    else if (headername == "redirecttologinservice".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 5; }
+                    else if (headername == "redirectpathonerror".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 6; }
+                    else if (headername == "isloginmodule".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 7; }
+                    else if (headername == "allowedroles".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 8; }
+                    else if (headername == "active".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.DisplayIndex = 7; }
+                    else if (headername == "timestamp".ToLower()) { e.Header = await DBOperations.DBTranslation(headername); e.CellStyle = ProgramaticStyles.gridTextRightAligment; e.DisplayIndex = DgListView.Columns.Count - 1; }
+                    else if (headername == "id".ToLower()) e.DisplayIndex = 0;
+
+                    else if (headername == "inheritedLayoutType".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "userid".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "description".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "optionalconfiguration".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "razorpagesetting".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "customhtmlcontent".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "razorpageallowed".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "pathsetallowed".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "restrictionsetallowed".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "htmlsetallowed".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "redirectsetallowed".ToLower()) e.Visibility = Visibility.Hidden;
+                    else if (headername == "inheritedpagetype".ToLower()) e.Visibility = Visibility.Hidden;
                 });
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
         }
@@ -147,6 +158,10 @@ namespace EasyITSystemCenter.Pages {
 
                 selectedRecord.InheritedPageType = ((SolutionMixedEnumList)cb_inheritedPageType.SelectedItem).Name;
                 selectedRecord.Name = txt_name.Text;
+
+                if (((SolutionMixedEnumList)cb_inheritedPageType.SelectedItem).Name == "ServerApi") { selectedRecord.InheritedLayoutType = ""; }
+                else { selectedRecord.InheritedLayoutType = ((SolutionMixedEnumList)cb_inheritedLayoutType.SelectedItem).Name; }
+
                 selectedRecord.Description = txt_description.Text;
 
                 selectedRecord.UrlSubPath = txt_urlSubPath.Text;
@@ -190,6 +205,7 @@ namespace EasyITSystemCenter.Pages {
 
             cb_inheritedPageType.SelectedItem = (selectedRecord.Id == 0) ? solutionMixedEnumList.FirstOrDefault() : solutionMixedEnumList.First(a => a.Name == selectedRecord.InheritedPageType);
             txt_name.Text = selectedRecord.Name;
+            cb_inheritedLayoutType.SelectedItem = (selectedRecord.Id == 0) ? solutionMixedEnumListLayoutTypes.FirstOrDefault() : solutionMixedEnumListLayoutTypes.FirstOrDefault(a => a.Name == selectedRecord.InheritedLayoutType);
             txt_description.Text = selectedRecord.Description;
 
             txt_urlSubPath.Text = selectedRecord.UrlSubPath;
@@ -221,18 +237,26 @@ namespace EasyITSystemCenter.Pages {
             CustomHtmlContent.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition(((ListBoxItem)code_selector.SelectedValue).Content.ToString());
         }
 
+
+        /* TODO Implement FOR SYSTEM Modules
         private void setAllowedFields() {
             txt_urlSubPath.IsEnabled = selectedRecord.PathSetAllowed;
             chb_restrictedAccess.IsEnabled = selectedRecord.RedirectSetAllowed;
             CustomHtmlContent.IsEnabled = selectedRecord.HtmlSetAllowed;
             txt_redirectPathOnError.IsEnabled = selectedRecord.RedirectSetAllowed;
         }
+        */
 
         private void RestrictedAccessChanged(object sender, RoutedEventArgs e) {
             if (dataViewSupport.FormShown) {
                 txt_redirectPathOnError.Text = null;
                 txt_redirectPathOnError.IsEnabled = !(bool)chb_restrictedAccess.IsChecked;
             }
+        }
+
+        private void InheritedPageType_Changed(object sender, SelectionChangedEventArgs e) {
+            if (((SolutionMixedEnumList)cb_inheritedPageType.SelectedItem).Name == "ServerApi") { cb_inheritedLayoutType.SelectedIndex = -1; cb_inheritedLayoutType.IsEnabled = false; }
+            else { cb_inheritedLayoutType.SelectedIndex = 0; cb_inheritedLayoutType.IsEnabled = true; }
         }
     }
 }

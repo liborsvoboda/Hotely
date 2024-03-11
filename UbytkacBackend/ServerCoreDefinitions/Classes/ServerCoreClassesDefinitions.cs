@@ -37,5 +37,6 @@
     /// </summary>
     public enum ServerLocalDbDials {
         SystemTranslationList,
+        ServerModuleAndServiceLists
     }
 }

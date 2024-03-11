@@ -23,7 +23,11 @@ namespace UbytkacBackend.ServerCoreStructure {
                                 int indexLL = ServerRuntimeData.LocalDBTableList.FindIndex(a => a.GetType() == dataLL.GetType());
                                 if (indexLL >= 0) ServerRuntimeData.LocalDBTableList[indexLL] = dataLL; else ServerRuntimeData.LocalDBTableList.Add(dataLL);
                                 break;
-
+                            case "ServerModuleAndServiceLists":
+                                List<ServerModuleAndServiceList>? smlDataLL = new hotelsContext().ServerModuleAndServiceLists.ToList();
+                                int smlIndexLL = ServerRuntimeData.LocalDBTableList.FindIndex(a => a.GetType() == smlDataLL.GetType());
+                                if (smlIndexLL >= 0) ServerRuntimeData.LocalDBTableList[smlIndexLL] = smlDataLL; else ServerRuntimeData.LocalDBTableList.Add(smlDataLL);
+                                break;
                             default: break;
                         }
                         if (onlyThis != null) break;
@@ -46,9 +50,41 @@ namespace UbytkacBackend.ServerCoreStructure {
             return ServerConfigSettings.ServiceUseDbLocalAutoupdatedDials ? DBTranslateOffline(word, language) : DBTranslateOnline(word, language);
         }
 
+        /// <summary>
+        /// Default Operation for Call CHEckModuleExist
+        /// </summary>
+        /// <param name="word">    </param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public static ServerModuleAndServiceList? CheckServerModuleExists(string modulePath) {
+            return ServerConfigSettings.ServiceUseDbLocalAutoupdatedDials ? CheckServerModuleOffline(modulePath) : CheckServerModuleOnline(modulePath);
+        }
         #endregion Public definitions for standard using
 
         #region Private or On-line/Off-line Definitions
+
+
+        /// <summary>
+        /// Get Check ServerModule from OneTime Load Server List
+        /// </summary>
+        /// <param name="modulePath"></param>
+        /// <returns></returns>
+        private static ServerModuleAndServiceList? CheckServerModuleOffline(string modulePath) {
+            int index = ServerRuntimeData.LocalDBTableList.FindIndex(a => a.GetType() == new List<ServerModuleAndServiceList>().GetType());
+            return ((List<ServerModuleAndServiceList>)ServerRuntimeData.LocalDBTableList[index]).Where(a => a.UrlSubPath?.ToLower() == modulePath.ToLower()).FirstOrDefault();
+        }
+
+
+
+        /// <summary>
+        /// Get Check ServerModule from DB 
+        /// </summary>
+        /// <param name="modulePath"></param>
+        /// <returns></returns>
+        private static ServerModuleAndServiceList? CheckServerModuleOnline(string modulePath) {
+            return new hotelsContext().ServerModuleAndServiceLists.Where(a => a.UrlSubPath.ToLower() == modulePath.ToLower()).FirstOrDefault();
+        }
+
 
         /// <summary>
         /// Database LanuageList for Off-line Using Definitions

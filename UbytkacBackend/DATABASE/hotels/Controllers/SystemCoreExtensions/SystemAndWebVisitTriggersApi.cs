@@ -34,5 +34,16 @@
                 await result.Context.SaveChangesAsync();
             }
         }
+
+        /// <summary>
+        /// Trigger Web IP Hosts History List
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        public static async void WriteWebVisit(string ipAddress) {
+            // Save new visit
+            WebVisitIpList record = new() { WebHostIp = ipAddress, TimeStamp = DateTimeOffset.Now.DateTime };
+            EntityEntry<WebVisitIpList>? result = new hotelsContext().WebVisitIpLists.Add(record);
+            await result.Context.SaveChangesAsync();
+        }
     }
 }

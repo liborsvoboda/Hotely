@@ -115,7 +115,7 @@ namespace EasyITSystemCenter.Pages {
                 DBResultMessage dBResult;
                 selectedRecord.Id = (int)((txt_id.Value != null) ? txt_id.Value : 0);
                 selectedRecord.SystemName = txt_systemName.Text;
-                //selectedRecord.Description = txt_description.Text;
+                selectedRecord.Description = txt_description.Text;
                 selectedRecord.UserId = App.UserData.Authentification.Id;
                 selectedRecord.Active = (bool)chb_active.IsChecked;
                 selectedRecord.TimeStamp = DateTimeOffset.Now.DateTime;

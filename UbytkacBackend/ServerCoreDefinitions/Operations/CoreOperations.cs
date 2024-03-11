@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System.Diagnostics;
+using System.Net.Mail;
 using System.Runtime.InteropServices;
 
 namespace UbytkacBackend.ServerCoreStructure {

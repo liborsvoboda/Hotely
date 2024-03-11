@@ -144,8 +144,21 @@
         TermsList,
         UbytkacInfoList,
         WebMottoList,
-        WebSettingList,
+        WebPageSettingList,
 
+
+        /*WebPortal APIs*/
+        WebBannedIpAddressList,
+        WebCodeLibraryList,
+        WebCoreFileList,
+        WebDeveloperNewsList,
+        WebDocumentationCodeLibraryList,
+        WebDocumentationList,
+        WebGlobalPageBlockList,
+        WebGroupMenuList,
+        WebMenuList,
+        WebSettingList,
+        WebVisitIpList
     }
 
     /// <summary>

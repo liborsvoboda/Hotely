@@ -1,4 +1,6 @@
-﻿namespace UbytkacBackend.ServerCoreStructure {
+﻿using System.Text;
+
+namespace UbytkacBackend.ServerCoreStructure {
 
     internal static class FileOperations {
 

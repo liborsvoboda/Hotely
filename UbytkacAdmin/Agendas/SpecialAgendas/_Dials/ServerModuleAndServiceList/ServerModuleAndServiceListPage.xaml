@@ -62,12 +62,26 @@
             <Label
                 x:Name="lbl_inheritedPageType"
                 Grid.Row="1" Grid.Column="0"
-                HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                Width="150"
+                HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
             <ComboBox
                 x:Name="cb_inheritedPageType"
-                Grid.Row="1" Grid.Column="1"
-                Margin="0,2,0,2" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                Grid.Row="1" Grid.Column="0"
+                Width="150"
+                Margin="0,2,0,2" HorizontalAlignment="Right" VerticalAlignment="Center" SelectionChanged="InheritedPageType_Changed"
                 Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="Translation" IsEnabled="true" SelectedValuePath="Name" />
+
+            <Label
+                x:Name="lbl_inheritedLayoutType"
+                Grid.Row="1" Grid.Column="1"
+                Width=" 150"
+                HorizontalAlignment="Left" HorizontalContentAlignment="Left" />
+            <ComboBox
+                x:Name="cb_inheritedLayoutType"
+                Grid.Row="1" Grid.Column="1"
+                Margin="160,2,0,2" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                Controls:TextBoxHelper.ClearTextButton="false" Controls:TextBoxHelper.IsWaitingForData="True" DisplayMemberPath="Translation" IsEnabled="true" SelectedValuePath="Name" />
+
 
             <Label
                 x:Name="lbl_name"

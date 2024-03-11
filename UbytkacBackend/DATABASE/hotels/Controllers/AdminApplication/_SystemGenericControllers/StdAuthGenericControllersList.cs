@@ -11,24 +11,24 @@ namespace UbytkacBackend.ServerCoreDBSettings {
     }*/
 
 
-    [Authorize(Roles = "admin")]
-    [Route("[controller]")]
-    [ApiController]
-    public class ServerModuleAndServiceListController : StdAuthGenericProviderApi<hotelsContext, ServerModuleAndServiceList, int> {
+    //[Authorize(Roles = "admin")]
+    //[Route("[controller]")]
+    //[ApiController]
+    //public class ServerModuleAndServiceListController : StdAuthGenericProviderApi<hotelsContext, ServerModuleAndServiceList, int> {
 
-        public ServerModuleAndServiceListController(IRepositoryAsync<hotelsContext, ServerModuleAndServiceList> repo) : base(repo) {
-        }
-    }
+    //    public ServerModuleAndServiceListController(IRepositoryAsync<hotelsContext, ServerModuleAndServiceList> repo) : base(repo) {
+    //    }
+    //}
 
 
-    [Authorize(Roles = "admin")]
-    [Route("[controller]")]
-    [ApiController]
-    public class SystemModuleListController : StdAuthGenericProviderApi<hotelsContext, SystemModuleList, int> {
+    //[Authorize(Roles = "admin")]
+    //[Route("[controller]")]
+    //[ApiController]
+    //public class SystemModuleListController : StdAuthGenericProviderApi<hotelsContext, SystemModuleList, int> {
 
-        public SystemModuleListController(IRepositoryAsync<hotelsContext, SystemModuleList> repo) : base(repo) {
-        }
-    }
+    //    public SystemModuleListController(IRepositoryAsync<hotelsContext, SystemModuleList> repo) : base(repo) {
+    //    }
+    //}
 
     
 }

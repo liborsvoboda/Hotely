@@ -430,6 +430,14 @@
         public static bool RedirectOnPageNotFound { get; set; } = true;
 
 
+        /// <summary>
+        /// Cesta na kterou se přesměruje Webová Stránka 
+        /// v případě 404 stránka nenalezena. 
+        /// Je také nastavena jako Výchozí Stránka
+        /// </summary>
+        public static string RedirectPath { get; set; } = "/Index";
+
+
         #endregion Server Web Portal
 
     }

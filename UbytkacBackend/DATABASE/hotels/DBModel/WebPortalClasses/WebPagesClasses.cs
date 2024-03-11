@@ -61,7 +61,7 @@
         public string Message { get; set; }
     }
 
-    public class WebPageSettingList1 {
+    public class WebSettingList1 {
         public List<WebSetting> Settings { get; set; }
     }
 

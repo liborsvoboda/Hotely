@@ -89,16 +89,58 @@ else if (loginModule != null && loginModule.InheritedPageType == "HtmlBodyOnly")
     </html>
 }
 else if (loginModule != null && loginModule.InheritedPageType == "FullHtmlPage") {
-
-    Html.Raw(Regex.Replace(loginModule?.CustomHtmlContent, "<head>", "<head>" + Environment.NewLine + this.Model.GetManagedMultiLangCssLayoutFiles().ContentType + Environment.NewLine + this.Model.GetManagedMultiLangJsLayoutFiles().ContentType + Environment.NewLine, RegexOptions.IgnoreCase));
-    RenderBody();
-
+    <!DOCTYPE html>
+    <html lang="cs-CZ">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+        <meta name="charset" content="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Libor Svoboda">
+        <meta name="description" content="EasyITCenter">
+        <meta name="keywords" content="System, Backend, API, EASY-DATA-Center, EASY-SYSTEM-Builder, Application, Server, IT, Solution, Help, HowTo, Javascript, HTML5, UI, Library, Web, Development, Framework">
+        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        @Html.Raw(this.Model.GetManagedMultiLangCssFiles().ContentType)
+        @Html.Raw(this.Model.GetManagedMultiLangJsFiles().ContentType)
+    </head>
+    <body>
+    @Html.Raw(loginModule?.CustomHtmlContent)
+    @RenderBody()
+    </body>
+    </html>
 } else if (serverModule != null && serverModule.InheritedPageType == "FullHtmlPage" && loginModule == null && (!serverModule.RestrictedAccess || (serverModule.RestrictedAccess && webpagestoken != null && webpagestoken.IsValid && serverModule.AllowedRoles.Split(",").ToList().Contains(webpagestoken.UserClaims.FindFirstValue(ClaimTypes.Role))))) {
-
-    Html.Raw(Regex.Replace(serverModule?.CustomHtmlContent, "<head>", "<head>" + Environment.NewLine + this.Model.GetManagedMultiLangCssLayoutFiles().ContentType + Environment.NewLine + this.Model.GetManagedMultiLangJsLayoutFiles().ContentType + Environment.NewLine, RegexOptions.IgnoreCase));
-    RenderBody();
-
-} else { //Using bby Satic Tool or unspecified
-    RenderBody();
+    <!DOCTYPE html>
+    <html lang="cs-CZ">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+        <meta name="charset" content="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Libor Svoboda">
+        <meta name="description" content="EasyITCenter">
+        <meta name="keywords" content="System, Backend, API, EASY-DATA-Center, EASY-SYSTEM-Builder, Application, Server, IT, Solution, Help, HowTo, Javascript, HTML5, UI, Library, Web, Development, Framework">
+        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        @Html.Raw(this.Model.GetManagedMultiLangCssFiles().ContentType)
+        @Html.Raw(this.Model.GetManagedMultiLangJsFiles().ContentType)
+    </head>
+    <body>
+    @Html.Raw(serverModule?.CustomHtmlContent)
+    @RenderBody()
+    </body>
+    </html>
+} else { //Using by Static Tool or unspecified
+    <!DOCTYPE html>
+    <html lang="cs-CZ">
+    <head>
+        @Html.Raw(this.Model.GetManagedMultiLangCssFiles().ContentType)
+        @Html.Raw(this.Model.GetManagedMultiLangJsFiles().ContentType)
+    </head>
+    <body>
+        @Html.Raw(serverModule?.CustomHtmlContent)
+        @RenderBody()
+    </body>
+    </html>
 }
 

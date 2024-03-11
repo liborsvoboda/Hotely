@@ -21,7 +21,7 @@ namespace UbytkacBackend.DBModel
         public string Name { get; set; } = null!;
         [StringLength(50)]
         [Unicode(false)]
-        public string InheritedLayoutType { get; set; } = null!;
+        public string? InheritedLayoutType { get; set; }
         [Column(TypeName = "text")]
         public string? Description { get; set; }
         [StringLength(100)]
@@ -45,7 +45,7 @@ namespace UbytkacBackend.DBModel
         public bool HtmlSetAllowed { get; set; }
         public bool RedirectSetAllowed { get; set; }
         [Required]
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
         public int UserId { get; set; }
         public DateTime TimeStamp { get; set; }
 

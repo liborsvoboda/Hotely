@@ -31,6 +31,123 @@ namespace ServerCorePages {
 
         #region Global Methods For Centralize Templates CSS Part
 
+        /// <summary>
+        /// MultiLang CSS Library Files List
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult GetManagedMultiLangCssFiles() {
+            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+
+            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+            //Load Js Section
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "cssfiles") && a.FileName.StartsWith("multilang-fullpage")).OrderBy(a => a.Sequence).ToList();
+            }
+            string insertedPart = "";
+            data.ForEach(managedFile => {
+                insertedPart = "";
+
+                if (managedFile.RewriteLowerLevel) {
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += managedFile.ProviderContent + Environment.NewLine; }
+
+                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+                    html += insertedPart;
+                }
+                else {
+                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+
+                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += managedFile.ProviderContent + Environment.NewLine; }
+                }
+                html += insertedPart;
+            });
+
+            result.ContentType = html;
+            return result;
+        }
+
+
+        /// <summary>
+        /// Central CSS Library Files List
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult GetManagedCentralCssFiles() {
+            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+
+            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+            //Load Js Section
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "cssfiles") && a.FileName.StartsWith("central-fullpage")).OrderBy(a => a.Sequence).ToList();
+            }
+            string insertedPart = "";
+            data.ForEach(managedFile => {
+                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+
+                if (managedFile.RewriteLowerLevel) {
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += managedFile.ProviderContent + Environment.NewLine; }
+
+                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+                    html += insertedPart;
+                }
+                else {
+                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+
+                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += managedFile.ProviderContent + Environment.NewLine; }
+                }
+                html += insertedPart;
+            });
+
+            result.ContentType = html;
+            return result;
+        }
+
+        /// <summary>
+        /// Global CSS Library Files List
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult GetManagedGlobalCssFiles() {
+            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+
+            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+            //Load Js Section
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "cssfiles") && a.FileName.StartsWith("global-fullpage")).OrderBy(a => a.Sequence).ToList();
+            }
+            string insertedPart = "";
+            data.ForEach(managedFile => {
+                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+
+                if (managedFile.RewriteLowerLevel) {
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += managedFile.ProviderContent + Environment.NewLine; }
+
+                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+                    html += insertedPart;
+                }
+                else {
+                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+
+                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += managedFile.ProviderContent + Environment.NewLine; }
+                }
+                html += insertedPart;
+            });
+
+            result.ContentType = html;
+            return result;
+        }
+
+        //------------------------------------------------------
+
 
         /// <summary>
         /// MultiLang CSS Stylisation Template Controler
@@ -72,44 +189,44 @@ namespace ServerCorePages {
         }
 
 
-        /// <summary>
-        /// Portal CSS Stylisation Template Controler
-        /// </summary>
-        /// <returns></returns>
-        public ViewResult GetManagedPortalCssLayoutFiles() {
-            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+        ///// <summary>
+        ///// Portal CSS Stylisation Template Controler
+        ///// </summary>
+        ///// <returns></returns>
+        //public ViewResult GetManagedPortalCssLayoutFiles() {
+        //    List<WebCoreFileList> data; string html = null; var result = new ViewResult();
 
-            //Load Css Section
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "css" || a.SpecificationType.ToLower() == "mincss") && a.FileName.StartsWith("portal-layout.")).OrderBy(a => a.Sequence).ToList();
-            }
-            string insertedPart = "";
-            data.ForEach(managedFile => {
-                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
-                string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+        //    //Load Css Section
+        //    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+        //        data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "css" || a.SpecificationType.ToLower() == "mincss") && a.FileName.StartsWith("portal-layout.")).OrderBy(a => a.Sequence).ToList();
+        //    }
+        //    string insertedPart = "";
+        //    data.ForEach(managedFile => {
+        //        insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+        //        string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
 
-                if (managedFile.RewriteLowerLevel) {
-                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" />" + Environment.NewLine; }
+        //        if (managedFile.RewriteLowerLevel) {
+        //            if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" />" + Environment.NewLine; }
 
-                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" />" + Environment.NewLine; }
-                    else if ((authRole == "webuser" || authRole == "admin" && managedFile.UserFileContent?.Length > 0) && managedFile.UserFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" />" + Environment.NewLine; }
-                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" />" + Environment.NewLine; }
-                    html += insertedPart;
-                }
-                else {
-                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" />" + Environment.NewLine; }
+        //            if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" />" + Environment.NewLine; }
+        //            else if ((authRole == "webuser" || authRole == "admin" && managedFile.UserFileContent?.Length > 0) && managedFile.UserFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" />" + Environment.NewLine; }
+        //            else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" />" + Environment.NewLine; }
+        //            html += insertedPart;
+        //        }
+        //        else {
+        //            if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" />" + Environment.NewLine; }
 
-                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" />" + Environment.NewLine; }
-                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" />" + Environment.NewLine; }
+        //            if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" />" + Environment.NewLine; }
+        //            else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" />" + Environment.NewLine; }
 
-                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" />" + Environment.NewLine; }
-                }
-                html += insertedPart;
-            });
+        //            if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += "<link rel=\"stylesheet\" href=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" />" + Environment.NewLine; }
+        //        }
+        //        html += insertedPart;
+        //    });
 
-            result.ContentType = html;
-            return result;
-        }
+        //    result.ContentType = html;
+        //    return result;
+        //}
 
 
         /// <summary>
@@ -198,6 +315,124 @@ namespace ServerCorePages {
         #region Global Methods For Centralize Templates JS Part
 
         /// <summary>
+        /// MultiLang JS Library Files List
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult GetManagedMultiLangJsFiles() {
+            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+
+            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+            //Load Js Section
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "jsfiles") && a.FileName.StartsWith("multilang-fullpage")).OrderBy(a => a.Sequence).ToList();
+            }
+            string insertedPart = "";
+            data.ForEach(managedFile => {
+                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+
+                if (managedFile.RewriteLowerLevel) {
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += managedFile.ProviderContent + Environment.NewLine; }
+
+                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+                    html += insertedPart;
+                }
+                else {
+                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+
+                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += managedFile.ProviderContent + Environment.NewLine; }
+                }
+                html += insertedPart;
+            });
+
+            result.ContentType = html;
+            return result;
+        }
+
+
+        /// <summary>
+        /// Central JS Library Files List
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult GetManagedCentralJsFiles() {
+            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+
+            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+            //Load Js Section
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "jsfiles") && a.FileName.StartsWith("central-fullpage")).OrderBy(a => a.Sequence).ToList();
+            }
+            string insertedPart = "";
+            data.ForEach(managedFile => {
+                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+
+                if (managedFile.RewriteLowerLevel) {
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += managedFile.ProviderContent + Environment.NewLine; }
+
+                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+                    html += insertedPart;
+                }
+                else {
+                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+
+                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += managedFile.ProviderContent + Environment.NewLine; }
+                }
+                html += insertedPart;
+            });
+
+            result.ContentType = html;
+            return result;
+        }
+
+        /// <summary>
+        /// Global JS Library Files List
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult GetManagedGlobalJsFiles() {
+            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+
+            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+            //Load Js Section
+            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "jsfiles") && a.FileName.StartsWith("global-fullpage")).OrderBy(a => a.Sequence).ToList();
+            }
+            string insertedPart = "";
+            data.ForEach(managedFile => {
+                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+
+                if (managedFile.RewriteLowerLevel) {
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += managedFile.ProviderContent + Environment.NewLine; }
+
+                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+                    html += insertedPart;
+                }
+                else {
+                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += managedFile.GuestFileContent + Environment.NewLine; }
+
+                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += managedFile.UserFileContent + Environment.NewLine; }
+                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += managedFile.AdminFileContent + Environment.NewLine; }
+                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += managedFile.ProviderContent + Environment.NewLine; }
+                }
+                html += insertedPart;
+            });
+
+            result.ContentType = html;
+            return result;
+        }
+
+
+        //------------------------------------------------
+
+        /// <summary>
         /// MultiLang JS Library Files Template Controler
         /// </summary>
         /// <returns></returns>
@@ -236,43 +471,43 @@ namespace ServerCorePages {
         }
 
 
-        /// <summary>
-        /// Portal JS Library Files Template Controler
-        /// </summary>
-        /// <returns></returns>
-        public ViewResult GetManagedPortalJsLayoutFiles() {
-            List<WebCoreFileList> data; string html = null; var result = new ViewResult();
+        ///// <summary>
+        ///// Portal JS Library Files Template Controler
+        ///// </summary>
+        ///// <returns></returns>
+        //public ViewResult GetManagedPortalJsLayoutFiles() {
+        //    List<WebCoreFileList> data; string html = null; var result = new ViewResult();
 
-            string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
-            //Load Js Section
-            using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "js" || a.SpecificationType.ToLower() == "minjs") && a.FileName.StartsWith("portal-layout.")).OrderBy(a => a.Sequence).ToList();
-            }
-            string insertedPart = "";
-            data.ForEach(managedFile => {
-                insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
+        //    string? authRole = User.FindFirstValue(ClaimTypes.Role.ToString())?.ToLower();
+        //    //Load Js Section
+        //    using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
+        //        data = new hotelsContext().WebCoreFileLists.Where(a => (a.SpecificationType.ToLower() == "js" || a.SpecificationType.ToLower() == "minjs") && a.FileName.StartsWith("portal-layout.")).OrderBy(a => a.Sequence).ToList();
+        //    }
+        //    string insertedPart = "";
+        //    data.ForEach(managedFile => {
+        //        insertedPart = ""; string fileExt = managedFile.FileName.Split(".").Last();
 
-                if (managedFile.RewriteLowerLevel) {
-                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" ></script>" + Environment.NewLine; }
+        //        if (managedFile.RewriteLowerLevel) {
+        //            if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { html += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" ></script>" + Environment.NewLine; }
 
-                    if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" ></script>" + Environment.NewLine; }
-                    else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" ></script>" + Environment.NewLine; }
-                    else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" ></script>" + Environment.NewLine; }
-                    html += insertedPart;
-                }
-                else {
-                    if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" ></script>" + Environment.NewLine; }
+        //            if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" ></script>" + Environment.NewLine; }
+        //            else if ((authRole == "webuser" || authRole == "admin") && managedFile.UserFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" ></script>" + Environment.NewLine; }
+        //            else if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" ></script>" + Environment.NewLine; }
+        //            html += insertedPart;
+        //        }
+        //        else {
+        //            if (managedFile.GuestFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName + "\" ></script>" + Environment.NewLine; }
 
-                    if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" ></script>" + Environment.NewLine; }
-                    else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" ></script>" + Environment.NewLine; }
-                    if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" ></script>" + Environment.NewLine; }
-                }
-                html += insertedPart;
-            });
+        //            if (authRole == "webuser" && managedFile.UserFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "user." + fileExt) + "\" ></script>" + Environment.NewLine; }
+        //            else if (authRole == "admin" && managedFile.AdminFileContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "admin." + fileExt) + "\" ></script>" + Environment.NewLine; }
+        //            if (ServerConfigSettings.ServerProviderModeEnabled && managedFile.ProviderContent?.Length > 0) { insertedPart += "<script type=\"text/javascript\" src=\"../../metro/" + managedFile.MetroPath + "/" + managedFile.FileName.Replace(fileExt, "provider." + fileExt) + "\" ></script>" + Environment.NewLine; }
+        //        }
+        //        html += insertedPart;
+        //    });
 
-            result.ContentType = html;
-            return result;
-        }
+        //    result.ContentType = html;
+        //    return result;
+        //}
 
 
         /// <summary>
@@ -359,7 +594,7 @@ namespace ServerCorePages {
         ///JS and Css Web Poertal Controls Methods For Managing 
         /// JS and Css Web Poertal Controls Methods For Managing
         /// </summary>
-        #region JS and Css Web Poertal Controls
+        #region JS and Css Web Portal Controls
 
 
 
@@ -638,6 +873,6 @@ namespace ServerCorePages {
 
 
 
-        #endregion JS and Css Web Poertal Controls
+        #endregion JS and Css Web Portal Controls
     }
 }

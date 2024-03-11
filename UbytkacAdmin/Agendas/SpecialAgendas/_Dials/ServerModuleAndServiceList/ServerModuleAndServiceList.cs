@@ -6,6 +6,7 @@ namespace EasyITSystemCenter.Classes {
         public int Id { get; set; } = 0;
         public string InheritedPageType { get; set; } = null;
         public string Name { get; set; } = null;
+        public string InheritedLayoutType { get; set; } = null;
         public string Description { get; set; }
         public string UrlSubPath { get; set; } = null;
         public string OptionalConfiguration { get; set; }
@@ -24,5 +25,6 @@ namespace EasyITSystemCenter.Classes {
         public DateTime TimeStamp { get; set; }
 
         public string PageTypeTranslation { get; set; } = null;
+        public string LayoutTypeTranslation { get; set; } = "";
     }
 }

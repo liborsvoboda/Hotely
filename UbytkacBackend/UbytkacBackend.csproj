@@ -75,7 +75,12 @@
   
   <ItemGroup>
     <Content Remove="C:\Users\tatka\.nuget\packages\ht.minify\6.0.11\contentFiles\any\net6.0\net.ico" />
-	
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="C:\Users\tatka\.nuget\packages\microsoft.applicationinsights.profiler.aspnetcore\2.6.0\contentFiles\any\netstandard2.1\ServiceProfiler\TraceUpload.zip" />
+  </ItemGroup>
+  
   <ItemGroup>
     <None Update="Data\groupware-solution.eu.png">
       <Pack>True</Pack>
