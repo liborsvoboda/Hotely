@@ -71,6 +71,9 @@
 
   <ItemGroup>
     <Content Include="Data\favicon.ico" />
+    <Content Include="ServerCoreDefinitions\Styles\HealthChecksUI.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
   <ItemGroup>
@@ -79,6 +82,7 @@
   
   <ItemGroup>
     <None Remove="C:\Users\tatka\.nuget\packages\microsoft.applicationinsights.profiler.aspnetcore\2.6.0\contentFiles\any\netstandard2.1\ServiceProfiler\TraceUpload.zip" />
+    <None Remove="ServerCoreDefinitions\Styles\HealthChecksUI.css" />
   </ItemGroup>
   
   <ItemGroup>

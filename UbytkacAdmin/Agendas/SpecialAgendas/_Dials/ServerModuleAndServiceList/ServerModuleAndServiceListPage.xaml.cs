@@ -103,13 +103,13 @@ namespace EasyITSystemCenter.Pages {
                 if (filter.Length == 0) { dataViewSupport.FilteredValue = null; DgListView.Items.Filter = null; return; }
                 dataViewSupport.FilteredValue = filter;
                 DgListView.Items.Filter = (e) => {
-                    ServerModuleAndServiceList user = e as ServerModuleAndServiceList;
-                    return user.Name.ToLower().Contains(filter.ToLower())
-                    || user.PageTypeTranslation.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.UrlSubPath) && user.UrlSubPath.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.OptionalConfiguration) && user.OptionalConfiguration.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.RedirectPathOnError) && user.RedirectPathOnError.ToLower().Contains(filter.ToLower())
-                    || !string.IsNullOrEmpty(user.Description) && user.Description.ToLower().Contains(filter.ToLower())
+                    ServerModuleAndServiceList search = e as ServerModuleAndServiceList;
+                    return search.Name.ToLower().Contains(filter.ToLower())
+                    || search.PageTypeTranslation.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(search.UrlSubPath) && search.UrlSubPath.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(search.OptionalConfiguration) && search.OptionalConfiguration.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(search.RedirectPathOnError) && search.RedirectPathOnError.ToLower().Contains(filter.ToLower())
+                    || !string.IsNullOrEmpty(search.Description) && search.Description.ToLower().Contains(filter.ToLower())
                     ;
                 };
             } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
@@ -202,25 +202,27 @@ namespace EasyITSystemCenter.Pages {
 
         private void SetRecord(bool? showForm = null, bool copy = false) {
             txt_id.Value = (copy) ? 0 : selectedRecord.Id;
+            try {
+                cb_inheritedPageType.SelectedItem = (selectedRecord.Id == 0) ? solutionMixedEnumList.FirstOrDefault() : solutionMixedEnumList.First(a => a.Name == selectedRecord.InheritedPageType);
+                txt_name.Text = selectedRecord.Name;
+                cb_inheritedLayoutType.SelectedItem = (selectedRecord.Id == 0) ? solutionMixedEnumListLayoutTypes.FirstOrDefault() : solutionMixedEnumListLayoutTypes.FirstOrDefault(a => a.Name == selectedRecord.InheritedLayoutType);
+                txt_description.Text = selectedRecord.Description;
 
-            cb_inheritedPageType.SelectedItem = (selectedRecord.Id == 0) ? solutionMixedEnumList.FirstOrDefault() : solutionMixedEnumList.First(a => a.Name == selectedRecord.InheritedPageType);
-            txt_name.Text = selectedRecord.Name;
-            cb_inheritedLayoutType.SelectedItem = (selectedRecord.Id == 0) ? solutionMixedEnumListLayoutTypes.FirstOrDefault() : solutionMixedEnumListLayoutTypes.FirstOrDefault(a => a.Name == selectedRecord.InheritedLayoutType);
-            txt_description.Text = selectedRecord.Description;
+                txt_urlSubPath.Text = selectedRecord.UrlSubPath;
+                txt_optionalConfiguration.Text = selectedRecord.OptionalConfiguration;
 
-            txt_urlSubPath.Text = selectedRecord.UrlSubPath;
-            txt_optionalConfiguration.Text = selectedRecord.OptionalConfiguration;
+                cb_allowedRoles.SelectedItems.Clear();
+                if (!string.IsNullOrWhiteSpace(selectedRecord.AllowedRoles))
+                    selectedRecord.AllowedRoles.Split(',').ToList().ForEach(role => { if (!string.IsNullOrEmpty(role)) cb_allowedRoles.SelectedItems.Add(userRoleList.First(a => a.SystemName == role)); });
 
-            cb_allowedRoles.SelectedItems.Clear();
-            if (!string.IsNullOrWhiteSpace(selectedRecord.AllowedRoles))
-                selectedRecord.AllowedRoles.Split(',').ToList().ForEach(role => { if (!string.IsNullOrEmpty(role)) cb_allowedRoles.SelectedItems.Add(userRoleList.First(a => a.SystemName == role)); });
+                chb_isLoginModule.IsChecked = selectedRecord.IsLoginModule;
+                chb_restrictedAccess.IsChecked = selectedRecord.RestrictedAccess;
+                txt_redirectPathOnError.Text = selectedRecord.RedirectPathOnError;
+                CustomHtmlContent.Text = selectedRecord.CustomHtmlContent;
 
-            chb_isLoginModule.IsChecked = selectedRecord.IsLoginModule;
-            chb_restrictedAccess.IsChecked = selectedRecord.RestrictedAccess;
-            txt_redirectPathOnError.Text = selectedRecord.RedirectPathOnError;
-            CustomHtmlContent.Text = selectedRecord.CustomHtmlContent;
-
-            chb_active.IsChecked = (selectedRecord.Id == 0) ? bool.Parse(App.appRuntimeData.AppClientSettings.First(a => a.Key == "beh_activeNewInputDefault").Value) : selectedRecord.Active;
+                chb_active.IsChecked = (selectedRecord.Id == 0) ? bool.Parse(App.appRuntimeData.AppClientSettings.First(a => a.Key == "beh_activeNewInputDefault").Value) : selectedRecord.Active;
+         
+            } catch (Exception autoEx) { App.ApplicationLogging(autoEx); }
 
             if (showForm != null && showForm == true) {
                 MainWindow.DataGridSelected = true; MainWindow.DataGridSelectedIdListIndicator = selectedRecord.Id != 0; MainWindow.dataGridSelectedId = selectedRecord.Id; MainWindow.DgRefresh = false;
@@ -255,8 +257,10 @@ namespace EasyITSystemCenter.Pages {
         }
 
         private void InheritedPageType_Changed(object sender, SelectionChangedEventArgs e) {
-            if (((SolutionMixedEnumList)cb_inheritedPageType.SelectedItem).Name == "ServerApi") { cb_inheritedLayoutType.SelectedIndex = -1; cb_inheritedLayoutType.IsEnabled = false; }
-            else { cb_inheritedLayoutType.SelectedIndex = 0; cb_inheritedLayoutType.IsEnabled = true; }
+            if (dataViewSupport.FormShown) {
+                if (((SolutionMixedEnumList)cb_inheritedPageType.SelectedItem).Name == "ServerApi") { cb_inheritedLayoutType.SelectedIndex = -1; cb_inheritedLayoutType.IsEnabled = false; }
+                else { cb_inheritedLayoutType.SelectedIndex = 0; cb_inheritedLayoutType.IsEnabled = true; }
+            }
         }
     }
 }

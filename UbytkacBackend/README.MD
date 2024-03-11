@@ -30,3 +30,35 @@ example:
 
 To generate a developer certificate run 'dotnet dev-certs https'. 
 To trust the certificate (Windows and macOS only) run 'dotnet dev-certs https --trust'.
+
+---
+
+Windows Installation Steps
+
+Run Installation Exe file
+Check "config.txt" Project file for correct connection string with allowed Create Database
+Copy the License 'license.lic' file to "Data" folder
+Is was installed as Windows Service - you can enable/disable over services
+Run the server and Done
+
+cs
+
+---
+
+Linux Installation Steps
+
+Install ASPNETCORE6 Runtime support on your Linux Server
+Copy unpacked Project to some folder on Linux server
+Configure and enable new linux service dotnet-ProjectManagement.service
+Check "config.txt" Project file in "Data" folder for correct connection string with allowed Create Database
+Copy the License 'license.lic' file to "Data" folder
+Run the server and Done
+
+```cs
+
+Copy new service file dotnet-ProjectManagement.service to '/lib/systemd/system' Linux server folder
+
+enable service by command: systemctl enable dotnet-ProjectManager.service run service by command: systemctl start dotnet-ProjectManager.service
+
+stop service by command: systemctl stop dotnet-ProjectManager.service status service by command: systemctl status dotnet-ProjectManager.service ```
+
