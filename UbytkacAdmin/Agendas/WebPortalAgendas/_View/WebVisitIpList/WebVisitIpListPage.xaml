@@ -90,7 +90,7 @@
                 HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
 
             <Button
-                x:Name="btnGetWhoIs"
+                x:Name="btn_getWhoIs"
                 Grid.Row="3" Grid.Column="0"
                 Width="150" Height="25"
                 Margin="0,25,5,0" Padding="5,4,5,5" HorizontalAlignment="Right" VerticalAlignment="Top"

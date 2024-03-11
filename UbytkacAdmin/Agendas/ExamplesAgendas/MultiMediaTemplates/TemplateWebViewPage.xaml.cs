@@ -31,7 +31,7 @@ namespace EasyITSystemCenter.Pages {
 
             try {
                 webViewer.BeginInit();
-                webViewer.Address = Path.Combine("https://kliknetezde.cz");
+                webViewer.Address = Path.Combine("https://nomad.ubytkac.cz");
                 webViewer.FrameLoadStart += WebViewer_FrameLoadStart;
                 webViewer.FrameLoadEnd += WebViewer_FrameLoadEnd;
                 webViewer.LifeSpanHandler = new MyCustomLifeSpanHandler();
