@@ -20,11 +20,11 @@
                         </div>
 
                         <div class="col-md-6 pt-0 mt-0 text-start">
-                            <h5 class="c-help" @click="createRoomListBox()" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.clickForAccommodationSpace')">
+                            <h5 class="c-help" @click="createRoomListBox()" data-role="hint" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.clickForAccommodationSpace')">
                                 <small>{{ $t('labels.roomPriceFrom') }}:</small> <b>{{ lowestPrice }} {{ hotel.defaultCurrency.name }}</b>
                             </h5>
 
-                            <p v-for="property in getUsedPropertyGroups" class="c-help" style="margin-bottom:0px;" @click="createPriceInfoBox()" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.clickForShowPriceList')">
+                            <p v-for="property in getUsedPropertyGroups" class="c-help" style="margin-bottom:0px;" @click="createPriceInfoBox()" data-role="hint" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.clickForShowPriceList')">
                                 <i class="fas fa-check"></i> {{property.name}}
                             </p>
                         </div>
@@ -114,8 +114,10 @@ export default {
 
             priceListProperties = priceListProperties.sort((a, b) => a.groupSequence - b.groupSequence);
             return priceListProperties;
+        },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
         }
-
     },
     props: {
         hotel: {},

@@ -41,7 +41,7 @@
                             <li v-if="room.booked > 0" class="list-group-item leftTexAlignt">
                                 <span class="far fa-check-square"></span> <b> {{ $t('labels.booked') }}:</b> {{ room.booked}}x
                                 <span v-if="room.extrabed">
-                                    + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                                    + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.extraBed')"></span>
                                 </span>
                             </li>
                             <li v-if="room.booked > 0" class="list-group-item leftTexAlignt"><span class="far fa-check-square"></span> <b> {{ $t('labels.roomPrice') }}:</b> {{ room.price}} x {{ nightCount}} x {{ room.booked }} = {{ room.price * room.booked * nightCount}} {{BookingDetail.currency}}</li>
@@ -83,6 +83,9 @@ export default {
         },
         nightCount() {
             return ((new Date(this.$store.state.bookingDetail.endDate) - new Date(this.$store.state.bookingDetail.startDate)) / (1000 * 60 * 60 * 24));
+        },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
         }
     },
     methods: {

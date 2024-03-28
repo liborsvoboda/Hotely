@@ -4,7 +4,7 @@
             <main class="container">
                 <div class="row">
                     <div class="col-md-6 d-flex">
-                        <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchivedDiscussion')" data-hint-position='bottom' data-cls-hint='text-bold drop-shadow'>
+                        <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchivedDiscussion')" data-hint-position='bottom' :data-cls-hint="hintPopupClass + ' drop-shadow'">
                             <input id="ShowArchivedDiscussion" data-role="checkbox" :onchange="ShowArchivedDiscussion" :checked="JSON.parse($store.state.tempVariables.showArchivedDiscussion.toString().toLowerCase())">
                         </div>
                         <h1>{{ $t('labels.discussionForum') }}</h1>
@@ -48,6 +48,9 @@ export default {
         user() {
             return this.$store.state.user;
         },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
+        }
     },
     async mounted() {
 

@@ -854,7 +854,7 @@ const store = createStore({
                         case "ReviewInsertDaysLimit": Metro.storage.setItem('ReviewInsertDaysLimit', setting.value); break;
                         case "BookCalendarViewMonthsBefore": Metro.storage.setItem('BookCalendarViewMonthsBefore', setting.value); break;
                         case "BookCalendarViewMonthsAfter": Metro.storage.setItem('BookCalendarViewMonthsAfter', setting.value); break;
-                            
+                        case "OnMousePopupClasses": Metro.storage.setItem('OnMousePopupClasses', setting.value); break;
                     }
                 });
                 ApplyLoadedWebSetting();

@@ -13,9 +13,9 @@
             _hostingEnvironment = hostingEnvironment;
         }
 
-        [HttpGet("/WebApi/WebPages/GetSettingList")]
+        [HttpGet("/WebApi/WebPages/GetPortalSettingList")]
         [Consumes("application/json")]
-        public async Task<string> GetSettingList() {
+        public async Task<string> GetPortalSettingList() {
             List<WebSettingList> data;
             try {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {

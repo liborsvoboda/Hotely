@@ -46,26 +46,26 @@
                         <div class="nav-menu">
                             <div class="d-flex w-100" style="font-size:16px;">
                                 <router-link :to="'/Profile/'">
-                                    <span data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.top') + ' ' + userSettings.topFiveCount" class="c-pointer mif-broadcast mif-4x fg-brandColor2 ani-hover-heartbeat"
-                                          style="top:-3px; left:5px;"></span>
+                                    <span data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('labels.top') + ' ' + userSettings.topFiveCount" class="c-pointer mif-broadcast mif-3x fg-brandColor2 ani-hover-heartbeat"
+                                          style="top:-6px; left:5px;"></span>
                                 </router-link>
 
-                                <span id="MenuBooking" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.bookings')" class="c-pointer mif-open-book mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                <span id="MenuBooking" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('user.bookings')" class="c-pointer mif-open-book mif-3x fg-brandColor2 ani-hover-heartbeat"
                                       style="top:-9px; left:15px;" @click="checkAllowedMenu('MenuBooking')"></span>
 
-                                <span id="MenuFavorite" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.favorites')" class="c-pointer mif-favorite mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                <span id="MenuFavorite" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('user.favorites')" class="c-pointer mif-favorite mif-3x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -10px;left: 35px;" @click="checkAllowedMenu('MenuFavorite')"></span>
 
-                                <span id="MenuProfileMessages" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.messages')" class="c-pointer mif-mail-read mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                <span id="MenuProfileMessages" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('labels.messages')" class="c-pointer mif-mail-read mif-3x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -10px;left: 55px;" @click="checkAllowedMenu('MenuProfileMessages')">
                                     <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="((unreadPrivateMessageCount == null || unreadPrivateMessageCount == 0 )? ' display: none ': ' display: inline ')">{{ unreadPrivateMessageCount }}</span>
                                 </span>
 
-                                <span id="MenuUserSetting" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('user.settings')" class="c-pointer mif-server mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                <span id="MenuUserSetting" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('user.settings')" class="c-pointer mif-server mif-3x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -9px;left: 85px;" @click="checkAllowedMenu('MenuUserSetting')"></span>
 
 
-                                <span id="MenuAdvertisement" data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="window.dictionary('labels.accommodationAdvertisement')" class="c-pointer mif-location-city mif-4x fg-brandColor2 ani-hover-heartbeat"
+                                <span id="MenuAdvertisement" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('labels.accommodationAdvertisement')" class="c-pointer mif-location-city mif-3x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -10px; left: 105px;" @click="checkAllowedMenu('MenuAdvertisement')"></span>
                             </div>
                         </div>
@@ -82,14 +82,14 @@
                                 <a href="#" style="right:80px;" @click="logout()">{{ $t('user.logout') }}</a>
                             </div>
 
-                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.newsletter') + '\r\n' + newsletterLastTimestamp " class="c-pointer mif-news pos-absolute mif-5x fg-brandColor2 ani-hover-heartbeat"
+                            <div data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.newsletter') + '\r\n' + newsletterLastTimestamp " class="c-pointer mif-news pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat"
                                  style="top: -8px;right: 45px;" onclick="InfoBoxOpenClose('NewsLetterInfoBox')">
                                 <span class="badge bg-orange fg-white p-1 pt-1 mt-2 mr-1" style="font-size: 12px;" :style="(newsletterCount == 0 ? ' display: none ': ' display: inline ')">{{ newsletterCount }}</span>
                             </div>
 
-                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.discussionForum')" class="c-pointer mif-blogger pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px;right:9px;" @click="checkAllowedMenu('DiscussionForum')"></div>
+                            <div data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.discussionForum')" class="c-pointer mif-blogger pos-absolute mif-3x fg-brandColor2 ani-hover-heartbeat" style="top:-5px;right:11px;" @click="checkAllowedMenu('DiscussionForum')"></div>
 
-                            <div data-role="hint" data-hint-position="bottom" data-cls-hint="bg-lightBlue fg-darkBrown text-bold drop-shadow" :data-hint-text="$t('labels.translateWeb')" class="c-pointer mif-earth pos-absolute mif-4x fg-brandColor2 ani-hover-heartbeat" style="top:-5px; z-index:100000;" @click="showToolPanel()"></div>
+                            <div data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.translateWeb')" class="c-pointer mif-earth pos-absolute mif-3x fg-brandColor2 ani-hover-heartbeat" style="top:-5px; z-index:100000;" @click="showToolPanel()"></div>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,11 @@ export default {
         },
         actualRoutePath() {
             return this.$router.fullpath;
+        },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
         }
+    
     },
     methods: {
         closeHelpMenu() {

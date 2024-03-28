@@ -29,7 +29,44 @@
         },
         "frameworks": {
           "net462": {
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTool.HighlightTextBox\\EASYTools.HighlightTextBox.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTool.HighlightTextBox\\EASYTools.HighlightTextBox.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLEditorNoImg\\EASYTools.HTMLEditorNoImg.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLEditorNoImg\\EASYTools.HTMLEditorNoImg.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Default\\EASYTools.HTMLFullEditor.Locale.Default.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Default\\EASYTools.HTMLFullEditor.Locale.Default.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Override\\EASYTools.HTMLFullEditor.Locale.Override.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Override\\EASYTools.HTMLFullEditor.Locale.Override.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.ImageEffectLibrary\\EASYTools.ImageEffectLibrary.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.ImageEffectLibrary\\EASYTools.ImageEffectLibrary.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToFlow\\EASYTools.MarkdownToFlow.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToFlow\\EASYTools.MarkdownToFlow.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToHtml\\EASYTools.MarkdownToHtml.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToHtml\\EASYTools.MarkdownToHtml.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj"
+              },
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj"
+              }
+            }
           }
         },
         "restoreAuditProperties": {
@@ -337,6 +374,573 @@
         "win-x86": {
           "#import": []
         }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTool.HighlightTextBox\\EASYTools.HighlightTextBox.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTool.HighlightTextBox\\EASYTools.HighlightTextBox.csproj",
+        "projectName": "EASYTools.HighlightTextBox",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTool.HighlightTextBox\\EASYTools.HighlightTextBox.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTool.HighlightTextBox\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net462"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net462": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net462": {
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj",
+        "projectName": "EASYTools.Calendar",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.Calendar\\EASYTools.Calendar.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.Calendar\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net452"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net452": {
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj",
+        "projectName": "EASYTools.CrashReporter",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.CrashReporter\\EASYTools.CrashReporter.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLEditorNoImg\\EASYTools.HTMLEditorNoImg.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLEditorNoImg\\EASYTools.HTMLEditorNoImg.csproj",
+        "projectName": "EASYTools.HTMLEditorNoImg",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLEditorNoImg\\EASYTools.HTMLEditorNoImg.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Default\\EASYTools.HTMLFullEditor.Locale.Default.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Default\\EASYTools.HTMLFullEditor.Locale.Default.csproj",
+        "projectName": "EASYTools.HTMLFullEditor.Locale.Default",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Default\\EASYTools.HTMLFullEditor.Locale.Default.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Override\\EASYTools.HTMLFullEditor.Locale.Override.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Override\\EASYTools.HTMLFullEditor.Locale.Override.csproj",
+        "projectName": "EASYTools.HTMLFullEditor.Locale.Override",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Override\\EASYTools.HTMLFullEditor.Locale.Override.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.Locale.Override\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net452"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net452": {
+            "projectReferences": {
+              "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj": {
+                "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj"
+              }
+            }
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net452": {
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj",
+        "projectName": "EASYTools.HTMLFullEditor",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.HTMLFullEditor\\EASYTools.HTMLFullEditor\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net452"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net452": {
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.ImageEffectLibrary\\EASYTools.ImageEffectLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.ImageEffectLibrary\\EASYTools.ImageEffectLibrary.csproj",
+        "projectName": "EASYTools.ImageEffectLibrary",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.ImageEffectLibrary\\EASYTools.ImageEffectLibrary.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.ImageEffectLibrary\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net452"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net452": {
+            "targetAlias": "net452",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net452": {
+          "targetAlias": "net452",
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToFlow\\EASYTools.MarkdownToFlow.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToFlow\\EASYTools.MarkdownToFlow.csproj",
+        "projectName": "EASYTools.MarkdownToFlow",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToFlow\\EASYTools.MarkdownToFlow.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToFlow\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net462"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net462": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net462": {
+          "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.4, )"
+            },
+            "Microsoft.CodeAnalysis.VersionCheckAnalyzer": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.4, )"
+            },
+            "Microsoft.CodeQuality.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.4, )"
+            },
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            },
+            "Microsoft.NetCore.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.4, )"
+            },
+            "Microsoft.NetFramework.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.4, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToHtml\\EASYTools.MarkdownToHtml.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToHtml\\EASYTools.MarkdownToHtml.csproj",
+        "projectName": "EASYTools.MarkdownToHtml",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToHtml\\EASYTools.MarkdownToHtml.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.MarkdownToHtml\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net35"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net35": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net35": {
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj",
+        "projectName": "EASYTools.SqlConnectionDialog",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.SqlConnectionDialog\\EASYTools.SqlConnectionDialog.csproj",
+        "packagesPath": "C:\\Users\\tatka\\.nuget\\packages\\",
+        "outputPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.SqlConnectionDialog\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\tatka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net452"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net452": {
+          "dependencies": {
+            "Microsoft.DependencyValidation.Analyzers": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj": {
+      "restore": {
+        "projectUniqueName": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj",
+        "projectName": "EASYTools.TouchKeyboard",
+        "projectPath": "E:\\Projekty\\zEasy\\EASY-IT-CENTER\\EASY-TOOLS\\EASYTools.TouchKeyboard\\EASYTools.TouchKeyboard.csproj",
+        "frameworks": {
+          "net452": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net452": {}
       }
     }
   }

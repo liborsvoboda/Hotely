@@ -1,6 +1,4 @@
-﻿using UbytkacBackend.DBModel;
-using UbytkacBackend.WebPages;
-
+﻿
 namespace UbytkacBackend.Controllers {
 
 
@@ -26,7 +24,8 @@ namespace UbytkacBackend.Controllers {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-            } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
+            } 
+            catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
 

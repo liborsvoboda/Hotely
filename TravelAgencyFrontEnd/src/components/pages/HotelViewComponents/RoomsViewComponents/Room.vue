@@ -17,7 +17,7 @@
                         {{ $t('labels.maxCapacity') }}: {{ room.maxCapacity }}
                         <i class="fas fa-user-alt fg-cyan"></i>
                         <span v-if="room.extraBed">
-                            + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                            + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.extraBed')"></span>
                         </span>
 
                         <br />
@@ -44,11 +44,11 @@
                     <span v-else><span class="c-pointer" @click="ScrollToTop()" style="color: red">{{ $t('labels.fillDateMessage') }}</span></span>
                 </div>
 
-                <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null && room.extraBed" class="col-lg-1 col-md-1" data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.iwantExtraBed')">
+                <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null && room.extraBed" class="col-lg-1 col-md-1" data-role='hint' :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.iwantExtraBed')">
                     <input :id="'ExtraBed_'+room.id" @change="setExtraBed(room.id)" type="checkbox" data-role="checkbox" class="zoom2 pt-2" data-title="Checkbox" :disabled="availableCount == 0">
                 </div>
 
-                <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null" class="col-lg-1 col-md-1" data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.showBookedCalendar')">
+                <div v-if="$store.state.searchString.dates.length && $store.state.searchString.dates[1] != null" class="col-lg-1 col-md-1" data-role='hint' :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.showBookedCalendar')">
                     <span :id="'BookedCalendar_'+room.id" class="icon c-pointer mif-calendar mif-4x pos-absolute fg-blue" style="bottom:15px;left:0px;"
                           @click="setBookedCalendar(room.name);" onclick="Metro.infobox.open('#BookedCalendarBox');" />
                 </div>
@@ -62,20 +62,25 @@
 <script>
     import InputNumber from "primevue/inputnumber";
 
-    export default {
-        components: {
-            InputNumber,
-        },
-        data() {
-            return {
-                availableCount: 0,
-                bookedCalendar: []
-            };
-        },
-        props: {
-            room: {},
-            hotel: {},
-        },
+export default {
+    components: {
+        InputNumber,
+    },
+    data() {
+        return {
+            availableCount: 0,
+            bookedCalendar: []
+        };
+    },
+    props: {
+        room: {},
+        hotel: {},
+    },
+    computed: {
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
+        }
+    },
     mounted() {
 
         //START OF setAvailableCount

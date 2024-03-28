@@ -38,7 +38,7 @@
                             <li v-for="room in hotel.hotelReservedRoomLists" class="list-group-item text-left p-0">
                                 <span class="fas fa-door-closed"></span> {{ room.name }} x {{ room.count }}
                                 <span v-if="room.extraBed">
-                                    + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                                    + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.extraBed')"></span>
                                 </span>
                             </li>
                         </ul>
@@ -99,6 +99,9 @@ export default {
     computed:{
         info(){
             return this.hotel;
+        },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
         }
     },
     async mounted() { 

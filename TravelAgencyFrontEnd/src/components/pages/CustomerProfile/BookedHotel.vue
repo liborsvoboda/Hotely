@@ -26,7 +26,7 @@
                                 <div v-for="room in hotel.hotelReservedRoomLists" class="text-right">
                                     {{ room.name }} x {{ room.count }} 
                                     <span v-if="room.extraBed">
-                                        + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' :data-hint-text="$t('labels.extraBed')"></span>
+                                        + <span class='mif-hotel mif-2x fg-cyan' style='top:5px;right:5px;' data-role='hint' :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.extraBed')"></span>
                                     </span>
                                 </div>
                                 <div class="text-right">{{ hotel.totalPrice }} {{ hotel.currency.name }}</div>
@@ -124,6 +124,9 @@ export default {
             }
             return new Date(this.hotel.endDate).toLocaleDateString('cs-CZ');
         },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
+        }
     },
     mounted() {
         if (new Date(new Date(this.hotel.startDate).getTime() - this.hotel.hotel.enabledCommDaysBeforeStart * 86400000) < new Date() || this.hotel.statusId != 1) {

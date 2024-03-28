@@ -3,7 +3,7 @@
         <div class="rounded drop-shadow row">
             <div class="row pr-0">
                 <div class="col-md-6 d-flex">
-                    <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showAlsoInactive')" data-hint-position='bottom' data-cls-hint='text-bold drop-shadow'>
+                    <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showAlsoInactive')" data-hint-position='bottom' :data-cls-hint="hintPopupClass + ' drop-shadow'">
                         <input id="showAlsoInactive" type="checkbox" data-role="checkbox" class="" data-title="Checkbox" :onchange="showAlsoInactive" :checked="$store.state.userSettings.showInactiveAdvertisementAsDefault">
                     </div>
 
@@ -60,6 +60,9 @@ export default {
         advertisementList() {
             if (this.ShowAlsoInactive) { return this.$store.state.advertisementList; }
             else { return this.$store.state.advertisementList.filter(obj => { return obj.deactivated == false; }); }
+        },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
         }
     },
     methods: {

@@ -34,7 +34,7 @@
                                 </select>
                             </div>
 
-                            <div id="cityGroup" class="form-group w-50 mt-0" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.selectCity')">
+                            <div id="cityGroup" class="form-group w-50 mt-0" data-role="hint" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.selectCity')">
                                 <select class="select" id="HotelCity" :data-filter-placeholder="$t('labels.selectCity')"
                                         data-empty-value="" data-validate="required not=-1" data-clear-button="true">
                                     <!-- <option v-for="country in countryList" :value="country.id">{{country.systemName}}</option> -->
@@ -43,25 +43,25 @@
                         </div>
 
                         <div class="row flex-align-center">
-                            <div class="form-group w-50" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.limitGuestCommDays')">
+                            <div class="form-group w-50" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.limitGuestCommDays')">
                                 <input id="LimitGuestCommDays" type="text" data-role="spinner" data-min-value="0" data-max-value="999" data-cls-spinner-value="text-bold bg-cyan fg-white" data-validate="required"
                                        data-cls-spinner-button="info" data-step="1" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                             </div>
 
-                            <div class="form-group w-50 mt-0" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.stornoDaysCountBeforeStart')">
+                            <div class="form-group w-50 mt-0" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.stornoDaysCountBeforeStart')">
                                 <input id="StornoDaysCountBeforeStart" type="text" data-role="spinner" data-min-value="0" data-max-value="60" data-cls-spinner-value="text-bold bg-cyan fg-white" data-validate="required"
                                        data-cls-spinner-button="info" data-step="1" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                             </div>
                         </div>
 
                         <div class="row flex-align-center">
-                            <div class="form-group w-50" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.guestStornoEnabled')">
+                            <div class="form-group w-50" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.guestStornoEnabled')">
                                 {{$t('labels.byRequest')}}
                                 <input id="GuestStornoEnabled" type="checkbox" checked data-role="switch" data-material="true">
                                 {{$t('labels.directly')}}
                             </div>
 
-                            <div class="form-group w-50 mt-0" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.stornoDaysCountBeforeStart')">
+                            <div class="form-group w-50 mt-0" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.stornoDaysCountBeforeStart')">
                             </div>
                         </div>
 
@@ -106,10 +106,10 @@
 
                             <div class="d-flex align-left mb-3 p-3">
                                 <div class="mif-eye pos-absolute fg-orange mif-4x fg-blue c-pointer" style="left:5px;top:5px" :onclick="WizardShowRoomPreview" data-role="hint"
-                                     data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.showPreview')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
+                                      :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.showPreview')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
 
                                 <div class="mif-done_all pos-absolute fg-orange mif-4x fg-blue c-pointer" style="left:55px;top:5px" :onclick="WizardInsertNewRoom" data-role="hint"
-                                     data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveNew')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
+                                      :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.saveNew')" :class="(!window.watchChangeVariables.roomShowPreviewEnabled ? 'disabled' : '')" />
                             </div>
 
                             <form id="roomForm" class="login-form bg-white p-1 mx-auto" data-role="validator" action="javascript:"
@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div class="row flex-align-center">
-                                    <div class="form-group w-25" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertPrice')">
+                                    <div class="form-group w-25" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertPrice')">
                                         <input id="RoomPrice" type="text" data-role="spinner" data-min-value="1" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="100" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
@@ -139,12 +139,12 @@
                                         <input id="RoomExtraBed" type="checkbox" data-role="checkbox" :data-caption="$t('labels.extraBed')" data-caption-position="left">
                                     </div>
 
-                                    <div class="form-group w-25" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertMaxCapacity')">
+                                    <div class="form-group w-25" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertMaxCapacity')">
                                         <input id="RoomMaxCapacity" type="text" data-role="spinner" data-min-value="1" data-max-value="999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
 
-                                    <div class="form-group w-25" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertRoomsSameCount')">
+                                    <div class="form-group w-25" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertRoomsSameCount')">
                                         <input id="RoomsCount" type="text" data-role="spinner" data-min-value="1" data-max-value="999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
@@ -154,7 +154,7 @@
                                     <div class="form-group w-50">
                                     </div>
 
-                                    <div class="form-group w-50" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertRoomImage')">
+                                    <div class="form-group w-50" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertRoomImage')">
                                         <input id="roomImage" type="file" data-role="file" data-on-select="WizardRoomUploadImage"
                                                data-button-title="<span class='mif-folder'></span>" accept=".png,.jpg,.jpeg,.tiff">
                                     </div>
@@ -202,7 +202,7 @@
 
                             <div class="d-flex align-left mb-3 p-3">
                                 <div class="mif-done pos-absolute fg-orange mif-4x fg-blue c-pointer" style="left:5px;top:5px" :onclick="WizardUpdateProperty" data-role="hint"
-                                     data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.saveChanges')" :class="(!window.watchChangeVariables.propertySelected ? 'disabled' : '')" />
+                                      :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.saveChanges')" :class="(!window.watchChangeVariables.propertySelected ? 'disabled' : '')" />
                             </div>
 
                             <form id="propertySettingsForm" class="login-form bg-white p-1 mx-auto" data-role="validator" action="javascript:"
@@ -210,7 +210,7 @@
 
                                 <div class="row flex-align-center">
 
-                                    <div id="PropValueRoot" class="form-group mt-3 w-25 disabled" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertValue')">
+                                    <div id="PropValueRoot" class="form-group mt-3 w-25 disabled" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertValue')">
                                         <input id="PropValue" type="text" data-role="spinner" data-min-value="0" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="1" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
@@ -219,12 +219,12 @@
                                         <input id="PropValueRange" type="checkbox" data-role="checkbox" :data-caption="$t('labels.range')" data-caption-position="left" :onclick="WizardPropValueRangeChange">
                                     </div>
 
-                                    <div id="PropValueRangeMinRoot" class="form-group w-25 disabled" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertMinValue')">
+                                    <div id="PropValueRangeMinRoot" class="form-group w-25 disabled" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertMinValue')">
                                         <input id="PropValueRangeMin" type="text" data-role="spinner" data-min-value="0" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="100" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
 
-                                    <div id="PropValueRangeMaxRoot" class="form-group w-25 disabled" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertMaxValue')">
+                                    <div id="PropValueRangeMaxRoot" class="form-group w-25 disabled" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertMaxValue')">
                                         <input id="PropValueRangeMax" type="text" data-role="spinner" data-min-value="0" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="100" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
@@ -240,17 +240,17 @@
                                         </div>
                                     </div>
 
-                                    <div id="PropFeeValueRoot" class="form-group w-25 disabled" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertFee')">
+                                    <div id="PropFeeValueRoot" class="form-group w-25 disabled" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertFee')">
                                         <input id="PropFeeValue" type="text" data-role="spinner" data-min-value="0" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="100" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
 
-                                    <div id="PropMinFeeRoot" class="form-group w-25 disabled" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertMinFeeValue')">
+                                    <div id="PropMinFeeRoot" class="form-group w-25 disabled" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertMinFeeValue')">
                                         <input id="PropFeeRangeMin" type="text" data-role="spinner" data-min-value="0" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="100" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
 
-                                    <div id="PropMaxFeeRoot" class="form-group w-25 disabled" data-role="hint" data-cls-hint="bg-cyan fg-white drop-shadow" :data-hint-text="$t('labels.insertMaxFeeValue')">
+                                    <div id="PropMaxFeeRoot" class="form-group w-25 disabled" data-role="hint"  :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="$t('labels.insertMaxFeeValue')">
                                         <input id="PropFeeRangeMax" type="text" data-role="spinner" data-min-value="0" data-max-value="99999" data-cls-spinner-value="text-bold bg-cyan fg-white"
                                                data-cls-spinner-button="info" data-step="100" data-plus-icon="<span class='mif-plus fg-white'></span>" data-minus-icon="<span class='mif-minus fg-white'></span>">
                                     </div>
@@ -314,7 +314,9 @@ export default {
             console.log(window.WizardTempRoomPhoto != undefined && window.WizardTempRoomPhoto.length > 0);
             return window.WizardTempRoomPhoto != undefined && window.WizardTempRoomPhoto.length > 0;
         },
-    
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
+        }
     },
     mounted() {
         propertyList = this.$store.state.propertyList;
@@ -390,7 +392,7 @@ export default {
             let htmlContent = "<ul class='feed-list'><li class='title'>" + window.dictionary('labels.adPreview') + "</li>";
             htmlContent += "<li><img class='avatar dropshadow' src='" + WizardTempRoomPhoto[0].Attachment + "'>";
             htmlContent += "<span class='label'>" + $("#RoomName").val() + "</span>";
-            htmlContent += "<span class='second-label fg-black bold'>" + $("#RoomsCount").val() + "x " + this.$i18n.t('labels.maxCapacity') + ": " + $("#RoomMaxCapacity").val() + ", " + $("#RoomPrice").val() + $("#HotelCurrency")[0].selectedOptions[0].text + " <i class='fas fa-user-alt'></i>" + ($("#RoomExtraBed").val('checked')[0].checked ? " + <span class='mif-hotel mif-3x ' style = 'top:5px;' data-role='hint' data-cls hint='bg-cyan fg-white drop-shadow' data-hint-text='" + this.$i18n.t('labels.extraBed') + "' > </span>" : "") + "</span>";
+            htmlContent += "<span class='second-label fg-black bold'>" + $("#RoomsCount").val() + "x " + this.$i18n.t('labels.maxCapacity') + ": " + $("#RoomMaxCapacity").val() + ", " + $("#RoomPrice").val() + $("#HotelCurrency")[0].selectedOptions[0].text + " <i class='fas fa-user-alt'></i>" + ($("#RoomExtraBed").val('checked')[0].checked ? " + <span class='mif-hotel mif-3x ' style = 'top:5px;' data-role='hint' data-cls hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' data-hint-text='" + window.dictionary('labels.extraBed') + "' > </span>" : "") + "</span>";
             htmlContent += "<span class='second-label' style='zoom: 1;'>" + $("#RoomSummernote").summernote('code') + "</span></li>";
             htmlContent += "</ul>";
 

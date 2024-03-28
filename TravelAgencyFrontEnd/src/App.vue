@@ -6,7 +6,7 @@
             <div class="full-bg-img">
                 <div id="AppContainer" class="mask rgba-black-light flex-center">
                     <div class="container" style="margin-top:100px;">
-                        <Searcher class="drop-shadow" style="top:20px;height:600px;background-size:cover; background-position: center center;background-attachment:inherit;" />
+                        <Searcher class="mb-5 drop-shadow" style="top:20px;height:600px;background-size:cover; background-position: center center;background-attachment:inherit;" />
                         <router-view />
                     </div>
                 </div>

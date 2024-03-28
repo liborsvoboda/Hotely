@@ -570,7 +570,7 @@ export default {
                         messageData = "<ul class='feed-list'>";
                         messageData += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.id + "' >";
                         messageData += "<span class='label'>" + room.name + "</span>";
-                        messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.roomsCount + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
+                        messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.roomsCount + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
                         messageData += "<span class='second-label fg-black bold''>" + room.price + " " + this.hotel.defaultCurrency.name + "</span>";
                         messageData += "</li>";
                         messageData += "</ul>";
@@ -615,7 +615,7 @@ export default {
                     this.$store.state.roomBookingList.forEach(booking => {
                         if (booking.reservation != null) {
                             messageData += "<li data-caption='" + booking.reservation.reservationNumber + " <b>" + booking.reservation.totalPrice + this.hotel.defaultCurrency.name + "</b> " + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + booking.status.systemName + " <b>" + booking.count + "x</b> " + " ' >";
-                            messageData += "<ul><li data-caption='" + booking.count + "x " + booking.name + " " + (!booking.extraBed ? "" : " + <span class=\"mif-hotel mif-2x fg-cyan\" style=\"top:3px;\" data-role=\"hint\" data-cls-hint=\"bg-cyan fg-white drop-shadow\" :data-hint-text=\"" + window.dictionary('labels.extraBed') + "\" ></span>") + "' ></li>";
+                            messageData += "<ul><li data-caption='" + booking.count + "x " + booking.name + " " + (!booking.extraBed ? "" : " + <span class=\"mif-hotel mif-2x fg-cyan\" style=\"top:3px;\" data-role=\"hint\" data-cls-hint=\"" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow\" data-hint-text=\"" + window.dictionary('labels.extraBed') + "\" ></span>") + "' ></li>";
                             messageData += "<li data-caption='" + new Date(booking.reservation.startDate).toLocaleDateString() + " - " + new Date(booking.reservation.endDate).toLocaleDateString() + " " + window.dictionary("labels.nightCount") + ": <b>" + parseInt(((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) + "x</b> " + "' ></li>";
                             messageData += "<li data-caption='" + window.dictionary('labels.adults') + ": " + booking.reservation.adult + " " + window.dictionary('labels.children') + ": " + booking.reservation.children + "' ></li>";
                             messageData += "</ul></li>";
@@ -638,7 +638,7 @@ export default {
                         reservation.hotelReservedRoomLists.forEach((room) => {
                             messageData += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.hotelRoomId + "' >";
                             messageData += "<span class='label'>" + room.name + "</span>";
-                            messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.count + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
+                            messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.count + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
                             messageData += "</li>";
                         }); messageData += "</ul>";
                         $("#HistoryRoomsBox").html(messageData);
@@ -678,7 +678,7 @@ export default {
                         reservation.hotelReservedRoomLists.forEach((room) => {
                             messageData += "<li><img class='avatar' src='" + this.$store.state.apiRootUrl + "/RoomImage/" + room.hotelRoomId + "' >";
                             messageData += "<span class='label'>" + room.name + "</span>";
-                            messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.count + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='bg-cyan fg-white drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
+                            messageData += "<span class='second-label fg-black bold' style='font-size: 14px;'>" + room.count + "x" + (!room.extraBed ? "" : "+ <span class='mif-hotel mif-2x fg-cyan' style='top:3px;' data-role='hint' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' : data-hint-text='" + window.dictionary('labels.extraBed') + "'></span>") + "</span>";
                             messageData += "</li>";
                         }); messageData += "</ul>";
                         $("#ReservationRoomsBox").html(messageData);

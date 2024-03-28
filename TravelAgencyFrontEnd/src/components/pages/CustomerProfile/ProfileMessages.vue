@@ -3,7 +3,7 @@
         <div class="rounded drop-shadow row">
             <div class="col-md-6 d-flex">
 
-                <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchive')" data-hint-position='bottom' data-cls-hint='text-bold drop-shadow'>
+                <div class="mt-2" data-role="hint" :data-hint-text="$t('labels.showArchive')" data-hint-position='bottom' :data-cls-hint="hintPopupClass + ' drop-shadow'" >
                     <input id="ShowArchivedMessages" data-role="checkbox" :onchange="ShowArchivedMessages" :checked="JSON.parse($store.state.userSettings.showArchivedMessages.toString().toLowerCase())">
                 </div>
 
@@ -60,6 +60,9 @@ export default {
         user() {
             return this.$store.state.user;
         },
+        hintPopupClass() {
+            return Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white');
+        }
     },
     async mounted() {
 
@@ -89,9 +92,9 @@ export default {
                 htmlContent += "<div class='h5 fg-black col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 p-1 m-0 text-left'>" + message.subject + "</div>";
                 htmlContent += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'>";
 
-                if (!message.shown && message.isSystemMessage) { htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ SetShownPrivateMessage('" + message.id + "');});\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.setAsReaded') + "' class='mif-eye mif-2x mr-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
-                htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ setTimeout(()=>{ ElementSummernoteInit('messageSummernote_" + message.id + "');ElementShowHide('messageSendButton_" + message.id + "', true);},500);});\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.newPrivateMessage') + "' class='mif-reply_all mif-2x  p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>";
-                if (!message.archived) { htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');ArchivePrivateMessage('" + message.id + "');\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.archive') + "' class='mif-shrink mif-2x ml-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
+                if (!message.shown && message.isSystemMessage) { htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ SetShownPrivateMessage('" + message.id + "');});\" data-role='hint' data-hint-position='bottom' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' data-hint-text='" + window.dictionary('labels.setAsReaded') + "' class='mif-eye mif-2x mr-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
+                htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ setTimeout(()=>{ ElementSummernoteInit('messageSummernote_" + message.id + "');ElementShowHide('messageSendButton_" + message.id + "', true);},500);});\" data-role='hint' data-hint-position='bottom' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' data-hint-text='" + window.dictionary('labels.newPrivateMessage') + "' class='mif-reply_all mif-2x  p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>";
+                if (!message.archived) { htmlContent += "<span onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');ArchivePrivateMessage('" + message.id + "');\" data-role='hint' data-hint-position='bottom' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' data-hint-text='" + window.dictionary('labels.archive') + "' class='mif-shrink mif-2x ml-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
 
                 htmlContent += "<span title='" + window.dictionary('labels.print') + "' class='c-pointer mif-printer rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-2x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "').then(()=>{ setTimeout(()=>{ PrintElement('messageContent_" + message.id + "');},500);});\" ></span>";
                 htmlContent += "<span title='" + window.dictionary('labels.downloadHtml') + "' class='c-pointer mif-download2  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-2x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + message.id + "');DownloadHtmlElement('messageContent_" + message.id + "');\" ></span>";
@@ -111,7 +114,7 @@ export default {
                         htmlLevel1 += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pl-3 m-0 text-left'>" + level1.subject + "</div>";
                         htmlLevel1 += "<div class='h5 fg-black col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 p-1 m-0 text-right'>";
                         
-                        if (!level1.shown && level1.isSystemMessage) { htmlLevel1 += "<span onclick=\"SetShownPrivateMessage('" + level1.id + "');\" data-role='hint' data-hint-position='bottom' data-cls-hint='text-bold drop-shadow' data-hint-text='" + window.dictionary('labels.setAsReaded') + "' class='mif-eye mif-1x mr-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
+                        if (!level1.shown && level1.isSystemMessage) { htmlLevel1 += "<span onclick=\"SetShownPrivateMessage('" + level1.id + "');\" data-role='hint' data-hint-position='bottom' data-cls-hint='" + Metro.storage.getItem('OnMousePopupClasses', 'bg-cyan fg-white') + " drop-shadow' data-hint-text='" + window.dictionary('labels.setAsReaded') + "' class='mif-eye mif-1x mr-2 p-1 rounded bg-white fg-cyan drop-shadow shadowed c-pointer'></span>"; }
                         htmlLevel1 += "<span title='" + window.dictionary('labels.print') + "' class='c-pointer mif-printer rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "').then(()=>{ setTimeout(()=>{ PrintElement('messageContent_" + level1.id + "');},500);});\" ></span>";
                         htmlLevel1 += "<span title='" + window.dictionary('labels.downloadHtml') + "' class='c-pointer mif-download2  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "');DownloadHtmlElement('messageContent_" + level1.id + "');\" ></span>";
                         htmlLevel1 += "<span title='" + window.dictionary('labels.downloadImage') + "' class='c-pointer mif-image  rounded bg-white fg-cyan drop-shadow shadowed c-pointer mif-1x p-1 ml-1 ' onclick=\"AccordionCustomMenuClick('messageFrame_" + level1.id + "');ImageFromElement('messageContent_" + level1.id + "');\" ></span>";
