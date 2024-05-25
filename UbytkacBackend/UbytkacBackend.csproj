@@ -115,7 +115,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
     <PackageReference Include="AspNetCore.MarkdownDocumenting" Version="2.3.1" />
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
-    <PackageReference Include="BouncyCastle.Cryptography" Version="2.3.0" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.3.1" />
     <PackageReference Include="EasyData.AspNetCore" Version="1.5.2" />
     <PackageReference Include="EasyData.Core" Version="1.5.2" />
     <PackageReference Include="EasyData.EntityFrameworkCore.Relational" Version="1.5.2" />
@@ -198,6 +198,7 @@
     <PackageReference Include="Quartz.Plugins" Version="3.8.1" />
     <PackageReference Include="SimpleMvcSitemap" Version="4.0.1" />
     <PackageReference Include="Snickler.RSSCore" Version="2.0.0" />
+    <PackageReference Include="Stripe.net" Version="44.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
@@ -225,6 +226,14 @@
     <Content Update="Data\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="ServerCorePages\EasyData.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\NováSložka\" />
   </ItemGroup>
 
 

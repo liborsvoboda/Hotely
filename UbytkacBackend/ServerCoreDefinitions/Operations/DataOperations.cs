@@ -5,6 +5,31 @@ namespace UbytkacBackend.ServerCoreStructure {
 
     internal static class DataOperations {
 
+
+
+        public static T ToEnum<T>(this string value) {
+            Type enumType = typeof(T);
+            if (!enumType.IsEnum) {
+                CoreOperations.SendEmail(new SendMailRequest() { Content = "DataOperation ToEnum Method line 22: T must be an Enumeration type." + enumType.ToString() });
+            }
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
+
+
+        /// <summary>
+        /// Create Object Type By Type Name
+        /// Its need For Generic APi For Full Database Support
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public static object? CreateObjectTypeByTypeName(string className) {
+            var assembly = Assembly.GetExecutingAssembly();
+            var type = assembly.GetTypes().First(t => t.Name == className);
+            return Activator.CreateInstance(type);
+        }
+
+
+
         /// <summary>
         /// Change First Character of String
         /// </summary>
@@ -34,7 +59,7 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// <param name="msgCount"> </param>
         /// <returns></returns>
         public static string GetUserApiErrMessage(Exception exception, int msgCount = 1) {
-            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.Message, GetUserApiErrMessage(exception.InnerException, ++msgCount)) : string.Empty;
+            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, exception.TargetSite?.ReflectedType?.FullName + Environment.NewLine + exception.Message, GetUserApiErrMessage(exception.InnerException, ++msgCount)) : string.Empty;
         }
 
         /// <summary>
@@ -44,7 +69,7 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// <param name="msgCount"> </param>
         /// <returns></returns>
         public static string GetSystemErrMessage(Exception exception, int msgCount = 1) {
-            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, (exception.Message + Environment.NewLine + exception.StackTrace + Environment.NewLine), GetSystemErrMessage(exception.InnerException, ++msgCount)) : string.Empty;
+            return exception != null ? string.Format("{0}: {1}\n{2}", msgCount, (exception.TargetSite?.ReflectedType?.FullName + Environment.NewLine + exception.Message + Environment.NewLine + exception.StackTrace + Environment.NewLine), GetSystemErrMessage(exception.InnerException, ++msgCount)) : string.Empty;
         }
 
         /// <summary>

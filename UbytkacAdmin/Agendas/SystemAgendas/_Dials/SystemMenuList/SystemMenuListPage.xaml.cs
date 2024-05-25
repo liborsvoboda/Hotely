@@ -22,7 +22,7 @@ namespace EasyITSystemCenter.Pages {
         public static SystemMenuList selectedRecord = new SystemMenuList();
 
         private List<SystemMenuList> SystemMenuList = new List<SystemMenuList>();
-        private List<SpTableList> systemTableList = new List<SpTableList>();
+        private List<GenericDataList> systemTableList = new List<GenericDataList>();
         private List<SystemTranslatedTableList> systemTranslatedTableList = new List<SystemTranslatedTableList>();
         private List<SystemGroupMenuList> systemGroupMenuList = new List<SystemGroupMenuList>();
         private List<SolutionUserRoleList> userRoleList = new List<SolutionUserRoleList>();
@@ -48,7 +48,7 @@ namespace EasyITSystemCenter.Pages {
         public async Task<bool> LoadDataList() {
             MainWindow.ProgressRing = Visibility.Visible;
             try {
-                systemTableList = await CommApi.GetApiRequest<List<SpTableList>>(ApiUrls.StoredProceduresList, "SystemSpGetSystemPageList", App.UserData.Authentification.Token);
+                systemTableList = await CommApi.GetApiRequest<List<GenericDataList>>(ApiUrls.StoredProceduresList, "SpGetSystemPageList", App.UserData.Authentification.Token);
 
                 userRoleList = await CommApi.GetApiRequest<List<SolutionUserRoleList>>(ApiUrls.SolutionUserRoleList, null, App.UserData.Authentification.Token);
                 systemGroupMenuList = await CommApi.GetApiRequest<List<SystemGroupMenuList>>(ApiUrls.SystemGroupMenuList, null, App.UserData.Authentification.Token);
@@ -56,8 +56,8 @@ namespace EasyITSystemCenter.Pages {
 
                 systemTranslatedTableList.Clear();
                 systemTableList.ForEach(async table => {
-                    if (SystemMenuList.Where(a => a.FormPageName == table.TableList).Count() == 0) {
-                        systemTranslatedTableList.Add(new SystemTranslatedTableList() { TableName = table.TableList, Translate = await DBOperations.DBTranslation(table.TableList) });
+                    if (SystemMenuList.Where(a => a.FormPageName == table.Data).Count() == 0) {
+                        systemTranslatedTableList.Add(new SystemTranslatedTableList() { TableName = table.Data, Translate = await DBOperations.DBTranslation(table.Data) });
                     }
                 });
 

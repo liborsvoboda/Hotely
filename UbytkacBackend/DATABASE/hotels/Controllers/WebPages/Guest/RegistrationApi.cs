@@ -33,9 +33,9 @@ namespace UbytkacBackend.Controllers {
 
                     //Send ResetPassword Email
                     SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                    MailRequest mailRequest = new MailRequest();
+                    SendMailRequest mailRequest = new SendMailRequest();
                     if (template != null) {
-                        mailRequest = new MailRequest() {
+                        mailRequest = new SendMailRequest() {
                             Subject = template.Subject
                             .Replace("[firstname]", data.FirstName).Replace("[lastname]", data.LastName)
                             .Replace("[password]", newPassword).Replace("[email]", record.EmailAddress),
@@ -83,9 +83,9 @@ namespace UbytkacBackend.Controllers {
 
                     //Send Verify Email
                     SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                    MailRequest mailRequest = new MailRequest();
+                    SendMailRequest mailRequest = new SendMailRequest();
                     if (template != null) {
-                        mailRequest = new MailRequest() {
+                        mailRequest = new SendMailRequest() {
                             Subject = template.Subject.Replace("[verifyCode]", verifyCode),
                             Recipients = new List<string>() { record.EmailAddress },
                             Content = template.Email.Replace("[verifyCode]", verifyCode)
@@ -155,9 +155,9 @@ namespace UbytkacBackend.Controllers {
 
                 //Send Reg Email
                 SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a=>a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                MailRequest mailRequest = new MailRequest();
+                SendMailRequest mailRequest = new SendMailRequest();
                 if (template != null) {
-                    mailRequest = new MailRequest() {
+                    mailRequest = new SendMailRequest() {
                         Subject = template.Subject
                         .Replace("[firstname]", record.User.FirstName).Replace("[lastname]", record.User.LastName)
                         .Replace("[email]", record.User.Email).Replace("[password]", origPassword),
@@ -167,7 +167,7 @@ namespace UbytkacBackend.Controllers {
                         .Replace("[email]", record.User.Email).Replace("[password]", origPassword),
                     };
                 } else {
-                    mailRequest = new MailRequest() {
+                    mailRequest = new SendMailRequest() {
                         Subject = "Úbytkač Registration Email",
                         Recipients = new List<string>() { record.User.Email },
                         Content = "Registration for " + record.User.Email + Environment.NewLine + " with password " + origPassword

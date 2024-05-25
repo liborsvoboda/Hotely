@@ -97,7 +97,7 @@ namespace UbytkacBackend.Controllers {
 
 
             List<SqlParameter> parameters = new List<SqlParameter> { new SqlParameter { ParameterName = "@IdList", Value = string.Join(";", searchedIdList) } };
-            new hotelsContext().Database.ExecuteSqlRaw("exec SetTopShown @IdList", parameters.ToArray());
+            new hotelsContext().Database.ExecuteSqlRaw("exec SpTriggerSetTopShown @IdList", parameters.ToArray());
 
             return searchedIdList;
         }

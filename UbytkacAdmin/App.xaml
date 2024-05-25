@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/mahapps.xaml" />
+                <ResourceDictionary Source="/MahApps.Extra;component/themes/Accordion.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
@@ -19,22 +20,35 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/Dialogs/BaseMetroDialog.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml" />-->
 
-
-                <!--  EASYTools Include  -->
+                <!--  EASYTools Styles Include  -->
                 <ResourceDictionary Source="pack://application:,,,/EASYTools.TouchKeyboard;component/Styles/OnScreenKeyoard.xaml" />
-                <ResourceDictionary Source="GlobalStyles/Tools/ToolsStyles.xaml" />
-                <ResourceDictionary Source="GlobalStyles/Tools/MarkdownStyles.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/Tools/ToolsStylesLibrary.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/Tools/Markdown/MarkdownStylesLibrary.xaml" />
 
 
-                <!--  Customizing for using as Global EASY SYSTEM Builder  -->
-                <ResourceDictionary Source="GlobalStyles/MetroFix/MetroCheckComboBoxStyleFix.xaml" />
-                <ResourceDictionary Source="GlobalStyles/MetroFix/ProgressBarFix.xaml" />
-                <ResourceDictionary Source="GlobalStyles/System/SystemCoreDefaultStyles.xaml" />
-                <ResourceDictionary Source="GlobalStyles/System/SystemMainMenuStyle.xaml" />
-                <ResourceDictionary Source="GlobalStyles/System/SystemPagesDefaultStyles.xaml" />
-                <ResourceDictionary Source="GlobalStyles/System/SystemSpecificFieldsStyles.xaml" />
-                <ResourceDictionary Source="GlobalStyles/System/SystemFieldsEffects.xaml" />
+                <!--
+                <ui1:ThemeResources />
+                <ui1:XamlControlsResources />
+                <ui2:ThemesDictionary Theme="Dark" />
+                <ui2:ControlsDictionary />
+                -->
+
+
+
+                <!--  Registration Global Styles Definition For System  -->
+                <ResourceDictionary Source="GlobalStylesLibrary/ObjectDefinitionsLibrary/CustomEffectStyles.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/SystemObjectLibrary/MetroCheckComboBoxStyleFix.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/SystemObjectLibrary/MetroProgressBarStyle.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/SystemObjectLibrary/ProgressBarFix.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/SystemObjectLibrary/SystemMainMenuStyle.xaml" />
+
+                <ResourceDictionary Source="GlobalStylesLibrary/ObjectDefinitionsLibrary/CustomObjectDefaultKeySetStyles.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/ObjectDefinitionsLibrary/MetroObjectDefaultStyles.xaml" />
+                <ResourceDictionary Source="GlobalStylesLibrary/ObjectDefinitionsLibrary/StandardObjectDefaultStyles.xaml" />
+
+
             </ResourceDictionary.MergedDictionaries>
+
 
             <CollectionViewSource x:Key="Themes" Source="{Binding Source={x:Static mah:ThemeManager.AppThemes}, Path=Themes}">
                 <CollectionViewSource.SortDescriptions>

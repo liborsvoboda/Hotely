@@ -10,7 +10,8 @@ namespace ServerCorePages {
             if (!string.IsNullOrWhiteSpace(requestToken)) {
                 serverWebPagesToken = CoreOperations.CheckTokenValidityFromString(requestToken);
                 if (serverWebPagesToken.IsValid) { User.AddIdentities(serverWebPagesToken.UserClaims.Identities); }
-            } else { serverWebPagesToken = new ServerWebPagesToken(); }
+            }
+            else { serverWebPagesToken = new ServerWebPagesToken(); }
         }
     }
 }

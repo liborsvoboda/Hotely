@@ -165,7 +165,7 @@ namespace UbytkacBackend {
             app.UseHsts();
             if (ServerConfigSettings.ConfigServerStartupOnHttps) { app.UseHttpsRedirection(); }
             app.UseStaticFiles(new StaticFileOptions { ServeUnknownFileTypes = true, HttpsCompression = HttpsCompressionMode.Compress });
-
+            app.UseStaticFiles();
 
 
             app.UseCookiePolicy();
@@ -197,12 +197,12 @@ namespace UbytkacBackend {
                             RequestPath = "/" + (path.AliasPath != null && path.AliasPath.Length > 0 ? path.AliasPath : path.WebRootPath),
                             EnableDirectoryBrowsing = true,
                         });
-                    } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+                    } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
                 });
             }
            
             if (ServerConfigSettings.WebMvcPagesEngineEnabled) { app.UseMvcWithDefaultRoute(); }
-            try { app.UsePathBase(BackendServer.ServerRuntimeData.SpecialUserWebRootPath); } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+            try { app.UsePathBase(BackendServer.ServerRuntimeData.SpecialUserWebRootPath); } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
             if (ServerConfigSettings.ModuleWebDataManagerEnabled) {app.UseEasyData();}
 
         }

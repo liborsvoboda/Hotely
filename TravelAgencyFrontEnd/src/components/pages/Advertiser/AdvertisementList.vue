@@ -952,7 +952,6 @@ export default {
             ActualWizardPage = 1;
             propertyList = [];
             Router = this.$router;
-            ApiRootUrl = null;
             HotelRecId = null;
             WizardImageGallery = [];
             WizardRooms = [];

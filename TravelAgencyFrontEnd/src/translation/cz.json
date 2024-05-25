@@ -1,5 +1,10 @@
 {
   "labels": {
+    "creditsSettings": "Nastavení Kreditů",
+    "creditHistory": "Historie Kreditů",
+    "yourCredits": "Vaše Kredity",
+    "creditPackages": "Balíčky Kreditů",
+    "buyCredit": "Zakupte si Kredit",
     "from": "od",
     "newContribution": "Nový Příspěvek",
     "youMustBeLogged": "Musíte být Přihlášeni",

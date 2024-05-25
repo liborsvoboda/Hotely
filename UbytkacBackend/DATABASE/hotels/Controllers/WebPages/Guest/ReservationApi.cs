@@ -25,9 +25,9 @@ namespace UbytkacBackend.Controllers {
                         //Send Verify Email
                         string verifyCode = DataOperations.RandomString(10);
                         SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                        MailRequest mailRequest = new MailRequest();
+                        SendMailRequest mailRequest = new SendMailRequest();
                         if (template != null) {
-                            mailRequest = new MailRequest() {
+                            mailRequest = new SendMailRequest() {
                                 Subject = template.Subject.Replace("[verifyCode]", verifyCode),
                                 Recipients = new List<string>() { record.EmailAddress },
                                 Content = template.Email.Replace("[verifyCode]", verifyCode)
@@ -133,9 +133,9 @@ namespace UbytkacBackend.Controllers {
 
                 //Send Reservation Email
                 SolutionEmailTemplateList template1 = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                MailRequest mailRequest1 = new MailRequest();
+                SendMailRequest mailRequest1 = new SendMailRequest();
                 if (template1 != null) {
-                    mailRequest1 = new MailRequest() {
+                    mailRequest1 = new SendMailRequest() {
                         Subject = template1.Subject
                         .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                         .Replace("[email]", record.Booking.User.Email).Replace("[totalprice]", record.Booking.TotalPrice.ToString())
@@ -153,7 +153,7 @@ namespace UbytkacBackend.Controllers {
                     };
                 }
                 else {
-                    mailRequest1 = new MailRequest() {
+                    mailRequest1 = new SendMailRequest() {
                         Subject = "Úbytkač Reservation Email",
                         Recipients = new List<string>() { record.Booking.User.Email },
                         Content = "Reservation for " + record.Booking.User.Email + Environment.NewLine + " was success "
@@ -208,9 +208,9 @@ namespace UbytkacBackend.Controllers {
                 //Send Registration Email
                 if (result > 0) {
                     SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                    MailRequest mailRequest = new MailRequest();
+                    SendMailRequest mailRequest = new SendMailRequest();
                     if (template != null) {
-                        mailRequest = new MailRequest() {
+                        mailRequest = new SendMailRequest() {
                             Subject = template.Subject
                             .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                             .Replace("[email]", record.Booking.User.Email).Replace("[password]", password),
@@ -221,7 +221,7 @@ namespace UbytkacBackend.Controllers {
                         };
                     }
                     else {
-                        mailRequest = new MailRequest() {
+                        mailRequest = new SendMailRequest() {
                             Subject = "Úbytkač Registration Email",
                             Recipients = new List<string>() { record.Booking.User.Email },
                             Content = "Registration for " + record.Booking.User.Email + Environment.NewLine + " with password " + password
@@ -296,9 +296,9 @@ namespace UbytkacBackend.Controllers {
 
                 //Send Reservation Email
                 SolutionEmailTemplateList template1 = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "reservations" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                MailRequest mailRequest1 = new MailRequest();
+                SendMailRequest mailRequest1 = new SendMailRequest();
                 if (template1 != null) {
-                    mailRequest1 = new MailRequest() {
+                    mailRequest1 = new SendMailRequest() {
                         Subject = template1.Subject
                         .Replace("[firstname]", record.Booking.User.FirstName).Replace("[lastname]", record.Booking.User.LastName)
                         .Replace("[email]", record.Booking.User.Email).Replace("[totalprice]", record.Booking.TotalPrice.ToString())
@@ -316,7 +316,7 @@ namespace UbytkacBackend.Controllers {
                     };
                 }
                 else {
-                    mailRequest1 = new MailRequest() {
+                    mailRequest1 = new SendMailRequest() {
                         Subject = "Úbytkač Reservation Email",
                         Recipients = new List<string>() { record.Booking.User.Email },
                         Content = "Reservation for " + record.Booking.User.Email + Environment.NewLine + " was success "

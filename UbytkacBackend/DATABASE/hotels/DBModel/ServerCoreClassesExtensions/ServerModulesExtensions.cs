@@ -39,7 +39,7 @@ namespace UbytkacBackend.DBModel {
                         CreatedDate = item.Timestamp
                     });
                 });
-            } catch (Exception ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+            } catch (Exception ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
             return posts;
         }
     }

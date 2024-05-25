@@ -58,7 +58,7 @@ namespace UbytkacBackend.ServerCoreDBSettings {
         [HttpGet("/ServerCoreExport/XamlCz")]
         public async Task<IActionResult> ExportXamlCz() {
             try {
-                new hotelsContext().UbytkacBackendCollectionFromSql<CustomString>("EXEC SpOperationFillTranslationTableList;");
+                new hotelsContext().EasyITCenterCollectionFromSql<CustomString>("EXEC SpOperationFillTranslationTableList;");
 
                 List<SystemTranslationList> data = null;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) { data = new hotelsContext().SystemTranslationLists.OrderBy(a => a.SystemName).ToList(); }
@@ -82,7 +82,7 @@ namespace UbytkacBackend.ServerCoreDBSettings {
         [HttpGet("/ServerCoreExport/XamlEn")]
         public async Task<IActionResult> ExportXamlEn() {
             try {
-                new hotelsContext().UbytkacBackendCollectionFromSql<CustomString>("EXEC SpOperationFillTranslationTableList;");
+                new hotelsContext().EasyITCenterCollectionFromSql<CustomString>("EXEC SpOperationFillTranslationTableList;");
 
                 List<SystemTranslationList> data = null;
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) { data = new hotelsContext().SystemTranslationLists.OrderBy(a => a.SystemName).ToList(); }

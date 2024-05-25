@@ -16,7 +16,7 @@
                         message += monit.Key + " status: " + monit.Value.Status.ToString() + Environment.NewLine + monit.Value.Description + Environment.NewLine;
                     }
                 });
-                CoreOperations.SendEmail(new MailRequest() { Content = message });
+                CoreOperations.SendEmail(new SendMailRequest() { Content = message });
             }
             _prevStatus = report;
             return Task.CompletedTask;

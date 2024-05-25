@@ -158,7 +158,10 @@
     <Content Include="src\assets\img\bg-lokace.jpg" />
     <Content Include="src\assets\img\bg-mapa.jpg" />
     <Content Include="src\assets\img\cover_img_1.jpg" />
+    <Content Include="src\assets\img\data.svg" />
     <Content Include="src\assets\img\no_photo.png" />
+    <Content Include="src\assets\img\sketch.svg" />
+    <Content Include="src\assets\img\startup.svg" />
     <Content Include="src\assets\img\white.jpg" />
     <Content Include="src\assets\img\white.png" />
     <Content Include="src\assets\js\bootstrap.bundle.min.js.map" />
@@ -213,6 +216,7 @@
     <Content Include="src\components\pages\Advertiser\AdvertisementList.vue" />
     <Content Include="src\components\pages\Advertiser\Advertisement.vue" />
     <Content Include="src\components\pages\Advertiser\AdvertisementWizard.vue" />
+    <Content Include="src\components\pages\CustomerProfile\CreditPackages.vue" />
     <Content Include="src\components\pages\CheckoutView.vue" />
     <Content Include="src\components\pages\CheckoutViewComponents\BookingMessage.vue" />
     <Content Include="src\components\pages\CheckoutViewComponents\CustomerDetails.vue" />

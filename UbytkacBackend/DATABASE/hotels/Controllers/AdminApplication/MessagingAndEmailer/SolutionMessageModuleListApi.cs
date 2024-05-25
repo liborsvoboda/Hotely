@@ -85,17 +85,17 @@
 
                     if (loadRecordData.MessageType.Name.ToLower() == "newsletter") {
                         var guestList = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.GuestSettingLists.Where(a => a.Key == "sendNewsletterToEmail" && a.Value == "true").Any()).ToList();
-                        guestList.ForEach(guest => { 
-                            CoreOperations.SendEmail(new MailRequest() { 
+                        guestList.ForEach((Action<GuestList>)(guest => {
+                            CoreOperations.SendEmail(new SendMailRequest() { 
                                 Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email }, 
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             }); 
-                        });
+                        }));
                     }
                     else if (loadRecordData.MessageType.Name.ToLower() == "private") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
                         if (guest != null) {
-                            CoreOperations.SendEmail(new MailRequest() {
+                            CoreOperations.SendEmail(new SendMailRequest() {
                                 Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email },
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             });
@@ -129,17 +129,17 @@
 
                     if (loadRecordData.MessageType.Name.ToLower() == "newsletter") {
                         var guestList = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.GuestSettingLists.Where(a => a.Key == "sendNewsletterToEmail" && a.Value == "true").Any()).ToList();
-                        guestList.ForEach(guest => {
-                            CoreOperations.SendEmail(new MailRequest() {
+                        guestList.ForEach((Action<GuestList>)(guest => {
+                            CoreOperations.SendEmail(new SendMailRequest() {
                                 Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email }, 
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             });
-                        });
+                        }));
                     }
                     else if (loadRecordData.MessageType.Name.ToLower() != "private") {
                         var guest = new hotelsContext().GuestLists.Include(a => a.GuestSettingLists).Where(a => a.Id == record.GuestId && a.GuestSettingLists.Where(a => a.Key == "sendNewMessagesToEmail" && a.Value == "true").Any()).FirstOrDefault();
                         if (guest != null) { 
-                            CoreOperations.SendEmail(new MailRequest() { 
+                            CoreOperations.SendEmail(new SendMailRequest() { 
                                 Sender = ServerConfigSettings.ConfigManagerEmailAddress, Recipients = new List<string> { guest.Email }, 
                                 Subject = record.Subject, Content = record.HtmlMessage.Replace("[guestname]", guest.FirstName).Replace("[guestsurname]", guest.LastName).Replace("[guestemail]", guest.Email)
                             }); 

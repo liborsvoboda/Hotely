@@ -95,7 +95,6 @@
 
         /*StoredProceduresList Library*/
         StoredProceduresList,
-        SystemOperations,
 
         /*Template Classes*/
         TemplateClassList,

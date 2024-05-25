@@ -14,7 +14,7 @@
         public async Task<string> GetServerEmailer(string message) {
             try {
                 string result = null;
-                if (!string.IsNullOrWhiteSpace(message)) result = CoreOperations.SendEmail(new MailRequest() { Content = message }, true);
+                if (!string.IsNullOrWhiteSpace(message)) result = CoreOperations.SendEmail(new SendMailRequest() { Content = message }, true);
 
                 return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = 0, Status = DBResult.success.ToString(), RecordCount = 0, ErrorMessage = DbOperations.DBTranslate(result) });
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
@@ -22,7 +22,7 @@
 
         [HttpPost("/ServerEmailer")]
         [Consumes("application/json")]
-        public async Task<string> PostServerEmailer([FromBody] MailRequest message) {
+        public async Task<string> PostServerEmailer([FromBody] SendMailRequest message) {
             try {
                 string? result = null;
                 if (!string.IsNullOrWhiteSpace(message.Content)) result = CoreOperations.SendEmail(message, true);
@@ -33,7 +33,7 @@
 
         [HttpPost("/ServerEmailer/Mass")]
         [Consumes("application/json")]
-        public async Task<string> PostServerMassEmailer([FromBody] List<MailRequest> messages) {
+        public async Task<string> PostServerMassEmailer([FromBody] List<SendMailRequest> messages) {
             try {
                 if (ServerConfigSettings.ServiceEnableMassEmail) {
                     CoreOperations.SendMassEmail(messages);

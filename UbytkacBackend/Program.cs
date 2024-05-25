@@ -65,7 +65,7 @@ namespace UbytkacBackend {
 
                 //Start Server
                 await hostBuilder.Build().RunAsync(ServerRuntimeData.ServerCancelToken.Token);
-            } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace UbytkacBackend {
             try {
                 LoadConfigurationFromDb();
             } catch (Exception ex) {
-                CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) });
+                CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) });
                 Environment.Exit(10);
             }
 
@@ -160,7 +160,7 @@ namespace UbytkacBackend {
                     }
                 }
             } catch (Exception ex) {
-                CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) });
+                CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) });
                 Environment.Exit(20);
             }
         }

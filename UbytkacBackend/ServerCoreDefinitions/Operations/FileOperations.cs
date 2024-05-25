@@ -18,7 +18,7 @@ namespace UbytkacBackend.ServerCoreStructure {
                 if (!CheckDirectory(ServerRuntimeData.UserPath)) {
                     CreatePath(ServerRuntimeData.UserPath);
                 }
-            } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
         }
 
         /// <summary>

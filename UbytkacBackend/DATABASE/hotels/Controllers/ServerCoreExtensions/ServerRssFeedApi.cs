@@ -88,7 +88,7 @@ namespace UbytkacBackend.ServerCoreDBSettings {
                     }
                 }
                 else { return BadRequest(); }
-            } catch (Exception ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+            } catch (Exception ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
             return BadRequest();
         }
     }

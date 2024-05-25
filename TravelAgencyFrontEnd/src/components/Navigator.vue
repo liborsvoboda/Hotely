@@ -67,6 +67,9 @@
 
                                 <span id="MenuAdvertisement" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('labels.accommodationAdvertisement')" class="c-pointer mif-location-city mif-3x fg-brandColor2 ani-hover-heartbeat"
                                       style="top: -10px; left: 105px;" @click="checkAllowedMenu('MenuAdvertisement')"></span>
+
+                                <span id="MenuCreditPackages" data-role="hint" data-hint-position="bottom" :data-cls-hint="hintPopupClass + ' drop-shadow'" :data-hint-text="window.dictionary('labels.buyCredit')" class="c-pointer mif-credit-card mif-3x fg-brandColor2 ani-hover-heartbeat"
+                                      style="top: -8px; left: 120px;" @click="checkAllowedMenu('MenuCreditPackages')"></span>
                             </div>
                         </div>
                     </div>
@@ -184,6 +187,9 @@ export default {
                         break;
                     case "MenuUserSetting":
                         this.$router.push('/Profile/ProfileSetting');
+                        break;
+                    case "MenuCreditPackages":
+                        this.$router.push('/Profile/CreditPackages');
                         break;
                     case "MenuAdvertisement":
                         if (this.user.UserId != '') { this.$router.push('/Profile/Advertisement'); }

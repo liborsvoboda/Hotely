@@ -26,6 +26,10 @@ namespace EasyITSystemCenter.GlobalClasses {
         public string updateFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Update");
         public string tempFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Temp");
         public string galleryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), Assembly.GetEntryAssembly().GetName().FullName.Split(',')[0], "Gallery");
+        public string appDataPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "AddOn", "AppData");
+        public string webDataPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "AddOn", "WebData");
+        public string webDataUrlPath = Path.Combine("AddOn", "WebData");
+        public string webSrvDataPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "AddOn", "WebSrvData");
         public string appSettingFile = "config.json";
         public bool webServerRunning = false;
 
@@ -55,6 +59,22 @@ namespace EasyITSystemCenter.GlobalClasses {
 
         Release,
         DebugWithSystemLogger
+    }
+
+
+
+    public enum UrlSourceTypes {
+
+        //Mode
+        EsbWebServer,
+        EicWebServer,
+        EicWebServerAuth,
+        EicWebServerStdTableApi,
+        EicWebServerGenericGetTableApi,
+        EicWebServerGenericSetTableApi,
+        WebApiManagerApi,
+        WebUrl,
+        JsonDataUrl
     }
 
 
@@ -137,18 +157,29 @@ namespace EasyITSystemCenter.GlobalClasses {
         public string Translate { get; set; }
     }
 
+    public interface IGenericRepository<T> where T : class { };
+    public class GenericRepository<T> : IGenericRepository<T> where T : class { };
+
+
+    public class GenericTable {
+        public int Id { get; set; }
+        public string Description { get; set; } = null;
+        public int UserId { get; set; }
+        public DateTime TimeStamp { get; set; }
+    }
+
     /// <summary>
     /// Generated Class TableList from Stored Procedure SystemSpGetTableList
     /// </summary>
-    public partial class SpTableList {
-        public string TableList { get; set; }
+    public partial class GenericDataList {
+        public string Data { get; set; }
     }
 
     /// <summary>
     /// Custom Definition for Returning List with One Record from Operation Stored Procedures
     /// </summary>
-    public class SystemOperationMessage {
-        public string MessageList { get; set; }
+    public class GenericValue {
+        public string Value { get; set; }
     }
 
     /// <summary>

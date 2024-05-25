@@ -21,6 +21,7 @@ import TopFive from '../components/pages/CustomerProfile/ProfilePage.vue'
 import Bookings from '../components/pages/CustomerProfile/Bookings.vue'
 import FavoriteHotelList from '/src/components/pages/CustomerProfile/FavoriteHotelList.vue';
 import ProfileSetting from '../components/pages/CustomerProfile/ProfileSetting.vue'
+import CreditPackages from '../components/pages/CustomerProfile/CreditPackages.vue';
 import ProfileMessages from '../components/pages/CustomerProfile/ProfileMessages.vue'
 import Contact from '../components/pages/ExtraPages/Contact.vue';
 import About from '../components/pages/ExtraPages/About.vue';
@@ -84,6 +85,14 @@ const routes = [
                 },
             },
             {
+                path: "CreditPackages",
+                name: "CreditPackages",
+                component: CreditPackages,
+                meta: {
+                    requiresAuth: true, title: "Kreditní Balíčky"
+                },
+            },
+           {
                 path: "ProfileMessages",
                 name: "ProfileMessages",
                 component: ProfileMessages,

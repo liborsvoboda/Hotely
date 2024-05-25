@@ -1,14 +1,5 @@
 ﻿namespace UbytkacBackend.ServerCoreStructure {
 
-    /// <summary>
-    /// Class Definition for Server Emailer In List of this claas you can use Mass Emailer
-    /// </summary>
-    public class MailRequest {
-        public string? Sender { get; set; } = null;
-        public List<string>? Recipients { get; set; } = null;
-        public string? Subject { get; set; } = null;
-        public string? Content { get; set; } = null;
-    }
 
     /// <summary>
     /// Server and Hosted Services Runtime Statusses

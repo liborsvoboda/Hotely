@@ -31,9 +31,9 @@
 
                     //Send Verify Email
                     SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "verification" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                    MailRequest mailRequest = new MailRequest();
+                    SendMailRequest mailRequest = new SendMailRequest();
                     if (template != null) {
-                        mailRequest = new MailRequest() {
+                        mailRequest = new SendMailRequest() {
                             Subject = template.Subject.Replace("[verifyCode]", verifyCode),
                             Recipients = new List<string>() { record.EmailAddress },
                             Content = template.Email.Replace("[verifyCode]", verifyCode)
@@ -92,9 +92,9 @@
 
                 //Send Reg Email
                 SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "registration" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                MailRequest mailRequest = new MailRequest();
+                SendMailRequest mailRequest = new SendMailRequest();
                 if (template != null) {
-                    mailRequest = new MailRequest() {
+                    mailRequest = new SendMailRequest() {
                         Subject = template.Subject
                         .Replace("[email]", record.EmailAddress).Replace("[password]", record.Password),
                         Recipients = new List<string>() { record.EmailAddress },
@@ -103,7 +103,7 @@
                     };
                 }
                 else {
-                    mailRequest = new MailRequest() {
+                    mailRequest = new SendMailRequest() {
                         Subject = "GroupWare-Solution.Eu Registration Email",
                         Recipients = new List<string>() { record.EmailAddress },
                         Content = "Registration for " + record.EmailAddress + Environment.NewLine + " with password " + record.Password
@@ -142,9 +142,9 @@
 
                     //Send ResetPassword Email
                     SolutionEmailTemplateList template = new hotelsContext().SolutionEmailTemplateLists.Where(a => a.TemplateName.ToLower() == "resetPassword" && a.SystemLanguage.SystemName.ToLower() == record.Language.ToLower()).FirstOrDefault();
-                    MailRequest mailRequest = new MailRequest();
+                    SendMailRequest mailRequest = new SendMailRequest();
                     if (template != null) {
-                        mailRequest = new MailRequest() {
+                        mailRequest = new SendMailRequest() {
                             Subject = template.Subject
                             .Replace("[password]", newPassword).Replace("[email]", record.EmailAddress),
                             Recipients = new List<string>() { record.EmailAddress },

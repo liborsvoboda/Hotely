@@ -10,7 +10,7 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// Sends the mass mail.
         /// </summary>
         /// <param name="mailRequests">The mail requests.</param>
-        public static void SendMassEmail(List<MailRequest> mailRequests) {
+        public static void SendMassEmail(List<SendMailRequest> mailRequests) {
             mailRequests.ForEach(mailRequest => { SendEmail(mailRequest, true); });
         }
 
@@ -22,7 +22,7 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// </summary>
         /// <param name="mailRequest">    </param>
         /// <param name="sendImmediately"></param>
-        public static string SendEmail(MailRequest mailRequest, bool sendImmediately = false) {
+        public static string SendEmail(SendMailRequest mailRequest, bool sendImmediately = false) {
             try {
                 if ((!ServerRuntimeData.DebugMode && !ServerConfigSettings.ConfigLogWarnPlusToDbEnabled) || sendImmediately) {
                     if (ServerConfigSettings.ServiceCoreCheckerEmailSenderActive || sendImmediately) {
@@ -112,7 +112,7 @@ namespace UbytkacBackend.ServerCoreStructure {
                 certificate = File.ReadAllBytes(System.IO.Path.Combine(ServerRuntimeData.Startup_path, ServerRuntimeData.DataPath, FileNameFromDataPath));
                 password = ServerConfigSettings.ConfigCertificatePassword;
                 return new X509Certificate2(certificate, password);
-            } catch (Exception Ex) { SendEmail(new MailRequest() { Content = "Incorrect Certificate Path or Password, " + DataOperations.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { SendEmail(new SendMailRequest() { Content = "Incorrect Certificate Path or Password, " + DataOperations.GetSystemErrMessage(Ex) }); }
             return GetSelfSignedCertificate(ServerConfigSettings.ConfigCertificatePassword);
         }
 

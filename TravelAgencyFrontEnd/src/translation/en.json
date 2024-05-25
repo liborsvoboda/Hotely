@@ -1,5 +1,10 @@
 {
   "labels": {
+    "creditsSettings": "Credits Settings",
+    "creditHistory": "Credits History",
+    "yourCredits": "Your Credits",
+    "creditPackages": "Credit Packages",
+    "buyCredit": "Buy Credit",
     "from": "from",
     "newContribution": "New Contribution",
     "youMustBeLogged": "You Must be Logged",

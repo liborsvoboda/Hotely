@@ -420,7 +420,7 @@ namespace EasyITSystemCenter {
         /// </summary>
         private async Task<bool> LoadUserMenu() {
             try {
-                List<SystemMenuList> userMenu = await CommApi.GetApiRequest<List<SystemMenuList>>(ApiUrls.StoredProceduresList, "SystemSpGetUserMenuList", App.UserData.Authentification.Token);
+                List<SystemMenuList> userMenu = await CommApi.GetApiRequest<List<SystemMenuList>>(ApiUrls.StoredProceduresList, "SpGetUserMenuList", App.UserData.Authentification.Token);
 
                 tb_verticalSystemMenu.Items.Clear();
                 int? lastMenuGroupId = null; tb_verticalSystemMenu.Items.Clear(); TreeViewItem menuSection = null;

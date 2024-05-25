@@ -110,18 +110,18 @@ namespace EasyITSystemCenter.Pages {
 
         private async void ToolPanelListPage_Click(object sender, RoutedEventArgs e) {
             var selectedPanel = solutionOperationList.Where(a => a.Id == int.Parse(((Tile)sender).Tag.ToString())).FirstOrDefault();
-            List<SystemOperationMessage> messageResponse = null;
+            List<GenericValue> messageResponse = null;
             List<DBJsonFile> jsonResponse = null; string json = null;
 
             try { //Request
                 switch (selectedPanel.InheritedTypeName) {
                     case "DB_SP_GET_Operace":
                         if (selectedPanel.InheritedResultTypeName == "message") {
-                            messageResponse = await CommApi.GetApiRequest<List<SystemOperationMessage>>(ApiUrls.SystemOperations, selectedPanel.InputData, App.UserData.Authentification.Token);
-                            json = messageResponse[0].MessageList;
+                            messageResponse = await CommApi.GetApiRequest<List<GenericValue>>(ApiUrls.StoredProceduresList, "Message/" + selectedPanel.InputData, App.UserData.Authentification.Token);
+                            json = messageResponse[0].Value;
                         }
                         else {
-                            jsonResponse = await CommApi.GetApiRequest<List<DBJsonFile>>(ApiUrls.SystemOperations, "Json/" + selectedPanel.InputData, App.UserData.Authentification.Token);
+                            jsonResponse = await CommApi.GetApiRequest<List<DBJsonFile>>(ApiUrls.StoredProceduresList, "Json/" + selectedPanel.InputData, App.UserData.Authentification.Token);
                             JavaScriptSerializer serializer = new JavaScriptSerializer(); json = "{";
                             jsonResponse.ForEach(key => {
                                 DeserializedJson jsonObject = serializer.Deserialize<DeserializedJson>(key.Value);

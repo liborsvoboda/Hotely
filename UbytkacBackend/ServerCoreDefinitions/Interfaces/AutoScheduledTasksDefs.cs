@@ -127,26 +127,26 @@ namespace UbytkacBackend.ServerCoreStructure {
                     if (jobType == "email") {
                         try {
                             IDictionary<string, string> maildata = JsonSerializer.Deserialize<IDictionary<string, string>>(data);
-                            CoreOperations.SendEmail(new MailRequest() {
+                            CoreOperations.SendEmail(new SendMailRequest() {
                                 Sender = ServerConfigSettings.ConfigManagerEmailAddress,
                                 Recipients = jobData.First(a => a.Key.ToLower() == "email").Value?.ToString()?.Split(";").ToList(),
                                 Subject = maildata?.First(a => a.Key.ToLower() == "subject").Value.ToString(),
                                 Content = maildata?.First(a => a.Key.ToLower() == "content").Value.ToString()
                             },true);
-                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
                     }
                     else if (jobType == "sqlemail") {
                         try {
                             if (jobData.First(a => a.Key.ToLower() == "userrole").Value?.ToString() == "admin") {
                                 IDictionary<string, string> sqlmaildata = JsonSerializer.Deserialize<IDictionary<string, string>>(data);
-                                CoreOperations.SendEmail(new MailRequest() {
+                                CoreOperations.SendEmail(new SendMailRequest() {
                                     Sender = ServerConfigSettings.ConfigManagerEmailAddress,
                                     Recipients = jobData.First(a => a.Key.ToLower() == "email").Value?.ToString()?.Split(";").ToList(),
                                     Subject = sqlmaildata?.First(a => a.Key.ToLower() == "subject").Value.ToString(),
                                     Content = sqlmaildata?.First(a => a.Key.ToLower() == "content").Value.ToString()
                                 }, true);
                             }
-                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
 
                     }
                     else if (jobType == "command") {
@@ -155,33 +155,33 @@ namespace UbytkacBackend.ServerCoreStructure {
                                 ProcessClass? process = new ProcessClass() { Command = System.IO.Path.GetFullPath(data), Arguments = "", WorkingDirectory = System.IO.Path.GetFullPath(data.Replace(System.IO.Path.GetFileName(data), "")) };
                                 CoreOperations.RunSystemProcess(process);
                             }
-                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
 
                     }
                     else if (jobType == "sqlquery") {
                         try {
                             if (jobData.First(a => a.Key.ToLower() == "userrole").Value?.ToString() == "admin") {
-                                _ = new hotelsContext().UbytkacBackendCollectionFromSql<CustomString>($"EXEC {data};");
+                                _ = new hotelsContext().EasyITCenterCollectionFromSql<CustomString>($"EXEC {data};");
                             }
 
-                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
 
                     }
                     else if (jobType == "websocketnotify") {
                         try {
                             ServerCoreWebHelpers.SendMessageAndUpdateWebSocketsInSpecificPath(ServerConfigSettings.WebSocketGlobalNotifyPath, data);
 
-                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
                     }
                     else if (jobType == "sqlwebsocketnotify") {
                         try {
                             if (jobData.First(a => a.Key.ToLower() == "userrole").Value?.ToString() == "admin") {
-                                string? result = new hotelsContext().UbytkacBackendCollectionFromSql<CustomString>($"EXEC {data};").ToString();
+                                string? result = new hotelsContext().EasyITCenterCollectionFromSql<CustomString>($"EXEC {data};").ToString();
                                 ServerCoreWebHelpers.SendMessageAndUpdateWebSocketsInSpecificPath(ServerConfigSettings.WebSocketGlobalNotifyPath, result);
                             }
 
-                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
-                    } else {  CoreOperations.SendEmail(new MailRequest() { Content = "ThisScheduledTaskNotImplemented " + string.Join(",",jobData.KeySet()) }); }
+                        } catch (Exception ex) { taskResult.ProcessCrashed = true; taskResult.ProcessLog = DataOperations.GetSystemErrMessage(ex); CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(ex) }); }
+                    } else {  CoreOperations.SendEmail(new SendMailRequest() { Content = "ThisScheduledTaskNotImplemented " + string.Join(",",jobData.KeySet()) }); }
 
                     //Log Process Result
                     taskResult.ProcessCompleted = true; taskResult.TimeStamp = DateTimeOffset.Now.DateTime;
@@ -199,7 +199,7 @@ namespace UbytkacBackend.ServerCoreStructure {
                 }
                 else {return Task.FromResult("DataNotFound"); }
             } catch (Exception Ex) {
-                CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) });
+                CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) });
                 return Task.FromException(Ex);
             }
             return Task.FromResult(true);

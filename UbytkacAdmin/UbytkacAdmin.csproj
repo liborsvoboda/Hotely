@@ -468,16 +468,23 @@
     <Compile Include="Agendas\WebPortalAgendas\_View\WebVisitIpList\WebVisitIpListPage.xaml.cs">
       <DependentUpon>WebVisitIpListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GenericAgendas\MltEicSrvWebAppPage.xaml.cs">
+      <DependentUpon>MltEicSrvWebAppPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GenericAgendas\MltTblGenEsbSrvFormPage.xaml.cs">
+      <DependentUpon>MltTblGenEsbSrvFormPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalClasses\GlobalEnumSetDefinitions.cs" />
     <Compile Include="GlobalOperations\CommOperations.cs" />
     <Compile Include="GlobalOperations\ToolsOperations.cs" />
     <Compile Include="GlobalOperations\FormOperations.cs" />
+    <Compile Include="GlobalStyles\ProgramaticStyleDefinitions.cs" />
+    <Compile Include="GlobalStyles\StyleExtensions.cs" />
     <Compile Include="SystemCore\SystemObjectsExtensions\HostW32Application.cs" />
     <Compile Include="SystemCore\SystemObjectsExtensions\InfoPopup.cs" />
     <Compile Include="SystemCore\SystemObjectsExtensions\InfoPopup.xaml.cs">
       <DependentUpon>InfoPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GlobalStyles\GlobalBehaviors.cs" />
     <Compile Include="SystemCore\OSHelpers\CPUUsage.cs" />
     <Compile Include="SystemCore\OSHelpers\PerformanceInfo.cs" />
     <Compile Include="SystemCore\OSHelpers\RAMUsage.cs" />
@@ -644,7 +651,6 @@
     </Compile>
     <Compile Include="GlobalOperations\FileOperations.cs" />
     <Compile Include="GlobalOperations\MediaOperations.cs" />
-    <Compile Include="GlobalStyles\GlobalStyles.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1138,32 +1144,56 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SystemCore\SystemObjectsExtensions\InfoPopup.xaml">
+    <Page Include="GenericAgendas\MltEicSrvWebAppPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlobalStyles\MetroFix\ProgressBarFix.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </Page>
-    <Page Include="GlobalStyles\MetroFix\MetroCheckComboBoxStyleFix.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Page Include="GenericAgendas\MltTblGenEsbSrvFormPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlobalStyles\System\SystemFieldsEffects.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Page Include="GlobalStyles\ObjectDefinitionsLibrary\CustomEffectStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlobalStyles\System\SystemSpecificFieldsStyles.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Page Include="GlobalStyles\ObjectDefinitionsLibrary\CustomObjectDefaultKeySetStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlobalStyles\System\SystemPagesDefaultStyles.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Page Include="GlobalStyles\ObjectDefinitionsLibrary\MetroObjectDefaultStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlobalStyles\System\SystemCoreDefaultStyles.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    <Page Include="GlobalStyles\ObjectDefinitionsLibrary\StandardObjectDefaultStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\SystemObjectLibrary\MetroCheckComboBoxStyleFix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\SystemObjectLibrary\MetroProgressBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\SystemObjectLibrary\ProgressBarFix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\SystemObjectLibrary\SystemMainMenuStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\Tools\Markdown\MarkdownStylesLibrary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalStyles\Tools\ToolsStylesLibrary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SystemCore\SystemObjectsExtensions\InfoPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GlobalStyles\Tools\MarkdownStyles.xaml">
@@ -1183,10 +1213,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SystemWindow.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GlobalStyles\System\SystemMainMenuStyle.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1591,6 +1617,9 @@
     <PackageReference Include="log4net">
       <Version>2.0.15</Version>
     </PackageReference>
+    <PackageReference Include="MahApps.Extra">
+      <Version>1.6.5</Version>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
     </PackageReference>
@@ -1633,6 +1662,9 @@
     <PackageReference Include="Microsoft.Owin.StaticFiles">
       <Version>4.2.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Web.WebView2">
+      <Version>1.0.2478.35</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.39</Version>
     </PackageReference>
@@ -1653,6 +1685,9 @@
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="WebView2.DevTools.Dom">
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="WithoutHaste.DataFiles">
       <Version>1.0.0</Version>

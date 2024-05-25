@@ -63,7 +63,7 @@ namespace UbytkacBackend.ServerCoreStructure {
                 }
 
                 return true;
-            } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
             return false;
         }
 
@@ -89,7 +89,7 @@ namespace UbytkacBackend.ServerCoreStructure {
                 FileOperations.DeleteFile(Path.Combine(ServerRuntimeData.Startup_path, "wwwroot", "metro", record.MetroPath, DataOperations.RemoveWhitespace(record.FileName).Replace(fileExt, "provider." + fileExt)));
 
                 return true;
-            } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
             return false;
         }
 

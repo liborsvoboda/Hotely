@@ -62,7 +62,7 @@ namespace UbytkacBackend.ServerCoreConfiguration {
                     }
                     if (data != null) {
                         foreach (ServerLiveDataMonitorList monitor in data) {
-                            services.AddLiveReload(config => {
+                            services.AddLiveReload((Action<LiveReloadConfiguration>)(config => {
                                 try {
                                     if (FileOperations.CheckDirectory(Path.Combine(ServerRuntimeData.Startup_path, monitor.RootPath.StartsWith("/") ? monitor.RootPath.Substring(1) : monitor.RootPath))) {
                                         config.LiveReloadEnabled = true;
@@ -70,12 +70,12 @@ namespace UbytkacBackend.ServerCoreConfiguration {
                                         config.FolderToMonitor = Path.Combine(ServerRuntimeData.Startup_path, monitor.RootPath.StartsWith("/") ? monitor.RootPath.Substring(1) : monitor.RootPath);
                                         if (monitor.FileExtensions.Length > 0) { config.ClientFileExtensions = monitor.FileExtensions; }
                                     }
-                                    else { CoreOperations.SendEmail(new MailRequest() { Content = "Path For Live Data Monitoring not Exist" + Path.Combine(ServerRuntimeData.Startup_path, monitor.RootPath.StartsWith("/") ? monitor.RootPath.Substring(1) : monitor.RootPath) }); }
-                                } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
-                            });
+                                    else { CoreOperations.SendEmail(new SendMailRequest() { Content = "Path For Live Data Monitoring not Exist" + Path.Combine(ServerRuntimeData.Startup_path, monitor.RootPath.StartsWith("/") ? monitor.RootPath.Substring(1) : monitor.RootPath) }); }
+                                } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+                            }));
                         }
                     } else { services.AddLiveReload(); }
-            } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+            } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
             }
         }
 
@@ -147,7 +147,7 @@ namespace UbytkacBackend.ServerCoreConfiguration {
                                 services.AddHealthChecks().AddNpgSql(item.DbSqlConnection, "SELECT 1;", null, item.TaskName);
                                 break;
                         }
-                    } catch (Exception Ex) { CoreOperations.SendEmail(new MailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
+                    } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
                 };
                 services.AddHealthChecksUI(setup => {
                     setup.SetHeaderText(ServerConfigSettings.ConfigCoreServerRegisteredName + "IT Dohledové Centrum");
