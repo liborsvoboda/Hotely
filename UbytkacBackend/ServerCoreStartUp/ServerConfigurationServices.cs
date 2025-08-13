@@ -233,7 +233,7 @@ namespace UbytkacBackend.ServerCoreConfiguration {
         /// </summary>
         /// <param name="services">The services.</param>
         internal static void ConfigureSingletons(ref IServiceCollection services) {
-            services.AddSingleton<IHttpContextAccessor, CommunicationController>();
+            services.AddSingleton<IHttpContextAccessor, ServerApiServiceExtension>();
             services.AddSingleton<ISitemapProvider, SitemapProvider>();
             services.AddSingleton<IHealthCheckPublisher, DelegateHealthCheckPublisher>();
         }

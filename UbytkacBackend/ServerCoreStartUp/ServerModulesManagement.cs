@@ -11,6 +11,13 @@ namespace UbytkacBackend.ServerCoreConfiguration {
     /// </summary>
     public class ServerModules {
 
+
+        /// <summary>
+        /// Server Module: Configure Report Designer Module
+        /// </summary>
+        /// <param name="app"></param>
+        internal static void ConfigureReportDesigner(ref IServiceCollection services) => services.AddFastReport();
+
         /// <summary>
         /// Server Module: Configures the Scheduler Module.
         /// </summary>
@@ -282,6 +289,11 @@ namespace UbytkacBackend.ServerCoreConfiguration {
         /// </summary>
         internal static void EnableLiveDataMonitor(ref IApplicationBuilder app) { if (ServerConfigSettings.WebLiveDataMonitorEnabled) { app.UseLiveReload(); } }
 
+        /// <summary>
+        /// Enable Report Designer Module
+        /// </summary>
+        /// <param name="app"></param>
+        internal static void EnableReportDesigner(ref IApplicationBuilder app) => app.UseFastReport();
 
         /// <summary>
         /// Server Module: Enable DBEntitySchema Web Page

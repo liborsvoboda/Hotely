@@ -76,7 +76,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertOrUpdateWebMenuList([FromBody] WebSettingList1 record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
                     string clientIPAddr = null;
                     int RecId = int.Parse(record.Settings.FirstOrDefault(a => a.Key == "Id").Value);
@@ -124,7 +124,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteWebMenuList(string id) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     WebMenuList record = new() { Id = int.Parse(id) };

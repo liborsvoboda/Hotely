@@ -8,9 +8,9 @@ namespace UbytkacBackend.ServerCoreDBSettings {
     /// <seealso cref="Controller"/>
     [Route("robots", Name = "robot")]
     [Route("robots.txt", Name = "robottxt")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class RobotsController : ControllerBase {
 
+        [HttpGet("/robots.txt")]
         public ActionResult Index() {
             try {
                 string data = "";
@@ -43,7 +43,8 @@ namespace UbytkacBackend.ServerCoreDBSettings {
             dataBuilder = new SitemapDataBuilder();
         }
 
-        public ActionResult Index() {
+        [HttpGet("/sitemap.xml")]
+        public ActionResult IndexSiteMap() {
             //Sitemap Types
             return sitemapProvider.CreateSitemapIndex(new SitemapIndexModel(new List<SitemapIndexNode>
             {

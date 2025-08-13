@@ -26,7 +26,6 @@ namespace UbytkacBackend.ServerCoreDBSettings {
     [Authorize]
     [ApiController]
     [Route("ServerCoreExport")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerWebPagesExportApi : ControllerBase {
 
         private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;

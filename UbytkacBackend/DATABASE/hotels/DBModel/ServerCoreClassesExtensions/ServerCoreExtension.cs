@@ -98,6 +98,16 @@
         public string Name { get; set; }
     }
 
+
+    /// <summary>
+    /// Custom Definition for Returning string List from Stored Procedures Named Data = ColumnName
+    /// in the Data string Can be Any Object
+    /// </summary>
+    public class GenericDataList {
+        public string Data { get; set; }
+    }
+
+
     /// <summary>
     /// Custom Definition for Returning string List from Stored Procedures Name is ColumnName from
     /// Stored Procedure Result

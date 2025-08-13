@@ -22,7 +22,7 @@ namespace UbytkacBackend.ServerCoreDBSettings {
         [Consumes("application/json")]
         public async Task<string> SaveNewMinifiedFile([FromBody] MinifiedFile rec) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     WebCoreFileList data = new();
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
                         data = new hotelsContext().WebCoreFileLists.Where(a => a.FileName == rec.FileName && a.SpecificationType == rec.SpecificationType).First(); }

@@ -6,11 +6,10 @@
     /// <seealso cref="ControllerBase"/>
     [Authorize]
     [ApiController]
-    [Route("ServerEmailer")]
-    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("ServerApi")]
     public class ServerEmailerApi : ControllerBase {
 
-        [HttpGet("/ServerEmailer/{message}")]
+        [HttpGet("/ServerApi/ServerEmailer/{message}")]
         public async Task<string> GetServerEmailer(string message) {
             try {
                 string result = null;
@@ -20,7 +19,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpPost("/ServerEmailer")]
+        [HttpPost("/ServerApi/ServerEmailer")]
         [Consumes("application/json")]
         public async Task<string> PostServerEmailer([FromBody] SendMailRequest message) {
             try {
@@ -31,7 +30,7 @@
             } catch (Exception ex) { return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) }); }
         }
 
-        [HttpPost("/ServerEmailer/Mass")]
+        [HttpPost("/ServerApi/ServerEmailer/Mass")]
         [Consumes("application/json")]
         public async Task<string> PostServerMassEmailer([FromBody] List<SendMailRequest> messages) {
             try {

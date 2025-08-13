@@ -2,7 +2,7 @@
 
 namespace UbytkacBackend.ServerCoreStructure {
 
-    internal static class FileOperations {
+    public static class FileOperations {
 
         /// <summary>
         /// Server Local Startup Configuration Its Running as First - Load from Congig.Json After DB
@@ -21,14 +21,14 @@ namespace UbytkacBackend.ServerCoreStructure {
             } catch (Exception Ex) { CoreOperations.SendEmail(new SendMailRequest() { Content = DataOperations.GetSystemErrMessage(Ex) }); }
         }
 
+
+
         /// <summary>
         /// Checks the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns></returns>
-        public static bool CheckFile(string file) {
-            return File.Exists(file);
-        }
+        public static bool CheckFile(string file) { return File.Exists(file); }
 
         /// <summary>
         /// Prepared Method for Files Copy
@@ -38,9 +38,9 @@ namespace UbytkacBackend.ServerCoreStructure {
         public static void CopyFiles(string sourcePath, string destinationPath) {
             string[] filePaths = Directory.GetFiles(sourcePath);
             foreach (string fullFilePath in filePaths) {
-                string fileName = Path.GetFileName(fullFilePath);
-                if (!File.Exists(Path.Combine(destinationPath, fileName))) {
-                    File.Copy(Path.Combine(sourcePath, fileName), Path.Combine(destinationPath, fileName));
+                string fileName = System.IO.Path.GetFileName(fullFilePath);
+                if (!File.Exists(System.IO.Path.Combine(destinationPath, fileName))) {
+                    File.Copy(System.IO.Path.Combine(sourcePath, fileName), System.IO.Path.Combine(destinationPath, fileName));
                 }
             }
         }
@@ -48,19 +48,23 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// <summary>
         /// Creates the path recursively.
         /// </summary>
-        /// <param name="path">The Path.</param>
+        /// <param name="path"></param>
+        /// <param name="clearIfExist"></param>
         /// <returns></returns>
-        public static bool CreatePath(string path) {
+        public static bool CreatePath(string path, bool clearIfExist = false) {
             try {
+                if (clearIfExist && Directory.Exists(path)) { Directory.Delete(path, true); }
                 string[] pathParts = path.Split('\\');
 
                 for (int i = 0; i < pathParts.Length; i++) {
                     if (i > 0)
-                        pathParts[i] = Path.Combine(pathParts[i - 1], pathParts[i]);
+                        pathParts[i] = System.IO.Path.Combine(pathParts[i - 1], pathParts[i]);
 
                     if (!Directory.Exists(pathParts[i]))
                         Directory.CreateDirectory(pathParts[i]);
+
                 }
+
                 return true;
             } catch {
                 return false;
@@ -104,22 +108,24 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// <param name="file"></param>
         /// <returns></returns>
         public static bool CreateFile(string file) {
-            if (!File.Exists(file))
-                File.Create(file).Close();
-
+            if (!File.Exists(file)) { File.Create(file).Close(); }
             return CheckFile(file);
         }
 
         /// <summary>
         /// Write String to File Used for JsonSaving
+        /// If rewrite file is false, content is append
         /// </summary>
-        /// <param name="file">   The file.</param>
-        /// <param name="content">The content.</param>
-        public static void WriteToFile(string file, string content) {
-            CreateFile(file);
-            StreamWriter objWriter = new StreamWriter(file, true);
-            objWriter.WriteLine(content);
-            objWriter.Close();
+        /// <param name="file"></param>
+        /// <param name="content"></param>
+        /// <param name="rewrite"></param>
+        public static void WriteToFile(string file, string content, bool rewrite = true) {
+            if (CreateFile(file)) {
+                if (rewrite) { DeleteFile(file); }
+                StreamWriter objWriter = new StreamWriter(file, true);
+                objWriter.WriteLine(content);
+                objWriter.Close();
+            }
         }
 
         /// <summary>
@@ -168,6 +174,21 @@ namespace UbytkacBackend.ServerCoreStructure {
         public static bool CheckDirectory(string directory) {
             return Directory.Exists(directory);
         }
+
+
+
+        /// <summary>
+        /// Get Folder Files from Direct Folder
+        /// or FULL Structure by fileMask
+        /// </summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="fileMask"></param>
+        /// <param name="searchOption"></param>
+        /// <returns></returns>
+        public static List<string> GetPathFiles(string sourcePath, string fileMask, SearchOption searchOption) {
+            return Directory.GetFiles(sourcePath, fileMask, searchOption).ToList();
+        }
+
 
         /// <summary>
         /// Copy Full directory.
@@ -232,6 +253,20 @@ namespace UbytkacBackend.ServerCoreStructure {
             foreach (System.IO.FileInfo fi in dir.GetFiles()) {
                 fi.Delete();
             }
+        }
+
+
+        /// <summary>
+        /// Return Full File path to the operating system default slashes.
+        /// !!! USE as + With Path Combine Path.Combine(yourpath) + ConvertSystemFilePathFromUrl(string webpath);
+        /// </summary>
+        /// <param name="webpath"></param>
+        public static string ConvertSystemFilePathFromUrl(string webpath) {
+            if (string.IsNullOrEmpty(webpath)) return webpath;
+            char slash = Path.DirectorySeparatorChar;
+            if (!webpath.StartsWith("/")) { webpath = $"/{webpath}"; }
+            webpath = webpath.Replace('/', slash).Replace('\\', slash).Replace(slash.ToString() + slash.ToString(), slash.ToString());
+            return webpath;
         }
     }
 }

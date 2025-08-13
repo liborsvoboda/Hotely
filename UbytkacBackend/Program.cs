@@ -109,6 +109,7 @@ namespace UbytkacBackend {
                     });
                 }
 
+                
                 webBuilder.UseWebRoot(ServerConfigSettings.DefaultStaticWebFilesFolder);
                 webBuilder.UseStartup<Startup>();
                 webBuilder.UseStaticWebAssets();

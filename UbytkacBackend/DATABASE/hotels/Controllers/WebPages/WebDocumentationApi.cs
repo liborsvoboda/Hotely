@@ -12,7 +12,7 @@ namespace UbytkacBackend.Controllers {
         [Consumes("application/json")]
         public async Task<string> GetWebDocumentationList(string name) {
             string webDocumentation;
-            DocumentationList data;
+            DocSrvDocumentationList data;
             try {
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                     IsolationLevel = IsolationLevel.ReadUncommitted })) {
@@ -21,7 +21,7 @@ namespace UbytkacBackend.Controllers {
 
                 using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                     IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                    data = new hotelsContext().DocumentationLists.Where(a=> a.Name.ToLower() == name.ToLower()).FirstOrDefault();
+                    data = new hotelsContext().DocSrvDocumentationLists.Where(a=> a.Name.ToLower() == name.ToLower()).FirstOrDefault();
                 }
 
                 webDocumentation = webDocumentation.Replace("AUTOCONTENT", data.MdContent);

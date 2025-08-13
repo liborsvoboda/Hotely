@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Editor s našeptávačem</title>
+
+<script defer src="./codemirror.js"></script>
+<script defer src="./jseditor.js"></script>
+</head>
+
+<body style="background-color:gray;">
+
+    <div id="JsEditor" class="text-left" style="background-color:white;"></div>
+
+    <button style="position:absolute; right:10px; top: 10px;" onclick="TransferToHTML()">Spustit kód v HTML</button>
+    <link href="../../metro/css/metro-all.min.css" rel="stylesheet" />
+    <link href="../../metro/css/metro-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../tools/animate/css/animate.css" />
+    <link rel="stylesheet" href="../../tools/flexslider/css/flexslider.css" />
+    <link rel="stylesheet" href="../../tools/highlightjs/styles/default.min.css" />
+    <script type="text/javascript" src="../../metro/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../tools/flexslider/js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="../../metro/js/metro.4.5.2.min.js"></script>
+    <link rel="stylesheet" href="../../tools/summernote/css/summernote.css">
+    <script type="text/javascript" src="../../tools/summernote/js/summernote.js"></script>
+    <div id="Summernote"><div data-role="calendar"></div></div>
+    <script>
+        $('#Summernote').summernote({
+            tabsize: 2, height: 600, maxHeight: 2000,
+            toolbar: [['style', ['style']], ['font', ['bold', 'underline', 'clear']], ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]]
+        });
+
+        function TransferToHTML() {
+    $('#Summernote').summernote('code', (window.JsEditor.state.doc.toString()));
+        }
+    </script>
+</body>
+
+</html>

@@ -98,6 +98,7 @@ forgoten-visible {
 }
 
 
+
 .cardcontainer {
     width: 1000px;
     position: relative;
@@ -105,14 +106,14 @@ forgoten-visible {
     justify-content: space-between;
 }
 
-    .cardcontainer .card {
+    .cardcontainer .cardbox {
         position: relative;
         background-color: transparent !important;
         border: none !important;
         align-items: center !important;
     }
 
-}
+
 
 .cardcontainer .face {
     width: 300px;
@@ -130,7 +131,7 @@ forgoten-visible {
     transform: translateY(100px);
 }
 
-.cardcontainer .card:hover .face1 {
+.cardcontainer .cardbox:hover .face1 {
     transform: translateY(0);
     background: #ff0057;
 }
@@ -147,7 +148,7 @@ forgoten-visible {
     transform: translateY(-100px);
 }
 
-.cardcontainer .card:hover .face2 {
+.cardcontainer .cardbox:hover .face2 {
     transform: translateY(0);
 }
 
@@ -176,7 +177,7 @@ forgoten-visible {
     transition: 0.5s;
 }
 
-.cardcontainer .card:hover .face1 .content {
+.cardcontainer .cardbox:hover .face1 .content {
     opacity: 1;
 }
 
@@ -187,3 +188,4 @@ forgoten-visible {
     text-align: center;
     font-size: 1.5em;
 }
+

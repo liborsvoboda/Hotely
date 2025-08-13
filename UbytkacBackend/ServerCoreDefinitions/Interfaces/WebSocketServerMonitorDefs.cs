@@ -56,7 +56,7 @@ namespace UbytkacBackend.ServerCoreStructure {
         /// <param name="formatter">A delegate that formats</param>
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string> formatter) {
             try {
-                if (ServerRuntimeData.ServerCoreStatus == ServerStatuses.Running.ToString()) {
+                if (ServerRuntimeData.ServerCoreStatus == ServerStatusTypes.Running.ToString()) {
                     string? json = "";
                     if (IsEnabled(logLevel)) {
                         json = JsonSerializer.Serialize(logLevel.ToString()) + JsonSerializer.Serialize(eventId) + JsonSerializer.Serialize(state) + JsonSerializer.Serialize(exception);

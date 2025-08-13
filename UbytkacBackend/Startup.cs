@@ -66,6 +66,7 @@ namespace UbytkacBackend {
             ServerModules.ConfigureDocumentation(ref services);
             ServerModules.ConfigureLiveDataMonitor(ref services);
             ServerModules.ConfigureDBEntitySchema(ref services);
+            ServerModules.ConfigureReportDesigner(ref services);
             #endregion Server Modules
 
             ServerConfigurationServices.ConfigureSingletons(ref services);
@@ -87,6 +88,8 @@ namespace UbytkacBackend {
             ServerModulesEnabling.EnableSwagger(ref app);
             ServerModulesEnabling.EnableLiveDataMonitor(ref app);
             ServerModulesEnabling.EnableDBEntitySchema(ref app);
+            ServerModulesEnabling.EnableReportDesigner(ref app);
+
 
             if (ServerConfigSettings.ConfigServerStartupOnHttps) {
                 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
@@ -96,64 +99,78 @@ namespace UbytkacBackend {
 
             //Root Server Page To Default Path, Other Is Taken From Static Files
             app.Use(async (context, next) => {
-                await next();
-
-                /*Declaration & Check Module Redirect*/
-                ServerWebPagesToken? serverWebPagesToken = null; string requestedModulePath = null; ServerModuleAndServiceList? serverModule = DbOperations.CheckServerModuleExists(context.Request.Path.Value);
-                try { requestedModulePath = context.Request.Cookies.FirstOrDefault(a => a.Key.ToString() == "RequestedModulePath").Value?.ToString(); } catch { }
+                string requestPath = context.Request.Path.ToString().ToLower();
 
 
-                //Static Folders
-                if (context.Request.Path.ToString().ToLower().StartsWith("/server") || context.Request.Path.ToString().ToLower().StartsWith("/provide")) { return; }
 
-                //404 For Files
-                if (context.Response.StatusCode == StatusCodes.Status404NotFound && context.Request.Path.ToString().Split("/").Last().Contains(".")) { return; }
+                if (!context.WebSockets.IsWebSocketRequest) {// WebSocket Ignored
+                    await next();
+                    bool redirected = false;
+
+                    //Files
+                    if (requestPath.Split("/").Last().Contains("."))
+                    { return; }
+
+                    /*Declaration & Check Module Redirect*/
+                    ServerWebPagesToken? serverWebPagesToken = null; string requestedModulePath = null; 
+                    ServerModuleAndServiceList? serverModule = DbOperations.CheckServerModuleExists(context.Request.Path.Value);
+                    try { requestedModulePath = context.Request.Cookies.FirstOrDefault(a => a.Key.ToString() == "RequestedModulePath").Value?.ToString(); } catch { }
 
 
-                //200 Run Next Existed Backend API Calls Request Without Checked Modules
-                if (context.Response.StatusCode == StatusCodes.Status200OK && (context.Request.Path.Value != "/" || context.Request.Path.Value.ToLower() != BackendServer.ServerRuntimeData.SpecialUserWebRootPath.ToLower() || serverModule == null)) { return; }
+                    //Static Folders
+                    if (requestPath.StartsWith("/server") || requestPath.StartsWith("/provide")) { return; }
 
-                /*Check Authorized and Set from valid Token*/
-                string token = context.Request.Cookies.FirstOrDefault(a => a.Key == "ApiToken").Value;
-                if (token == null && context.Request.Headers.Authorization.ToString().Length > 0) { token = context.Request.Headers.Authorization.ToString().Substring(7); }
-                if (token != null) {
-                    serverWebPagesToken = CoreOperations.CheckTokenValidityFromString(token);
-                    if (serverWebPagesToken.IsValid) { context.User.AddIdentities(serverWebPagesToken.UserClaims.Identities); try { context.Items.Add(new KeyValuePair<object, object>("ServerWebPagesToken", serverWebPagesToken)); } catch { } }
+                    //200 Run Next Existed Backend API Calls Request Without Checked Modules
+                    if (context.Response.StatusCode == StatusCodes.Status200OK 
+                    && (context.Request.Path.Value != "/" || context.Request.Path.Value.ToLower() != BackendServer.ServerRuntimeData.SpecialUserWebRootPath.ToLower() || serverModule == null)) { return; }
+
+                    /*Check Authorized and Set from valid Token*/
+                    string token = context.Request.Cookies.FirstOrDefault(a => a.Key == "ApiToken").Value;
+                    if (token == null && context.Request.Headers.Authorization.ToString().Length > 0) { token = context.Request.Headers.Authorization.ToString().Substring(7); }
+                    if (token != null)
+                    {
+                        serverWebPagesToken = CoreOperations.CheckTokenValidityFromString(token);
+                        if (serverWebPagesToken.IsValid) { context.User.AddIdentities(serverWebPagesToken.UserClaims.Identities); try { context.Items.Add(new KeyValuePair<object, object>("ServerWebPagesToken", serverWebPagesToken)); } catch { } }
+                    }
+
+                    //Goto Portal RooT Page Or Allowed Module 
+                    if (context.Request.Path.Value == "/" || context.Request.Path.Value.ToLower() == BackendServer.ServerRuntimeData.SpecialUserWebRootPath.ToLower()
+                    || (serverModule != null && (!serverModule.RestrictedAccess || (serverModule.RestrictedAccess && serverWebPagesToken != null && serverWebPagesToken.IsValid && serverModule.AllowedRoles.Split(",").ToList().Contains(serverWebPagesToken.UserClaims.FindFirstValue(ClaimTypes.Role)))))
+                    )
+                    {
+                        if (serverModule != null) { try { context.Items.Add(new KeyValuePair<object, object>("ServerModule", serverModule)); } catch { } }
+
+                        context.Response.StatusCode = StatusCodes.Status200OK; context.Request.Path = BackendServer.ServerRuntimeData.SpecialUserWebRootPath;
+                        await next(); //FOR Goto procces over index page
+
+                    } //Module Go For Login
+                    else if (serverModule != null && serverModule.RestrictedAccess)
+                    {
+                        ServerModuleAndServiceList? loginmodule = new hotelsContext().ServerModuleAndServiceLists.FirstOrDefault(a => a.IsLoginModule);
+                        if (serverModule != null) { try { context.Items.Add(new KeyValuePair<object, object>("ServerModule", serverModule)); } catch { } }
+                        try { context.Items.Add(new KeyValuePair<object, object>("ServerModule", serverModule)); } catch { }
+                        try { context.Items.Add(new KeyValuePair<object, object>("LoginModule", loginmodule)); } catch { }
+                        try { context.Response.Cookies.Append("IsLoginRequest", "correct"); } catch { }
+                        try { context.Response.Cookies.Append("RequestedModulePath", serverModule.UrlSubPath); } catch { }
+
+                        context.Response.StatusCode = StatusCodes.Status200OK; context.Request.Path = BackendServer.ServerRuntimeData.SpecialUserWebRootPath;
+                        await next(); //FOR Goto procces over index page
+
+                    } //Go to Allowed Redirect 404 Page
+                    else if (context.Response.StatusCode != 200 && ServerConfigSettings.RedirectOnPageNotFound)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status200OK; context.Request.Path = ServerConfigSettings.RedirectPath;
+                        await next(); //FOR Goto procces over index page
+
+                    } //Go to 404 Page
+                    else if (context.Response.StatusCode != 200 && !ServerConfigSettings.RedirectOnPageNotFound)
+                    {
+                        context.Request.Path = "/ServerControls/NonExistPage";
+                        await next(); //FOR Goto procces over NonExistPage page
+
+                    } //Not Defined
+                    else { return; }
                 }
-
-                //Goto Portal RooT Page Or Allowed Module 
-                if (context.Request.Path.Value == "/" || context.Request.Path.Value.ToLower() == BackendServer.ServerRuntimeData.SpecialUserWebRootPath.ToLower()
-                || (serverModule != null && (!serverModule.RestrictedAccess || (serverModule.RestrictedAccess && serverWebPagesToken != null && serverWebPagesToken.IsValid && serverModule.AllowedRoles.Split(",").ToList().Contains(serverWebPagesToken.UserClaims.FindFirstValue(ClaimTypes.Role)))))
-                ) {
-                    if (serverModule != null) { try { context.Items.Add(new KeyValuePair<object, object>("ServerModule", serverModule)); } catch { } }
-
-                    context.Response.StatusCode = StatusCodes.Status200OK; context.Request.Path = BackendServer.ServerRuntimeData.SpecialUserWebRootPath;
-                    await next(); //FOR Goto procces over index page
-
-                } //Module Go For Login
-                else if (serverModule != null && serverModule.RestrictedAccess) {
-                    ServerModuleAndServiceList? loginmodule = new hotelsContext().ServerModuleAndServiceLists.FirstOrDefault(a => a.IsLoginModule);
-                    if (serverModule != null) { try { context.Items.Add(new KeyValuePair<object, object>("ServerModule", serverModule)); } catch { } }
-                    try { context.Items.Add(new KeyValuePair<object, object>("ServerModule", serverModule)); } catch { }
-                    try { context.Items.Add(new KeyValuePair<object, object>("LoginModule", loginmodule)); } catch { }
-                    try { context.Response.Cookies.Append("IsLoginRequest", "correct"); } catch { }
-                    try { context.Response.Cookies.Append("RequestedModulePath", serverModule.UrlSubPath); } catch { }
-
-                    context.Response.StatusCode = StatusCodes.Status200OK; context.Request.Path = BackendServer.ServerRuntimeData.SpecialUserWebRootPath;
-                    await next(); //FOR Goto procces over index page
-
-                } //Go to Allowed Redirect 404 Page
-                else if (context.Response.StatusCode != 200 && ServerConfigSettings.RedirectOnPageNotFound) {
-                    context.Response.StatusCode = StatusCodes.Status200OK; context.Request.Path = ServerConfigSettings.RedirectPath;
-                    await next(); //FOR Goto procces over index page
-
-                } //Go to 404 Page
-                else if (context.Response.StatusCode != 200 && !ServerConfigSettings.RedirectOnPageNotFound) {
-                    context.Request.Path = "/ServerControls/NonExistPage";
-                    await next(); //FOR Goto procces over NonExistPage page
-
-                } //Not Defined
-                else { return; }
             });
 
 
@@ -210,10 +227,8 @@ namespace UbytkacBackend {
         /// <summary>
         /// Server Core Enabling Disabling Hosted Services
         /// </summary>
-        private void ServerOnStarted() => ServerRuntimeData.ServerCoreStatus = ServerStatuses.Running.ToString();
-
-        private void ServerOnStopping() => ServerRuntimeData.ServerCoreStatus = ServerStatuses.Stopping.ToString();
-
-        private void ServerOnStopped() => ServerRuntimeData.ServerCoreStatus = ServerStatuses.Stopped.ToString();
+        private void ServerOnStarted() => ServerRuntimeData.ServerCoreStatus = ServerStatusTypes.Running.ToString();
+        private void ServerOnStopping() => ServerRuntimeData.ServerCoreStatus = ServerStatusTypes.Stopping.ToString();
+        private void ServerOnStopped() => ServerRuntimeData.ServerCoreStatus = ServerStatusTypes.Stopped.ToString();
     }
 }

@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertSolutionMottoList([FromBody] SolutionMottoList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     record.User = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
                     var data = new hotelsContext().SolutionMottoLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
@@ -63,7 +63,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateSolutionMottoList([FromBody] SolutionMottoList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     var data = new hotelsContext().SolutionMottoLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -78,7 +78,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteSolutionMottoList(string id) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     SolutionMottoList record = new() { Id = int.Parse(id) };

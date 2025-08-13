@@ -12,4 +12,5 @@ cd "${SCRIPTPATH}"
 chmod u+r+x "${SCRIPTPATH}"/mdbook
 
 "${SCRIPTPATH}"/mdbook clean
+"${SCRIPTPATH}"/mdbook init --theme "rust" --force --ignore=none
 "${SCRIPTPATH}"/mdbook build

@@ -10,7 +10,7 @@
         [Consumes("application/json")]
         public IActionResult SetGuestSettingList([FromBody] WebSettingList1 record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     string authId = User.FindFirst(ClaimTypes.PrimarySid.ToString()).Value;
                     List<WebSettingList> webSettingList;
                     webSettingList = new hotelsContext().WebSettingLists.ToList();

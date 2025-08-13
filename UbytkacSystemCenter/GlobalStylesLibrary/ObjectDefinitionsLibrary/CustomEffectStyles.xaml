@@ -1,0 +1,53 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:common="clr-namespace:EasyITSystemCenter.SystemStructure"
+    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz">
+    <!--  Custom effect Definitions Library  -->
+
+    <!--  Object Shadow Definition  -->
+    <DropShadowEffect
+        x:Key="DropShadowEffect"
+        BlurRadius="25"
+        Direction="315"
+        Opacity="0.6"
+        ShadowDepth="5" />
+
+
+    <!--
+        EFFECT: BLINK
+        USING Example: textBox.BeginStoryboard(FindResource("FlashMe") as Storyboard);
+    -->
+    <Storyboard x:Key="FlashObject" RepeatBehavior="Forever">
+        <DoubleAnimation
+            AutoReverse="True"
+            RepeatBehavior="Forever"
+            Storyboard.TargetProperty="Opacity"
+            From="3.0"
+            To="0.0"
+            Duration="0:0:1.8" />
+    </Storyboard>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ResourceDictionary>

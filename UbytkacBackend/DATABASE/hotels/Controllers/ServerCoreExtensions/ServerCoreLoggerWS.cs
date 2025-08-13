@@ -10,7 +10,6 @@ namespace UbytkacBackend.ServerCoreDBSettings {
     [AllowAnonymous]
     [ApiController]
     [Route("/WS")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerCoreLoggerWS : ControllerBase {
         private static ILogger<ServerCoreLoggerWS> _logger;
 

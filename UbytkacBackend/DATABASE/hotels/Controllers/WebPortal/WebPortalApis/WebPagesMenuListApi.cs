@@ -9,7 +9,7 @@
         [Authorize]
         [HttpGet("/WebApi/WebPages/GetAdminWebMenuList")]
         public async Task<string> GetAdminWebMenuList() {
-            if (CommunicationController.IsAdmin()) {
+            if (ServerApiServiceExtension.IsAdmin()) {
                 bool IpIsBlocked = false;
                 // check If blocked and write Visit On menu load
                 try {

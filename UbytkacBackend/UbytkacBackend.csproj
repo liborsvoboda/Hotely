@@ -70,6 +70,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\NováSložka\**" />
+    <Content Remove="wwwroot\NováSložka\**" />
+    <EmbeddedResource Remove="wwwroot\NováSložka\**" />
+    <None Remove="wwwroot\NováSložka\**" />
+    <TypeScriptCompile Remove="wwwroot\NováSložka\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Data\favicon.ico" />
     <Content Include="ServerCoreDefinitions\Styles\HealthChecksUI.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -77,12 +85,21 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Content Remove="C:\Users\tatka\.nuget\packages\ht.minify\6.0.11\contentFiles\any\net6.0\net.ico" />
+    <None Remove="ServerCoreDefinitions\Styles\HealthChecksUI.css" />
   </ItemGroup>
   
   <ItemGroup>
-    <None Remove="C:\Users\tatka\.nuget\packages\microsoft.applicationinsights.profiler.aspnetcore\2.6.0\contentFiles\any\netstandard2.1\ServiceProfiler\TraceUpload.zip" />
-    <None Remove="ServerCoreDefinitions\Styles\HealthChecksUI.css" />
+    <None Include="wwwroot\server-doc\md-book\js\globalscript.js" />
+    <None Include="wwwroot\server-doc\md-book\js\jquery-3.6.0.min.js" />
+    <None Include="wwwroot\server-doc\md-book\js\mermaid.min.cdn.js" />
+    <None Include="wwwroot\server-doc\md-book\js\metro.4.5.2.min.js" />
+    <None Include="wwwroot\server-doc\md-browser\Example\index.md" />
+    <None Include="wwwroot\server-doc\md-browser\Example\mdvh.js" />
+    <None Include="wwwroot\server-doc\md-browser\Example\Readme.md" />
+    <None Include="wwwroot\server-doc\md-browser\mdvh.js" />
+    <None Include="wwwroot\server-doc\md-browser\Readme.md" />
+    <None Include="wwwroot\server-doc\_installOnGithub\book.toml" />
+    <None Include="wwwroot\server-doc\_installOnGithub\Readme.md" />
   </ItemGroup>
   
   <ItemGroup>
@@ -123,6 +140,10 @@
     <PackageReference Include="EasyData.Exporters.Default" Version="1.5.2" />
     <PackageReference Include="EasyData.Exporters.PdfSharp" Version="1.5.2" />
     <PackageReference Include="ErikEJ.EntityFrameworkCore.DgmlBuilder" Version="6.0.0" />
+    <PackageReference Include="FastReport.Data.MsSql" Version="2024.2.8" />
+    <PackageReference Include="FastReport.OpenSource" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2024.2.1" />
+    <PackageReference Include="FastReport.OpenSource.Web" Version="2024.2.1" />
     <PackageReference Include="FileContextCore" Version="3.4.0" />
     <PackageReference Include="FubarDev.FtpServer" Version="3.1.2" />
     <PackageReference Include="FubarDev.FtpServer.Commands" Version="3.1.2" />
@@ -131,7 +152,6 @@
     <PackageReference Include="LettuceEncrypt" Version="1.3.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.EventCounterCollector" Version="2.22.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.Profiler.AspNetCore" Version="2.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.27" />
@@ -145,7 +165,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.27" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.27" />
     <PackageReference Include="Microsoft.DependencyValidation.Analyzers" Version="0.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.27" />
@@ -180,10 +199,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.16" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="6.0.16" />
     <PackageReference Include="MimeTypes" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -230,10 +245,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\NováSložka\" />
   </ItemGroup>
 
 

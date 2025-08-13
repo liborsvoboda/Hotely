@@ -32,6 +32,7 @@
 
     ```markdown  
 [Discussion](./Discussion.md)   
+[CreditPackages](./CreditPackages.md)   
     ```  
 
 ---

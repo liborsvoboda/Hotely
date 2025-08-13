@@ -63,7 +63,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateSystemTranslationList([FromBody] SystemTranslationList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     var data = new hotelsContext().SystemTranslationLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
 
@@ -82,7 +82,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteSystemTranslationList(string id) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     SystemTranslationList record = new() { Id = int.Parse(id) };

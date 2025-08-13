@@ -38,6 +38,8 @@ const store = createStore({
         apiRootUrl: 'http://localhost:5000/WebApi',
         language: 'cz',
         hotel: [],
+
+        creditPackages: [],
         unreadPrivateMessageCount: null,
         discussionForumList: [],
         privateMessageList: [],
@@ -131,6 +133,10 @@ const store = createStore({
         setNewsletterList(store, value) {
             store.newsletterList = value;
             console.log("setNewsletterList  ", store.newsletterList);
+        },
+        setCreditPackages(store, value) {
+            store.creditPackages = value;
+            console.log("setcreditPackages  ", store.creditPackages);
         },
         setUnreadPrivateMessageCount(store, value) {
             store.unreadPrivateMessageCount = value;
@@ -466,6 +472,16 @@ const store = createStore({
             let result = await response.json();
             commit('setUnreadPrivateMessageCount', result);
         },
+        async getCreditPackages({ commit }) {
+            let response = await fetch(
+                this.state.apiRootUrl + '/Credits/GetCreditPackages', {
+                method: 'GET',
+                headers: {'Content-type': 'application/json', }
+            });
+            let result = await response.json();
+            commit('setCreditPackages', result);
+        },
+        
         async getPrivateMessageList({ commit }) {
             let mainloader; if (!this.state.searchDialList.length) { mainloader = true; window.showPageLoading(); } else { mainloader = false; window.showPartPageLoading(); }
             let response = await fetch(

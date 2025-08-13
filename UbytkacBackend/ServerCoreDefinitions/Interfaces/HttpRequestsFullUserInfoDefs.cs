@@ -4,7 +4,7 @@
     /// Server Communication Extensions for Controlling Data Implmented FullUserTokenData For More
     /// Info Modify Auth Claims And Add Get Info Here
     /// </summary>
-    public class CommunicationController : IHttpContextAccessor {
+    public class ServerApiServiceExtension : IHttpContextAccessor {
         private static IHttpContextAccessor? _accessor = new HttpContextAccessor();
 
         HttpContext? IHttpContextAccessor.HttpContext { get => _accessor?.HttpContext; set => _accessor.HttpContext = value; }

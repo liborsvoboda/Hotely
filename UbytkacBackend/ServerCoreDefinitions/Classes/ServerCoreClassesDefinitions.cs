@@ -4,7 +4,7 @@
     /// <summary>
     /// Server and Hosted Services Runtime Statusses
     /// </summary>
-    public enum ServerStatuses {
+    public enum ServerStatusTypes {
         Running,
         Stopping,
         Stopped,

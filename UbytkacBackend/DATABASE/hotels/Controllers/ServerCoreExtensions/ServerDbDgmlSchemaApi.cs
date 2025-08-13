@@ -8,7 +8,6 @@ namespace UbytkacBackend.ServerCoreDBSettings {
     /// <seealso cref="Controller"/>
     [Authorize]
     [Route("ServerDbDgmlSchema")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerDbDgmlSchemaApi : Controller {
         private hotelsContext Context { get; }
 

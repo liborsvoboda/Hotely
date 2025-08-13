@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertSolutionUserList([FromBody] SolutionUserList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     record.Role = null;  //EntityState.Detached IDENTITY_INSERT is set to OFF
                     var data = new hotelsContext().SolutionUserLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
@@ -62,7 +62,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateSolutionUserList([FromBody] SolutionUserList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     var data = new hotelsContext().SolutionUserLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -76,7 +76,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteSolutionUserList(string id) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     SolutionUserList record = new() { Id = int.Parse(id) };

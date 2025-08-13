@@ -45,7 +45,7 @@
         [Consumes("application/json")]
         public async Task<string> InsertSystemReportQueueList([FromBody] SystemReportQueueList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     var data = new hotelsContext().SystemReportQueueLists.Add(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -61,7 +61,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateSystemReportQueueListWriteFilter([FromBody] SetReportFilter record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     List<SystemReportQueueList> dbData;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) { dbData = new hotelsContext().SystemReportQueueLists.Where(a => a.TableName == record.TableName).ToList(); }
                     dbData.ForEach(rec => { rec.Filter = record.Filter; rec.Search = record.Search; rec.RecId = record.RecId; });
@@ -80,7 +80,7 @@
         [Consumes("application/json")]
         public async Task<string> UpdateSystemReportQueueList([FromBody] SystemReportQueueList record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     var data = new hotelsContext().SystemReportQueueLists.Update(record);
                     int result = await data.Context.SaveChangesAsync();
                     if (result > 0) return JsonSerializer.Serialize(new DBResultMessage() { InsertedId = record.Id, Status = DBResult.success.ToString(), RecordCount = result, ErrorMessage = string.Empty });
@@ -94,7 +94,7 @@
         [Consumes("application/json")]
         public async Task<string> DeleteSystemReportQueueList(string id) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     if (!int.TryParse(id, out int Ids)) return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = "Id is not set" });
 
                     SystemReportQueueList record = new() { Id = int.Parse(id) };

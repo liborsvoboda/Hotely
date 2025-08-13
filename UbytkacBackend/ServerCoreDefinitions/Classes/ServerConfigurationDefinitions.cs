@@ -350,8 +350,21 @@
         /// </summary>
         public static bool ModuleDBEntitySchemaEnabled { get; set; } = true;
 
+        /// <summary>
+        /// Set Sharp Secret API key, for  Payment GateWay
+        /// </summary>
+        public static string StripeTestSecretApiKey { get; set; } = "";
+
+        /// <summary>
+        /// Set Running Stripe in Sharp Mode , For Change Reset Server
+        /// </summary>
+        public static string StripeSharpSecretApiKey { get; set; } = "";
 
 
+        /// <summary>
+        /// Set Running Stripe in Sharp Mode , For Change Reset Server
+        /// </summary>
+        public static bool StripeRunInSharpMode { get; set; } = true;
         #endregion Server Modules
 
         #region Server Web Portal

@@ -11,7 +11,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                if (CommunicationController.IsAdmin()) { data = new hotelsContext().BasicImageGalleryLists.ToList(); }
+                if (ServerApiServiceExtension.IsAdmin()) { data = new hotelsContext().BasicImageGalleryLists.ToList(); }
                 else {
                     data = new hotelsContext().BasicImageGalleryLists.Include(a => a.User)
                         .Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer).ToList();
@@ -27,7 +27,7 @@
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted //with NO LOCK
             })) {
-                if (CommunicationController.IsAdmin()) { data = new hotelsContext().BasicImageGalleryLists.FromSqlRaw("SELECT * FROM BasicImageGalleryList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
+                if (ServerApiServiceExtension.IsAdmin()) { data = new hotelsContext().BasicImageGalleryLists.FromSqlRaw("SELECT * FROM BasicImageGalleryList WHERE 1=1 AND " + filter.Replace("+", " ")).AsNoTracking().ToList(); }
                 else {
                     data = new hotelsContext().BasicImageGalleryLists.FromSqlRaw("SELECT * FROM BasicImageGalleryList WHERE 1=1 AND " + filter.Replace("+", " "))
                         .Include(a => a.User).Where(a => a.User.UserName == Request.HttpContext.User.Claims.First().Issuer)

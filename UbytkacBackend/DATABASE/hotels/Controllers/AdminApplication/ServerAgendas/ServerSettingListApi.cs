@@ -32,7 +32,7 @@
         [Consumes("application/json")]
         public async Task<string> SetServerSettingListUpdate([FromBody] List<ServerSettingList> record) {
             try {
-                if (CommunicationController.IsAdmin()) {
+                if (ServerApiServiceExtension.IsAdmin()) {
                     int count = 0;
                     foreach (ServerSettingList item in record) {
                         var data = new hotelsContext().ServerSettingLists.Update(item);

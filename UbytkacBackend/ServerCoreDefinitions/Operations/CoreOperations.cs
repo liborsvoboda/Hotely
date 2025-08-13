@@ -47,7 +47,7 @@ namespace UbytkacBackend.ServerCoreStructure {
                 }
                 else {
                     if (ServerConfigSettings.ConfigLogWarnPlusToDbEnabled && mailRequest.Content != null &&
-                        !ServerRuntimeData.ServerRestartRequest && ServerRuntimeData.ServerCoreStatus == ServerStatuses.Running.ToString()) {
+                        !ServerRuntimeData.ServerRestartRequest && ServerRuntimeData.ServerCoreStatus == ServerStatusTypes.Running.ToString()) {
                         SolutionFailList SolutionFailList = new SolutionFailList() { UserId = null, Source = "Server", Message = mailRequest.Content, LogLevel = null, UserName = null };
                         new hotelsContext().SolutionFailLists.Add(SolutionFailList).Context.SaveChanges();
                         Console.WriteLine(mailRequest.Content); Debug.WriteLine(mailRequest.Content);

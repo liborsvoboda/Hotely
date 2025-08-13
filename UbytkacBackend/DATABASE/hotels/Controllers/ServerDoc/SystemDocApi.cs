@@ -5,7 +5,6 @@ namespace UbytkacBackend.Controllers {
 
     [ApiController]
     [Route("/WebApi/WebDocumentation")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class SystemDocApi : ControllerBase {
 
 
@@ -18,7 +17,7 @@ namespace UbytkacBackend.Controllers {
         public IActionResult GetMdLibraryPreview(int id) {
             string data;
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
-                IsolationLevel = IsolationLevel.ReadUncommitted })) { data = new hotelsContext().DocumentationCodeLibraryLists.Where(a => a.Id == id).First().MdContent;
+                IsolationLevel = IsolationLevel.ReadUncommitted })) { data = new hotelsContext().DocSrvDocumentationCodeLibraryLists.Where(a => a.Id == id).First().MdContent;
             }
             FileOperations.ClearFolder(Path.Combine(ServerRuntimeData.Startup_path, "wwwroot", "server-doc", "md-preview", "data"));
             System.IO.File.WriteAllText(Path.Combine(ServerRuntimeData.Startup_path, "wwwroot", "server-doc", "md-preview", "data", "preview.md"), data);
@@ -50,7 +49,7 @@ namespace UbytkacBackend.Controllers {
             using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions {
                 IsolationLevel = IsolationLevel.ReadUncommitted
             })) {
-                data = new hotelsContext().DocumentationLists.Where(a => a.Id == id).First().MdContent;
+                data = new hotelsContext().DocSrvDocumentationLists.Where(a => a.Id == id).First().MdContent;
             }
             FileOperations.ClearFolder(Path.Combine(ServerRuntimeData.Startup_path, "wwwroot", "server-doc", "md-preview", "data"));
             System.IO.File.WriteAllText(Path.Combine(ServerRuntimeData.Startup_path, "wwwroot", "server-doc", "md-preview", "data", "preview.md"), data);

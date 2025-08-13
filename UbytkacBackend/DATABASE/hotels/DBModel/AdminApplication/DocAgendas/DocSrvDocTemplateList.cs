@@ -26,7 +26,7 @@ namespace UbytkacBackend.DBModel
 
         [ForeignKey("GroupId")]
         [InverseProperty("DocSrvDocTemplateLists")]
-        public virtual DocumentationGroupList Group { get; set; } = null!;
+        public virtual DocSrvDocumentationGroupList Group { get; set; } = null!;
         [ForeignKey("UserId")]
         [InverseProperty("DocSrvDocTemplateLists")]
         public virtual SolutionUserList User { get; set; } = null!;

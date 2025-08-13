@@ -9,238 +9,89 @@
             </div>
         </div>
         <hr>
-        <form class="form1" @submit.prevent="checkPasswords" autocomplete="off">
-            <div class="card-body">
+        <div class="card-body">
 
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-5 pr-5 pt-5 mb-0">
-                    <ul data-role="tabs" data-expand="true" data-on-tab="setBackgroundProfileMenu()">
-                        <!-- <ul data-app-bar="true" data-role="materialtabs" data-fixed-tabs="true" data-deep="true"> -->
-                        <li id="creditPackagesMenu" class="fg-black text-bold bg-brandColor1"><a href="#_creditPackagesMenu">{{ $t('labels.creditPackages') }}</a></li>
-                        <li id="yourCredits" class="fg-black text-bold"><a href="#_yourCredits">{{ $t('labels.yourCredits') }}</a></li>
-                        <li id="creditsSettings" class="fg-black text-bold"><a href="#_creditsSettings">{{ $t('labels.creditsSettings') }}</a></li>
-                        <li id="creditHistory" class="fg-black text-bold"><a href="#_creditHistory">{{ $t('labels.creditHistory') }}</a></li>
-                    </ul>
-                </div>
-
-                <div id="_creditPackagesMenu">
-                    <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-
-                        <div class="cardcontainer">
-                            <div class="card">
-                                <div class="face face1">
-                                    <div class="content">
-                                        <img src="/src/assets/img/sketch.svg" alt="">
-                                        <h3>Design</h3>
-                                    </div>
-                                </div>
-                                <div class="face face2">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad atque eius in incidunt itaque laborum maxime minus nam, natus nostrum obcaecati porro quae qui reiciendis repellat ullam ut vitae.
-                                    </p>
-                                    <a href="#">Read more...</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="face face1">
-                                    <div class="content">
-                                        <img src="data.svg" alt="">
-                                        <h3>Code</h3>
-                                    </div>
-                                </div>
-                                <div class="face face2">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad atque eius in incidunt itaque laborum maxime minus nam, natus nostrum obcaecati porro quae qui reiciendis repellat ullam ut vitae.
-                                    </p>
-                                    <a href="#">Read more...</a>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="face face1">
-                                    <div class="content">
-                                        <img src="startup.svg" alt="">
-                                        <h3>Launch</h3>
-                                    </div>
-                                </div>
-                                <div class="face face2">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad atque eius in incidunt itaque laborum maxime minus nam, natus nostrum obcaecati porro quae qui reiciendis repellat ullam ut vitae.
-                                    </p>
-                                    <a href="#">Read more...</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mt-3 mb-2 text-primary">{{ $t('user.personalDetails') }}</h6>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group p-3 pb-0">
-                                <label for="form-group FirstName">{{ $t('labels.firstname') }}</label>
-                                <input type="text" class="form-control" id="FirstName" :placeholder="user.FirstName" v-model="guest.FirstName" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group p-3 pb-0">
-                                <label for="LastName">{{ $t('labels.lastname') }}</label>
-                                <input type="text" class="form-control" id="LastName" :placeholder="user.LastName" v-model="guest.LastName" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group p-3 pb-0">
-                                <label for="Email">{{ $t('labels.email') }}</label>
-                                <input type="email" class="form-control" id="Email" :placeholder="user.Email" v-model="guest.Email" autocomplete="off" readonly />
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group p-3 pb-0">
-                                <label for="Phone">{{ $t('labels.phone') }}</label>
-                                <input type="text" class="form-control" id="Phone" :placeholder="user.Phone" v-model="guest.Phone" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-5 pr-5 pt-5 mb-0">
+                <ul data-role="tabs" data-expand="true" data-on-tab="setBackgroundProfileMenu()">
+                    <!-- <ul data-app-bar="true" data-role="materialtabs" data-fixed-tabs="true" data-deep="true"> -->
+                    <li id="creditPackagesMenu" class="fg-black text-bold bg-brandColor1"><a href="#_creditPackagesMenu">{{ $t('labels.creditPackages') }}</a></li>
+                    <li id="yourCredits" class="fg-black text-bold"><a href="#_yourCredits">{{ $t('labels.yourCredits') }}</a></li>
+                    <li id="creditsSettings" class="fg-black text-bold"><a href="#_creditsSettings">{{ $t('labels.creditsSettings') }}</a></li>
+                    <li id="creditHistory" class="fg-black text-bold"><a href="#_creditHistory">{{ $t('labels.creditHistory') }}</a></li>
+                </ul>
             </div>
 
-
-            <div id="_address">
+            <div id="_creditPackagesMenu">
                 <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.address') }}</h6>
+                        <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.creditPackages') }}</h6>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="Street">{{ $t('labels.street') }}</label>
-                            <input type="text" class="form-control" id="Street" :placeholder="user.Street" v-model="guest.Street" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="City">{{ $t('labels.city') }}</label>
-                            <input type="text" class="form-control" id="City" :placeholder="user.City" v-model="guest.City" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="ZipCode">{{ $t('labels.zipCode') }}</label>
-                            <input type="text" class="form-control" id="ZipCode" :placeholder="user.ZipCode" v-model="guest.ZipCode" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="form-group p-3 pb-0">
-                            <label for="Country">{{ $t('labels.country') }}</label>
-                            <input type="text" class="form-control" id="Country" :placeholder="user.Country" v-model="guest.Country" autocomplete="off" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <div class="cardcontainer">
 
-            <div id="_actualOrNewPassword">
-                <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h6 class="mt-3 mb-2 text-primary">{{ $t('user.newPassword') }}</h6>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <label for="password">{{ $t('labels.password') }}</label>
-                        <div class="input-group flex-nowrap form-group p-3 pb-0">
-                            <input type="password" id="password" required :minLength="$store.state.system.passwordMin" class="form-control" v-model="guest.Password" autocomplete="new-password">
+                        <!--  TODO foreach -->
+                        <div class="cardbox p-5" v-for="credit in CreditPackages">
+                            <div class="face face1">
+                                <div class="content">
+                                    <img src="/src/assets/img/sketch.svg" style="height: 100px;width: auto;" alt="">
+                                    <h3>{{ credit.name }}</h3>
+                                </div>
+                            </div>
+                            <div class="face face2">
+                                <p>
+                                    {{ credit.description }}
+                                </p>
+                                <a class="c-pointer" href="#" @click="payProcessStart(credit.systemName,credit.creditPrice)">{{window.dictionary('labels.buyCredit') }}</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <label for="password">{{ $t('user.repeatPassword') }}</label>
-                        <div class="input-group flex-nowrap form-group p-3 pb-0">
-                            <input type="password" id="RePassword" required :minLength="$store.state.system.passwordMin" class="form-control" v-model="guest.confirmPassword" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
 
-        <div id="_advertising">
-            <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.advertising') }}</h6>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="userId" class="" v-model="guest.UserId" type="checkbox" value="" :disabled="user.UserId != ''" onclick="AdvertiserSetingChangedEvent" />
-                        <span style="padding-left:0px;">{{ $t('labels.advertiseAsHost') }}</span>
-                    </div>
-                </div>
-
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="showInactiveAdvertisementAsDefault" class="" v-model="userSettings.showInactiveAdvertisementAsDefault" type="checkbox" value="" :disabled="user.UserId == ''" />
-                        <span style="padding-left:0px;">{{ $t('labels.showInactiveAdvertisementAsDefault') }}</span>
+                    <div class="d-flex row gutters m-5 border">
+                        <form id="payment-form">
+                            <div id="card-element">
+                                <!--Stripe.js injects the Card Element-->
+                            </div>
+                            <button id="submit" class="btn btn-primary stripe-btn">
+                                <div class="spinner hidden" id="spinner"></div>
+                                <span id="button-text">Pay now</span>
+                            </button>
+                            <p id="card-error" role="alert"></p>
+                            <p class="result-message hidden">
+                                Payment succeeded, finishing booking.
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="_settings">
+
+        <div id="_yourCredits">
             <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mt-3 mb-2 text-primary">{{ $t('user.settings') }}</h6>
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.yourCredits') }}</h6>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group p-3 pb-0">
-                        <label for="Street">{{ $t('labels.notifyShowTime') }}</label>
-                        <input id="notifyShowTime" type="text" v-model="userSettings.notifyShowTime" data-role="spinner" data-min-value="1" data-max-value="30">
-                    </div>
+        <div id="_creditsSettings">
+            <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.creditsSettings') }}</h6>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group p-3 pb-0">
-                        <label>{{ $t('labels.autoTranslationLanguage') }}</label>
-                        <span id="languageSelector"></span>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-5">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="hideSearchingInPrivateZone" class="" v-model="userSettings.hideSearchingInPrivateZone" type="checkbox" value="" />
-                        <span style="padding-left:0px;">{{ $t('labels.hideSearchingInPrivateZone') }}</span>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group p-3 pb-0">
-                        <label for="Street">{{ $t('labels.setCustomTopFiveCount') }}</label>
-                        <input id="topFiveCount" type="text" v-model="userSettings.topFiveCount" data-role="spinner" data-min-value="5" data-step="10" data-max-value="250">
-                    </div>
-                </div>
+            </div>
+        </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="sendNewsletterToEmail" class="" v-model="userSettings.sendNewsletterToEmail" type="checkbox" value="" />
-                        <span style="padding-left:0px;">{{ $t('labels.sendNewsletterToEmail') }}</span>
-                    </div>
+        <div id="_creditHistory">
+            <div class="d-flex row gutters ml-5 mr-5 mb-5 border">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 text-primary">{{ $t('labels.creditHistory') }}</h6>
                 </div>
-
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="sendNewMessagesToEmail" class="" v-model="userSettings.sendNewMessagesToEmail" type="checkbox" value="" />
-                        <span style="padding-left:0px;">{{ $t('labels.sendNewMessagesToEmail') }}</span>
-                    </div>
-                </div>
-
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="showArchivedMessages" class="" v-model="userSettings.showArchivedMessages" type="checkbox" value="" />
-                        <span style="padding-left:0px;">{{ $t('labels.showArchivedMessages') }}</span>
-                    </div>
-                </div>
-
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pt-1">
-                    <div class="input-group flex-nowrap form-group p-3 pb-0" style="margin-left:-20px;">
-                        <input id="sendNewDiscussionToEmail" class="" v-model="userSettings.sendNewDiscussionToEmail" type="checkbox" value="" />
-                        <span style="padding-left:0px;">{{ $t('labels.sendNewDiscussionToEmail') }}</span>
-                    </div>
-                </div>
-
             </div>
         </div>
 
 
+<!-- 
         <div class="row gutters pr-5">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             </div>
@@ -258,154 +109,46 @@
                 </div>
             </div>
         </div>
+ -->
 
     </div>
 </template>
 
 <script>
 
+var purchase = {
+    items: [{ id: "xl-tshirt" }],
+    };
+    var stripe = Stripe(
+    "pk_test_51PKf8802zAptyzT6njFfMNWSvnh2SCTunbeC50JRZJtDFVI19pijzkx0t3watJ7PgL1n5dYEJA0MHlJce09iPTkz00pTdbBeGX"
+    );
+    var elements = stripe.elements();
+    var card = undefined;
+    // Set up Stripe.js and Elements to use in checkout form
+    var style = {
+        base: {
+            color: "#32325d",
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: "antialiased",
+            fontSize: "16px",
+            "::placeholder": {
+                color: "#32325d",
+            },
+        },
+        invalid: {
+            color: "#fa755a",
+            iconColor: "#fa755a",
+        },
+    };
+
+    import Card from "primevue/card";
 
 export default {
-    components: {},
+    components: { Card },
     data() {
         return {
             AdvertiserSetingChanged: false,
-
-            guest: {
-                FirstName: "",
-                LastName: "",
-                Street: "",
-                ZipCode: "",
-                City: "",
-                Country: "",
-                Phone: "",
-                Email: "",
-                Password: "",
-                confirmPassword: "",
-                id: '',
-                UserId: false
-            },
-            userSettings: {
-                notifyShowTime: null,
-                showInactiveAdvertisementAsDefault: null,
-                translationLanguage: null,
-                hideSearchingInPrivateZone: null,
-                topFiveCount: null,
-                sendNewsletterToEmail: null,
-                sendNewMessagesToEmail: null,
-                sendNewDiscussionToEmail: null,
-                showArchivedMessages: null,
-            },
-
         };
-    },
-    async mounted() {
-        this.userSettings.topFiveCount = this.$store.state.userSettings.topFiveCount;
-        this.userSettings.notifyShowTime = this.$store.state.userSettings.notifyShowTime / 1000;
-        this.userSettings.showInactiveAdvertisementAsDefault = this.$store.state.userSettings.showInactiveAdvertisementAsDefault;
-        this.userSettings.translationLanguage = this.$store.state.userSettings.translationLanguage;
-        this.userSettings.hideSearchingInPrivateZone = this.$store.state.userSettings.hideSearchingInPrivateZone;
-        this.userSettings.sendNewsletterToEmail = this.$store.state.userSettings.sendNewsletterToEmail;
-        this.userSettings.sendNewMessagesToEmail = this.$store.state.userSettings.sendNewMessagesToEmail;
-        this.userSettings.sendNewDiscussionToEmail = this.$store.state.userSettings.sendNewDiscussionToEmail;
-        this.userSettings.showArchivedMessages = this.$store.state.userSettings.showArchivedMessages;
-
-        
-        //get google languagelist
-        try { 
-            if (document.querySelector("#\\:0\\.targetLanguage > select") != null) {
-                let googleLanguagelist = [].slice.call(document.querySelector("#\\:0\\.targetLanguage > select").options);
-                let html = "<select data-role='select' id='languageList' data-filter-placeholder='" + window.dictionary('labels.selectLanguage') + "' data-empty-value='' data-validate='required' data-clear-button='true' >";
-                let jumpFirst = true;
-                googleLanguagelist.forEach(lang => { if (!jumpFirst) { html += "<option value='" + lang.value + "'>" + lang.text + "</option>"; }; jumpFirst = false; });
-                html += "</select>";
-                $("#languageSelector").html(html);
-                $("#languageList").val(this.userSettings.translationLanguage);
-            }
-        } catch { }
-
-    },
-    methods: {
-        AdvertiserSetingChangedEvent() {
-            this.AdvertiserSetingChanged = true;
-        },
-        checkPasswords() {
-
-            if (this.guest.Password.length > 0 && this.guest.Password.length < this.$store.state.system.passwordMin) {
-                ShowNotify('error', (window.dictionary("messages.passwordNotHaveMinimalLength") + this.$store.state.system.passwordMin));
-            } else if (this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password != this.guest.confirmPassword) {
-                ShowNotify('error', window.dictionary("messages.passwordsEmptyOrNotMatch"));
-            } else if (this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == false) {
-                this.updateGuest();
-            } else if (this.AdvertiserSetingChanged && this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
-                ShowNotify('error', window.dictionary("messages.forAdvertiserActivationYouMustInserttPassword"));
-            } else if (this.AdvertiserSetingChanged && this.guest.Password.length >= this.$store.state.system.passwordMin && this.guest.Password === this.guest.confirmPassword && this.guest.UserId == true) {
-                this.updateGuest();
-            } else if (!this.AdvertiserSetingChanged && this.guest.Password == "" && this.guest.Password === this.guest.confirmPassword && isNaN(this.guest.UserId) == false) {
-                this.updateGuest();
-            }
-        },
-        async updateGuest() {
-            let guestSettings = [];
-            guestSettings.push({ Key: 'topFiveCount', Value: $("#topFiveCount").val() });
-            guestSettings.push({ Key: 'notifyShowTime', Value: $("#notifyShowTime").val() * 1000 });
-            guestSettings.push({ Key: 'showInactiveAdvertisementAsDefault', Value: this.userSettings.showInactiveAdvertisementAsDefault });
-            guestSettings.push({ Key: 'translationLanguage', Value: ($("#languageList")[0].selectedOptions[0] != undefined ? $("#languageList")[0].selectedOptions[0].value : "") });
-            guestSettings.push({ Key: 'hideSearchingInPrivateZone', Value: this.userSettings.hideSearchingInPrivateZone });
-            guestSettings.push({ Key: 'sendNewsletterToEmail', Value: this.userSettings.sendNewsletterToEmail });
-            guestSettings.push({ Key: 'sendNewMessagesToEmail', Value: this.userSettings.sendNewMessagesToEmail });
-            guestSettings.push({ Key: 'sendNewDiscussionToEmail', Value: this.userSettings.sendNewDiscussionToEmail });
-            guestSettings.push({ Key: 'showArchivedMessages', Value: this.userSettings.showArchivedMessages });
-
-            
-            await this.$store.dispatch('updateGuestSetting', guestSettings);
-
-            let user = {
-                Id: this.user.Id,
-                FirstName: this.guest.FirstName ? this.guest.FirstName : this.user.FirstName,
-                LastName: this.guest.LastName ? this.guest.LastName : this.user.LastName,
-                Street: this.guest.Street ? this.guest.Street : this.user.Street,
-                ZipCode: this.guest.ZipCode ? this.guest.ZipCode : this.user.ZipCode,
-                City: this.guest.City ? this.guest.City : this.user.City,
-                Country: this.guest.Country ? this.guest.Country : this.user.Country,
-                Phone: this.guest.Phone ? this.guest.Phone : this.user.Phone,
-                Email: this.guest.Email ? this.guest.Email : this.user.Email,
-                Password: this.guest.Password.length > 0 ? this.guest.Password : this.user.Password,
-                UserId: this.guest.UserId && !this.user.UserId ? "0" : this.guest.UserId && this.user.UserId ? this.user.UserId : null,
-                Active: true
-            }
-
-            await this.$store.dispatch('updateRegistration', user);
-            this.resetForm();
-        },
-        resetForm() {
-            document.querySelector(".form1").reset();
-            this.guest.UserId = this.user.UserId;
-           
-
-            //refil local setting
-            var that = this;
-            setTimeout(function () {
-                that.AdvertiserSetingChanged = false;
-
-                that.userSettings.topFiveCount = that.$store.state.userSettings.topFiveCount; $("#topFiveCount").val(that.userSettings.topFiveCount);
-                that.userSettings.notifyShowTime = that.$store.state.userSettings.notifyShowTime / 1000; $("#notifyShowTime").val(that.userSettings.notifyShowTime);
-                $("#showInactiveAdvertisementAsDefault").val('checked')[0].checked = that.userSettings.showInactiveAdvertisementAsDefault = that.$store.state.userSettings.showInactiveAdvertisementAsDefault;
-                that.userSettings.translationLanguage = that.$store.state.userSettings.translationLanguage;
-                $("#hideSearchingInPrivateZone").val('checked')[0].checked = that.userSettings.hideSearchingInPrivateZone = that.$store.state.userSettings.hideSearchingInPrivateZone;
-                $("#sendNewsletterToEmail").val('checked')[0].checked = that.userSettings.sendNewsletterToEmail = that.$store.state.userSettings.sendNewsletterToEmail;
-                $("#sendNewMessagesToEmail").val('checked')[0].checked = that.userSettings.sendNewMessagesToEmail = that.$store.state.userSettings.sendNewMessagesToEmail;
-                $("#sendNewDiscussionToEmail").val('checked')[0].checked = that.userSettings.sendNewDiscussionToEmail = that.$store.state.userSettings.sendNewDiscussionToEmail;
-                $("#showArchivedMessages").val('checked')[0].checked = that.userSettings.showArchivedMessages = that.$store.state.userSettings.showArchivedMessages;
-                $("#userId").val('checked')[0].checked = that.guest.UserId != '' ? true : false;
-            }, 100);
-        },
-        deleteAccout() {
-            if (confirm(window.dictionary("user.doYouReallyDeleteAccount"))) {
-                this.$store.dispatch("deleteRegistration", this.user.Id);
-                ShowNotify('success', window.dictionary("messages.accountWasDeleted"));
-            }
-        },
     },
     computed: {
         loggedIn() {
@@ -415,9 +158,68 @@ export default {
             this.guest.UserId = this.$store.state.user.UserId == "" ? false : true;
             return this.$store.state.user;
         },
+        CreditPackages() {
+            return this.$store.state.creditPackages;
+        }
     },
-    created() {
-        
+    async mounted() {
+        if (card === undefined) {
+            card = elements.create("card", { style: style });
+        }
+        card.mount("#card-element");
+    },
+    methods: {
+        async getCreditPackages() {
+            await this.dispatch('getCreditPackages');
+        },
+        payWithCard(stripe, card, clientSecret) {
+            var ref = this;
+            var email = this.user.Email;
+            stripe.confirmCardPayment(clientSecret, {
+                    receipt_email: email,
+                    payment_method: {
+                        card: card,
+                    },
+                })
+                .then(function (result) {
+                    if (result.error) {
+                        // Show error to your customer
+                        showError(result.error.message);
+                    } else {
+                        // The payment succeeded!
+                        orderComplete(result.paymentIntent.id);
+                        console.log("Payment Confirmed!");
+                        // ref.createBooking();
+                    }
+                });
+        },
+        payProcessStart(itemName,price) {
+            var ref = this;
+            fetch("http://localhost:5000/WebApi/Credits/PaymentProcess", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({ items: [{ id: itemName }], price: price}),
+            }).then(function (result) {
+                    return result.json();
+                }).then(function (data) {
+                    card.on("change", function (event) {
+                        // Disable the Pay button if there are no card details in the Element
+                        // document.querySelector("button").disabled = event.empty;
+                        // document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
+                    });
+                    var form = document.getElementById("payment-form");
+                    form.addEventListener("submit", function (event) {
+                        event.preventDefault();
+                        // Create the order here. Make sure it is completed!
+
+                        // Complete payment when the submit button is clicked
+                        ref.payWithCard(stripe, card, data.clientSecret);
+                    });
+                });
+        }
+    },
+    async created() {
+        await this.$store.dispatch('getCreditPackages');
     }
 };
 </script>

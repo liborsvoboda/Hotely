@@ -4,7 +4,6 @@ namespace UbytkacBackend.Controllers {
     [Authorize]
     [ApiController]
     [Route("/WebApi/WebDocumentation")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerDocApi : ControllerBase {
 
         /// <summary>
@@ -25,9 +24,9 @@ namespace UbytkacBackend.Controllers {
 
             try {
                 if (Request.HttpContext.User.IsInRole("admin".ToLower())) {
-                    List<DocumentationList> data;
+                    List<DocSrvDocumentationList> data;
                     using (new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted })) {
-                        data = new hotelsContext().DocumentationLists.Where(a => a.DocumentationGroup.Active && a.Active)
+                        data = new hotelsContext().DocSrvDocumentationLists.Where(a => a.DocumentationGroup.Active && a.Active)
                             .Include(a => a.DocumentationGroup)
                             .OrderBy(a => a.Sequence).ToList()
                             .OrderBy(a => a.DocumentationGroup.Sequence).ToList();

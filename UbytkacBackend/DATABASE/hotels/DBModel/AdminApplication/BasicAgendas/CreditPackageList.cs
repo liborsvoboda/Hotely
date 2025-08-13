@@ -24,7 +24,7 @@ namespace UbytkacBackend.DBModel
         public int CurrencyId { get; set; }
         public int UserId { get; set; }
         [Required]
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
         public DateTime TimeStamp { get; set; }
 
         [ForeignKey("CurrencyId")]

@@ -12,7 +12,7 @@
 
 
 
-        [HttpPost("/ServerApi/DatabaseServices/SpProcedure/GetGenericDataListbyParams")]
+        [HttpPost("/StoredProceduresList/DatabaseServices/SpProcedure/GetGenericDataListbyParams")]
         [Consumes("application/json")]
         public async Task<string> GetSystemOperationsList(List<Dictionary<string, string>> dataset) {
             string procedureName = ""; string parameters = ""; string EntityTypeName = "";
@@ -33,7 +33,18 @@
 
 
 
-        [HttpGet("/StoredProceduresList/Message/{procedureName}")]
+        [HttpGet("/StoredProceduresList/DatabaseServices/SpGetTableSchema/{tableName}")]
+        public async Task<string> SpGetTableSchema(string tableName) {
+            try {
+                List<GenericDataList> data = new List<GenericDataList>();
+                data = new hotelsContext().EasyITCenterCollectionFromSql<GenericDataList>($"EXEC SpGetTableSchema @tableName = N'{tableName}';");
+                return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true, DictionaryKeyPolicy = JsonNamingPolicy.CamelCase, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            } catch (Exception ex) {
+                return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
+            }
+        }
+
+        [HttpGet("/StoredProceduresList/SpProcedure/Message/{procedureName}")]
         public async Task<string> GetSystemOperationsList(string procedureName) {
             List<SystemOperationMessage> data = new List<SystemOperationMessage>();
             data = new hotelsContext().EasyITCenterCollectionFromSql<SystemOperationMessage>($"EXEC {procedureName};");
@@ -42,7 +53,7 @@
         }
 
 
-        [HttpGet("/StoredProceduresList/Json/{procedureName}")]
+        [HttpGet("/StoredProceduresList/SpProcedure/Json/{procedureName}")]
         public async Task<string> GetSystemOperationsListJson(string procedureName) {
             List<DBJsonFile> data = null;
             data = new hotelsContext().EasyITCenterCollectionFromSql<DBJsonFile>($"EXEC {procedureName};");
@@ -53,11 +64,11 @@
         /// Gets Table List for Reporting
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/StoredProceduresList/SpGetTableList")]
+        [HttpGet("/StoredProceduresList/DatabaseServices/SpGetTableList")]
         public async Task<string> GetSpGetTableList() {
             try {
-                List<CustomString> data = new();
-                data = new hotelsContext().EasyITCenterCollectionFromSql<CustomString>("EXEC SpGetTableList;");
+                List<GenericDataList> data = new();
+                data = new hotelsContext().EasyITCenterCollectionFromSql<GenericDataList>("EXEC SpGetTableList;");
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
             } catch (Exception ex) {
                 return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
@@ -68,11 +79,11 @@
         /// Gets Form Agendas Pages List For System Menu Definition.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/StoredProceduresList/SpGetSystemPageList")]
+        [HttpGet("/StoredProceduresList/DatabaseServices/SpGetSystemPageList")]
         public async Task<string> GetSpGetSystemPageList() {
             try {
-                List<CustomString> data = new();
-                data = new hotelsContext().EasyITCenterCollectionFromSql<CustomString>("EXEC SpGetSystemPageList;");
+                List<GenericDataList> data = new();
+                data = new hotelsContext().EasyITCenterCollectionFromSql<GenericDataList>("EXEC SpGetSystemPageList;");
                 return JsonSerializer.Serialize(data, new JsonSerializerOptions() { ReferenceHandler = ReferenceHandler.IgnoreCycles, WriteIndented = true });
             } catch (Exception ex) {
                 return JsonSerializer.Serialize(new DBResultMessage() { Status = DBResult.error.ToString(), RecordCount = 0, ErrorMessage = DataOperations.GetUserApiErrMessage(ex) });
@@ -83,7 +94,7 @@
         /// Api For Logged User with Menu Datalist
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/StoredProceduresList/SpGetUserMenuList")]
+        [HttpGet("/StoredProceduresList/DatabaseServices/SpGetUserMenuList")]
         public async Task<string> GetSpGetUserMenuList() {
             try {
                 List<SpUserMenuList> data = new List<SpUserMenuList>();

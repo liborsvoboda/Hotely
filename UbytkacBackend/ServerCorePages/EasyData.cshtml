@@ -103,7 +103,7 @@
                 function validateForm() {
                     showPageLoading();
                     var def = $.ajax({
-                        global: false, type: "POST", url: "/EasyITCenterAuthentication", dataType: 'json',
+                        global: false, type: "POST", url: "/Authentication", dataType: 'json',
                         headers: { "Authorization": "Basic " + btoa($("#usernameId").val() + ":" + $("#passwordId").val()) }
                     });
 

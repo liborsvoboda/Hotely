@@ -48,16 +48,17 @@ namespace UbytkacBackend.ServerCoreDBSettings {
     /// Server Restart Api for Remote Control
     /// </summary>
     /// <seealso cref="ControllerBase"/>
+    /// [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Route("rss", Name = "rss")]
     [Route("rss.xml", Name = "rssxml")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     public class ServerRssFeedApi : ControllerBase {
         private readonly ILogger logger;
 
         public ServerRssFeedApi(ILogger<ServerRssFeedApi> _logger) => logger = _logger;
 
-        public ActionResult Index() {
+        [HttpGet("/rss.xml")]
+        public ActionResult IndexRss() {
             try {
                 if (ServerConfigSettings.WebRSSFeedsEnabled) {
                     var feed = new SyndicationFeed("Nazev", "Popisek", new Uri(ServerConfigSettings.ServerPublicUrl), "RSSUrl", DateTime.Now) {

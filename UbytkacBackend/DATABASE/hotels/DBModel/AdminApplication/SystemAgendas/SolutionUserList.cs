@@ -48,9 +48,9 @@ namespace UbytkacBackend.DBModel
             CountryLists = new HashSet<CountryList>();
             CreditPackageLists = new HashSet<CreditPackageList>();
             DocSrvDocTemplateLists = new HashSet<DocSrvDocTemplateList>();
-            DocumentationCodeLibraryLists = new HashSet<DocumentationCodeLibraryList>();
-            DocumentationGroupLists = new HashSet<DocumentationGroupList>();
-            DocumentationLists = new HashSet<DocumentationList>();
+            DocSrvDocumentationCodeLibraryLists = new HashSet<DocSrvDocumentationCodeLibraryList>();
+            DocSrvDocumentationGroupLists = new HashSet<DocSrvDocumentationGroupList>();
+            DocSrvDocumentationLists = new HashSet<DocSrvDocumentationList>();
             GuestLists = new HashSet<GuestList>();
             HolidayTipsLists = new HashSet<HolidayTipsList>();
             HotelAccommodationActionLists = new HashSet<HotelAccommodationActionList>();
@@ -222,11 +222,11 @@ namespace UbytkacBackend.DBModel
         [InverseProperty("User")]
         public virtual ICollection<DocSrvDocTemplateList> DocSrvDocTemplateLists { get; set; }
         [InverseProperty("User")]
-        public virtual ICollection<DocumentationCodeLibraryList> DocumentationCodeLibraryLists { get; set; }
+        public virtual ICollection<DocSrvDocumentationCodeLibraryList> DocSrvDocumentationCodeLibraryLists { get; set; }
         [InverseProperty("User")]
-        public virtual ICollection<DocumentationGroupList> DocumentationGroupLists { get; set; }
+        public virtual ICollection<DocSrvDocumentationGroupList> DocSrvDocumentationGroupLists { get; set; }
         [InverseProperty("User")]
-        public virtual ICollection<DocumentationList> DocumentationLists { get; set; }
+        public virtual ICollection<DocSrvDocumentationList> DocSrvDocumentationLists { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<GuestList> GuestLists { get; set; }
         [InverseProperty("User")]

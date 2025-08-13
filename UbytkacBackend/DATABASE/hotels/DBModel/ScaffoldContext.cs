@@ -53,9 +53,9 @@ namespace UbytkacBackend.DBModel
         public virtual DbSet<CountryList> CountryLists { get; set; } = null!;
         public virtual DbSet<CreditPackageList> CreditPackageLists { get; set; } = null!;
         public virtual DbSet<DocSrvDocTemplateList> DocSrvDocTemplateLists { get; set; } = null!;
-        public virtual DbSet<DocumentationCodeLibraryList> DocumentationCodeLibraryLists { get; set; } = null!;
-        public virtual DbSet<DocumentationGroupList> DocumentationGroupLists { get; set; } = null!;
-        public virtual DbSet<DocumentationList> DocumentationLists { get; set; } = null!;
+        public virtual DbSet<DocSrvDocumentationCodeLibraryList> DocSrvDocumentationCodeLibraryLists { get; set; } = null!;
+        public virtual DbSet<DocSrvDocumentationGroupList> DocSrvDocumentationGroupLists { get; set; } = null!;
+        public virtual DbSet<DocSrvDocumentationList> DocSrvDocumentationLists { get; set; } = null!;
         public virtual DbSet<GetTopFiveFavoriteList> GetTopFiveFavoriteLists { get; set; } = null!;
         public virtual DbSet<GuestAdvertiserNoteList> GuestAdvertiserNoteLists { get; set; } = null!;
         public virtual DbSet<GuestFavoriteList> GuestFavoriteLists { get; set; } = null!;
@@ -830,47 +830,47 @@ namespace UbytkacBackend.DBModel
                     .HasConstraintName("FK_DocSrvDocTemplateList_UserList");
             });
 
-            modelBuilder.Entity<DocumentationCodeLibraryList>(entity =>
+            modelBuilder.Entity<DocSrvDocumentationCodeLibraryList>(entity =>
             {
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.DocumentationCodeLibraryLists)
+                    .WithMany(p => p.DocSrvDocumentationCodeLibraryLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentationCodeLibraryList_UserList");
             });
 
-            modelBuilder.Entity<DocumentationGroupList>(entity =>
+            modelBuilder.Entity<DocSrvDocumentationGroupList>(entity =>
             {
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.DocumentationGroupLists)
+                    .WithMany(p => p.DocSrvDocumentationGroupLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentationGroupList_UserList");
             });
 
-            modelBuilder.Entity<DocumentationList>(entity =>
+            modelBuilder.Entity<DocSrvDocumentationList>(entity =>
             {
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.DocumentationGroup)
-                    .WithMany(p => p.DocumentationLists)
+                    .WithMany(p => p.DocSrvDocumentationLists)
                     .HasForeignKey(d => d.DocumentationGroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DocumentationList_DocumentationGroupList");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.DocumentationLists)
+                    .WithMany(p => p.DocSrvDocumentationLists)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DocumentationList_UserList");
+                    .HasConstraintName("FK_DocSrvDocumentationList_UserList");
             });
 
             modelBuilder.Entity<GetTopFiveFavoriteList>(entity =>
@@ -1607,7 +1607,9 @@ namespace UbytkacBackend.DBModel
 
             modelBuilder.Entity<SystemCustomPageList>(entity =>
             {
-                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
+                entity.Property(e => e.InheritedFormType).HasDefaultValueSql("('')");
+
+                entity.Property(e => e.StartupUrl).HasDefaultValueSql("('')");
 
                 entity.Property(e => e.TimeStamp).HasDefaultValueSql("(getdate())");
 
