@@ -234,7 +234,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\zEasy\EASY-IT-CENTER\EASY-ADDONS\Module\DBEntitySchema\DBEntitySchema.csproj" />
+    <Reference Include="DBEntitySchema">
+      <HintPath>..\..\zEasy\EASY-IT-EXTENSIONS\EIC-ESB-EASYTools\EASYTools.DBEntitySchema\bin\Debug\net6.0\DBEntitySchema.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
